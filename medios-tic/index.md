@@ -6,7 +6,7 @@ En esta sección presentamos un resumen de las características de los medios in
 
 ## Carritos de portátiles
 
-** ¿Qué son los carritos de portátiles? **
+**¿Qué son los carritos de portátiles?**
 
 Son carritos móviles con capacidad para 10 ordenadores portátiles cada uno, aunque, más a menudo de lo que nos gustaría, son menos de 10 los que están operativos. 
 
@@ -15,11 +15,11 @@ El centro dispone de 5 carritos de estas características distribuidos de la sig
 * Planta primera: 2 carritos en el Departamento de Física y Química. La llave está disponible en Conserjería.
 * Planta segunda: 2 carritos en el Laboratorio de Ciencias Naturales. La llave está disponible en Consejería.
 
-** ¿A quién están destinados? **
+**¿A quién están destinados?**
 
 Los ordenadores portátiles de los carritos están destinados al alumnado para su uso durante el horario de clases y siempre bajo la supervisión y responsabilidad de un miembro del profesorado.
 
-** ¿Cómo puedo utilizarlos? **
+**¿Cómo puedo utilizarlos?**
 
 Para usar un carrito de portátiles, el procedimiento general es el siguiente:
 
@@ -41,7 +41,7 @@ Estos ordenadores están destinados al uso del profesorado durante el ejercicio 
 
 Actualmente, hay cuatro modalidades de aula con pizarra interactiva (PDI) diferentes en el centro. Aunque todos tienen la misma funcionalidad, varían ligeramente en su forma de uso.
 
-** Aulas 1, 2, 4, 5, 9 y 11: pizarras Promethean **
+**Aulas 1, 2, 4, 5, 9 y 11: pizarras Promethean**
 
 Algunos de estos ordenadores se encienden con un interruptor en el pie del monitor. La mayoría se encienden directamente pulsando el interruptor del ordenador.
 
@@ -53,7 +53,7 @@ El procedimiento de puesta en marcha de estas prizarras es el siguiente:
 * Si es necesario, encender los altavoces. El interruptor está en un lateral de la pizarra. Si están apagados, el interruptor lucirá en rojo. Si están encendidos, lo hará en verde.
 * Introducir el usuario y contraseña para usar el ordenador. Para más información sobre este punto, véase el apartado “Usuarios y contraseñas”
 
-** Aulas 7, 10, 12, 15, 18, 25, 26, 27 y 28: pizarras blancas con cañones Optoma **
+**Aulas 7, 10, 12, 15, 18, 25, 26, 27 y 28: pizarras blancas con cañones Optoma**
 
 Todos estos ordenadores se encienden pulsando el interruptor del mismo. Puede ser necesario conectar la electricidad encendiendo una regleta que suele estar acoplada a la mesa o situada en el suelo.
 
@@ -67,7 +67,7 @@ Para utilizarlas, el procedimiento es el siguiente:
     * En otras aulas, el interruptor es un mando giratorio situado tras uno de los altavoces. Ese mando también controla el volumen. Lo normal es que siempre estén encendidos. 
 4. Introducir el usuario y contraseña para usar el ordenador. Para más información sobre este punto, véase el apartado “Usuarios y contraseñas”
 
-** Aulas 6, 13, 14, 16, 17 y 19: pizarras Smartboard **
+**Aulas 6, 13, 14, 16, 17 y 19: pizarras Smartboard**
 
 Estas pizarras están controladas por un miniordenador llamado NUC incorporado bajo la misma. Puede accionarse con el dedo, sin ningún puntero.
 
@@ -88,11 +88,11 @@ Si prefieres usar esta PDI como simple proyector con el ordenador de sobremesa, 
 
 Fíjate que la botonera de la pizarra y las funciones táctiles no están contectadas con este ordenador. Para hacer uso de esas funciones, hay que utilizar el NUC (véase más arriba, “Modelo 3 con la PDI Smartboard”)
 
-** Aulas 20 y 21: pizarra Toshiba (aulas 20 y 21) **
+**Aulas 20 y 21: pizarra Toshiba (aulas 20 y 21)**
 
 Algunas aulas específicas de los ciclos formativos poseen PDIs obsoletas que no describiremos en este documento.
 
-** Resto de aulas **
+**Resto de aulas**
 
 El resto de aulas disponen de cañones proyectores (sin PDI) o televisores de gran formato.
 
@@ -111,11 +111,11 @@ Estas aulas son para uso del alumnado de secundaria, bachillerato y adultos, sie
 
 Dejando de lado las aulas específicas de los Ciclos Formativos, el centro dispone en este momento de un aula de informática con capacidad para 30 puestos y 60 personas.
 
-** Ubicación de las aulas de informática **
+**Ubicación de las aulas de informática**
 
 El aula de informática está actualmente ubicada en la Biblioteca del centro (primera planta).
 
-** Cómo usar las aulas de informática **
+**Cómo usar las aulas de informática**
 
 El procedimiento general para usar estas aulas es el siguiente:
 
@@ -149,13 +149,13 @@ Para cualquier consulta o incidencia relacionada con su uso, por favor, recurre 
 
 ## Gestión de incidencias
 
-** Procedimiento general **
+**Procedimiento general**
 
 La mayor parte de las incidencias cotidianas tienen una fácil solución que cualquier usuario puede intentar (véase la sección “Preguntas frecuentes”)
 
 Si la incidencia parece más grave, se debe poner en conocimiento del coordinador TDE para acometer su resolución con la mayor agilidad posible. Esto es particularmente importante en el caso de los equipos del alumnado que pasan por muchas manos al cabo del día. Si todos somos diligentes en ello, podremos disfrutar de una equipación en buen estado durante mucho tiempo.
 
-** Cómo contactar con el coordinador TDE **
+**Cómo contactar con el coordinador TDE**
 
 Es muy importante poner la incidencia por escrito. Comentársela al coordinador TDE en un pasillo o en el semáforo de la rambla a las tres de la tarde puede tener un cierto valor terapéutico, pero poca utilidad práctica.
 
@@ -169,7 +169,7 @@ El procedimiento recomendado es el siguiente:
     * Dejándoselo sobre su mesa.
 Clavándolo con una chincheta en el tablón TDE de la sala de profesores.
 
-** El peliagudo caso de los carritos de portátiles **
+**El peliagudo caso de los carritos de portátiles**
 
 Los carritos de portátiles y, en menor medida, las aulas de informática del sótano, son una fuente inagotable de incidencias porque son usados durante muchas horas al día por un alumnado cambiante.
 
@@ -181,7 +181,7 @@ Por ello rogamos la máxima colaboración en el uso de esta equipación. Es la �
 
 Con esta simple precaución, podremos atender las incidencias con celeridad, mantener los carritos en un estado razonable de funcionamiento y atajar los actos de vandalismo.
 
-** ¿Y si se han agotado las hojas de incidencias? **
+**¿Y si se han agotado las hojas de incidencias?**
 
 Es inevitable: las hojas de incidencia se agotan tarde o temprano. Para reponerlas, hay dos medios:
 * Comunicarlo al coordinador TDE para que las reponga.
@@ -191,7 +191,7 @@ Es inevitable: las hojas de incidencia se agotan tarde o temprano. Para reponerl
 
 En esta sección enumeraremos las preguntas más habituales y sus posibles respuestas.
 
-** No hay internet **
+**No hay internet**
 
 Siempre se puede intentar desactivar y volver a activar la conexión de red. Apagar y encender el ordenador tendrá el mismo efecto, pero es mucho más lento. Es conveniente aprender a hacer lo primero.
 
@@ -201,7 +201,7 @@ En el cuadro de interruptores de la segunda planta hemos colocado las instruccio
 
 Si ninguno de estos trucos funciona, por favor, contacte con el Coordinador TDE (véase "Gestión de incidencias")
 
-** No hay sonido **
+**No hay sonido**
 
 Casi siempre la causa es una de estas tres:
 * Los altavoces están apagados. Se encienden de forma diferente según el modelo de PDI que exista en ese aula (Consúltese el apartado "Equipos de profesorado de las aulas generales")
@@ -210,7 +210,7 @@ Casi siempre la causa es una de estas tres:
 
 Si ninguna de estas tres soluciones funciona, por favor, contacta con el Coordinador TDE (véase "Gestión de incidencias")
 
-** No se ve nada en el monitor **
+**No se ve nada en el monitor**
 
 Comprueba que el monitor está encendido.
 
@@ -220,45 +220,45 @@ Asegúrate de que el splitter VGA (la cajita metálica que está conectada al or
 
 Si todas estas comprobaciones son correctas y el monitor sigue sin mostrar la imagen, por favor, contacta con el Coordinador TDE (véase "Gestión de incidencias")
 
-** No puedo entrar con mi usuario **
+**No puedo entrar con mi usuario**
 
 El único usuario existente en los ordenadores es el estándar (usuario/usuario). Si alguien necesita un usuario de uso individual, puede solicitarlo al coordinador TDE. Ten en cuenta que, si el ordenador se cambia o formatea (algo que ocurre de vez en cuando, en caso de avería grave), perderás el usuario y todos tus archivos.
 
-** Los ordenadores del carrito no se encienden **
+**Los ordenadores del carrito no se encienden**
 
 Probablemente se quedaron desconectados y se les ha agotado la batería. Asegúrate de que quedan conectados al cargador tras su uso, y no te olvides de enchufar el carrito completo a una toma de corriente.
 
-** El ordenador NUC de las PDI Promethean Smart no proyecta nada en la pantalla **
+**El ordenador NUC de las PDI Promethean Smart no proyecta nada en la pantalla**
 
 Con estos ordenadores es especialmente importante encender en primer lugar el proyector y, solo cuando aparezca la leyenda "HDMI" en la pantalla, encender el NUC. Hacerlo en otro momento provoca que el equipo no reconozca el proyector y, por lo tanto, no emita ninguna imagen.
 
 Si ya te ha sucedido, puedes apagar el NUC manteniendo el botón de Power pulsado durante cinco segundos, hasta que la luz azul se apague. Luego, prueba a encenderlo de nuevo (¡cuando la leyenda "HDMI" apareza proyectada!)
 
-** Necesito instalar un programa **
+**Necesito instalar un programa**
 
 Los usuarios convencionales no tienen privilegios para instalar software adicional por motivos obvios de estabilidad de los sistemas. Si necesitas instalar cualquier programa que no esté disponible, por favor, contacta con el Coordinador TDE con la mayor antelación posible. Hacerlo cinco minutos antes de la clase en la que necesitas ese programa imperiosamente no suele dar buenos resultados.
 
-** Error de seguridad al conectar con Séneca o con Moodle Centros **
+**Error de seguridad al conectar con Séneca o con Moodle Centros**
 
 Esto no es un problema de Linux ni del navegador web, sino una anomalía debida al certificado de seguridad que utilizan Séneca y Moodle Centros (así como otros organismos oficiales de la Junta de Andalucía y de otras administraciones públicas). Estos certificados están emitidos por la Fábrica Nacional de Moneda y Timbre, que no es un organismo reconocido por versiones antiguas de Firefox o Chrome.
 
 Este problema se solventa actualizando el navegador web. Si te ocurre en alguno de los ordenadores del instituto, por favor, contacta con el coordinador TDE para comunicarle el problema.
 
-** Mis archivos han desaparecido **
+**Mis archivos han desaparecido**
 
 Probablemente el ordenador ha sido formateado o cambiado. Los ordenadores del instituto son de uso compartido y no deberíamos dejar archivos personales en ellos o, al menos, tendríamos que disponer de copias de seguridad de todo. En cualquier momento, pueden sufrir una avería y necesitar ser formateados o cambiados por otros sin previo aviso.
 
-** No quedan partes de incidencia **
+**No quedan partes de incidencia**
 
 Los partes disponibles en la sala de profesores son repuestos por el Coordinador TDE con regularidad y siempre debería haber varios de reserva. Si no es así, comunícalo verbalmente o con una nota y lo solucionaremos de inmediato.
 
-** Necesito instalar Microsoft Windows **
+**Necesito instalar Microsoft Windows**
 
 Todos los equipos informáticos del centro disponen, como es lógico, de software con licencia legal. Eso incluye el sistema operativo. Existen multitud de alternativas libres al software más popular para los sistemas Microsoft Windows o MacOS. En ultima instancia, se puede intentar emular el entorno de Windows por diversos medios.
 
 Por favor, ponte en contacto con el Coordinador TDE para estudiar tus necesidades concretas y buscar la mejor solución (Aclaración: no suele ser buena idea hacerlo el día de antes de la clase en la que necesites el software funcionando).
 
-** Necesito disponer de un (ordenador | monitor | impresora | lo-que-sea) **
+**Necesito disponer de un (ordenador | monitor | impresora | lo-que-sea) **
 
 Si necesitas cualquier equipación adicional a las disponibles, por favor, contacta con el coordinador TDE lo antes posible. Podemos mover equipos, cambiar instalaciones y, en general, hacer bastantes malabarismos con el material disponible, pero necesitaremos tiempo para organizarlo.
 
