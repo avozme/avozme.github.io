@@ -15,6 +15,8 @@ El centro dispone de 5 carritos de estas características distribuidos de la sig
 * Planta primera: 2 carritos en el Departamento de Física y Química. La llave está disponible en Conserjería.
 * Planta segunda: 2 carritos en el Laboratorio de Ciencias Naturales. La llave está disponible en Consejería.
 
+![Uno de los carritos de portátiles](carrito.jpg)
+
 **¿A quién están destinados?**
 
 Los ordenadores portátiles de los carritos están destinados al alumnado para su uso durante el horario de clases y siempre bajo la supervisión y responsabilidad de un miembro del profesorado.
@@ -53,6 +55,8 @@ El procedimiento de puesta en marcha de estas prizarras es el siguiente:
 * Si es necesario, encender los altavoces. El interruptor está en un lateral de la pizarra. Si están apagados, el interruptor lucirá en rojo. Si están encendidos, lo hará en verde.
 * Introducir el usuario y contraseña para usar el ordenador. Para más información sobre este punto, véase el apartado “Usuarios y contraseñas”
 
+![PDI Promethean](pdi-promethean.jpg)
+
 **Aulas 7, 10, 12, 15, 18, 25, 26, 27 y 28: pizarras blancas con cañones Optoma**
 
 Todos estos ordenadores se encienden pulsando el interruptor del mismo. Puede ser necesario conectar la electricidad encendiendo una regleta que suele estar acoplada a la mesa o situada en el suelo.
@@ -66,6 +70,8 @@ Para utilizarlas, el procedimiento es el siguiente:
     * En algunas aulas, el interruptor de los altavoces está situado en un cajetín blanco en la pared. El cajetín dispone de tres botones: on/off, subir volumen y bajar volumen. Manteniendo pulsado el botón on/off, los altavoces se encienden y se apagan, pero, si se pulsa solo un instante, se cambia de canal. Los ordenadores están conectados en el canal 1 (por el canal 2 no se escuchará nada).
     * En otras aulas, el interruptor es un mando giratorio situado tras uno de los altavoces. Ese mando también controla el volumen. Lo normal es que siempre estén encendidos. 
 4. Introducir el usuario y contraseña para usar el ordenador. Para más información sobre este punto, véase el apartado “Usuarios y contraseñas”
+
+![Proyector Optoma con pizarra blanca](pdi-optoma.jpg)
 
 **Aulas 6, 13, 14, 16, 17 y 19: pizarras Smartboard**
 
@@ -81,12 +87,16 @@ Para usar estas pizarras con el miniordenador NUC, el procedimiento es:
 
 Observa que este ordenador se usa exclusivamente con la pizarra interactiva (como si fuera una tableta gigante), pero es posible conectarle un teclado y/o un ratón en los puertos USB que hay en el NUC.
 
+![PDI Smartboard con NUC](pdi-smartboard-1.jpg)
+
 Si prefieres usar esta PDI como simple proyector con el ordenador de sobremesa, el procedimiento es:
 1. Encender el proyector.
 2. Encender el ordenador.
 3. Encender, si es necesario, los altavoces (sobre la pizarra). Tienen dos canales, y se cambia de uno a otro pulsando el botón de encendido un instante. Si se mantiene pulsado, los altavoces se apagan. La luz roja indica “altavoz apagado”. La luz naranja es “canal 2”, al que está conectado este ordenador.
 
 Fíjate que la botonera de la pizarra y las funciones táctiles no están contectadas con este ordenador. Para hacer uso de esas funciones, hay que utilizar el NUC (véase más arriba, “Modelo 3 con la PDI Smartboard”)
+
+![PDI Smartboard con PC sobremesa](pdi-smartboard-2.jpg)
 
 **Aulas 20 y 21: pizarra Toshiba (aulas 20 y 21)**
 
@@ -110,6 +120,8 @@ Si alguien necesita disponer de un usuario personalizado en alguno de los ordena
 Estas aulas son para uso del alumnado de secundaria, bachillerato y adultos, siempre bajo la supervisión de un profesor/a responsable.
 
 Dejando de lado las aulas específicas de los Ciclos Formativos, el centro dispone en este momento de un aula de informática con capacidad para 30 puestos y 60 personas.
+
+![Aula de informática](aula-informatica.jpg)
 
 **Ubicación de las aulas de informática**
 
