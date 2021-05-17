@@ -270,7 +270,7 @@ Todos los equipos informáticos del centro disponen, como es lógico, de softwar
 
 Por favor, ponte en contacto con el Coordinador TDE para estudiar tus necesidades concretas y buscar la mejor solución (Aclaración: no suele ser buena idea hacerlo el día de antes de la clase en la que necesites el software funcionando).
 
-**Necesito disponer de un (ordenador | monitor | impresora | lo-que-sea) **
+**Necesito disponer de un (ordenador/monitor/impresora/lo-que-sea)**
 
 Si necesitas cualquier equipación adicional a las disponibles, por favor, contacta con el coordinador TDE lo antes posible. Podemos mover equipos, cambiar instalaciones y, en general, hacer bastantes malabarismos con el material disponible, pero necesitaremos tiempo para organizarlo.
 
