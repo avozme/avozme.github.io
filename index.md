@@ -8,3 +8,11 @@ Esta documentación incluye un resumen de las normas y posibilidades de uso de t
 Utiliza el menú de la izquierda para acceder a las distintas secciones.
 
 Puedes enviar cualquier sugerencia por email a buzontic@iescelia.org
+
+# Contenido
+
+1. [Medios informáticos del centro](medios-tic)
+2. [Plataformas digitales online del centro](plataformas-online)
+3. [Bring your our device: Uso de dispositivos propios en el centro](byod)
+4. [Protección de datos](proteccion-datos)
+5. [Sostenibilidad medioambiental](sostenibilidad)
