@@ -299,7 +299,7 @@ La Consejería de Educación y Deporte proporciona una plataforma para Moodle pa
 
 Existen múltiples recursos en la red orientados al alumnado y al profesorado para aprender a usar Moodle, tanto a nivel principiante como avanzado. En esta sección solo explicaremos como habilitar nuestros usuarios y cursos y dar los primeros pasos en Moodle Centros.
 
-### Soy nuevo/a en Moodle Centros y quiero crear un aula virtual
+**Soy nuevo/a en Moodle Centros y quiero crear un aula virtual**
 
 **Paso 1.** Con cualquier navegador web, entra en la siguiente dirección y selecciona la provincia de Almería: https://educacionadistancia.juntadeandalucia.es/centros/almeria/
 
@@ -350,7 +350,7 @@ Haz clic en "Administración del curso" (en el panel de la izquierda). Se desple
 
 ¡Tu curso está listo para empezar a subir material! Consulta el apartado siguiente si quieres aprender a hacerlo.
 
-### Ya tengo mi aula virtual en Moodle. ¿Ahora qué?
+**Ya tengo mi aula virtual en Moodle. ¿Ahora qué?**
 
 Ya tienes un aula virtual en Moodle Centros y ahora quieres crear contenido dentro de ella, ¿verdad?
 
@@ -405,7 +405,7 @@ Luego haz clic en "Crear sesión", asigna un nombre a la sesión (Por ejemplo: "
 
 Todos los usuarios del curso (es decir, tú y tu alumnado) tendréis acceso a esa videoconferencia en el horario programado. Si deseas que otras personas puedan entrar, debes hacer clic en "Acceso de invitados". Te aparecerá una dirección que puedes compartir con las personas que quieras invitar. Esto es lo que hace el equipo directivo, por ejemplo, cuando nos pasan el enlace para los claustros telemáticos.
 
-### Quiero separar al alumnado en grupos
+**Quiero separar al alumnado en grupos**
 
 En las aulas virtuales creadas automáticamente mediante el proceso que hemos visto en el apartado 1, nos encontraremos con todo el alumnado del mismo nivel agrupado en la misma aula virtual.
 
@@ -430,9 +430,9 @@ Para ello, debes solicitar la creación manual de estas aulas al equipo de coord
 
 Ten encuentra que, en estas aulas creadas manualmente, deberás dar de alta también manualmente al alumnado (mediante la opción "Participantes" del panel de la izquierda de cada aula virtual). Cuando te confirmemos la creación de las aulas virtuales solicitadas, te indicaremos lo que debes hacer para ponerlas en funcionamiento.
 
-### Quiero echar un vistazo a las preguntas más frecuentes de mis compañeros/as
+**Quiero echar un vistazo a las preguntas más frecuentes de mis compañeros/as**
 
-**¿Cómo puede el alumnado acceder a Moodle Centros?**
+***¿Cómo puede el alumnado acceder a Moodle Centros?***
 
 El alumnado accede a Moodle Centros mediante su usuario y contraseña IdEA, esto es, su usuario y contraseña de Pasen (igual que nosotros accedemos con nuestro usuario y contraseña de Séneca).
 
@@ -442,21 +442,21 @@ https://blogsaverroes.juntadeandalucia.es/eaprendizaje/moodle-centros/
 
 Si, a pesar de ello, algún alumno/a no puede, no sabe o no quiere autogenerar sus credenciales, puede pasarse por jefatura de estudios para pedir que le generen unas.
 
-**¿El aula virtual antigua del instituto va a desaparecer?**
+***¿El aula virtual antigua del instituto va a desaparecer?***
 
 Sí, esa es la idea.
 
 Tanto por razones técnicas como legales, la antigua aula virtual del instituto (https://iescelia.org/aulavirtual) dejó de estar operativa en la primavera de 2021. Hemos hecho una copia de seguridad de todo el contenido. Si necesitas rescatar algún contenido antiguo, ponte en contacto con el equipo de coordinación TDE para que hagamos el trabajo arqueológico.
 
-**¿Es ilegal usar cualquier otra plataforma web que no sea Moodle Centros?**
+***¿Es ilegal usar cualquier otra plataforma web que no sea Moodle Centros?***
 
 Si los servidores de esa otra plataforma manipulan cualquier dato personal del alumnado (cosas tan simples como nombres, direcciones de email, imágenes capturadas con la webcam, etc), entonces tenemos un problema. Mejor buscar una alternativa dentro de Moodle Centros.
 
-**Quiero usar Google Suite, o Google Classroom, o cualquier otra cosa que empieza por "Google".**
+***Quiero usar Google Suite, o Google Classroom, o cualquier otra cosa que empieza por "Google".***
 
 La Junta de Andalucía tiene un convenio con Google para usar todas sus herramientas educativas de forma gratuita y con todas las garantías legales. Revisa la sección sobre Google Suite para encontrar más información.
 
-**Quiero usar recursos que no están en Moodle**
+***Quiero usar recursos que no están en Moodle***
 
 No hay ningún problema. Puedes usar cualquier cosa que haya en internet, siempre que sea legal (¡claro!) y no requiera datos personales de los usuarios.
 
@@ -464,14 +464,14 @@ Eso sí, te ruego que sigas centralizando todo el material en Moodle Centros, de
 
 Por ejemplo, si quieres enlazar unos vídeos de Youtube para tu alumnado, bastaría con que colocaras esos enlaces en algún lugar de tu aula virtual de Moodle Centros.
 
-**¿Las aulas virtuales de Moodle Centros se borran de un año para otro?**
+***¿Las aulas virtuales de Moodle Centros se borran de un año para otro?***
 
 Sí. El equipo encargado del mantenimiento de Moodle Centros realiza una limpieza a fondo de la plataforma durante el mes de septiembre. Para no perder sus aulas virtuales, cada profesor/a debe responsabilizarse de realizar una copia de seguridad antes del 15 de septiembre de cada año. Esa copia puede restaurarse posteriormente.
 
 No te agobies demasiado por ello: es un proceso sencillísimo que no requiere más de diez minutos al año. Y, si tienes problemas para hacerlo, puedes pedir ayuda al equipo de coordinación TDE.
 
 
-### Necesito ayuda personalizada
+**¿Necesitas ayuda personalizada?**
 
 Si, a pesar de los pasos que hemos detallado en este documento, sigues estando perdido/a en Moodle Centros y crees que necesitas ayuda individualizada, puedes solicitar esa ayuda enviando un mensaje a través de Séneca al coordinador TDE o por correo electrónico a la dirección buzontic@iescelia.org.
 
@@ -487,13 +487,13 @@ La Consejería de Educación y Deporte de la Junta de Andalucía ha firmado un c
 
 En esta sección expondremos cómo puedes acceder a tu cuenta de Google Suite y cómo puedes utilizar sus herramientas.
 
-### Qué es Google Suite
+**Qué es Google Suite**
 
 Googe Suite for Education es un conjunto de herramientas web que Google ofrece a instituciones educativas. Incluye aplicaciones como Gmail, Meet, Calendar, Classroom, Docs o Drive.
 
 Funciona como las cuentas personales de Google, pero incluye acceso a más herramientas, como Classroom o Meet, que normalmente son de pago.
 
-### Acceso a Google Suite: profesorado
+**Acceso a Google Suite: profesorado**
 
 En virtud del convenio de la Junta de Andalucía, todo el profesorado dispone de una cuenta en Google Suite con estas credenciales:
 
@@ -502,7 +502,7 @@ En virtud del convenio de la Junta de Andalucía, todo el profesorado dispone de
 
 Basta con que inicies una sesión de Google con esas credenciales (por ejemplo, en Gmail) para empezar a usar las herramientas de Google Suite. Si ya tenías una cuenta de Google suite en el dominio iescelia.org, puedes seguir usándola porque seguirá estando operativa, pero ten en cuenta que son dos cuentas totalmente independientes.
 
-### Acceso a Google Suite: alumnado
+**Acceso a Google Suite: alumnado**
 
 El alumnado puede acceder a Google Suite del mismo modo que el profesorado, usando sus credenciales de Pasen:
 
@@ -511,11 +511,11 @@ El alumnado puede acceder a Google Suite del mismo modo que el profesorado, usan
 
 IMPORTANTE: para cumplir con la Ley Orgánica de Protección de Datos, el alumnado menor de 14 años debe contar con una autorización expresa de sus tutores legales antes de usar esta cuenta.
 
-### ¿Google Suite sustituye a Moodle Centros?
+**¿Google Suite sustituye a Moodle Centros?**
 
 No. Moodle Centros sigue siendo la plataforma online de referencia. Si un profesor/a desea usar Google Suite, debería enlazar los recursos de Google Suite en Moodle Centros, para no crear confusión entre el alumnado y las familias acerca del lugar en el que puede encontrar los recursos educativos.
 
-### Soy nuevo/a en el centro. ¿Tengo que hacer algo para crear mi cuenta de Google Suite?
+**Soy nuevo/a en el centro. ¿Tengo que hacer algo para crear mi cuenta de Google Suite?**
 
 No. Tu cuenta de Google Suite se creará automáticamente alrededor de 24 horas después de que te hayan dado de alta en el sistema Séneca. Del mismo modo, si dejas de pertenecer a la plantilla del centro, la cuenta de Google dejará de estar operativa.
 
@@ -526,7 +526,7 @@ Las videoconferencias para las clases semipresenciales o a distancia (o para cua
 
 Si necesitas utilizar imperativamente cualquier otro sistema de videoconferencia como Jitsi, Zoom o Teams, asegúrate de que el alumnado no participará en esa videoconferencia aportando ningún dato de carácter personal, lo que incluye su nombre, dirección de email y, por supuesto, su propia imagen.
 
-### Moodle Centros: BB Collaborate
+**Moodle Centros: BB Collaborate**
 
 Moodle Centros tiene integrado un sistema de videoconfencia basado en BB Collaborate, propiedad de la una compañía llamada Blackboard, especializada en tecnología educativa.
 
@@ -534,7 +534,7 @@ Todas las aulas virtuales de Moodle Centros tienen por defecto creada una sala d
 
 ![BB Collaborate](plataformas-online/bbcollaborate.jpg)
 
-### Google Suite: Meet o Hangouts
+**Google Suite: Meet o Hangouts**
 
 Google Suite proporciona acceso a sus dos plataformas de videoconferencia: Meet y Hangouts, aunque Meet es más recomendable porque tiene más funcionalidades y permite la conexión de más usuarios simultáneos.
 
