@@ -3,6 +3,8 @@
 
 @import "{{ site.theme }}";
 nav {
+	position: relative;
 	overflow-y: scroll;
-	height: 400px;
+	padding-right: 10px;
+	margin-right: 10px;
 }
