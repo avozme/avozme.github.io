@@ -610,7 +610,7 @@ TODO: En esta sección proporcionaremos recomendaciones acerca de la protección
 
 Para tratar de aplicar criterios de sostenibilidad en el uso de las TIC, nos basaremos en los Objetivos de Desarrollo Sostenible elaborados por las Naciones Unidas en 2015.
 
-![Objetivos de sostenibilidad medioambiental ONU](sostenibilidad/objetivos-desarrollo-sostenible.jpg)
+![Objetivos de sostenibilidad medioambiental ONU](sostenibilidad/objetivos-desarrollo-sostenible.png)
 
 El uso sostenible de las TIC tiene tres dimensiones:
 
