@@ -606,6 +606,8 @@ De momento, no se permite el uso de otros dispositivos tecnológicos propios (sm
 
 La protección de datos en centros educativos es de vital importancia. En este apartado resumimos algunas recomendaciones importantes para actuar conforme a la legislación vigente ([RGPD](https://www.boe.es/doue/2016/119/L00001-00088.pdf) y la [LOPDGDD](https://www.boe.es/boe/dias/2018/12/06/pdfs/BOE-A-2018-16673.pdf)).
 
+Puedes acceder aquí a la [Guía para Centros Educativos de la AEPD](https://www.tudecideseninternet.es/aepd/images/guias/GuiaCentros/GuiaCentrosEducativos.pdf) para ampliar la información que te ofrecemos en las siguientes líneas.  
+
 ## Tipos de datos que se manejan en nuestro centro
 
 Los datos del alumnado y del profesorado que se manejan en nuestro centro son de estos tipos:
