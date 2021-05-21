@@ -10,11 +10,11 @@ Utiliza el menú de la izquierda para acceder a las distintas secciones.
 
 Puedes enviar cualquier sugerencia por email a buzontic@iescelia.org
 
-# Medios informáticos del centro
+# 1. Medios informáticos del centro
 
 En esta sección presentamos un resumen de las características de los medios informáticos con los que cuenta el IES Celia Viñas para uso del profesorado y el alumnado: tipología, ubicación, organización y gestión.
 
-## Carritos de portátiles
+## 1.1. Carritos de portátiles
 
 **¿Qué son los carritos de portátiles?**
 
@@ -45,7 +45,7 @@ Para usar un carrito de portátiles, el procedimiento general es el siguiente:
 
 MUY IMPORTANTE: si se detecta una incidencia en cualquier ordenador, es imprescindible hacerla llegar al coordinador TIC a la mayor brevedad posible. Más información en el apartado “Gestión de incidencias”
 
-## Equipos del profesorado en aulas generales
+## 1.2. Equipos del profesorado en aulas generales
 
 Todas las aulas del centro están equipadas con, al menos, un ordenador de sobremesa y un cañón/proyector con pizarra interactiva (PDI). Algunas tienen otra equipación adicional que se describe más abajo.
 
@@ -116,7 +116,7 @@ Algunas aulas específicas de los ciclos formativos poseen PDIs obsoletas que no
 
 El resto de aulas disponen de cañones proyectores (sin PDI) o televisores de gran formato.
 
-## Usuarios y contraseñas
+## 1.3. Usuarios y contraseñas
 
 Todos los ordenadores del centro, tanto los de sobremesa como los portátiles, tienen creado el usuario estándar de la Junta de Andalucía.
 
@@ -125,7 +125,7 @@ Todos los ordenadores del centro, tanto los de sobremesa como los portátiles, t
 
 Si alguien necesita disponer de un usuario personalizado en alguno de los ordenadores, puede solicitarlo al coordinador TDE. No obstante, se recomienda encarecidamente no dejar archivos personales en ninguno de los ordenadores del centro.
 
-## Aulas de informática
+## 1.4. Aulas de informática
 
 Estas aulas son para uso del alumnado de secundaria, bachillerato y adultos, siempre bajo la supervisión de un profesor/a responsable.
 
@@ -150,7 +150,7 @@ MUY IMPORTANTE: si se detecta una incidencia en cualquier ordenador, se ruega co
 
 Más información en el apartado “Gestión de averías e incidencias”
 
-## Otros medios
+## 1.5. Otros medios
 
 El IES Celia Viñas dispone de otros muchos medios relacionados con las TIC. Sus características son tan variadas que enumerarlas aquí no tiene sentido. Nos limitaremos a dar una lista de los medios con los que contamos. 
 
@@ -169,7 +169,7 @@ Para cualquier consulta o incidencia relacionada con su uso, por favor, recurre 
 * Ordenadores y proyectores de las aulas específicas de los ciclos formativos de informática.
 * Servidor TIC, puntos de acceso inalámbrico y switches de planta programables.
 
-## Gestión de incidencias
+## 1.6. Gestión de incidencias
 
 **Procedimiento general**
 
@@ -209,7 +209,7 @@ Es inevitable: las hojas de incidencia se agotan tarde o temprano. Para reponerl
 * Comunicarlo al coordinador TDE para que las reponga.
 * Hacernos con una copia y reponerlas nosotros mismos o, mejor aún, tener nuestras propias copias para nuestro uso personal.
 
-## Preguntas frecuentes
+## 1.7. Preguntas frecuentes
 
 En esta sección enumeraremos las preguntas más habituales y sus posibles respuestas.
 
@@ -287,11 +287,11 @@ Si necesitas cualquier equipación adicional a las disponibles, por favor, conta
 Si lo que necesitas es adquirir material nuevo para tu departamento o tu aula, tanto inventariable como consumible, recuerda que esto es competencia del equipo directivo, aunque siempre puedes hablarlo antes con el coordinador TDE para obtener una orientación técnica o para comprobar si ese material ya existe en alguna dependencia del instituto.
 
 
-# Plataformas online del centro
+# 2. Plataformas online del centro
 
 En esta sección hablamos de las plataformas online utilizadas oficialmente en el IES Celia Viñas, principalmente Moodle Centros y Google Suite. También nos referiremos a las posibilidades que existen para usar otras plataformas diferentes.
 
-## Moodle Centros
+## 2.1. Moodle Centros
 
 Moodle es una plataforma de aprendizaje online de código libre y abierto muy potente, configurable y extendida en el mundo académico.
 
@@ -481,7 +481,7 @@ Para ampliar toda esta información, te remitimos a los manuales oficiales de la
 
 Por último, puedes hacer llegar cualquier sugerencia al coordinador TDE a través de la mensajería de Séneca o por correo electrónico a la dirección buzontic@iescelia.org.
 
-## Google Suite for Education
+## 2.2. Google Suite for Education
 
 La Consejería de Educación y Deporte de la Junta de Andalucía ha firmado un convenio con Google para proporcionar Google Suite de manera gratuita a los centros que así lo soliciten. El IES Celia Viñas es uno de esos centros.
 
@@ -520,7 +520,7 @@ No. Moodle Centros sigue siendo la plataforma online de referencia. Si un profes
 No. Tu cuenta de Google Suite se creará automáticamente alrededor de 24 horas después de que te hayan dado de alta en el sistema Séneca. Del mismo modo, si dejas de pertenecer a la plantilla del centro, la cuenta de Google dejará de estar operativa.
 
 
-## Videoconferencias
+## 2.3. Videoconferencias
 
 Las videoconferencias para las clases semipresenciales o a distancia (o para cualquier otra situación en la que sea necesario establecer una videoconferencia) deben realizarse, por motivos de protección de datos, a través de las dos plataformas seleccionadas por la Consejería de Educación y Deporte: Moodle Centros o Google Suite (Meet o Hangouts).
 
@@ -544,7 +544,7 @@ Debes tener en cuenta que Google Meet consume más ancho de banda que BB Collabo
 
 ![Google Meet](plataformas-online/googlemeet.jpg)
 
-## Otras plataformas
+## 2.4. Otras plataformas
 
 El centro solo dispone de dos plataformas online oficiales: Moodle Centros y Google Suite.
 
@@ -557,13 +557,13 @@ Para este propósito, recuerda que el alumnado dispone de cuentas de Moodle y de
 
 
 
-# Uso de dispositivos propios (BYOD)
+# 3. Uso de dispositivos propios (BYOD)
 
 El concepto BYOD ("Bring your own device", es decir, "Trae tu propio dispositivo") se está imponiendo cada vez con más fuerza, debido a la extensión de uso de los smartphones, a la obsolescencia del material informático de los institutos y a las consideraciones sanitarias como consecuencia de la pandemia por el COVID-19.
 
 El uso de los dispositivos propios por parte del alumnado y del profesorado en el interior del centro educativo debe estar regulado por el Reglamento de Organización y Funcionamiento. En esta sección se resumen esas regulaciones, que afectan tanto a smartphones como a tablets u ordenadores personales.
 
-## Smartphones
+## 3.1. Smartphones
 
 Los smartphones no son, en principio, dispositivos necesarios para el desarrollo de la actividad académica, por lo que el Reglamento de Organización y Funcionamiento prohíbe expresamente su utilización o mera exhibición durante las sesiones de clase, debiendo permanecer en todo momento desconectados y guardados.
 
@@ -573,7 +573,7 @@ Para evitar saturaciones de la red inalámbrica del centro, no se permite la con
 
 En ningún caso el Instituto se responsabiliza de la pérdida, hurto o deterioro de los smartphones del alumnado, correspondiendo a cada alumno/a su guarda y custodia.
 
-## Tablets
+## 3.2. Tablets
 
 Las tabletas que sean propiedad del alumnado se regirán por las mismas normas que los smartphones. Es decir, en principio está prohibido su uso en las instalaciones del centro y, en caso de traerlas consigo, el alumnado debe mantenerlas desconectadas y guardadas.
 
@@ -583,7 +583,7 @@ Para evitar saturaciones de la red inalámbrica del centro, no se permitirá la 
 
 En ningún caso el Instituto se responsabiliza de la pérdida, hurto o deterioro de este tipo de dispositivos, correspondiendo a cada alumno/a su guarda y custodia.
 
-## Ordenadores portátiles
+## 3.3. Ordenadores portátiles
 
 El empleo de ordenadores portátiles personales por parte del alumnado está desaconsejado excepto en el caso del alumnado mayor de edad de los ciclos formativos.
 
@@ -597,18 +597,18 @@ El alumnado que haga uso de su ordenador portátil en el centro debe cumplir una
 
 El alumnado interesado en el acceso a la red del centro desde una máquina propia, deberá cumplimentar un documento en el que se identifica la dirección MAC de su ordenador portátil y contrae su compromiso de aceptación y cumplimiento de las normas anteriores.
 
-## Otros dispositivos
+## 3.4. Otros dispositivos
 
 De momento, no se permite el uso de otros dispositivos tecnológicos propios (smartwatches, smartglasses, cámaras digitales, etc) por parte del alumnado durante su actividad lectiva en el centro.
 
 
-# Protección de datos
+# 4. Protección de datos
 
 La protección de datos en centros educativos es de vital importancia. En este apartado resumimos algunas recomendaciones importantes para actuar conforme a la legislación vigente ([RGPD](https://www.boe.es/doue/2016/119/L00001-00088.pdf) y la [LOPDGDD](https://www.boe.es/boe/dias/2018/12/06/pdfs/BOE-A-2018-16673.pdf)).
 
 Puedes acceder aquí a la [Guía para Centros Educativos de la AEPD](https://www.tudecideseninternet.es/aepd/images/guias/GuiaCentros/GuiaCentrosEducativos.pdf) para ampliar la información que te ofrecemos en las siguientes líneas.  
 
-## Tipos de datos que se manejan en nuestro centro
+## 4.1. Tipos de datos que se manejan en nuestro centro
 
 Los datos del alumnado y del profesorado que se manejan en nuestro centro son de estos tipos:
 
@@ -621,7 +621,7 @@ Los datos personales no podrán usarse para fines diferentes al educativo (funci
 
 Tanto el profesorado como el resto del personal del centro que acceda a los datos de carácter personal, se encuentran sometidos al deber de salvaguardarlos.
 
-## Publicación de datos de carácter personal
+## 4.2. Publicación de datos de carácter personal
 
 Debes tener claro que ninguno de estos datos se puede publicar en ningún lugar público, físico o virtual, excepto en los siguientes casos:
 
@@ -632,7 +632,7 @@ La publicación de ***cualquier*** otro dato de cualquier miembro de la comunida
 
 Para los menores de 14 años, es necesario el consentimiento del tutor/a legal.
 
-## Captación de imágenes
+## 4.3. Captación de imágenes
 
 Es habitual que, durante ciertos eventos como excursiones, talleres, conferencias o celebraciones, se recojan fotografías y vídeos del alumnado y el profesorado.
 
@@ -640,17 +640,17 @@ La toma de imágenes, si la actividad tiene fines educativos, no requiere consen
 
 Si vas a realizar videoconferencias con el alumnado, ten en cuenta que las imágenes de estas videoconferencias también están protegidas por la normativa vigente, por lo que te recomendamos que uses siempre Moodle Centros (BB Collaborate) o Google Suite (Google Meet), que son las dos plataformas amparadas por la Consejería de Educación y Deporte.
 
-## Datos de víctimas de violencia de género
+## 4.4. Datos de víctimas de violencia de género
 
 El centro educativo debe excluir cualquier información al respecto de cualquier publicación, incluso de las listas de admitidos, ya que prima la protección del menor. Los centros deberán proceder con especial cautela a tratar los datos de los menores que se vean afectados por estas situaciones.
 
 Por lo tanto, el alumnado se puede oponer a la publicación de su admisión en un centro educativo si se alegan motivos fundamentados y legítimos relativos a su situación personal como, por ejemplo, razones de seguridad.
 
-## Datos sobre resultados académicos
+## 4.5. Datos sobre resultados académicos
 
 Los resultados académicos también son datos sensibles según la legislación vigente, por lo que no se deben publicar en ningún lugar de acceso público, ya sea físico o virtual. Esta información, además de grabarse en el sistema Séneca, sí puede manipularse en Moodle Centros y en Google Suite, puesto que son plataformas en las que el acceso se haya restringido y la Consejería de Educación y Deporte asegura la salvaguardar de esos datos.
 
-# Sostenibilidad
+# 5. Sostenibilidad
 
 Para tratar de aplicar criterios de sostenibilidad en el uso de las TIC, nos basaremos en los Objetivos de Desarrollo Sostenible elaborados por las Naciones Unidas en 2015.
 
@@ -664,7 +664,7 @@ El uso sostenible de las TIC tiene tres dimensiones:
 
 En esta guía proporcionaremos algunas recomendaciones que influyen en las tres dimensiones anteriores. Su aplicación depende de cada uno/a de nosotros/as como individuos responsables y de toda la comunidad educativa del IES Celia Viñas como colectividad.
 
-## Publicaciones en la red
+## 5.1. Publicaciones en la red
 
 Cada vez que accedemos a internet, estamos consumiendo recursos: electricidad, ancho de banda (que se traduce en la necesidad de nuevas redes de comunicaciones), tiempo de cómputo en todos los dispositivos involucrados... Ten en cuenta que los centros de proceso de datos que constituyen los cimientos de la red son unos gigantescos sumideros energéticos.
 
@@ -677,7 +677,7 @@ Por ello, proponemos las siguientes acciones:
 5. Minimiza el número de mensajes que envías. Centraliza tus comunicaciones en unos pocos mensajes.
 6. Los mensajes de texto consumen mucho menos recursos que los de audio, y estos mucho menos que los de vídeo. Actúa en consecuecia.
 
-## Renovación de dispositivos
+## 5.2. Renovación de dispositivos
 
 Seguro que has oído hablar de la obsolescencia programada. La industria electrónica busca el máximo beneficio y nos intenta forzar a que renovemos nuestro teléfono móvil cada pocos meses o nuestro ordenador personal cada pocos años, pero ¿realmente es esto inevitable? 
 
@@ -688,7 +688,7 @@ Seguro que has oído hablar de la obsolescencia programada. La industria electr�
 5. Siempre que sea posible, dona tus dispositivos antiguos a personas o instituciones que puedan aprovecharlos.
 6. En última instancia, lleva tus dispositivos obsoletos a un punto limpio donde sus componentes puedan reciclarse. Jamás tires un dispositivo electrónico a la basura convencional.
 
-## Consumo energético
+## 5.3. Consumo energético
 
 Los centros de proceso de datos consumen mucha energía, la mayoría procedente de combustiles fósiles. En contra de lo que pueda parecer, nosotros con nuestros múltiples terminales podemos contribuir a aumentar o disminuir ese consumo energético.
 
