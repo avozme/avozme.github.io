@@ -604,7 +604,49 @@ De momento, no se permite el uso de otros dispositivos tecnológicos propios (sm
 
 # Protección de datos
 
-TODO: En esta sección proporcionaremos recomendaciones acerca de la protección de datos de carácter personal del alumnado y el profesorado en el uso de los medios informáticos y de las plataformas online del centro
+La protección de datos en centros educativos es de vital importancia. En este apartado resumimos algunas recomendaciones importantes para actuar conforme a la legislación vigente ([RGPD](https://www.boe.es/doue/2016/119/L00001-00088.pdf) y la [LOPDGDD](https://www.boe.es/boe/dias/2018/12/06/pdfs/BOE-A-2018-16673.pdf)).
+
+## Tipos de datos que se manejan en nuestro centro
+
+Los datos del alumnado y del profesorado que se manejan en nuestro centro son de estos tipos:
+
+* Identificativos: nombre y apellidos, DNI, domicilio, email, etc.
+* Origen y ambiente familiar.
+* Condiciones personales: discapacidad, enfermedades, intolerancias, tratamientos, informes psicopedagógicos...
+* Escolarización: curso, grupo, estudios previos, calificaciones, asignaturas...
+
+Los datos personales no podrán usarse para fines diferentes al educativo (función docente y orientadora).
+
+Tanto el profesorado como el resto del personal del centro que acceda a los datos de carácter personal, se encuentran sometidos al deber de salvaguardarlos.
+
+## Publicación de datos de carácter personal
+
+Debes tener claro que ninguno de estos datos se puede publicar en ningún lugar público, físico o virtual, excepto en los siguientes casos:
+
+* Listas de admitidos: solo en los tablones de anuncios del centro y en sitios web de acceso restringido (como Moodle Centros). Estas listas solo recogerán el resultado final del baremo, no resultados parciales que puedan responder a datos o información sensible.
+* Beneficiarios de becas: en las mismas condiciones. Y si la beca está asociada a una situación de discapacidad o similar, solo se puede publicar el número identificador de la solicitud.
+
+La publicación de ***cualquier*** otro dato de cualquier miembro de la comunidad educativa, ya sea en sitios web, en redes sociales o en cualquier otro espacio físico o virtual, deberá contar necesariamente con el consentimiento del afectado. Es consentimiento ha de ser inequívoco y específico, y el centro debe encargarse de acreditar su existencia en caso necesario.
+
+Para los menores de 14 años, es necesario el consentimiento del tutor/a legal.
+
+## Captación de imágenes
+
+Es habitual que, durante ciertos eventos como excursiones, talleres, conferencias o celebraciones, se recojan fotografías y vídeos del alumnado y el profesorado.
+
+La toma de imágenes, si la actividad tiene fines educativos, no requiere consentimiento, pero su publicación en cualquier medio físico o virtual, sí. Por lo tanto, el consejo más sensato es recabar siempre el consentimiento de los afectados (o de sus tutores/as legales, en el caso de los menores de 14 años) antes de tomar fotografías o vídeos.
+
+Si vas a realizar videoconferencias con el alumnado, ten en cuenta que las imágenes de estas videoconferencias también están protegidas por la normativa vigente, por lo que te recomendamos que uses siempre Moodle Centros (BB Collaborate) o Google Suite (Google Meet), que son las dos plataformas amparadas por la Consejería de Educación y Deporte.
+
+## Datos de víctimas de violencia de género
+
+El centro educativo debe excluir cualquier información al respecto de cualquier publicación, incluso de las listas de admitidos, ya que prima la protección del menor. Los centros deberán proceder con especial cautela a tratar los datos de los menores que se vean afectados por estas situaciones.
+
+Por lo tanto, el alumnado se puede oponer a la publicación de su admisión en un centro educativo si se alegan motivos fundamentados y legítimos relativos a su situación personal como, por ejemplo, razones de seguridad.
+
+## Datos sobre resultados académicos
+
+Los resultados académicos también son datos sensibles según la legislación vigente, por lo que no se deben publicar en ningún lugar de acceso público, ya sea físico o virtual. Esta información, además de grabarse en el sistema Séneca, sí puede manipularse en Moodle Centros y en Google Suite, puesto que son plataformas en las que el acceso se haya restringido y la Consejería de Educación y Deporte asegura la salvaguardar de esos datos.
 
 # Sostenibilidad
 
