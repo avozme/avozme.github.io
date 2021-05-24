@@ -5,7 +5,11 @@ This repository contains a document called "Manual de buenas prácticas digitale
 The document is markdown formatted and is suitable to publish it by two methods:
 
 ### Method 1: Through GitHub Pages
-The repository name must be the same that the GitHub username (or GitHub organization). Then, the document will be automatically published when you update it, and it can be read on the URI [github-username].github.io
+If you want that the repository will be automatically published as GitHub page, its name must be the same that your GitHub username (or GitHub organization), plus "github.io".
+
+For example, if your username or organization name is "myname", the repository must be named as "myname.github.io".
+
+If you do that, the document will be automatically rendered and published when you update it, and it can be read on the URI myname.github.io
 
 ### Method 2: Through pandoc
 You must clone the repository on your computer or your webserver. Then, go to the root directory of your local repo and execute this command:
