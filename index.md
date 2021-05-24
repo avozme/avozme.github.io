@@ -21,6 +21,7 @@ En esta sección presentamos un resumen de las características de los medios in
 Son carritos móviles con capacidad para 10 ordenadores portátiles cada uno, aunque, más a menudo de lo que nos gustaría, son menos de 10 los que están operativos. 
 
 El centro dispone de 5 carritos de estas características distribuidos de la siguiente forma:
+
 * Planta baja: 1 carrito en junto a la puerta de la Secretaría.
 * Planta primera: 2 carritos en el Departamento de Física y Química. La llave está disponible en Conserjería.
 * Planta segunda: 2 carritos en el Laboratorio de Ciencias Naturales. La llave está disponible en Consejería.
@@ -60,6 +61,7 @@ Algunos de estos ordenadores se encienden con un interruptor en el pie del monit
 Estas PDI están obsoletas y no funcionan correctamente como tales con los sistemas operativos recientes. Solo es posible utilizarlas como proyectores.
 
 El procedimiento de puesta en marcha de estas prizarras es el siguiente:
+
 * Encender el proyector.
 * Encender el ordenador.
 * Si es necesario, encender los altavoces. El interruptor está en un lateral de la pizarra. Si están apagados, el interruptor lucirá en rojo. Si están encendidos, lo hará en verde.
@@ -74,6 +76,7 @@ Todos estos ordenadores se encienden pulsando el interruptor del mismo. Puede se
 Estas PDI necesitan el uso de un puntero específico que puede solicitarse al equipo de coordinación TDE.
 
 Para utilizarlas, el procedimiento es el siguiente:
+
 1. Encender el proyector.
 2. Encender el ordenador.
 3. Si es necesario, encender los altavoces.
@@ -90,6 +93,7 @@ Estas pizarras están controladas por un miniordenador llamado NUC incorporado b
 En estas aulas existe un segundo ordenador, situado en la mesa del profesor, que solo sirve para proyectar imágenes (no como pizarra interactiva), y que puede manejarse con el teclado y el ratón convencionales.
 
 Para usar estas pizarras con el miniordenador NUC, el procedimiento es:
+
 1. Encender el proyector.
 2. Cuando la imagen azul se vea claramente en la pizarra y aparezca la leyenda “HDMI” sobreimpresionada, encender el ordenador NUC. El NUC es la cajita negra que hay bajo la pizarra, casi a ras de suelo.
 3. Encender el tablero táctil con el interruptor grueso que hay en la botonera la pizarra.
@@ -97,9 +101,10 @@ Para usar estas pizarras con el miniordenador NUC, el procedimiento es:
 
 Observa que este ordenador se usa exclusivamente con la pizarra interactiva (como si fuera una tableta gigante), pero es posible conectarle un teclado y/o un ratón en los puertos USB que hay en el NUC.
 
-![PDI Smartboard con NUC](medios-tic/pdi-smartboard-1.jpg)
+![PDI Smartboard con NUC](medios-tic/pdi-smartboard.jpg)
 
 Si prefieres usar esta PDI como simple proyector con el ordenador de sobremesa, el procedimiento es:
+
 1. Encender el proyector.
 2. Encender el ordenador.
 3. Encender, si es necesario, los altavoces (sobre la pizarra). Tienen dos canales, y se cambia de uno a otro pulsando el botón de encendido un instante. Si se mantiene pulsado, los altavoces se apagan. La luz roja indica “altavoz apagado”. La luz naranja es “canal 2”, al que está conectado este ordenador.
@@ -152,9 +157,10 @@ Más información en el apartado “Gestión de averías e incidencias”
 
 ## 1.5. Otros medios
 
-El IES Celia Viñas dispone de otros muchos medios relacionados con las TIC. Sus características son tan variadas que enumerarlas aquí no tiene sentido. Nos limitaremos a dar una lista de los medios con los que contamos. 
+El IES Celia Viñas dispone de otros muchos medios relacionados con las TIC. Sus características son tan variadas que enumerarlas aquí no tiene sentido. Nos limitaremos a dar una lista de los medios con los que contamos.
 
 Para cualquier consulta o incidencia relacionada con su uso, por favor, recurre al coordinador TIC.
+
 * Ordenadores e impresoras de uso común en la sala de profesores y la sala de juntas.
 * Ordenadores y proyectores en las aulas multimedia del sótano (religión, inglés, francés y arte)
 * Ordenadores y proyector del taller de tecnología.
