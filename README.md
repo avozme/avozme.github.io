@@ -1,6 +1,8 @@
-# Manual de buenas prácticas del IES Celia Viñas - README
+# IES CELIA VIÑAS DOCS - README
 
-This repository contains a document called "Manual de buenas prácticas digitales del IES Celia Viñas de Almería (España)".
+This repository contains this documentation about IES Celia Viñas de Almería (España):
+
+* Manual de buenas prácticas digitales.
 
 The document is markdown formatted and is suitable to publish it by two methods:
 
