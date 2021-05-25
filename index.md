@@ -612,7 +612,7 @@ De momento, no se permite el uso de otros dispositivos tecnológicos propios (sm
 
 La protección de datos en centros educativos es de vital importancia. En este apartado resumimos algunas recomendaciones importantes para actuar conforme a la legislación vigente ([RGPD](https://www.boe.es/doue/2016/119/L00001-00088.pdf) y la [LOPDGDD](https://www.boe.es/boe/dias/2018/12/06/pdfs/BOE-A-2018-16673.pdf)).
 
-Puedes acceder aquí a la [Guía para Centros Educativos de la AEPD](https://www.tudecideseninternet.es/aepd/images/guias/GuiaCentros/GuiaCentrosEducativos.pdf) para ampliar la información que te ofrecemos en las siguientes líneas.  
+Puedes acceder aquí a la [Guía para Centros Educativos de la AEPD](https://www.tudecideseninternet.es/aepd/images/guias/GuiaCentros/GuiaCentrosEducativos.pdf) para ampliar la información que te ofrecemos en las siguientes líneas.
 
 ## 4.1. Tipos de datos que se manejan en nuestro centro
 
@@ -623,7 +623,7 @@ Los datos del alumnado y del profesorado que se manejan en nuestro centro son de
 * Condiciones personales: discapacidad, enfermedades, intolerancias, tratamientos, informes psicopedagógicos...
 * Escolarización: curso, grupo, estudios previos, calificaciones, asignaturas...
 
-Los datos personales no podrán usarse para fines diferentes al educativo (función docente y orientadora).
+Ninguno de estos datos podrá usarse para fines diferentes al educativo (función docente y orientadora).
 
 Tanto el profesorado como el resto del personal del centro que acceda a los datos de carácter personal, se encuentran sometidos al deber de salvaguardarlos.
 
@@ -634,9 +634,17 @@ Debes tener claro que ninguno de estos datos se puede publicar en ningún lugar 
 * Listas de admitidos: solo en los tablones de anuncios del centro y en sitios web de acceso restringido (como Moodle Centros). Estas listas solo recogerán el resultado final del baremo, no resultados parciales que puedan responder a datos o información sensible.
 * Beneficiarios de becas: en las mismas condiciones. Y si la beca está asociada a una situación de discapacidad o similar, solo se puede publicar el número identificador de la solicitud.
 
-La publicación de ***cualquier*** otro dato de cualquier miembro de la comunidad educativa, ya sea en sitios web, en redes sociales o en cualquier otro espacio físico o virtual, deberá contar necesariamente con el consentimiento del afectado. Es consentimiento ha de ser inequívoco y específico, y el centro debe encargarse de acreditar su existencia en caso necesario.
+La publicación de ***cualquier*** otro dato de cualquier miembro de la comunidad educativa, ya sea en sitios web, en redes sociales o en cualquier otro espacio físico o virtual, deberá contar necesariamente con el consentimiento del afectado. El consentimiento ha de ser inequívoco y específico, y el centro debe encargarse de acreditar su existencia en caso necesario.
 
 Para los menores de 14 años, es necesario el consentimiento del tutor/a legal.
+
+Por favor, ten presente que la mera transmisión de un nombre, una fotografía o cualquier otro dato personal mediante cualquier medio telemático como Whatsapp o Telegram constituye por sí misma una violación de la legislación vigente. Este tipo de datos (y cualquier otro) solo pueden tratarse en webs de acceso restringido como Moodle Centros o Séneca.
+
+## 4.3. Almacenamiento de datos de carácter personal
+
+Los datos de carácter personal deben almacenarse en lugares debidamente protegidos. Si hablamos de datos digitales, los únicos lugares habilitados para ello son los propios servidores de la Consejería de Educación y Deporte (es decir, Moodle Centros, Séneca y Pasen), o aquellos pertenecientes a terceros con los que la Consejería haya firmado un acuerdo de colaboración (Google, en el caso de nuestro centro, a través de la cuenta de Google Suite for Education).
+
+Esto significa que no deberías almacenar datos de carácter personal del alumnado en ningún otro lugar, como, por ejemplo, en archivos almacenados en un pendrive, en archivos en la nube o incluso archivos en el disco duro de tu ordenador: cualquier robo o extravío de esa información podría hacer que circulara por la red y tú serías la persona responsable de ello por no haberlos alojado en los lugares adecuados.
 
 ## 4.3. Captación de imágenes
 
@@ -672,22 +680,26 @@ En esta guía proporcionaremos algunas recomendaciones que influyen en las tres 
 
 ## 5.1. Publicaciones en la red
 
-Cada vez que accedemos a internet, estamos consumiendo recursos: electricidad, ancho de banda (que se traduce en la necesidad de nuevas redes de comunicaciones), tiempo de cómputo en todos los dispositivos involucrados... Ten en cuenta que los centros de proceso de datos que constituyen los cimientos de la red son unos gigantescos sumideros energéticos.
+Aunque parezca mentira, cada vez que accedemos a internet estamos consumiendo recursos: electricidad, ancho de banda (que se traduce en la necesidad de nuevas redes de comunicaciones), tiempo de cómputo en los centros de proceso de datos y en todos los dispositivos involucrados... Los centros de proceso de datos que constituyen el andamiaje de internet son unos gigantescos sumideros energéticos.
 
 Por ello, proponemos las siguientes acciones:
 
-1. Accede a internet solo cuando sea necesario. 
+1. Accede a internet solo cuando sea necesario.
 2. Publica solo el contenido imprescindible. Esto es aplicable a blogs, foros, redes sociales o cualquier otro tablón digital.
-3. No satures las redes sociales con contenidos.
+3. No satures las redes sociales con contenidos innecesarios.
 4. No compartas contenido cuya fuente desconoces. Un sorprendentemente alto porcentaje de los contenidos de tipo viral son falsos.
+5. No contribuyas a la desinformación. Antes de propagar una noticia, por muy interesante que parezca, contrástala.
 5. Minimiza el número de mensajes que envías. Centraliza tus comunicaciones en unos pocos mensajes.
 6. Los mensajes de texto consumen mucho menos recursos que los de audio, y estos mucho menos que los de vídeo. Actúa en consecuecia.
+7. ¿Realmente necesitas ver vídeo en calidad 4K en la pantalla de 6 pulgadas del teléfono móvil? Racionaliza el consumo de datos.
 
 ## 5.2. Renovación de dispositivos
 
-Seguro que has oído hablar de la obsolescencia programada. La industria electrónica busca el máximo beneficio y nos intenta forzar a que renovemos nuestro teléfono móvil cada pocos meses o nuestro ordenador personal cada pocos años, pero ¿realmente es esto inevitable? 
+Seguro que has oído hablar de la obsolescencia programada. La industria electrónica, en su búsqueda de beneficio económico, intenta acelerar el proceso de renovación de nuestra equipación tecnológica. ¿Es esto inevitable?
 
-1. Antes de comprar un dispositivo nuevo, asegúrate de que realmente lo necesitas.
+Te proponemos algunas medidas para paliar esta situación:
+
+1. Antes de comprar un dispositivo nuevo, asegúrate de que realmente lo necesitas. Cambiar tu disco duro antiguo por uno de estado sólido puede estirar la vida útil de tu viejo ordenador varios años más. Eliminar de tu teléfono móvil las aplicaciones que no usas o restablecer su configuración de fábrica puede hacerlo funcionar razonablemente durante más tiempo.
 2. Adquiere productos de empresas que cumplan con prácticas laborales legales y respeten los criterios de sostenibilidad en su cadena de producción. Puedes conocer estas prácticas a través de organizaciones como Greenpeace o Electronics Watch.
 3. Compra productos que puedan ser desmontados, reparados y actualizados.
 4. Prolonga la vida de las baterías siguiendo los consejos del fabricante.
@@ -696,7 +708,7 @@ Seguro que has oído hablar de la obsolescencia programada. La industria electr�
 
 ## 5.3. Consumo energético
 
-Los centros de proceso de datos consumen mucha energía, la mayoría procedente de combustiles fósiles. En contra de lo que pueda parecer, nosotros con nuestros múltiples terminales podemos contribuir a aumentar o disminuir ese consumo energético.
+Los centros de proceso de datos consumen mucha energía, la mayoría procedente de combustiles fósiles. En contra de lo que pueda parecer, nosotros, con nuestros múltiples terminales conectados a la red, podemos contribuir a aumentar o disminuir ese consumo energético.
 
 1. Contrata tu conexión a internet con aquellas compañías que sean menos contaminantes. Unos minutos de búsqueda por la red te darán mucha información al respecto.
 2. Contrata una tarifa razonable. ¿Seguro que necesitas 600 Megabits por segundo en tu casa?
