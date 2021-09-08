@@ -8,7 +8,7 @@ Esta documentación incluye un resumen de las normas y posibilidades de uso de t
 
 Utiliza el menú de la izquierda para acceder a las distintas secciones.
 
-Puedes enviar cualquier sugerencia por email a buzontic@iescelia.org
+Este documento está vivo y sujeto a continuos cambios y actualizaciones. Si encuentras algún error o alguna información desactualizada, o si tienes cualquier sugerencia, puedes enviarnos un email a la dirección *buzontic@iescelia.org*
 
 # 1. Medios informáticos del centro
 
@@ -187,15 +187,24 @@ Si la incidencia parece más grave, se debe poner en conocimiento del coordinado
 
 Es muy importante poner la incidencia por escrito. Comentársela al coordinador TDE en un pasillo o en el semáforo de la rambla a las tres de la tarde puede tener un cierto valor terapéutico, pero poca utilidad práctica.
 
-Existe un parte de incidencias que se puede rellenar en menos de un minuto. 
+Existen **tres maneras de comunicar una incidencia de forma eficaz**. Cada cual puede escoger la que le resulte más cómoda. de incidencias que se puede rellenar en menos de un minuto. 
 
-El procedimiento recomendado es el siguiente:
-* Conseguir un parte de incidencia. Siempre existen ejemplares disponibles en el tablón TDE de la sala de profesores y sobre la mesa del coordinador TDE.
-* Dedicar unos segundos a rellenarlo, intentando ser explícito con el problema y el equipo al que afecta.
+Forma número 1:
+
+* Conseguir un parte de incidencia. Encontrarás ejemplares disponibles colgados en el tablón TDE de la sala de profesores.
+* Dedicar unos segundos a rellenar el parte, intentando ser explícito/a con el problema y el equipo al que afecta.
 * Hacer llegar el parte al coordinador TDE por alguno de estos medios:
     * En persona (su horario estará expuesto en el tablón TDE, en la sala de profesores)
     * Dejándoselo sobre su mesa.
-Clavándolo con una chincheta en el tablón TDE de la sala de profesores.
+    * Clavándolo con una chincheta en el tablón TDE de la sala de profesores.
+
+Forma número 2:
+
+* Enviar un mensaje por Séneca a coordinador TDE, intentando ser explícito/a con el problema y el equipo al que afecta.
+
+Forma número 3:
+
+* Enviar un email al coordinador TDE, a la dirección buzontic@iescelia.org, intentando ser explícito/a con el problema y el equipo al que afecta.
 
 **El peliagudo caso de los carritos de portátiles**
 
@@ -204,6 +213,7 @@ Los carritos de portátiles y, en menor medida, las aulas de informática del s�
 En estos ordenadores hemos encontrado de todo: teclas arrancadas, chicles pegados, pantallas partidas y otras cosas de las que preferimos no dejar constancia por escrito.
 
 Por ello rogamos la máxima colaboración en el uso de esta equipación. Es la única manera de mantenerla en un estado razonable de funcionamiento. Basta con recordar una pauta muy sencilla:
+
 * Pedir al alumnado que avise de cualquier anomalía detectada en los portátiles antes o durante su uso.
 * Informar lo antes posible de la incidencia al coordinador TDE.
 
@@ -212,6 +222,7 @@ Con esta simple precaución, podremos atender las incidencias con celeridad, man
 **¿Y si se han agotado las hojas de incidencias?**
 
 Es inevitable: las hojas de incidencia se agotan tarde o temprano. Para reponerlas, hay dos medios:
+
 * Comunicarlo al coordinador TDE para que las reponga.
 * Hacernos con una copia y reponerlas nosotros mismos o, mejor aún, tener nuestras propias copias para nuestro uso personal.
 
@@ -232,6 +243,7 @@ Si ninguno de estos trucos funciona, por favor, contacte con el Coordinador TDE 
 **No hay sonido**
 
 Casi siempre la causa es una de estas tres:
+
 * Los altavoces están apagados. Se encienden de forma diferente según el modelo de PDI que exista en ese aula (Consúltese el apartado "Equipos de profesorado de las aulas generales")
 * Los altavoces están "escuchando" en un canal distinto del que deberían. En algunas aulas, los altavoces disponen de dos canales de entrada. A veces, por accidente, acaban conectados al canal incorrecto (Consúltese el apartado "Equipos de profesorado de las aulas generales")
 * El cable de audio está desconectado o conectado en el lugar incorrecto. El cable de audio es un minijack convencional. Debe salir del conector verde del ordenador y llegar a la entrada de los altavoces (a veces, a un conector en la pared).
@@ -596,6 +608,7 @@ El empleo de ordenadores portátiles personales por parte del alumnado está des
 En esos casos, el centro declina toda responsabilidad en caso de robo, pérdida o deterioro, siendo el alumno/a quien debe encargarse de la custodia del dispositivo.
 
 El alumnado que haga uso de su ordenador portátil en el centro debe cumplir una serie de normas:
+
 * Entender y aceptar que el acceso a la red del instituto desde una máquina propia no constituye un derecho adquirido por el simple hecho de estar matriculado.
 * Cumplir las normas generales de uso del material informático, independientemente del hecho que acceda a la red desde una máquina de su propiedad.
 * Identificar su máquina mediante su dirección MAC, accediendo a que esta dirección sea dada de alta en la lista blanca del dispositivo de acceso a la red que corresponda. Esta dirección se utilizará para localizar el ordenador en caso de infracción de las normas.
