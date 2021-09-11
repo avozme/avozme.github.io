@@ -1,0 +1,531 @@
+I"��<h1 class="no_toc" id="4-arquitectura-mvc">4. Arquitectura MVC</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#41-arquitecturas-físicas-multinivel-multitier" id="markdown-toc-41-arquitecturas-físicas-multinivel-multitier">4.1 Arquitecturas FÍSICAS multinivel (multitier)</a></li>
+  <li><a href="#42-arquitecturas-lógicas-multicapa-multilayer" id="markdown-toc-42-arquitecturas-lógicas-multicapa-multilayer">4.2 Arquitecturas LÓGICAS multicapa (multilayer)</a>    <ul>
+      <li><a href="#421-ventajas-de-las-arquitecturas-multicapa" id="markdown-toc-421-ventajas-de-las-arquitecturas-multicapa">4.2.1. Ventajas de las arquitecturas multicapa</a></li>
+      <li><a href="#422-esquema-modelo-vista-controlador-mvc" id="markdown-toc-422-esquema-modelo-vista-controlador-mvc">4.2.2. Esquema Modelo-Vista-Controlador (MVC)</a></li>
+    </ul>
+  </li>
+  <li><a href="#43-patrones-de-software" id="markdown-toc-43-patrones-de-software">4.3. Patrones de software</a>    <ul>
+      <li><a href="#442-tipos-de-patrones" id="markdown-toc-442-tipos-de-patrones">4.4.2. Tipos de patrones:</a></li>
+      <li><a href="#443-ejemplo-de-patrón-el-patrón-singleton" id="markdown-toc-443-ejemplo-de-patrón-el-patrón-singleton">4.4.3. Ejemplo de patrón: el patrón Singleton</a></li>
+    </ul>
+  </li>
+  <li><a href="#45-el-patrón-mvc-en-la-práctica" id="markdown-toc-45-el-patrón-mvc-en-la-práctica">4.5. El patrón MVC en la práctica</a>    <ul>
+      <li><a href="#451-código-monolítico" id="markdown-toc-451-código-monolítico">4.5.1. Código monolítico</a></li>
+      <li><a href="#452-primera-mejora-controlador--vista" id="markdown-toc-452-primera-mejora-controlador--vista">4.5.2. Primera mejora: controlador + vista</a></li>
+      <li><a href="#453-segunda-mejora-modelo-vista-y-controlador" id="markdown-toc-453-segunda-mejora-modelo-vista-y-controlador">4.5.3. Segunda mejora: modelo, vista y controlador</a></li>
+      <li><a href="#454-tercera-mejora-añadiendo-capa-de-abstracción-de-datos" id="markdown-toc-454-tercera-mejora-añadiendo-capa-de-abstracción-de-datos">4.5.4. Tercera mejora: añadiendo capa de abstracción de datos</a></li>
+      <li><a href="#455-cuarta-y-última-mejora-transformación-en-clases-y-objetos-reutilizables" id="markdown-toc-455-cuarta-y-última-mejora-transformación-en-clases-y-objetos-reutilizables">4.5.5. Cuarta (y última) mejora: transformación en clases y objetos reutilizables</a></li>
+    </ul>
+  </li>
+  <li><a href="#46-el-patrón-mvc-en-la-teoría" id="markdown-toc-46-el-patrón-mvc-en-la-teoría">4.6. El patrón MVC en la teoría</a></li>
+</ul>
+
+<p>Cuando hablamos de arquitectura de una aplicación web nos referimos a la estructura básica que la sustenta, como los pilares de un edificio en construcción. Si quitas las paredes, las ventanas, las puertas, los azulejos de la cocina… todavía pueden distinguirse las formas fundamentales, ¿verdad?</p>
+
+<p>En este tema, hablaremos mucho de la arquitectura más popular en aplicaciones web (llamada MVC; no te preocupes, pronto se convertirá en tu mejor amiga). Pero, antes, vamos a darle una vuelta al término “arquitectura”, porque en aplicaciones web se usa con dos significados distintos que conviene que tengas claros para no hacerte un lío.</p>
+
+<h2 id="41-arquitecturas-físicas-multinivel-multitier">4.1 Arquitecturas FÍSICAS multinivel (multitier)</h2>
+
+<p>Hablamos indistintamente de “arquitectura de una aplicación web” para referirnos a dos cosas distintas: la arquitectura física y la arquitectura lógica. Y ahí empiezan los líos.</p>
+
+<p>Vamos a intentar desliarnos antes de apretar el nudo.</p>
+
+<p>Una <strong>arquitectura física de varios niveles</strong> (multinivel o multitier, en inglés) consiste en un conjunto de ordenadores conectados a una red que ejecutan de forma conjunta una aplicación.</p>
+
+<p>El ejemplo más sencillo es la arquitectura cliente-servidor, la más popular en aplicaciones web sencillas: una máquina cliente y una máquina servidor ejecutan alternativamente fragmentos del código, proporcionando al usuario final la sensación de una aplicación unificada.</p>
+
+<p><img src="/assets/images/04-arquitectura-2-niveles.png" alt="Arquitectura en 2 niveles" /></p>
+
+<p>Por supuesto, nada impide que tengamos más de dos máquinas colaborando en red par ejecutar una aplicación web. Podemos tener, por ejemplo, un cliente, un servidor web y un servidor de bases de datos (estos dos últimos en dos máquinas físicas diferentes). Esto sería una arquitectura de 3 niveles físicos.</p>
+
+<p>La arquitectura de N niveles tendría este aspecto:</p>
+
+<p><img src="/assets/images/04-arquitectura-N-niveles.png" alt="Arquitectura en N niveles" /></p>
+
+<h2 id="42-arquitecturas-lógicas-multicapa-multilayer">4.2 Arquitecturas LÓGICAS multicapa (multilayer)</h2>
+
+<p>Ahora viene la vuelta de tuerca: la arquitectura de una aplicación también puede referirse a sus capas (layers) lógicas. Es decir, a las capas de software que nosotros, como desarrolladores, crearemos.</p>
+
+<p>Dividir una aplicación en capas que colaboran entre sí por medio de interfaces bien definidos no es una idea nueva, ni pertenece exclusivamente al ámbito de la programación web. Pero la mayor parte de las aplicaciones web hacen uso de este mecanismo de abstracción.</p>
+
+<p>La idea es dividir nuestra aplicación en capas de niveles de abstracción cada vez mayor. La capa superior (la más abstracta) es la que interacciona con el usuario: ahí se implementará nuestro interfaz de usuario, o lo que en aplicaciones web se llama <em>front-end</em>.</p>
+
+<p>La capa inferior (la menos abstracta) es la que está en contacto con el hardware de la máquina. Bueno, con el hardware no: debajo de ella habrá otras capas que ya no pertenecen a nuestra aplicación y que se encargarán de ello: el sistema operativo, el servidor, el gestor de bases de datos, o lo que sea. Pero nuestra capa inferior será la que interactúe con esas otras capas que escapan a nuestros dominios y que están en contacto con la máquina.</p>
+
+<p>Esta división en capas de abstracción, que puede parecer al neófito una complicación innecesaria, tiene un montón de ventajas y por eso se usa en cualquier aplicación un poco más complicada que “Hola, mundo”.</p>
+
+<h3 id="421-ventajas-de-las-arquitecturas-multicapa">4.2.1. Ventajas de las arquitecturas multicapa</h3>
+
+<p>Las arquitecturas multicapa permiten varias cosas que no pueden hacerse con los códigos monolíticos. Entre otras:</p>
+
+<ul>
+  <li>Desarrollar en paralelo cada capa (mayor rapidez de desarrollo).</li>
+  <li>Aplicaciones más robustas (gracias al encapsulamiento. ¿Te suena? ¡Programación orientada a objetos!).</li>
+  <li>Matenimiento más sencillo.</li>
+  <li>Más flexibilidad para añadir módulos.</li>
+  <li>Más escalabilidad para aumentar rendimiento.</li>
+  <li>Más seguridad, al poder aislar (relativamente) cada capa del resto.</li>
+  <li>Mejor escalabilidad: es más fácil hacer crecer al sistema.</li>
+  <li>Mejor rendimiento (aunque esto podría discutirse: puedes hacer un sistema multicapa con un rendimiento desastroso y un sistema monolítico que vaya como un tiro. Pero, en general, es más fácil mejorar el rendimiento trabajando en cada capa por separado).</li>
+  <li>Es más fácil hacer el control de calidad, incluyendo la fase de pruebas.</li>
+</ul>
+
+<h3 id="422-esquema-modelo-vista-controlador-mvc">4.2.2. Esquema Modelo-Vista-Controlador (MVC)</h3>
+
+<p>Y por fin llegamos a la palabreja: Modelo-Vista-Controlador o MVC. ¿Qué narices es esto?</p>
+
+<p>Tan solo una arquitectura multicapa estandarizada. Una arquitectura de 3 capas, para ser exactos.</p>
+
+<p>Este es el esquema de una arquitectura en 3 capas. Recuerda: cada capa ejecuta una parte de la solución, y entre ellas colaboran para formar la aplicación completa. La capa superior interactúa con el usuario; la capa inferior, con la máquina (donde dice “hardware”, debería decir “cualquier cosa menos abstracta que nuestro programa”). Tienes permiso para imaginar cada capa como una clase con sus métodos y atributos.</p>
+
+<p><img src="/assets/images/04-arquitectura-3-capas.png" alt="Arquitectura en 3 capas" /></p>
+
+<p>Pues bien, si a esas tres les ponemos nombres exóticos como modelo, vista y controlador, y remeneamos un poco el esquema, ya lo tenemos: la arquitectura MVC.</p>
+
+<p><img src="/assets/images/04-arquitectura-mvc.png" alt="Arquitectura MVC" /></p>
+
+<p>Es decir, la arquitectura MVC solo es un caso particular de la arquitectura en 3 capas.</p>
+
+<p>¿Y ya está? Bueno, no. Ahora tienes que aprender qué signfica <em>en realidad</em> esta palabrería.</p>
+
+<p>Para que tengas una idea completa del asunto, ahora tienes que aprender qué parte de la aplicación se ejecuta en cada una de las capas. Pero es más simple de lo que parece. Y lo maravilloso es que el 99,99% de las aplicaciones web encajan como un guante en esta arquitectura. Es decir, apenas tendremos que hacer trabajo de diseño previo, porque, si es una aplicación web, ya sabemos qué clases tendremos que construir: los que nos indique la arquitectura MVC.</p>
+
+<p>Antes de entrar en profundidad, un breve apunte: por supuesto, nada impide construir arquitecturas con más de 3 capas. De hecho, nosotros vamos a usar una variante del MVC en el que se añade una capa adicional por debajo del modelo, es decir, una arquitectura con 4 capas. Pero ya llegaremos a eso.</p>
+
+<h2 id="43-patrones-de-software">4.3. Patrones de software</h2>
+
+<p>Los <strong>patrones de software</strong> son soluciones comprobadas a problemas comunes en el desarrollo de software.</p>
+
+<p>Para que un patrón pueda considerarse tal cosa, tiene que cumplir estas condiciones:</p>
+
+<ul>
+  <li>Debe haber sido comprobado en otros sistemas.</li>
+  <li>Debe ser fácilmente reutilizable.</li>
+  <li>Debe ser aplicable a diferentes circunstancias.</li>
+  <li>Debe estar bien documentado.</li>
+</ul>
+
+<p>La documentación típica de un patrón de software incluye:</p>
+
+<ul>
+  <li>Problema que resuelve.</li>
+  <li>Contexto en el que es aplicable.</li>
+  <li>Fuerzas, objetivos y restricciones.</li>
+  <li>Solución que propone.</li>
+  <li>Ejemplos.</li>
+  <li>Contexto resultante.</li>
+  <li>Exposición razonada.</li>
+  <li>Otros patrones relacionados.</li>
+</ul>
+
+<h3 id="442-tipos-de-patrones">4.4.2. Tipos de patrones:</h3>
+
+<p>Dependiendo del grado de abstracción del patrón, existen patrones de diverso tipo:</p>
+
+<ul>
+  <li>De arquitectura</li>
+  <li>De diseño</li>
+  <li>De creación de objetos</li>
+  <li>De estructura de clases</li>
+  <li>De comportamiento</li>
+  <li>De dialectos</li>
+  <li>De interacción o interfaz de usuario</li>
+  <li>De análisis</li>
+  <li>De dominio</li>
+</ul>
+
+<p>Quizá no te sorprenda oír que el esquema MVC se considera un <strong>patrón de software de arquitectura</strong>.</p>
+
+<h3 id="443-ejemplo-de-patrón-el-patrón-singleton">4.4.3. Ejemplo de patrón: el patrón Singleton</h3>
+
+<p>Antes de centrarnos en MVC, vamos a ver, solo a modo de ejemplo, otro tipo de patrón: <strong>el patrón Singleton</strong>.</p>
+
+<p>Algunos recursos en una aplicación son de tal naturaleza que sólo puede existir una instancia de ese tipo de recurso. Por ejemplo, la conexión a la base de datos a través de un manejador de base de datos. A veces interesa compartir un manejador de base de datos para que el resto de recursos no tengan que conectarse y desconectarse continuamente de la BD, y sólo debería existir una instancia de ese manejador.</p>
+
+<p>El patrón Singleton cubre esta necesidad. Un objeto es “singleton” si la aplicación puede generar una y sólo una instancia del mismo.</p>
+
+<p>Esta es una implementación reutilizable de ese patrón:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s2">"DB.php"</span><span class="p">);</span>
+
+<span class="kd">class</span> <span class="nc">DatabaseConnection</span>
+<span class="p">{</span>
+  <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="n">get</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">static</span> <span class="nv">$db</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="nv">$db</span> <span class="o">==</span> <span class="kc">null</span> <span class="p">)</span>
+      <span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DatabaseConnection</span><span class="p">();</span>
+    <span class="k">return</span> <span class="nv">$db</span><span class="p">;</span>
+  <span class="p">}</span>
+  
+  <span class="k">private</span> <span class="nv">$_handle</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+
+  <span class="k">private</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="nv">$dsn</span> <span class="o">=</span> <span class="s1">'mysql://root:password@localhost/photos'</span><span class="p">;</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">_handle</span> <span class="o">=&amp;</span> <span class="no">DB</span><span class="o">::</span><span class="nf">Connect</span><span class="p">(</span> <span class="nv">$dsn</span><span class="p">,</span> <span class="k">array</span><span class="p">()</span> <span class="p">);</span>
+  <span class="p">}</span>
+  
+  <span class="k">public</span> <span class="k">function</span> <span class="n">handle</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">_handle</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">print</span><span class="p">(</span> <span class="s2">"Handle = "</span><span class="mf">.</span><span class="nc">DatabaseConnection</span><span class="o">::</span><span class="nf">get</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">handle</span><span class="p">()</span><span class="mf">.</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="p">);</span>
+<span class="k">print</span><span class="p">(</span> <span class="s2">"Handle = "</span><span class="mf">.</span><span class="nc">DatabaseConnection</span><span class="o">::</span><span class="nf">get</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">handle</span><span class="p">()</span><span class="mf">.</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h2 id="45-el-patrón-mvc-en-la-práctica">4.5. El patrón MVC en la práctica</h2>
+
+<p>Tras esta introducción, vamos a estudiar a fondo el patrón MVC. Y lo vamos a hacer por medio de un ejemplo, que es como mejor suelen comprenderse estas cosas. Una vez terminado y comprendido el ejemplo, daremos una definición forma del patrón MVC.</p>
+
+<p>Si lees el código fuente con atención, verás como, al acabar, entenderás perfectamente en qué consiste el MVC y podrás empezar a aplicarlo en tus proyectos.</p>
+
+<p>El ejemplo con el que vamos a trabajar es este: supongamos que queremos programar una pequeña aplicación web que nos permita hacer publicaciones en una especie de blog simplificado. Esas publicaciones se guardan como registros en una tabla de una base de datos.</p>
+
+<p>En el código de ejemplo sobre el que vamos a trabajar, nos vamos a centrar en obtener de la base de datos el listado de los artículos existentes para mostrarlo en una página HTML.</p>
+
+<h3 id="451-código-monolítico">4.5.1. Código monolítico</h3>
+
+<p>Una primera aproximación a la solución, sin usar ningún patrón de arquitectura en absoluto, podría ser esta (échale un vistazo y asegúrate de entenderlo):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?</span>
+  <span class="c1">// Conectamos con la base de datos</span>
+  <span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">mysqli</span><span class="p">(</span><span class="s1">'host'</span><span class="p">,</span> <span class="s1">'usuario'</span><span class="p">,</span> <span class="s1">'clave'</span><span class="p">,</span> <span class="s1">'dbname'</span><span class="p">);</span>
+  <span class="c1">// Lanzamos una consulta para recuperar los datos que necesitamos</span>
+  <span class="nv">$resultado</span><span class="o">=</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s1">'SELECT fecha, titulo FROM articulo'</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+// Generamos una tabla con el resultado de la consulta
+<span class="nt">&lt;h1&gt;</span>Listado de Artículos<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;table&gt;</span>
+     <span class="nt">&lt;tr&gt;</span> <span class="nt">&lt;th&gt;</span>Fecha<span class="nt">&lt;/th&gt;</span> <span class="nt">&lt;th&gt;</span>Titulo<span class="nt">&lt;/th&gt;</span> <span class="nt">&lt;/tr&gt;</span>
+<span class="cp">&lt;?php</span>
+  <span class="c1">// Recorremos fila a fila el resultado de la consulta</span>
+  <span class="k">while</span> <span class="p">(</span><span class="nv">$fila</span> <span class="o">=</span> <span class="nv">$resultado</span><span class="o">-&gt;</span><span class="nf">fetch_array</span><span class="p">())</span>  <span class="p">{</span>
+      <span class="k">echo</span> <span class="s2">"&lt;tr&gt;"</span><span class="p">;</span>
+      <span class="k">echo</span> <span class="s2">"&lt;td&gt; "</span><span class="mf">.</span><span class="nv">$fila</span><span class="p">[</span><span class="s1">'fecha'</span><span class="p">]</span><span class="mf">.</span><span class="s2">" &lt;/td&gt;"</span><span class="p">;</span>
+      <span class="k">echo</span> <span class="s2">"&lt;td&gt; "</span><span class="mf">.</span><span class="nv">$fila</span><span class="p">[</span><span class="s1">'titulo'</span><span class="p">]</span><span class="mf">.</span><span class="s2">" &lt;/td&gt;"</span><span class="p">;</span>
+      <span class="k">echo</span> <span class="s2">"&lt;/tr&gt;"</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">echo</span> <span class="s2">"&lt;/table&gt;"</span><span class="p">;</span>
+  <span class="c1">// Cerramos la conexión con la BD</span>
+  <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">close</span><span class="p">();</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>Esta solución se denomina <strong>monolítica</strong>, porque incluye todo el código necesario en el mismo bloque. Por supuesto, para un ejemplo tan simple como este, el código monolítico es más que suficiente, pero en un sistema más complejo pronto empieza a convertirse en un monstruo inmanejable.</p>
+
+<h3 id="452-primera-mejora-controlador--vista">4.5.2. Primera mejora: controlador + vista</h3>
+
+<p>Vamos a aproximarnos un poco a la solución MVC separando ese código monolítico en dos bloques (que guardaremos en archivos distintos):</p>
+
+<ul>
+  <li>Un controlador.</li>
+  <li>Una vista.</li>
+</ul>
+
+<p>Primero, el <strong>controlador</strong>. Se encargará de recuperar los datos, pero <em>no de mostrarlos</em>. Generar el interfaz de usuario, es decir, el HTML, será la labor que le dejaremos a la vista. El controlador preparará esos datos y los empaquetará en un array para que estén disponibles en la vista. Y la vista la insertaremos en el controlador con un include().</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?</span>
+  <span class="c1">// Este es el controlador (esta aplicación solo realiza una acción)</span>
+
+  <span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">mysqli</span><span class="p">(</span><span class="s1">'localhost'</span><span class="p">,</span> <span class="s1">'usuario'</span><span class="p">,</span> <span class="s1">'clave'</span><span class="p">,</span> <span class="s1">'dbname'</span><span class="p">);</span>
+  <span class="nv">$resultado</span><span class="o">=</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s1">'SELECT fecha, titulo FROM articulo'</span><span class="p">);</span>
+
+  <span class="nv">$articulos</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+  <span class="k">while</span> <span class="p">(</span><span class="nv">$fila</span> <span class="o">=</span> <span class="nv">$resultado</span><span class="o">-&gt;</span><span class="nf">fetch_array</span><span class="p">())</span>  <span class="p">{</span>
+      <span class="nv">$articulos</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$fila</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">close</span><span class="p">();</span>
+
+  <span class="k">include</span><span class="p">(</span><span class="s1">'vista.php'</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>La <strong>vista</strong> que mostrará los datos del array contiene un código muy semejante al de la solución monolítica, solo que ahora estará ubicada en un archivo aparte, llamado vista.php, y hará un bucle sobre el array de resultados que le ha preparado el controlador:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;h1&gt;</span>Listado de Articulos<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;table&gt;</span>
+     <span class="nt">&lt;tr&gt;</span> <span class="nt">&lt;th&gt;</span>Fecha<span class="nt">&lt;/th&gt;</span> <span class="nt">&lt;th&gt;</span>Titulo<span class="nt">&lt;/th&gt;</span> <span class="nt">&lt;/tr&gt;</span>
+<span class="cp">&lt;?php</span> <span class="k">foreach</span><span class="p">(</span><span class="nv">$articulos</span> <span class="k">as</span> <span class="nv">$articulo</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;tr&gt;</span>
+        <span class="nt">&lt;td&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$articulo</span><span class="p">[</span><span class="s1">'fecha'</span><span class="p">]</span><span class="cp">?&gt;</span><span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;td&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$articulo</span><span class="p">[</span><span class="s1">'titulo'</span><span class="p">]</span><span class="cp">?&gt;</span><span class="nt">&lt;/td&gt;</span>
+    <span class="nt">&lt;/tr&gt;</span>
+<span class="cp">&lt;?php</span> <span class="k">endforeach</span><span class="p">;</span><span class="cp">?&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+</code></pre></div></div>
+
+<h3 id="453-segunda-mejora-modelo-vista-y-controlador">4.5.3. Segunda mejora: modelo, vista y controlador</h3>
+
+<p>En esta segunda mejora, dividiremos el código en tres bloques (ubicados, de nuevo, en archivos diferentes):</p>
+
+<ul>
+  <li>Un modelo (archivo model.php) –&gt; Contendrá una clase con un método que se encargará de acceder a la base de datos y empaquetar el resultado de la consulta en un array.</li>
+  <li>Una vista (archivo view.php) –&gt; Se encargará de generar el HTML con el resultado de la consulta.</li>
+  <li>Un controlador (archivo index.php) –&gt; Se encargará de invocar al modelo y a la vista en el orden correcto.</li>
+</ul>
+
+<p>Por lo tanto, el <strong>controlador</strong> se queda en algo tan sencillo como esto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">include</span><span class="p">(</span><span class="s1">'model.php'</span><span class="p">);</span>	  <span class="c1">// En este archivo estará el modelo</span>
+<span class="nv">$articulos</span> <span class="o">=</span> <span class="nc">Model</span><span class="o">::</span><span class="nf">getAll</span><span class="p">();</span>
+<span class="k">require</span><span class="p">(</span><span class="s1">'view.php'</span><span class="p">);</span>		<span class="c1">// En este archivo estará la vista</span>
+</code></pre></div></div>
+
+<p>El <strong>modelo</strong> consta de una clase con un método (de momento) encargado de consultar todos los artículos y devolverlos empaquetados en un array:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kd">class</span> <span class="nc">Model</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="n">getAll</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">mysqli</span><span class="p">(</span><span class="s1">'localhost'</span><span class="p">,</span> <span class="s1">'usuario'</span><span class="p">,</span> <span class="s1">'clave'</span><span class="p">,</span> <span class="s1">'dbname'</span><span class="p">);</span>
+    <span class="nv">$resultado</span><span class="o">=</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s1">'SELECT fecha, titulo FROM articulo'</span><span class="p">);</span>
+
+    <span class="nv">$articulos</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nv">$fila</span> <span class="o">=</span> <span class="nv">$resultado</span><span class="o">-&gt;</span><span class="nf">fetch_array</span><span class="p">())</span>  <span class="p">{</span>
+        <span class="nv">$articulos</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$fila</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">close</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="nv">$articulos</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>Por último, la <strong>vista</strong> será exactamente igual que en la versión anterior: un recorrido por el array de artículos para mostrarlos en formato HTML:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;h1&gt;</span>Listado de Articulos<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;table&gt;</span>
+     <span class="nt">&lt;tr&gt;</span> <span class="nt">&lt;th&gt;</span>Fecha<span class="nt">&lt;/th&gt;</span> <span class="nt">&lt;th&gt;</span>Titulo<span class="nt">&lt;/th&gt;</span> <span class="nt">&lt;/tr&gt;</span>
+<span class="cp">&lt;?php</span> <span class="k">foreach</span><span class="p">(</span><span class="nv">$articulos</span> <span class="k">as</span> <span class="nv">$articulo</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;tr&gt;</span>
+        <span class="nt">&lt;td&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$articulo</span><span class="p">[</span><span class="s1">'fecha'</span><span class="p">]</span><span class="cp">?&gt;</span><span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;td&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$articulo</span><span class="p">[</span><span class="s1">'titulo'</span><span class="p">]</span><span class="cp">?&gt;</span><span class="nt">&lt;/td&gt;</span>
+    <span class="nt">&lt;/tr&gt;</span>
+<span class="cp">&lt;?php</span> <span class="k">endforeach</span><span class="p">;</span><span class="cp">?&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+</code></pre></div></div>
+
+<h3 id="454-tercera-mejora-añadiendo-capa-de-abstracción-de-datos">4.5.4. Tercera mejora: añadiendo capa de abstracción de datos</h3>
+
+<p>Como no sabemos lo que es el miedo, vamos a complicar nuestro patrón modelo-vista-controlador con una cuarta capa: la capa de abstracción de datos.</p>
+
+<p>La idea de esta capa adicional es proporcionar un mecanismo de abstracción respecto del gestor de base de datos concreto que estemos utilizando.</p>
+
+<p>Si te fijas en el <strong>modelo</strong> de la solución anterior, verás que estamos usando una clase (mysqli) y unos métodos que solo funcionan con MySQL o MariaDB. Si quiséramos cambiar el gestor de base de datos, tendríamos que revisar todos nuestros modelos.</p>
+
+<p>Una forma de independizar la aplicación del gestor de base de datos es programar una <strong>capa de abstracción</strong> que contenga dos o tres métodos genéricos (como consultar() para lanzar SELECT o manipular() para lanzar INSERT, UPDATE o DELETE).</p>
+
+<p>De ese modo, cuando queramos hacer una consulta desde el modelo, no lo haremos con los métodos de MySQL o de otro gestor de bases de datos,  que traduzcan una petición genérica (como consultar(“SELECT * FROM users”)) a una petición concreta para un gestor de base de datos (new mysqli(…), $db-&gt;query(), etc).</p>
+
+<p>Por lo tanto, en esta tercera mejor vamos a dividir el código en cuatro bloques:</p>
+
+<ul>
+  <li>Un controlador (archivo index.php).</li>
+  <li>Una vista (archivo view.php).</li>
+  <li>Un modelo en dos capas
+    <ul>
+      <li>Capa de abstracción de datos (dbabstract.php)</li>
+      <li>Capa de acceso a datos (el modelo propiamente dicho) (model.php).</li>
+    </ul>
+  </li>
+</ul>
+
+<p>El código de la <strong>capa de abstracción</strong> sería algo así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">DbAbstract</span> <span class="p">{</span>
+  <span class="k">private</span> <span class="nv">$db</span><span class="p">;</span>
+  <span class="k">function</span> <span class="n">crearConexion</span><span class="p">(</span><span class="nv">$servidor</span><span class="p">,</span> <span class="nv">$usuario</span><span class="p">,</span> <span class="nv">$clave</span><span class="p">,</span> <span class="nv">$dbname</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">mysqli</span><span class="p">(</span><span class="nv">$servidor</span><span class="p">,</span> <span class="nv">$usuario</span><span class="p">,</span> <span class="nv">$clave</span><span class="p">,</span> <span class="nv">$dbname</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">cerrarConexion</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$db</span><span class="p">)</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">close</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">consulta</span><span class="p">(</span><span class="nv">$consulta</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$res</span> <span class="o">=</span> <span class="nv">$db</span><span class="err">→</span><span class="nf">query</span><span class="p">(</span><span class="nv">$consulta</span><span class="p">);</span>
+    <span class="nv">$resArray</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$res</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nv">$resArray</span> <span class="o">=</span> <span class="nv">$res</span><span class="o">-&gt;</span><span class="nf">fetch_all</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nv">$resArray</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="mf">...</span><span class="n">etc</span><span class="mf">...</span> <span class="p">(</span><span class="n">añadimos</span> <span class="n">cualquier</span> <span class="n">función</span> <span class="n">que</span> <span class="n">acceda</span> <span class="n">directamente</span> <span class="n">a</span> <span class="nc">MySQL</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>El código del <strong>modelo</strong> va a hacer uso de la capa de abstracción:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">include</span> <span class="s2">"DbAbstract.php"</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Model</span> <span class="p">{</span>
+
+  <span class="k">public</span> <span class="k">function</span> <span class="n">getAllArticulos</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">dbAbstract</span><span class="p">();</span>
+    <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">crearConexion</span><span class="p">(</span><span class="s1">'localhost'</span><span class="p">,</span> <span class="s1">'usuario'</span><span class="p">,</span> <span class="s1">'clave'</span><span class="p">,</span> <span class="s1">'dbName'</span><span class="p">);</span>
+    <span class="nv">$articulos</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">consulta</span><span class="p">(</span><span class="s1">'SELECT fecha, titulo FROM articulo'</span><span class="p">);</span>
+    <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">cerrarConexion</span><span class="p">();</span>
+    <span class="k">return</span> <span class="nv">$articulos</span><span class="p">;</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>El <strong>controlador</strong> y la <strong>vista</strong> son exactamente los mismos que en la solución anterior.</p>
+
+<h3 id="455-cuarta-y-última-mejora-transformación-en-clases-y-objetos-reutilizables">4.5.5. Cuarta (y última) mejora: transformación en clases y objetos reutilizables</h3>
+
+<p>Para terminar, vamos a dejar el código bien organizado y a mostrarlo completo.</p>
+
+<p>Lo que haremos en esta última etapa es empaquetarlo todo en clases reutilizables. Observa que sigue siendo el mismo código fuente, solo que empaquetado en clases y métodos. Lo único que queda fuera de una clase es la instanciación del objeto controlador.</p>
+
+<p>Fíjate bien en cómo hemos convertido las vistas en una clase con un método show() que nos servirá para mostrar cualquier vista y reutilizar el mismo header y el mismo foorter. Cada vista se programará en un archivo independiente que deberemos organizar el directorios y subdirectorios.</p>
+
+<p>Otra cosa que quiero que observes con atención es el controlador, porque lo hemos dejado preparado para poder añadir nuevas funciones al programa con posterioridad. Este controlador te servirá de esqueleto para montar tus propias aplicaciones MVC.</p>
+
+<p><strong>index.php</strong></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$controlador</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Controller</span><span class="p">();</span>
+<span class="nv">$controlador</span><span class="o">-&gt;</span><span class="nb">main</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p><strong>controller.php</strong></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">include</span> <span class="p">(</span><span class="s2">"View.php"</span><span class="p">);</span>
+<span class="k">include</span> <span class="p">(</span><span class="s2">"Model.php"</span><span class="p">);</span>
+
+<span class="kd">class</span> <span class="nc">Controller</span> <span class="p">{</span>
+
+   <span class="k">public</span> <span class="k">function</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nv">$estado</span> <span class="o">=</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'do'</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'do'</span><span class="p">]</span> <span class="p">;</span> <span class="s2">"formLogin"</span><span class="p">);</span>
+
+      <span class="k">switch</span> <span class="p">(</span><span class="nv">$estado</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">case</span> <span class="s2">"formLogin"</span><span class="o">:</span> <span class="mf">...</span>
+         <span class="k">case</span> <span class="s2">"checkLogin"</span><span class="o">:</span> <span class="mf">...</span>
+         <span class="k">case</span> <span class="s2">"showAllArticles"</span><span class="o">:</span>
+             <span class="nv">$articulos</span> <span class="o">=</span> <span class="nc">Articulos</span><span class="o">::</span><span class="nf">getAllArticulos</span><span class="p">();</span>
+             <span class="nc">View</span><span class="o">::</span><span class="nf">show</span><span class="p">(</span><span class="s2">"showAllArticles"</span><span class="p">);</span>
+             <span class="k">break</span><span class="p">;</span> 
+         <span class="k">case</span> <span class="s2">"...etc..."</span><span class="o">:</span> <span class="mf">...</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>view.php</strong></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="kd">class</span> <span class="nc">View</span>
+<span class="p">{</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="n">show</span><span class="p">(</span><span class="nv">$nombreVista</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">include</span><span class="p">(</span><span class="s2">"header.php"</span><span class="p">);</span>
+      <span class="k">include</span><span class="p">(</span><span class="s2">"</span><span class="nv">$nombreVista</span><span class="s2">.php"</span><span class="p">);</span>
+      <span class="k">include</span><span class="p">(</span><span class="s2">"footer.php"</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><strong>showAllArticles.php</strong></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nt">&lt;h1&gt;</span>Listado de Articulos<span class="nt">&lt;/h1&gt;</span>
+   <span class="nt">&lt;table&gt;</span>
+        <span class="nt">&lt;tr&gt;</span> <span class="nt">&lt;th&gt;</span>Fecha<span class="nt">&lt;/th&gt;</span> <span class="nt">&lt;th&gt;</span>Titulo<span class="nt">&lt;/th&gt;</span> <span class="nt">&lt;/tr&gt;</span>
+   <span class="cp">&lt;?php foreach($articulos as $articulo): ?&gt;</span>
+       <span class="nt">&lt;tr&gt;</span>
+           <span class="nt">&lt;td&gt;</span><span class="cp">&lt;?php echo $articulo['fecha']?&gt;</span><span class="nt">&lt;/td&gt;</span>
+           <span class="nt">&lt;td&gt;</span><span class="cp">&lt;?php echo $articulo['titulo']?&gt;</span><span class="nt">&lt;/td&gt;</span>
+       <span class="nt">&lt;/tr&gt;</span>
+   <span class="cp">&lt;?php endforeach;?&gt;</span>
+   <span class="nt">&lt;/table&gt;</span>
+   <span class="nt">&lt;</span><span class="err">?</span><span class="na">php</span>
+    <span class="err">}</span>
+<span class="err">}</span>
+</code></pre></div></div>
+
+<p><strong>model.php</strong></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">include</span> <span class="s2">"dbabstract.php"</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Model</span> <span class="p">{</span>
+
+  <span class="k">public</span> <span class="k">function</span> <span class="n">getAll</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">dbAbstract</span><span class="p">();</span>
+    <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">crearConexion</span><span class="p">(</span><span class="s1">'localhost'</span><span class="p">,</span> <span class="s1">'usuario'</span><span class="p">,</span> <span class="s1">'clave'</span><span class="p">,</span><span class="s1">'dbName'</span><span class="p">);</span>
+    <span class="nv">$articulos</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">cosulta</span><span class="p">(</span><span class="s1">'SELECT fecha, titulo FROM articulo'</span><span class="p">);</span>
+    <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">cerrarConexion</span><span class="p">();</span>
+    <span class="k">return</span> <span class="nv">$articulos</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>dbabstract.php</strong></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">DbAbstract</span> <span class="p">{</span>
+  <span class="k">private</span> <span class="nv">$db</span><span class="p">;</span>
+  <span class="k">function</span> <span class="n">crearConexion</span><span class="p">(</span><span class="nv">$servidor</span><span class="p">,</span> <span class="nv">$usuario</span><span class="p">,</span> <span class="nv">$clave</span><span class="p">,</span> <span class="nv">$dbname</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">mysqli</span><span class="p">(</span><span class="nv">$servidor</span><span class="p">,</span> <span class="nv">$usuario</span><span class="p">,</span> <span class="nv">$clave</span><span class="p">,</span> <span class="nv">$dbname</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">cerrarConexion</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$db</span><span class="p">)</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">close</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">consulta</span><span class="p">(</span><span class="nv">$consulta</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$res</span> <span class="o">=</span> <span class="nv">$db</span><span class="err">→</span><span class="nf">query</span><span class="p">(</span><span class="nv">$consulta</span><span class="p">);</span>
+    <span class="nv">$resArray</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$res</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nv">$resArray</span> <span class="o">=</span> <span class="nv">$res</span><span class="o">-&gt;</span><span class="nf">fetch_all</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nv">$resArray</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="mf">...</span><span class="n">etc</span><span class="mf">...</span> <span class="p">(</span><span class="n">añadimos</span> <span class="n">cualquier</span> <span class="n">función</span> <span class="n">que</span> <span class="n">acceda</span> <span class="n">directamente</span> <span class="n">a</span> <span class="nc">MySQL</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="46-el-patrón-mvc-en-la-teoría">4.6. El patrón MVC en la teoría</h2>
+
+<p>Ahora que hemos aprendido a manejarnos con el patrón MVC por medio de un ejemplo, estamos en condiciones de definirlo de manera más teórica y, oh maravilla, incluso entender esa definición.</p>
+
+<p>El patrón MVC divide la aplicación en tres capas:</p>
+
+<ul>
+  <li>
+    <p><strong>Los modelos</strong>, donde se programa la <em>lógica de negocio</em>. De esa forma tan rimbombante se refiere la literatura técnica al acceso a los datos con los filtros, algoritmos y restricciones que el sistema imponga.</p>
+
+    <p>En la práctica, esto significa que en los modelos debemos colocar todo el código de acceso a la base de datos o a cualquier otro recurso del servidor (como las variables de sesión, por ejemplo). Los modelos deben empaquetarlos en objetos estándar de PHP (como arrays) y devolverlos al controlador.</p>
+
+    <p>Lo más práctico es crear un modelo para cada tabla maestra de la base de datos.</p>
+
+    <p>Los frameworks automatizan los métodos más típicos de cada modelo, como insertar un registro, borrar, actualizar, consultar uno o consultar todos.</p>
+  </li>
+  <li>
+    <p><strong>Las vistas</strong>, donde se programan todas las salidas HTML que el usuario final va a ver y con las que va a interactuar.</p>
+
+    <p>El código Javascript y CSS, por lo tanto, forma parte de las vistas.</p>
+
+    <p>En las vistas estará el grueso del código de cualquier aplicación. Los frameworks más avanzados incluyen sistemas de plantillas y lenguajes adicionales para simplificar este proceso, pero si programamos en PHP clásico, tendremos que construir las vistas manualmente.</p>
+  </li>
+  <li>
+    <p><strong>Los controladores</strong>, donde se captura cada petición del usuario y se dirige el flujo de ejecución, invocando a los modelos y a las vistas en el orden adecuado.</p>
+
+    <p>En una aplicación pequeña, bastará con tener un controlador para todo. Cuando la aplicación crece, suele hacerse un controlador por cada modelo, es decir, un controlador por cada tabla maestra.</p>
+
+    <p>Nuestros controladores van a estar compuestos por un switch muy grande con un case para cada funcionalidad de la aplicación. Ese switch estará dirigido por una variable de control. En los frameworks, este switch se transforma en una colección de métodos, lo cual proporciona un código mucho más elegante, pero que funcionalmente hace lo mismo.</p>
+  </li>
+</ul>
+
+:ET

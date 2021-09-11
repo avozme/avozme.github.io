@@ -1,0 +1,502 @@
+I"İ<h1 class="no_toc" id="apéndice-1-sistemas-de-control-de-versiones-git">Apéndice 1. Sistemas de control de versiones. Git</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#a11-sistemas-de-control-de-versiones" id="markdown-toc-a11-sistemas-de-control-de-versiones">A1.1. Sistemas de control de versiones</a>    <ul>
+      <li><a href="#a111-qué-es-un-sistema-de-control-de-versiones" id="markdown-toc-a111-qué-es-un-sistema-de-control-de-versiones">A1.1.1. ¿Qué es un sistema de control de versiones?</a></li>
+      <li><a href="#a112-cómo-funcionan-los-sistemas-de-control-de-versiones" id="markdown-toc-a112-cómo-funcionan-los-sistemas-de-control-de-versiones">A1.1.2. ¿Cómo funcionan los sistemas de control de versiones?</a></li>
+    </ul>
+  </li>
+  <li><a href="#a12-git-básico" id="markdown-toc-a12-git-básico">A1.2. Git básico</a>    <ul>
+      <li><a href="#a121-poniendo-en-marcha-git" id="markdown-toc-a121-poniendo-en-marcha-git">A1.2.1. Poniendo en marcha Git</a></li>
+      <li><a href="#a122-creando-un-repositorio-nuevo" id="markdown-toc-a122-creando-un-repositorio-nuevo">A1.2.2. Creando un repositorio nuevo</a></li>
+    </ul>
+  </li>
+  <li><a href="#a13-trabajo-básico-con-git" id="markdown-toc-a13-trabajo-básico-con-git">A1.3. Trabajo básico con Git</a>    <ul>
+      <li><a href="#a131-un-momento-staging-quéeee" id="markdown-toc-a131-un-momento-staging-quéeee">A1.3.1. Un momento… ¿Staging quéeee?</a></li>
+      <li><a href="#a132-hacer-commit" id="markdown-toc-a132-hacer-commit">A1.3.2. Hacer commit</a></li>
+      <li><a href="#a133-subir-el-commit-hacer-push" id="markdown-toc-a133-subir-el-commit-hacer-push">A1.3.3. Subir el commit: hacer push</a></li>
+      <li><a href="#a134-bajar-la-última-versión-del-código" id="markdown-toc-a134-bajar-la-última-versión-del-código">A1.3.4. Bajar la última versión del código</a></li>
+      <li><a href="#a135-resumiéndolo-todo-flujo-de-trabajo-habitual-con-git" id="markdown-toc-a135-resumiéndolo-todo-flujo-de-trabajo-habitual-con-git">A1.3.5. Resumiéndolo todo: flujo de trabajo habitual con git</a></li>
+    </ul>
+  </li>
+  <li><a href="#a14-algunas-cosillas-avanzadas-sobre-git" id="markdown-toc-a14-algunas-cosillas-avanzadas-sobre-git">A1.4. Algunas cosillas avanzadas sobre git</a>    <ul>
+      <li><a href="#a141-regreso-al-pasado-cómo-revertir-los-cambios" id="markdown-toc-a141-regreso-al-pasado-cómo-revertir-los-cambios">A1.4.1. Regreso al pasado: cómo revertir los cambios</a></li>
+      <li><a href="#a142-cuando-dos-personas-se-encaprichan-del-mismo-archivo" id="markdown-toc-a142-cuando-dos-personas-se-encaprichan-del-mismo-archivo">A1.4.2. Cuando dos personas se encaprichan del mismo archivo</a></li>
+      <li><a href="#a143-proyectos-que-se-complican-cómo-crear-ramas" id="markdown-toc-a143-proyectos-que-se-complican-cómo-crear-ramas">A1.4.3. Proyectos que se complican: cómo crear ramas</a></li>
+      <li><a href="#a144-aún-quieres-saber-más" id="markdown-toc-a144-aún-quieres-saber-más">A1.4.4. ¿Aún quieres saber más?</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="a11-sistemas-de-control-de-versiones">A1.1. Sistemas de control de versiones</h1>
+
+<p>Es inconcebible que un desarrollador trabaje en la actualidad sin un sistema de control de versiones.</p>
+
+<p>Fíjate que en la frase anterior no tiene cabida tu opinión. Lo siento, pero es lo que hay. No importa si te gustan estos sistemas o no. No importa si estás los usas de forma habitual o siempre has huido de ellos como de la peste. No importa si ni siquiera sabes qué son o cómo funcionan. Si quieres dedicarte profesionalmente al desarrollo de software, tienes que conocerlos porque te los vas a encontrar vayas donde vayas.</p>
+
+<h2 id="a111-qué-es-un-sistema-de-control-de-versiones">A1.1.1. ¿Qué es un sistema de control de versiones?</h2>
+
+<p>Un sistema de control de versiones es un almacén en la nube pensado para equipos de desarrollo de software.</p>
+
+<p>Es decir, es como un Google Drive con esteroides.</p>
+
+<p>El sistema de control de versiones no solo sirve para que un puñado de usuarios (entre uno y miles) suban su código fuente a la nube para ponerlo a salvo de posibles problemas con las máquinas locales, sino que, además, permite:</p>
+
+<ul>
+  <li>Conservar absolutamente todo el historial de versiones previas.</li>
+  <li>Documentar cada cambio, de manera que siempre sea posible saber quién, cómo, dónde, cuándo y por qué escribió cada línea de código.</li>
+  <li>Revertir el estado del software a un estado anterior en cualquier momento.</li>
+  <li>Crear ramas o “estados alternativos” del software, que luego podrán fusionarse con otras ramas o abandonarse sin llegar a nada.</li>
+  <li>Crear “forks” o réplicas del sistema que luego podrán evolucionar de forma independiente (o volver a fusionarse con el contenido original).</li>
+  <li>Evitar conflictos cuando el mismo código fuente ha sido editado simultánemente por dos personas. Y, en caso de que estos conflictos ocurran, ayudar a resolverlos.</li>
+</ul>
+
+<p>Se trata de un buen puñado de funciones, ¿verdad? Ese es el motivo por el que absolutamente todas las organizaciones serias que se dedican a desarrollar software utilizan algún sistema de control de versiones.</p>
+
+<p>Pero es que incluso para un programador/a solitario, que trabaja de forma autónoma, las ventajas de usar uno de estos sistemas superan de lejos a los inconvenientes, porque… espera un momento… ¡Resulta que no tienen ningún inconveniente!</p>
+
+<p>Así que ya lo sabes: si aún no los usas, este es el momento de hacer un esfuerzo e incorporar un sistema de control de versiones a tu vida.</p>
+
+<h2 id="a112-cómo-funcionan-los-sistemas-de-control-de-versiones">A1.1.2. ¿Cómo funcionan los sistemas de control de versiones?</h2>
+
+<p>Existen muchos sistemas de control de versiones, aunque el mercado está dominado por unos pocos de ellos (CVS, Subversion, Mercurial, Bazaar y, sobre todo, Git). Cada uno tiene sus propias peculiaridades, pero suelen compartir varias características comunes:</p>
+
+<ul>
+  <li>El código fuente del proyecto (y todas sus versiones previas) se guarda en un servidor. Esa colección de código fuente se denomina <strong><em>repositorio</em></strong>. El servidor puede estar en Internet y pertenecer a una compañía externa, o puede estar en nuestra intranet, instalado en una de nuestras máquinas.</li>
+  <li>Los repositorios pueden ser remotos (si están en otra máquina distinta de la nuestra) o locales (si están en nuestra máquina).</li>
+  <li>Cuando trabajamos, lo hacemos sobre nuestro repositorio local. Cuando una funcionalidad del código se termina, el código fuente modificado se sube al repositorio remoto, para que el resto de miembros del equipo puedan disponer de él.</li>
+  <li>Si otra persona del equipo ha modificado los mismos archivos fuente que nosotros, el sistema de control de versiones no avisará durante la sincronización con el repositorio remoto y nos obligará a hacer manualmente una fusión de los archivos afectados, mostrándonos las diferentes versiones del mismo y las líneas de código que entran en conflicto, antes de completar la sincronización.</li>
+</ul>
+
+<p>La sincronización con el repositorio remoto, por lo tanto, no puede ser automática (como en Google Drive o Dropbox), sino que hemos de hacerla explícita, momento en el cual el sistema nos avisará de posibles conflictos. Esta es la única manera de resolver adecuadamente esos conflictos en proyectos donde haya mucha gente trabajando simultáneamente.</p>
+
+<h1 id="a12-git-básico">A1.2. Git básico</h1>
+
+<p>Git es, en la actualidad, el sistema de control de versiones más utilizado del mundo con diferencia. También es uno de los más completos y complejos. Así que, si aprendes a utilizar Git, podrás apañártelas con cualquier otro sistema de control de versiones.</p>
+
+<p>En esta sección vamos a ver cómo se usa Git a nivel básico. El acceso a las funciones avanzadas irá viniendo solo, con el tiempo y el uso.</p>
+
+<h2 id="a121-poniendo-en-marcha-git">A1.2.1. Poniendo en marcha Git</h2>
+
+<p>Git es un sistema de control de versiones de código abierto. De hecho, se creó inicialmente (y se sigue usando para ello) para desarrollar el núcleo de Linux. Eso quiere decir que cualquiera puede coger el código, modificarlos, adaptalo y distribuirlo.</p>
+
+<p>Por eso encontrarás multitud de implementaciones de Git, así como muchos servidores y clientes que lo usan. Todos son compatibles entre sí.</p>
+
+<p>Git crea repositorios locales y remotos que hay que mantener sincronizados manualmente. Eso quiere decir que, para usar Git, necesitas al menos:</p>
+
+<ul>
+  <li>Instalar un cliente de Git en tu ordenador de trabajo.</li>
+  <li>Instalar un servidor de Git en el ordenador donde vayas a alojar el repositorio remoto.</li>
+</ul>
+
+<p>Para el servidor Git, mucha gente utiliza servidores gratuitos disponibles en Internet. Los más conocidos de ellos son GitHub y GitLab. Son sitios web donde te registras y ¡voilà!, ya tienes disponible un servidor Git en línea para que funcione de repositorio remoto. Además, estos sitios proporcionan características adicionales muy convenientes, como sistemas de gestión de <em>issues</em> o tareas pendientes, gestión de proyectos, estadísticas, evaluación de la calidad de software, etc. También funcionan como redes sociales para desarrolladores.</p>
+
+<p>En fin, que, salvo que seas un paranoico de la seguridad o estés desarrollando código ultrasecreto para la NSA o el CSIF, usar GitHub o GitLab como repositorio remoto es la opción más interesante. Así que ya puedes registrarte en alguno de los dos.</p>
+
+<p>Después de eso, solo te queda instalarte en tu ordenador un cliente Git.</p>
+
+<p>Clientes Git hay muchos, algunos más bonitos que otros. Yo te recomiendo el cliente básico en modo texto, con el que tendrás que salirte a la consola y teclear comandos. Teclear comandos incomprensibles de forma rápida y segura siempre mola mucho de cara a los demás. A parte de eso, aprenderse los comandos básicos de Git te salvará la vida en algún momento de tu futuro profesional con toda seguridad, te lo aseguro, así que es una buena inversión de tiempo.</p>
+
+<p>Puedes encontrar los clientes oficiales de Git en la web del proyecto: https://git-scm.com/</p>
+
+<p>Cuando hayas aprendido a apañarte con los comandos, es posible que no quieras recurrir a los clientes gráficos, pero, por si acaso, te comento que existen mogollón de ellos que te permitirán sincronizar tus archivos con un solo clic y resolver conflictos de forma rápida y muy visual. Algunos de ellos son: GitHub Desktop (ofrecido por GitHub), GitKraken, Git Cola o Tortoise Git.</p>
+
+<p>Por último, ten en cuenta que todos los entornos de desarrollo medianamente potentes ofrecen una integración absoluta con Git. Es decir, que si usas Visual Studio Code, o Eclipse, o NetBeans, o muchos otros, no necesitarás ningún cliente git adicional, porque ya lo traen incorporado. Tan solo debes configurar la ruta el repositorio remoto y al local, y hala, a programar y a sincronizar como si no hubiera un mañana.</p>
+
+<h2 id="a122-creando-un-repositorio-nuevo">A1.2.2. Creando un repositorio nuevo</h2>
+
+<p>Vale, ya tenemos nuestra cuenta en GitHub o GitLab y hemos instalado un cliente Git en nuestra máquina. ¿Ahora qué?</p>
+
+<p>Podemos encontrarnos ante dos escenarios diferentes:</p>
+
+<ol>
+  <li>Voy a empezar un proyecto nuevo y quiero inicializar un repositorio en blanco.</li>
+  <li>Ya tengo mi código fuente (todo o una parte) escrito y quiero añadirlo a un repositorio git.</li>
+</ol>
+
+<p>Vamos a ver cómo proceder en cada caso. Lo haremos mostrando cómo se usa el cliente git de línea de comando. Desde los clientes gráficos, el proceso será parecido, pero tendrás que trastear con el cliente en cuestión o leerte su documentación para ver los detalles.</p>
+
+<h4 id="voy-a-empezar-un-proyecto-nuevo-y-quiero-inicializar-un-repositorio-en-blanco">Voy a empezar un proyecto nuevo y quiero inicializar un repositorio en blanco.</h4>
+
+<ol>
+  <li>Abre un terminal de línea de comandos y muévete al directorio donde tienes pensado crear tu código fuente. Usa para ello los comandos <em>cd directorio</em> (para cambiar de directorio) o <em>mk directorio</em> (para crear un directorio nuevo).&lt;/li&gt;</li>
+  <li>
+    <p>Para crear un repositorio git local en el directorio elegido, simplemente teclea este comando:&lt;/li&gt;</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ git init
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Para conectar este repositorio local con un repositorio remoto en GitHub o GitLab, escribe a continuación este comando (sustituye URI por la dirección de tu repositorio que te habrá proporcionado GitHub o GitLab. Por ejemplo, en GitHub, una URI de repositorio tiene un aspecto como este: https://github.com/usuario/nombre-repositorio.git):</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ git remote add origin &lt;URI&gt;
+</code></pre></div>    </div>
+    <p>Obviamente, el repositorio remoto deberías haberlo creado antes desde la web de GitHub o GitLab.</p>
+  </li>
+</ol>
+
+<p>Eso es todo. A partir de ahora, podrás empezar a desarrollar tu código en local y a sincronizar tus archivos con el repositorio remoto cada vez que lo necesites. El procedimiento para hacer esto último lo describimos un poco más adelante.</p>
+
+<h4 id="ya-tengo-mi-código-fuente-y-quiero-añadirlo-a-un-repositorio-git">Ya tengo mi código fuente y quiero añadirlo a un repositorio git</h4>
+
+<p>Este caso es un poquito más complejo, pero tampoco mucho. Asegúrate de tener ya creado un repositorio (vacío) en GitHub o GitLab antes de seguir esta guía.</p>
+
+<ol>
+  <li>Abre un terminal de línea de comandos y muévete al directorio donde tengas tu código fuente. Usa para ello el comando cd <directorio>.</directorio></li>
+  <li>
+    <p>Para crear un repositorio git local en ese directorio, simplemente teclea este comando:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ git init
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Para conectar este repositorio local con un repositorio remoto en GitHub o GitLab, escribe a continuación este comando (sustituye <URI> por la dirección de tu repositorio que te habrá proporcionado GitHub o GitLab. Por ejemplo, en GitHub, una URI de repositorio tiene un aspecto como este: https://github.com/usuario/nombre-repositorio.git):</URI></p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ git remote add origin &lt;URI&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Edita el archivo .gitignore para incluir en él los archivos y directorios que no quieres incluir en el repositorio. Esto suele referirse a archivos de configuración, imágenes y otros recursos que no son parte intrínseca del código fuente o librerías de terceros. Más adelante hablaremos del archivo .gitignore con más detalle.</p>
+  </li>
+  <li>
+    <p>Haz tu primer commit para añadir todo el código fuente que ya tienes:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ git add *
+ $ git commit -m "Primer commit con todo el código preexistente"
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Sube el código de ese commit a tu repositorio remoto (te pedirá tu usuario y contraseña en GitHub o GitLab):</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ git push
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>Si ahora entras en tu perfil de GitHub o GitLab, verás que el repositorio remoto ya contiene todos los archivos que tenías en tu proyecto (excepto los que señalaste en .gitignore). Los repositorios local y remoto ya están creados y puedes empezar a trabajar con normalidad, escribiendo código y subiéndolo al repositorio remoto cuando lo necesites. Este proceso lo describiremos en detalle enseguida.</p>
+
+<p>Si no has entendido alguno de estos pasos, no te agobies. Enseguida te quedarán más claros.</p>
+
+<h4 id="más-cosas-sobre-la-inicialización-de-un-repositorio">Más cosas sobre la inicialización de un repositorio</h4>
+
+<p>Hay otro par de cosas que te interesa hacer al iniciarlizar un repositorio. Solo tendrás que hacerlo una vez y, después, tu repositorio lo recordará.</p>
+
+<p>Después del <em>git init</em>, puedes indicarle al repositorio qué usuario de GitHub o GitLab va a realizar los commits. Esto se hace así:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git --config user.name "Mi-nombre-de-usuario"
+$ git --config user.email "Mi-email"
+</code></pre></div></div>
+
+<p>Para comprobar que la información es correcta, simplemente teclea:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git --config list
+</code></pre></div></div>
+
+<h4 id="antes-de-continuar-no-te-olvides-de-gitignore">¡Antes de continuar! No te olvides de .gitignore</h4>
+
+<p>Una última cosita antes de describir cómo es el trabajo cotidiano con git y qué significa todo eso de los commits.</p>
+
+<p>Esa cosita es sobre el archivo <strong><em>.gitignore</em></strong>. Es un archivo muy importante que debería estar en el directorio raíz de tu proyecto. Si no existe, créalo. Ten en cuenta que en los sistemas GNU/Linux y Mac, los archivos cuyo nombre empiezan por un punto se consideran ocultos, por lo que es posible que el archivo esté ahí sin que lo veas.</p>
+
+<p>Ese archivo es muy importante porque contiene una lista de todas las cosas que no se deben subir al repositorio remoto. Esto incluye, entre otros:</p>
+
+<ul>
+  <li>
+    <p><strong>Los archivos de configuración</strong>. Es habitual en una aplicación web tener un archivo de configuración (llamado config.php o algo parecido) con un puñado de variables donde se guarda el host de la base de datos, el usuario y la contraseña para ese host, el nombre de la base de datos, etc. Y, vamos a ver, ¿de verdad quieres que cualquiera que acceda a tu repositorio de GitHub o GitLab vea esa información?</p>
+
+    <p>Además del problema de seguridad que puede suponerte (sobre todo si, como el 99% de los desarrolladores, usas el acceso root a tu servidor local de bases de datos mientras estás desarrollando un nuevo proyecto), es que no tiene sentido subir esa información al repositorio remoto, porque será diferente en cada servidor donde la aplicación se ponga en producción.</p>
+
+    <p>Lo que sí suele hacerse es crear un archivo de configuración de ejemplo (algo como config-example.php), donde se muestre la estructur que debe tener config.php pero se dejen en blanco los valores de las variables. Ese archivo sí que puede sincronizarse con el resto del código y subirse a GitHub o GitLab.</p>
+  </li>
+  <li>
+    <p><strong>Archivos de recursos que no forman parte de la aplicación</strong>. Imagina que estás programando una aplicación web para una biblioteca. Esa aplicación usa algunas imágenes para construir sus vistas (por ejemplo, una hermosa fotografía de un libro antiguo para el encabezamiento). Esas imágenes <strong>sí</strong> forman parte de la aplicación y <strong>sí</strong> deben subirse al repositorio remoto.</p>
+
+    <p>Pero imagina que, como es lógico, para probar la aplicación has creado un montón de libros falsos en tu base de datos local. Cada vez que añades un libro falso, le asignas una imagen de la portada (falsa también), que la aplicación almacenará en algún directorio del servidor local. Esas imágenes forman parte de los datos de prueba, no de la propia aplicación, y, por tanto <strong>no</strong> deberían subirse a GitHub ni GitLab. El directorio completo donde almacenes esas imagenes debería incluirse en .gitignore.</p>
+
+    <p>Si no lo haces así, llenarás el repositorio remoto de basurilla y, además, harás que ocupe mucho más espacio del necesario, hasta el extremo que una clonación del repositorio puede tardar varias horas y ocupar muchos gigabytes. Ten en cuenta que el repositorio no solo contiene el estado actual del proyecto, sino también <em>todos los estados anteriores</em>, lo que incluye todas las imágenes de libros falsos que hayas podido añadir alguna vez durante el desarrollo.</p>
+
+    <p>Esto no solo es aplicable a imágenes, sino a cualquier otro recurso que use la aplicación y que no forme parte de la propia aplicación: sonidos, fuentes tipográficas, vídeos, etc.</p>
+  </li>
+  <li>
+    <p><strong>Bibliotecas de terceros</strong>. A menudo, recurrimos a bibliotecas de terceros para usarlas en nuestra aplicación. Incluir ese código en nuestro repositorio nos puede meter en un embrollo legal (mírate bien la licencia de uso de <em>todas</em> las bibliotecas que vayas a utilizar) y, además, nos puede hacer engordar innecesariamente el repositorio. Tendrás que valorar una a una si es conveniente incluir determinada librería o no. Las librerías no incluidas deberán ser instaladas manualmente cuando la aplicación se despliegue en un servidor, lo cual deberás explicar muy bien en la documentación.</p>
+
+    <p>Por ejemplo, en el caso de Laravel, se aconseja no incluir la carpeta “vendor” en el repositorio remoto. Es decir, hay que añadir la carpeta “vendor” a .gitignore antes de la primera sincronización. En “vendor” se encuentran todas las librerías de terceros que usa Laravel. Entonces, para desplegar esta aplicación en un servidor, ¿de dónde sacamos todas esas librerías? Fácil: cuando despleguemos el código en un servidor, solo tendremos que ejecutar “composer update” en el directorio raíz de la aplicacion, y el propio composer se encargará de instalar las librerías.</p>
+  </li>
+</ul>
+
+<h1 id="a13-trabajo-básico-con-git">A1.3. Trabajo básico con Git</h1>
+
+<p>Bueno, pues ya tenemos nuestros repositorios inicializados, conectados con el remoto y con el archivo .gitignore a punto. ¿Qué hacemos ahora?</p>
+
+<p>Muy fácil: ponernos a trabajar como si git no existiera.</p>
+
+<p>Y luego, cuando des por finalizada una parte de la aplicación (un método, una clase, una funcionalidad concreta: tú decides cada cuánto tiempo haces esto), pasarla a la <strong><em>Staging Area</em></strong>.</p>
+
+<h2 id="a131-un-momento-staging-quéeee">A1.3.1. Un momento… ¿Staging quéeee?</h2>
+
+<p>La <strong><em>Staging Area</em></strong> es como la pista de despegue de Git.</p>
+
+<p>La idea es la siguiente: Git no quiere sincronizar tus archivos con el repositorio remoto de forma automática (como hacen las plataformas para el público general, como Google Drive o Dropbox), porque sabe que los programadores producimos mucha basura al cabo del día.</p>
+
+<p>Si cada vez que escribimos una basurilla, Git la sincronizara con el remoto, el resto de personas del proyecto estarían recibiendo nuestra basura de forma permanente. Y nosotros la de esas personas.</p>
+
+<p>Y esparcir basura no es una buena política.</p>
+
+<p>Así que Git quiere que seas muy consciente de cuándo quieres sincronizar algo, y de qué es lo que quieres sincronizar. Quiere que te tomes el trabajo (que tampoco es para tanto, la verdad) de tomarte medio minuto de tu tiempo para decirle: “eh, Git, he estado trabajando en estos dos archivos esta mañana y creo que <em>ahora</em> ya no son una basura”.</p>
+
+<p>Para eso sirve la Staging Area.</p>
+
+<p>Tienes que pasar los archivos que ya no son una basura a la Staging Area. Y tienes que hacerlo tú, generalmente cuando hayas terminado una funcionalidad y la hayas probado adecuadamente. Lo bastante como para que no te avergüence que otras personas del equipo reciban tu código.</p>
+
+<p>Para añadir archivos a la Staging Area se usa el comando git add, así:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git add archivo1 archivo2 archivo3 ...
+</code></pre></div></div>
+
+<p>Se pueden añadir directorios completos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git add directorio1 directorio2 ...
+</code></pre></div></div>
+
+<p>Y también se pueden usar símbolos comodín, como el asterisco. De modo que, si estás muy, pero que muy seguro/a de que todos los archivos que han andado tocando desde el último commit están en un estado aceptable, puedes hacer esto para que git se encargue de <em>añadir todos los archivos modificados recientemente a la Staging Area</em>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git add *
+</code></pre></div></div>
+
+<p>Por fin, cuando tengas una o varias cosas preparadas en la Staging Area… Bueno, entonces llega el momento de hacer un <strong>commit</strong>.</p>
+
+<h2 id="a132-hacer-commit">A1.3.2. Hacer commit</h2>
+
+<p>Un <strong>commit</strong> (palabra que podríamos traducir por “perpetrar”) consiste en empaquetar todos los cambios de la Staging Area para enviarlos a otro repositorio, normalmente el repositorio remoto.</p>
+
+<p>El decir, con el commit le decimos a Git: “quiero que prepares todo el código que te he puesto en la Staging Area a para enviarlo a GitHub” (o a dónde sea).</p>
+
+<p>Se puede hacer un commit por cada pequeña modificación que introducimos en la Staging Area, o se pueden preparar muchos archivos en la Staging Area y luego empaquetarlos en un único mega-commit. Eso lo decidís tú y tu equipo de desarrollo. Pero suele ser buena idea hacer commits de funcionalidades o tareas individuales.</p>
+
+<p>Es decir, si esta mañana he estado trabajando en dos funcionalidades, “Añadir usuarios nuevos” y “Modificar la vista de edición de usuarios”, es mejor que haga dos commits separados para cada una de esas funcionalidades.</p>
+
+<p>Esto es así porque, a cada commit, le tengo que añadir <strong><em>obligatoriamente</em></strong> un texto descriptivo donde indique qué cambios estoy subiendo con ese commit.</p>
+
+<p>El comando para hacer un commit es:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git commit -m "Mensaje"
+</code></pre></div></div>
+
+<p>Ahora saco mi bola de cristal y te digo: no tardarás ni una semana en empezar a hacer commits cuyo texto descriptivo será algo como “aslkdaslkjda”, “aaa”, “yoquésé”. Eso es una pésima idea. Antes o después, alguien del equipo meterá la pata, subirá un cambio indebido y todo el repositorio explotará. Entonces, intentaréis regresar a un estado en el que el código aún funcionaba, pero encontraréis un montón de commits con explicaciones incomprensibles como “aslkdaslkjda”, “aaa” y “yoquésé”. Y sudaréis tinta para descubrir cuál fue el commit explosivo.</p>
+
+<p>Los commits deben llevar textos descriptivos breves pero informativos. Por ejemplo: “Arreglo el fallo del id de usuario inexistente al actualizar foto de perfil” o “Elimino el botón de modificar de la vista de libros”.</p>
+
+<p>Pero, ¡ojo!, hacer commit <strong>no sube los archivos al repositorio remoto</strong>. Todavía no. Recuerda que Git quiere que estés muy seguro/a de que subes lo que realmente tienes que subir, así que aún te falta un último paso: hacer <strong><em>push</em></strong>.</p>
+
+<h2 id="a133-subir-el-commit-hacer-push">A1.3.3. Subir el commit: hacer push</h2>
+
+<p>El último paso para enviar nuestros cambios locales al repositorio remoto (típicamente, GitHub o GitLab) consiste en hacer <strong><em>push</em></strong>. Es decir, literalmente, “empujar” los cambios al repositorio remoto.</p>
+
+<p>La operación <em>push</em> enviará todos los commits que aún no se hayan enviado al repositorio remoto. A partir de ese momento, estarán disponibles para el resto de miembros del equipo. Pero solo a partir de ese momento.</p>
+
+<p>Para hacer push, basta con escribir:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git push
+</code></pre></div></div>
+
+<p>Lo normal es que el repositorio remoto te pida tu nombre de usuario y contraseña, pero eso dependerá de si el acceso a ese repositorio está autenticado o no. Por supuesto, tanto GitHub como GitLab te solicitarán que te identifiques.</p>
+
+<h2 id="a134-bajar-la-última-versión-del-código">A1.3.4. Bajar la última versión del código</h2>
+
+<p>Si podemos subir nuestros cambios al repositorio remoto, tendremos que tener una forma de bajar los cambios del resto de miembros del equipo, ¿verdad?</p>
+
+<p>Por supuesto, existe un comando para ello. Es este:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git pull
+</code></pre></div></div>
+
+<p>Es recomendable hacer pull antes de hacer push, por si alguien a tocado alguno de los archivos que nosotros pretendemos subir. En ese caso, Git nos avisará del conflicto y nos ayudará a resolverlo (más adelante veremos cómo). No podremos hacer push hasta resolver ese conflicto, para evitar pérdidas de código.</p>
+
+<h2 id="a135-resumiéndolo-todo-flujo-de-trabajo-habitual-con-git">A1.3.5. Resumiéndolo todo: flujo de trabajo habitual con git</h2>
+
+<p>Si resumimos lo dicho hasta ahora, tenemos que, después de inicializar el repositorio (cosa que hay que hacer solo una vez), el trabajo cotidiano con Git consiste en:</p>
+
+<ol>
+  <li>Desarrollar nuestra aplicación con normalidad.</li>
+  <li>Cuando terminamos de hacer algo, añadirlo a la Staging Area (git add).</li>
+  <li>Cada cierto tiempo, o cuando acabamos una funcionalidad, empaquetar todos los cambios que esperan en la Staging Area en un commit (git commit).</li>
+  <li>Bajarnos los commits del resto de miembros del equipo (git pull)</li>
+  <li>Subir nuestros commits al repositorio remoto (git push)</li>
+</ol>
+
+<p>Podemos verlo gráficamente en el siguiente esquema. Las tres primeras columnas (workspace, Staging Area y Local Repo) están en nuestro ordenador de trabajo. El repositorio remoto (Remote Repo) está en un servidor.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Workspace   Staging area (INDEX)  Local repo (HEAD)   Remote repo
+    |             |                     |                  |
+    | git add →   |                     |                  |
+    |             |    git commit →     |                  |
+    |             |                     |                  |
+    | ← ← ← ← ←   |     ← ← ← ← ←       |   ← git pull     |
+    |             |                     |                  |
+    |             |                     |    git push →    |
+    |             |                     |                  |
+    |             |                     |                  |
+</code></pre></div></div>
+
+<p>Un último apunte: te voy a chivar un comando muy útil de git cuando no estás muy seguro de qué archivos has estado tocando últimamente (¿a quién no le ha pasado eso? ¿Eh?). Este comando te resumirá el estado de tu repositorio local, indicándote qué archivos han sido modificados (pero no están en la Staging Area), qué archivos están preparados en la Staging Area (pero no en un commit) y, por supuesto, qué commits están hechos pero aún sin subir.</p>
+
+<p>Todo eso, gratis y tecleando este humilde comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git status
+</code></pre></div></div>
+
+<p>¿Es potente o no es potente este Git? Pues aún no has visto nada.</p>
+
+<h1 id="a14-algunas-cosillas-avanzadas-sobre-git">A1.4. Algunas cosillas avanzadas sobre git</h1>
+
+<p>Solo con lo que hemos visto hasta ahora (add, commit, push y pull) ya tienes suficiente para empezar a funcionar con git. Luego, conforme te surjan otras necesidades, puedes ir curioseando por internet para profundizar en ciertos aspectos.</p>
+
+<p>Una de esas “necesidades” que te surgirán antes o después consiste en lo siguiente:</p>
+
+<p>Imagínate la escena: un día llegas a clase después de haberte acosatado a las tantas trabajando en tu proyecto. Antes de acostarte hiciste un push para subir todos tus cambios y puedes jurar que todo funcionaba perfectamente. Pero ahora, tú y el resto de miembros de tu equipo acabáis de hacer pull y… ¡BUM! El proyecto entero salta por los aires. El homepage no carga. Otras rutas que <em>estás seguro</em> de que funcionaban hace unas horas ahora no responden.</p>
+
+<p>¿Qué narices ha pasado?</p>
+
+<p>Tranquilidad: ahí está Git para sacarte del embrollo.</p>
+
+<h2 id="a141-regreso-al-pasado-cómo-revertir-los-cambios">A1.4.1. Regreso al pasado: cómo revertir los cambios</h2>
+
+<p>Las causas de un desastre como ese pueden ser tantas que, en la práctica, es como si fueran infinitas. Un problema con el proxy, un merge mal hecho, una desconfiguración de uno de los servidores locales que ha afectado a algún archivo clave, un error de algún miembro del equipo que ha sobreescrito cientos de archivos con versiones incorrectas… Causas infinitas, como te digo.</p>
+
+<p>No suele compensar el esfuerzo de buscar la razón última de lo que ha ocurrido, salvo que os pase esto con cierta regularidad: entonces sí que es cuestión de preocuparse.</p>
+
+<p>La mayoría de las veces es un problema puntual que puede resolverse de un modo muy simple: volviendo a la última versión estable.</p>
+
+<p>En primer lugar, si lo que quieres es revertir cambios de los que <strong>aún no has hecho commit</strong>, es tan fácil como:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git reset --hard
+</code></pre></div></div>
+
+<p>Pero, la mayor parte de las veces, el problema viene de cambios de los que no solo ya se ha hecho commit, sino que incluso se han subido al repositorio remoto. ¿Cómo descartamos esos cambios para volver a un estado anterior?</p>
+
+<p>En primer lugar, si aún no lo has hecho, ejecuta un <strong>git pull</strong> para traerte la última versión del código a tu repositorio local.</p>
+
+<p>Luego, utiliza el comando <strong>git log</strong>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git log (muestra historial de cambios)
+$ git log --oneline (muestra historial de cambios simplificado)
+</code></pre></div></div>
+
+<p>Con esto obtendrás una lista, ordenada por cronología inversa (de más reciente a más antiguo), de todos los commits que has hecho en el repositorio. Observa que cada commit está identificado con un id único en hexadecimal. Cada id de commit está acompañado de su descripción.</p>
+
+<p>Si habéis sido cuidadosos con los commits y les habéis puesto descripciones representativas (y no “asdfasdf” o “aaa”), resutará fácil localizar en esa lista el commit causante del destrozo.</p>
+
+<p>A continuación, usa el comando <strong>git revert</strong> para regresar al commit <em>inmediatamente anterior</em> a aquel en el que se produjo el caos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git revert HEAD [main id-de-commit] revert "Mensaje del revert"
+</code></pre></div></div>
+
+<p>Lo que hace este comando es devolver tu repositorio local (HEAD) al commit “id-del-commit”. Pero, ojo, que no elimina todos los commits posteriores, sino que crea un nuevo commit (main) con el “Mensaje del revert” que le hayas indicado. En este nuevo commit habrá desaparecido todo el código conflictivo. El proyecto volverá a estar en un estado estable.</p>
+
+<p>Ahora bastará con hacer <strong>git push</strong> para subir el nuevo commit al repositorio remoto y que todos los miembros del equipo puedan replicarlo en sus máquinas.</p>
+
+<p>Es posible que, en el proceso, hayáis perdido algo de código valioso: todo depende de cuánto hayáis tenido que retroceder en el historial de commits hasta alcanzar un estado válido. Pero ese código en realidad no se ha perdido, porque los commits siguen ahí, en el historial de git.</p>
+
+<p>Existe una forma de poner el repositorio local en un commit concreto. Si lo haces y abres cualquier archivo fuente, lo encontrarás como estaba en ese commit, no como está en el último. ¿No es maravilloso? Así, podrás recuperar manualmente el código que pudiera haberse perdido al hacer el <em>git revert</em>.</p>
+
+<p>El comando que te permite saltar momentáneamente a cualquier commit es <strong>git checkout</strong>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git checkout id-del-commit
+</code></pre></div></div>
+
+<p>Ahora puedes ver y rescatar el código fuente válido sin temor: nada de lo que hagas en este estado afectará al tu proyecto, porque los cambios se perderán cuando salgas de este “viaje en el tiempo” (salvo que crees una nueva rama del proyecto, pero esa es otra historia).</p>
+
+<p>Y, para regresar al presente, es decir, al último commit, basta con teclear:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git checkout main
+</code></pre></div></div>
+
+<h2 id="a142-cuando-dos-personas-se-encaprichan-del-mismo-archivo">A1.4.2. Cuando dos personas se encaprichan del mismo archivo</h2>
+
+<p>Cuando ejecutas <em>git pull</em>, traes a tu repositorio local las versiones más recientes de todos los archivos del proyecto. Esto ya lo sabíamos.</p>
+
+<p>Si <em>git pull</em> se ejecuta sin contratiempos, aparecerá un mensaje informándote de ello.</p>
+
+<p>Pero los contratiempos existen, qué le vamos a hacer. La vida sería muy aburrida y predecible sin ellos.</p>
+
+<p>El contratiempo más habitual, con diferencia, al hacer <em>git pull</em> es el aviso de un conflicto el alguno de los archivos modificados en el repositorio remoto. Eso quiere decir que <em>tú</em> has estado tocando el código de un archivo <em>al mismo tiempo que otra persona de tu equipo</em>.</p>
+
+<p>Supongamos que, en un archivo A, tú has añadido las líneas A1, A2 y A3, mientras que otra persona ha añadido las líneas A4, A5 y A6. Si la otra persona ha subido el archivo A al repositorio remoto antes que tú, git se dará cuenta cuando intentes hacer <em>git pull</em> de que tu copia local del archivo y la que hay en el repositorio remoto no coinciden: no solo porque la tuya tiene las nuevas líneas A1, A2 y A3, sino porque a la tuya <em>le faltan</em> las líneas A4, A5 y A6.</p>
+
+<p>En ese caso, y para no perder ninguna de las nuevas líneas de código, git te mostrará un mensaje de advertencia y creará una versión nueva del archivo A en la que estarán <strong>todas las líneas de código nuevas, tanto las tuyas como las de la otra persona</strong>, rodeadas de unas marcas de texto como estas:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+        espacio
+    ============
+        Espacio
+    &gt;&gt;&gt;&gt;&gt;&gt;&gt; nueva-rama
+</code></pre></div></div>
+
+<p>Ahora, lo único que tienes que hacer es buscar manualmente esas líneas conflictivas y resolverlas a mano, es decir, quedarte con las líneas correctas y borrar las que no lo sean. Borra también todas las marcas que ha puesto ahi git para indicarte el conflicto.</p>
+
+<p>Si usas cualquier editor de texto medianamente potente, te mostrará esas líneas resaltadas e incluso te ayudará a encontrarlas.</p>
+
+<p>Una vez que hayas resuelto manualmente las líneas en conflicto, basta con guardar los cambios y hacer <em>git add</em> y <em>git commit -m “Resolviendo el conflicto bla,bl,bla”</em> para que el <em>git pull</em> y el <em>git push</em> vuelvan a funcionar a la perfección.</p>
+
+<h2 id="a143-proyectos-que-se-complican-cómo-crear-ramas">A1.4.3. Proyectos que se complican: cómo crear ramas</h2>
+
+<p>Imagina esta situación: tienes un proyecto ya en marcha, con una versión más o menos estable funcionando, y entonces surge la necesidad de desarrollar una nueva funcionalidad.</p>
+
+<p>Y esta nueva funcionalidad va a poner patas arriba una parte importante del código y va a dejar la aplicación hecha unos zorros durante un tiempo.</p>
+
+<p>Si trabajas con tu repositorio como hemos hecho hasta ahora, el resultado es que, durante ese tiempo, todo tu proyecto dejará de funcionar. No podrás hacer demos a los clientes (ni a tus profesores/as), no podrás probar la aplicación, no podrás cargarla con datos reales, etc. ¡Todo quedará paralizado hasta que la nueva funcionalidad esté en marcha!</p>
+
+<p>En un equipo de desarrollo grande, esta es una situación cotidiana que provocaría que gran parte de la gente se tuviera que quedar de brazos cruzados a la espera de la finalización de la nueva funcionalidad. Pero incluso en un equipo pequeño es un engorro llegar a este extremo.</p>
+
+<p>Para evitarlo, existen <strong>las ramas</strong> (<em>branches</em>) de Git.</p>
+
+<p>Una rama no es más que una copia del repositorio que puede evolucionar por su cuenta mientras la rama original permanece inalterada.</p>
+
+<p>Los desarrolladores/as que trabajen en esa rama pueden así trabajar en la nueva funcionalidad sin que el resto del equipo se vea afectado. Cuando la nueva funcionalidad se termine, lo único que hay que hacer es fusionar las dos ramas. Esto puede ser un trabajo ímprobo si se han estado modificando los mismos archivos en la rama principal y en la rama nueva, pero no se trata de un fallo de Git, que quede claro, sino de un fallo de organización del equipo.</p>
+
+<p>Y si la nueva funcionalidad nunca llega a terminarse (cosa que puede ocurrir por miles de razones), no pasa nada: la rama se elimina, o simplemente se abandona, y la rama principal sigue intacta.</p>
+
+<p>Crear una rama nueva es tan sencillo como usar este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git branch nombre-nueva-rama
+</code></pre></div></div>
+
+<p>El comando <em>git branch</em> tiene muchas otras posibilidades. Aquí te pongo unas cuantas:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git branch --list          (saca un listado de todas las ramas existentes)
+$ git branch -d nombre-rama  (elimina una rama)
+$ git branch -D nombre-rama  (elimina una rama a lo bestia, incluso si tiene cambios sin fusionar)
+$ git branch -m nuevo-nombre (cambia en nombre de la rama actual)
+</code></pre></div></div>
+
+<p>Ten en cuenta que, cuando creas una rama, <em>aún no estás trabajando en ella</em>. Si quieres cambiar a esa rama para empezar a trastear con ella sin tocar a la principal, debes hacer un <em>git checkout</em>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git checkout nombre-rama
+</code></pre></div></div>
+
+<p>Por último, para fusionar una rama con otra (típicamente, con la rama principal o <em>main</em>), tienes que seguir estos pasos:</p>
+
+<ol>
+  <li>Asegúrate de estar situado en la rama que va a recibir la fusión. Si esa rama es <em>main</em>, tienes que hacer:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ git checkout main
+</code></pre></div>    </div>
+  </li>
+  <li>Haz un <em>git pull</em> para tener disponible la última versión del código.</li>
+  <li>Realiza la fusión de las dos ramas con <em>git merge</em>:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ git merge nombre-rama
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>En este punto, tendrás que resolver manualmente los conflictos que puedan surgir (si los hay), como hemos explicado más arriba.</p>
+
+<h2 id="a144-aún-quieres-saber-más">A1.4.4. ¿Aún quieres saber más?</h2>
+
+<p>Git es un sistema de control de versiones increíblemente completo. Sus creadores parecen haber pensado en escenarios de lo más aberrante y han tenido en cuenta casi cada cosa que puede suceder en un proyecto complejo. Si no, no se explica la enorme cantidad de comandos y posibilidades que ofrece.</p>
+
+<p>Si necesitas saber más cosas sobre Git, internet está plagada de contenidos de calidad (y otros bastante penosos) sobre este sistema.</p>
+
+<p>Como siempre te recomiendo, acude en primer lugar a la referencia oficial: https://git-scm.com/docs</p>
+
+<p>Personalmente, a mí me gustan mucho los tutoriales de Atlassian. Aunque están orientados a BitBucket (un servicio competidor de GitHub o GitLab), casi todas sus recomendaciones son aplicables a cualquier servidor Git. Los puedes encontrar aquí: https://www.atlassian.com/es/git/tutorials</p>
+:ET

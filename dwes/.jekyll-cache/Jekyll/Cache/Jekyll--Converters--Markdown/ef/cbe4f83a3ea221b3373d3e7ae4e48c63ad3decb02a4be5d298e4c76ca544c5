@@ -1,0 +1,103 @@
+I",<h2 id="57-enrutamiento">5.7. Enrutamiento</h2>
+
+<p>Ya sabemos crear una aplicación Laravel simple (como “Hola, mundo”) y hemos aprendido varias cosas sobre el enrutador.</p>
+
+<p>En esta sección, profundizaremos en este componente fundamental de cualquier aplicación web.</p>
+
+<h3 id="571-qué-es-el-enrutador">5.7.1. ¿Qué es el enrutador?</h3>
+
+<p>El enrutador de Laravel es el componente que captura las URL solicitadas al servidor y las traduce a invocaciones a métodos de los controladores.</p>
+
+<p>El enrutador es capaz, además, de mapear fragmentos de la URL a variables PHP que serán inyectadas como parámetros a los métodos del controlador.</p>
+
+<p>También puede distinguir el verbo http empleado para solicitar una página al servidor. Es decir, para el enrutador no es lo mismo una solicitud enviada por GET que otra enviada por POST. Incluso admite verbos que aún no están soportados por http, como DELETE o PUT, y que teóricamente van a formar parte de futuras implementaciones del protocolo.</p>
+
+<h3 id="572-enrutamiento-básico">5.7.2. Enrutamiento básico</h3>
+
+<p>Como vimos en el ejemplo del “Hola, mundo”, hay varias formas de generar una salida HTML desde el enrutador (/routes/web.php). En este código de ejemplo vemos las más básicas:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Forma 1: generar la salida con un closure (función sin nombre)</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/hola'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">"Hola, mundo"</span><span class="p">;</span>
+<span class="p">});</span>
+
+<span class="c1">// Forma 2: llamar a un controlador sin pasarle parámetros</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/hola'</span><span class="p">,</span> <span class="s1">'HolaController@show'</span><span class="p">);</span>
+
+<span class="c1">// Forma 3: llamar a un controlador pasándole parámetros</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/hola/{nombre}'</span><span class="p">,</span> <span class="s1">'HolaController@show'</span><span class="p">);</span>
+
+<span class="c1">// Forma 4: llamar a un controlador con un parámetro optativo</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/hola/{nombre?}'</span><span class="p">,</span> <span class="s1">'HolaController@show'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="573-rutas-con-nombre">5.7.3. Rutas con nombre</h3>
+
+<p>Es MUY recomendable asignar un nombre a las rutas en el enrutador. Esto hace que, más adelante, podamos cambiar la URL de los enlaces sin tener que modificar el código fuente de nuestras vistas.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/contactame'</span><span class="p">,</span> <span class="s1">'Controlador@contacto'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'contact'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Internamente, esta ruta se direccionará con la expresión route(‘contact’) (ya veremos exactamente cómo), pero el usuario verá la dirección http://servidor/contactame.</p>
+
+<p>En el futuro se puede cambiar la forma en la que lo ve el usuario, pero para el código fuente seguirá siendo route(‘contact’)</p>
+
+<h3 id="574-verbos-http-get-post-put-y-delete">5.7.4. Verbos http: GET, POST, PUT y DELETE</h3>
+
+<p>Además de GET, en el enrutador se puede enrutar otras acciones:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">();</span>    <span class="c1">// Solicitudes habituales</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">post</span><span class="p">();</span>   <span class="c1">// Recepción de datos de formulario (para insert)</span>
+<span class="nc">Route</span><span class="o">::</span><span class="n">put</span><span class="o">|</span><span class="nf">patch</span><span class="p">();</span>  <span class="c1">// Recepción de datos para update</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nb">delete</span><span class="p">();</span> <span class="c1">// Recepción de datos para delete</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">match</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span><span class="s1">'POST'</span><span class="p">),</span> <span class="s1">'ruta'</span><span class="p">,</span> <span class="n">acción</span><span class="p">)</span>
+                 <span class="c1">// Responderá tanto a GET como a POST</span>
+</code></pre></div></div>
+
+<p>Los métodos de formulario PUT y DELETE no están soportados aún por http ni por HTML. Hay que emularlos en los formularios así:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"/foo/bar"</span> <span class="na">method=</span><span class="s">"POST"</span><span class="nt">&gt;</span>
+    @method('DELETE')
+</code></pre></div></div>
+
+<h3 id="575-orden-de-las-rutas">5.7.5. Orden de las rutas</h3>
+
+<p>El orden de las rutas es importante. Por ejemplo, si pedimos la dirección http://<mi-servidor>/usuario/crear, estas rutas fallarán:</mi-servidor></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'usuario/{nombre}'</span><span class="p">,</span> <span class="s1">'UsuarioController@show'</span><span class="p">);</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'usuario/crear'</span><span class="p">,</span> <span class="s1">'UsuarioController@create'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>El problema es que tratará de mostrar un contacto con nombre = “crear”, porque la petición encaja con las dos rutas y el enrutador siempre elegirá la primera ruta que encuentre.</p>
+
+<p>La solución pasa por alterar el orden de las líneas en el enrutador:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'usuario/crear'</span><span class="p">,</span> <span class="s1">'UsuarioController@create'</span><span class="p">);</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'usuario/{nombre}'</span><span class="p">,</span> <span class="s1">'UsuarioController@show'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="576-servidor-restful">5.7.6. Servidor RESTful</h3>
+
+<p>Un servidor RESTful es aquel que responde a la <a href="https://juanda.gitbooks.io/webapps/content/api/arquitectura-api-rest.html">arquitectura REST</a>.</p>
+
+<p>Típicamente, el enrutador de un servidor RESTful contendrá las 7 operaciones REST para cada recurso accesible desde la red.</p>
+
+<p>Por ejemplo, para un recurso llamado “usuario”, el enrutador tendrá estas 7 entradas:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'user'</span><span class="p">,</span> <span class="s1">'UserController@index'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'user.index'</span><span class="p">);</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'user/{user}'</span><span class="p">,</span> <span class="s1">'UserController@show'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'user.show'</span><span class="p">);</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'user/crear'</span><span class="p">,</span> <span class="s1">'UserController@create'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'user.create'</span><span class="p">);</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">post</span><span class="p">(</span><span class="s1">'user/{user}'</span><span class="p">,</span> <span class="s1">'UserController@store'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'user.store'</span><span class="p">);</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'user/{user}/edit'</span><span class="p">,</span> <span class="s1">'UserController@edit'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'user.edit'</span><span class="p">);</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">patch</span><span class="p">(</span><span class="s1">'user/{user}'</span><span class="p">,</span> <span class="s1">'UserController@update'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'user.update'</span><span class="p">);</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nb">delete</span><span class="p">(</span><span class="s1">'user/{user}'</span><span class="p">,</span> <span class="s1">'UserController@destroy'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'user.destroy'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>También se puede crear una entrada en el enrutador de este estilo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">resource</span><span class="p">(</span><span class="s1">'user'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Esa única ruta engloba a las siete rutas REST.</p>
+
+:ET

@@ -1,0 +1,116 @@
+I"�"<h2 id="514-helpers-de-laravel">5.14. Helpers de Laravel</h2>
+
+<h3 id="5141-qué-son-los-helpers">5.14.1. ¿Qué son los helpers?</h3>
+
+<p>Un helper es un componente del framework diseñado para facilitar alguna tarea típica en el desarrollo de una aplicación web.</p>
+
+<p>Por ejemplo: el helper url(‘ruta’) genera una ruta absoluta para referenciar cualquier componente de la aplicación:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">'{{ url('</span><span class="err">/</span><span class="na">users</span><span class="err">/</span><span class="na">login</span><span class="err">')</span> <span class="err">}}</span><span class="nt">&gt;</span>Volver<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+<p>Generará este código:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">'https://miservidor.com/users/login'</span><span class="nt">&gt;</span>Volver<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+<p>Eso permite que la ruta sea correcta en cualquier servidor, sin necesidad de modificar el código fuente.</p>
+
+<p>El uso de los helpers es optativo: el programador/a debe decidir si le resultan útiles o no.</p>
+
+<p>Los helpers van cambiando mucho de una versión a otra de Laravel, por lo que te recomiendo que eches un vistazo a la documentación oficial para saber qué helpers están disponibles en tu versión de Laravel.</p>
+
+<p>Puedes encontrar una lista completa de helpers en: https://laravel.com/docs/X.x/helpers (sustituye X.x por tu versión de Laravel)</p>
+
+<h3 id="5142-algunos-helpers-útiles-de-laravel">5.14.2. Algunos helpers útiles de Laravel</h3>
+
+<h4 id="51421-url-helper">5.14.2.1. url helper</h4>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">'{{ url('</span><span class="err">/</span><span class="na">users</span><span class="err">/</span><span class="na">login</span><span class="err">')</span> <span class="err">}}</span><span class="nt">&gt;</span>Volver<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+<p>Generará este código:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">'https://miservidor.com/users/login'</span><span class="nt">&gt;</span>Volver<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+<p>Eso permite que la ruta sea correcta en cualquier servidor, sin necesidad de modificar el código fuente.</p>
+
+<h4 id="51422-route-helper">5.14.2.2. route helper</h4>
+
+<p>Es parecido a url(), pero sirve para routas con nombre en el enrutador.</p>
+
+<p>Por ejemplo, si en el enrutador tenemos una ruta como esta:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s2">"mi-ruta"</span><span class="p">,</span> <span class="s2">"metodo@mi-controlador"</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s2">"nombre-ruta"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>…podemos referirnos a ella como:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">'{{ url('</span><span class="na">mi-ruta</span><span class="err">')</span> <span class="err">}}</span><span class="nt">&gt;</span>Texto<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+<p>…o como:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">'{{ route('</span><span class="na">nombre-ruta</span><span class="err">')</span> <span class="err">}}</span><span class="nt">&gt;</span>Texto<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+<p>La segunda forma es la mejor: permite cambiar la dirección que ve el usuario sin modificar el código fuente.</p>
+
+<h4 id="51423-request-helper">5.14.2.3. request helper</h4>
+
+<p>Proporciona acceso a información sobre la petición (GET, POST o la que sea) con la que se cargó la página:</p>
+
+<ul>
+  <li><strong>request()-&gt;url()</strong> → Devuelve un string con la ruta actual (completa).</li>
+  <li><strong>request()-&gt;path()</strong> → Devuelve un string con la ruta actual (solo desde la raíz de la aplicación, sin http ni el nombre del servidor).</li>
+  <li><strong>request()-&gt;is(“ruta”)</strong> → Devuelve true si “ruta” coincide con la ruta actual. Admite wildcards (símbolos * y ?).</li>
+  <li><strong>request()-&gt;input(“campo”)</strong> → Devuelve el valor de “campo” (enviado desde formulario).</li>
+  <li><strong>request()-&gt;all()</strong> → Devuelve un array con todos los campos.</li>
+  <li><strong>request()-&gt;has(“campo”)</strong> → Devuelve true si en la petición existe un campo con el nombre indicado.</li>
+  <li><strong>request()-&gt;isMethod(“método”)</strong> → Devuelve true si la petición se hizo por el método indicado (POST, GET, PUT, etc).</li>
+</ul>
+
+<p>El helper Request puede usarse en las vistas (como request()-&gt;url(), por ejemplo) o inyectarse en las funciones del controlador como una variable, así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">mi</span><span class="o">-</span><span class="nf">función</span><span class="p">(</span><span class="nc">Request</span> <span class="nv">$request</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="51424-redirect-helper">5.14.2.4. redirect helper</h4>
+
+<p>Muy útil cuando queremos redirigir al usuario hacia otra URL o acción (por ejemplo, para evitar que al pulsar F5 se reenvíen los datos de un formulario).</p>
+
+<p>Admite varias formas:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">return</span> <span class="nf">redirect</span><span class="p">(</span><span class="s1">'user/login'</span><span class="p">);</span>
+<span class="k">return</span> <span class="nf">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">action</span><span class="p">(</span><span class="s1">'LoginController@login'</span><span class="p">);</span> 
+<span class="k">return</span> <span class="nf">back</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h4 id="51425-auth-helper">5.14.2.5. auth helper</h4>
+
+<p>Como vimos en la sección de sesiones y autenticación, este helper permite saber si existe algún usuario autenticado en la aplicación.
+auth()-&gt;user() devuelve el usuario autenticado (como un objeto) o null si nadie ha hecho login.</p>
+
+<p>Con el objeto User podemos acceder a todos los datos del usuario:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$user</span> <span class="o">=</span> <span class="nf">auth</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">user</span><span class="p">();</span>
+<span class="nc">Bienvenido</span><span class="o">/</span><span class="n">a</span><span class="p">,</span> <span class="p">{{</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="n">name</span> <span class="p">}}</span><span class="mf">.</span> 
+<span class="nc">Este</span> <span class="n">es</span> <span class="n">su</span> <span class="n">emial</span><span class="o">:</span> <span class="p">{{</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="n">email</span> <span class="p">}}</span>
+</code></pre></div></div>
+
+<h4 id="51426-errors-helper">5.14.2.6. errors helper</h4>
+
+<p>Se utiliza para conocer y mostrar los errores ocurridos en la validación de un formulario (v. apartado de validación de formularios).</p>
+
+<p>La variable $errors está disponible en todas las vistas gracias a que un Middleware (ShareErrorsFromSession) la inyecta automáticamente.</p>
+
+<p>Algunos métodos útiles son:</p>
+
+<ul>
+  <li><strong>$errors-&gt;all()</strong> → devuelve un array con todos los errores detectados.</li>
+  <li><strong>$errors-&gt;any()</strong> → devuelve true si se ha detectado algún error.</li>
+  <li><strong>$errors-&gt;first(“campo”)</strong> → devuelve el primer error de todos los que puedan afectar al campo indicado.</li>
+</ul>
+
+:ET

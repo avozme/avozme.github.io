@@ -1,0 +1,525 @@
+I"��<h1 class="no_toc" id="6-servicios-web">6. Servicios web</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#61-qué-es-un-servicio-web" id="markdown-toc-61-qué-es-un-servicio-web">6.1. ¿Qué es un servicio web?</a>    <ul>
+      <li><a href="#611-una-definición-de-servicio-web" id="markdown-toc-611-una-definición-de-servicio-web">6.1.1. Una definición de servicio web</a></li>
+      <li><a href="#612-diferencias-entre-servicios-web-y-aplicaciones-web" id="markdown-toc-612-diferencias-entre-servicios-web-y-aplicaciones-web">6.1.2. Diferencias entre servicios web y aplicaciones web</a></li>
+    </ul>
+  </li>
+  <li><a href="#62-soap" id="markdown-toc-62-soap">6.2. SOAP</a>    <ul>
+      <li><a href="#621-la-pila-de-protocolos-de-soap" id="markdown-toc-621-la-pila-de-protocolos-de-soap">6.2.1. La pila de protocolos de SOAP</a></li>
+      <li><a href="#622-los-protocolos-soap-y-wsdl" id="markdown-toc-622-los-protocolos-soap-y-wsdl">6.2.2. Los protocolos SOAP y WSDL</a></li>
+      <li><a href="#623-uddi" id="markdown-toc-623-uddi">6.2.3. UDDI</a></li>
+    </ul>
+  </li>
+  <li><a href="#63-rest" id="markdown-toc-63-rest">6.3. REST</a>    <ul>
+      <li><a href="#631-qué-es-rest" id="markdown-toc-631-qué-es-rest">6.3.1. ¿Qué es REST?</a></li>
+      <li><a href="#632-las-7-operaciones-rest" id="markdown-toc-632-las-7-operaciones-rest">6.3.2. Las 7 operaciones REST</a></li>
+      <li><a href="#633-los-verbos-http-get-post-put-y-destroy" id="markdown-toc-633-los-verbos-http-get-post-put-y-destroy">6.3.3. Los verbos http: GET, POST, PUT y DESTROY</a></li>
+      <li><a href="#634-el-problema-de-put-y-destroy" id="markdown-toc-634-el-problema-de-put-y-destroy">6.3.4. El problema de PUT y DESTROY</a></li>
+      <li><a href="#635-rest-y-json" id="markdown-toc-635-rest-y-json">6.3.5. REST y JSON</a></li>
+      <li><a href="#636-rest-vs-soap" id="markdown-toc-636-rest-vs-soap">6.3.6. REST vs SOAP</a></li>
+      <li><a href="#637-algunos-trucos-para-implementar-un-servidor-restful" id="markdown-toc-637-algunos-trucos-para-implementar-un-servidor-restful">6.3.7. Algunos trucos para implementar un servidor RESTful</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="61-qué-es-un-servicio-web">6.1. ¿Qué es un servicio web?</h2>
+
+<p>Como dijimos al estudiar el patrón MVC, esta arquitectura no es la única manera de plantear las aplicaciones web. En este tema vamos a hablar de otra manera en la que las aplicaciones web funcionan muy frecuentemente: como simples servicios.</p>
+
+<h3 id="611-una-definición-de-servicio-web">6.1.1. Una definición de servicio web</h3>
+
+<p>Un <strong>servicio web</strong> es una forma de permitir que una aplicación cliente y una aplicación servidor se comuniquen entre sí e intercambien información independientemente de la plataforma en la que cada una se ejecute.</p>
+
+<p>Los mensajes que las aplicaciones se intercambiar generalmente tienen formato XML o JSON.</p>
+
+<p>Hay dos estándares principales en la industria para implementar servicios web: <strong>SOAP</strong> y <strong>REST</strong>.</p>
+
+<h3 id="612-diferencias-entre-servicios-web-y-aplicaciones-web">6.1.2. Diferencias entre servicios web y aplicaciones web</h3>
+
+<p>Llegados a este punto, puede que estés pensando: “Vale, pero ¿en qué se diferencia todo esto de una aplicación web MVC? ¿No intercambian también el cliente y el servidor información independientemente de la plataforma en la que se ejecuta cada uno?”.</p>
+
+<p>Pues sí, pero hay algunas <strong>diferencias fundamentales entre un servicio web y una aplicación web</strong>:</p>
+
+<ul>
+  <li>Una aplicación web está diseñada para que un ser humano interactúe con ella a través de un interfaz DHTML. Un servicio web, en cambio, está pensado para que lo use otra aplicación (el cliente), no un ser humano.</li>
+  <li>Por ese motivo, los servicios web carecen de interfaz de usuario y no produce salidas HTML legibles. Es decir, un servicio web <strong>no tiene vistas</strong>.</li>
+  <li>En cambio, los servicios web suelen producir salidas XML o JSON, pensadas para que los clientes las procesen. Una aplicación web solo hace esto cuando responde a una petición Ajax, algo que veremos más adelante.</li>
+</ul>
+
+<p>Por lo demás, un servicio web puede tener una arquitectura <em>aproximadamente</em> MVC, y digo <em>aproximadamente</em> porque el servicio web, como acabo de contarte, carece de vistas. Pero puede seguir conservando sus controladores y sus modelos. Los controladores se encargarán de convertir los datos de los modelos a JSON o XML y devolverlos al cliente.</p>
+
+<h2 id="62-soap">6.2. SOAP</h2>
+
+<p><strong>SOAP (Single Object Access Protocol)</strong> es un mecanismo estandarizado para la implementación, descripción y publicación de servicios en red.</p>
+
+<p>SOAP establece el modo en el que deben comportarse el cliente y el servidor para hablar entre sí, así como la forma en la que el servidor debe dar a conocer sus servicios.</p>
+
+<p>Es un mecanismo orientado al proceso, a diferencia de REST, que está orientado a los datos y que veremos después.</p>
+
+<h3 id="621-la-pila-de-protocolos-de-soap">6.2.1. La pila de protocolos de SOAP</h3>
+
+<p>El estándar SOAP define una serie de protocolos de niveles de abstracción crecientes. Esta colección de protocolos suele denominarse <strong>pila de protocolos SOAP</strong>, y son los siguientes:</p>
+
+<p>XXX imagen</p>
+
+<p>Vamos a explicar brevemente en qué consiste cada protocolo de la pila, y lo vamos a hacer, como en otras ocasiones, por medio de un ejemplo en lugar de perdernos en largas y farragosas explicaciones.</p>
+
+<h3 id="622-los-protocolos-soap-y-wsdl">6.2.2. Los protocolos SOAP y WSDL</h3>
+
+<p>Para ver cómo funciona el protocolo SOAP (el más importante de la pila de protocolos SOAP, como ya te habrás imaginado por su nombre), utilizaremos tres ejemplos:</p>
+
+<ul>
+  <li>En el primero, veremos cómo construir un servidor que duelva colecciones de datos en forma de array.</li>
+  <li>En el segundo, veremos cómo puede un servidor devolver datos con estructura más compleja formateados con JSON.</li>
+  <li>En el tercero, veremos un servidor extremadamente simple con un fichero WSDL.</li>
+</ul>
+
+<h4 id="ejemplo-1-consulta-de-una-bd-de-marcas-y-modelos-de-coches">Ejemplo 1: Consulta de una BD de marcas y modelos de coches.</h4>
+
+<p>Vamos a programar un servicio web muy sencillo capaz de servir a los clientes que nos lo pidan un listado de las marcas de coches que existen y otro con los modelos registrados que pertenecen a una marca en concreto.</p>
+
+<p>El servidor, por lo tanto, necesita dos funciones:</p>
+
+<ul>
+  <li>ObtenerMarcas</li>
+  <li>ObtenerModelos($marca)</li>
+</ul>
+
+<p>El cliente, como es lógico, debe conocer cómo utilizar el servidor. Esto puede hacerse mediante el protocolo WSDL (que ya veremos un poco después) por otras vías más tradicionales: documentación de la API, guía del desarrollador, manual de usuario…</p>
+
+<p>En estos ejemplos, tanto el servidor como el cliente estarán escritos en PHP. Por supuesto, puede usarse cualquier otro lenguaje para ello, en particular en el lado del cliente. Para saber cómo hacer un cliente SOAP en otros lenguajes, consulta la documentación de tu lenguaje preferido.</p>
+
+<p><strong>En el lado del servidor</strong> necesitaremos crear un objeto de tipo SoapServer y definir los métodos a los que el servidor va a responder.</p>
+
+<p>Vamos a empezar por los métodos. Crearemos un fichero (por ejemplo, llamado <strong>GestionAutomoviles.class.php</strong>) en cuyo interior escribiremos una clase con los métodos que necesitemos. Para nuestro ejemplo de marcas y modelos de coches, podrías ser algo así:</p>
+
+<p>El servidor se crea con una clase que contenga los métodos necesarios:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">GestionAutomoviles</span>
+<span class="p">{</span>
+  <span class="k">public</span> <span class="k">function</span> <span class="n">ObtenerMarcas</span><span class="p">()</span>
+    <span class="p">{</span>
+      <span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">mysqli</span><span class="p">(</span><span class="o">&lt;</span><span class="n">datos</span><span class="o">-</span><span class="n">de</span><span class="o">-</span><span class="n">la</span><span class="o">-</span><span class="n">conexión</span><span class="o">&gt;</span><span class="p">);</span>
+
+      <span class="nv">$marcas</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+      <span class="k">if</span><span class="p">(</span> <span class="nv">$db</span> <span class="p">)</span>
+      <span class="p">{</span>
+        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s1">'select id, marca from marcas'</span><span class="p">);</span>
+        <span class="k">while</span><span class="p">(</span> <span class="nv">$row</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="nf">fetch_array</span><span class="p">()</span> <span class="p">)</span>
+          <span class="nv">$marcas</span><span class="p">[</span><span class="nv">$row</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]]</span> <span class="o">=</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">'marca'</span><span class="p">];</span>
+        <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">close</span><span class="p">();</span>
+      <span class="p">}</span>
+
+      <span class="k">return</span> <span class="nv">$marcas</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="k">public</span> <span class="k">function</span> <span class="n">ObtenerModelos</span><span class="p">(</span><span class="nv">$marca</span><span class="p">)</span>
+    <span class="p">{</span>		
+      <span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">mysqli</span><span class="p">(</span><span class="o">&lt;</span><span class="n">datos</span><span class="o">-</span><span class="n">de</span><span class="o">-</span><span class="n">la</span><span class="o">-</span><span class="n">conexión</span><span class="o">&gt;</span><span class="p">);</span>
+      <span class="nv">$marca</span> <span class="o">=</span> <span class="nb">intVal</span><span class="p">(</span><span class="nv">$marca</span><span class="p">);</span>
+      <span class="nv">$modelos</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+
+      <span class="k">if</span><span class="p">(</span> <span class="nv">$marca</span> <span class="o">!==</span> <span class="mi">0</span> <span class="p">)</span>
+      <span class="p">{</span>
+        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s1">'select id, modelo from modelos
+                                where marca = '</span> <span class="mf">.</span> <span class="nv">$marca</span> <span class="p">);</span>
+        <span class="k">while</span><span class="p">(</span> <span class="nv">$row</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="nf">fetch_array</span><span class="p">()</span> <span class="p">)</span>
+            <span class="nv">$modelos</span><span class="p">[</span><span class="nv">$row</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]]</span> <span class="o">=</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">'modelo'</span><span class="p">];</span>
+      <span class="p">}</span>
+      <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">close</span><span class="p">();</span>
+      <span class="k">return</span> <span class="nv">$modelos</span><span class="p">;</span>
+    <span class="p">}}</span>
+</code></pre></div></div>
+
+<p>Ahora, en otro archivo aparte, que llamaremos, por ejemplo, <em>webservice.php</em>, <em>registramos el servicio</em> usando la clase SoapServer de PHP y asignándole la clase anterior GestionAutomoviles. Así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+   <span class="k">include</span> <span class="s1">'GestionAutomoviles.class.php'</span><span class="p">;</span>
+   <span class="nv">$soap</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SoapServer</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'uri'</span> <span class="o">=&gt;</span> <span class="s1">'http://localhost/'</span><span class="p">));</span>
+   <span class="nv">$soap</span><span class="o">-&gt;</span><span class="nf">setClass</span><span class="p">(</span><span class="s1">'GestionAutomoviles'</span><span class="p">);</span>
+   <span class="nv">$soap</span><span class="o">-&gt;</span><span class="nf">handle</span><span class="p">();</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>El constructor de SoapServer tiene dos argumentos:</p>
+<ul>
+  <li>El fichero WSDL donde se describe el servicio. Como aún no vamos a usar fichero WSDL, ese argumento lo dejaremos, de momento, a null.</li>
+  <li>La URL donde el servidor va a estar escuchando. Puede ser el directorio raíz de nuestro servidor o cualquier subdirectorio o archivo.</li>
+</ul>
+
+<p>Por último, y para comprobar que nuestro servidor SOAP funciona bien, necesitamos crear un secillo cliente que consuma ese servicio. Como hemos dicho antes, esta parte también la vamos a programar en PHP, aunque podría hacerse en cualquier otro lenguaje con soporte SOAP.</p>
+
+<p><strong>En la parte cliente</strong>, necesitamos crear un objeto de tipo SoapClient:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$soapS</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SoapServer</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">"URI del servidor"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Nuevamente, el primer argumento del constructor es el fichero WSDL. Como aún no trabajamos con ellos, lo dejamos a null. Si tuviéramos fichero WSDL, no necesitaríamos indicar la URI del servidor, porque el propio fichero WSDL lo establecería de forma inequívoca.</p>
+
+<p>Una vez hecho eso, podemos consumir los servicios del cliente. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+   <span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SoapClient</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'uri'</span> <span class="o">=&gt;</span> <span class="s1">'http://localhost/'</span><span class="p">,</span>
+       <span class="s1">'location'</span> <span class="o">=&gt;</span> <span class="s1">'http://localhost/&lt;ruta&gt;/webservice.php'</span><span class="p">));</span>
+   <span class="nv">$marcas</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">ObtenerMarcas</span><span class="p">();</span>
+   <span class="k">foreach</span><span class="p">(</span><span class="nv">$marcas</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$value</span> <span class="p">)</span>
+      <span class="k">echo</span> <span class="nv">$value</span><span class="p">;</span>   
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>Observa cómo hemos indicado la localización del servidor: en un array, indicamos su ubicación y la ruta de acceso al fichero que maneja el servicio (en nuestro ejemplo, webservice.php).</p>
+
+<h4 id="ejemplo-2-lista-de-libros-de-una-biblioteca">Ejemplo 2: Lista de libros de una biblioteca.</h4>
+
+<p>El ejemplo anterior funciona porque tanto cliente como servidor trabajan en PHP. Pero si el cliente no fuera PHP, podría tener problemas al recibir los datos de respuesta del servidor, que son arrays PHP.</p>
+
+<p>Lo más adecuado cuando se responden datos complejos es enviarlos en algún formato de intercambio de información, como XML o JSON.</p>
+
+<p>En este nuevo ejemplo, vamos a crear un servidor que nos devuelva la lista de libros de una biblioteca (lo que incluirá el id, el título y el ISBN de cada libro) empaquetada en un string JSON.</p>
+
+<p>De momento, tampoco usaremos WSDL (fichero de descripción del servicio).</p>
+
+<p><strong>Servidor</strong> (archivo <em>libros.class.php</em>):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">libros</span>
+<span class="p">{</span>
+      <span class="k">private</span> <span class="k">function</span> <span class="n">getLibrosJSON</span><span class="p">()</span>
+      <span class="p">{</span>
+         <span class="nv">$sql</span> <span class="o">=</span> <span class="s2">"SELECT * FROM libros"</span><span class="p">;</span>
+         <span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">dbAbstract</span><span class="p">();</span>  <span class="c1">// Suponemos que existe una capa</span>
+                                  <span class="c1">// de abstracción de datos</span>
+         <span class="k">return</span> <span class="nb">json_encode</span><span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">consulta</span><span class="p">(</span><span class="nv">$sql</span><span class="p">));</span>
+     <span class="p">}</span>
+     <span class="mf">...</span><span class="n">aquí</span> <span class="n">irían</span> <span class="n">más</span> <span class="n">métodos</span> <span class="n">que</span> <span class="n">pudiera</span> <span class="n">tener</span> <span class="n">el</span> <span class="n">servidor</span>
+<span class="p">}</span>
+     
+     
+<span class="nc">Registramos</span> <span class="n">el</span> <span class="n">servidor</span> <span class="n">en</span> <span class="n">otro</span> <span class="nf">archivo</span> <span class="p">(</span><span class="n">que</span> <span class="n">llamaremos</span> <span class="o">*</span><span class="n">libros</span><span class="mf">.</span><span class="n">server</span><span class="mf">.</span><span class="n">php</span><span class="o">*</span><span class="p">)</span><span class="o">:</span>
+
+<span class="sb">``</span><span class="err">`</span><span class="n">php</span>
+<span class="o">&lt;?</span><span class="n">php</span>
+   <span class="k">include</span> <span class="s1">'libros.class.php'</span><span class="p">;</span>
+   <span class="nv">$soap</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SoapServer</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'uri'</span> <span class="o">=&gt;</span> <span class="s1">'http://localhost/'</span><span class="p">));</span>
+   <span class="nv">$soap</span><span class="o">-&gt;</span><span class="nf">setClass</span><span class="p">(</span><span class="s1">'libros'</span><span class="p">);</span>
+   <span class="nv">$soap</span><span class="o">-&gt;</span><span class="nf">handle</span><span class="p">();</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Cliente</strong></p>
+
+<p>De nuevo, lo vamos a crear en PHP, aunque no sea lo más habitual. Al ser un programa PHP, tendrás que ejecutarlo contra un servidor web, o bien directamente desde la línea de comandos.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+   <span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SoapClient</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'uri'</span> <span class="o">=&gt;</span> <span class="s1">'http://localhost/'</span><span class="p">,</span>
+       <span class="s1">'location'</span> <span class="o">=&gt;</span> <span class="s1">'http://localhost/libros.server.php'</span><span class="p">));</span>
+   <span class="nv">$listaLibros</span> <span class="o">=</span> <span class="nv">$libros</span><span class="o">-&gt;</span><span class="nf">getLibrosJSON</span><span class="p">();</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>A partir de ahí, el cliente dispondrá en $listaLibros de la información recibida del servidor (id, titulo, isbn de todos los libros) empaquetada en formato JSON.</p>
+
+<h4 id="ejemplo-3-servicio-de-calculadora">Ejemplo 3: Servicio de calculadora</h4>
+
+<p>Este será un servicio mucho más simple y hasta un poco tontorrón, pero no te lo tomes a mal: solo es un ejemplo.</p>
+
+<p>El servicio simple y tontorrón proporcionará dos métodos:</p>
+
+<ul>
+  <li>sumar (op1, op2) –&gt; Devuelve la suma de op1 y op2</li>
+  <li>restar (op1, op2) –&gt; Devuelve la diferencia entre op1 y op2</li>
+</ul>
+
+<p>Ahora sí usaremos WSDL para definir el servicio y que los clientes sepan cómo usarlo. Así, a través de un ejemplo simple (y tontorrón) podrás conocer cuál es la estructura de estos ficheros.</p>
+
+<p><strong>Servidor</strong></p>
+
+<p>El código del servidor es extremadamente simple. Fíjate en que ahora, el crear el objeto SoapServer, sí indicamos el archivo WSDL:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+   <span class="nv">$server</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SoapServer</span><span class="p">(</span><span class="s2">"aritmetica.wsdl"</span><span class="p">);</span>
+ 
+   <span class="k">function</span> <span class="n">sumar</span><span class="p">(</span><span class="nv">$operando1</span><span class="p">,</span><span class="nv">$operando2</span><span class="p">){</span>
+      <span class="k">return</span> <span class="nv">$operando1</span><span class="o">+</span><span class="nv">$operando2</span><span class="p">;</span>
+   <span class="p">}</span>
+ 
+   <span class="k">function</span> <span class="n">restar</span><span class="p">(</span><span class="nv">$operando1</span><span class="p">,</span><span class="nv">$operando2</span><span class="p">){</span>
+      <span class="k">return</span> <span class="nv">$operando1</span><span class="o">-</span><span class="nv">$operando2</span><span class="p">;</span>
+   <span class="p">}</span>
+ 
+   <span class="nv">$server</span><span class="o">-&gt;</span><span class="nf">AddFunction</span><span class="p">(</span><span class="s2">"sumar"</span><span class="p">);</span>
+   <span class="nv">$server</span><span class="o">-&gt;</span><span class="nf">AddFunction</span><span class="p">(</span><span class="s2">"restar"</span><span class="p">);</span>
+   <span class="nv">$server</span><span class="o">-&gt;</span><span class="nf">handle</span><span class="p">();</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Cliente</strong></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+ <span class="nv">$clienteSOAP</span> <span class="o">=</span>
+   <span class="k">new</span> <span class="nc">SoapClient</span><span class="p">(</span><span class="s1">'http://ejemplo.com/test/wsdl/aritmetica.wsdl'</span><span class="p">);</span>
+ 
+ <span class="nv">$resultado_suma</span> <span class="o">=</span> <span class="nv">$clienteSOAP</span><span class="o">-&gt;</span><span class="nf">sumar</span><span class="p">(</span><span class="mf">2.7</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">);</span>
+ <span class="nv">$resultado_resta</span> <span class="o">=</span> <span class="nv">$clienteSOAP</span><span class="o">-&gt;</span><span class="nf">restar</span><span class="p">(</span><span class="mf">2.7</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">);</span>
+ 
+ <span class="k">echo</span> <span class="s2">"la suma de 2.7 mas 3.5 es: "</span> <span class="mf">.</span> <span class="nv">$resultado_suma</span> <span class="mf">.</span> <span class="s2">"&lt;br/&gt;"</span><span class="p">;</span>
+ <span class="k">echo</span> <span class="s2">"la diferencia de 2.7 menos 3.5 es: "</span> <span class="mf">.</span> <span class="nv">$resultado_resta</span> <span class="mf">.</span> <span class="s2">"&lt;br/&gt;"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Documento WSDL</strong></p>
+
+<p>El documento WSDL es un archivo de texto alojado en el servidor donde se describen todos los aspectos del servicio:</p>
+
+<ul>
+  <li>Los mensajes que se pueden intercambiar entre el cliente y el servidor.</li>
+  <li>Los argumentos y tipos de datos de esos mensajes.</li>
+  <li>Las operaciones y sus tipos</li>
+  <li>Las rutas donde puede encontrarse el servidor</li>
+</ul>
+
+<p>Se trata de un documento en formato XML que resulta bastante farragoso de leer, así que tómatelo con calma (ahora entiendes por qué hemos elegido un servicio tan simple como el de este ejemplo para ver su archivo WSDL: si usáramos un servicio más realista, el archivo resultaría un monstruo de miles de líneas). Aquí lo tienes:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;message</span> <span class="na">name=</span><span class="s">"AritmeticaPeticion"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;part</span> <span class="na">name=</span><span class="s">"operando1"</span> <span class="na">type=</span><span class="s">"xsd:float"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;part</span> <span class="na">name=</span><span class="s">"operando2"</span> <span class="na">type=</span><span class="s">"xsd:float"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/message&gt;</span>
+ 
+  <span class="nt">&lt;message</span> <span class="na">name=</span><span class="s">"AritmeticaRespuesta"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;part</span> <span class="na">name=</span><span class="s">"respuesta"</span> <span class="na">type=</span><span class="s">"xsd:float"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/message&gt;</span>
+
+  <span class="nt">&lt;portType</span> <span class="na">name=</span><span class="s">"AritmeticaPort"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;operation</span> <span class="na">name=</span><span class="s">"sumar"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">message=</span><span class="s">"tns:AritmeticaPeticion"</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;output</span> <span class="na">message=</span><span class="s">"tns:AritmeticaRespuesta"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/operation&gt;</span>
+    <span class="nt">&lt;operation</span> <span class="na">name=</span><span class="s">"restar"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">message=</span><span class="s">"tns:AritmeticaPeticion"</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;output</span> <span class="na">message=</span><span class="s">"tns:AritmeticaRespuesta"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/operation&gt;</span>
+  <span class="nt">&lt;/portType&gt;</span>
+
+  <span class="nt">&lt;binding</span> <span class="na">name=</span><span class="s">"AritmeticaBinding"</span> <span class="na">type=</span><span class="s">"tns:AritmeticaPort"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;soap:binding</span> <span class="na">style=</span><span class="s">"rpc"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;operation</span> <span class="na">name=</span><span class="s">"sumar"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;soap:operation</span> <span class="na">soapAction=</span><span class="s">"urn:Aritmetica#sumar"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;input&gt;</span>
+          <span class="nt">&lt;soap:body</span> <span class="na">use=</span><span class="s">"encoded"</span> <span class="na">namespace=</span><span class="s">"urn:Aritmetica"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/input&gt;</span>
+        <span class="nt">&lt;output&gt;</span>
+          <span class="nt">&lt;soap:body</span> <span class="na">use=</span><span class="s">"encoded"</span> <span class="na">namespace=</span><span class="s">"urn:Aritmetica"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/output&gt;</span>
+    <span class="nt">&lt;/operation&gt;</span>
+    <span class="nt">&lt;operation</span> <span class="na">name=</span><span class="s">"restar"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;soap:operation</span> <span class="na">soapAction=</span><span class="s">"urn:Aritmetica#restar"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;input&gt;</span>
+          <span class="nt">&lt;soap:body</span> <span class="na">use=</span><span class="s">"encoded"</span> <span class="na">namespace=</span><span class="s">"urn:Aritmetica"</span><span class="nt">/&gt;</span>            		<span class="nt">&lt;/input&gt;</span>
+       <span class="nt">&lt;output&gt;</span>
+          <span class="nt">&lt;soap:body</span> <span class="na">use=</span><span class="s">"encoded"</span> <span class="na">namespace=</span><span class="s">"urn:Aritmetica"</span><span class="nt">/&gt;</span>                   <span class="nt">&lt;/output&gt;</span>
+    <span class="nt">&lt;/operation&gt;</span>
+  <span class="nt">&lt;/binding&gt;</span>
+  
+  <span class="nt">&lt;service</span> <span class="na">name=</span><span class="s">"AritmeticaServicio"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;port</span> <span class="na">name=</span><span class="s">"AritmeticaPort"</span> <span class="na">binding=</span><span class="s">"tns:AritmeticaBinding"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;soap:address</span> <span class="na">location=</span><span class="s">"http://ejemplo.com/test/wsdl/aritmetica_server.php"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/port&gt;</span>
+  <span class="nt">&lt;/service&gt;</span>
+</code></pre></div></div>
+
+<p>Escribir los documentos WSDL a mano es casi imposible. Y hacerlo sin cometer errores, es imposible del todo. Para eso existen herramientas automatizadas que toman el archivo con la clase que contiene los métodos del servicio y generan automáticamente el archivo WSDL.</p>
+
+<p>Puedes encontrar estas herramientas de creación automática del archivo WSDL en cualquier IDE avanzado (como Netbeans o Eclipse) y también en mucho sitios web.</p>
+
+<p>Por lo tanto, no es un documento que vayas a tener que redactar tú, ni siquiera que leer tú: se trata de una descripción del servicio escrita por y para programas informáticos. Por eso no tiene un formato demasiado legible para un humano.</p>
+
+<h3 id="623-uddi">6.2.3. UDDI</h3>
+
+<p>Este protocolo, que también forma parte de la pila SOAP, es muy fácil de explicar.</p>
+
+<p>Olvídate de que existe. Fin de la explicación.</p>
+
+<p>Fácil, ¿verdad?</p>
+
+<p>Pero si esta explicación te sabe a poco, te cuento que UDDI fue un intento de la industria por estandarizar repositorios de servicios, de manera que cualquier cliente pudiera lanzar una petición a la red para descubrirlos y usarlos.</p>
+
+<p>Imagina que tienes una web que necesita conocer la previsión del tiempo en una zona, la que sea. Puedes localizar un servicio web que te proporcione esa información (ya sea de forma gratuita o mediante una suscripción, eso es irrelevante). Hay, de hecho, muchos servidores que ofrecen este servicio, empezando por el de la Agencia Estatal de Meteorología.</p>
+
+<p>Para usar ese servicio, tienes que conocer el servidor que lo ofrece y luego bucear en su API para avieriguar cómo narices debes pedirle la información y en qué formato te la va a devolver. Y, una vez hecho eso, ya estás listo para programar tu cliente y consumir ese servicio.</p>
+
+<p>Pues bien: el servicio UDDI buscaba implementar una manera para que el servidor publicara el tipo de servicio que está ofertando y los clientes pudieran escanear la red en busca de esos servicios, para luego seleccionar uno y lanzar peticiones contra él, todo ello de forma más o menos transparente al programador.</p>
+
+<p>Era una idea interesante, ¿verdad? Pero murió hace mucho. De hecho, entró en punto muerto en el año 2006, cuando Microsoft e IBM decidieron abandonarlo.</p>
+
+<p>Así que, lo dicho: aunque en teoría el protocolo UDDI forma parte de la pila SOAP, puedes actuar como si no existiera.</p>
+
+<h2 id="63-rest">6.3. REST</h2>
+
+<h3 id="631-qué-es-rest">6.3.1. ¿Qué es REST?</h3>
+
+<p><strong>REST (Representational State Transfer)</strong> es un mecanismo de intercambio de información entre clientes y servidores de una red.</p>
+
+<p>A diferencia de SOAP, está orientado a los datos, esto eso, proporciona siempre los mismos tipos de acceso a los recursos, sin posibilidad de definir nuevas operaciones.</p>
+
+<p>Por esa razón se dice que <strong>REST está orientado a los datos</strong> mientras que <strong>SOAP está orientado a los procesos</strong>.</p>
+
+<p>Actualmente, gran parte de las APIs, ya sean públicas o privadas, se programan según el diseño RESTful para que los programadores que las usen sepan qué esperar de la API.</p>
+
+<h3 id="632-las-7-operaciones-rest">6.3.2. Las 7 operaciones REST</h3>
+
+<p>Un servidor REST (también llamado <strong>RESTful</strong>) debe implementar siete operaciones de acceso a cada tipo de recurso. Los nombres de las operaciones, los datos que se esperan que se devuelvan y el método de acceso (si se accede al servidor por http, que es lo que nosotros haremos) deben respetarse escrupulosamente.</p>
+
+<p>Imagina que estamos programando un servidor RESTful para acceder, por ejemplo, a un recurso llamado <em>Producto</em> dentro de una aplicación más grande (por ejemplo, una tienda online). En la siguiente tabla tienes las siete operaciones que un servidor RESTful puede realizar con ese recurso, es decir, con los productos de la base de datos. También te indico qué significa cada operación y un ejemplo típico de la URL que permitirá el acceso a través de https.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operación</th>
+      <th>Significado</th>
+      <th>Verbo</th>
+      <th>URL típica</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>index</td>
+      <td>Listar todos los producto</td>
+      <td>GET</td>
+      <td>https://servidor/producto/</td>
+    </tr>
+    <tr>
+      <td>show</td>
+      <td>Mostrar un producto</td>
+      <td>GET</td>
+      <td>https://servidor/producto/id</td>
+    </tr>
+    <tr>
+      <td>create</td>
+      <td>Mostrar formulario de creación de un producto</td>
+      <td>GET</td>
+      <td>https://servidor/producto/create</td>
+    </tr>
+    <tr>
+      <td>store</td>
+      <td>Crear un producto con los datos procedentes de un formulario</td>
+      <td>POST</td>
+      <td>https://servidor/producto/store</td>
+    </tr>
+    <tr>
+      <td>edit</td>
+      <td>Mostrar el formulario de edición de un producto</td>
+      <td>GET</td>
+      <td>https://servidor/producto/edit/id</td>
+    </tr>
+    <tr>
+      <td>update</td>
+      <td>Actualizar el producto con los datos procedentes del formulario</td>
+      <td>PUT</td>
+      <td>https://servidor/producto/update/id</td>
+    </tr>
+    <tr>
+      <td>destroy</td>
+      <td>Eliminar un producto</td>
+      <td>DESTROY</td>
+      <td>https://servidor/producto/destroy/id</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>(Las operaciones <em>create</em> y <em>edit</em> podrían no estar disponibles en algunas APIs RESTful, cuando estas están diseñadas para que las usen otras aplicaciones y no seres humanos).</p>
+
+<p>Soy consciente de que esta tabla necesita algunas explicaciones adicionales, así que vamos a ello.</p>
+
+<p>En primer lugar, ¿qué es eso de los <em>verbos</em> que figura en cada petición?</p>
+
+<h3 id="633-los-verbos-http-get-post-put-y-destroy">6.3.3. Los verbos http: GET, POST, PUT y DESTROY</h3>
+
+<p>El protocolo http define dos tipos de petición al servidor, GET y POST. El estándar REST aumenta estos tipos en otros dos, PUT (o PATCH, en algunas implementaciones) y DESTROY:</p>
+
+<ul>
+  <li><strong>GET</strong> se utiliza para solicitar datos al servidor. Por ejemplo: “Dame toda la información de un producto”.</li>
+  <li><strong>POST</strong> se utiliza para enviar datos al servidor. Por ejemplo: “Aquí tienes toda la información de un producto; anda, almacénalo en tu base de datos”.</li>
+  <li><strong>PUT/PATCH</strong> se utiliza para solicitar al servidor la modificación de datos que ya existen. Por ejemplo: “Este es el nuevo precio de un producto que ya estaba en tu base de datos. Tómalo y actualízalo”.</li>
+  <li><strong>DESTROY</strong> se utiliza para solicitar la eliminación de datos en el servidor. Por ejemplo: “Elimina este producto”.</li>
+</ul>
+
+<p>Por ese motivo, en algunas URLs de la tabla anterior enviamos un id como parte de la ruta. Ese id (que debe ser sustituido por un número real, es decir, por el id de un producto) indicará al servidor qué producto le estamos pidiendo que nos busque, modifique o elimine.</p>
+
+<p>Si ya has trabajado con HTML antes, seguro que conocías el significado de GET y POST, pero probablemente nunca habías oído hablar de PUT y DESTROY, ¿verdad?</p>
+
+<h3 id="634-el-problema-de-put-y-destroy">6.3.4. El problema de PUT y DESTROY</h3>
+
+<p>Cuando solicitamos una URL a un servidor sin indicar otra cosa, el protocolo http asumirá que se trata de una petición GET.</p>
+
+<p>Si en un formulario indicamos que el método de envío de los datos al servidor es POST, conseguiremos hacer una petición POST, y los datos que el usuario rellene en ese formulario se enviarán al servidor como parte del paquete http, en una zona especialmente dedicada a empaquetarlos:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">'http://servidor/lo-que-sea'</span> <span class="na">method=</span><span class="s">'POST'</span><span class="nt">&gt;</span>
+...cuerpo del formulario
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>Pero <strong>con HTML5 <em>no hay manera de hacer una petición al servidor por PUT ni por DESTROY</em></strong>.</p>
+
+<p>Esto se debe a que la implementación actual de http no contempla los verbos PUT ni DESTROY. Pero, en el estándar REST, estos verbos son fundamentales. Como a nosotros nos interesa construir servidores RESTful con acceso por http, es decir, vía web, aquí tenemos un grave problema.</p>
+
+<p>Mientras llega una nueva implementación de http y/o de HTML, <strong>este problema tiene dos soluciones temporales</strong>:</p>
+
+<ul>
+  <li>Sustituir las llamadas con PUT y DESTROY por llamadas POST convencionales. Esto hará que, en la práctica, nuestro servidor deje de ser RESTful, claro.</li>
+  <li>Parchear las llamadas con PUT y DESTROY mediante un campo oculto (de tipo <em>hidden</em>) en el formulario. Esta es la forma en la que se realizan las implementaciones RESTful vía web en la actualidad. Tienes un ejemplo en este formulario:</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">'http://servidor/lo-que-sea'</span> <span class="na">method=</span><span class="s">'POST'</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">'hidden'</span> <span class="na">name=</span><span class="s">'_method'</span> <span class="na">value=</span><span class="s">'PUT'</span><span class="nt">&gt;</span>
+   ...cuerpo del formulario...
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<h3 id="635-rest-y-json">6.3.5. REST y JSON</h3>
+
+<p>REST y JSON tienen una relación especial: todas las APIs RESTful devolverán sus datos formateados en JSON, por lo que, si vas a construir un servidor RESTful, harías bien en devolver todos tus datos en ese formato.</p>
+
+<p>Entiéndeme: si a tu servidor le llega una petición de tipo GET a través de esta ruta: https://servidor/producto/18, no hay nada que te impida devolver los datos del producto 18 formateados en XML, por ejemplo, pero tienes que ser consciente de que tu servidor habrá dejado de ser RESTful.</p>
+
+<p>Devolver un producto (o lo que sea) formateado en JSON mediante PHP resulta tan sencillo como hacer esto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$producto</span> <span class="o">=</span> <span class="n">modelo</span><span class="o">-</span><span class="n">de</span><span class="o">-</span><span class="n">productos</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span> <span class="c1">// Obtenemos los datos del producto $id pidiéndoselos a nuestro modelo</span>
+<span class="k">echo</span> <span class="nb">json_encode</span><span class="p">(</span><span class="nv">$producto</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="636-rest-vs-soap">6.3.6. REST vs SOAP</h3>
+
+<p><strong>SOAP es más flexible que REST</strong>: permite definir nuevas operaciones sobre los recursos, mientras que REST está limitado a las 7 operaciones predefinidas.</p>
+
+<p><strong>REST es mucho más sencillo de usar e implementar que SOAP</strong>: las operaciones son bien conocidas y no es necesario describirlas (WSDL) ni publicarlas de ningún modo. No hay que estudiarse ninguna API ni pelearse con estructuras de datos desconocidas, puesto que todo el intercambio de información se hace con JSON.</p>
+
+<p>Por todo ello, para la mayor parte de las aplicaciones REST es más que suficiente, y de ahí su mayor implantación en la actualidad.</p>
+
+<h3 id="637-algunos-trucos-para-implementar-un-servidor-restful">6.3.7. Algunos trucos para implementar un servidor RESTful</h3>
+
+<p>Para implementar un servidor RESTful, basta con:</p>
+
+<ul>
+  <li>
+    <p>Crear una arquitectura MVC para los recursos/datos que deseemos servir.</p>
+
+    <p>Con Laravel, esto se puede conseguir con el comando:</p>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php artisan make:controller --resource &lt;controlador&gt;
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>En lugar de mostrar los recursos en una vista, los mostraremos mediante JSON con un sencillo echo (recuerda que esa salida la recibirá el cliente, no un ser humano)</p>
+
+    <p>Si estamos trabajando con Laravel, en lugar de echo usaremos return al final de cada método del controlador. Laravel se encargará de enviar ese valor devuelto al cliente.</p>
+  </li>
+  <li>
+    <p>Es importante respetar los nombres de las peticiones HTTP, así como los verbos (GET, POST, PUT y DESTROY), puesto que serán los que el cliente utilice.</p>
+  </li>
+</ul>
+
+:ET

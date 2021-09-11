@@ -1,0 +1,21 @@
+I"�	<h2 id="88-y-otras-tecnologías-aún-más-extrañas">8.8. Y otras tecnologías aún más extrañas</h2>
+
+<p>Además de los lenguajes que hemos visto, existen otras alternativas a PHP para desarrollar aplicaciones web en el lado del servidor.
+A continuación mostramos una lista con alguna de estas alternativas (no están todas las que son, pero sí son todas las que están) para quien quiera profundizar aún más en el asunto:</p>
+
+<h3 id="821-coldfusion">8.2.1. ColdFusion</h3>
+
+<p>ColdFusion es la alternativa de Adobe. ColdFusion es al mismo tiempo un servidor de aplicaciones y un lenguaje de programación. Utiliza elementos &lt;…&gt; para insertar su código en la página web y, lógicamente, interacciona de manera óptima con otros productos de Adobe, como Flash. Los archivos tienen extensión .cfm. Se diseñó para tener un rendimiento muy elevado (por ejemplo, aprovecha bien la presencia de múltiples procesadores en el servidor)</p>
+
+<h3 id="822-webdna">8.2.2. WebDNA</h3>
+
+<p>WebDNA es un lenguaje especialmente diseñado para hacer scripting del lado del servidor (no como PHP, Perl, Python o Ruby, que fueron pensados para otros propósitos). Especialmente rápido en la interacción con bases de datos. Utiliza etiquetas encerradas entre corchetes […] para intercalar su código con HTML.</p>
+
+<h3 id="823-erlang">8.2.3. Erlang</h3>
+
+<p>Se trata de un lenguaje para desarrollo de aplicaciones concurrentes (es decir, en las que varios procesos se ejecutan simultáneamente, cooperando en la resolución de un problema). Fue diseñado para sistemas en tiempo real. Se está empezando a usar en el lado del servidor cuando las aplicaciones tienen necesidades de procesamiento brutales.</p>
+
+<h3 id="824-otros-ssjs">8.2.4. Otros SSJS</h3>
+
+<p>(SSJS = Server Side JavaScript): hace mucho tiempo que se especula con la posibilidad de programar scripts del lado del servidor en JavaScript. Al fin y al cabo, JS es un lenguaje dominado por cualquier desarrollador web. No existe por ahora ninguna solución estandarizada: a veces, el JS se traduce a Java para ejecutarlo como JSP, otras veces se compila a código nativo del servidor (como hace NodeJS), otras veces se instala un plugin en el servidor para ejecutarlo nativamente, o bien se reduce su uso sólo a generar y procesar información JSON, etc. JS en el lado del servidor necesita siempre de librerías adicionales para acceder a los recursos del servidor (p.ej: bases de datos)</p>
+:ET

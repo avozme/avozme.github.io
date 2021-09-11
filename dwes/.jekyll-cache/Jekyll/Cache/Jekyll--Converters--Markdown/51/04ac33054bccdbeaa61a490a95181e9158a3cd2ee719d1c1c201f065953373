@@ -1,0 +1,36 @@
+I" <h2 id="81-common-gateway-interface-cgi">8.1. Common Gateway Interface (CGI)</h2>
+
+<p>CGI es la solución más antigua para el desarrollo web en el lado del servidor.</p>
+
+<p>En la década de 1990, cuando se empezó a pensar en la posibilidad de crear página dinámicas generadas por el servidor a partir de los recursos del mismo (típicamente, una base de datos), los primeros intentos utilizaron las tecnologías presentes en ese momento en los servidores web.</p>
+
+<p>Todos los servidores tenían un compilador de C/C++, así que alguien pensó: ¿por qué no escribimos las aplicaciones web en C/C++, las compilamos y hacemos que el ejecutable se pueda invocar vía web?</p>
+
+<p>Para lograr esto último, se utilizó CGI (Common Gateway Interface).</p>
+
+<p>CGI es una interfaz entre los servidores web y las aplicaciones que se ejecutan en el servidor. Estas aplicaciones pueden estar construidas en cualquier lenguaje (no solo C/C++). A CGI, eso le da igual. Solo define la forma de transferir información en ambos sentidos.</p>
+
+<p>La figura siguiente muestra la forma en la que se ejecutan programas en el servidor a través de CGI. Si lo observas con atención, verás que no difiere demasiado de la forma en la que trabaja PHP, porque cualquier petición tiene 4 pasos:</p>
+<ol>
+  <li>Se recibe la petición de un cliente web.</li>
+  <li>El servidor web recibe la peticion y, a través del interfaz CGI, le pide al sistema operativo que ejecute el programa correspondiente.</li>
+  <li>La salida del programa se redirige al servidor web. De esto se encarga, nuevamente, el interfaz CGI.</li>
+  <li>El servidor devuelve al cliente el resultado de la ejecución del programa.</li>
+</ol>
+
+<p>XXX esquema</p>
+
+<h3 id="811-entonces-en-qué-se-diferencia-cgi-de-php">8.1.1. Entonces, ¿en qué se diferencia CGI de PHP?</h3>
+
+<p>Lo primero, CGI no es un lenguaje de programación. Eso ya lo hemos dicho. Es un <strong><em>interfaz</em></strong> entre el servidor web y el sistema operativo para poder ejecutar cualquier programa escrito en cualquier lenguaje a través de la web.</p>
+
+<p>Puede parecer una solución perfecta, ¿verdad? Pero, si fuera así, ¿por qué no se sigue usando de forma masiva? ¿Por qué se abandonó en favor de PHP u otros de los lenguajes que vamos a ver más adelante?</p>
+
+<p>La respuesta breve es: CGI tiene un serio problema de rendimiento.</p>
+
+<p>Cada vez que se recibe una petición de un cliente, se crea un nuevo proceso en el servidor para ejecutar el programa en cuestión. Este proceso necesita un espacio de memoria para colocar su código fuente y sus datos, y esto recursos solo se liberan cuando el servidor termina de responder al cliente. Esta creación de procesos independientes implica una carga importante para el servidor, por lo cual esta modalidad de generación de contenido dinámico no es muy escalable.</p>
+
+<p>Por su parte, PHP (y otras soluciones que veremos más adelante) no crean un proceso independiente para cada petición recibida, sino que un mismo macro-proceso se encarga de gestionarlas todas. En términos de escalabilidad, esta opción es mucho mejor. Así que, cuando los servidores empezaron a recibir muchas visitas simultáneas, CGI comenzó a abandonarse. Sencillamente, ningún servidor podía soportar grandes volúmenes de peticiones.</p>
+
+<p>Existen algunas alternativas para solucionar este problema de CGI, como mantener un sólo proceso CGI en memoria que se encargue de procesar todas las peticiones (técnica conocida como FastCGI y que, de hecho, se sigue utilizando en la actualidad, incluso para ejecutar PHP en el servidor), pero resulta más complejo de configurar y operar, e implica algunos problemas de seguridad. En cualquier caso, estos detalles de configuración del servidor son cosas que competen más a los administradores de sistemas que a los desarrolladores.</p>
+:ET

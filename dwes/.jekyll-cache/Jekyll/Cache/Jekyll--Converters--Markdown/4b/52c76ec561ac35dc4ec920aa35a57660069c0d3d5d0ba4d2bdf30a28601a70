@@ -1,0 +1,98 @@
+I"k<h2 id="56-primeros-pasos-con-laravel-hola-mundo">5.6. Primeros pasos con Laravel: Hola mundo</h2>
+
+<p>En esta sección vamos a crear nuestra primera aplicación funcional con Laravel: el tradicional “Hola mundo”. Nos servirá para aprender la dinámica de trabajo con Laravel y para construir un esqueleto de aplicación sobre la que montar algo más grande más adelante.</p>
+
+<p><strong>Crea una clave segura</strong></p>
+
+<p>Ejecuta el comando:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">php</span> <span class="n">artisan</span> <span class="n">key</span><span class="o">:</span><span class="n">generate</span>
+</code></pre></div></div>
+
+<p>Esto genera una clave aleatoria y la almacena en el archivo de configuración /.env</p>
+
+<p>Es necesaria para hacer conexiones seguras con la aplicación.</p>
+
+<p>En versiones recientes de Laravel es obligatorio crearla.</p>
+
+<p><strong>Probando el enrutador</strong></p>
+
+<p>Vamos a empezar probando algo sencillo: capturar una ruta. Edita el archivo /routes/web.php y añade esto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/hola'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="s2">"Hola, mundo"</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Esto significa que, cuando escribas la ruta “hola” en la barra de direcciones del navegador, se ejecutará esta función anónima (también denominadas <strong><em>closures</em></strong>) y, como resultado, se verá el texto “Hola, mundo” en la ventana del navegador.</p>
+
+<p>Pruébalo en el navegador la dirección: http://<mi-ruta>/index.php/hola</mi-ruta></p>
+
+<p><strong>Enrutar al controlador</strong></p>
+
+<p>Ahora vamos a hacer que la misma ruta de antes provoque la ejecución de una función en un controlador.</p>
+
+<p>Edita el enrutador /routes/web.php, sustituye la ruta anterior por esto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/hola'</span><span class="p">,</span> <span class="s1">'HolaController@index'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Esto indica al enrutador que, al recibir la ruta “hola”, se debe ejecutar el método index() del controlador HolaController.</p>
+
+<p>Ahora tienes que crear ese controlador:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">php</span> <span class="n">artisan</span> <span class="n">make</span><span class="o">:</span><span class="n">controller</span> <span class="nc">HolaController</span>
+</code></pre></div></div>
+
+<p>Por último edita el controlador /app/Http/Controllers/HolaController.php:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">index</span><span class="p">()</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="s2">"Hola, mundo"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Comprueba que funciona en el navegador: http://<mi-ruta>/index.php/hola</mi-ruta></p>
+
+<p>(NOTA IMPORTANTE: desde Laravel 8, para que esto funcione es necesario descomentar la siguiente línea del archivo /app/Providers/RouteServiceProvider.php:
+ // protected $namespace = ‘App\Http\Controllers’; )</p>
+
+<p><strong>Cargar una vista en el controlador</strong></p>
+
+<p>Vamos a variar el código anterior para que el método del controlador no produzca la salida HTML directamente, sino que invoque a una vista que genere el HTML. Además, vamos a inyectar en la URL una variable con el nombre del usuario para mostrar cómo se capturan esos valores y cómo se pasan a las vistas.</p>
+
+<p>Comenzamos modificando el enrutador /routes/web.php (observa cómo se indica la presencia de una variable en la URL):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/hola/{nombre}'</span><span class="p">,</span> <span class="s1">'HolaController@show'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Ahora creamos un método show() en el controlador /app/Http/Controllers/HolaController.php</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">show</span><span class="p">(</span><span class="nv">$nombre</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nv">$data</span><span class="p">[</span><span class="s1">'nombre'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$nombre</span><span class="p">;</span>
+   <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'hola'</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Como ves, estamos invocando una vista llamada “hola” y le estamos pasando un array con los datos necesarios (el nombre del usuario, en este caso). Esa vista debe crearse en /resources/views/hola.blade.php y puede tener este aspecto:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+   Saludos, {{$nombre}}.
+   ¿Le apetece una partidita de ajedrez?
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+
+<p>Puedes probar esta nueva ruta cargando en el navegador la ruta http://<mi-ruta>/index.php/hola/ProfesorFalken.</mi-ruta></p>
+
+<p>La respuesta debería ser esta:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Saludos, ProfesorFalken. ¿Le apetece una partidita de ajedrez?
+</code></pre></div></div>
+
+<p>Recuerda que, desde Laravel 8, el funcionamiento del enrutador ha cambiado. Para conservar compatibilidad hacia atrás, hay que abrir el archivo /app/Providers/RouteServiceProvider.php y descomentar esta línea:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// protected $namespace = 'App\Http\Controllers';</span>
+</code></pre></div></div>
+
+<p>Hay otras soluciones que <a href="https://litvinjuan.medium.com/how-to-fix-target-class-does-not-exist-in-laravel-8-f9e28b79f8b4">se describen aquí</a>.</p>
+
+:ET
