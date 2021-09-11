@@ -3,6 +3,9 @@
 This repository contains this documentation about IES Celia Viñas de Almería (España):
 
 * Manual de buenas prácticas digitales.
+* DWES - Apuntes para el módulo "Desarrollo web en entorno servidor" (2º DAW)
+
+## Manual de buenas prácticas digitales
 
 The document is markdown formatted and is suitable to publish it by two methods:
 
@@ -35,3 +38,9 @@ $ pandoc index.md -t html -o index.html --template=easy_template.html --toc
 ```
 
 Finally, you can automate the publication process on your webserver by writing a simple script that execute ***git pull*** and then execute the pandoc conversion every time you will (for example, when a cron launch the proccess)
+
+## DWES - Apuntes para el módulo "Desarrollo web en entorno servidor" (2º DAW)
+
+Este repositorio contiene la documentación (apuntes) del módulo de ***Desarrollo Web en Entorno Servidor*** del Ciclo Formativo de Grado Superior de Desarrollo de Aplicaciones Web impartido en el IES Celia Viñas de Almería (España).
+
+El contenido está escrito con Markdown y renderizado a HTML con Jekyll. Puede desplegarse directamente en cualquier servidor web con un ***git pull***. El sitio web estará accesible en el subdirectorio _sites
