@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 1.2 Wordpress
-permalink: /cms/wordpress
+permalink: /cms/wordpress.html
 nav_order: 2
 has_children: false
 parent: 1 Sistemas gestores de contenido (CMS)
@@ -117,7 +117,7 @@ Como tú no eres un usuario/a medio, no vamos a detenernos mucho en ello, porque
 4. Lanza el programa de instalación. Esto se logra, simplemente, escribiendo la URI de tu wordpress. Algo como https://tu-servidor/tu-carpeta, donde "tu-servidor" es el nombre de dominio de tu servidor y "tu-carpeta" es la carpeta donde subiste el código fuente de Wordpress.
 5. Aparecerá una pantalla como esta. A partir de aquí, solo tienes que seguir las instrucciones.
 
-![Pantalla de instalación de Wordpress](/assets/images/01-wordpress-instalacion.png)
+![Pantalla de instalación de Wordpress](/docs/dwes/_site/assets/images/01-wordpress-instalacion.png)
 
 #### Explotación de Wordpress
 
@@ -125,7 +125,7 @@ Una vez que tienes instalado tu Wordpress en el servidor, ya dispones de un siti
 
 El sitio es por completo funcional pero, obviamente, está vacío de contenido. Su aspecto será más o menos como este:
 
-![Wordpress recién instalado](/assets/images/01-wordpress-recien-instalado.jpg)
+![Wordpress recién instalado](/docs/dwes/_site/assets/images/01-wordpress-recien-instalado.jpg)
 
 Lo que estás viendo aquí es la plantilla (*theme*) por defecto de Wordpress. Dependiendo de la versión que instales, tendrá un aspecto algo diferente. Una instalación nueva también incorpora una publicación (*post*) de ejemplo (con un comentario también de ejemplo), así como una página estática.
 
@@ -133,7 +133,7 @@ Lo siguiente que tienes que hacer es acceder al panel de administración, que es
 
 Una vez traspasada la puerta del login, encontrarás una pantalla con la que debes familiarizarte: el **panel de administración** o ***dashboard*** de Wordpress.
 
-![Panel de administración de Wordpress](/assets/images/01-wordpress-panel-administracion.png)
+![Panel de administración de Wordpress](/docs/dwes/_site/assets/images/01-wordpress-panel-administracion.png)
 
 El resto de tu trabajo consistirá en familiarizarte con este panel de administración. Es una aplicación web muy completa e intuitiva, y a cualquier usuario/a un poco avezado no le costará trabajo hacerse con ella, e incluso le resultará divertido. No hay que decir que no necesitas saber nada de programación para manejar este panel.
 
@@ -658,7 +658,7 @@ La mayoría de las plantillas tienen más archivos que la nuestra. Por ejemplo:
 
 Por último, aquí tienes un diagrama de las relaciones que existen entre los archivos típicos de una plantilla Wordpress. Recuerda que el único obligatorio (además de styles.css) es index.php, y que una plantilla compleja puede tener otros archivos adicionales a los que aquí se muestran.
 
-![Jerarquía de archivos de un tema de Wordpress](/assets/images/01-wordpress-jerarquia-archivos-tema.png)
+![Jerarquía de archivos de un tema de Wordpress](/docs/dwes/_site/assets/images/01-wordpress-jerarquia-archivos-tema.png)
 [Fuente: Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Wordpress_Template_Hierarchy.png)
 
 Cuando Wordpress busque alguno de estos archivos y no le encuentre, recurrirá al siguiente en la jerarquía, y si no existe, al siguiente, y así hasta llegar a *index.php*, que sí debe existir. Eso es lo que nos ocurría en el Paso 12, cuando creábamos la plantilla para categorías dentro de *îndex.php* y no en *category.php*.

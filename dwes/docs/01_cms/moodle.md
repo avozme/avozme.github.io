@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 1.3 Moodle
-permalink: /cms/moodle
+permalink: /cms/moodle.html
 nav_order: 3
 has_children: false
 parent: 1 Sistemas gestores de contenido (CMS)
@@ -38,7 +38,7 @@ Las características más destacables de Moodle son:
 
 Los recursos en Moodle se organizan mediante **cursos**. Un curso es gestionado por uno o varios profesores/as, que puede editar el contenido, y contiene un puñado de alumnos/as (organizados en grupos o no) que pueden acceder a los recursos pero no editarlos.
 
-![Moodle - Lista de cursos disponibles](/assets/images/01-moodle-lista-de-cursos.png)
+![Moodle - Lista de cursos disponibles](/docs/dwes/_site/assets/images/01-moodle-lista-de-cursos.png)
 ###### Ejemplo de lista de cursos disponibles en una instalación de Moodle (extraido de docs.moodle.org)
 
 En Moodle, esos recursos se clasifican en categorías llamadas **módulos**. Cada módulo tiene sus propias características y está orientado a un tipo de actividad distinta: cuestionarios en línea, lecciones, tareas para que los alumnos suban, encuestas y otro montón más.
@@ -47,7 +47,7 @@ Un usuario administrador puede instalar o desinstalar módulos para ajustar su v
 
 Los profesores/as pueden, dentro de sus cursos, utilizar todos los módulos que estén disponibles en el sistema para crear los recursos que su alumnado verá al acceder al curso en cuestión.
 
-![Moodle - Lista de módulos](/assets/images/01-moodle-lista-de-modulos.png)
+![Moodle - Lista de módulos](/docs/dwes/_site/assets/images/01-moodle-lista-de-modulos.png)
 ###### Lista de recursos disponibles en Moodle (puede variar dependiendo de los plugins instalados)
 
 A la hora de crear un recurso, Moodle proporciona al profesor/a una enorme (y cuando digo enorme quiero decir *enooorme*) cantidad de posibilidades de configuración. Cada tipo de recurso tiene diferentes configuraciones, claro, pero algunas de las más típicas son:
@@ -58,7 +58,7 @@ A la hora de crear un recurso, Moodle proporciona al profesor/a una enorme (y cu
 * Calificación (numérica, cualitativa, por rúbrica, sin calificación...)
 * Retroalimentación al finalizar la actividad.
 
-![Moodle - Ejemplo de configuración de un recurso](/assets/images/01-moodle-configuracion-recurso.png)
+![Moodle - Ejemplo de configuración de un recurso](/docs/dwes/_site/assets/images/01-moodle-configuracion-recurso.png)
 ###### Ejemplo de configuración de un recurso (una tarea, en este caso)
 
 A continuación vamos a describir los módulos más populares.
@@ -80,7 +80,7 @@ Este módulo sirve para que el alumnado envíe tareas al profesor/a. Estas tarea
 * Las observaciones del profesor se adjuntan a la página de la tarea de cada estudiante y se le envía un mensaje de notificación. 
 * El profesor/a tiene la posibilidad de permitir el reenvío de una tarea tras su calificación (para volver a calificarla). 
 
-![Moodle - Ejemplo de tarea](/assets/images/01-moodle-tarea.png)
+![Moodle - Ejemplo de tarea](/docs/dwes/_site/assets/images/01-moodle-tarea.png)
 ###### Ejemplo de tarea de subida de texto en línea. Así es como la ve un estudiante una vez creada.
 
 #### Módulo de consultas
@@ -188,7 +188,7 @@ La instalación de Moodle es, como decimos, parecida a la de Wordpress:
 
 7. Si todo va bien, Moodle comenzará a crear la estructura de la base de datos (lo cual puede demorarse unos minutos, porque la base de datos tiene más de doscientas tablas) y, al terminar, tendrás funcionando una instalación de Moodle limpia y lista para usar.
 
-![Moodle - Comprobación de extensiones durante la instalación](/assets/images/01-moodle-chequeo-instalacion.png)
+![Moodle - Comprobación de extensiones durante la instalación](/docs/dwes/_site/assets/images/01-moodle-chequeo-instalacion.png)
 ###### Listado de comprobación de extensiones durante la instalación de Moodle
 
 #### Labores de administración

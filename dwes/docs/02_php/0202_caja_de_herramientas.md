@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 2.2 Caja de herramientas
-permalink: /php/caja-de-herramientas
+permalink: /php/caja-de-herramientas.html
 nav_order: 2
 has_children: false
 parent: 2 Introducción a PHP
@@ -24,7 +24,7 @@ En esta sección vamos a hacer un repaso de las herramientas fundamentales, las 
 
 ### 2.2.1. HTML
 
-![Logo de HTML5](/assets/images/02-logo-html.png)
+![Logo de HTML5](/docs/dwes/_site/assets/images/02-logo-html.png)
 
 **DHTML** (Dynamic HTML) no es un lenguaje como tal, sino que, como probablemente sabes ya, es la conjunción de tres lenguajes:
 
@@ -66,7 +66,7 @@ Después de esta accidentada historia, nos encontramos que, en la situación act
 
 ### 2.2.3. CSS
 
-![Logo de CSS3](/assets/images/02-logo-css.jpg)
+![Logo de CSS3](/docs/dwes/_site/assets/images/02-logo-css.jpg)
 
 **CSS** significa ***"Cascade Style Sheet"*** (Hojas de estilo en cascada).
 
@@ -83,7 +83,7 @@ Tampoco es necesario que te conviertas en un experto/a en CSS de la noche a la m
 
 ### 2.2.4. Javascript
 
-![Logo de Javascript](/assets/images/02-logo-js.jpg)
+![Logo de Javascript](/docs/dwes/_site/assets/images/02-logo-js.jpg)
 
 JavaScript es un lenguaje interpretado que puede ser incrustado dentro del código HTML de una página web.
 
@@ -101,7 +101,7 @@ Por último, ten en cuenta que son muy pocos los desarrollos que, en la actualid
 
 ### 2.2.5. PHP
 
-![Logo de PHP](/assets/images/02-logo-php.jpg)
+![Logo de PHP](/docs/dwes/_site/assets/images/02-logo-php.jpg)
 
 **PHP** es un acrónimo recursivo. Significa ***“PHP Hypertext Preprocessor”***.
 
@@ -183,7 +183,7 @@ PHP también presenta algunos inconvenientes, por supuesto. No hay nada perfecto
 
 ### 2.2.6. MariaDB
 
-![Logo de MariaDB](/assets/images/02-logo-mariadb.jpg)
+![Logo de MariaDB](/docs/dwes/_site/assets/images/02-logo-mariadb.jpg)
 
 Otra de las herramientas básicas de nuestra caja de herramientas es el **gestor de bases de datos relacionales** (SGBD).
 

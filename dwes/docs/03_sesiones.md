@@ -19,7 +19,7 @@ Casi todas las aplicaciones web incluyen un subsistema de autenticación de usua
 
 Ese subsistema suele estar basado en este diseño de base de datos:
 
-![Tablas ACL](/assets/images/03-acl.jpg)
+![Tablas ACL]/(docs/dwes/_site/assets/images/03-acl.jpg)
 
 Esto significa que necesitamos **cinco tablas** para implementar un ACL completo.
 

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 2.1 Programación cliente-servidor
-permalink: /php/programacion-cliente-servidor
+permalink: /php/programacion-cliente-servidor.html
 nav_order: 1
 has_children: false
 parent: 2 Introducción a PHP
@@ -44,7 +44,7 @@ En él, se ilustra lo que ocurre cuando un cliente web (recuerda: tu navegador) 
 
 El servidor, en este caso, se limita a enviar al cliente el documento HTML tal cual está almacenado en su disco duro, sin cambiar una sola coma.
 
-![Ejemplo de servicio www](/assets/images/02-servicio-www-1.jpg)
+![Ejemplo de servicio www](/docs/dwes/_site/assets/images/02-servicio-www-1.jpg)
 
 ### 2.1.3. Una petición web en la época 2.0
 
@@ -54,7 +54,7 @@ Quédate con lo importante: en este esquema, el cliente web no pide un documento
 
 Ese programa se ejecuta en el servidor, y *el resultado de esa ejecución* es lo que recibe el cliente, *no el programa en sí*.
 
-![Ejemplo de servicio www](/assets/images/02-servicio-www-2.jpg)
+![Ejemplo de servicio www](/docs/dwes/_site/assets/images/02-servicio-www-2.jpg)
 
 Pues bien: si un sitio web funciona del primer modo, no es una aplicación web, sino una página web estática. Para que sea considerado una aplicación web, debe funcionar del segundo modo.
 

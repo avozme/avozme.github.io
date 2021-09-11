@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 2.4 Interacción con la base de datos
-permalink: /php/interaccion-con-php
+permalink: /php/interaccion-con-php.html
 nav_order: 4
 has_children: false
 parent: 2 Introducción a PHP

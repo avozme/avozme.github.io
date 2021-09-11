@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 2.6 Ejercicios propuestos
-permalink: /php/ejercicios-propuestos
+permalink: /php/ejercicios-propuestos.html
 nav_order: 6
 has_children: false
 parent: 2 Introducción a PHP

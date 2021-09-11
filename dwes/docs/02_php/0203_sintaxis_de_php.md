@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 2.3 Sintaxis de PHP
-permalink: /php/sintaxis-de-php
+permalink: /php/sintaxis-de-php.html
 nav_order: 3
 has_children: false
 parent: 2 Introducción a PHP

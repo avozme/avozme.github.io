@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 2.5 Ejercicios resueltos
-permalink: /php/ejercicios-resueltos
+permalink: /php/ejercicios-resueltos.html
 nav_order: 5
 has_children: false
 parent: 2 Introducción a PHP

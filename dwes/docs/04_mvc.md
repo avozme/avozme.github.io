@@ -26,13 +26,13 @@ Una **arquitectura física de varios niveles** (multinivel o multitier, en ingl�
 
 El ejemplo más sencillo es la arquitectura cliente-servidor, la más popular en aplicaciones web sencillas: una máquina cliente y una máquina servidor ejecutan alternativamente fragmentos del código, proporcionando al usuario final la sensación de una aplicación unificada. 
 
-![Arquitectura en 2 niveles](/assets/images/04-arquitectura-2-niveles.png)
+![Arquitectura en 2 niveles]/(docs/dwes/_site/assets/images/04-arquitectura-2-niveles.png)
 
 Por supuesto, nada impide que tengamos más de dos máquinas colaborando en red par ejecutar una aplicación web. Podemos tener, por ejemplo, un cliente, un servidor web y un servidor de bases de datos (estos dos últimos en dos máquinas físicas diferentes). Esto sería una arquitectura de 3 niveles físicos.
 
 La arquitectura de N niveles tendría este aspecto:
 
-![Arquitectura en N niveles](/assets/images/04-arquitectura-N-niveles.png)
+![Arquitectura en N niveles]/(docs/dwes/_site/assets/images/04-arquitectura-N-niveles.png)
 
 ## 4.2 Arquitecturas LÓGICAS multicapa (multilayer)
 
@@ -68,11 +68,11 @@ Tan solo una arquitectura multicapa estandarizada. Una arquitectura de 3 capas, 
 
 Este es el esquema de una arquitectura en 3 capas. Recuerda: cada capa ejecuta una parte de la solución, y entre ellas colaboran para formar la aplicación completa. La capa superior interactúa con el usuario; la capa inferior, con la máquina (donde dice "hardware", debería decir "cualquier cosa menos abstracta que nuestro programa"). Tienes permiso para imaginar cada capa como una clase con sus métodos y atributos.
 
-![Arquitectura en 3 capas](/assets/images/04-arquitectura-3-capas.png)
+![Arquitectura en 3 capas]/(docs/dwes/_site/assets/images/04-arquitectura-3-capas.png)
 
 Pues bien, si a esas tres les ponemos nombres exóticos como modelo, vista y controlador, y remeneamos un poco el esquema, ya lo tenemos: la arquitectura MVC.
 
-![Arquitectura MVC](/assets/images/04-arquitectura-mvc.png)
+![Arquitectura MVC]/(docs/dwes/_site/assets/images/04-arquitectura-mvc.png)
 
 Es decir, la arquitectura MVC solo es un caso particular de la arquitectura en 3 capas.
 

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 1.1 Algunas cosas que debes saber sobre los CMS
-permalink: /cms/algunas-cosas-que-debes-saber
+permalink: /cms/algunas-cosas-que-debes-saber.html
 nav_order: 1
 has_children: false
 parent: 1 Sistemas gestores de contenido (CMS)
