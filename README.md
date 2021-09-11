@@ -43,4 +43,8 @@ Finally, you can automate the publication process on your webserver by writing a
 
 Este repositorio contiene la documentación (apuntes) del módulo de ***Desarrollo Web en Entorno Servidor*** del Ciclo Formativo de Grado Superior de Desarrollo de Aplicaciones Web impartido en el IES Celia Viñas de Almería (España).
 
-El contenido está escrito con Markdown y renderizado a HTML con Jekyll. Puede desplegarse directamente en cualquier servidor web con un ***git pull***. El sitio web estará accesible en el subdirectorio _sites
+El contenido está escrito con Markdown y renderizado a HTML con Jekyll. Puede desplegarse directamente en cualquier servidor web con un ***git pull***. El sitio web estará accesible en el subdirectorio *sites*. 
+
+También puede subirse solo el directorio *sites* mediante FTP u otro método similar.
+
+Necesitará modificar el archivo *config.yaml* para indicar la *base_url* de su servidor y que todos los enlaces funcionen. Es posible que también necesite hacer un "buscar y reemplazar" en todos los archivos para cambiar las rutas base de las imágenes si estas no cargan adecuadamente. Regenere el sitio con jekyll después de hacer los cambios y vuelva a subirlo a su servidor. Todo debería funcionar después de eso.
