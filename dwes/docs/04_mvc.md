@@ -202,14 +202,14 @@ En el código de ejemplo sobre el que vamos a trabajar, nos vamos a centrar en u
 
 #### Código monolítico
 
-Una primera aproximación a la solución, sin usar ningún patrón de arquitectura en absoluto, podría ser esta (échale un vistazo y asegúrate de entenderlo):
+Una primera aproximación a la solución, **sin usar ningún patrón de arquitectura** en absoluto, podría ser esta (échale un vistazo y asegúrate de entenderlo):
 
 ```php
 <?
   // Conectamos con la base de datos
-  $db = new mysqli('host', 'usuario', 'clave', 'dbname');
+  $db = new mysqli('mi-host', 'mi-usuario', 'mi-clave', 'mi-base-de-datos');
   // Lanzamos una consulta para recuperar los artículos que haya en la base de datos
-  $resultado=$db->query('SELECT fecha, titulo FROM articulo');
+  $res = $db->query('SELECT fecha, titulo FROM articulo');
 ?>
 // Generamos una tabla HTML con el resultado de la consulta
 <h1>Listado de Artículos</h1>
@@ -217,10 +217,10 @@ Una primera aproximación a la solución, sin usar ningún patrón de arquitectu
      <tr> <th>Fecha</th> <th>Titulo</th> </tr>
 <?php
   // Recorremos fila a fila el resultado de la consulta
-  while ($fila = $resultado->fetch_array())  {
+  while ($row = $res->fetch_array())  {
       echo "<tr>";
-      echo "<td> ".$fila['fecha']." </td>";
-      echo "<td> ".$fila['titulo']." </td>";
+      echo "<td> ".$row['fecha']." </td>";
+      echo "<td> ".$row['titulo']." </td>";
       echo "</tr>";
   }
   echo "</table>";
@@ -229,16 +229,18 @@ Una primera aproximación a la solución, sin usar ningún patrón de arquitectu
 ?>
 ```
 
-Esta solución se denomina **monolítica**, porque incluye todo el código necesario en el mismo bloque. Por supuesto, para un ejemplo tan simple como este, el código monolítico es más que suficiente, pero en un sistema más complejo pronto empieza a convertirse en un monstruo inmanejable.
+Esta solución se denomina **monolítica**, porque incluye todo el código necesario en el mismo bloque. 
+
+Por supuesto, para un ejemplo tan simple como este, el código monolítico es más que suficiente, pero en un sistema más complejo pronto empieza a convertirse en un monstruo inmanejable.
 
 #### Primera mejora: controlador + vista
 
 Vamos a aproximarnos un poco a la solución MVC **separando ese código monolítico en dos bloques** (que guardaremos en archivos distintos):
 
-* **Un controlador** (archivo index.php).
-* **Una vista** (archivo view.php).
+* **Un controlador** (archivo *index.php*).
+* **Una vista** (archivo *showAllArticles.php*).
 
-Primero, el **controlador**. Se encargará de recuperar los datos, pero *no de mostrarlos*. Generar el interfaz de usuario, es decir, el HTML, será la labor que le dejaremos a la vista. El controlador preparará esos datos y los empaquetará en un array para que estén disponibles en la vista. Y la vista la insertaremos en el controlador con un include().
+Primero, el **controlador**. Se encargará de recuperar los datos, pero *no de mostrarlos*. Generar el interfaz de usuario, es decir, el HTML, será la labor que le dejaremos a la vista. El controlador preparará esos datos y los empaquetará en un array para que estén disponibles en la vista. Y la vista la insertaremos en el controlador con un *include()*.
 
 ```php
 <?
@@ -247,33 +249,33 @@ Primero, el **controlador**. Se encargará de recuperar los datos, pero *no de m
   // no usamos de momento la variable "action"
 
   // Conectamos a la BD y sacamos la lista de artículos
-  $db = new mysqli('localhost', 'usuario', 'clave', 'dbname');
-  $resultado = $db->query('SELECT fecha, titulo FROM articulo');
+  $db = new mysqli('mi-host', 'mi-usuario', 'mi-clave', 'mi-base-de-datos');
+  $res = $db->query('SELECT fecha, titulo FROM articulo');
 
   // Convertimos la lista de artículos, que es un cursor de MySQL, en un array estándar de PHP
-  $articulos = array();
-  while ($fila = $resultado->fetch_array())  {
-      $articulos[] = $fila;
+  $articles = array();
+  while ($row = $res->fetch_array())  {
+      $articles[] = $row;
   }
   $db->close();
 
   // Incluimos el código de la vista, donde se usará el array de artículos
   // para generar la tabla HTML.
-  include('view.php');
+  include('showAllArticles.php');
 ?>
 ```
 
-La **vista** que mostrará los datos del array contiene un código muy semejante al de la solución monolítica, solo que ahora estará ubicada en un archivo aparte y hará un bucle sobre el array de resultados que le ha preparado el controlador: 
+La **vista** que mostrará los datos del array contiene un código muy semejante al de la solución monolítica, solo que ahora estará ubicada en un archivo aparte (*showAllArticles.php*) y hará un bucle sobre el array de resultados que le ha preparado el controlador: 
 
 ```php
 <h1>Listado de Articulos</h1>
 <table>
      <tr> <th>Fecha</th> <th>Titulo</th> </tr>
      <?php 
-     foreach($articulos as $articulo) {
+     foreach($articles as $article) {
         echo "<tr>
-           <td>".$articulo['fecha']."</td>
-           <td>".$articulo['titulo']."</td>
+           <td>".$article['fecha']."</td>
+           <td>".$article['titulo']."</td>
         </tr>";
      }
      ?>
@@ -284,52 +286,50 @@ La **vista** que mostrará los datos del array contiene un código muy semejante
 
 En esta segunda mejora, **dividiremos el código en tres bloques** (ubicados, de nuevo, en archivos diferentes):
 
-* **Un modelo** para los artíclos (archivo articles.php) --> Contendrá una clase con un método que se encargará de acceder a la base de datos y empaquetar el resultado de la consulta en un array.
-* **Una vista** (archivo view.php) --> Se encargará de generar el HTML con el resultado de la consulta.
-* **Un controlador** (archivo index.php) --> Se encargará de invocar al modelo y a la vista en el orden correcto.
+* **Un modelo** para los artíclos (archivo *articles.php*). Contendrá una clase con un método que se encargará de acceder a la base de datos y empaquetar el resultado de la consulta en un array.
+* **Una vista** (archivo *showAllArticles.php*). Se encargará de generar el HTML con el resultado de la consulta.
+* **Un controlador** (archivo *index.php*). Se encargará de invocar al modelo y a la vista en el orden correcto.
 
-Por lo tanto, el **controlador**, al extraer de él todo lo que tenga que ver con la base de datos, se queda en algo tan sencillo como esto:
+Por lo tanto, el **controlador** (*index.php*), al extraer de él todo lo que tenga que ver con la base de datos, se queda en algo tan sencillo como esto:
 
 ```php
-include('articles.php');	     // En este archivo estará el modelo
+include('articles.php');       // En este archivo estará el modelo
 $articulos = Model::getAll();  // Este método del modelo nos devuelve la lista de artículos
-require('view.php');		       // En este archivo estará la vista
+include('showAllArticles.php');   // En este archivo estará la vista
 ```
 
-El **modelo** consta de una clase con solo un método (de momento) encargado de consultar todos los artículos y devolverlos empaquetados en un array:
+El **modelo** (*articles.php*) consta de una clase con solo un método (de momento) encargado de consultar todos los artículos y devolverlos empaquetados en un array:
 
 ```php
 <?php
 class Articles {
   public function getAll()
   {
-    $db = new mysqli('localhost', 'usuario', 'clave', 'dbname');
-    $resultado=$db->query('SELECT fecha, titulo FROM articulo');
+    $db = new mysqli('mi-host', 'mi-usuario', 'mi-clave', 'mi-base-de-datos');
+    $res=$db->query('SELECT fecha, titulo FROM articulo');
 
-    $articulos = array();
-    while ($fila = $resultado->fetch_array())  {
-        $articulos[] = $fila;
+    $articles = array();
+    while ($row = $res->fetch_array())  {
+        $articles[] = $row;
     }
-
     $db->close();
-
-    return $articulos;
+    return $articles;
   }
 }
 ?>
 ```
 
-Por último, la **vista** será exactamente igual que en la versión anterior: un recorrido por el array de artículos para mostrarlos en formato HTML:
+Por último, la **vista** (*showAllArticles.php*) será exactamente igual que en la versión anterior: un recorrido por el array de artículos para mostrarlos en formato HTML:
 
 ```php
 <h1>Listado de Articulos</h1>
 <table>
      <tr> <th>Fecha</th> <th>Titulo</th> </tr>
      <?php 
-     foreach($articulos as $articulo) {
+     foreach($articles as $article) {
         echo "<tr>
-           <td>".$articulo['fecha']."</td>
-           <td>".$articulo['titulo']."</td>
+           <td>".$article['fecha']."</td>
+           <td>".$article['titulo']."</td>
         </tr>";
      }
      ?>
@@ -342,23 +342,25 @@ Como no sabemos lo que es el miedo, vamos a complicar nuestro patrón modelo-vis
 
 La idea de esta capa adicional es proporcionar un mecanismo de abstracción respecto del gestor de base de datos concreto que estemos utilizando.
 
-Vaya frasecita, ¿eh? *"Un mecanismo de abstracción respecto del gestor de base de datos"*. Si no te has bizqueado un poco al leerlo, es que tienes los nervios de acero. ¿Qué narices significa eso?
+Vaya frasecita, ¿eh? *"Un mecanismo de abstracción respecto del gestor de base de datos"*. Si no has bizqueado un poco al leerlo, es que tienes los nervios de acero. ¿Qué narices significa eso?
 
-Es más simple de lo que esas palabras dan a entender. Te lo explico.
+Es solo una de esas expresiones de que los informáticos usamos para fardar, como cuando un médico te dice que estás acatarrado, pero te lo dice en latín para que parezca más complicado de lo que es.
 
-Si te fijas en el **modelo** de la solución anterior, verás que estamos usando una clase (mysqli) y unos métodos que solo funcionan con MySQL o MariaDB. Si quiséramos cambiar el gestor de base de datos (algo relativamente frecuente), tendríamos que revisar *todos* nuestros modelos, y tal vez modificar y volver a probar miles de líneas de código.
+Te explico qué es eso del *"mecanismo de abstracción bla, bla, bla"*.
 
-Una forma de independizar la aplicación del gestor de base de datos es programar lo que se llama **capa de abstracción** que contenga dos o tres métodos genéricos (como consultar() para lanzar SELECT o manipular() para lanzar INSERT, UPDATE o DELETE).
+Si te fijas en el **modelo** de la solución anterior, verás que estamos usando una clase (*mysqli*) y unos métodos que solo funcionan con MySQL o MariaDB. Si quiséramos cambiar el gestor de base de datos (algo relativamente frecuente), tendríamos que revisar *todos* nuestros modelos, y tal vez modificar y volver a probar miles de líneas de código.
 
-De ese modo, cuando queramos hacer una consulta desde el modelo, no lo haremos con los métodos de MySQL (query(), fetch_array() y similares), sino con los nuestros (consultar(), manipular(), o como los hayamos querido llamar). Si algún día necesitamos cambiar el gestor de base de datos, solo tendremos que reescribir el código de esa capa de abstracción, es decir, un par de decenas de líneas de código frente a varios miles que teníamos que revisar y probar antes.
+Una forma de independizar nuestra aplicación del gestor de base de datos que haya debajo es programar lo que se llama **capa de abstracción** que contenga dos o tres métodos genéricos (como *consultar()* para lanzar SELECT o *manipular()* para lanzar INSERT, UPDATE o DELETE).
+
+De ese modo, cuando queramos hacer una consulta desde el modelo, no lo haremos con los métodos de MySQL (como *query()*, *fetch_array()* y similares), sino con los nuestros (*consultar()*, *manipular()*, o como los hayamos querido llamar). Si algún día necesitamos cambiar el gestor de base de datos, solo tendremos que reescribir el código de esa capa de abstracción, es decir, un par de decenas de líneas de código frente a varios miles que teníamos que revisar y probar antes.
 
 Por lo tanto, en esta tercera mejora vamos a dividir el código en cuatro bloques:
 
-* **Un controlador** (archivo index.php).
-* **Una vista** (archivo view.php).
+* **Un controlador** (archivo *index.php*).
+* **Una vista** (archivo *view.php*).
 * **Un modelo en dos capas**:
-   * **Capa de abstracción de datos** (db.php)
-   * **Capa de acceso a datos** (el modelo de artículos propiamente dicho) (articles.php).
+   * **Capa de abstracción de datos** (*db.php*)
+   * **Capa de acceso a datos** (el modelo de artículos propiamente dicho) (*articles.php*).
 
 El código de la **capa de abstracción** sería algo así:
 
@@ -367,16 +369,35 @@ class Db {
 
   private $db; // Aquí guardaremos la conexión con la base de datos
 
-  function crearConexion($servidor, $usuario, $clave, $dbname) {
+  /**
+   * Abre la conexión con la base de datos
+   * @param $server URL del servidor de la base de datos
+   * @param $username Nombre de usuario en ese servidor
+   * @param $pass Contraseña
+   * @param $dbname Nombre de la base de datos
+   * @return 0 si la conexión se realiza con normalidad y -1 en caso de error
+   */
+  function createConnection($server, $username, $pass, $dbname) {
     $db = new mysqli($servidor, $usuario, $clave, $dbname);
+    if ($db->connect_errno) return -1;
+    else return 0;
   }
 
-  function cerrarConexion() {
+  /**
+   * Cierra la conexión con la base de datos
+   */
+  function closeConnection() {
     if ($this->db) $this->db->close();
   }
 
-  function consulta($consulta) {
-    $res = $this->db->query($consulta);
+  /**
+   * Lanza una consulta (SELECT) contra la base de datos.
+   * ¡Ojo! Este método solo funcionará con sentencias SELECT.
+   * @param $sql El código de la consulta que se quiere lanzar
+   * @return Un array bidimensional con los resultados de la consulta (estará vacío si la consulta no devolvió nada)
+   */
+  function dataQuery($sql) {
+    $res = $this->db->query($sql);
     $resArray = array();
     if ($res) {
       $resArray = $res->fetch_all();
@@ -384,8 +405,16 @@ class Db {
     return $resArray;
   }
 
-  //...etc... (aquí añadimos cualquier función que acceda directamente a MySQL)
-
+  /**
+   * Lanza una sentencia de manipulación de datos contra la base de datos.
+   * ¡Ojo! Este método solo funcionará con sentencias INSERT, UPDATE, DELETE y similares.
+   * @param $sql El código de la consulta que se quiere lanzar
+   * @return El número de filas insertadas, modificadas o borradas por la sentencia SQL (0 si no produjo ningún efecto).
+   */
+  function dataManipulation($sql) {
+    $this->db->query($sql);
+    return $this->db->affected_rows;
+  }
 }
 ```
 
@@ -400,16 +429,16 @@ class Articles {
     $db = new Db();  // Creamos un objeto para usar nuestra capa de abstracción
 
     // Conectamos con la BD a través de nuestra capa de abstracción
-    $db->crearConexion('localhost', 'usuario', 'clave', 'dbName');
+    $db->createConnection('mi-host', 'mi-usuario', 'mi-clave', 'mi-base-de-datos');
 
     // Lanzamos la consulta a través de nuestra capa de abstracción.
     // Nos devolverá directamente un array estándar de PHP.
-    $articulos = $db->consulta('SELECT fecha, titulo FROM articulo');
+    $articles = $db->dataQuery('SELECT fecha, titulo FROM articulo');
 
     // Cerramos la conexión con la BD
-    $db->cerrarConexion();
+    $db->closeConnection();
 
-    return $articulos;
+    return $articles;
   }
 
 }
@@ -421,23 +450,23 @@ El **controlador** y la **vista** son exactamente los mismos que en la solución
 
 Para terminar, vamos a dejar el **código bien organizado** y a mostrarlo completo.
 
-Lo que haremos en esta última etapa es **empaquetarlo todo en clases reutilizables**. Observa que sigue siendo el mismo código fuente, solo que empaquetado en clases y métodos. Lo único que queda fuera de una clase es la instanciación iniciar del objeto controlador.
+Lo que haremos en esta última etapa es **empaquetarlo todo en clases reutilizables**. Observa que sigue siendo el mismo código fuente, solo que empaquetado en clases y métodos. Lo único que queda fuera de una clase es la instanciación inicial del objeto controlador.
 
-Fíjate bien en cómo hemos convertido las vistas en una clase con un método *show()* que nos servirá para mostrar cualquier vista y reutilizar el mismo *header* y el mismo *footer*. Cada vista se programará en un archivo independiente que deberemos organizar en directorios y subdirectorios.
+Fíjate bien en cómo hemos convertido las vistas en una clase con un método *show()* que nos servirá para mostrar cualquier vista y reutilizar el mismo *header* y el mismo *footer*. Cada vista se programará en un archivo independiente que deberemos organizar en directorios y subdirectorios. De momento, nuestra aplicación solo tiene una vista llamada *showAllArticles*, pero se podrían visualizar todas las necesarias usando el método *show()*.
 
-Otra cosa que quiero que observes con atención es **el punto de entrada a la aplicación** (archivo **index.php**), porque lo hemos dejado preparado para poder añadir nuevas funciones al programa con posterioridad, así como varios controladores. El método que se ejecutará dependerá no solo de la variable "action" que se pasa por GET, sino también de otra variable llamada "controller", que también se pasa por GET, y que contendrá el nombre de la clase del controlador.
+Otra cosa que quiero que observes con mucha atención es **el punto de entrada a la aplicación** (archivo ***index.php***), porque lo hemos dejado preparado para poder añadir nuevas funciones al programa con posterioridad, así como varios controladores. El método que se ejecutará dependerá no solo de la **variable *"action"*** que se pasa por GET, sino también de otra variable llamada ***"controller"***, que también se pasa por GET, y que contendrá el nombre de la clase del controlador.
 
-Así, para invocar, por ejemplo, el método showAll() del controlador ArticlesController, la ruta debería ser esta:
+Así, para invocar, por ejemplo, el método *showAll()* del controlador *ArticlesController*, la ruta debería ser esta:
 
 <code>
 http://mi-servidor/index.php?controller=ArticlesController&action=showAll
 </code>
 
-Este index.php es tan genérico que te servirá para montar cualquier aplicación MVC.
+Este *index.php* es tan genérico que **te servirá para montar cualquier aplicación MVC en el futuro**.
 
-Si repasas el código del ejemplo resuelto de tema anterior (el de la autenticación mediante ACL), verás que ya se parecía mucho a este esquema, aunque en el index.php siempre utilizábamos el mismo controlador.
+Si repasas el código del ejemplo resuelto de tema anterior (el de la autenticación mediante ACL), verás que ya se parecía mucho a este esquema, aunque en aquel *index.php* siempre utilizábamos el mismo controlador.
 
-**Punto de entrada a la aplicación** (index.php)
+**Punto de entrada a la aplicación** (*index.php*)
 
 ```php
 <?php
@@ -445,24 +474,24 @@ Si repasas el código del ejemplo resuelto de tema anterior (el de la autenticac
 
   // Miramos a ver si se indica alguna acción en la URL
   if (!isset($_REQUEST['action'])) {
-    // No la hay. Usamos la acción por defecto (main). Puedes cambiarla por cualquier otra que vaya bien con tu aplicación.
+    // No hay acción en la URL. Usamos la acción por defecto (main). Puedes cambiarla por cualquier otra que vaya bien con tu aplicación.
     $action = "main";
   } else {
-    // Sí la hay. La recuperamos.
+    // Sí hay acción en la URL. Recuperamos su nombre.
     $action = $_REQUEST['action'];
   }
 
   // Hacemos lo mismo con el nombre del controlador
   if (!isset($_REQUEST['controller'])) {
-    // No la hay. Asignaremos un controlador por defecto (Articles). Por supuesto, puedes cambiarla por otro que vaya bien con tu aplicación.
-    $controllerClass = "ArticlesController";
+    // No hay controlador en la URL. Asignaremos un controlador por defecto (Articles). Por supuesto, puedes cambiarlo por otro que vaya bien con tu aplicación.
+    $controllerClassName = "ArticlesController";
   } else {
-    // Sí la hay. La recuperamos.
-    $action = $_REQUEST['controller'];
+    // Sí hay controlador en la URL. Recuperamos su nombre.
+    $controllerClassName = $_REQUEST['controller'];
   }
 
-  // Instanciamos el controlador e invocamos al método que se llame como la acción
-  $controller = new $controllerClass();
+  // Instanciamos el controlador e invocamos al método que se llama como la acción
+  $controller = new $controllerClassName();
   $controller->$action();
 ?>
 
@@ -477,12 +506,12 @@ include ("articles.php");
 
 class ArticlesController {
 
-   public function showAllArticles() {
-      $data['articulos'] = Articulos::getAllArticulos();
+   public function showAll() {
+      $data['articles'] = Articles::getAll();
       View::show("showAllArticles", $data);
    }
 
-   // Se añade un método por cada posible valor de la variable "action"
+   // Añadir a partir de aquí un método por cada posible valor de la variable "action"
 
 }
 ```
@@ -494,9 +523,9 @@ class ArticlesController {
 
 class View
 {
-   public function show($nombreVista, $data=null) {
+   public function show($viewName, $data=null) {
       include("header.php");
-      include("$nombreVista.php", $data);
+      include("$viewName.php", $data);
       include("footer.php");
    }
 }
@@ -511,11 +540,11 @@ class View
 <table>
      <tr> <th>Fecha</th> <th>Titulo</th> </tr>
      <?php 
-     $articulos = $data['articulos'];
-     foreach($articulos as $articulo) {
+     $articles = $data['articles'];
+     foreach($articles as $article) {
         echo "<tr>
-           <td>".$articulo['fecha']."</td>
-           <td>".$articulo['titulo']."</td>
+           <td>".$articles['fecha']."</td>
+           <td>".$articles['titulo']."</td>
         </tr>";
      }
      ?>
@@ -531,10 +560,10 @@ class Articles {
 
   public function getAll() {
     $db = new Db();
-    $db->crearConexion('localhost', 'usuario', 'clave','dbName');
-    $articulos = $db->cosulta('SELECT fecha, titulo FROM articulo');
-    $db->cerrarConexion();
-    return $articulos;
+    $db->createConnection('mi-host', 'mi-usuario', 'mi-clave', 'mi-base-de-datos');
+    $articles = $db->dataQuery('SELECT fecha, titulo FROM articulo');
+    $db->closeConnection();
+    return $articles;
   }
 }
 ```
@@ -544,25 +573,54 @@ class Articles {
 ```php
 class Db {
 
-  private $db;
+  private $db; // Aquí guardaremos la conexión con la base de datos
 
-  function crearConexion($servidor, $usuario, $clave, $dbname) {
+  /**
+   * Abre la conexión con la base de datos
+   * @param $server URL del servidor de la base de datos
+   * @param $username Nombre de usuario en ese servidor
+   * @param $pass Contraseña
+   * @param $dbname Nombre de la base de datos
+   * @return 0 si la conexión se realiza con normalidad y -1 en caso de error
+   */
+  function createConnection($server, $username, $pass, $dbname) {
     $db = new mysqli($servidor, $usuario, $clave, $dbname);
+    if ($db->connect_errno) return -1;
+    else return 0;
   }
 
-  function cerrarConexion() {
-    if ($db) $db->close();
+  /**
+   * Cierra la conexión con la base de datos
+   */
+  function closeConnection() {
+    if ($this->db) $this->db->close();
   }
 
-  function consulta($consulta) {
-    $res = $db→query($consulta);
+  /**
+   * Lanza una consulta (SELECT) contra la base de datos.
+   * ¡Ojo! Este método solo funcionará con sentencias SELECT.
+   * @param $sql El código de la consulta que se quiere lanzar
+   * @return Un array bidimensional con los resultados de la consulta (estará vacío si la consulta no devolvió nada)
+   */
+  function dataQuery($sql) {
+    $res = $this->db->query($sql);
     $resArray = array();
     if ($res) {
       $resArray = $res->fetch_all();
     }
     return $resArray;
   }
-  //...etc... (añadimos cualquier función que acceda directamente a MySQL)
+
+  /**
+   * Lanza una sentencia de manipulación de datos contra la base de datos.
+   * ¡Ojo! Este método solo funcionará con sentencias INSERT, UPDATE, DELETE y similares.
+   * @param $sql El código de la consulta que se quiere lanzar
+   * @return El número de filas insertadas, modificadas o borradas por la sentencia SQL (0 si no produjo ningún efecto).
+   */
+  function dataManipulation($sql) {
+    $this->db->query($sql);
+    return $this->db->affected_rows;
+  }
 }
 ```
 
@@ -574,23 +632,23 @@ El patrón MVC consiste, pues, en dividir la aplicación en tres capas:
 
 * **Los modelos**, donde se programa la *lógica de negocio*. De esa forma tan rimbombante se refiere la literatura técnica al acceso a los datos con los filtros, algoritmos y restricciones que el sistema imponga. 
    
-   En la práctica, esto significa que en los modelos debemos colocar todo el código de acceso a la base de datos o a cualquier otro recurso del servidor (como las variables de sesión, por ejemplo). Los modelos deben empaquetar esos datos en objetos estándar de PHP (como arrays) y devolverlos al controlador.
+   Dicho en palabras más sencillas, esto significa que en los modelos debemos colocar todo el código de acceso a la base de datos o a cualquier otro recurso del servidor (como las variables de sesión, por ejemplo). Los modelos deben empaquetar esos datos en objetos estándar de PHP (como arrays) y devolverlos al controlador.
 
    Lo más práctico es **crear un modelo para cada tabla maestra** de la base de datos.
 
-   Los *frameworks* automatizan los métodos más típicos de cada modelo, como insertar un registro, borrar, actualizar, consultar uno o consultar todos. Ya veremos de que formas tan alucinantes se las ingenian para hacer todo esto con un mínimo de esfuerzo por nuestra parte y, por supuesto, sin escribir el mismo código una y otra vez.
+   Los *frameworks* automatizan los métodos más típicos de cada modelo, como insertar un registro, borrar, actualizar, consultar uno o consultar todos. Ya veremos de qué formas tan alucinantes se las ingenian para hacer todo esto con un mínimo de esfuerzo por nuestra parte y, por supuesto, sin escribir el mismo código una y otra vez.
 
 * **Las vistas**, donde se programan todas las salidas HTML que el usuario final va a ver y con las que va a interactuar.
 
    El código Javascript y CSS, por lo tanto, forma parte de las vistas.
 
-   En las vistas estará el grueso del código de cualquier aplicación. Los *frameworks* más avanzados incluyen sistemas de **plantillas** para reutilizar fragmentos de vistas, así como lenguajes adicionales para simplificar este proceso. Pero, si programamos en PHP clásico, tendremos que construir las vistas manualmente.
+   En las vistas estará el grueso del código de cualquier aplicación. Los *frameworks* más avanzados incluyen sistemas de **plantillas** para reutilizar fragmentos de vistas, así como lenguajes adicionales para simplificar la codificación de las vistas. Pero, si programamos en PHP clásico, tendremos que construir las vistas manualmente.
 
 * **Los controladores**, donde se captura cada petición del usuario y se dirige el flujo de ejecución, invocando a los modelos y a las vistas en el orden adecuado.
 
    En una aplicación pequeña, bastará con tener un controlador para todo. Cuando la aplicación crece, suele hacerse **un controlador por cada modelo**, es decir, un controlador por cada tabla maestra.
 
-   Los controladores estarán compuestos por una colección de métodos, uno para cada funcionalidad de la aplicación. El método que se ejecute en cada ocasión estará controlado por la URL (en concreto, por una variable como "action" que se pasará por GET).
+   Los controladores estarán compuestos por una colección de métodos, uno para cada funcionalidad de la aplicación. El método que se ejecute en cada ocasión estará controlado por la URL. En concreto, por la variable *"action"* que se pasará por GET, aunque, por supuesto, puedes ponerle otro nombre si *"action"* no te gusta.
    
    En los *frameworks*, esta variable "action" se transforma en una URL limpia que, a través de un objeto adicional llamado **enrutador**, termina provocando la invocación del método adecuado. 
 
@@ -602,7 +660,7 @@ El patrón MVC consiste, pues, en dividir la aplicación en tres capas:
 
    <code>https://mi-servidor/articles/show/37</code>
 
-   Y el enrutador se encargará trocear esa URL y extraer de ella la información para instanciar el controlador y llamar al método adecuado.
+   Y el enrutador se encargará trocear esa URL y extraer de ella la información para instanciar el controlador adecuado y llamar al método correcto.
 
 # 4.5. Ejercicios propuestos
 
@@ -630,11 +688,11 @@ A ver si se te ocurre algo para hacerlo.
 
 #### Reserva de recursos informáticos
 
-Vamos a hacer una aplicación realista de aplicación directa en un lugar como un instituto, una empresa o cualquier otra organización medianamente compleja.
+Vamos a proponer ahora una aplicación web realista que puede ser muy útil en un lugar como un instituto, una empresa o cualquier otra organización medianamente compleja.
 
-Un problema que se presenta a menudo en estas organizaciones es la necesidad de compartir ciertos recursos, como proyectores, ordenadores portátiles o salas de conferencias.
+Un problema que se presenta a menudo en estas organizaciones es la necesidad de compartir ciertos recursos informáticos, como proyectores, ordenadores portátiles o salas de conferencias.
 
-En nuestro instituto, por ejemplo, tenemos unas listas impresas en papel en un tablón de anuncios para que el profesorado reserve los carritos con portátiles o las aulas de informática, de modo que dos personas no traten de usar a la vez el mismo recurso.
+En nuestro instituto, por ejemplo, tenemos unas hojas impresas colgadas con una chincheta en un tablón de anuncios para que el profesorado reserve los carritos con portátiles o las aulas de informática, de modo que dos personas no traten de usar a la vez el mismo recurso.
 
 Es un método un poco primitivo (aunque eficaz, todo hay que decirlo) que se puede informatizar fácilmente. Y eso es lo que vamos a proponer aquí.
 
@@ -642,18 +700,18 @@ Se trata de **escribir una aplicación para reservar recursos** de la organizaci
 
 Las tablas de la aplicación, por lo tanto, serán estas:
 
-* Resources(id#, name, description, location, image)
-* Users(id#, username, password, realname)
-* TimeSlots(id#, dayOfWeek, startTime, endTime)
-* Reservations(idResource#, idUser#, idTimeSlot#, remarks)
+* Resources(id#, name, description, location, image) -> Los recursos que se pueden reservar
+* Users(id#, username, password, realname) -> Los usuarios registrados
+* TimeSlots(id#, dayOfWeek, startTime, endTime) -> Los tramos temporales en lo que se pueden hacer reservas
+* Reservations(idResource#, idUser#, idTimeSlot#, date, remarks) -> Las reservas
 
-La aplicación, una vez introducidos los datos en las tablas maestras *Resources*, *Users* y *TimeSlots*, podrán reservar recursos autenticándose en la aplicación y seleccionando el recurso, el día y el tramo horario de la reserva (siempre que el recurso no esté reservado ya, obviamente).
+La aplicación, una vez rellenadas con datos las tablas maestras *Resources*, *Users* y *TimeSlots*, permitirá a los usuarios registrados reservar recursos. Antes tendrán que autenticarse (es decir, pasar por un login). Para hacer una reserva, un usuario tiene que seleccionar un recurso, una fecha y un tramo horario. Si el recurso ya está reservado, no se podrá reservar por segunda vez, obviamente.
 
-Para conseguir implementar la aplicación completa, vamos a hacerlo por pasos:
+Para conseguir implementar la aplicación completa, vamos a hacerlo por pasos, de modo incremental. ¡Que cada persona llegue hasta donde buenamente pueda!
 
 **Paso 1. Mantenimiento de la tabla Resources**
 
-Crea todos los elementos necesarios para hacer el manenimiento completo de la tabla de recursos. Es decir: listado, inserción, borrado y modificación.
+En este paso, debes crear todos los elementos necesarios para hacer el manenimiento completo de la tabla de recursos. Es decir: listado, inserción, borrado y modificación de recursos.
 
 Hazlo exactamente en ese orden, porque he escrito las operaciones en orden de dificultad en su implementación.
 
@@ -664,9 +722,26 @@ Para hacerlo, necesitarás:
 * El modelo de recursos (clase Resources)
 * La capa de abstracción (clase Db)
 * La clase vista (View)
-* Una colección de vistas sencillas. Al menos dos: una para mostrar el listado de recursos y otra para el formulario de insercion y modificación (se puede reutilizar la misma).
+* Una colección de vistas sencillas. Al menos dos: una para mostrar el listado de recursos y otra para el formulario de inserción y modificación (se puede reutilizar el mismo formulario para las dos cosas).
 
 Fíjate en que puedes reutilizar gran parte del código fuente que hemos mostrado como ejemplo de MVC más arriba, con unas pocas adaptaciones.
+
+Lo ideal es hacer que, desde la vista *showAllResources*, se pueda acceder al resto de funcionalidades relacionadas con los recursos. Es decir, esa vista quedaría algo así:
+
+```
+MANTENIMIENTO DE RECURSOS
+
+Recurso                     Ubicación         Acciones
+
+Impresora Láser Brother     Aula 8            Modificar | Eliminar
+Carrito de portátiles A     Lab. Biología     Modificar | Eliminar
+Proyector portátil          Dirección         Modificar | Eliminar
+etc.
+
+                                              Añadir nuevo
+```
+ 
+Los textos "Modificar", "Eliminar" y "Añadir nuevo" deben ser *links* que nos conduzcan de regreso a la aplicación para realizar esas acciones con los recursos.
 
 **Paso 2. Mantenimiento de la tabla TimeSlots**
 
@@ -674,13 +749,28 @@ El mantenimiento de esta tabla es muy similar al de la anterior. Necesitarás un
 
 **Paso 3. Mantenimiento de la tabla Users**
 
-Más de lo mismo. Reutiliza y adapta todo lo que puedas. Este tercer mantenimiento te debería salir con mucha más facilidad y rapidez que los anteriores.
+Más de lo mismo. Reutiliza y adapta todo lo que puedas. Este tercer mantenimiento de tabla te debería salir con mucha más facilidad y rapidez que los dos anteriores.
 
 **Paso 4. Menú principal**
 
 Hasta ahora, tenemos un puñado de métodos en uno o varios controladores que se invocan pasando variables de control por la URL (algo como <code>http://mi-servidor/index.php?controller=resources&action=showAll</code>). 
 
 En este punto, vamos a juntarlos todos en un menú principal que contendrá enlaces a todas esas URLs. Cuando añadamos más funcionalidades al programa, solo tendremos que agregarlas al menú principal.
+
+Es decir, se trata de construir una vista *"mainMenu"* (o con el nombre que más te guste) a la que se acceda después de superar el login y que muestre algo como esto:
+
+```
+Bienvenid@, nombre-de-usuario
+
+MENÚ DE OPCIONES
+
+Mantenimiento de recursos
+Mantenimiento de tramos horarios
+Mantenimiento de usuarios
+Cerrar sesión
+```
+
+Los textos "Mantenimiento de recursos", "Mantenimiento de tramos horarios", etc, deben ser *links* que nos conduzcan de regreso a la aplicación para acceder a las vistas de mantenimiento de esos elementos.
 
 **Paso 5. Autenticación**
 
@@ -692,11 +782,11 @@ No te olvides de controlar el acceso a los métodos de los controladores para qu
 
 **Paso 6. Reservas**
 
-Hacer o eliminar reservas consiste, básicamente, en insertar y eliminar registros de la tabla TimeSlots.
+Hacer o eliminar reservas consiste, básicamente, en insertar y eliminar registros de la tabla *TimeSlots*.
 
 Sin embargo, no es un mantenimiento como el de las otras tablas, puesto que esta tabla proviene de una relación ternaria entre tres entidades (reservas, slots y usuarios), y no es una tabla maestra como tal.
 
-Por eso dejamos este mantenimiento de tabla para el final: porque es el más *raro* y, además, constituye la pieza principal de la aplicación: si esto no está hecho, la aplicación, simplemente, no funciona.
+Por eso dejamos este mantenimiento de tabla para el final: porque es el más *raro* y, además, constituye la pieza principal de la aplicación: si esto no está hecho, la aplicación, simplemente, carece de su funcionalidad principal.
 
 **Paso 7. Roles de usuario**
 

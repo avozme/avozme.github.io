@@ -8,6 +8,8 @@ nav_order: 6
 # 6. Servicios web
 {: .no_toc }
 
+<strong><span style='color:red'>ATENCIÓN: todo este capítulo aún está pendiente de ser revisado</span></strong>
+
 - TOC
 {:toc}
 
