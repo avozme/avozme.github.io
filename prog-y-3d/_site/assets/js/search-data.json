@@ -1,0 +1,14 @@
+{"0": {
+    "doc": "About",
+    "title": "About",
+    "content": "Estos apuntes han sido elaborados por Antonio Zapata Sierra y Alfredo Moreno Vozmediano. Se publican aquí con licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), lo que quiere decir que eres libre de usar este material, copiarlo, distribuirlo y modificarlo siempre que el resultado de todo eso mantenga la misma licencia y cites la autoría original. Algunos fragmentos (pocos) están tomados y adaptados de otras fuentes. Cuando eso ocurre, lo indico claramente en el texto. Debes atenerte a la licencia de los sitios web de origen para esos fragmentos. ",
+    "url": "/docs/prog-y-3d/_site/about/",
+    "relUrl": "/about/"
+  },"1": {
+    "doc": "Introducción a la programación y al diseño 3D",
+    "title": "Introducción a la programación y al diseño 3D",
+    "content": "Estos son los apuntes de la asignatura ***Introducción a la programación y al diseño 3D***, optativa propia de 2º de Bachillerato ofertada por el IES Celia Viñas de Almería (España). 1. TOC {:toc} ",
+    "url": "/docs/prog-y-3d/_site/",
+    "relUrl": "/"
+  }
+}
