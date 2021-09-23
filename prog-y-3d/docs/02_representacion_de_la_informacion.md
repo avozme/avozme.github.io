@@ -72,65 +72,76 @@ Para obtener la representación decimal de un número binario hay que proceder s
 
 1. Numeramos la posición que ocupa cada dígito binario de derecha a izquierda, empezando por 0. Por ejemplo, en el número binario 1010011, numeraremos las posiciones así:
 
-XXX insertar imagen
+   ```
+         Posiciones --> 6 5 4 3 2 1 0
+            Dígitos --> 1 0 1 0 0 1 1
+   ```
 
 2. Multiplicamos cada dígito binario por 2 elevado a la posición del dígito y sumamos todos los resultados. Con el número del ejemplo anterior:
 
-XXX insertar imagen
+   <p align='center'>1 x 2<sup>6</sup> + 0 x 2<sup>5</sup> + 1 x 2<sup>4</sup> + 0 x 2<sup>3</sup> + 0 x 2<sup>2</sup> + 1 x 2<sup>1</sup> + 1 x 2<sup>0</sup></p>
 
-   Ahora sólo nos quedaría sumar los resultados de todas las multiplicaciones:
+3. Ahora sólo nos quedaría sumar los resultados de todas las multiplicaciones:
 
-<span align="center"><code>64 + 0 + 16 + 0 + 0 + 2 + 1 = 83</code></span>
+   <p align='center'>64 + 0 + 16 + 0 + 0 + 2 + 1 = 83</p>
 
 Por lo tanto, el número binario 1010011 es equivalente al número decimal 83. 
 
 Es habitual indicar con un subíndice el sistema de numeración al que pertenece cada número, así:
 
-XXX insertar imagen o código HTML para: 10100112 = 8310
+<p align='center'>1010011<sub>2</sub> = 83<sub>10</sub></p>
 
 #### Convertir números decimales a binarios
 
-XXX revisar desde aquí ---
-
 El proceso contrario se realiza dividiendo sucesivamente el número decimal entre dos, y cogiendo el último cociente y todos los restos en el orden inverso al que los obtuvimos.
-Por ejemplo, vamos hallar la representación binaria del número 8310 :
 
-XXX insertar imagen
+Por ejemplo, vamos hallar la representación binaria del número 83<sub>10</sub>:
+
+XXX insertar imagen división binaria
 
 Tomando el último cociente (que siempre es 1) y todos los restos desde el último hacia el primero (es decir, 010011, siguiendo la dirección de la flecha), obtenemos el número binario 1010011. Por lo tanto, podemos decir que:
 
-XXX insertar imagen o HTML: 8310 = 10100112
+<p align='center'>83<sub>10</sub> = 1010011<sub>2</sub></p>
 
 #### Operaciones aritméticas binarias
 
 La operaciones aritméticas binarias se realizan exactamente igual que las decimales, aunque teniendo la precaución de usar sólo los dos símbolos permitidos (0 y 1), lo que puede parecernos un poco extraño al principio.
 
-Por ejemplo, para realizar una suma de dos números binarios, escribiremos ambos números uno encima de otro, alineados a la derecha, como hacíamos cuando éramos tiernos infantes y estábamos aprendiendo a sumar. Luego, iremos sumando los dígitos de derecha a izquierda, como haríamos con dos números decimales, con la precaución de sumar también el acarreo cuando se produzca.
+Por ejemplo, para realizar una suma de dos números binarios, escribiremos ambos números uno encima de otro, alineados a la derecha, como hacíamos cuando estábamos aprendiendo a sumar. Luego, iremos sumando los dígitos de derecha a izquierda, como haríamos con dos números decimales, con la precaución de sumar también el acarreo cuando se produzca.
 
-Vamos a sumar los números 110012 y 10112 :
+Vamos a sumar los números 11001<sub>2</sub> y 1011<sub>2</sub>:
 
-     1  1     1         acarreos
+```
+     1  1     1       <-- acarreos
      1  1  0  0  1
-+
-        1  0  1  1
-  
++       1  0  1  1
+  ----------------
   1  0  0  1  0  0
+```
 
 Del mismo modo, pueden realizarse otras operaciones aritméticas como restas, productos o divisiones.
 
 ### 2.1.2. El código ASCII
 
-Hasta ahora hemos visto que mediante el código binario se pueden representar números, pero no sabemos cómo se las apaña un ordenador para representar las letras, o, dicho en terminilogía informática, los caracteres alfanuméricos (que incluyen números, letras y otros símbolos habituales, como los signos de puntuación).
+Hasta ahora hemos visto que mediante el código binario se pueden representar números, pero no sabemos cómo se las apaña un ordenador para **representar las letras**, o, dicho en terminología informática, los **caracteres alfanuméricos** (que incluyen números, letras y otros símbolos, como los signos de puntuación).
 
-El código ASCII consiste en una correspondencia entre números binarios de 8 dígitos y caracteres alfanuméricos2. Así, por ejemplo, al número 6510 (en binario, 010000012) se le hace corresponder la letra A, al 6610 la B, al 6710 la C, etc. De este modo, el ordenador puede también manejar letras, y lo hace del mismo modo en que maneja números: mediante combinaciones de ceros y unos.
+**El código ASCII consiste en una correspondencia entre números binarios de 8 dígitos y caracteres alfanuméricos**. 
+
+(Bueno, en realidad el código ASCII original usaba números binarios de 7 dígitos, pero eso es otra historia. El ASCII que ha llegado hasta nuestros días es el ASCII extendido de 8 bits).
+
+Así, por ejemplo, al número 65<sub>10</sub> (expresado en binario, 01000001<sub>2</sub>) se le hace corresponder la letra "A", al 66<sub>10</sub> la "B", al 67<sub>10</sub> la "C", etc.
+
+De este modo, el ordenador puede también manejar letras, y lo hace del mismo modo en que maneja números: mediante combinaciones de ceros y unos.
 
 Es importante resaltar que los códigos ASCII siempre tienen 8 dígitos binarios, rellenándose con ceros a la izquierda si fuera necesario. Así ocurre en el caso de la letra A, que, como hemos dicho, se representa con el código 01000001.
 
-El código ASCII no es el único que existe para representar letras en binario, pero sí el más extendido.
+Si te tomas la molestia de calcular cuántos caracteres diferentes pueden representarse con el código ASCII, verás que son exactamente 256. Suficientes para todos los caracteres habituales, ¿verdad? Aunque, un momento... ¿Y qué hay de los caracteres griegos? ¿O los caracteres cirílicos del ruso? Eso por no hablar del chino y o el japonés.
+
+Si queremos dar cabida a cualquier idioma del mundo, el código ASCII se nos queda rápidamente pequeño. Por eso se ideó otra forma de codificación de caracteres que es la que más se usa en la actualidad: Unicode.
 
 ### 2.1.3. El código Unicode
 
-XXX redactar
+XXX revisar desde aquí
 
 ### 2.1.4. El código hexadecimal
 
