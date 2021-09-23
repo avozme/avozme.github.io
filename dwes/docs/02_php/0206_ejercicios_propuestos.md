@@ -61,42 +61,31 @@ El programa mostrará un número entre 1 y 4 durante un instante, y luego borrar
 
 ### 2.6.2. Ejercicios con acceso a bases de datos
 
+#### Ejercicio 6: videoclub simplificado
+
 En esta sección, en lugar de ejercicios independientes, vamos a plantear una aplicación más larga que iremos montando paso a paso. Al final, tendrás una aplicación web simple pero plenamente funcional: *tu primera aplicación web*.
 
 **Importante**: puedes (y te aconsejo que así lo hagas) utilizar como base para esta aplicación la Biblioteca que pusimos como ejemplo en la sección anterior.
 
-#### Ejercicio 6: creación de tablas
+Conéctate a tu servidor de MySQL con el cliente que prefieras (te recomiendo PhpMyAdmin, que viene de serie con XAMPP) y crea una base de datos vacía a la que debes añadir estas tablas:
 
-Crea una base de datos nueva llamada *Videoclub* en MySQL. Puedes utilizar PHPMyAdmin para ello, aunque también podríamos hacerlo desde un programa PHP.
-
-Luego, escribe un programa PHP llamado ejercicio09.php que sirva para crear las siguientes tablas del Videoclub (sólo usaremos tres por ahora). El programa debe informar de si las tablas se crearon correctamente o si ocurrió algún error al crearlas.
-
-* Películas (cod_película#, título, género, país, año, distribuidora)
+* Películas (cod_película#, título, género, país, año, distribuidora, cartel)
 * Personas (cod_persona#, nombre, apellidos)
 * Actúan (cod_película#, cod_persona#)
 
-#### Ejercicio 7: mantenimiento de tablas maestras
+Inserta algunos datos en las tablas para que no estén vacías.
 
-Crea un programa PHP para mantener la tabla Películas. El programa debe permitir:
+A continuación, y utilizando como base el código fuente de la Biblioteca, haz que tu aplicación web sea capaz de:
 
-* Añadir nuevos registros, introduciendo todos los campos de la tabla.
-* Eliminar registros existentes, introduciendo el código de la película.
+1. Mostrar una lista de las películas (con su reparto).
+2. Borrar una película.
+3. Buscar una película.
+4. Insertar una película nueva. No insertes, de momento, el reparto: solo los datos de la película.
+5. Modificar una película existente. No modifiques el reparto, solo los datos de la película.
 
-#### Ejercicio 8: consultas simples
+Programa esas funcionalidades en ese orden, porque van de la más sencilla a la más complicada de desarrollar.
 
-Escribe un programa en PHP que permita buscar a una película cualquiera introduciendo su código. Debe mostrar todos los datos disponibles en la tabla Películas.
-
-#### Ejercicio 9: consultas y actualizaciones
-
-Combina los ejercicios anteriores para que el mantenimiento de tablas también incluya la posibilidad de modificar registros existentes.
-
-Primero, el usuario podrá buscar una película introduciendo su código, y el programa mostrará los datos correspondientes a ese registro (o un error si no existe). Luego, podrá modificarse cualquier campo del mismo.
-
-#### Ejercicio 10: consultas complejas
-
-Escribe un último programa PHP que permita consultar una película por código, por título o por género (en los dos últimos casos, la búsqueda puede producir varios resultados, de los que el usuario debe poder seleccionar el que desee). En la pantalla deben aparecer todos los datos de la película, incluyendo su reparto.
-
-#### Ejercicio 11: ampliación indefinida del videoclub
+#### Ejercicio 7: ampliación indefinida del videoclub
 
 Puedes ir ampliando esta aplicación indefinidamente en varias direcciones:
 
@@ -104,4 +93,5 @@ Puedes ir ampliando esta aplicación indefinidamente en varias direcciones:
 * Asignar el reparto a cada película, es decir, hacer inserciones y borrados en la tabla Actúan.
 * Crear nuevas tablas para relacionar Personas y Películas, de manera que la base de datos pueda contener también las personas que dirigen, escriben o producen las películas, y añadir todo esto a la aplicación.
 * Incluir enlaces a trailers de cada película en Youtube.
+* Añadir un sistema de votaciones para cada película.
 * ¡Y todo lo que se te ocurra!
