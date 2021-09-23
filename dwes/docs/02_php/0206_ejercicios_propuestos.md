@@ -65,33 +65,33 @@ El programa mostrará un número entre 1 y 4 durante un instante, y luego borrar
 
 En esta sección, en lugar de ejercicios independientes, vamos a plantear una aplicación más larga que iremos montando paso a paso. Al final, tendrás una aplicación web simple pero plenamente funcional: *tu primera aplicación web*.
 
-**Importante**: puedes (y te aconsejo que así lo hagas) utilizar como base para esta aplicación la Biblioteca que pusimos como ejemplo en la sección anterior.
+**Importante**: puedes (y te aconsejo que así lo hagas) utilizar como base para esta aplicación la Biblioteca que aparecía en la sección de "Ejercicios resueltos".
 
-Conéctate a tu servidor de MySQL con el cliente que prefieras (te recomiendo PhpMyAdmin, que viene de serie con XAMPP) y crea una base de datos vacía a la que debes añadir estas tablas:
+Conéctate a tu servidor de MySQL con el cliente que prefieras (te recomiendo *PhpMyAdmin*, que viene de serie con XAMPP) y crea una base de datos vacía a la que debes añadir estas tablas:
 
-* Películas (cod_película#, título, género, país, año, distribuidora, cartel)
-* Personas (cod_persona#, nombre, apellidos)
-* Actúan (cod_película#, cod_persona#)
+* Películas (id#, titulo, genero, pais, anyo, cartel)
+* Personas (id#, nombre, apellidos, fotografia)
+* Actúan (idPelicula#, idPersona#)
 
-Inserta algunos datos en las tablas para que no estén vacías.
+Inserta algunos datos en las tablas para que no estén vacías. Las imágenes deben ser cadenas de caracteres con la ruta del archivo que realmente contiene la imagen. Este archivo debe estar almacenado en una subcarpeta de la aplicación (por ejemplo, "images").
 
 A continuación, y utilizando como base el código fuente de la Biblioteca, haz que tu aplicación web sea capaz de:
 
-1. Mostrar una lista de las películas (con su reparto).
-2. Borrar una película.
-3. Buscar una película.
-4. Insertar una película nueva. No insertes, de momento, el reparto: solo los datos de la película.
-5. Modificar una película existente. No modifiques el reparto, solo los datos de la película.
+1. **Mostrar una lista de las películas** que hay en la base de datos (con su reparto). Junto a cada película, debe aparecer dos enlaces con el texto "Modificar" y "Borrar". Y, antes o después de la lista, debe aparecer un enlace para "Añadir" una película y otro para "Buscar".
+2. **Borrar una película**. Se accede a esta funcionalidad desde la lista de películas.
+3. **Buscar una película**. Se accede a esta funcionalidad desde la lista de películas.
+4. **Insertar una película nueva**. Se accede a esta funcionalidad desde la lista de películas. No trates de insertar, de momento, el reparto de la película: solo los datos de la tabla "Películas".
+5. **Modificar una película existente**. Se accede a esta funcionalidad desde la lista de películas. No modifiques el reparto, solo los datos de la película.
 
-Programa esas funcionalidades en ese orden, porque van de la más sencilla a la más complicada de desarrollar.
+Programa esas operaciones en ese orden, porque van de la más sencilla a la más complicada de desarrollar, y básate en el caso resuelto "Biblioteca" que vimos en la sección anterior.
 
 #### Ejercicio 7: ampliación indefinida del videoclub
 
-Puedes ir ampliando esta aplicación indefinidamente en varias direcciones:
+Si terminas antes de tiempo, puedes ir ampliando esta aplicación indefinidamente en varias direcciones:
 
 * Añadir el mantenimiento de la tabla de Personas: búsquedas, inserciones, modificaciones y borrados.
-* Asignar el reparto a cada película, es decir, hacer inserciones y borrados en la tabla Actúan.
+* Asignar el reparto a cada película, es decir, hacer inserciones y borrados en la tabla Actuan, tanto al crear una película como al modificarla.
 * Crear nuevas tablas para relacionar Personas y Películas, de manera que la base de datos pueda contener también las personas que dirigen, escriben o producen las películas, y añadir todo esto a la aplicación.
 * Incluir enlaces a trailers de cada película en Youtube.
-* Añadir un sistema de votaciones para cada película.
+* Añadir un sistema de votaciones de los visitantes para cada película.
 * ¡Y todo lo que se te ocurra!

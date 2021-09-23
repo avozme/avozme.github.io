@@ -275,7 +275,7 @@ Observa detenidamente cómo se usan las variables de sesión con PHP mediante el
 
 ### 2.5.3. Biblioteca
 
-Este es un ejemplo muy importante por dos razones:
+Este es un caso práctico muy importante por dos razones:
 
 1. Porque es nuestra primera aplicación web "de verdad", con una base de datos detrás.
 2. Porque volveremos sobre ella varias veces a lo largo de las siguientes secciones para hacerle sucesivas mejoras, hasta dejarla presentable.
@@ -289,8 +289,6 @@ La aplicación trabajará con una base de datos compuesta de solo dos tablas (ya
 Esta aplicación nos permitirá, en principio, ver la lista de todos los libros disponibles, así como dar de alta libros nuevos y modificar o borrar los libros existentes. De momento no trabajaremos con los autores, pero sería fácil extenderla para que también nos dejase hacer altas, bajas y modificaciones de los autores.
 
 Al leer el código, observa cómo utilizamos una variable muy especial llamada ***$action*** para saber qué tiene que hacer la aplicación en cada momento. Esa variable es el germen de la *arquitectura modelo-vista-controlador* con la que trabajaremos una y otra vez más adelante.
-
-XXX
 
 ```php
 <!-- BIBLIOTECA VERSIÓN 1
