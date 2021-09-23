@@ -25,4 +25,4 @@ Módulos:
 * **DWEC** = Desarrollo web en entorno cliente (prof. Félix Expósito)
 * **DWES** = Desarrollo web en entorno servidor (prof. Alfredo Moreno)
 
-(Última actualización: 20 de septiembre de 2021)
+(Última actualización: 23 de septiembre de 2021)
