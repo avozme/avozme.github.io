@@ -1,13 +1,13 @@
 ---
 layout: page
-title: 5. Orientación a objetos
+title: 6. Orientación a objetos
 permalink: /orientacion-a-objetos/
-nav_order: 5
+nav_order: 6
 has_children: true
 parent: Introd. a la prog. y al diseño 3D
 ---
 
-# 5. Orientación a objetos
+# 6. Orientación a objetos
 {: .no_toc }
 
 - TOC

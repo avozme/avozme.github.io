@@ -1,13 +1,13 @@
 ---
 layout: page
-title: 6. Entornos integrados de desarrollo
+title: 7. Entornos integrados de desarrollo
 permalink: /entornos-integrados-de-desarrollo/
-nav_order: 6
+nav_order: 7
 has_children: true
 parent: Introd. a la prog. y al diseño 3D
 ---
 
-# 6. Entornos integrados de desarrollo
+# 7. Entornos integrados de desarrollo
 {: .no_toc }
 
 - TOC

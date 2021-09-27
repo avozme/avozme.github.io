@@ -314,3 +314,54 @@ Podemos resumir las unidades de medida de información en la siguiente tabla:
 Por ejemplo, 1 KB es un 2,35% más pequeño que 1 KiB, pero 1 EB es un 13,3% más pequeño que 1 EiB. ¡Entre 1 EB y 1 EiB hay 150 millones de GB de diferencia! Por lo tanto, no es de extrañar que las compañías de telefonía o los fabricantes de dispositivos de almacenamiento publiciten sus capacidades en las unidades más pequeñas posible, para que lo que te ofertan parezca más de lo que es.
 
 Por último, hacemos notar que, en ocasiones, también se usan los mismos múltiplos para el bit, no para el Byte. Así, puedes encontrarte con megabits (Mb) o mebibits (Mib), que son, respectivamente, un millón (1.000.000) de bits y 220 bits (1.048.576). O con gigabits (Gb) o gigibits (Gib). La conversión entre los múltiplos del bit los del Byte se realiza multiplicando o dividiendo entre 8, como es lógico. Observa como **se usa la "b" minúscula para distinguir los bits de los Bytes**. 
+
+## 2.3. Ejercicios propuestos
+
+**Ejercicio 1**. Investiga y responde a las siguientes cuestiones:
+
+> a) ¿Por qué los ordenadores digitales sólo utilizan ceros y unos, es decir, códigos binarios, en lugar de manejar internamente códigos decimales, como hacemos los humanos?
+
+> b)  ¿Por qué los humanos estamos habituados a un sistema de numeración basado en 10 símbolos y no a cualquier otro, por ejemplo, uno con 8 símbolos, o con 5, o con 12?
+
+**Ejercicio 2**. Tenemos un viejo ordenador con una capacidad de almacenamiento en la memoria principal de 2 GB. Suponiendo que un nombre ocupe 30 caracteres y un apellido ocupe 25, ¿cuántos nombres y apellidos puede almacenar este ordenador?
+
+**Ejercicio 3**. Convierte las siguientes cantidades de información:
+
+> a) 30 GB a MB
+
+> b) 128 KB a bits
+
+> c) 2 MB a bits
+
+> d) 64512 KiB a MiB
+
+**Ejercicio 4**. Convierte los siguientes números al sistema de numeración indicado:
+
+> a) 100101<sub>2</sub> a decimal
+
+> b) 254<sub>10</sub> a binario
+
+> c) 1111111<sub>2</sub> a decimal
+
+> d) 191<sub>10</sub> a binario
+
+**Ejercicio 5**. Escribe las palabras "CELIA VIÑAS" en código ASCII (en decimal y en hexadecimal).
+
+**Ejercicio 6**. La cantidad de memoria RAM de un ordenador personal medio ha ido creciendo imparablemente desde que los ordenadores personales se popularizaron en los años 80. Estas son algunas de esas cantidades:
+
+* Año 1982: 256 KiB
+* Año 1992: 4 MiB
+* Año 2002: 512 MiB
+* Año 2012: 4 GiB
+* Año 2022: 8 GiB
+
+Dibuja en un gráfico la evolución de estas cantidades y haz una proyección aproximada hasta el año 2032. ¿Cuánta memoria RAM usarán los ordenadores dentro de 10 años? Puedes usar un programa de hoja de cálculo para ayudarte.
+
+**Ejercicio 7**. El tamaño de los discos duros promedios de los ordenadores también ha ido creciendo desde hace cuarenta años. Haz una proyección parecida a la anterior para averiguar qué capacidad de almacenamiento en disco tendrán los ordenadores personales, previsiblemente, dentro de 10 años.
+
+* Año 1982: 10 MiB (los pocos ordenadores que tenían disco duro)
+* Año 1992: 1 GiB
+* Año 2002: 40 GiB
+* Año 2012: 240 GiB
+* Año 2022: 2 TiB
+

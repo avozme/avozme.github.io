@@ -1,16 +1,16 @@
 ---
 layout: page
-title: 7. Lenguaje PHP
+title: 5. Lenguaje PHP
 permalink: /lenguaje-php/
-nav_order: 7
+nav_order: 5
 has_children: true
 parent: Introd. a la prog. y al diseño 3D
 ---
 
-# 7. Lenguaje PHP
+# 5. Lenguaje PHP
 {: .no_toc }
 
-<p style='color:red'><strong>ATENCIÓN: este capítulo aún está en fase de redacción y su contenido es provisional. ¡No lo leas todavía!</p>
+<p style='color:red'><strong>ATENCIÓN: este capítulo aún está en fase de redacción y su contenido es provisional. ¡No lo leas todavía!</strong></p>
 
 - TOC
 {:toc}
