@@ -10,7 +10,6 @@ parent: Introd. a la prog. y al diseño 3D
 # 3. Introducción a la programación
 {: .no_toc }
 
-Lenguajes de programación. Tipos de lenguajes. Estructura de un programa informático. Tipos básicos de datos. Constantes y variables. Operadores y expresiones. Comentarios. Pseudocódigo y diagramas de flujo. Estructuras de control: secuencial, condicional e iterativa.
 
 - TOC
 {:toc}
@@ -21,11 +20,38 @@ Lenguajes de programación. Tipos de lenguajes. Estructura de un programa inform
 
 El conjunto de las instrucciones que conforma el programa se denomina **código fuente**, y tiene que estar escrito en un lenguaje comprensible por la máquina, es decir, un **lenguaje de programación**.
 
-Esas instrucciones se traducen a **código binario** (que, recuerda, es lo único que puede comprender el ordenador). La CPU de un ordenador está construida de manera que puede entender y ejecutar ciertas instrucciones binarias, por lo que nuestro programa acaba ejecutándose en las entrañas de la máquina.
+Esas instrucciones se traducen a **código binario** (que, recuerda, es lo único que puede comprender el ordenador). La CPU de un ordenador está construida de manera que puede entender y ejecutar ciertas instrucciones binarias, gracias a lo cual nuestro programa acaba ejecutándose en las entrañas de la máquina.
 
-Este es un fragmento de un programa informático real escrito en lenguaje PHP:
+Este es un fragmento de un programa informático real escrito en lenguaje PHP. Implementa un algoritmo de ordenación de elementos llamado *Bubble Sort* o, en español, *método de la burbuja*. No es necesario, ni mucho menos, que lo entiendas de momento. Solo quiero que le eches un vistazo para que veas el aspecto que tiene un programa real (o un fragmento) escrito en un lenguaje real.
 
-XXX fragmento PHP
+```php
+function bubble_Sort($my_array )
+{
+	do
+	{
+		$swapped = false;
+		for( $i = 0, $c = count( $my_array ) - 1; $i < $c; $i++ )
+		{
+			if( $my_array[$i] > $my_array[$i + 1] )
+			{
+				list( $my_array[$i + 1], $my_array[$i] ) =
+						array( $my_array[$i], $my_array[$i + 1] );
+				$swapped = true;
+			}
+		}
+	}
+	while( $swapped );
+return $my_array;
+}
+
+$test_array = array(3, 0, 2, 5, -1, 4, 1);
+echo "Original Array :";
+echo implode(', ',$test_array );
+echo "Sorted Array:";
+echo implode(', ',bubble_Sort($test_array)). PHP_EOL;
+```
+
+(Fuente: php.net)
 
 ### 3.1.2. Programas y algoritmos
 
@@ -33,559 +59,703 @@ Para realizar un programa es necesario idear previamente un algoritmo. Esto es i
 
 Un algoritmo, como hemos visto, es una **secuencia ordenada de acciones que conducen a la solución de un problema en un número finito de pasos simples**.
 
-Por ejemplo, vamos a diseñar un algoritmo simple que determine si un número N es par o impar:
+Por ejemplo, vamos a escribir un algoritmo para determinar si un número entero cualquiera (que llamaremos N) es par o impar:
 
-* Inicio del algoritmo
-* Paso 1. Averiguar qué número es N.
-* Paso 2. Si N es divisible entre 2, entonces la solución es "PAR".
-* Paso 3. Si N no es divisible entre 2, entonces la solución es "IMPAR".
-* Paso 4. Imprimir la solución.
-* Fin del algoritmo
+```
+- Inicio del algoritmo
+- Paso 1. Preguntar qué número concreto es N.
+- Paso 2. Si N es divisible entre 2, entonces la solución es "PAR".
+- Paso 3. Si N no es divisible entre 2, entonces la solución es "IMPAR".
+- Paso 4. Imprimir la solución.
+- Fin del algoritmo
+```
+
+Recuerda que este algoritmo está **escrito para que lo ejecute un ordenador**, no para que lo ejecute una persona. Por eso el Paso 1 es "Preguntar qué número es N": porque el ordenador tendrá que preguntarnos a nosotros, los humanos, el número. Y por eso el Paso 4 es "Imprimir la solución": porque el ordenador nos ofrecerá el resultado imprimiéndolo en la pantalla o en un papel.
 
 Este algoritmo resuelve el problema planteado en un número finito de pasos simples. Lógicamente, al ordenador no le podemos dar estas instrucciones tal y como las hemos escrito, sino que habrá que expresarlo en un lenguaje de programación, pero esto es algo que trataremos más adelante.
 
-### 3.1.3. Formas de escribir los algoritmos
+### 3.1.3. Datos y tipos de datos
 
-Los algoritmos se escriben con métodos independientes del lenguaje de programación que luego se vaya a utilizar. Así se podrán traducir más tarde a cualquier lenguaje. 
+Los algoritmos, como hemos dicho, son colecciones de instrucciones que resuelven un problema.
 
-Tres posibles formas de escribir un algoritmo son:
+Pero esas instrucciones **siempre trabajan con datos**, es decir, con información formalizada para su uso en un ordenador:
 
-* Lengua castellana (como el algoritmo anterior para calcular si un número es o no par).
-* Diagramas de flujo
-* Pseudocódigo
+* **Los datos de entrada** son datos que el algoritmo necesita para trabajar. En el ejemplo anterior, el número "N" es un dato de entrada.
+* **Los datos de salida** son datos que el algoritmo produce como resultado de sus cálculos. En el ejemplo anterior, "solución" es un dato de salida.
 
-El **pseudocódigo** es un lenguaje de especificación de algoritmos basado en la lengua castellana que tiene dos propiedades que nos interesarán: facilita considerablemente el aprendizaje de las técnicas de programación y logra que la traducción a un lenguaje de programación real sea casi instantánea. 
+Los datos siempre pertenecen a un **tipo de datos**, que es el rango de valores que ese dato puede tomar. Existen multitud de tipos de datos posibles, pero empezaremos trabajando solo con estos:
 
-Los **diagramas de flujo** son representaciones gráficas de los algoritmos que ayudan a comprender su funcionamiento.
+* **Enteros**. Los datos de este tipo solo pueden tomar como valores números enteros (positivos o negativos). Ejemplos: 3, 28, -15, 0, 4982...
+* **Reales**. Números con decimales. Ejemplos: 18.25, -3.198887
+* **Caracteres**. Letras, números, signos de puntuación... Ojo, si un dato es de tipo "carácter", solo puede contener en cada momento un único carácter. Ejemplos: 'a', 'Z', '&', '?'
+* **Cadenas de caracteres**. O, simplemente, *cadenas*. Son colecciones de letras, números, signos de puntuación... Es decir, palabras y cualquier cosa que se le parezca. Ejemplos: "Hoy es lunes", "sgcv08 e98 ie7f83 ?so9&/". Suelen distinguirse de los caracteres individuales por la doble comilla, aunque esto depende del lenguaje de programación.
+* **Lógicos o booleanos**. Estos datos solo pueden tener dos valores: *verdadero* o *falso*.
 
-A continuación, vamos a mostrar el algoritmo para determinar si un número es par como pseudocódigo y como diagrama de flujo.
+### 3.1.4. Variables y constantes
+
+Las **variables** de un algoritmo son como las variables en una ecuación matemática: representaciones de un dato a las que asignamos un nombre o identificador.
+
+En el algoritmo para averiguar si un número es par o impar, *N* es una variable y *solución* es otra variable.
+
+Las variables pueden tomar un valor perteneciente a un tipo de datos. Ese valor puede cambiar a lo largo del algoritmo (por eso se denominan *variables*). Lo que no puede cambiar es el tipo de datos al que pertenecen. Es decir: si una variable es entera, no puede cambiar y pasar a ser real durante la ejecución del programa.
+
+(Bueno, hay lenguajes que sí permiten hacer esto, pero esa es otra historia).
+
+Por eso, la mayoría de los lenguajes de programación exigen que les indiquemos a qué tipo de datos pertenece cada variable antes de usarlas por primera vez. Es algo que también haremos en pseudocódigo. Eso se denomina **declarar una variable**. 
+
+Así pues, podemos mejorar el algoritmo anterior con la declaración de las variables "N" y "solución":
 
 ```
-Proceso par_impar
-	Definir N como Entero;
-	Definir solucion como Cadena;
+- Inicio del algoritmo
+- Declaración de variables:
+   - N es un número entero.
+   - solución es una cadena de caracteres.
+- Paso 1. Averiguar qué número es N.
+- Paso 2. Si N es divisible entre 2, entonces la solución es "PAR".
+- Paso 3. Si N no es divisible entre 2, entonces la solución es "IMPAR".
+- Paso 4. Imprimir la solución.
+- Fin del algoritmo
+```
 
-	Escribir "Dime un número: ";
-	Leer N;
-	Si (N % 2 = 0) Entonces
-		solucion <- "PAR";
+Las **constantes** se parecen a las variables: tienen un nombre y un tipo, y se les asigna un valor. La única diferencia es que una constante *no puede cambiar de valor durante la ejecución del algoritmo* y una variable sí.
+
+### 3.1.5. Subalgoritmos
+
+Cuando un algoritmo es muy complejo, lo dividimos en trozos más simples que denominamos **subalgoritmos**. En programación, esos subalgoritmos se denominan **procedimientos** o **funciones**. Son casi la misma cosa, con una sutil diferencia que ya veremos cuando llegue el momento.
+
+Los lenguajes de programación reales, además de las instrucciones básicas que enseguida vamos a ver, tienen unas colecciones de funciones predefinidas llamadas **bibliotecas**. Esas funciones se encargan de realizar tareas habituales y repetitivas, de modo que nos ahorran un montón de trabajo.
+
+Por ejemplo, es posible escribir algoritmos para hacer cálculos matemáticos complejos, tales como logaritmos o raíces cuadradas. Para evitarnos ese trabajo, todos los lenguajes de programación disponen de una biblioteca de funciones matemáticas que incluye, entre otras muchas cosas, el cálculo de logaritmos y de raíces cuadradas para cuando los necesitemos. Así que vamos a suponer, cuando escribamos pseudocódigo, que también tenemos a nuestra disposición de esas bibliotecas de funciones.
+
+Algunos subalgoritmos o funciones que existen en todos los lenguajes de programación y que podemos considerar que también existen en pseudocódigo son las siguientes:
+
+* abs(x). Calcula el valor absoluto de x. Funciona con números reales y con enteros.
+* sen(x). Calcula el seno de x. Devuelve valores reales.
+* cos(x). Calcula el coseno de x. Devuelve valores reales.
+* exp(x). Calcula e<sup>x</sup>. Devuelve un real.
+* ln(x). Calcula el logaritmo neperiano de x. Devuelve un valor real.
+* redon(x). Redondea el número x al valor entero más próximo. El valor x será real, y la función devolverá un entero.
+* trunc(x). Trunca el número x, es decir, le elimina la parte decimal. El valor x será real, y la función devolverá un entero.
+* rc(x). Calcula la raíz cuadrada de x. Devuelve un valor real
+* azar(x). Genera un número al azar entre 0 y x. Supondremos que solo funciona con números enteros.
+
+### 3.1.6. Expresiones y operadores
+
+Una **expresión** es una combinación de constantes, variables, operadores y funciones.
+
+Por ejemplo, esto es una expresión:
+
+<p align='center'>rc((5 + x) / 2)</p>
+
+En esta expresión, aparecen dos constantes literales (5 y 2), una variable (x), dos operadores aritméticos (+ y /) y una función (rc, para calcular la raíz cuadrada), además de los paréntesis, que sirven para manipular la prioridad de las operaciones.
+
+Lógicamente, para resolver la expresión, es decir, para evaluar su resultado, debemos conocer cuál es el valor de la variable x.
+
+Si suponemos que la variable x tiene el valor 7, el resultado de la expresión será 2,449.
+
+La forma más habitual de encontrar una expresión es combinada con una **sentencia de asignación a una variable**. Por ejemplo:
+
+<p align='center'>y <- raiz((5 + x) / 2)</p>
+
+En estos casos, la expresión (lo que hay a la derecha del signo "<-") se evalúa y *su resultado es asignado a la variable* situada a la izquierda del "<-". 
+
+En el ejemplo anterior, suponiendo que la variable x valiera 7, la expresión se evaluaría como 2,449, y, por lo tanto, ese es el valor que se asignaría a la variable y.
+
+En las expresiones anteriores se han realizado algunas operaciones matemáticas (como sumas o divisiones). Los símbolos que se usan para ello se denominan **operadores**. En programación, existen distintos tipos de operadores:
+
+* **Operadores aritméticos**: para hacer operaciones matemáticas convencionales. Los más habituales son + (suma), - (resta), * (producto), / (división) y MOD (resto de la división entera).
+* **Operadores relacionales**: se utilizan para comparar números, aunque también pueden comparar caracteres o cadenas alfabéticamente. Los más habituales son < (menor que), > (mayor que), = (igual que), != (distinto de), <= (menor o igual que) y > (mayor o igual que). El resultado de estas comparaciones siempre es un valor lógico, es decir, verdadero o falso.
+* **Operadoresl lógicos**: se utilizan para comparar otros datos lógicos y relacionarlos entre sí. Los más habituales son Y, O y NO. Estas palabras tienen el mismo significado que en la lengua natural.
+
+Observa, por ejemplo, este fragmento de pseudocódigo muy fácil de entender:
+
+```
+puntos_carnet = <poner-aquí-un-número-entero>
+edad = <poner-aquí-otro-número-entero>
+Si edad >= 18 y puntos_carnet > 0 Entonces
+   escribir "Puedes conducir"
+FinSi
+Si edad < 18 o puntos_carnet = 0 Entonces
+   escribir "No puedes conducir"
+FinSi
+```
+
+Aquí se usan dos variables, *puntos_carnet* y *edad* (que pueden tomar el valor que quieras ponerle) y luego se hacen dos comparaciones que implican operadores relacionales y lógicos.
+
+* En la primera comparación, se tienen que cumplir a la vez las dos condiciones (que la edad sea mayor o igual que 18 años y que los puntos del carnet sean superiores a cero) para que el programa nos diga *"Puedes conducir"*.
+* En la segunda comparación, basta con que una de las dos condiciones se cumpla para que el programa diga *"No puedes conducir"*.
+
+Es habitual encontrar varias operaciones juntas en una misma línea. En estos casos es imprescindible conocer la **prioridad de los operadores**, porque las operaciones se calcularán en el orden de prioridad y el resultado puede ser muy distinto del esperado. 
+
+En general, los operadores aritméticos tienen la máxima prioridad y, entre ellos, la multiplicación y la división son más prioritarias que la suma o la resta. Los siguientes operadores por prioridad son los relacionales y, por último, los lógicos. Sin embargo, esto puede variar según el lenguaje de programación concreto.
+
+Lo más apropiado, si tenemos dudas sobre el orden en el que se van a ejecutar las operaciones, es usar paréntesis, exactamente igual que hacemos en matemáticas.
+
+### 3.1.6. Tipos de instrucciones
+
+Hemos dicho varias veces que los algoritmos constan de dos elementos: un conjunto de datos (representados por constantes y variables) y un conjunto de instrucciones.
+
+Son muy pocas, en realidad, las instrucciones que necesitamos para construir algoritmos que funcionen. Increíblemente pocas:
+
+* **Instrucciones de entrada de datos**. Sirven para indicar que, en ese punto, hay que proporcionar un dato al algoritmo. En el *Paso 1* del algoritmo para determinar si un número es par o impar hay una instrucción de entrada.
+* **Instrucciones de salida de datos**. Sirven para que el algoritmo nos facilite el resultado de sus cálculos. En el *Paso 4* del algoritmo par-impar hay una instrucción de salida.
+* **Instrucciones de asignación**. Sirven para asignar un valor a una variable.
+* **Instrucciones para crear subalgoritmos**. Sirven para declarar subalgoritmos y darles un nombre.
+* **Instrucciones condicionales**. Sirven para bifurcar el posible flujo de ejecución del algoritmo. Las instrucciones condicionales contienen siempre una condición que puede ser verdadera o falsa. Si es verdadera, el algoritmo continúa por un camino. Si es falsa, continúa por otro. Antes o después, esa bifurcación finaliza y el flujo del algoritmo vuelve a reunirse.
+* **Instrucciones iterativas**. Sirven para repetir una o varias instrucciones un número finito de veces. Son la estructura más difícil de manejar para los programadores principiantes.
+
+### 3.1.6. Dos maneras formales de escribir los algoritmos: pseudocódigo y diagramas de flujo
+
+Necesitamos un método de escritura de algoritmos que sea independiente del lenguaje de programación que luego se vaya a utilizar. Así se podrán traducir más tarde a cualquier lenguaje. 
+
+Tres posibles maneras de escribir un algoritmo son:
+
+* **Lenguaje natural** (como hicimos con el algoritmo para decidir si un número es o no par).
+* **Diagramas de flujo**
+* **Pseudocódigo**
+
+Por supuesto, también podríamos escribir los algoritmos directamente con un lenguaje de programación real, pero, si eres principiante, es más fácil aprender a programar usando pseudocódigo o diagramas de flujo que hacerlo con un lenguaje de programación. No tengas prisa: el lenguaje de programación llegará muy pronto.
+
+El lenguaje natural (castellano, en nuestro caso) no es apropiado porque, como todos los lenguajes naturales humanos, tiene muchas ambigüedades que provocarían que, a veces, no quedara claro lo que queremos decir.
+
+El **pseudocódigo** es un lenguaje de codificación de algoritmos basado en la lengua castellana, pero donde solo se permite un conjunto reducido de palabras con un significado muy concreto. El pseudocódigo tiene dos propiedades que nos interesarán mucho: facilita considerablemente el aprendizaje de las técnicas de programación y logra que la traducción a un lenguaje de programación real sea casi instantánea. 
+
+Los **diagramas de flujo** son representaciones gráficas de los algoritmos que ayudan a comprender de forma visual su funcionamiento. Tienen una correspondencia directa con los diagramas de flujo.
+
+Son dos técnicas complementarias que vamos a trabajar indistintamente. Usar uno u otro es una cuestión de gustos y preferencias personales.
+
+A continuación, vamos a mostrar el algoritmo que determina si un número es par escrito de los dos modos. Solo es un ejemplo, pero deberías echarle un vistazo con detenimiento para comprobar si lo entiendes o no. 
+
+*"Con detenimiento"* significa que no lo leas deprisa y corriendo para marcharte a hacer otra cosa en dos minutos. Respira hondo y tómate tu tiempo.
+
+Si no lo entiendes todo, no te agobies todavía. Aprenderás a escribir pseudocódigo y diagramas de flujo muy pronto.
+
+**1. El algoritmo "Par-Impar" escrito como pseudocódigo:**
+
+```
+Algoritmo par_impar
+	Definir N como Entero
+	Definir solucion como Cadena
+
+	Escribir "Dime un número:"
+	Leer N
+	Si N MOD 2 = 0 Entonces
+		solucion <- "PAR"
 	SiNo
-		solucion <- "IMPAR";
+		solucion <- "IMPAR"
 	FinSi
-	Escribir "El número ", N, " es ", solucion;
-FinProceso
+	Escribir "El número ", N, " es ", solucion
+FinAlgoritmo
 ```
 
-![Algoritmo en pseudocódigo](/docs/prog-y-3d/_sites/assets/images/03-par-impar.png)
-
-XXX
-
-Escritura inicial del algoritmo
-Una vez superadas las fases de análisis y diseño, es decir, entendido bien el problema y sus datos y descompuesto en problemas más sencillos, llega el momento de resolver cada problema sencillo mediante un algoritmo.
-Muchos autores recomiendan escribir una primera versión del algoritmo en lenguaje natural (en nuestro caso, en castellano), siempre que dicha primera version cumpla dos condiciones:
-    • Primera: que la solución se exprese como una serie de instrucciones o pasos a seguir para obtener una solución al problema
-    • Segunda: que las instrucciones haya que ejecutarlas de una en una, es decir, una instrucción cada vez
-Por ejemplo, consideremos un problema sencillo: el cálculo del área y del perímetro de un rectángulo. Evidentemente, tenemos que conocer su base y su altura, que designaremos con dos variables de tipo real. Una primera aproximación, en lenguaje natural, podría ser:
-1. Inicio
-2. Preguntar al usuario los valores de base y altura
-3. Calcular el área como área = base * altura
-4. Calcular el perímetro como perímetro = 2 * base + 2 * altura
-5. Fin
-Describir un algoritmo de esta forma puede ser útil si el problema es complicado, ya que puede ayudarnos a entenderlo mejor y a diseñar una solución adecuada. Pero esto sólo es una primera versión que puede refinarse añadiendo cosas. Por ejemplo, ¿qué pasa si la base o la altura son negativas o cero? En tal caso, no tiene sentido averiguar el área o el perímetro. Podríamos considerar esta posibilidad en nuestro algoritmo para hacerlo más completo:
-1. Inicio
-2. Preguntar al usuario los valores de base y altura
-3. Si base es mayor que cero y altura también, entonces:
-   3.1. Calcular el área como área = base * altura
-   3.2. Calcular el perímetro como perímetro = 2 * base + 2 * altura
-4. Si no:
-   4.1. No tiene sentido calcular el área ni el perímetro
-5. Fin
-Estos refinamientos son habituales en todos los algoritmos y tienen la finalidad de conseguir una solución lo más general posible, es decir, que pueda funcionar con cualquier valor de "base" y "altura".
-Diagramas de flujo
-El diagrama de flujo es una de las técnicas de representación de algoritmos más antigua y también más utilizada, al menos entre principiantes y para algoritmos sencillos. Con la práctica comprobaremos que, cuando se trata de problemas complejos, los diagramas de flujo se hacen demasiado grandes y complicados.
-Un diagrama de flujo o flowchart es un gráfico en el que se utilizan símbolos (o cajas) para representar los pasos del algoritmo. Las cajas están unidas entre sí mediante flechas, llamadas líneas de flujo, que indican el orden en el que se deben ejecutar para alcanzar la solución.
-Los símbolos de las cajas están estandarizados y son muy variados. En la tabla siguiente tienes los más habituales, aunque existen algunos otros que no vamos a utilizar.
-
-Símbolo
-Función
-
-Terminal. Representa el comienzo o el fin de un programa.
-
-Entrada / Salida. Indica una introducción de datos desde un dispositivo externo (por defecto, el teclado) o una salida de datos hacia algún dispositivo externo (por defecto, la pantalla)
-
-Proceso. Representa cualquier operación que se lleve a cabo con los datos del problema.
-
-Condición. Señala una bifurcación del flujo de instrucciones. La bifurcación está siempre controlada por una operación relacional llamada condición, cuyo resultado puede ser "verdadero" o "falso" (o también "sí" o "no"), dependiendo del valor de los datos de la expresión condicional. En función del resultado de dicha expresión, el flujo de ejecución continúa por una u otra rama (pero nunca por las dos a la vez)
-
-Condición múltiple. Sirve para indicar una bifurcación del flujo en varias ramas, no sólo en una. En este caso, la condición no puede ser booleana, sino entera.
-
-
-Conector. Para enlazar un fragmento del diagrama de flujo con otro fragmento situado en la misma página. Se usa cuando el diagrama es muy grande y no puede dibujarse entero de arriba a abajo.
-
-Conector. Como el anterior, pero para conectar un fragmento del diagrama con otro fragmento situado en una página diferente.
-
-Dirección del flujo. Indica el orden de ejecución de los pasos del algoritmo.
-
-Subrutina. Llamada a un subproceso o módulo independiente (ver apartado de "Programación Modular")
-Un ejemplo: vamos a representar el algoritmo que calcula el área y el perímetro de un rectángulo mediante un diagrama de flujo. Antes, tengamos en cuenta que:
-    • los valores de "base" y "altura" los introducirá el usuario del programa a través del teclado; así, el programa servirá para cualquier rectángulo
-    • después se realizarán los cálculos necesarios
-    • los resultados, "área" y "perímetro", deben mostrarse en un dispositivo de salida (por defecto, la pantalla) para que el usuario del programa vea cuál es la solución
-Esta estructura en 3 pasos es muy típica de todos los algoritmos: primero hay una entrada de datos, luego se hacen cálculos con esos datos, y por último se sacan los resultados.
-El diagrama de flujo será más o menos así:
-
-Pseudocódigo
-El pseudocódigo es un lenguaje de descripción de algoritmos. El paso desde el pseudocódigo hasta el lenguaje de programación real (por ejemplo, C), es relativamente fácil. Además, la descripción de algoritmos en pseudocódigo ocupa mucho menos espacio que su equivalente con un diagrama de flujo, por lo que lo preferiremos a la hora de diseñar algoritmos complejos.
-El pseudocódigo es bastante parecido a la mayoría de los lenguajes de programación reales, pero no tiene unas reglas tan estrictas, por lo que el programador puede trabajar en la estructura del algoritmo sin preocuparse de las limitaciones del lenguaje final que, como veremos al estudiar C, son muchas y variopintas.
-El pseudocódigo utiliza ciertas palabras reservadas para representar las acciones del programa. Estas palabras originalmente están en inglés (y se parecen mucho a las que luego emplean los lenguajes de programación), pero por suerte para nosotros su traducción española está muy extendida entre la comunidad hispanohablante.
-Lista de instrucciones del pseudocódigo
-Las instrucciones del pseudocódigo son relativamente pocas, pero, como iremos aprendiendo a lo largo del libro, con un conjunto bastante reducido de instrucciones, correctamente combinadas, podemos construir programas muy complejos. 
-A continuación presentamos una tabla-resumen con todas las palabras reservadas del pseudocódigo, y en los siguientes apartados iremos viéndolas una a una.
-Instrucción
-Significado
-algoritmo nombre
-Marca el comienzo de un algoritmo y le adjudica un nombre
-inicio
-Marca el comienzo de un bloque de instrucciones
-fin
-Marca el final de un bloque de instrucciones
-variables
-  nombre_var es tipo_de_datos
-Declaración de variables. Indica el identificador y el tipo de las variables que se van a usar en el algoritmo
-constantes
-  nombre_const = expresión
-Declaración de constantes. La expresión se evalúa y su resultado se asigna a la constante. Este valor no puede modificarse a lo largo del programa.
-leer (variable)
-Entrada de datos. El programa lee un dato desde un dispositivo de entrada (si no se indica otra cosa, el teclado), asignando ese dato a la variable
-escribir (variable)
-Salida de datos. Sirve para que el programa escriba un dato en un dispositivo de salida (si no se indica otra cosa, la pantalla).
-variable = expresión
-Asignación. La expresión se evalúa y su resultado es asignado a la variable
-si (condición) entonces 
-inicio
-  acciones-1
-fin
-si_no
-inicio
-  acciones-2
-fin
-Instrucción condicional doble. El ordenador evaluará la condición, que debe ser una expresión lógica. Si es verdadera, realiza las acciones-1, y, si es falsa, las acciones-2. 
-Instrucción condicional simple. Es igual pero carece de la rama "si_no", de modo que, si la expresión de falsa, no se realiza ninguna acción y la ejecución continúa por la siguiente instrucción
-según (expresión) hacer
-inicio
-  valor1: acciones-1
-  valor2: acciones-2
-  ...
-  valor3: acciones-N
-  si_no: acciones-si_no
-fin
-Instrucción condicional múltiple. Se utiliza cuando hay más de dos condiciones posibles (verdadero o falso) . Se evalúa la expresión, que suele ser de tipo entero, y se busca un valor en la lista valor1, valor2,... valorN que coincida con ella, realizándose las acciones asociadas al valor coincidente.
-Si ningún valor de la lista coincide con la expresión del "según", se realizan las acciones de la parte "si_no".
-mientras (condición) hacer
-inicio
-   acciones
-fin
-Bucle mientras. Las acciones se repiten en tanto la condición, que debe ser una expresión lógica, sea verdadera. La condición se evalúa antes de entrar al bloque de acciones, de modo que pueden no ejecutarse ninguna vez.
-repetir
-inicio
-   acciones
-fin
-mientras que (condición)
-Bucle repetir. Las acciones se repiten en tanto que la condición, que debe ser una expresión lógica, sea verdadera. Se parece mucho al anterior, pero la condición se evalúa al final del bucle, por lo que éste se ejecuta, como mínimo, una vez.
-para variable desde expr-ini hasta expr-fin hacer
-inicio
-  acciones
-fin
-Bucle para. Se evalúa la expresión expr-ini, que debe ser de tipo entero, y se asigna ese valor a la variable. Dicha variable se incrementa en una unidad en cada repetición de las acciones. Las acciones se repiten hasta que la variable alcanza el valor expr-fin.
-
-Las instrucciones básicas del pseudocódigo
-Hay varias instrucciones de pseudocódigo que son muy simples, así que las vamos a explicar ahora mismo, junto con un ejemplo para ir acostumbrándonos al aspecto de los algoritmos:
-    • algoritmo: sirve para ponerle un nombre significativo al algoritmo
-    • inicio: marca el principio de un proceso, de un módulo o, en general, de un conjunto de instrucciones
-    • fin: marca el fin de un proceso, módulo o conjunto de instrucciones. "Inicio" y "fin" siempre van por parejas, es decir, cuando aparezca un "Inicio", debe existir un "fin" en algún sitio más abajo. Y al revés: todo "fin" se corresponde con algún "Inicio" que aparecerá más arriba.
-    • = (asignación): se utiliza para asociar un valor a una variable, como vimos en el apartado anterior.
-    • leer: sirve para leer un dato de un dispositivo de entrada (típicamente, el teclado)
-    • escribir: sirve para enviar un dato a un dispositivo de salida (si no se indica otra cosa, la pantalla)
-Ejemplo: Volvemos al algoritmo del área y el perímetro de un rectángulo:
-algoritmo rectángulo
-inicio
-  leer (base)
-  leer (altura)
-  área = base * altura
-  perímetro = 2 * base + 2 * altura
-  escribir (área)
-  escribir (perímetro)
-fin
-Recuerda que los programas se ejecutan de arriba a abajo, una instrucción cada vez.
-Cuando este programa se haya introducido en un ordenador y le pidamos que lo ejecute, la máquina irá mirando las instrucciones en el orden en que el programador las introdujo y las irá ejecutando. Veamos, instrucción por instrucción, qué acciones provocan en el ordenador:
-    • algoritmo rectángulo: simplemente, le pone título al algoritmo y marca su principio (esta instrucción no hace nada "útil")
-    • Inicio: marca el comienzo de las instrucciones (por lo tanto, ni esta instrucción ni la anterior realizan ninguna tarea: sólo son marcas)
-    • leer(base): el ordenador se queda a la espera de que el usuario del programa introduzca algún dato a través del teclado. Cuando el usuario lo hace, ese dato queda almacenado en la variable "base". Supongamos que el usuario teclea un 7: será como haber hecho la asignación base = 7.
-    • leer(altura): vuelve a ocurrir lo mismo, pero ahora el dato tecleado se guarda en la variable "altura". Supongamos que se teclea un 2. Por lo tanto, altura = 2.
-    • área = base * altura: según vimos en el apartado anterior, se evalúa la expresión situada a la derecha del símbolo "=". El resultado de la misma será 7 * 2, es decir, 14. Ese valor se asigna a la variable situada a la izquierda del "=". Por lo tanto, área = 14.
-    • perímetro = 2 * base + 2 * altura: en esta ocasión, la evaluación de la expresión da como resultado 18, que se asigna a la variable perímetro, o sea, perímetro = 18.
-    • escribir(área): el ordenador muestra en la pantalla el valor de la variable área, que es 14.
-    • escribir(perímetro): el ordenador muestra en la pantalla el valor de la variable perímetro, es decir, 18.
-    • Fin: marca el punto final del algoritmo
-Podemos concluir que el algoritmo presentado resuelve el problema de calcular el área y el perímetro de un rectángulo y posee las tres cualidades básicas de todo algoritmo: precisión, definición y finitud.
-Declaración de variables y constantes
-Como regla general, diremos que todas las variables deben ser declaradas ANTES de usarse por primera vez. Recuerda que la declaración se usa para comunicar al ordenador el tipo y el identificador de cada variable.
-La sintaxis de estas declaraciones es como sigue:
-variables
-   nombre_de_variable  es  tipo_de_datos
-Ejemplo: Si te fijas en el ejemplo anterior, no hemos declarado ninguna de las variables del algoritmo y, por lo tanto, éste no es del todo correcto. Vamos a completarlo:
-algoritmo rectángulo
-variables
-  base es real
-  altura es real
-  área es real
-  perímetro es real
-inicio
-  leer (base)
-  leer (altura)
-  área = base * altura
-  perímetro = 2 * base + 2 * altura
-  escribir (área)
-  escribir (perímetro)
-fin
-Fíjate que hemos definido las variables antes del inicio de las instrucciones del algoritmo.
-A veces, también es útil declarar ciertas constantes para usar valores que no van a cambiar en todo el transcurso del programa. Las constantes se deben declarar también antes del inicio de las instrucciones del programa. 
-Ejemplo de declaración de constantes:
-algoritmo ejemplo
-constantes
-  pi = 3.141592
-  g = 9.8
-  txt = "En un lugar de La Mancha"
-inicio
-  ...instrucciones...
-fin
-
-### 3.1.2. Orientándose en la jungla de los lenguajes de programación 
-
-El ordenador, como es sabido, solo puede manejar ceros y unos, es decir, código o lenguaje binario. Los seres humanos, por el contrario, utilizamos un lenguaje mucho más complejo, con montones de símbolos y reglas sintácticas y semánticas, que denominaremos lenguaje natural.
-Entre estos dos extremos (lenguaje binario y lenguaje natural) se encuentran los lenguajes de programación. Tienen cierto parecido con el lenguaje natural, pero son mucho más reducidos y estrictos en su sintaxis y semántica, para acercarse a las limitaciones del lenguaje binario.
-Hay lenguajes de programación muy próximos al lenguaje binario: a éstos los llamamos lenguajes de bajo nivel de abstracción. Y los hay más próximos al lenguaje natural: son los lenguajes de alto nivel de abstracción.
-Lenguajes de bajo nivel 
-Son los lenguajes más cercanos a la máquina. Los programas directamente escritos en código binario se dice que están en lenguaje máquina que, por lo tanto, es el lenguaje de más bajo nivel que existe.
-Las instrucciones del lenguaje máquina realizan tareas muy sencillas, como, por ejemplo, sumar dos números, detectar qué tecla se ha pulsado en el teclado o escribir algo en la pantalla del ordenador. Cuando se combinan adecuadamente muchas de estas instrucciones sencillas se obtiene un programa de ordenador que puede realizar tareas muy complejas. 
-A pesar de la simplicidad de las instrucciones del lenguaje máquina, la forma de escribirlas es muy complicada, ya que hay que hacerlo en binario. En los primeros años de la informática los ordenadores se programaban directamente en lenguaje máquina, lo cual convertía la tarea de programar en una verdadera pesadilla. Por ejemplo, una instrucción para sumar dos números en lenguaje máquina puede tener este aspecto:
-110100100101110010100010001001111010010110110
-Cuando los ordenadores fueron haciéndose más potentes, pronto se vio que con el lenguaje máquina no se podrían crear programas que aprovechasen esa potencia por la sencilla razón de que era demasiado difícil programar así: no se podía hacer nada demasiado complicado porque el cerebro humano no está “diseñado” para pensar en binario. 
-Surgió entonces la idea de utilizar el propio ordenador como traductor: ¿por qué no escribir una instrucción como la anterior, que suma dos números, de una forma más parecida al lenguaje humano y que luego un pequeño programa de ordenador se encargue de traducir esa instrucción a su correspondiente ristra de ceros y unos? Así apareció el lenguaje ensamblador, cuyas instrucciones son equivalentes a las del lenguaje máquina, pero se escriben con palabras similares a las del lenguaje humano. Por ejemplo, para sumar dos números, la instrucción en ensamblador puede ser algo como:
-ADD  D1, D2
-Los lenguajes de bajo nivel se caracterizan por ser dependientes del hardware de la máquina. Es decir: un programa escrito en lenguaje máquina o en ensamblador para un procesador con arquitectura x86 no funcionará, por ejemplo, en un smartphone con arquitectura ARM, a menos que sea modificado sustancialmente. Incluso puede tener serios problemas para funcionar en máquinas de la misma familia pero con el resto del hardware diferente, o con un sistema operativo distinto.
-Lenguajes de alto nivel 
-Siguiendo el razonamiento anterior (utilizar el propio ordenador como traductor), en los años sesenta se empezaron a desarrollar lenguajes cada vez más complejos, en los que cada instrucción ya no se correspondía exactamente con una instrucción del lenguaje máquina, sino con varias. Estos son los lenguajes de alto nivel o, simplemente, L.A.N. (no confundir con "red de área local")
-Lógicamente, la traducción desde un lenguaje de alto nivel a lenguaje máquina es mucho más compleja que desde lenguaje ensamblador, por lo que los traductores se han hecho cada vez más complicados. 
-Una característica muy importante de los lenguajes de alto nivel es que son independientes del hardware, lo que implica que los programas desarrollados con estos lenguajes pueden ser ejecutados en ordenadores con hardware totalmente distinto. A esto se le llama portabilidad. 
-Los programas encargados de traducir el código de alto nivel a código máquina se llaman compiladores e intérpretes. Son programas muy complejos que generan el código binario equivalente al código de alto nivel para una máquina concreta. Por lo tanto, el programa de alto nivel, que es portable de un hardware a otro, debe ser traducido a código máquina en cada tipo de máquina en la que se pretenda ejecutar. 
-Los ejemplos de lenguajes de alto nivel son innumerables, y la lista incluye casi todos de los que has oído hablar alguna vez: Basic, Cobol, Fortran, Ada, C, PHP, Python, Java, Perl, etc.
-Comparación entre los lenguajes de alto y bajo nivel
-LENGUAJES DE BAJO NIVEL
-LENGUAJES DE ALTO NIVEL
-Ventajas
-Inconvenientes
-Son comprensibles directamente por la máquina (aunque el ensamblador necesita una pequeña traducción)
-Necesitan ser traducidos por medio de complicados programas (compiladores e intérpretes)
-Los programas se ejecutan muy rápidamente (si están bien escritos, claro)
-La traducción automática del código de alto nivel al código máquina siempre genera programas menos eficientes que si se escribieran directamente en binario
-Ocupan menos espacio en memoria
-Ocupan más espacio en memoria
-Permiten controlar directamente el hardware, por lo que son apropiados para la programación de sistemas
-En general, solo pueden acceder al hardware utilizando al sistema operativo como intermediario. Pero, entonces, ¿cómo programar el sistema operativo, que necesita controlar directamente el hardware?
-Inconvenientes
-Ventajas
-Son completamente dependientes del hardware. Un programa escrito para determinado tipo de máquina no funcionará en un ordenador con diferente arquitectura.
-Son portables, es decir, independientes del hardware. Un programa escrito en una máquina puede funcionar en otra con hardware distinto, siempre que se vuelva a traducir a binario en la máquina nueva.
-Incluso los programas más sencillos son largos y farragosos
-Los programas son más sencillos, ya que una sola instrucción puede equivaler a varias instrucciones binarias.
-Los programas son difíciles de escribir, depurar y mantener
-Los programas son más fáciles de escribir, depurar y mantener
-Es imposible resolver problemas muy complejos
-Es posible, aunque difícil, enfrentarse a problemas muy complejos
-
-Enfrentando las ventajas e inconvenientes de unos y otros, se concluye que, en general, es preferible usar lenguajes de alto nivel para el desarrollo de aplicaciones, reservando los de bajo nivel para casos muy concretos en los que la velocidad de ejecución o el control del hardware sean vitales. Por ejemplo, los sistemas operativos más conocidos, como Windows, MacOS o Linux, están programados casi en su totalidad con lenguajes de alto nivel (generalmente C o C++), reservando un pequeño porcentaje del código a rutinas en ensamblador.
-También hay que destacar que no todos los lenguajes de alto nivel son iguales. Los hay de "más alto nivel" que otros. C tiene sin duda menor nivel de abstracción que, por ejemplo, Visual Basic; pero, por eso mismo, los programas en C son más rápidos y eficientes que los escritos en Visual Basic, aunque también pueden llegar a ser más difíciles de escribir y depurar.
-Categorías dentro de los lenguajes de alto nivel
-Para terminar con esta vista preliminar sobre el mundo de los lenguajes de programación, mencionaremos que los lenguajes de alto nivel se suelen subdividir en categorías tales como: 
-    • Lenguajes de tercera generación (o imperativos), en los que el programador escribe una secuencia de instrucciones que el ordenador debe ejecutar en un orden preestablecido. Son los lenguajes que nosotros vamos a manejar. Todos los lenguajes "clásicos" pertenecen a esta categoría: C, Basic, Cobol, Fortran, etc.
-    • Lenguajes de cuarta generación (o 4GL), dirigidos a facilitar la creación de interfaces con el usuario y con otras aplicaciones, como las bases de datos. Un ejemplo de estos lenguajes es SQL.
-    • Lenguajes orientados a objetos, que son una evolucuión de los lenguajes de tercera generación y que permiten construir con mayor facilidad y robustez programas modulares complejos. Ejemplos de lenguajes orientados a objetos son C++, Java, Python, PHP o Ruby. Algunos de ellos son multiparadigma, es decir, permiten programar con orientación a objetos pero también permiten hacer programación estructurada clásica, sin objetos.
-    • Lenguajes declarativos y funcionales, propios de la inteligencia artificial, como Prolog o Lisp.
-    • Otos tipos más específicos: lenguajes concurrentes, paralelos, distribuidos, etc.
-En general, podemos decir que un programador acostumbrado a trabajar con un lenguaje de tercera generación puede aprender con poco esfuerzo cualquier otro lenguaje de tercera generación, y, con algo más de trabajo, un lenguaje orientado a objetos. Sin embargo, el "salto" a otros tipos de lenguajes, como los declarativos, cuesta más porque la raíz misma de estos lenguajes es diferente.
-
- 1.2  Ensambladores, compiladores e intérpretes
-Cuando programamos en un lenguaje distinto del lenguaje máquina, nuestro código debe ser traducido a binario para que el ordenador pueda entenderlo y ejecutarlo. Existe un programa específico encargado de hacer esa traducción y que, dependiendo del lenguaje en el que hayamos escrito nuestro programa, puede ser un ensamblador, un compilador o un intérprete.
-Ensambladores
-Se llaman ensambladores los programas encargados de traducir los programas escritos en ensamblador a código binario.
-Fíjate que tanto el programa traductor como el lenguaje se llaman del mismo modo: ensamblador.
-Como el lenguaje ensamblador es muy próximo al binario, estos traductores son programas relativamente sencillos.
+**2. El algoritmo "Par-Impar" escrito como diagrama de flujo:**
+
+![Diagrama de flujo par-impar](/docs/prog-y-3d/_site/assets/images/03-par-impar.png)
+
+## 3.2. Pseudocódigo
+
+### 3.2.1. Qué es y qué no es el pseudocódigo
+
+El pseudocódigo, ya lo hemos dicho, no es un lenguaje formal de programación, sino un *pseudolenguaje*.
+
+Es decir, se asemeja a los lenguajes de programación, pero cada cual se lo monta un poco como quiere. No hay una única forma correcta y universalmente aceptada de escribir el pseudocódigo.
+
+Nosotros vamos a usar una sintaxis concreta tomada de una utilidad llamada **[PSeInt](http://pseint.sourceforge.net/)**. Se trata de una herramienta aprender programación que permite escribir el pseudocódigo como si fuera un lenguaje de programación real, e incluso ejecutarlo para comprobar si funciona. Vamos a usar PSeInt para hacer las prácticas de esta sección y por eso aprenderemos su pseudocódigo y no otro cualquiera.
+
+Hablaremos más de PSeInt en el apartado de ejercicios propuestos.
+
+### 3.2.2. Instrucciones típicas en pseudocódigo (versión PSeInt)
+
+La siguiente tabla muestra una lista de las instrucciones principales del pseudocódigo estándar de PSeInt.
+
+<table>
+<tr>
+  <td style='background-color: lightgrey' width='30%'><strong>Instrucción</strong></td><td style='background-color: lightgrey'><strong>Significado</strong></td>
+</tr>
+<tr>
+  <td><strong>Algoritmo</strong> nombre</td><td>Marca el comienzo de un algoritmo y le adjudica un nombre</td>
+</tr>
+<tr>
+  <td><strong>FinAlgoritmo</strong></td><td>Marca el final del algoritmo</td>
+</tr>
+<tr>
+  <td><strong>Definir</strong> variable <strong>Como</strong> tipo</td>
+  <td>Declara una variable y le asigna un tipo. Los tipos válidos son Entero, Real, Carácter, Lógico y Cadena.</td>
+</tr>
+<tr>
+  <td><strong>Leer</strong> variable</td>
+  <td>Entrada de datos. El programa lee un dato desde un dispositivo de entrada (si no se indica otra cosa, el
+teclado), asignando ese dato a la variable.</td>
+</tr>
+<tr>
+  <td><strong>Escribir</strong> expresión</td>
+  <td>Salida de datos. La expresión se calcula y su resultado se muestra en la pantalla.</td>
+</tr>
+<tr>
+  <td>variable <- expresion</td>
+  <td>Asignación. Se evalúa la expresión y el resultado se guarda en la variable.</td>
+</tr>
+<tr>
+  <td><strong>Si</strong> condición <strong>Entonces</strong>
+   &nbsp;&nbsp;&nbsp;&nbsp;acciones-1<br>
+<strong>SiNo</strong><br>
+   &nbsp;&nbsp;&nbsp;&nbsp;acciones-2<br>
+<strong>FinSi</strong></td>
+  <td>Estructura condicional. Se evalúa la condición. Si es verdadera, se ejecutan las "acciones-1". Si es falsa, se ejecutan las "acciones-2".</td>
+</tr>
+<tr>
+  <td><strong>Segun</strong> expresión <strong>hacer</strong><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;valor-1: acciones-1;<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;valor-2: acciones-2;<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;...<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;valor-n: acciones-N;<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<strong>De otro modo</strong>: acciones-por-defecto;<br>
+<strong>FinSegun</strong></td>
+  <td> Condicional múltiple. Si la expresión se evaúa como"valor-1", se ejecutan las acciones-1. Si vale "valor-2", se ejecutan las acciones-2, y así sucesivamente. Si la expresión no coincide con ningún valor, se ejecutan las acciones-por-defecto.</td>
+</tr>
+<tr>
+  <td><strong>Mientras</strong> condición<br>
+   &nbsp;&nbsp;&nbsp;&nbsp;acciones<br>
+<strong>FinMientras</strong></td>
+  <td>Bucle con condición al princio. Se realizan las acciones repetidamente mientras la condición siga siendo verdadera.</td>
+</tr>
+<tr>
+  <td><strong>Repetir<br></strong>
+   &nbsp;&nbsp;&nbsp;&nbsp;acciones<br>
+<strong>Hasta Que</strong> condición</td>
+  <td>Bucle con condición al final. Se realizan las acciones repetidamente mientras la condición siga siendo verdadera. Observa que el cuerpo de este bucle se ejecuta <i>al menos una vez</i>, mientras que el del bucle anterior podría no ejecutarse nunca (si la condición es falsa desde el principio).</td>
+</tr>
+<tr>
+  <td><strong>Para</strong> variable <strong><-</strong> valor_inicial <strong>Hasta</strong> valor_final <strong>Hacer</strong><br>
+   &nbsp;&nbsp;&nbsp;&nbsp;acciones<br>
+<strong>FinPara</strong></td>
+  <td>Bucle con iterador. Se asigna el valor_inicial a la variable. El bucle se repite hasta que la variable llega al valor_final. En cada iteración, la variable se incrementa en una unidad (se puede indicar otro incremento, pero, de momento, nos quedamos con ese).</td>
+</tr>
+</table>
+
+También existen instrucciones para crear y manejar subalgoritmos. Como nuestros programas, de momento, van a ser muy simples, aún no vamos a verlas. Nos dedicaremos a ellas cuando llegue el momento.
+
+### 3.2.3. Un ejemplo sencillo de algoritmo escrito en pseudocódigo
+
+Vamos a terminar esta sección mostrando un ejemplo sencillo pero muy completo de algoritmo escrito en pseudocódigo.
+
+Se trata de escribir un algoritmo tal que, dados dos números enteros (que llamaremos A y B), nos dirá cuáles son los números enteros que existen entre A y B ordenados de menor a mayor.
+
+Lo primero que el algoritmo tendrá que hacer será pedirnos los valores de A y B. Después, tendrá que averiguar cuál de los dos es el menor (A o B), para poder luego meterse en un bucle que vaya desde el número menor hasta el número mayor, pasando por todos los valores intermedios e imprimiéndolos.
+
+Las instrucciones de ese algoritmo serían estas:
+
+```
+Algoritmo contar_numeros
+	Escribir "Dime un número"
+	Leer A
+	Escribir "Dime otro número"
+	Leer B
+	Si A < B Entonces
+		inicio = A
+		final = B
+	SiNo
+		inicio = B
+		final = A
+	FinSi
+	Escribir "Estos son los números desde ",inicio," hasta ",final
+	i <- inicio
+	Mientras i <= final Hacer
+		Escribir i
+	FinMientras
+FinAlgoritmo
+```
+
+Léelo con atención y asegúrate de entenderlo antes de continuar. En la siguiente sección, veremos cómo representar este mismo algoritmo mediante un diagrama de flujo.
+
+
+## 3.3. Los diagramas de flujo
+
+El diagrama de flujo es una de las herramientas más poderosas para describir algoritmos y, sin embargo, poco utilizado porque da algo más de trabajo y ocupa mucho espacio.
+
+El diagrama de flujo permite **describir gráficamente un algoritmo**, de manera que podemos comprobar de un golpe de vista si hemos cubierto todos los caminos que ese algoritmo puede tomar.
+
+Una vez descrito el diagrama de flujo, es muy fácil transformar el algoritmo a cualquier lenguaje de programación.
+
+Los diagramas de flujo son herramientas descriptivas tan potentes que se utilizan con asiduidad en la vida diaria para entender mejor la lógica de un problema o su solución. Por ejemplo, en este diagrama de flujo se propone gráficamente un proceso de toma de decisiones para determinar si se realiza o no una intervención quirúrjica a un paciente en el contexto de la pandemia del COVID-19 (fuente: [Patient Safety in Surgery Journal](https://pssjournal.biomedcentral.com/articles/10.1186/s13037-020-00235-9)):
+
+![Diagrama de flujo COVID-19](/docs/prog-y-3d/_site/assets/images/03-diagrama-de-flujo-covid-19.png)
+
+### 3.3.1. Simbología de los diagramas de flujo
+
+En los diagramas de flujo, cada **símbolo** representa una operación específica. Las operaciones se conectan entre ellas con **flechas**, que indican el orden de ejecución.
+
+Los símbolos de los diagramas de flujo orientados a programación están estandarizados, aunque puedes encontrar pequeñas diferencias según qué fuente consultes. Nosotros vamos a usar los de PSeInt, igual que hicimos con el pseudocódigo, para luego no tener problemas cuando usemos esa herramienta para resolver nuestros ejercicios prácticos.
+
+Los símbolos más importantes de un diagrama de flujo, junto con su equivalencia en pseudocódigo, son estos:
+
+<table>
+<tr>
+  <td style='background-color: lightgrey' width='30%'><strong>Símbolo</strong></td>
+  <td style='background-color: lightgrey'><strong>Equivalencia en pseudocódigo</strong></td>
+  <td style='background-color: lightgrey'><strong>Significado</strong></td>
+</tr>
+<tr>
+  <td><img src='/docs/prog-y-3d/_site/assets/images/simbolos-diagrama-flujo/03-simbolo-algoritmo.png'></td>
+  <td><strong>Algoritmo</strong> nombre</td>
+  <td>Marca el comienzo de un algoritmo y le adjudica un nombre</td>
+</tr>
+<tr>
+  <td><img src='/docs/prog-y-3d/_site/assets/images/simbolos-diagrama-flujo/03-simbolo-fin-algoritmo.png'></td>
+  <td><strong>FinAlgoritmo</strong></td>
+  <td>Marca el final del algoritmo</td>
+</tr>
+<tr>
+  <td><img src='/docs/prog-y-3d/_site/assets/images/simbolos-diagrama-flujo/03-simbolo-definir.png'></td>
+  <td><strong>Definir</strong> variable <strong>Como</strong> tipo</td>
+  <td>Declara una variable y le asigna un tipo.</td>
+</tr>
+<tr>
+  <td><img src='/docs/prog-y-3d/_site/assets/images/simbolos-diagrama-flujo/03-simbolo-leer.png'></td>
+  <td><strong>Leer</strong> variable</td>
+  <td>Entrada de datos.</td>
+</tr>
+<tr>
+  <td><img src='/docs/prog-y-3d/_site/assets/images/simbolos-diagrama-flujo/03-simbolo-escribir.png'></td>
+  <td><strong>Escribir</strong> expresión</td>
+  <td>Salida de datos.</td>
+</tr>
+<tr>
+  <td><img src='/docs/prog-y-3d/_site/assets/images/simbolos-diagrama-flujo/03-simbolo-asignacion.png'></td>
+  <td>variable <- expresion</td>
+  <td>Asignación.</td>
+</tr>
+<tr>
+  <td><img src='/docs/prog-y-3d/_site/assets/images/simbolos-diagrama-flujo/03-simbolo-condicion.png'></td>
+  <td><strong>Si</strong> condición <strong>Entonces</strong>
+	&nbsp;&nbsp;&nbsp;&nbsp;acciones-1<br>
+	<strong>SiNo</strong><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;acciones-2<br>
+	<strong>FinSi</strong></td>
+  <td>Estructura condicional.</td>
+</tr>
+<tr>
+  <td><img src='/docs/prog-y-3d/_site/assets/images/simbolos-diagrama-flujo/03-simbolo-condicion-multiple.png'></td>
+  <td><strong>Segun</strong> expresion <strong>hacer</strong><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;valor-1: acciones-1;<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;valor-2: acciones-2;<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;...<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;valor-n: acciones-N;<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<strong>De otro modo</strong>: acciones-por-defecto;<br>
+  <strong>FinSegun</strong></td>
+  <td> Condicional múltiple.</td>
+</tr>
+<tr>
+  <td><img src='/docs/prog-y-3d/_site/assets/images/simbolos-diagrama-flujo/03-simbolo-mientras.png'></td>
+  <td><strong>Mientras</strong> Condición<br>
+   &nbsp;&nbsp;&nbsp;&nbsp;acciones<br>
+  <strong>FinMientras</strong></td>
+  <td>Bucle con condición al princio.</td>
+</tr>
+<tr>
+  <td><img src='/docs/prog-y-3d/_site/assets/images/simbolos-diagrama-flujo/03-simbolo-repetir.png'></td>
+  <td><strong>Repetir<br></strong>
+   &nbsp;&nbsp;&nbsp;&nbsp;acciones<br>
+  <strong>Hasta Que</strong> Condición</td>
+  <td>Bucle con condición al final.</td>
+</tr>
+<tr>
+  <td><img src='/docs/prog-y-3d/_site/assets/images/simbolos-diagrama-flujo/03-simbolo-para.png'></td>
+  <td><strong>Para</strong> variable <strong><-</strong> valor_inicial <strong>Hasta</strong> valor_final <strong>Hacer</strong><br>
+   &nbsp;&nbsp;&nbsp;&nbsp;acciones<br>
+  <strong>FinPara</strong></td>
+  <td>Bucle con iterador.</td>
+</tr>
+</table>
 
-Compiladores
-El compilador es un programa que traduce el código de alto nivel a código binario. Es, por tanto, parecido al ensamblador, pero mucho más complejo, ya que las diferencias entre los lenguajes de alto nivel y el código binario son muy grandes.
-El programa escrito en lenguaje de alto nivel se denomina programa fuente o código fuente. El programa traducido a código binario se llama programa objeto o código objeto. Por lo tanto, el compilador se encarga de convertir el programa fuente en un programa objeto.
-Una vez que se ha obtenido el programa objeto ya no es necesario volver a realizar la traducción (o compilación), a menos que se haga alguna modificación en el programa fuente, en cuyo caso habría que volver a compilarlo.
-El programa objeto, una vez generado, puede ejecutarse en la máquina en la que fue compilado, o en otra de similares características (procesador, sistema operativo, etc.). Cuando se usa programación modular, puede ser necesario un proceso previo de enlace de los diferentes módulos, pero de esto ya hablaremos más adelante.
+Recuerda que también existen símbolos para definir y utilizar **subalgoritmos**, destinados a dividir el algoritmo en trozos cuando resolvemos problemas complejos. Por ahora, nuestros problemas serán simples y no usaremos subalgoritmos. Cuando llegue el momento, explicaremos cómo se utilizan.
 
-Intérpretes
-El intérprete es un programa que traduce el código de alto nivel a código binario pero, a diferencia del compilador, lo hace en tiempo de ejecución. Es decir, no se hace un proceso previo de traducción de todo el programa fuente a binario, sino que se va traduciendo y ejecutando instrucción por instrucción.
+Para terminar, te muestro el algoritmo para contar números enteros entre dos números cualesquiera, A y B, escrito como un diagrama de flujo. No dejes de comparar esta solución con la que planteamos en pseudocódigo un poco más arriba. Ambas son exactamente iguales, pero están descritas con una herramienta diferente. Es como si hubiéramos escrito la misma frase en dos idiomas distintos.
 
-Compiladores frente a intérpretes
-El intérprete es notablemente más lento que el compilador, ya que realiza la traducción al mismo tiempo que la ejecución. Además, esa traducción se lleva a cabo siempre que se ejecuta el programa, mientras que el compilador sólo la hace una vez. Por estos motivos, un mismo programa interpretado y compilado se ejecuta mucho más despacio en el primer caso.
-La ventaja de los intérpretes es que hacen que los programas sean más portables. Así, un programa compilado en una máquina PC bajo Windows no funcionará en un Macintosh, o en un PC bajo Linux, a menos que se vuelva a compilar el programa fuente en el nuevo sistema. En cambio, un programa interpretado funcionará en todas las plataformas, siempre que dispongamos del intérprete en cada una de ellas.
-JavaScript es un ejemplo de lenguaje interpretado. Esto permite que los programas JavaScript (llamados comúnmente scripts) puedan funcionar en cualquier máquina que disponga de un navegador de Internet capaz de interpretarlos. En cambio, C/C++ es un lenguaje compilado, lo que hace que los programas desarrollados con estos lenguajes se ejecuten más rápido que sus equivalentes en JavaScript, aunque obliga a volver a compilarlos si se desea ejecutarlos en una máquina con diferente hardware o diferente sistema operativo.
-Por último, hay ciertos lenguajes que pueden ejecutarse de forma interpretada o de forma compilada. No es el caso de C. El lenguaje C está orientado a obtener la velocidad de ejecución más alta posible, y por eso siempre se compila. Pero ya es hora de empezar a hablar del lenguaje C, ¿no es así?
-Vamos a ello.
+![Diagrama de flujo contar-numeros](/docs/prog-y-3d/_site/assets/images/03-contar-numeros.png)
 
-### 3.1.3. Tipos de lenguaje
+## 3.4. Errores frecuentes entre principiantes
 
-En los comienzos de la programación informática, se  utilizaban lenguajes máquina muy básicos y limitados como el sistema binario (uso de los números 0 y 1 en distintas combinaciones); más tarde comenzaron a surgir lenguajes  que hacían uso de códigos de palabras, y luego, conjuntos de algoritmos mucho más complejos que se denominaron lenguajes de alto nivel.
+En esta sección recopilo para ti algunas de las dudas, errores y pifias más frecuentes que, según mi experiencia como profesor de programación, suelen asaltar a los principantes.
 
-Los lenguajes de programación más conocidos y usados:
+#### No es lo mismo 20 que "20"
 
-        ◦ Java
-        ◦ C, C++ y C#
-        ◦ Scratch
-        ◦ HTML / XML
-        ◦ Python
-        ◦ Visual Basic .NET
-        ◦ PHP
-        ◦ Java
-        ◦ JavaScript
-Cada uno de estos lenguajes tiene un grado de complejidad diferente y, por lo tanto, algunos serán más fáciles de aprender que otros.
-Como aprender a programar desde cero es una tarea compleja, en esta unidad comenzaremos acercarnos a la programación por bloques.
+Así es. Cuando estás programando, no es lo mismo la instrucción ```Escribir 20``` (o cualquier otro número) que la instrucción ```Escribir "20"```, con el número entre comillas.
 
-Este tipo de programación permite una presentación visual del paradigma y metodología de la programación informática permitiendo centrarse en la lógica de la programación dejando a un lado la sintaxis propia de los lenguajes de programación (puntos y comas, paréntesis, etc).
+Las cadenas de caracteres siempre se ponen entre comillas. Los números NO.
 
-	
-Universidades líderes en tecnología como Berkeley o el MIT, enseñan este tipo de programación por bloques en sus primeros cursos.
+Por eso, ```Escribir 20``` significa literalmente *mostrar en pantalla el número 20*, mientras que ```Escribir "20"``` significa *mostrar en pantalla la cadena de caracteres "20"*. 
 
-## 3.2. Aprendiendo a programar con pseudocódigo
+Puede parecer lo mismo, pero no lo es. En una, 20 es un texto y, en otra, un número, y para el ordenador son cosas muy distintas (por ejemplo, no puedes sumar dos textos, pero sí dos números).
 
-Cuando se trabaja en programación, antes de escribir nuestro programa, primero se aconseja escribirlo en pseudocódigo.
+#### Escribir "a" no es lo mismo que Escribir a
 
-El pseudocódigo es una forma de escribir los pasos que va a realizar un programa de la forma más cercana al lenguaje de programación que vamos a utilizar posteriormente. Es como un falso lenguaje, pero en nuestro idioma.
+Un caso particular de la confusión anterior, y muy frecuente cuando se empieza a programar, es confundir ```Escribir "a"``` (o cualquier otro carácter) con ```Escribir a```.
 
-Este pseudocódigo vale para pasarlo posteriormente a cualquier lenguaje de programación de forma sencilla, no importa el que tengas que usar.
+La primera instrucción pide al ordenador que escriba un texto (en este ejemplo, una letra "a").
 
+La segunda instrucción pide al ordenador que escriba *el contenido* de una variable. Es decir, en ```Escribir a```, la a debe ser una variable preexistente. Y, como todas las variables, debe tener un valor. La instrucción ```Escribir a``` pide al ordenador que escriba ese valor, no una letra "a".
 
+#### ¡Me hago un lío entre Escribir y Leer!
 
+A menudo me he encontrado con que las personas que se inician en la programación de ordenadores confunden *escribir* y *leer*: ¡no tienen claro cuándo utilizar una y cuándo la otra!
 
+Esta confusión se debe a un problema de punto de vista. El programador/a novato piensa los algoritmos *desde su punto de vista*, es decir, como si fuera él o ella quien debe ejecutar el algoritmo.
 
+La solución pasa por cambiar el punto de vista. **El algoritmo lo ejecutará un ordenador**, no nosotros. Los algoritmos son colecciones de órdenes para el ordenador, no para nosotros. Podemos pensar en el ordenador como en un esclavo obediente que hará todo lo que le pidamos (siempre que se lo pidamos en un lenguaje que pueda entender).
 
+Así, cuando le pedimos que ejecute una instrucción *escribir 'Hola'*, no somos nosotros los que vamos a escribir "Hola", sino que será la máquina la que lo hará. Y lo escribirá en su pantalla, que es la manera estandarizada en la que un ordenador escribe cosas.
 
+Y cuando le pidamos que ejecute *leer n*, será el ordenador el que leerá el valor de la variable n. ¿Y cómo se las apaña un ordenador para leer cosas? A través de un dispositivo de entrada. Es decir, a través del teclado. La instrucción *leer n* hará que el programa se detenga hasta que tecleemos algo, y ese algo se almacenará en la variable n.
 
+#### Errores lógicos: confundir Y con O
 
+Este también es un problema frecuente, incluso entre programadores experimentados.
 
+Recuerda que los operadores lógicos Y y O tienen exactamente el mismo significado que en español. A partir de ahí, solo te queda utilizar el sentido común.
 
+Si, aún así, te enfrentas con una expresión que no acabas de comprender, trata de descomponerla en expresiones más simples para asimilar mejor la lógica del problema.
 
+#### Confundir condición con iteración
 
+Otro error recurrente entre principiantes consiste en confundir la estructura condicional con la iterativa. En concreto, confudir *Si... Entonces* con *Mientras... Hacer*.
 
+Creo que se debe a que ambas instrucciones comparten la misma estructura: tienen una condición al principio y ejecutan una serie de acciones o no en función de esa condición.
 
+Pero hay una diferencia fundamental: las acciones de un *Si... Entonces* solo se ejecutarán **una o ninguna vez**, y luego el programa continuará. Las acciones de un *Mientras... Hacer* se ejecutarán **cero, una o muchas veces**, dependiendo de la condición.
 
+Por lo tanto, para saber si debes usar una u otra, pregúntate esto: "¿tiene sentido que estas acciones se ejecuten muchas veces o, como máximo, se ejecutarán una vez?". Si la respuesta es "muchas veces", necesitas un *Mientras... Hacer*. Si la respuesta es "una vez", necesitas un *Si... Entonces*.
 
+Pongamos un ejemplo. Imagina que estás escribiendo un programa que pida un número y determine si es negativo. Puedes tener la tentación de escribir esto:
 
+```
+leer N
+Mientras N < 0 Hacer    ---> ¡¡¡CUIDADO, ESTO ES UN ERROR!!!
+   escribir "El número es negativo"
+FinMientras
+```
 
+Si haces eso, habrás provocado involuntariamente un bucle infinito, ya que, cuando el programa entre en el bucle, no logrará salir jamás de él porque la condición siempre será verdadera.
 
+Para no caer en este error, trata de responder a la pregunta que planteábamos antes. La única accion que hay dentro de este bucle es *Escribir "El número es negativo"*, así que debes preguntarte: "¿mi programa tiene que escribir *El número es negativo* muchas veces, o solo una (en caso de que el número, en efecto, sea negativo)?"
 
+La respuesta, obviamente, es que basta con una. Así que la solución correcta a este problema es:
 
+```
+leer N
+Si N < 0 Entonces
+   escribir "El número es negativo"
+FinSi
+```
 
+#### La plaga del Copy & Paste
 
+A menudo sorprendo a mis estudiantes copiando y pegando fragmentos de su propio código para resolver un problema.
 
+Cuando eso ocurre, siempre les digo: "¡Alto! Seguro que hay una forma mejor de hacerlo".
 
+Y te aseguro que *siempre* la hay.
 
+Copiar y pegar grandes trozos de código es una pésima práctica de programación. Y lo es por una razón muy sencilla de entender. Imagina que has copiado tu código en veinte sitios diferentes y, un buen día, descubres un error en él.
 
+Te va a tocar corregir el error veinte veces.
 
+No parece una estrategia muy eficiente.
 
+Si estamos copiando y pegando código en varios lugares, seguro que hay otra manera más inteligente de organizar el código para evitar esas repeticiones. Normalmente, la solución pasa por usar subalgoritmos.
 
-Ejemplo de programa escrito en pseudocódigo
+#### Funciona, pero ¿a qué precio?
 
+Supongo que has oído la expresión "matar moscas a cañonazos".
 
+A veces, un algoritmo funciona pero es tremendamente ineficiente. Cuando se lo hago notar a mis estudiantes, se rascan la cabeza, encojen los hombros y dicen: sí, pero funciona.
 
-Ahora veamos varias explicaciones de pseudocódigo, pero sobre todo ejemplos de pseudocódigo para entender que son las variables y las estructuras de control como por ejemplo la condicional IF o el bucle FOR. Nosotros aquí no lo vamos a explicar.
+Es como si para ir de Almería a Madrid diésemos un rodeo por Nueva York y Calcuta. O por Júpiter y Saturno. Al final llegamos a Madrid. Dos semanas o dos milenios más tarde, pero llegamos. "Sí, pero funciona".
 
-Por ejemplo si queremos escribir algo en pantalla, en pseudocódigo podríamos poner:
+Bueno, pues no. No funciona. Si llego a Madrid con dos milenios de retraso, no funciona. Si una solución es extremadamente ineficiente, no funciona. Hay que buscar otra manera.
 
-Escribir "Hola" , Escribir 20 o Escribir Variable
+#### Soy un desordenado/a
 
-OJO escribir 20 y escribir "20" son dos cosas diferentes. El texto siempre se pone entre comillas, los números NO. Entonces escribir 20, es mostrar en pantalla el número 20 y escribir "20" es mostrar en pantalla 20. Puede parecer lo mismo, pero no lo es, en una 20 es un texto y en otro un número.
+¿Eres de esas personas que tiene su escritorio hecho un desastre? ¿Cuando abres el cajón de los calcetines parece que ha explotado una bomba nuclear en su interior? ¿Guardas comida caducada en el frigorífico durante meses antes de darte cuenta?
 
-Para especificar el principio y el fin del programa pondremos:
+Entonces tienes todas las papeletas para ser el típico programador/a-desastre.
 
-Inicio
+El programador/a-desastre escribe su código de cualquier manera, sin respetar las mínimas nociones de orden ni organización: sin sangrías, sin comentarios, sin estructura. Intentar bucear en su código es como entrar en la casa de un afectado por el síndrome de Diógenes.
 
+En tu vida personal puedes se un poco desastre si quieres, pero en tu código fuente no. Tienes que escribir código fuente **pensando siempre que lo van a leer otras personas**.
 
+#### Me da pereza poner nombres significativos a las variables
 
-Fin
+Las variables y constantes (así como los algoritmos y subalgoritmos) deberían tener nombres significativos, que den una idea de qué contiene esa variable.
 
+Sin embargo, me he encontrado con muchos estudiantes que sienten una pereza congénita a la hora de inventar nombres para variables. O que no quieren escribir nombres muy largos, como si teclear un par de caracteres más les costase dinero.
 
-Por ejemplo:
+Usar identificadores de variables tales como a, aa, aaa, a2, a3, a4 y otras variaciones sobre la letra a es una pésima idea. Usar identificadores como edad, coste_total, numero_de_vidas y cosas por el estilo es un síntoma de estabilidad mental y de buena educación hacia otros programadores que algún día puedan leer tu código.
 
-Inicio
+#### Confudir variables y cadenas
 
+Los identificadores de variables solo pueden contener letras, números y el símbolo "_" (subrayado). Nunca comillas.
 
+Recuerda que las comillas se reservan *exclusivamente* para el contenido de las cadenas de caracteres.
 
-Fin
+Así que, si tienes una variable que se llama, por ejemplo, x, *nunca* aparecerá escrita como "x", porque esto último es una cadena de caracteres que contiene un único carácter (la equis).
 
+#### Utilizar variables sin inicializar
 
-Las 3 palabras más comunes que se usan en pseudocódigo son:
+Esto es un error común incluso entre programadores experimentados. Más que un error, se trata de un despiste habitual.
 
-Escribir--> Escribe en pantalla del ordenador el texto que pongamos entre paréntesis o también puede escribir en pantalla el valor de una variable.
+Todas las variables, antes de ser usadas, tienen que:
 
+1. **Declararse**, esto eso, indicar su nombre y el tipo de datos al que pertenecen (entero, real, carácter, etc).
+2. **Inicializarse**, es decir, asignarles un valor inicial antes de su primer uso.
 
-Esta instrucción en casi todos los lenguajes de programación reales suele escribirse con la palabra write o document.write('Hola').
+Si te olvidas de inicializar una variable, ¿qué valor tiene?
 
+Imagínate esta situación: declaras una variable llamada x de tipo entero, te olvidas de inicializarla y luego la usas en una operación aritmética como esta:
 
-Leer Edad--> nos lee desde lo que el usuario marque desde el teclado y guarda el valor, por ejemplo, dentro de una variable, en este caso la variable Edad.
+```
+Definir x, y Como Entero
+...
+...
+y = x * 2
+```
 
-Por ejemplo:
+¿Cuál será el valor que tomará la variable y? Es imposible determinarlo, ¿verdad?
 
-Inicio
+Muchos lenguajes de programación impedirán hacer esto porque producirán un error durante la traducción o durante la ejecución. Otros, en cambio, no se preocupan de hacer este tipo de comprobaciones y te dejarán ejecutar ese código, pero el resultado será impredecible.
 
-Escribir: "¿Cual es tu edad?
+#### Utilizar variables sin declarar
 
-Leer Edad
+Aún más grave que no inicializar una variable es no declararla. La mayoría de los lenguajes no permitirán usar una variable sin haberla declarado previamente, pero algunos sí.
 
-Escribir "Tu edad es:" + Edad
-Fin
+#### Asignar de izquierda a derecha
 
+Este es otro error frecuente entre principiantes. Por suerte, tiene fácil solución.
 
-¿Qué haría? Pues muy sencillo, primero nos mostraría un mensaje en pantalla preguntándonos la edad, luego escribiríamos la edad y el valor introducido lo recogería la variable Edad (imagina que introducimos 18). Por último, mostraría en pantalla la frase: Tu edad es 18. ¿Fácil no?
+El error consiste en confundir los términos de una asignación.
 
-Realizar operaciones matemáticas dentro de nuestros programas será básico. Las más conocidas:
+Recuerda que, en las asignaciones:
 
+* A la izquierda del símbolo <- tiene que aparecer una única variable.
+* A la derecha del símobo <- puede aparecer una variable o una expresión compleja.
 
+Una asignación válida es esta: ```x <- y * 2 + (rc(z)/8)```. Fíjate que a la izquierda aparece una variable solitaria (x) y a la derecha una expresión compleja.
 
-Y usaremos a menudo los comparadores matemáticos:
+El error consiste en hacer la asignación al revés, es decir, colocando la variable solitaria a la derecha y la expresión a la izquierda. Esto, por supuesto, no puede ejecutarse en ningún ordenador.
 
+#### Usar palabras reservadas como identificadores
 
+Otro despiste que todos cometemos a veces es usar una palabra reservada por el lenguaje de programación como identificador.
 
-A veces, en algunos lenguajes, es necesario declarar el tipo de las variables que vamos a utilizar dentro del programa. No es nada más que decir de qué tipo son, numéricas, de texto booleanas, etc.
+Por ejemplo, no es buena idea ponerle de nombre a una de mis variables cosas como *si*, *entonces*, *algoritmo* o *hacer*, puesto que son palabras reservadas de mi lenguaje (pseudocódigo). Cuando programes en un lenguaje de programación real, esto se hace extensible a cualquier palabra reservada de ese lenguaje.
 
-Se hace siempre al principio del programa y de la siguiente forma en pseudo-código:
+Tampoco es buena idea usar tildes ni caracteres especiales (como vocales acentuadas) en los identificadores. La mayor parte de los lenguajes de programación reales no los aceptarán, así que mejor que nos acostumbremos a ello desde el principio, aunque infrinjamos algunas reglas ortográficas.
 
-numericas: nombreVariable; para las variables que sean de números o
-texto:
-nombreVariable; para las variables que contienen textos o cadenas de texto (string= cadena de texto)
+¡Ojo!, que solo seremos flexibles con la ortografía en el código fuente. El resto de nuestros textos no tienen permiso para vapulear la lengua.
 
+#### La multiplicación se escribe *, no x
 
-Todo esto lo veremos mejor con los siguientes ejemplos:
+Recuerda que el símbolo para multiplicar, en informática, es el asterisco (*). Ni equis (x) ni punto (.)
 
-    1. Pseudocódigo para un programa que nos sume dos números introducidos por el teclado:
+#### Practicar, practicar y practicar
 
-Inicio
+A programar se aprende programando. Esto es así de sencillo, y si alguien te dice lo contrario te está mintiendo.
 
-Escribir "Introduce el primer número";
+No te creerías a nadie que te ofreciera un método mágico para aprender chino en solo un mes, practicando cinco minutos al día, ¿verdad? Pues a programar, lo mismo.
 
-Lee numero1;
+Ninguna cosa que merezca la pena aprender se aprende sin esfuerzo. Puede que no te guste esta idea, pero es lo que hay.
 
-Escribir "Introduce el segundo número";
-Leer numero2;
+Así que, si estás dispuesto/a a aprender a programar, prepárate para pasar mucho tiempo peleando con tu ordenador (¡y con tu cabeza!) y a sudar tinta. Por eso es imprescindible disfrutar del proceso: si no, se vuelve una tarea tan ardua como escalar el Everest.
 
-resultado= numero1 + numero2;
+Así que mi principal consejo para todos los principiantes es: practica, practica y practica. Y si, mientras practicas, te das cuenta de que no estás disfrutando, plantéate si de verdad quieres aprender a programar. 
 
-Escribir resultado;
+### 3.5. Ejercicios propuestos
 
+A partir de este punto, necesitarás **instalar PSeInt** en tu ordenador.
 
+PSeInt es una herramienta para el aprendizaje de la programación de gran éxito en el marcado hispano (ha sido desarrollada en Argentina). Permite escribir varios dialectos de pseudocódigo y convertirlos a diagrama de flujo, o bien dibujar el diagrama de flujo y obtener de forma automática el pseudocódigo correspondiente.
 
+Además, lo más alucinante es que, con PseInt, puedes ejecutar tu pseudocódigo como si de un lenguaje de programación real se tratase.
 
-Nota: Cuando queremos escribir en pantalla una variable, como en este caso la variable resultado, no se pone entre
+Solo tienes que descargarte la herramienta e instalarla en tu ordenador. Es software libre y gratuito, y soporta múltiples plataformas (Windows, Linux y Mac), así que es perfecta para realizar estos ejercicios y asegurarte de que lo estás haciendo bien.
 
-comillas.
+* **Para descargar PSeInt**: [http://pseint.sourceforge.net/](http://pseint.sourceforge.net/)
+* **Para leer el manual de usuario**: [http://pseint.sourceforge.net/index.php?page=documentacion.php](http://pseint.sourceforge.net/index.php?page=documentacion.php)
 
+En todos los ejercicios que vienen a continuación se te pide escribir un programa que resuelva un determinado problema. Puedes escribirlo en pseudocódigo o con un diagrama de flujo, como prefieras, ya que, con PSeInt, ambas herramientas son intercambiables. No dejes de comprobar que tu solución funciona antes de pasar al siguiente.
 
-    2. Pseudocódigo para un programa que nos diga la tabla de multiplicar del número que le digamos (introducido por el teclado).
+No es necesario que hagas *todos* los ejercicios. Están ordenados en un grado de dificultad creciente, de modo que, si los primeros te resultan muy sencillos, puedes saltar a otro un poco más complicado. Céntrate solo en los que te parezcan más interesantes, o incluso puedes inventarte tus propios programas.
 
-Programa: TablaMultiplicar
+En realidad, esto último es lo más adecuado. Recuerda que para aprender a programar necesitarás practicar, practicar y practicar. Y para lograr practicar tanto, es imprescindible que te guste lo que estás haciendo.
 
-numericas: t, num , total;
+#### Ejercicios con estructura secuencial
 
+**Ejercicio 1**. Calcular el área y la circunferencia de un círculo cuyo radio será proporcionado a través del teclado. Recuerda que área = 3.14 x r x r y circunferencia = 2 x 3.14 x r
 
+**Ejercicio 2**. Pedir las cuatro notas de los exámenes del primer trimestre de un alumno y muestre la nota media obtenida.
 
-Fin
+**Ejercicio 3**. Calcular el precio de llenar una piscina de agua. Para ello se tienen que pedir al usuario las medidas de la piscina (largo, ancho y alto) y el precio del m​<sup>3</sup>​ del agua. Se mostrará el precio total. Supondremos que la piscina es de forma regular.
 
-    3. Escribir un Pseudocódigo de un programa que permita leer la edad y peso de una persona y posteriormente imprimirla.
+**Ejercicio 4**. Determinar si un número leído del teclado es positivo, negativo o cero.
 
-Inicio
+**Ejercicio 5**. Calcular la raíz cuadrada de un número introducido por teclado. Hay que tener la precaución de comprobar que el número sea positivo.
 
-VariablesNumericas: edad, peso.
+#### Ejercicios con estructuras condicionales
 
-Imprimir "Escribir los datos (Edad, Peso):";
+**Ejercicio 6**. Leídos dos números por teclado, A y B, calcular la resta del mayor menos el menor. Por ejemplo, si A = 8 y B = 3, el resultado debe ser A – B, es decir, 5. Pero si A = 4 y B = 7, el resultado debe ser B – A, es decir, 3.
 
-Leer Edad, Leer Peso;
+**Ejercicio 7**. Averiguar si un número real introducido  por teclado tiene o no parte fraccionaria (utilícese la función trunc() que aparece descrita en los apuntes)
 
-Escribir "Tu peso es: ", peso, " y tu edad es: ", edad.;
+**Ejercicio 8**. Leer un número real y un tipo de moneda, que puede ser "euro" o "peseta". Convertir la cantidad al tipo de moneda indicado, suponiendo que está expresada en la otra. Por ejemplo, si la cantidad es 15 y la moneda es "peseta", se supondrá que se trata de 15 € y que hay que convertirlos a pesetas y, por lo tanto, el resultado debe ser 2495.
 
-Fin.
+**Ejercicio 9**. Leer tres números por teclado, X, Y y Z, y decidir si están ordenados de menor a mayor.
 
-Te has fijado que para imprimir algo en lugar de mostrarlo en la pantalla,la palabra es "imprimir", así de sencillo.
+**Ejercicio 10**. Como el anterior, pero para averiguar si los números son consecutivos.
 
-Además podemos mezclar en una frase texto fijo con variables. Esto se puede hacer con comas, como lo ves en el ejemplo anterior o poniendo el signo + entre el texto y las
+**Ejercicio 11**. Determinar si un año es bisiesto o no (los años bisiestos son múltiplos de 4; utilícese el operador módulo)
 
-variables, como vimos anteriormente. En el ejemplo anterior podríamos ser:
+**Ejercicio 12**. Determinar el número de cifras de un número entero. El algoritmo debe funcionar para números de hasta 5 cifras, considerando los negativos. Por ejemplo, si se introduce el número 5342, la respuesta del programa debe ser 4. Si se introduce –250, la respuesta debe ser 3.
 
-Escribir "Tu peso es: " + peso + " y tu edad es: " + edad.; Sería lo mismo.
+**Ejercicio 13**. Calcular las dos soluciones de una ecuación de segundo grado, del tipo ax<sup>2</sup> + bx + c = 0. Los coeficientes a, b y c deberá introducirlos el usuario a través del teclado.
 
-    4. Escribir Pseudocódigo que calcule el área de un círculo.
+#### Ejercicios con estructuras condicionales e iterativas
 
-Inicio
+**Ejercicio 14**. Escribir todos los números entre 1 y n, siendo n un entero introducido por teclado.
 
- Aquí definimos una constante por
+**Ejercicio 15**. Escribir todos los números pares entre 1 y n.
 
+**Ejercicio 16**. Escribir todos los números impares entre dos números a y b introducidos por teclado. Antes habrá que comprobar cuál de los dos números (a o b) es mayor.
 
-VariablesNumericas: radio, area;
+**Ejercicio 17**. Calcular la suma de todos los números pares entre 1 y n, siendo n un entero introducido por teclado. Es decir, hay que calcular 2 + 4 + 6 + ... hasta n (o n-1, si n es un número impar).
 
+**Ejercicio 18**. Realiza un programa que calcule la suma de los n primeros números, donde n es un número introducido por teclado. Al terminar, el programa nos mostrará el mensaje "¿Desea terminar? (S/N)". Si el usuario escribe "S", el programa terminará, pero, si escribe "N", volverá a comenzar.
 
+**Ejercicio 19**. Calcular la nota media de un alumno a partir de las notas de todos sus exámenes a lo largo del curso. El programa nos irá pidiendo notas, pero no sabemos cuántas son. Para terminar de introducir valores, el usuario debe teclear un número negativo. Entonces, el programa calculará el promedio de todas las notas introducidas.
 
+**Ejercicio 20**. El usuario de este programa será un profesor, que introducirá las notas de sus 30 alumnos de una en una. El algoritmo debe decirle cuántos suspensos y cuántos aprobados hay.
 
+**Ejercicio 21**. Calcular el valor máximo de una serie de 10 números introducidos por teclado. 
 
+**Ejercicio 22**. Generalizar el ejercicio anterior para que también se averigüe el valor mínimo y el medio.
 
+**Ejercicio 23**. Calcular el factorial de un número entero N. Recuerda que el factorial de un número es el producto de ese número por todos los enteros menores que él. Por ejemplo, el factorial de 5 (simbolizado 5!) se calcula como: 5! = 5 x 4 x 3 x 2 x 1.
 
+**Ejercicio 24**. Generar combinaciones al azar para la lotería primitiva (6 números entre 1 y 49). Debes utilizar la función azar(x) que vimos en los apuntes. Por ahora, no te preocupes porque los números puedan repetirse.
 
+**Ejercicio 25**. Generar combinaciones al azar para la quiniela (14 valores dentro del conjunto 1, X o 2)
 
-Fin
+#### Ejercicios más avanzados
 
+**Ejercicio 26**. Determinar si un número N introducido por teclado es o no primo. Recuerda que un número primo es aquél que sólo es divisible por sí mismo y por la unidad.
 
+**Ejercicio 27**. Generalizar el algoritmo anterior para averiguar todos los números primos que existen entre 2 y N, siendo N un número introducido por teclado.
 
-    5. Elaborar un algoritmo que obtenga e imprima el valor de Y a partir de la ecuación: Y= 3*X + 2 + 7X – 15, introduciendo el valor que queramos de X.
+**Ejercicio 28**. Introducida una hora por teclado (horas, minutos y segundos), se pretende sumar un segundo a ese tiempo e imprimir en la pantalla la hora que resulta (también en forma de horas, minutos y segundos).
 
-I
+**Ejercicio 29**. La calculadora. Diseñar un algoritmo que lea dos números, A y B, y un operador (mediante una variable de tipo carácter), y calcule el resultado de operar A y B con esa operación. Por ejemplo, si A = 5 y B = 2, y operación = "+", el resultado debe ser 7. El algoritmo debe seguir pidiendo números y operaciones indefinidamente, hasta que el usuario decida terminar (utilizar un valor centinela para ello)
 
+**Ejercicio 30**. Juego del número secreto. El ordenador elegirá un número al azar entre 1 y 100. El usuario irá introduciendo números por teclado, y el ordenador le irá dando pistas: "mi número es mayor" o "mi número es menor", hasta que el usuario acierte. Entonces el ordenador le felicitará y le comunicará el número de intentos que necesitó para acertar el número secreto.
 
-    6. Pseudocódigo para introducir un número por teclado y que nos diga si es positivo o negativo
+**Ejercicio 31**. Mínimo común múltiplo. El programa nos pedirá dos números y calculará el mínimo común múltiplo de ambos. *Atención: este ejercicio es de dificultad elevada*.
 
-
-
-FINPROGRAMA
-
-Aquí hemos utilizado la estructura SI...(se cumple la condición)...Hacer (Esto). Esto es la condicional IF (en inglés). También usamos SINO para hacer algo si no se cumple la condición.
-
-
-
-Existe un programa muy útil para escribir pseudocódigo en el ordenador Llamado PSeint que resulta genial para los primeros pasos en programación (complementado con un editor de diagramas de Flujo que veremos lo que es en el apartado siguiente). El programa es gratuito y está disponible para Linux, Mac OS y Windows.
-
-3. DIAGRAMAS DE FLUJO
-El diagrama de flujo es una de las herramientas más poderosas y sin embargo poco utilizadas a veces. Ayuda a solucionar un problema de forma estructurada. Nos va a permitir describir gráficamente un proceso, de manera que podemos comprobar de un golpe de vista si hemos cubierto todos los caminos que ese proceso puede tomar.
-
-
-Un buen diseño de diagrama de flujo tendrá como resultado una buena automatización de un programa (más claro y eficiente).
-
-
-
-
-
-
-
-
-
-Si usamos esta herramienta, nos ayudará fácilmente a la hora de desarrollar un programa con lógica y de forma natural ANTES de ponernos a programar.
-
-De hecho, lo mejor es empezar a utilizar el diagrama de flujo representando rutinas de la vida diaria para entender mejor la lógica computacional.
-
-
-
-Una vez descrito el diagrama de flujo es más fácil transformar el algoritmo programando por cualquiera de los lenguajes de programación que vayamos a usar.
-Cada símbolo representa una operación específica y se conectan entre ellos mediante flechas que indican la secuencia de la operación.
-
-
+**Ejercicio 32**. Máximo común divisor. Como el anterior, pero calculando el máximo común divisor. *Atención: este ejercicio es de dificultad elevada*.
