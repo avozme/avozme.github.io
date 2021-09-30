@@ -1,5 +1,5 @@
 Algoritmo contar_numeros
-	Definir A, B, inicio, final, i como Entero
+	Definir A,B,inicio,final,i Como Entero
 	Escribir 'Dime un número'
 	Leer A
 	Escribir 'Dime otro número'
@@ -15,6 +15,6 @@ Algoritmo contar_numeros
 	i <- inicio
 	Mientras (i<=final) Hacer
 		Escribir i
-		i <- i + 1
+		i <- i+1
 	FinMientras
 FinAlgoritmo
