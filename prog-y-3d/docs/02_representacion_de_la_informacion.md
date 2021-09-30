@@ -345,9 +345,15 @@ Por último, hacemos notar que, en ocasiones, también se usan los mismos múlti
 
 > d) 191<sub>10</sub> a binario
 
-**Ejercicio 5**. Escribe las palabras "CELIA VIÑAS" en código ASCII (en decimal y en hexadecimal).
+**Ejercicio 5**. Convierte los siguientes números entre los sistemas hexadecimal y binario, utilizando la tabla de conversión que hemos visto en este tema. Si puedes hacerlo sin mirar la tabla, mucho mejor.
+> a) 100111012 a hexadecimal
+> b) 1101001110110011012 a hexadecimal
+> c) 38C16 a binario
+> d) FDCA16 a binario
 
-**Ejercicio 6**. La cantidad de memoria RAM de un ordenador personal medio ha ido creciendo imparablemente desde que los ordenadores personales se popularizaron en los años 80. Estas son algunas de esas cantidades:
+**Ejercicio 6**. Escribe las palabras "CELIA VIÑAS" en código ASCII (en decimal y en hexadecimal).
+
+**Ejercicio 7**. La cantidad de memoria RAM de un ordenador personal medio ha ido creciendo imparablemente desde que los ordenadores personales se popularizaron en los años 80. Estas son algunas de esas cantidades:
 
 * Año 1982: 256 KiB
 * Año 1992: 4 MiB
@@ -357,11 +363,10 @@ Por último, hacemos notar que, en ocasiones, también se usan los mismos múlti
 
 Dibuja en un gráfico la evolución de estas cantidades y haz una proyección aproximada hasta el año 2032. ¿Cuánta memoria RAM usarán los ordenadores dentro de 10 años? Puedes usar un programa de hoja de cálculo para ayudarte.
 
-**Ejercicio 7**. El tamaño de los discos duros promedios de los ordenadores también ha ido creciendo desde hace cuarenta años. Haz una proyección parecida a la anterior para averiguar qué capacidad de almacenamiento en disco tendrán los ordenadores personales, previsiblemente, dentro de 10 años.
+**Ejercicio 8**. El tamaño de los discos duros promedios de los ordenadores también ha ido creciendo desde hace cuarenta años. Haz una proyección parecida a la anterior para averiguar qué capacidad de almacenamiento en disco tendrán los ordenadores personales, previsiblemente, dentro de 10 años.
 
 * Año 1982: 10 MiB (los pocos ordenadores que tenían disco duro)
 * Año 1992: 1 GiB
 * Año 2002: 40 GiB
 * Año 2012: 240 GiB
 * Año 2022: 2 TiB
-
