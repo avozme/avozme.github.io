@@ -596,9 +596,9 @@ Este archivo contiene un método genérico (dentro de la clase View) para mostra
 
 ```php
     class View {
-		public function mostrar($nombreVista, $data = null) {
+		public function show($viewName, $data = null) {
 			include_once("views/header.php");
-			include_once("views/$nombreVista.php");
+			include_once("views/$viewName.php");
 			include_once("views/footer.php");
 		}
 	}
@@ -661,10 +661,20 @@ En este caso, llamamos *user.php* al modelo porque accederá únicamente a la ta
 
         private $db;
 
+        /**
+         * Constructor de la clase.
+         * Crea una conexión con la base de datos y la asigna a la variable $this->db
+         */
         public function __construct() {
            $this->db = new mysqli("db-host", "db-user", "db-password", "db-name");
         }
 
+        /**
+         * Comprueba si un email y una password pertenecen a algún usuario de la base  de datos.
+         * @param String $email El email del usuario que se quiere comprobar
+         * @param String $pass La contraseña del usuario que se quiere comprobar
+         * @return User $usuario Si el usuario existe, devuelve un objeto con todos los campos del usuario en su interior. Si no, devuelve un objeto null
+         */
         public function checkLogin($email, $pass) {
             if ($result = $this->db->query("SELECT idUser FROM users WHERE email = '$email' AND password = '$pass'")) {
                 if ($result->num_rows == 1) {
@@ -678,6 +688,11 @@ En este caso, llamamos *user.php* al modelo porque accederá únicamente a la ta
             }
         }
 
+        /**
+         * Busca en la base de datos la lista de roles de un usuario
+         * @param integer $idUser El id del usuario
+         * @return array $resultArray Un array con todos los roles del usuario, o null si el usuario no existe o no tiene roles asignados
+         */
         public function getUserRoles($idUser) {
             $resultArray = array();
             if ($result = $this->db->query("SELECT roles.* FROM roles
@@ -687,6 +702,7 @@ En este caso, llamamos *user.php* al modelo porque accederá únicamente a la ta
                     while ($rol = $result->fetch_object()) {
                         $resultArray[] = $rol;
                     }
+                    return $resultArray;
                 }
                 else {
                     return null;
@@ -698,6 +714,11 @@ En este caso, llamamos *user.php* al modelo porque accederá únicamente a la ta
 
         }
 
+        /**
+         * Busca en la base de datos los permisos asociados a un rol
+         * @param integer $idRol El id del rol
+         * @return array $resultArray Un array con la lista de permisos asociados al rol, o null si el rol no existe o no tiene permisos asociados
+         */
         public function getUserPermissions($idRol) {
             $resultArray = array();
             if ($result = $this->db->query("SELECT permissions.* FROM permissions 
@@ -707,6 +728,7 @@ En este caso, llamamos *user.php* al modelo porque accederá únicamente a la ta
                     while ($permission = $result->fetch_object()) {
                         $resultArray[] = $permission;
                     }
+                    return $resultArray;
                 }
                 else {
                     return null;

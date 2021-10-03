@@ -133,9 +133,9 @@
         <span class="p">}</span>
     <span class="p">}</span>
 </code></pre></div></div> <p><strong>VISTA (view.php)</strong></p> <p>Este archivo contiene un método genérico (dentro de la clase View) para mostrar cualquier otra vista, cuyo nombre se le pasa como parámetro desde el controlador.</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">class</span> <span class="nc">View</span> <span class="p">{</span>
-		<span class="k">public</span> <span class="k">function</span> <span class="n">mostrar</span><span class="p">(</span><span class="nv">$nombreVista</span><span class="p">,</span> <span class="nv">$data</span> <span class="o">=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">public</span> <span class="k">function</span> <span class="n">show</span><span class="p">(</span><span class="nv">$viewName</span><span class="p">,</span> <span class="nv">$data</span> <span class="o">=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
 			<span class="k">include_once</span><span class="p">(</span><span class="s2">"views/header.php"</span><span class="p">);</span>
-			<span class="k">include_once</span><span class="p">(</span><span class="s2">"views/</span><span class="nv">$nombreVista</span><span class="s2">.php"</span><span class="p">);</span>
+			<span class="k">include_once</span><span class="p">(</span><span class="s2">"views/</span><span class="nv">$viewName</span><span class="s2">.php"</span><span class="p">);</span>
 			<span class="k">include_once</span><span class="p">(</span><span class="s2">"views/footer.php"</span><span class="p">);</span>
 		<span class="p">}</span>
 	<span class="p">}</span>
@@ -168,10 +168,20 @@
 
         <span class="k">private</span> <span class="nv">$db</span><span class="p">;</span>
 
+        <span class="cd">/**
+         * Constructor de la clase.
+         * Crea una conexión con la base de datos y la asigna a la variable $this-&gt;db
+         */</span>
         <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">()</span> <span class="p">{</span>
            <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">mysqli</span><span class="p">(</span><span class="s2">"db-host"</span><span class="p">,</span> <span class="s2">"db-user"</span><span class="p">,</span> <span class="s2">"db-password"</span><span class="p">,</span> <span class="s2">"db-name"</span><span class="p">);</span>
         <span class="p">}</span>
 
+        <span class="cd">/**
+         * Comprueba si un email y una password pertenecen a algún usuario de la base  de datos.
+         * @param String $email El email del usuario que se quiere comprobar
+         * @param String $pass La contraseña del usuario que se quiere comprobar
+         * @return User $usuario Si el usuario existe, devuelve un objeto con todos los campos del usuario en su interior. Si no, devuelve un objeto null
+         */</span>
         <span class="k">public</span> <span class="k">function</span> <span class="n">checkLogin</span><span class="p">(</span><span class="nv">$email</span><span class="p">,</span> <span class="nv">$pass</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT idUser FROM users WHERE email = '</span><span class="nv">$email</span><span class="s2">' AND password = '</span><span class="nv">$pass</span><span class="s2">'"</span><span class="p">))</span> <span class="p">{</span>
                 <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="n">num_rows</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
@@ -185,6 +195,11 @@
             <span class="p">}</span>
         <span class="p">}</span>
 
+        <span class="cd">/**
+         * Busca en la base de datos la lista de roles de un usuario
+         * @param integer $idUser El id del usuario
+         * @return array $resultArray Un array con todos los roles del usuario, o null si el usuario no existe o no tiene roles asignados
+         */</span>
         <span class="k">public</span> <span class="k">function</span> <span class="n">getUserRoles</span><span class="p">(</span><span class="nv">$idUser</span><span class="p">)</span> <span class="p">{</span>
             <span class="nv">$resultArray</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
             <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT roles.* FROM roles
@@ -194,6 +209,7 @@
                     <span class="k">while</span> <span class="p">(</span><span class="nv">$rol</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="nf">fetch_object</span><span class="p">())</span> <span class="p">{</span>
                         <span class="nv">$resultArray</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$rol</span><span class="p">;</span>
                     <span class="p">}</span>
+                    <span class="k">return</span> <span class="nv">$resultArray</span><span class="p">;</span>
                 <span class="p">}</span>
                 <span class="k">else</span> <span class="p">{</span>
                     <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
@@ -205,6 +221,11 @@
 
         <span class="p">}</span>
 
+        <span class="cd">/**
+         * Busca en la base de datos los permisos asociados a un rol
+         * @param integer $idRol El id del rol
+         * @return array $resultArray Un array con la lista de permisos asociados al rol, o null si el rol no existe o no tiene permisos asociados
+         */</span>
         <span class="k">public</span> <span class="k">function</span> <span class="n">getUserPermissions</span><span class="p">(</span><span class="nv">$idRol</span><span class="p">)</span> <span class="p">{</span>
             <span class="nv">$resultArray</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
             <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT permissions.* FROM permissions 
@@ -214,6 +235,7 @@
                     <span class="k">while</span> <span class="p">(</span><span class="nv">$permission</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="nf">fetch_object</span><span class="p">())</span> <span class="p">{</span>
                         <span class="nv">$resultArray</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$permission</span><span class="p">;</span>
                     <span class="p">}</span>
+                    <span class="k">return</span> <span class="nv">$resultArray</span><span class="p">;</span>
                 <span class="p">}</span>
                 <span class="k">else</span> <span class="p">{</span>
                     <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
