@@ -394,9 +394,9 @@ Vamos a suponer que esta autenticación con ACL se está implementando para un s
 
 Haremos una implementación completa del ACL, es decir, con las cinco tablas. Esas cinco tablas tendrán el siguiente aspecto (te muestro algunos datos de ejemplo para que quede más claro de lo que estamos hablando):
 
-**TABLA USUARIOS**
+**TABLA USERS**
 
-IdUsuario|Email|Passwd|Nombre|Telef
+id|email|passwd|name|telef
 -|-|-|-|-
 1|jp@gmail.com|sgsdfgjk8yias|Juan Pérez|600 230 xxx
 2|ms@gmail.com|239ywds9$|María Sánchez|700 398 yyy
@@ -404,24 +404,24 @@ Etc|Etc|Etc|Etc|Etc
 
 **TABLA ROLES**
 
-IdRol|Descripcion
+id|description
 -|-
 1|Administrador
 2|Editor
 3|Usuario
 
-**TABLA USUARIOS-ROLES**
+**TABLA ROLES-USERS**
 
-IdUsuario|IdRol
+idUser|idRol
 -|-
 1|1
 2|3
 3|2
 etc|etc
 
-**TABLA PERMISOS**
+**TABLA PERMISSIONS**
 
-IdPermiso|Descripcion
+id|description
 -|-
 1|Crear contenido nuevo
 2|Editar contenido propio
@@ -434,7 +434,7 @@ IdPermiso|Descripcion
 
 **TABLA ROLES-PERMISOS**
 
-IdRol|IdPermiso
+idRol|idPermission
 -|-
 1|1
 1|2
@@ -489,21 +489,20 @@ Luego se instancia un objeto de tipo *Controller* y se invoca un método con el 
 
 ```php
 <?php
-  include("controller.php");
-  $controller = new Controller();
+include("controller.php");
+$controller = new Controller();
 
-  // Miramos a ver si hay alguna acción pendiente de realizar
-  if (!isset($_REQUEST['action'])) {
-    // No la hay. Usamos la acción por defecto (mostrar el formulario de login)
+// Miramos a ver si hay alguna acci�n pendiente de realizar
+if (!isset($_REQUEST['action'])) {
+// No la hay. Usamos la acci�n por defecto (mostrar el formulario de login)
     $action = "showLoginForm";
-  } else {
-    // Sí la hay. La recuperamos.
+} else {
+// S� la hay. La recuperamos.
     $action = $_REQUEST['action'];
-  }
+}
 
-  // Ejecutamos el método del controlador que se llame como la acción
-  $controlador->$action();
-?>
+// Ejecutamos el m�todo del controlador que se llame como la acci�n
+$controller->$action();
 ```
 
 **CONTROLADOR (archivo controller.php)**
@@ -513,81 +512,92 @@ En el controlador están reflejadas todas las posibles acciones que puede realiz
 Es decir, tiene que haber un método por cada posible valor de la variable *action*.
 
 ```php
-    start_session();    // Si no se ha hecho en el index, claro
+<?php
 
-    class Controller {
+include ("view.php");
+include ("user.php");
 
-        private $view, $user;
+class Controller
+{
 
-        /**
-         * Constructor. Crea el objeto vista y los modelos
-         */
-        public function __construct() {
-            $this->view = New View();       // Vistas
-            $this->user = New User();       // Modelo de usuarios
+    private $view, $user;
+
+    /**
+     * Constructor. Crea el objeto vista y los modelos
+     */
+    public function __construct()
+    {
+        session_start(); // Si no se ha hecho en el index, claro
+        $this->view = new View(); // Vistas
+        $this->user = new User(); // Modelo de usuarios
+    }
+
+    /**
+     * Muestra el formulario de login
+     */
+    public function showLoginForm()
+    {
+        $this->view->show("loginForm");
+    }
+
+    /**
+     * Procesa el formulario de login y, si es correcto, inicia la sesión con el id del usuario.
+     * Redirige a la vista de selección de rol.
+     */
+    public function processLoginForm()
+    {
+
+        // Validación del formulario
+        if ($_REQUEST['email'] == "" || $_REQUEST['pass'] == "") {
+            // Algún campo del formulario viene vacío: volvemos a mostrar el login
+            $data['errorMsg'] = "El email y la contraseña son obligatorios";
+            $this->view->show("loginForm", $data);
         }
-
-        /**
-         * Muestra el formulario de login
-         */
-        public function showLoginForm() {
-            $this->view->show("loginForm");
-        }
-
-        /**
-         * Procesa el formulario de login y, si es correcto, inicia la sesión con el id del usuario.
-         * Redirige a la vista de selección de rol.
-         */
-        public function processLoginForm() {
-
-            // Validación del formulario
-            if ($_REQUEST['email'] == "" || $_REQUEST['pass'] == "") {
-                // Algún campo del formulario viene vacío: volvemos a mostrar el login
-                $data['errorMsg'] = "El email y la contraseña son obligatorios";
-                $this->view->show("loginForm", $data);
+        else {
+            // Hemos pasado la validación del formulario: vamos a procesarlo
+            $userData = $this->user->checkLogin($_REQUEST['email'], $_REQUEST['pass']);
+            if ($userData!=null) {
+                // Login correcto: creamos la sesión y pedimos al usuario que elija su rol
+                $_SESSION['idUser'] = $userData->id;
+                $this->SelectUserRolForm();
             }
             else {
-                // Hemos pasado la validación del formulario: vamos a procesarlo
-                $userData = $this->user->checkLogin($_REQUEST['email'], $_REQUEST['pass']);
-                if ($userData) {
-                    // Login correcto: creamos la sesión y pedimos al usuario que elija su rol
-                    $_SESSION['idUser'] = $userData->idUser;
-                    $this->SelectUserRolForm();
-                }
-                else {
-                    $data['errorMsg'] = "Usuario o contraseña incorrectos";
-                    $this->view->show("loginForm", $data);
-                }
+                $data['errorMsg'] = "Usuario o contraseña incorrectos";
+                $this->view->show("loginForm", $data);
             }
         }
-
-        /**
-         * Muestra formulario de selección de rol de usuario
-         */
-        public function selectUserRolForm() {
-            $data['roles'] = $this->user->getUserRoles($_SESSION['idUser']);
-            $this->view->show("selectUserRolForm", $data);
-            // Posible mejora: si el usuario solo tiene un rol, la aplicación podría seleccionarlo automáticamnte
-            // y saltar a $this->showMainMenu()
-        }
-
-        /**
-         * Procesa el formulario de selección de rol de usuario y crea una variable de sesión para almacenarlo.
-         * Redirige al menú principal.
-         */
-        public function processSelectUserRolForm() {
-            $_SESSION['userRol'] = $_REQUEST['userRol'];
-            $this->showMainMenu();
-        }
-
-        /**
-         * Muestra el menú de opciones del usuario según la tabla de persmisos
-         */
-        public function showMainMenu() {
-            $data['permissions'] = $this->user->getUserPermissions($_SESSION['userRol']);
-            $this->view->show("mainMenu", $data);
-        }
     }
+
+    /**
+     * Muestra formulario de selección de rol de usuario
+     */
+    public function selectUserRolForm()
+    {
+        $data['roles'] = $this->user->getUserRoles($_SESSION['idUser']);
+        $this->view->show("selectUserRolForm", $data);
+    // Posible mejora: si el usuario solo tiene un rol, la aplicación podría seleccionarlo automáticamnte
+    // y saltar a $this->showMainMenu()
+    }
+
+    /**
+     * Procesa el formulario de selección de rol de usuario y crea una variable de sesión para almacenarlo.
+     * Redirige al menú principal.
+     */
+    public function processSelectUserRolForm()
+    {
+        $_SESSION['userRol'] = $_REQUEST['idRol'];
+        $this->showMainMenu();
+    }
+
+    /**
+     * Muestra el menú de opciones del usuario según la tabla de persmisos
+     */
+    public function showMainMenu()
+    {
+        $data['permissions'] = $this->user->getUserPermissions($_SESSION['userRol']);
+        $this->view->show("mainMenu", $data);
+    }
+}
 ```
 
 **VISTA (view.php)**
@@ -595,13 +605,16 @@ Es decir, tiene que haber un método por cada posible valor de la variable *acti
 Este archivo contiene un método genérico (dentro de la clase View) para mostrar cualquier otra vista, cuyo nombre se le pasa como parámetro desde el controlador.
 
 ```php
-    class View {
-		public function show($viewName, $data = null) {
-			include_once("views/header.php");
-			include_once("views/$viewName.php");
-			include_once("views/footer.php");
-		}
+<?php
+class View
+{
+	public function show($viewName, $data = null)
+	{
+		include("views/header.php");
+		include("views/$viewName.php");
+		include("views/footer.php");
 	}
+}
 ```
 
 **VISTA loginForm (archivo views/loginForm.php)**
@@ -609,19 +622,20 @@ Este archivo contiene un método genérico (dentro de la clase View) para mostra
 Esta vista muestra el formulario de login. La dejamos preparada para mostrar, opcionalmente, un mensaje de error (del tipo "usuario o contraseña incorrectos") o un mensaje informativo (del tipo "Sesión cerrada con éxito").
 
 ```php
-        if (isset($data['errorsMsg'])) {
-            echo "<p style='color:red'>".$data['msjError']."</p>";
-        }
-        if (isset($data['infoMsg'])) {
-            echo "<p style='color:blue'>".$data['msjInfo']."</p>";
-        }
+<?php
+if (isset($data['errorMsg'])) {
+    echo "<p style='color:red'>" . $data['errorMsg'] . "</p>";
+}
+if (isset($data['infoMsg'])) {
+    echo "<p style='color:blue'>" . $data['infoMsg'] . "</p>";
+}
 
-        echo "<form action='index.php'>
-                Usuario:<input type='text' name='usr'><br>
-                Contraseña:<input type='password' name='pass'><br>
-                <input type='hidden' name='action' value='processLoginForm'>
-                <input type='submit'>
-             </form>";
+echo "<form action='index.php'>
+        Email:<input type='text' name='email'><br>
+        Contraseña:<input type='password' name='pass'><br>
+        <input type='hidden' name='action' value='processLoginForm'>
+        <input type='submit'>
+      </form>";
 ```
 
 **VISTA selectUserRolForm (archivo views/selectUserRolForm.php)**
@@ -629,14 +643,17 @@ Esta vista muestra el formulario de login. La dejamos preparada para mostrar, op
 Esta vista muestra la lista de roles de un usuario. Sirve por si un usuario tiene asignado más de un rol. Así, antes de terminar el login, podrá elegir con qué rol quiere ingresar en la aplicación.
 
 ```php
-        echo "Selecciona el rol<br>";
-        echo "<form action='index.php'>";
-        echo "<select name='idRol'>";
-        foreach ($data['roles'] as $rol) {
-            echo "<option value='".$rol->idRol."'>".$rol->description."<option>";
-        }
-        echo "<input type='hidden' name='action' value='processSelectUserRolForm"
-        echo "<input type='submit'>";
+<?php
+echo "Selecciona el rol<br>";
+echo "<form action='index.php'>";
+echo "<select name='idRol'>";
+foreach ($data['roles'] as $rol) {
+     echo "<option value='".$rol->id."'>".$rol->description."<option>";
+}
+echo "</select>";
+echo "<input type='hidden' name='action' value='processSelectUserRolForm'>";
+echo "<button type='submit'>Enviar</button>";
+echo "</form>";
 ```
 
 **VISTA mainMenu (archivo views/mainMenu.php)**
@@ -644,10 +661,11 @@ Esta vista muestra la lista de roles de un usuario. Sirve por si un usuario tien
 Esta vista muestra las opciones del programa asociadas a un usuario concreto. Cada opción es un enlace a la propia aplicacion con un valor diferente para la variable *action*.
 
 ```php
-        echo "Menú principal<br>";
-        foreach ($data['permissions'] as $permission) {
-            echo "<a href='index.php?action=".$permission->action.">".$permission->description."</a><br>";
-        }
+<?php
+echo "Menú principal<br>";
+foreach ($data['permissions'] as $permission) {
+    echo "<a href='index.php?action=" . $permission->action . "'>" . $permission->description . "</a><br>";
+}
 ```
 
 **MODELO (archivo user.php)**
@@ -657,90 +675,99 @@ El modelo contiene todos los métodos necesarios para acceder a la base de datos
 En este caso, llamamos *user.php* al modelo porque accederá únicamente a la tabla de usuarios.
 
 ```php
-   class User {
+<?php
 
-        private $db;
+class User
+{
 
-        /**
-         * Constructor de la clase.
-         * Crea una conexión con la base de datos y la asigna a la variable $this->db
-         */
-        public function __construct() {
-           $this->db = new mysqli("db-host", "db-user", "db-password", "db-name");
-        }
+    private $db;
 
-        /**
-         * Comprueba si un email y una password pertenecen a algún usuario de la base  de datos.
-         * @param String $email El email del usuario que se quiere comprobar
-         * @param String $pass La contraseña del usuario que se quiere comprobar
-         * @return User $usuario Si el usuario existe, devuelve un objeto con todos los campos del usuario en su interior. Si no, devuelve un objeto null
-         */
-        public function checkLogin($email, $pass) {
-            if ($result = $this->db->query("SELECT idUser FROM users WHERE email = '$email' AND password = '$pass'")) {
-                if ($result->num_rows == 1) {
-                    $usuario = $result->fetch_object();
-                    return $usuario;
-                } else {
-                    return null;
-                }
-            } else {
-                return null;
-            }
-        }
+    /**
+     * Constructor de la clase.
+     * Crea una conexión con la base de datos y la asigna a la variable $this->db
+     */
+    public function __construct()
+    {
+        $this->db = new mysqli("localhost", "root", "Celia2021", "acl");
+    }
 
-        /**
-         * Busca en la base de datos la lista de roles de un usuario
-         * @param integer $idUser El id del usuario
-         * @return array $resultArray Un array con todos los roles del usuario, o null si el usuario no existe o no tiene roles asignados
-         */
-        public function getUserRoles($idUser) {
-            $resultArray = array();
-            if ($result = $this->db->query("SELECT roles.* FROM roles
-                                            INNER JOIN user_roles ON roles.id = user_roles.idRol
-                                            WHERE user_roles.idUser = '$idUser'")) {
-                if ($result->num_rows > 0) {
-                    while ($rol = $result->fetch_object()) {
-                        $resultArray[] = $rol;
-                    }
-                    return $resultArray;
-                }
-                else {
-                    return null;
-                }
+    /**
+     * Comprueba si un email y una password pertenecen a algún usuario de la base  de datos.
+     * @param String $email El email del usuario que se quiere comprobar
+     * @param String $pass La contraseña del usuario que se quiere comprobar
+     * @return User $usuario Si el usuario existe, devuelve un objeto con todos los campos del usuario en su interior. Si no, devuelve un objeto null
+     */
+    public function checkLogin($email, $pass)
+    {
+       if ($result = $this->db->query("SELECT id FROM users WHERE email = '$email' AND password = '$pass'")) {
+            if ($result->num_rows == 1) {
+                $usuario = $result->fetch_object();
+                return $usuario;
             }
             else {
                 return null;
             }
-
         }
+        else {
+            return null;
+        }
+    }
 
-        /**
-         * Busca en la base de datos los permisos asociados a un rol
-         * @param integer $idRol El id del rol
-         * @return array $resultArray Un array con la lista de permisos asociados al rol, o null si el rol no existe o no tiene permisos asociados
-         */
-        public function getUserPermissions($idRol) {
-            $resultArray = array();
-            if ($result = $this->db->query("SELECT permissions.* FROM permissions 
-                                            INNER JOIN roles_permissions ON permissions.id = roles_permissions.idPermissionWHERE idUser = '$idUser'
-                                            WHERE roles_permissions.idRol = '$idRol'")) {
-                if ($result->num_rows > 0) {
-                    while ($permission = $result->fetch_object()) {
-                        $resultArray[] = $permission;
-                    }
-                    return $resultArray;
+    /**
+     * Busca en la base de datos la lista de roles de un usuario
+     * @param integer $idUser El id del usuario
+     * @return array $resultArray Un array con todos los roles del usuario, o null si el usuario no existe o no tiene roles asignados
+     */
+    public function getUserRoles($idUser)
+    {
+        $resultArray = array();
+        if ($result = $this->db->query("SELECT roles.* FROM roles
+                                            INNER JOIN `roles-users` ON roles.id = `roles-users`.idRol
+                                            WHERE `roles-users`.idUser = '$idUser'")) {
+            if ($result->num_rows > 0) {
+                while ($rol = $result->fetch_object()) {
+                    $resultArray[] = $rol;
                 }
-                else {
-                    return null;
-                }
+                return $resultArray;
             }
             else {
                 return null;
             }
-
         }
-   }
- ?>
+        else {
+            return null;
+        }
+
+    }
+
+    /**
+     * Busca en la base de datos los permisos asociados a un rol
+     * @param integer $idRol El id del rol
+     * @return array $resultArray Un array con la lista de permisos asociados al rol, o null si el rol no existe o no tiene permisos asociados
+     */
+    public function getUserPermissions($idRol)
+    {
+        $resultArray = array();
+        if ($result = $this->db->query("SELECT permissions.* FROM permissions 
+                                            INNER JOIN `permissions-roles` ON permissions.id = `permissions-roles`.idPermission 
+                                            WHERE `permissions-roles`.idRol = '$idRol'")) {
+            if ($result->num_rows > 0) {
+                while ($permission = $result->fetch_object()) {
+                    $resultArray[] = $permission;
+                }
+                return $resultArray;
+            }
+            else {
+                return null;
+            }
+        }
+        else {
+            return null;
+        }
+
+    }
+}
+?>
 ```
 
 ## 3.6. Ejercicios propuestos
