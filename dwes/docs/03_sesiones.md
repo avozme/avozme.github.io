@@ -372,7 +372,7 @@ Ese subsistema suele estar basado en este diseño de base de datos:
 
 Esto significa que necesitamos **cinco tablas** para implementar un ACL completo.
 
-Sin embargo, muchas veces tendremos suficiente con solo tres tablas (usuarios, roles y usuarios-roles), o incluso solo con una (usuarios, añadiendo quizá un campo "tipo").
+Sin embargo, muchas veces tendremos suficiente con solo tres tablas (users, roles y roles-users), o incluso solo con una (users, añadiendo quizá un campo "type").
 
 **Optar por una solución más o menos compleja dependerá del tipos de sistema que estemos implementando.**
 
@@ -396,41 +396,41 @@ Haremos una implementación completa del ACL, es decir, con las cinco tablas. Es
 
 **TABLA USERS**
 
-id|email|passwd|name|telef
+id|email|passwd|name|telef|etc (otros campos)
 -|-|-|-|-
-1|jp@gmail.com|sgsdfgjk8yias|Juan Pérez|600 230 xxx
-2|ms@gmail.com|239ywds9$|María Sánchez|700 398 yyy
-Etc|Etc|Etc|Etc|Etc
+1|pepe@iescelia.org|1234|Pepe Pérez|555 230 111|etc
+2|ana@iescelia.org|1234|Ana López|555 398 234|etc
+Etc|Etc|Etc|Etc|Etc|Etc
 
 **TABLA ROLES**
 
 id|description
 -|-
-1|Administrador
+1|Admin
 2|Editor
-3|Usuario
+3|User
 
 **TABLA ROLES-USERS**
 
 idUser|idRol
 -|-
 1|1
+2|2
 2|3
-3|2
 etc|etc
 
 **TABLA PERMISSIONS**
 
-id|description
+id|description|action
 -|-
-1|Crear contenido nuevo
-2|Editar contenido propio
-3|Editar contenido ajeno
-4|Borrar contenido propio
-5|Borrar contenido ajeno
-6|Publicar contenido propio
-7|Publicar contenido ajeno
-8|Leer contenido publicado
+1|Crear contenido nuevo|createContentForm
+2|Editar contenido propio|editMyContentForm
+3|Editar contenido ajeno|editAnyContentForm
+4|Borrar contenido propio|deleteMyContentForm
+5|Borrar contenido ajeno|deleteAnyContentForm
+6|Publicar contenido propio|publishMyContentForm
+7|Publicar contenido ajeno|publishAnyContentForm
+8|Leer contenido publicado|readContent
 
 **TABLA ROLES-PERMISOS**
 
@@ -452,9 +452,9 @@ idRol|idPermission
 
 Observa que, con estas tablas, queda perfectamente definido a qué perfil de usuario (o "rol") pertenece cada usuario y qué cosas puede hacer con ese perfil.
 
-Por ejemplo, el usuario Juan Pérez, que tiene el Id = 1, es un Administrador, porque tiene asociado el rol 1 en la tabla *usuarios-roles*. Y los administradores tienen permiso para hacerlo absolutamente todo, según se desprende de la tabla *roles-permisos*.
+Por ejemplo, el usuario Pepe Pérez, que tiene el Id = 1, es un Administrador, porque tiene asociado el rol 1 en la tabla *roles-usuarios*. Y los administradores tienen permiso para hacerlo absolutamente todo, según se desprende de la tabla *permissions-proles*.
 
-En cambio, la usuaria María Sánchez (Id = 2) tiene perfil de Editor, y los editores solo tienen permiso para cuatro operaciones: Crear contenido nuevo, Editar su propio contenido, Publicar su propio contenido y Leer el contenido publicado.
+En cambio, la usuaria Ana López (Id = 2) tiene perfil de Editor, y los editores solo tienen permiso para cuatro operaciones: Crear contenido nuevo, Editar su propio contenido, Publicar su propio contenido y Leer el contenido publicado.
 
 #### Código fuente de nuestra implementación
 
@@ -462,7 +462,7 @@ En esta implementación, no escribiremos el código para hacer cosas como "Crear
 
 Lo que nos interesa es ver cómo se autentica un usuario en una aplicación web y cómo se le puede dar acceso a unas funcionalidades o a otras dependiendo del contenido de las tablas ACL.
 
-Una vez autenticado, el usuario accederá a una vista diferente de la aplicación dependiendo de sus privilegios, donde se le mostrarán las opciones de que dispone. Es decir, si el usuario que se loguea es Juan Pérez, que tiene rol de Administrador, la aplicación debe mostrarle estas opciones:
+Una vez autenticado, el usuario accederá a una vista diferente de la aplicación dependiendo de sus privilegios, donde se le mostrarán las opciones de que dispone. Es decir, si el usuario que se loguea es Pepe Pérez, que tiene rol de Administrador, la aplicación debe mostrarle estas opciones:
 
 * Editar contenido (propio y ajeno)
 * Borrar contenido (propio y ajeno)
@@ -470,12 +470,14 @@ Una vez autenticado, el usuario accederá a una vista diferente de la aplicació
 * Leer contenido
 * Crear contenido
 
-En cambio, si se loguea María Sánchez, que tiene perfil de Editor, las opciones deben reducirse a:
+En cambio, si se loguea Ana López, que tiene dos perfiles, la aplicación le dará a elegir cuál quiere usar. Si elige el perfil de Editor, las opciones deben reducirse a:
 
 * Editar contenido (propio)
 * Publicar contenido (propio)
 * Leer contenido
 * Crear contenido
+
+Cada una de estas opciones redirigirá la aplicación de regreso a *index.php*, con un valor diferente para la variable *action* que se pasará por la URL. Ese valor se saca de la tabla *permissions*.
 
 **Insisto en una idea muy importante**: no es necesario que comprendas la totalidad de este código en este momento. Basta con que te esfuerces en captar la idea general. Volverás sobre él, y sobre infinitas variedades de él, más adelante, cada vez con mayor comprensión de lo que está sucediendo. Así que léelo sin prisa y sin agobios, como quien se adentra en la traducción de un texto escrito en una lengua que se parece un poco a la suya sin llegar a serlo.
 
@@ -492,16 +494,16 @@ Luego se instancia un objeto de tipo *Controller* y se invoca un método con el 
 include("controller.php");
 $controller = new Controller();
 
-// Miramos a ver si hay alguna acci�n pendiente de realizar
+// Miramos a ver si hay alguna acción pendiente de realizar
 if (!isset($_REQUEST['action'])) {
-// No la hay. Usamos la acci�n por defecto (mostrar el formulario de login)
+    // No la hay. Usamos la acción por defecto (mostrar el formulario de login)
     $action = "showLoginForm";
 } else {
-// S� la hay. La recuperamos.
+    // Sí la hay. La recuperamos.
     $action = $_REQUEST['action'];
 }
 
-// Ejecutamos el m�todo del controlador que se llame como la acci�n
+// Ejecutamos el método del controlador que se llame como la acción
 $controller->$action();
 ```
 
@@ -775,6 +777,8 @@ class User
 Vamos a terminar este tema con una batería de ejercicios propuestos, que consistirán en una serie de mejoras sobre nuestra implementación de las listas de control de acceso.
 
 Ten en cuenta que lo que hagas aquí se puede reutilizar en posteriores proyectos de aplicaciones web, así que vamos a tomárnoslo en serio, ¿te parece?
+
+Como vamos a trabajar con la implementación anterior, tal vez te apetezca ponerla a funcionar en tu servidor local. El código fuente lo puedes copiar de este mismo documento. Para que no tengas que construir la base de datos a mano, puedes usar [este archivo SQL](/docs/dwes/_site/assets/acl.sql) para importarla en tu servidor local.
 
 #### Ejercicio 1. Crear la capa de seguridad
 
