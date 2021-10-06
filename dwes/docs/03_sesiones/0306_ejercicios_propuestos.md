@@ -18,7 +18,7 @@ Vamos a enfilar el final de este tema con una batería de ejercicios propuestos,
 
 Ten en cuenta que lo que hagas aquí se puede reutilizar en posteriores proyectos de aplicaciones web, así que vamos a tomárnoslo en serio, ¿te parece?
 
-Como vamos a trabajar con la implementación anterior, tal vez te apetezca ponerla a funcionar en tu servidor local. El código fuente lo puedes copiar de este mismo documento. Para que no tengas que construir la base de datos a mano, puedes usar [este archivo SQL](/docs/dwes/_site/assets/acl.sql) para importarla en tu servidor local.
+Como vamos a trabajar con la implementación anterior, tal vez te apetezca ponerla a funcionar en tu servidor local. El código fuente lo puedes copiar de este mismo documento. Para que no tengas que construir la base de datos a mano, puedes usar [este archivo SQL](/docs/dwes/_site/assets/code/03-acl.sql) para importarla en tu servidor local.
 
 #### Ejercicio 1. Crear la capa de seguridad
 

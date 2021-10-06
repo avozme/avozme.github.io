@@ -14,4 +14,9 @@ grand_parent: Desarrollo Web en Entorno Servidor
 - TOC
 {:toc}
 
-Aquí colocaremos una solución a los ejercicios planteados en la sección 3.6 cuando la hayamos trabajado en clase.
+Aquí puedes descargar el código fuente de la aplicación con listas de control de acceso (ACL) que hemos trabajado en clase. Incluye una capa de seguridad muy sencilla (hecha con variables de sesión de PHP) y una capa de abstracción de datos.
+
+* [Descargar el código fuente](/docs/dwes/_site/assets/code/03-acl.zip)
+* [Descargar la base de datos (con algunos datos de prueba)](/docs/dwes/_site/assets/code/03-acl.sql)
+
+Todas las modificaciones que vayamos haciendo en clase se subirán de nuevo a estos archivos para que siempre dispongas de las versiones más actualizadas del código.

@@ -698,11 +698,11 @@ En realidad, esto último es lo más adecuado. Recuerda que para aprender a prog
 
 **Ejercicio 3**. Calcular el precio de llenar una piscina de agua. Para ello se tienen que pedir al usuario las medidas de la piscina (largo, ancho y alto) y el precio del m​<sup>3</sup>​ del agua. Se mostrará el precio total. Supondremos que la piscina es de forma regular.
 
+#### Ejercicios con estructuras condicionales
+
 **Ejercicio 4**. Determinar si un número leído del teclado es positivo, negativo o cero.
 
 **Ejercicio 5**. Calcular la raíz cuadrada de un número introducido por teclado. Hay que tener la precaución de comprobar que el número sea positivo.
-
-#### Ejercicios con estructuras condicionales
 
 **Ejercicio 6**. Leídos dos números por teclado, A y B, calcular la resta del mayor menos el menor. Por ejemplo, si A = 8 y B = 3, el resultado debe ser A – B, es decir, 5. Pero si A = 4 y B = 7, el resultado debe ser B – A, es decir, 3.
 
