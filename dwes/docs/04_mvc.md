@@ -666,44 +666,22 @@ El patrón MVC consiste, pues, en dividir la aplicación en tres capas:
 
 Para terminar, como siempre, vamos a proponer algunos casos prácticos para que pongas manos a la obra.
 
-#### Crear un enrutador
+Se trata de crear, paso a paso, una aplicación web de corte realista que puede ser muy útil en un lugar como un instituto, una empresa, una oficina o cualquier otra organización medianamente compleja.
 
-*Advertencia: ¡este ejercicio es complicadillo!*
-
-¿Te atreves a crear un enrutador como el de los frameworks avanzados? No es un elemento fundamental para que la aplicación web funcione, sino que tan solo sirve para construir rutas limpias.
-
-Recuerda que el enrutador tiene que ser capaz de coger una URL limpia, como esta:
-
-<code>
-https://mi-servidor/articles/show/37
-</code>
-
-...y deducir de ahí que hay que invocar el método *show(37)* del controlador de artículos. O bien el método *showArticle(37)* si tu aplicación es tan simple que solo tiene un controlador.
-
-Debería funcionar con cualquier ruta construida de ese modo y cualquier cantidad de controladores.
-
-A ver si se te ocurre algo para hacerlo.
-
-(No sé si te has dado cuenta, pero, poco a poco, estamos construyendo nuestro porpio *framework* casero para programar aplicaciones MVC)
-
-#### Reserva de recursos informáticos
-
-Vamos a proponer ahora una aplicación web realista que puede ser muy útil en un lugar como un instituto, una empresa o cualquier otra organización medianamente compleja.
-
-Un problema que se presenta a menudo en estas organizaciones es la necesidad de compartir ciertos recursos informáticos, como proyectores, ordenadores portátiles o salas de conferencias.
+Un problema que se presenta a menudo en estas organizaciones es la necesidad de compartir ciertos recursos, como proyectores, ordenadores portátiles, salas de conferencias o de exposiciones, etc.
 
 En nuestro instituto, por ejemplo, tenemos unas hojas impresas colgadas con una chincheta en un tablón de anuncios para que el profesorado reserve los carritos con portátiles o las aulas de informática, de modo que dos personas no traten de usar a la vez el mismo recurso.
 
-Es un método un poco primitivo (aunque eficaz, todo hay que decirlo) que se puede informatizar fácilmente. Y eso es lo que vamos a proponer aquí.
+Es un método un poco primitivo (aunque eficaz, todo hay que decirlo) que se puede informatizar fácilmente mediante una aplicación web. Y eso es lo que proponemos aquí.
 
-Se trata de **escribir una aplicación para reservar recursos** de la organización. Los recursos pueden ser de cualquier tipo (ordenadores portátiles, carritos, proyectores, salas de conferencias...). Los usuarios, que tendrán que estar registrados, podrán reservar cada recurso durante tramos horarios predefinidos.
+Se trata de **escribir una aplicación para reservar recursos** de una organización. Los recursos pueden ser de cualquier tipo (ordenadores, proyectores, espacios físicos, etc.). Los usuarios, que tendrán que estar registrados, podrán reservar cada recurso durante tramos horarios predefinidos.
 
 Las tablas de la aplicación, por lo tanto, serán estas:
 
 * Resources(id#, name, description, location, image) -> Los recursos que se pueden reservar
 * Users(id#, username, password, realname) -> Los usuarios registrados
 * TimeSlots(id#, dayOfWeek, startTime, endTime) -> Los tramos temporales en lo que se pueden hacer reservas
-* Reservations(idResource#, idUser#, idTimeSlot#, date, remarks) -> Las reservas
+* Reservations(idResource#, idUser#, idTimeSlot#, date, remarks) -> Las reservas (remarks = comentarios)
 
 La aplicación, una vez rellenadas con datos las tablas maestras *Resources*, *Users* y *TimeSlots*, permitirá a los usuarios registrados reservar recursos. Antes tendrán que autenticarse (es decir, pasar por un login). Para hacer una reserva, un usuario tiene que seleccionar un recurso, una fecha y un tramo horario. Si el recurso ya está reservado, no se podrá reservar por segunda vez, obviamente.
 
@@ -812,5 +790,24 @@ A la aplicación se le pueden hacer infinitas mejoras. Aquí te sugiero algunas,
 * Controlar que los usuarios de tipo 1 solo puedan eliminar sus propias reservas, no las de otros usuarios. En cambio, los usuarios de tipo 0 podrán eliminar cualquier reserva.
 * Eliminar automáticamente las reservas cuya fecha ya haya pasado.
 
+**Paso 9. Enrutador**
 
+(Este paso es optativo)
 
+*Advertencia: ¡este paso puede resultar complicadillo!*
+
+¿Te atreves a crear un enrutador como el de los frameworks avanzados? No es un elemento fundamental para que la aplicación web funcione, sino que tan solo sirve para construir rutas limpias.
+
+Recuerda que el enrutador tiene que ser capaz de coger una URL limpia, como esta:
+
+<code>
+https://mi-servidor/user/show/37
+</code>
+
+...y deducir de ahí que hay que invocar el método *show(37)* del controlador de usuarios. O bien el método *showUser(37)* si tu aplicación es tan simple que solo tiene un controlador.
+
+Debería funcionar con cualquier ruta construida de ese modo y cualquier cantidad de controladores.
+
+A ver si se te ocurre algo para incorporar un enrutador como este a la aplicación.
+
+(No sé si te has dado cuenta, pero, poco a poco, estamos construyendo nuestro porpio *framework* casero para programar aplicaciones MVC)
