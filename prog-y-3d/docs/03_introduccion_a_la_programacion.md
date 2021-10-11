@@ -692,15 +692,19 @@ En realidad, esto último es lo más adecuado. Recuerda que para aprender a prog
 
 #### Ejercicios con estructura secuencial
 
-**Ejercicio 1**. Calcular el área y la circunferencia de un círculo cuyo radio será proporcionado a través del teclado. Recuerda que área = 3.14 x r x r y circunferencia = 2 x 3.14 x r
+**Ejercicio 1**. 
+<div style='background: #eee'>Calcular el área y la circunferencia de un círculo cuyo radio será proporcionado a través del teclado. Recuerda que área = 3.14 x r x r y circunferencia = 2 x 3.14 x r</div>
 
-**Ejercicio 2**. Pedir las cuatro notas de los exámenes del primer trimestre de un alumno y mostrar la nota media obtenida.
+**Ejercicio 2**. 
+<div style='background: #eee'>Pedir las cuatro notas de los exámenes del primer trimestre de un alumno y mostrar la nota media obtenida.</div>
 
-**Ejercicio 3**. Calcular el precio de llenar una piscina de agua. Para ello se tienen que pedir al usuario las medidas de la piscina (largo, ancho y alto) y el precio del m​<sup>3</sup>​ del agua. Se mostrará el precio total. Supondremos que la piscina es de forma regular.
+**Ejercicio 3**. 
+<div style='background: #eee'>Calcular el precio de llenar una piscina de agua. Para ello se tienen que pedir al usuario las medidas de la piscina (largo, ancho y alto) y el precio del m​<sup>3</sup>​ del agua. Se mostrará el precio total. Supondremos que la piscina es de forma regular.</div>
 
 #### Ejercicios con estructuras condicionales
 
-**Ejercicio 4**. Determinar si un número leído del teclado es positivo, negativo o cero.
+**Ejercicio 4**. 
+<div style='background: #eee'>Determinar si un número leído del teclado es positivo, negativo o cero.</div>
 
 **Ejercicio 5**. Calcular la raíz cuadrada de un número introducido por teclado. Hay que tener la precaución de comprobar que el número sea positivo.
 
@@ -708,7 +712,8 @@ En realidad, esto último es lo más adecuado. Recuerda que para aprender a prog
 
 **Ejercicio 7**. Averiguar si un número real introducido  por teclado tiene o no parte fraccionaria (utilícese la función trunc() que aparece descrita en los apuntes)
 
-**Ejercicio 8**. Leer un número real y un tipo de moneda, que puede ser "euro" o "peseta". Convertir la cantidad al tipo de moneda indicado, suponiendo que está expresada en la otra. Por ejemplo, si la cantidad es 15 y la moneda es "peseta", se supondrá que se trata de 15 € y que hay que convertirlos a pesetas y, por lo tanto, el resultado debe ser 2495.
+**Ejercicio 8**. 
+<div style='background: #eee'>Leer un número real y un tipo de moneda, que puede ser "euro" o "peseta". Convertir la cantidad al tipo de moneda indicado, suponiendo que está expresada en la otra. Por ejemplo, si la cantidad es 15 y la moneda es "peseta", se supondrá que se trata de 15 € y que hay que convertirlos a pesetas y, por lo tanto, el resultado debe ser 2495.</div>
 
 **Ejercicio 9**. Leer tres números por teclado, X, Y y Z, y decidir si están ordenados de menor a mayor.
 
@@ -716,21 +721,25 @@ En realidad, esto último es lo más adecuado. Recuerda que para aprender a prog
 
 **Ejercicio 11**. Determinar si un año es bisiesto o no (los años bisiestos son múltiplos de 4; utilícese el operador módulo)
 
-**Ejercicio 12**. Determinar el número de cifras de un número entero. El algoritmo debe funcionar para números de hasta 5 cifras, considerando los negativos. Por ejemplo, si se introduce el número 5342, la respuesta del programa debe ser 4. Si se introduce –250, la respuesta debe ser 3.
+**Ejercicio 12**. 
+<div style='background: #eee'>Determinar el número de cifras de un número entero. El algoritmo debe funcionar para números de hasta 5 cifras, considerando los negativos. Por ejemplo, si se introduce el número 5342, la respuesta del programa debe ser 4. Si se introduce –250, la respuesta debe ser 3.</div>
 
 **Ejercicio 13**. Calcular las dos soluciones de una ecuación de segundo grado, del tipo ax<sup>2</sup> + bx + c = 0. Los coeficientes a, b y c deberá introducirlos el usuario a través del teclado.
 
 #### Ejercicios con estructuras condicionales e iterativas
 
-**Ejercicio 14**. Escribir todos los números entre 1 y n, siendo n un entero introducido por teclado.
+**Ejercicio 14**. 
+<div style='background: #eee'>Escribir todos los números entre 1 y n, siendo n un entero introducido por teclado.</div>
 
-**Ejercicio 15**. Escribir todos los números pares entre 1 y n.
+**Ejercicio 15**. 
+<div style='background: #eee'>Escribir todos los números pares entre 1 y n.</div>
 
 **Ejercicio 16**. Escribir todos los números impares entre dos números a y b introducidos por teclado. Antes habrá que comprobar cuál de los dos números (a o b) es mayor.
 
 **Ejercicio 17**. Calcular la suma de todos los números pares entre 1 y n, siendo n un entero introducido por teclado. Es decir, hay que calcular 2 + 4 + 6 + ... hasta n (o n-1, si n es un número impar).
 
-**Ejercicio 18**. Realiza un programa que calcule la suma de los n primeros números, donde n es un número introducido por teclado. Al terminar, el programa nos mostrará el mensaje "¿Desea terminar? (S/N)". Si el usuario escribe "S", el programa terminará, pero, si escribe "N", volverá a comenzar.
+**Ejercicio 18**. 
+<div style='background: #eee'>Realiza un programa que calcule la suma de los n primeros números, donde n es un número introducido por teclado. Al terminar, el programa nos mostrará el mensaje "¿Desea terminar? (S/N)". Si el usuario escribe "S", el programa terminará, pero, si escribe "N", volverá a comenzar.</div>
 
 **Ejercicio 19**. Calcular la nota media de un alumno a partir de las notas de todos sus exámenes a lo largo del curso. El programa nos irá pidiendo notas, pero no sabemos cuántas son. Para terminar de introducir valores, el usuario debe teclear un número negativo. Entonces, el programa calculará el promedio de todas las notas introducidas.
 
@@ -738,19 +747,24 @@ En realidad, esto último es lo más adecuado. Recuerda que para aprender a prog
 
 **Ejercicio 21**. Calcular el valor máximo de una serie de 10 números introducidos por teclado. 
 
-**Ejercicio 22**. Generalizar el ejercicio anterior para que también se averigüe el valor mínimo y el medio.
+**Ejercicio 22**. 
+<div style='background: #eee'>Generalizar el ejercicio anterior para que también se averigüe el valor mínimo y el medio.</div>
 
-**Ejercicio 23**. Calcular el factorial de un número entero N. Recuerda que el factorial de un número es el producto de ese número por todos los enteros menores que él. Por ejemplo, el factorial de 5 (simbolizado 5!) se calcula como: 5! = 5 x 4 x 3 x 2 x 1.
+**Ejercicio 23**. 
+<div style='background: #eee'>Calcular el factorial de un número entero N. Recuerda que el factorial de un número es el producto de ese número por todos los enteros menores que él. Por ejemplo, el factorial de 5 (simbolizado 5!) se calcula como: 5! = 5 x 4 x 3 x 2 x 1.</div>
 
-**Ejercicio 24**. Generar combinaciones al azar para la lotería primitiva (6 números entre 1 y 49). Debes utilizar la función azar(x) que vimos en los apuntes. Por ahora, no te preocupes porque los números puedan repetirse.
+**Ejercicio 24**. 
+<div style='background: #eee'>Generar combinaciones al azar para la lotería primitiva (6 números entre 1 y 49). Debes utilizar la función azar(x) que vimos en los apuntes. Por ahora, no te preocupes porque los números puedan repetirse.</div>
 
-**Ejercicio 25**. Generar combinaciones al azar para la quiniela (14 valores dentro del conjunto 1, X o 2)
+**Ejercicio 25**. 
+<div style='background: #eee'>Generar combinaciones al azar para la quiniela (14 valores dentro del conjunto 1, X o 2).</div>
 
 #### Ejercicios más avanzados
 
 **Ejercicio 26**. Determinar si un número N introducido por teclado es o no primo. Recuerda que un número primo es aquél que sólo es divisible por sí mismo y por la unidad.
 
-**Ejercicio 27**. Generalizar el algoritmo anterior para averiguar todos los números primos que existen entre 2 y N, siendo N un número introducido por teclado.
+**Ejercicio 27**. 
+<div style='background: #eee'>Generalizar el algoritmo anterior para averiguar todos los números primos que existen entre 2 y N, siendo N un número introducido por teclado.</div>
 
 **Ejercicio 28**. Introducida una hora por teclado (horas, minutos y segundos), se pretende sumar un segundo a ese tiempo e imprimir en la pantalla la hora que resulta (también en forma de horas, minutos y segundos).
 
@@ -760,17 +774,18 @@ En realidad, esto último es lo más adecuado. Recuerda que para aprender a prog
 
 #### Algunos juegos sencillos
 
+
 **Ejercicio 30. Juego del número secreto**
 
-El ordenador elegirá un número al azar entre 1 y 100. El usuario irá introduciendo números por teclado, y el ordenador le irá dando pistas: "mi número es mayor" o "mi número es menor", hasta que el usuario acierte. Entonces el ordenador le felicitará y le comunicará el número de intentos que necesitó para acertar el número secreto.
+<div style='background: #eee'>El ordenador elegirá un número al azar entre 1 y 100. El usuario irá introduciendo números por teclado, y el ordenador le irá dando pistas: "mi número es mayor" o "mi número es menor", hasta que el usuario acierte. Entonces el ordenador le felicitará y le comunicará el número de intentos que necesitó para acertar el número secreto**.</div>
 
 **Ejercicio 31. Número de la suerte**
 
-El número de la suerte o *lucky number* es una tontuna que se han inventado los numerólogos y que se obtiene sumando todas las cifras de la fecha de nacimiento de un modo azaroso. Por ejemplo, como yo nací el 15 de octubre de 1974 (15-10-1974), se supone que mi número de la suerte es 15+10+1974 = 1999. Ahora sumo todas las cifras de 1999 así: 1+9+9+9 = 28. Como aún tengo dos dígitos, vuelvo a sumarlos. 2 + 8 = 10. Y, por último, 1 + 0 = 1.
+<div style='background: #eee'>El número de la suerte o *lucky number* es una tontuna que se han inventado los numerólogos y que se obtiene sumando todas las cifras de la fecha de nacimiento de un modo azaroso. Por ejemplo, como yo nací el 15 de octubre de 1974 (15-10-1974), se supone que mi número de la suerte es 15+10+1974 = 1999. Ahora sumo todas las cifras de 1999 así: 1+9+9+9 = 28. Como aún tengo dos dígitos, vuelvo a sumarlos. 2 + 8 = 10. Y, por último, 1 + 0 = 1.
 
 Por lo tanto, 1 es mi número de la suerte. Si alguna vez me toca la lotería y llevo un número acabado en 1, os aviso.
 
-Por ahora, nos conformamos con escribir un programa que, dada una fecha de nacimiento (día, mes y año), calcule el número de la suerte de esa persona.
+Por ahora, nos conformamos con escribir un programa que, dada una fecha de nacimiento (día, mes y año), calcule el número de la suerte de esa persona.</div>
 
 **Ejercicio 32. El juego de la ruleta**
 
@@ -922,11 +937,14 @@ Su saldo actual es de 39,5 euros.
 
 **Ejercicio 38**. Máximo común divisor. Como el anterior, pero calculando el máximo común divisor. *Atención: este ejercicio es de dificultad elevada*.
 
-**Ejercicio 39**. Escribe un programa que pregunte al usuario su fecha de nacimiento y la fecha del día de hoy, y calcule la edad del usuario en años.
+**Ejercicio 39**. 
+
+<div style='background: #eee'>Escribe un programa que pregunte al usuario su fecha de nacimiento y la fecha del día de hoy, y calcule la edad del usuario en años.
 
 (Aviso: no es tan fácil como parece)
 
-Este programa se puede mejorar haciendo que calcule la edad en años, meses y días (¡incluso en horas, minutos y segundos!), pero es una labor por ahora solo apta para los más atrevidos/as.
+Este programa se puede mejorar haciendo que calcule la edad en años, meses y días (¡incluso en horas, minutos y segundos!), pero es una labor por ahora solo apta para los más atrevidos/as.</div>
+
 ### 3.6. Ejercicios resueltos
 
 A continuación, vamos a mostrar la solución de algunos de los ejercicios anteriores. No de todos, porque entonces este texto sería interminable, pero si de bastantes de ellos.
@@ -1114,5 +1132,78 @@ FinAlgoritmo
  
  ![Diagrama de flujo contar-cifras](/docs/prog-y-3d/_site/assets/ejercicios-resueltos-pseint/03_12_contar_cifras.png)
 
+**Ejercicio 14**. Escribir todos los números entre 1 y n, siendo n un entero introducido por teclado.
 
+*Solución en pseudocódigo:*
 
+```
+Algoritmo contar_de_uno_a_n
+	Definir n,i Como Entero
+	Escribir 'Dime un número'
+	Leer n
+	i <- 1
+	Mientras i<=n Hacer
+		Escribir i
+		i <- i+1
+	FinMientras
+FinAlgoritmo
+```
+
+*Solución en diagrama de flujo:*
+ 
+ ![Diagrama de flujo contar-de-uno-a-n](/docs/prog-y-3d/_site/assets/ejercicios-resueltos-pseint/03_14_contar_de_uno_a_n.png)
+
+**Ejercicio 15**. Escribir todos los números pares entre 1 y n.
+
+*Solución en pseudocódigo:*
+
+```
+Algoritmo contar_pares
+	Definir n,i Como Entero
+	Escribir 'Dime un número'
+	Leer n
+	i <- 2
+	Mientras i<=n Hacer
+		Escribir i
+		i <- i+2
+	FinMientras
+FinAlgoritmo
+```
+
+*Solución en diagrama de flujo:*
+ 
+ ![Diagrama de flujo contar-pares](/docs/prog-y-3d/_site/assets/ejercicios-resueltos-pseint/03_15_contar_pares.png)
+
+**Ejercicio 22**. Calcular el valor máximo de una serie de 10 números introducidos por teclado. Generalizar la solución anterior para que también se averigüe el valor mínimo y el medio.
+
+*Solución en pseudocódigo:*
+
+```
+Algoritmo maximo_minimo_medio
+	Definir maximo,minimo Como Entero
+	Definir medio Como Real
+	Definir suma,n,i Como Entero
+	maximo <- -9999
+	minimo <- 9999
+	suma <- 0
+	Para i<-1 Hasta 10 Hacer
+		Escribir 'Dime un número'
+		Leer n
+		Si (n>maximo) Entonces
+			maximo <- n
+		FinSi
+		Si (n<minimo) Entonces
+			minimo <- n
+		FinSi
+		suma <- suma+n
+	FinPara
+	medio <- suma/10
+	Escribir 'El valor máximo es: ',maximo
+	Escribir 'El valor medio es: ',medio
+	Escribir 'El valor mínimo es: ',minimo
+FinAlgoritmo
+```
+
+*Solución en diagrama de flujo:*
+ 
+ ![Diagrama de flujo maximo-minimo-medio](/docs/prog-y-3d/_site/assets/ejercicios-resueltos-pseint/03_22_maximo_minimo_medio.png)
