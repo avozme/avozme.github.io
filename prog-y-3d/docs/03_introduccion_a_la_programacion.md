@@ -1256,11 +1256,13 @@ Algoritmo maximo_minimo_medio
 	Definir maximo,minimo Como Entero
 	Definir medio Como Real
 	Definir suma,n,i Como Entero
-	maximo <- -9999
-	minimo <- 9999
+	Escribir 'Dime un número'
+	Leer n
+	maximo <- n
+	minimo <- n
 	suma <- 0
-	Para i<-1 Hasta 10 Hacer
-		Escribir 'Dime un número'
+	Para i<-1 Hasta 9 Hacer
+		Escribir 'Dime otro número'
 		Leer n
 		Si (n>maximo) Entonces
 			maximo <- n
@@ -1275,6 +1277,7 @@ Algoritmo maximo_minimo_medio
 	Escribir 'El valor medio es: ',medio
 	Escribir 'El valor mínimo es: ',minimo
 FinAlgoritmo
+
 ```
 
 *Solución en diagrama de flujo:*
