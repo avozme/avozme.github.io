@@ -1283,3 +1283,82 @@ FinAlgoritmo
 *Solución en diagrama de flujo:*
  
  ![Diagrama de flujo maximo-minimo-medio](/docs/prog-y-3d/_site/assets/ejercicios-resueltos-pseint/03_22_maximo_minimo_medio.png)
+
+
+**Ejercicio 23**. Calcular el factorial de un número entero N. Recuerda que el factorial de un número es el producto de ese número por todos los enteros menores que él. Por ejemplo, el factorial de 5 (simbolizado 5!) se calcula como: 5! = 5 x 4 x 3 x 2 x 1.
+
+*Solución en pseudocódigo:*
+
+```
+Algoritmo factorial
+	Definir f,n,i Como Entero
+	Escribir 'Dime un número'
+	Leer n
+	f <- n
+	Para i<-n-1 Hasta 1 Con Paso -1 Hacer
+		f <- f*i
+	FinPara
+	Escribir 'El factorial de ',n,' es ',f
+FinAlgoritmo
+
+```
+
+*Solución en diagrama de flujo:*
+ 
+ ![Diagrama de flujo maximo-minimo-medio](/docs/prog-y-3d/_site/assets/ejercicios-resueltos-pseint/03_23_factorial.png)
+
+
+**Ejercicio 24 (Solución 1 - Los números pueden repetirse)**. Generar combinaciones al azar para la lotería primitiva (6 números entre 1 y 49). Debes utilizar la función azar(x) que vimos en los apuntes. Por ahora, no te preocupes porque los números puedan repetirse.
+
+*Solución en pseudocódigo:*
+
+```
+Algoritmo loteria_primitiva_version_1
+	Definir n, i Como Entero
+	Escribir "Generador de combinaciones de la lotería primitiva"
+	Escribir "(Versión 1 - Puede repetirse algún número)"
+	Para i desde 1 hasta 6 hacer
+		n <- azar(48)+1
+		Escribir n
+	FinPara
+FinAlgoritmo
+
+```
+
+*Solución en diagrama de flujo:*
+ 
+ ![Diagrama de flujo maximo-minimo-medio](/docs/prog-y-3d/_site/assets/ejercicios-resueltos-pseint/03_24_loteria_primitiva_v1.png)
+
+ **Ejercicio 24 (Solución 2 - Los números NO PUEDEN repetirse)**. Generar combinaciones al azar para la lotería primitiva (6 números entre 1 y 49). Debes utilizar la función azar(x) que vimos en los apuntes
+
+*Solución en pseudocódigo:*
+
+```
+Algoritmo loteria_primitiva_version_2
+	Definir n,i,j Como Entero
+	Dimension n[6]
+	Definir esta_repetido Como Logico
+	Escribir 'Generador de combinaciones de la lotería primitiva'
+	Escribir '(Versión 2 - No pueden repetirse números)'
+	Para i<-1 Hasta 6 Hacer
+		Repetir
+			n[i] <- azar(48)+1
+			esta_repetido <- falso
+			Para j<-1 Hasta i-1 Hacer
+				Si n[j]=n[i] Entonces
+					esta_repetido <- verdadero
+				FinSi
+			FinPara
+			Si esta_repetido=verdadero Entonces
+				n[i] <- azar(48)+1
+			FinSi
+		Hasta Que esta_repetido=falso
+		Escribir n[i]
+	FinPara
+FinAlgoritmo
+
+```
+
+*Solución en diagrama de flujo:*
+ 
+ ![Diagrama de flujo maximo-minimo-medio](/docs/prog-y-3d/_site/assets/ejercicios-resueltos-pseint/03_24_loteria_primitiva_v2.png)

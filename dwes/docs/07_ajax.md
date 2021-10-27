@@ -416,7 +416,7 @@ $.ajax({
      method: "POST",
      url: "mi-url",
      data: {
-         "_token": "{{ csrf_token() }}"
+         "_token": "{% raw %}{{ csrf_token() }}{% endraw %}"
      },
      ...etc... 
 });
@@ -427,7 +427,7 @@ Por supuesto, puedes añadir más ***data*** a tu petición: tantos datos como n
 Como esto puede ser un poco engorroso, hay una forma de agregar automáticamente el token CSRF a **todas** las peticiones. Basta con escribir esto en el header de nuestro layout:
 
 ```html
-   <meta name="csrf-token" content="{{ csrf_token() }}">
+   <meta name="csrf-token" content="{% raw %}{{ csrf_token() }}{% endraw %}">
    <script type="text/javascript">
       $.ajaxSetup({
           headers: {

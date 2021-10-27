@@ -13,19 +13,25 @@ nav_order: 6
 - TOC
 {:toc}
 
-## 6.1. ¿Qué es un servicio web?
+Los **servicios web** son un tipo particular de aplicación web: una aplicación pensada no solo para ser usada por usuarios humanos, sino por otras aplicaciones.
 
-Como dijimos al estudiar el patrón MVC, esta arquitectura no es la única manera de plantear las aplicaciones web. En este tema vamos a hablar de otra manera en la que las aplicaciones web funcionan muy frecuentemente: como simples servicios.
+Existen dos estándares para crear servicios web. En este tema, vamos a estudiar esos dos estándares y a ver cómo podemos construir una aplicación de este tipo.
+
+## 6.1. ¿Qué es un servicio web?
 
 ### 6.1.1. Una definición de servicio web
 
-Un **servicio web** es una forma de permitir que una aplicación cliente y una aplicación servidor se comuniquen entre sí e intercambien información independientemente de la plataforma en la que cada una se ejecute.
+Un **servicio web** es una aplicación web capaz de **comunicarse e intercambiar información con otra aplicación** (que denominaremos *cliente*) independientemente de la plataforma en la que cada una se ejecute.
 
-Los mensajes que las aplicaciones se intercambiar generalmente tienen formato XML o JSON.
+Es decir, el servicio web puede estar programado en PHP y correr bajo un sistema operativo GNU/Linux y el cliente puede estar programado con C# y correr bajo un Windows, y deberían ser capaces de comunicarse y trabajar juntas. Pero es importante que quede claro que, en este caso, la aplicación web (servidor) y la aplicación cliente *son dos aplicaciones diferentes*.
 
-Hay dos estándares principales en la industria para implementar servicios web: **SOAP** y **REST**.
+Los mensajes que las aplicaciones se intercambian generalmente tienen formato **XML** o **JSON**.
+
+Existen dos estándares principales en la industria para implementar servicios web, denominados **SOAP** y **REST**. A lo largo el tema, vamos a aprender cómo funciona cada uno de ellos.
 
 ### 6.1.2. Diferencias entre servicios web y aplicaciones web
+
+XXX
 
 Llegados a este punto, puede que estés pensando: "Vale, pero ¿en qué se diferencia todo esto de una aplicación web MVC? ¿No intercambian también el cliente y el servidor información independientemente de la plataforma en la que se ejecuta cada uno?".
 
