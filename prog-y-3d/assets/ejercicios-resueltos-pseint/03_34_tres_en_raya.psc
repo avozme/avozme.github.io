@@ -1,7 +1,7 @@
 Algoritmo tres_en_raya
 	Definir p1, p2, p3, p4, p5, p6, p7, p8, p9 Como Caracter
 	Definir casilla como Entero
-	Definir fin_de_juego como Lógico
+	Definir fin_de_juego, casilla_correcta como Logico
 	
 	p1 <- " "
 	p2 <- " "
@@ -27,24 +27,45 @@ Algoritmo tres_en_raya
 		// PASO 2. Colocar pieza del jugador humano
 		Escribir "¿En qué casilla quieres poner una pieza? (1-9)"
 		Leer casilla
-		Si casilla = 1 Entonces p1 <- "X"
-		FinSi
-		Si casilla = 2 Entonces p2 <- "X"
-		FinSi
-		Si casilla = 3 Entonces p3 <- "X" 
-		FinSi
-		Si casilla = 4 Entonces p4 <- "X" 
-		FinSi
-		Si casilla = 5 Entonces p5 <- "X" 
-		FinSi
-		Si casilla = 6 Entonces p6 <- "X" 
-		FinSi
-		Si casilla = 7 Entonces p7 <- "X"  
-		FinSi
-		Si casilla = 8 Entonces p8 <- "X"  
-		FinSi
-		Si casilla = 9 Entonces p9 <- "X"  
-		FinSi
+		casilla_correcta <- false
+		Repetir
+			Si casilla = 1 y p1 = " " Entonces 
+				p1 <- "X"
+				casilla_correcta <- verdadero
+			FinSi
+			Si casilla = 2 y p2 = " " Entonces 
+				p2 <- "X"
+				casilla_correcta <- verdadero
+			FinSi
+			Si casilla = 3 y p3 = " " Entonces 
+				p3 <- "X" 
+				casilla_correcta <- verdadero
+			FinSi
+			Si casilla = 4 y p4 = " " Entonces 
+				p4 <- "X" 
+				casilla_correcta <- verdadero
+			FinSi
+			Si casilla = 5 y p5 = " " Entonces 
+				p5 <- "X" 
+				casilla_correcta <- verdadero
+			FinSi
+			Si casilla = 6 y p6 = " " Entonces 
+				p6 <- "X" 
+				casilla_correcta <- verdadero
+			FinSi
+			Si casilla = 7 y p7 = " " Entonces 
+				p7 <- "X"  
+				casilla_correcta <- verdadero
+			FinSi
+			Si casilla = 8 y p8 = " " Entonces 
+				p8 <- "X"  
+				casilla_correcta <- verdadero
+			FinSi
+			Si casilla = 9 y p9 = " " Entonces 
+				p9 <- "X"  
+				casilla_correcta <- verdadero
+			FinSi
+		Hasta Que casilla_correcta = Verdadero
 		
 		// PASO 3. El ordenador coloca una pieza
 		Escribir "Es mi turno. Estoy pensando..."
