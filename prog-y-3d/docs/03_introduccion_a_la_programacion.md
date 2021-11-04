@@ -762,10 +762,10 @@ En realidad, esto último es lo más adecuado. Recuerda que para aprender a prog
 
 #### Ejercicios más avanzados
 
-**Ejercicio 26**. Determinar si un número N introducido por teclado es o no primo. Recuerda que un número primo es aquél que sólo es divisible por sí mismo y por la unidad.
+**Ejercicio 26**. 
+<div style='background: #eee'>Determinar si un número N introducido por teclado es o no primo. Recuerda que un número primo es aquél que sólo es divisible por sí mismo y por la unidad.</div>
 
-**Ejercicio 27**. 
-<div style='background: #eee'>Generalizar el algoritmo anterior para averiguar todos los números primos que existen entre 2 y N, siendo N un número introducido por teclado.</div>
+**Ejercicio 27**. Generalizar el algoritmo anterior para averiguar todos los números primos que existen entre 2 y N, siendo N un número introducido por teclado.
 
 **Ejercicio 28**. Introducida una hora por teclado (horas, minutos y segundos), se pretende sumar un segundo a ese tiempo e imprimir en la pantalla la hora que resulta (también en forma de horas, minutos y segundos).
 
@@ -776,21 +776,19 @@ En realidad, esto último es lo más adecuado. Recuerda que para aprender a prog
 #### Algunos juegos sencillos
 
 
-**Ejercicio 30. Juego del número secreto**
-
-<div style='background: #eee'>El ordenador elegirá un número al azar entre 1 y 100. El usuario irá introduciendo números por teclado, y el ordenador le irá dando pistas: "mi número es mayor" o "mi número es menor", hasta que el usuario acierte. Entonces el ordenador le felicitará y le comunicará el número de intentos que necesitó para acertar el número secreto**.</div>
+**Ejercicio 30. Juego del número secreto**. El ordenador elegirá un número al azar entre 1 y 100. El usuario irá introduciendo números por teclado, y el ordenador le irá dando pistas: "mi número es mayor" o "mi número es menor", hasta que el usuario acierte. Entonces el ordenador le felicitará y le comunicará el número de intentos que necesitó para acertar el número secreto**.
 
 **Ejercicio 31. Número de la suerte**
 
-<div style='background: #eee'>El número de la suerte o *lucky number* es una tontuna que se han inventado los numerólogos y que se obtiene sumando todas las cifras de la fecha de nacimiento de un modo azaroso. Por ejemplo, como yo nací el 15 de octubre de 1974 (15-10-1974), se supone que mi número de la suerte es 15+10+1974 = 1999. Ahora sumo todas las cifras de 1999 así: 1+9+9+9 = 28. Como aún tengo dos dígitos, vuelvo a sumarlos. 2 + 8 = 10. Y, por último, 1 + 0 = 1.
+El número de la suerte o *lucky number* es una tontuna que se han inventado los numerólogos y que se obtiene sumando todas las cifras de la fecha de nacimiento de un modo azaroso. Por ejemplo, como yo nací el 15 de octubre de 1974 (15-10-1974), se supone que mi número de la suerte es 15+10+1974 = 1999. Ahora sumo todas las cifras de 1999 así: 1+9+9+9 = 28. Como aún tengo dos dígitos, vuelvo a sumarlos. 2 + 8 = 10. Y, por último, 1 + 0 = 1.
 
 Por lo tanto, 1 es mi número de la suerte. Si alguna vez me toca la lotería y llevo un número acabado en 1, os aviso.
 
-Por ahora, nos conformamos con escribir un programa que, dada una fecha de nacimiento (día, mes y año), calcule el número de la suerte de esa persona.</div>
+Por ahora, nos conformamos con escribir un programa que, dada una fecha de nacimiento (día, mes y año), calcule el número de la suerte de esa persona.
 
 **Ejercicio 32. El juego de la ruleta**
 
-Escribe un programa que permita jugar a la ruleta con el ordenador. 
+<div style='background: #eee'>Escribe un programa que permita jugar a la ruleta con el ordenador. 
 
 Supondremos que la ruleta tiene 20 números rojos y 20 negros. El jugador, que tendrá una suma de dinero inicial, apostará una cantidad (siempre menor que el dinero que le quede) a un número y un color.
 
@@ -798,7 +796,7 @@ La ruleta, que puedes simular con el método azar(), la manejará el ordenador y
 
 Si el jugador acierta, multiplicará por 10 el dinero apostado. Si falla, perderá el dinero apostado. El proceso se repetirá hasta que el jugador decida abandonar el juego, o bien se quede sin dinero.
 
-Por favor, abstenerse ludópatas.
+Por favor, abstenerse ludópatas.</div>
 
 **Ejercicio 33. Juego de dados**
 
@@ -816,7 +814,7 @@ Escribe un programa para jugar a los dados con el ordenador. Las reglas del jueg
 
 **Ejercicio 34. Juego de las Tres en Raya**
 
-Vamos a hacer una versión del popular juego de las Tres en Raya para jugar contra el ordenador. No será un juego con inteligencia artificial como el de la WOPR (si no sabes qué es la WOPR, bueno, ¿para qué sirve wikipedia?), pero te permitirá pasar un buen rato programando, que es de lo que se trata.
+<div style='background: #eee'>Vamos a hacer una versión del popular juego de las Tres en Raya para jugar contra el ordenador. No será un juego con inteligencia artificial como el de la WOPR (si no sabes qué es la WOPR, bueno, ¿para qué sirve wikipedia?), pero te permitirá pasar un buen rato programando, que es de lo que se trata.
 
 El juego se desarrolla en un tablero de 3 x 3 casillas en el que los jugadores van disponiendo sus fichas tratando de formar una línea vertical, horizontal o diagonal.
 
@@ -824,7 +822,7 @@ Las fichas del jugador humano tendrán forma de círculos (O), y las del ordenad
 
 Al principio, el tablero está en blanco. Comenzará jugando uno de los dos jugadores, elegido aleatoriamente. El jugador que comienza colocará una ficha en el tablero. Después, será el turno del otro jugador.
 
-El proceso se repite hasta que uno de los dos consigue colocar tres fichas formando una línea, o hasta que ya no es posible colocar más fichas (situación de “tablas”)
+El proceso se repite hasta que uno de los dos consigue colocar tres fichas formando una línea, o hasta que ya no es posible colocar más fichas (situación de “tablas”)</div>
 
 *Aviso: este juego es más difícil de programar que los anteriores.*
 
@@ -938,13 +936,11 @@ Su saldo actual es de 39,5 euros.
 
 **Ejercicio 38**. Máximo común divisor. Como el anterior, pero calculando el máximo común divisor. *Atención: este ejercicio es de dificultad elevada*.
 
-**Ejercicio 39**. 
-
-<div style='background: #eee'>Escribe un programa que pregunte al usuario su fecha de nacimiento y la fecha del día de hoy, y calcule la edad del usuario en años.
+**Ejercicio 39**. Escribe un programa que pregunte al usuario su fecha de nacimiento y la fecha del día de hoy, y calcule la edad del usuario en años.
 
 (Aviso: no es tan fácil como parece)
 
-Este programa se puede mejorar haciendo que calcule la edad en años, meses y días (¡incluso en horas, minutos y segundos!), pero es una labor por ahora solo apta para los más atrevidos/as.</div>
+Este programa se puede mejorar haciendo que calcule la edad en años, meses y días (¡incluso en horas, minutos y segundos!), pero es una labor por ahora solo apta para los más atrevidos/as.
 
 ### 3.6. Ejercicios resueltos
 
@@ -1305,7 +1301,7 @@ FinAlgoritmo
 
 *Solución en diagrama de flujo:*
  
- ![Diagrama de flujo maximo-minimo-medio](/docs/prog-y-3d/_site/assets/ejercicios-resueltos-pseint/03_23_factorial.png)
+ ![Diagrama de flujo factorial](/docs/prog-y-3d/_site/assets/ejercicios-resueltos-pseint/03_23_factorial.png)
 
 
 **Ejercicio 24 (Solución 1 - Los números pueden repetirse)**. Generar combinaciones al azar para la lotería primitiva (6 números entre 1 y 49). Debes utilizar la función azar(x) que vimos en los apuntes. Por ahora, no te preocupes porque los números puedan repetirse.
@@ -1327,7 +1323,7 @@ FinAlgoritmo
 
 *Solución en diagrama de flujo:*
  
- ![Diagrama de flujo maximo-minimo-medio](/docs/prog-y-3d/_site/assets/ejercicios-resueltos-pseint/03_24_loteria_primitiva_v1.png)
+ ![Diagrama de flujo lotería primitiva con repetición](/docs/prog-y-3d/_site/assets/ejercicios-resueltos-pseint/03_24_loteria_primitiva_v1.png)
 
  **Ejercicio 24 (Solución 2 - Los números NO PUEDEN repetirse)**. Generar combinaciones al azar para la lotería primitiva (6 números entre 1 y 49). Debes utilizar la función azar(x) que vimos en los apuntes
 
@@ -1361,4 +1357,113 @@ FinAlgoritmo
 
 *Solución en diagrama de flujo:*
  
- ![Diagrama de flujo maximo-minimo-medio](/docs/prog-y-3d/_site/assets/ejercicios-resueltos-pseint/03_24_loteria_primitiva_v2.png)
+ ![Diagrama de flujo lotería primitiva sin repetición](/docs/prog-y-3d/_site/assets/ejercicios-resueltos-pseint/03_24_loteria_primitiva_v2.png)
+
+**Ejercicio 25.** Generar combinaciones al azar para la quiniela (14 valores dentro del conjunto 1, X o 2).
+
+*Solución en pseudocódigo:*
+
+(NOTA: supondremos que la función azar() devuelve un valor aleatorio entre 0 y n-1. Con PSeInt, esta función se puede configurar para que los devuelva entre 1 y n, y la solución sería ligeramente distinta)
+
+```
+Algoritmo quiniela
+	Definir n,i Como Entero
+	Escribir 'Tu combinación para la quiniela es:'
+	Para i<-1 Hasta 14 Hacer
+		n <- azar(3)
+		Si n=0 Entonces
+			Escribir 'X'
+		SiNo
+			Escribir n
+		FinSi
+	FinPara
+FinAlgoritmo
+```
+
+*Solución en diagrama de flujo:*
+
+![Diagrama de flujo quiniela](/docs/prog-y-3d/_site/assets/ejercicios-resueltos-pseint/03_25_quiniela.png)
+
+
+**Ejercicio 26.** Determinar si un número N introducido por teclado es o no primo. Recuerda que un número primo es aquél que sólo es divisible por sí mismo y por la unidad.
+
+*Solución en pseudocódigo:*
+
+```
+Algoritmo primo
+	Definir n,i Como Entero
+	Definir es_primo Como Logico
+	Escribir 'Por favor, teclea un número entero positivo'
+	Leer n
+	es_primo <- verdadero
+	Para i<-2 Hasta n/2 Hacer
+		Si n MOD i=0 Entonces
+			es_primo <- falso
+		FinSi
+	FinPara
+	Si es_primo Entonces
+		Escribir 'El número ',n,' ES PRIMO'
+	SiNo
+		Escribir 'El número ',n,' NO ES PRIMO'
+	FinSi
+FinAlgoritmo
+
+```
+
+*Solución en diagrama de flujo:*
+
+![Diagrama de flujo primo](/docs/prog-y-3d/_site/assets/ejercicios-resueltos-pseint/03_26_primo.png)
+
+**Ejercicio 32.** Escribe un programa que permita jugar a la ruleta con el ordenador. Supondremos que la ruleta tiene 20 números rojos y 20 negros. El jugador, que tendrá una suma de dinero inicial, apostará una cantidad (siempre menor que el dinero que le quede) a un número y un color. La ruleta, que puedes simular con el método azar(), la manejará el ordenador y comunicará al jugador el resultado. Si el jugador acierta, multiplicará por 10 el dinero apostado. Si falla, perderá el dinero apostado. El proceso se repetirá hasta que el jugador decida abandonar el juego, o bien se quede sin dinero. Por favor, abstenerse ludópatas.
+
+*Solución en pseudocódigo:*
+
+```
+Algoritmo ruleta
+	Definir dinero, numero_apuesta, color_apuesta, cantidad_apuesta, numero_ruleta, color_ruleta como entero
+	Definir seguir_jugando Como Caracter
+	
+	dinero <- 500
+	
+	Repetir
+	
+		Repetir
+			Escribir "¿A qué número apuestas? (1-20)"
+			Leer numero_apuesta
+		Hasta Que numero_apuesta >= 1 y numero_apuesta <= 20
+		
+		Repetir
+			Escribir "¿A qué color apuestas? (1 = negro o 2 = rojo)"
+			Leer color_apuesta
+		Hasta Que color_apuesta = 1 o color_apuesta = 2
+		
+		Repetir
+			Escribir "¿Cuánta cantidad apuestas? (1 - ", dinero, ")"
+			Leer cantidad_apuesta	
+		Hasta Que cantidad_apuesta > 0 y cantidad_apuesta <= dinero
+		
+		numero_ruleta <- azar(20)
+		color_ruleta <- azar(2)
+		
+		Si numero_ruleta = numero_apuesta y color_ruleta = color_apuesta Entonces
+			dinero <- dinero + cantidad_apuesta * 10
+			Escribir "¡Enhorabuena! Has ganado ", cantidad_apuesta * 10
+		SiNo
+			dinero <- dinero - cantidad_apuesta
+			Escribir "Oooh, has perdido"
+		FinSi
+		
+		Escribir "Ahora mismo tienes ", dinero, " euros"
+		Escribir "¿Quieres seguir jugando? (S/N)"
+		Leer seguir_jugando
+		
+	Hasta Que dinero <= 0 o seguir_jugando = "N"
+	
+	Escribir "Espero volver a verte pronto"
+	
+FinAlgoritmo
+```
+
+(No mostramos la solución en diagrama de flujo porque ocupa demasiado espacio. No obstante, si te interesa verla, solo tienes que escribir el programa en PSeInt y pedirle que te muestre el diagrama de flujo equivalente)
+
+

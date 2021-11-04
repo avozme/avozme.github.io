@@ -31,15 +31,13 @@ Existen dos estándares principales en la industria para implementar servicios w
 
 ### 6.1.2. Diferencias entre servicios web y aplicaciones web
 
-XXX
-
 Llegados a este punto, puede que estés pensando: "Vale, pero ¿en qué se diferencia todo esto de una aplicación web MVC? ¿No intercambian también el cliente y el servidor información independientemente de la plataforma en la que se ejecuta cada uno?".
 
-Pues sí, pero hay algunas **diferencias fundamentales entre un servicio web y una aplicación web**:
+Pues sí, pero hay algunas **diferencias fundamentales entre un *servicio web* y una *aplicación web***:
 
-* Una aplicación web está diseñada para que un ser humano interactúe con ella a través de un interfaz DHTML. Un servicio web, en cambio, está pensado para que lo use otra aplicación (el cliente), no un ser humano.
-* Por ese motivo, los servicios web carecen de interfaz de usuario y no produce salidas HTML legibles. Es decir, un servicio web **no tiene vistas**.
-* En cambio, los servicios web suelen producir salidas XML o JSON, pensadas para que los clientes las procesen. Una aplicación web solo hace esto cuando responde a una petición Ajax, algo que veremos más adelante.
+* Una aplicación web está diseñada para que un ser humano interactúe con ella a través de un interfaz DHTML. Un servicio web, en cambio, está pensado para que lo use otra aplicación informática (el cliente), no necesariamente un ser humano.
+* Por ese motivo, los servicios web suelen carecer de interfaz de usuario y no producen salidas HTML legibles. Es decir, un servicio web puro **no tiene vistas**.
+* En cambio, los servicios web suelen producir salidas XML o JSON, pensadas para que los clientes las procesen. Una aplicación web, en cambio, solo responde con XML o JSON cuando recibe una petición Ajax, algo que veremos en el tema siguiente.
 
 Por lo demás, un servicio web puede tener una arquitectura *aproximadamente* MVC, y digo *aproximadamente* porque el servicio web, como acabo de contarte, carece de vistas. Pero puede seguir conservando sus controladores y sus modelos. Los controladores se encargarán de convertir los datos de los modelos a JSON o XML y devolverlos al cliente.
 
@@ -49,23 +47,37 @@ Por lo demás, un servicio web puede tener una arquitectura *aproximadamente* MV
 
 SOAP establece el modo en el que deben comportarse el cliente y el servidor para hablar entre sí, así como la forma en la que el servidor debe dar a conocer sus servicios.
 
-Es un mecanismo orientado al proceso, a diferencia de REST, que está orientado a los datos y que veremos después.
+Es un mecanismo orientado al proceso, a diferencia de **REST**, que está orientado a los datos y que veremos después.
 
 ### 6.2.1. La pila de protocolos de SOAP
 
-El estándar SOAP define una serie de protocolos de niveles de abstracción crecientes. Esta colección de protocolos suele denominarse **pila de protocolos SOAP**, y son los siguientes:
+El estándar **SOAP** define una serie de protocolos de niveles de abstracción crecientes. Esta colección de protocolos suele denominarse **pila de protocolos SOAP**, y son los siguientes:
 
-XXX imagen
+Nivel de abstracción|Protocolo
+-|-
+Nivel de descubrimiento|UDDI
+-|-
+Nivel de publicación|UDDI
+-|-
+Nivel de descripción|WSDL
+-|-
+Nivel de mensajería|SOAP
+-|-
+Nivel de red|TCP, SMTP, FTP, etc
+
+Como ves, SOAP solo es uno de los protocolos de la pila, aunque todo el tinglado recibe el nombre "SOAP" por extensión.
 
 Vamos a explicar brevemente en qué consiste cada protocolo de la pila, y lo vamos a hacer, como en otras ocasiones, por medio de un ejemplo en lugar de perdernos en largas y farragosas explicaciones.
 
 ### 6.2.2. Los protocolos SOAP y WSDL
 
-Para ver cómo funciona el protocolo SOAP (el más importante de la pila de protocolos SOAP, como ya te habrás imaginado por su nombre), utilizaremos tres ejemplos:
+XXX
+
+Para entender cómo funciona el protocolo SOAP (el más importante de la pila, como ya te habrás imaginado por su nombre), utilizaremos tres ejemplos:
 
 * En el primero, veremos cómo construir un servidor que duelva colecciones de datos en forma de array.
 * En el segundo, veremos cómo puede un servidor devolver datos con estructura más compleja formateados con JSON.
-* En el tercero, veremos un servidor extremadamente simple con un fichero WSDL.
+* En el tercero, veremos un servidor con un fichero WSDL.
 
 #### Ejemplo 1: Consulta de una BD de marcas y modelos de coches.
 

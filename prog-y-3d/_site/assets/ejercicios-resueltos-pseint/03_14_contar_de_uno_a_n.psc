@@ -3,8 +3,8 @@ Algoritmo contar_de_uno_a_n
 	Escribir 'Dime un número'
 	Leer n
 	i <- 1
-	Mientras i<=n Hacer
+	Repetir
 		Escribir i
-		i <- i+1
-	FinMientras
+		i <- i + 1
+	Hasta Que i = n
 FinAlgoritmo
