@@ -346,9 +346,13 @@ Por último, hacemos notar que, en ocasiones, también se usan los mismos múlti
 > d) 191<sub>10</sub> a binario
 
 **Ejercicio 5**. Convierte los siguientes números entre los sistemas hexadecimal y binario, utilizando la tabla de conversión que hemos visto en este tema. Si puedes hacerlo sin mirar la tabla, mucho mejor.
+
 > a) 100111012 a hexadecimal
+
 > b) 1101001110110011012 a hexadecimal
+
 > c) 38C16 a binario
+
 > d) FDCA16 a binario
 
 **Ejercicio 6**. Escribe las palabras "CELIA VIÑAS" en código ASCII (en decimal y en hexadecimal).

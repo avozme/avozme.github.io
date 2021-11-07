@@ -15,11 +15,11 @@ parent: Introd. a la prog. y al diseño 3D
 
 Hasta ahora, hemos conocido las estructuras de control básicas de cualquier programa estructurado: secuencia, condición e iteración.
 
-Pero los programas no se componen solo de *instrucciones*, sino también de *datos*.
+Pero los programas no se componen solo de *instrucciones*, sino también de ***datos***.
 
-Todos los datos que hemos manejado hasta ahora eran simples, es decir, se almacenaban en variables en las que solo podíamos guardar un valor en cada momento. Las variables simples se nos quedan cortas en muchas ocasiones (repasa el programa de las 3 en raya, sin ir más lejos, para comprobarlo). En esos casos necesitamos una variable de tipo complejo o *estructura de datos*.
+Todos los datos que hemos manejado hasta ahora eran simples, es decir, se almacenaban en variables en las que solo podíamos guardar un valor en cada momento. Las variables simples se nos quedan cortas en muchas ocasiones (repasa el programa de las 3 en raya, sin ir más lejos, para comprobarlo). En esos casos necesitamos una variable de tipo complejo o **estructura de datos**.
 
-En este capítulo hablaremos de las estructuras de datos y nos centraremos en la más utilizada con diferencia: el *array*. 
+En este capítulo hablaremos de las estructuras de datos y nos centraremos en la más utilizada con diferencia: el **array**. 
 
 Después, introduciremos los conceptos de subalgoritmo, función y biblioteca de funciones, para terminar hablando de uno de los principios básicos de la ingeniería del software: la reutilización del código.
 
@@ -46,7 +46,7 @@ El caso más simple de array es el **array unidimensional**, también llamado **
 
 ### 4.2.1. Declaración de vectores
 
-La declaración de un vector en pseudocódigo (seguiremos usando la sintaxis de PSeInt) se hace así:
+La **declaración de un vector** en pseudocódigo (seguiremos usando la sintaxis de PSeInt) se hace así:
 
 ```
 Definir nombre_variable Como tipo
@@ -97,424 +97,438 @@ Como es lógico, se pueden construir vectores cuyos elementos sean de cualquier 
 
 Y, por supuesto, pueden construirse vectores cuyos elementos sean otros vectores. Obtendremos así un array bidimensional, del que hablaremos un poco más adelante.
    
-### 4.2.2. Operaciones con vectores
 
-#### Manipulación de elementos individuales
+### 4.2.2. Manipulación de elementos de un vector
 
-XXX Los arrays unidimensionales en Java pueden manipularse elemento a elemento. No se pueden modificar todos los elementos a la vez.
-Para asignar valores a los elementos de un array, por lo tanto, el mecanismo es este:
-int[] serie = new int[5];
-serie[0] = 5;
-serie[1] = 3;
-serie[2] = 7;
+Los vectores deben manipularse **elemento a elemento**. *No se pueden modificar todos los elementos a la vez.*
+
+Por ejemplo, **para asignar valores a los elementos de un vector**, esta sería la manera:
+
+```
+Definir serie como Entero
+Dimension serie[5]
+serie[0] <- 5
+serie[1] <- 3
+serie[2] <- 7
 ...etc...
-La inicialización de los valores de un array también puede hacerse conjuntamente en el momento de declararlo, así:
-int serie[] = {5, 3, 7, 9, 14};
-El resultado de esta declaración será un array de 5 elementos de tipo entero a los que se les asigna estos valores:
-0
-1
-2
-3
-4
-5
-3
-7
-9
-14
-Cada elemento del array es, a todos los efectos, una variable que puede usarse independientemente de los demás elementos. Así, por ejemplo, un elemento del array serie puede usarse en una instrucción de salida igual que cualquier variable simple de tipo int:
-int[] serie = new int[5];
-serie[0] = 21;
-System.out.println(serie[0]);
-Del mismo modo, pueden usarse elementos de array en una instrucción de entrada. Por ejemplo:
-int[] serie = new int[5];
-serie[0] = Integer.parseInt(System.console().readLine());
-serie[1] = serie[0] + 15;
-System.out.println(serie[1]);
-2.2.2   Recorrido de un array
-Una forma muy habitual de manipular un array es accediendo secuencialmente a todos sus elementos, uno tras otro. Para ello, se utiliza un bucle con contador, de modo que la variable contador nos sirve como índice para acceder a cada uno de los elementos del array.
-Supongamos, por ejemplo, que tenemos un array de 10 números enteros declarado llamado v, y una variable entera llamada i. Por medio de un bucle, con ligeras modificaciones, podemos realizar todas estas operaciones:
-    1) Inicializar todos los elementos a un valor cualquiera (por ejemplo, 0):
-for (i = 0; i <= 9; i++)
-{
-   v[i] = 0;
-}
-    2) Inicializar todos los elementos con valores introducidos por teclado:
-for (i = 0; i <= 9; i++)
-{
-   printf("Escriba el valor del elemento nº %i: ", i);
-   v[i] = Integer.parseInt(System.console().readLine());
-}
-    3) Mostrar todos los elementos en la pantalla:
-for (i = 0; i <= 9; i++)
-{
-   System.out.println("El elemento nº " + i + " vale " + v[i]);
-}
-    4) Realizar alguna operación que implique a todos los elementos. Por ejemplo, sumarlos:
-suma = 0;
-for (i = 0; i <= 9; i++)
-{
-   suma = suma + v[i];
-}
-2.2.3   Ordenación de arrays unidimensionales
-Otra operación típica que se realiza con arays unidimensionales es ordenar sus elementos mediante algún criterio. Por ejemplo, un array de números enteros puede ordenarse de menor a mayor. Si el array original es este:
-0
-1
-2
-3
-4
-5
-3
-14
-9
-8
-...después de la ordenación nos quedará este otro array:
-0
-1
-2
-3
-4
-3
-5
-8
-9
-14
+```
+
+Cada elemento del vector es, a todos los efectos, una variable que puede usarse independientemente de los demás elementos. Así, por ejemplo, un elemento del vector *serie* puede usarse en una instrucción de salida igual que cualquier variable simple de tipo entero:
+
+```
+Escribir(serie[2])
+```
+
+Del mismo modo, pueden usarse elementos de un vector en una instrucción de entrada. Por ejemplo:
+
+```
+Escribir "Dime un número entero"
+Leer (serie[4])
+```
+
+### 4.2.3. Recorrido de un vector
+
+La forma habitual de utilizar un vector es **accediendo en secuencia a todos sus elementos**, uno tras otro. 
+
+Para ello, se utiliza un **bucle con contador**, de modo que la variable contador nos sirve como **índice** para acceder a cada uno de los elementos del vector.
+
+Supongamos, por ejemplo, que tenemos un vector de 10 números enteros declarado llamado *v*, y una variable entera llamada *i*, que será nuestro índice. Por medio de un bucle, con ligeras modificaciones, podemos realizar todas estas operaciones:
+
+* **1. Inicializar todos los elementos a un valor cualquiera** (por ejemplo, 0):
+
+   ```
+   Para i <- 0 hasta 9 hacer
+      v[i] <- 0
+   FinPara
+   ```
+* **2. Inicializar todos los elementos con valores introducidos por teclado**:
+
+   ```
+   Para i <- 0 hasta 9 hacer
+      Escribir "Dime el valor del elemento nº ", i
+      Leer v[i] 
+   FinPara
+   ```
+* **3. Mostrar todos los elementos en la pantalla**:
+
+   ```
+   Para i <- 0 hasta 9 hacer
+      Escribir "El elemento nº ", i, " vale ", v[i]
+   FinPara
+   ```
+* **4. Realizar alguna operación que implique a todos los elementos**. Por ejemplo, sumarlos en un **acumulador**:
+
+   ```
+   suma <- 0
+   Para i <- 0 hasta 9 hacer
+      suma <- suma + v[i]
+   FinPara
+   Escribir "La suma de todos los elementos es: ", suma
+   ```
+
+### 4.2.4. Ordenación de vectores
+
+Otra operación típica que se realiza con vectores es **ordenar sus elementos** mediante algún criterio. 
+
+Por ejemplo, un vector de números enteros puede ordenarse de menor a mayor (o al revés), mientras que un vector de caracteres puede ordenarse alfabéticamente.
+
+Supongamos, por ejemplo, que tenemos un vector de números enteros con estos valores:
+
+<pre>
++----+----+----+----+----+----+----+----+----+----+
+|  0 |  1 |  2 |  3 |  4 |  5 |  3 | 14 |  9 |  8 |
++----+----+----+----+----+----+----+----+----+----+
+</pre>
+
+Después de la ordenación, nos quedará este otro vector:
+
+<pre>
++----+----+----+----+----+----+----+----+----+----+
+|  0 |  1 |  2 |  3 |  3 |  4 |  5 |  8 |  9 | 14 |
++----+----+----+----+----+----+----+----+----+----+
+</pre>
+
 Del mismo modo, se pueden ordenar los elementos con cualquier otro criterio: de mayor a menor, primero los pares y luego los impares, o cualquier otro que nos resulte útil para resolver un problema.
-Métodos de ordenación de arrays hay muchos, desde los más simples (e ineficientes) hasta los más elaborados, y constituyen un área de estudio muy interesante dentro de la algorítmica. 
-En la sección de actividades volveremos sobre este asunto, pero ahora mostraremos tres métodos de ordenación muy populares:
-    • El método de la burbuja (o de intercambio directo), un método sencillo de entender pero bastante lento
-    • El método de selección directa, otro método simple e ineficiente.
-    • El método rápido o quicksort, un algoritmo elegante y recursivo que ordena arrays con asombrosa rapidez.
-Podríamos explicar ahora cómo funciona cada método mediante una larga parrafada, pero probablemente no se entendería gran cosa y los algoritmos son mucho más informativos por sí mismos. De modo que estudia los tres algoritmos detenidamente para intentar comprenderlos (o, al menos, los dos primeros). Dibuja en un papel un array desordenado de pocos elementos y haz un traceo (o ejecución “a dedo”) de cada método de ordenación para comprender cómo actúa. A estas alturas del curso, deberías ser capaz de entender el funcionamiento del método de la burbuja y el de selección directa. Es posible que el método rápido no puedas comprenderlo hasta el final del curso, ya que utiliza conceptos más avanzados, como la recursividad, y además se trata de un algoritmo que no es trivial en absoluto.
-(Nota: LONGITUD_array es una constante que se supone definida en alguna otra parte del programa)
-// Ordenación por INTERCAMBIO DIRECTO (burbuja)
-void ordenaarray(int v[])
-{
-  int i, j, elem;
-  for (i = 1; i < LONGITUD_array; i++)
-  {
-     for (j = LONGITUD_array - 1; j >=i; j--)
-     {
-        if (v[j-1] > v[j])
-	{
-	  elem = v[j-1];
-	  v[j-1] = v[j];
-	  v[j] = elem;
-	}
-     }
-  }
-}
 
-// Ordenación por SELECCIÓN DIRECTA
-void ordenaarray(int v[])
-{
-  int i, j, minimo, posicion_minimo;
-  for (i = 0; i < LONGITUD_array; i++)
-  {
-	  minimo = v[i];
-	  posicion_minimo = i;		
-	  for (j=i; j < LONGITUD_array; j++)
-	  {
-		 if (v[j] < minimo)
-		 {
-			 minimo = v[j];
-			 posicion_minimo = j;
-		 }
-	  }
-	  v[posicion_minimo] = v[i];
-	  v[i] = minimo;
-   }
-}
+Métodos de ordenación de vectores hay muchos, algunos muy simples (e ineficientes) y otros muy elaborados, y constituyen un área de estudio muy interesante dentro de la algorítmica.
 
-// Ordenación rápida (QUICKSORT)
-// NOTA: en esta implementación, por simplicidad, suponemos que el array v
-// es un atributo de clase
-void ordenaarray(int iz, int de)
-{
-  int i, j, x, w;
+Aquí vamos a presentar uno de los métodos más sencillos que existen para ordenar un vector, de modo que te resulte fácil entenderlo. Para aprender los métodos más complejos y rápidos ya tendrás tiempo en el futuro, ¿no te parece?
+
+#### Ordenación mediante selección directa
+
+La **selección directa** es probablemente el método de ordenación más fácil de entender porque es lo que la mayoría de nosotros haríamos si tuviéramos que ordenar un conjunto de elementos a mano. Esto no quiere decir que sea fácil de programar para un principiante, pero vamos a intentarlo.
+
+Vamos a suponer que tratamos de ordenar un vector de números enteros de menor a mayor pero, como hemos dicho, la misma idea podría emplearse para ordenar cualquier otra cosa y mediante cualquier otro criterio.
+
+El método de selección directa recorre el vector desde el principio hasta localizar el elemento más pequeño, guardando su posición y su valor en dos variables que llamaremos *posicion_minimo* y *valor_minimo*. Al terminar, coloca ese elemento mínimo en la primera posición del vector y lo intercambia con el elemento que antes ocupaba esa primera posición.
+
+(Para hacer ese intercambio de valores, es necesario usar una variable auxiliar que llamaremos *aux*).
+
+El proceso se repite, pero ahora desde la *segunda* posición del vector original. De nuevo volvemos a buscar el elemento más pequeño mirándolos todos de uno en uno. Al terminar, colocamos ese elemento mínimo en la *segunda* posición del vector, intercambiándola por el número que antes estaba en la segunda posición.
+
+Volvemos a hacerlo, ahora desde la *tercera* posición del vector original, y así sucesivamente hasta terminar de recorrer el vector completo.
+
+**Observa con detenimiento el código fuente de esta implementación**. No pases por él de puntillas para dedicarte a otra cosa. Dedica unos minutos para tratar de ejecutarlo *a mano*, es decir, con papel y lápiz, apuntando el valor de las variables para ver cómo actúa el algoritmo y cómo construye, pasada tras pasada, el vector ordenado.
+
+```
+Algoritmo seleccion_directa
+	Definir i, j, aux Como Entero
+	Definir valor_minimo, posicion_minimo Como Entero
+	Definir vector Como Entero
+	Dimensión vector[100]
+	
+	// Primero, vamos a llenar el vector_original con valores al azar entre 1 y 500, por ejemplo
+	Para i desde 0 hasta 99 Hacer
+		vector[i] <- azar(500)
+	FinPara
+	
+	// Ahora empieza el algoritmo de ordenación por selección directa
+	Para i desde 0 hasta 99 Hacer
+		valor_minimo <- vector[i]
+		posicion_minimo <- i
+		Para j desde 0 hasta 99 Hacer
+			Si vector[j] < valor_minimo Entonces
+				valor_minimo <- vector[j]
+				posicion_minimo <- j
+			FinSi
+		FinPara
+		aux <- vector[i]
+		vector[i] <- valor_minimo
+		vector[posicion_minimo] <- aux
+	FinPara
+	
+	// Por fin, escribimos el vector ordenado para ver que todo ha funcionado bien
+	Para i desde 0 hasta 99 Hacer
+		Escribir vector[i]
+	FinPara
+	
+FinAlgoritmo
+```
+
+### 4.2.5. Búsqueda en vectores
+
+En los vectores, como en todas las estructuras de datos que contienen muchos datos en su interior, también es habitual encontrarse con la **operación de búsqueda**.
+
+Dado un vector y un dato cualquiera, la búsqueda consiste en determinar si ese dato está en alguna posición del vector y, si es necesario, averiguar cuál es esa posición.
+
+La **búsqueda secuencial**, es decir, elemento a elemento, puede llegar a ser muy lenta si el vector es muy grande. Si en un programa tenemos que realizar búsquedas en vectores grandes repetidas veces, debemos pensar el modo de lograr que las búsquedas sean más rápidas.
+
+Existe una forma muy simple de hacer una búsqueda en un vector de manera tremendamente rápid: con el método llamado **búsqueda binaria**. Pero la búsqueda binaria tiene un problema: para que funcione, el vector debe estar previamente ordenado. El proceso de ordenación, como acabamos de ver, es lento y costoso, pero, a cambio, obtendremos unos tiempos de búsqueda notablemente mejores.
+
+Resumiendo: si necesitamos hacer búsquedas de datos en vectores en algún programa:
+
+* Si las búsquedas se realizan pocas veces, o bien los vectores son pequeños, optaremos por la búsqueda secuencial, que no necesita ordenar previamente el vector.
+* Si las busquedas se realizan muchas veces y los vectores son de gran tamaño, optaremos por la búsqueda binaria, pero antes debemos ordenar el vector.
+
+#### Búsqueda secuencial
+
+Consiste, simplemente, en **recorrer el vector desde el primer elemento hasta el último**. 
+
+Si encontramos el dato buscado, podemos interrumpir la búsqueda. Si no, continuaremos hasta el final del vector.
+
+Esta es una posible implementación en pseudocódigo, suponiendo que el vector tiene 100 elementos. Míralo despacio y ejecuta a mano el algoritmo. ¡Esas ejecuciones con lápiz y papel son un excelente ejercicio para los/las programadores/as principiantes!
+
+```
+  // Búsqueda secuencial
+  // Buscamos el elemento "dato" en el vector "v"
+  Definir i, posicion, v como Entero
+  Dimension v[100]
+  i <- 0
+  posicion <- -1
   
-  i = iz;
-  j = de;
-  x = v[(iz+de) / 2];
-  do
-  {
-     while (v[i] < x) i++;
-     while (x < v[j]) j--;
-     
-     if (i <= j)
-     {
-        w = v[i];
-	 v[i] = v[j];
-	 v[j] = w;
-	 i++;
-	 j--;
-     }
-   }
-   while (i <= j);
-
-   w = v[i];
-   v[i] = v[de];
-   v[de] = w;
-   
-   if (iz < j) ordena_array(iz, j);
-   if (i < de) ordena_array(i, de);
-}
-2.2.4   Búsqueda en arrays unidimensionales
-En los arrays, como en todas las estructuras de datos que contienen muchos datos en su interior, también es habitual encontrarse con la operación de búsqueda.
-La operación de búsqueda consiste en, dado un array y dado un dato cualquiera, determinar si el dato está en alguna posición del array y, si es necesario, averiguar cuál es esa posición.
-La operación de búsqueda puede llegar a ser muy lenta (con el método de búsqueda secuencial, que enseguida veremos), por lo que si en un programa tenemos que realizar búsquedas en arrays grandes repetidas veces, debemos pensar el modo de lograr que las búsquedas sean más rápidas. Por fortuna, existe una forma muy simple de hacer una búsqueda en un array de manera tremendamente rápida (con el método llamado de búsqueda binaria, que también veremos). Pero esta forma tiene un problema: para que funcione, el array debe estar previamente ordenado. El proceso de ordenación, como acabamos de ver, es lento y costoso, pero, a cambio, obtendremos unos tiempos de búsqueda notablemente mejores.
-Resumiendo, si necesitamos hacer búsquedas de datos en arrays unidimensionales en algún programa:
-    • Si las búsquedas se realizan pocas veces, o bien los arrays son pequeños, optaremos por la búsqueda secuencial, que no necesita ordenar previamente el array.
-    • Si las busquedas se realizan muchas veces y los arrays son de gran tamaño, optaremos por la búsqueda binaria, pero antes debemos ordenar el array con alguno de los métodos que hemos estudiado en la sección anterior.
-Búsqueda secuencial
-Consiste, simplemente, en recorrer el array desde el primer elemento hasta el último. Si encontramos el dato buscado, podemos interrumpir la búsqueda. Si no, continuaremos hasta el final del array.
-Esta es una posible implementación en C:
-// Búsqueda secuencial
-// Buscamos el elemento “dato” en el array “v”
-// Devolvemos la posición donde está “dato” o, si no lo encontramos, -1
-int buscar(int v[], int dato)
-{
-  int i = 0;
-  int x = -1;
-  
-  while ((i < LONGITUD_array) && (x == -1))
-  {
+  Mientras i < 100 y x = -1 hacer
+     Si v[i] = dato  Entonces
+        // ¡Lo hemos encontrado!
+        x <- i   // Ano
      if (v[i] == dato)	// ¡Lo hemos encontrado!
-	  x = i;	// Anotamos en x la posición
-     i++;
-  }
-  return x;
-}
-Búsqueda binaria
-Para que esta búsqueda funcione, el array debe estar previamente ordenado, como ya hemos aclarado.
-El método consiste en lo siguiente: 
-    • Supongamos que v es el array y que contiene N elementos. Llamaremos iz a la posición del elemento izquierdo del array (inicialmente, iz = 0). Llamaremos de a la posición del elemento derecho del array (inicialmente, de = N-1)
-    • Tomamos un x igual al punto medio entre iz y de, es decir, x = (iz/de) / 2
-    • Miramos el elemento v[x]. Si es el dato que buscábamos, ya hemos terminado. Si no, pueden ocurrir dos cosas:
-    1. Que v[x] sea mayor que el dato que buscábamos. En ese caso, y dado que el array está ordenado, continuamos la búsqueda a la izquierda de x, haciendo que de = x.
-    2. Que v[x] sea menor que el dato que buscábamos. En ese caso, continuamos la busqueda a la derecha de x, haciendo iz = x.
-    • Repetimos desde el paso 2 hasta que encontremos el elemento buscado o hasta que iz = de (lo que significará que el elemento no está en el array)
-He aquí una implementación en Java:
-// Búsqueda binaria
-// Buscamos el elemento “busc” en el array “v”, que debe estar ordenado
-// Devolvemos la posición donde está “busc” o, si no lo encontramos, -1
-void buscar_binario(int v[], int busc)
-{
-   int izq, der, mitad, encontrado;
+	  posicion = i       // Anotamos la posición
+     i <- i + 1
+  FinMientras
+
+  Si x >= 0 Entonces
+     Escribir "El dato ", dato, " estaba en la posición ", posicion
+  SiNo
+     Escribir "No he encontrado el dato ", dato, " en el vector"
+  FinSi
+```
+
+#### Búsqueda binaria
+
+Para que esta búsqueda funcione, como hemos dicho, **el vector debe estar previamente ordenado**.
+
+El **método de búsqueda binaria** consiste en lo siguiente: 
+
+* **Paso 1**. Supongamos que v es el vector y que contiene N elementos. Llamaremos *izq* a la posición del elemento izquierdo del array (inicialmente, iz = 0). Llamaremos *der* a la posición del elemento derecho del array (inicialmente, de = N-1)
+* **Paso 2**. Tomamos un x igual al punto medio entre izq y der, es decir, x <- (izq/der) / 2
+* **Paso 3**. Miramos el elemento v[x]. Si es el dato que buscábamos, ya hemos terminado. Si no, pueden ocurrir dos cosas:
+   * **3a**. Que v[x] sea mayor que el dato que buscábamos. En ese caso, y dado que el array está ordenado, continuamos la búsqueda a la izquierda de x, haciendo que der <- x.
+   * **3b**. Que v[x] sea menor que el dato que buscábamos. En ese caso, continuamos la busqueda a la derecha de x, haciendo izq <- x.
+* **Paso 4**. Repetimos desde el paso 2 hasta que encontremos el elemento buscado o hasta que izq = der (lo que significará que el elemento no está en el vector)
+
+Esta es una posible implementación en pseudocódigo. Recuerda: no mires el código por encima para pasar a otra cosa. Léelo con calma, como si fueran las instrucciones para montar un mueble de Ikea, y ejecútalo con lápiz y papel hasta que te asegures de que entiendes cómo funciona.
+
+```
+// Búsqueda binaria.
+// Buscamos el elemento "busc" en el vector "v", que debe estar previamente ordenado de menor a mayor.
+// Supondremos que "v" es un vector de enteros de 100 elementos, por ejemplo.
+
+   Definir izq, der, mitad, encontrado como Entero
 
    // Iniciamos una búsqueda binaria
-   encontrado = 0;
-   izq = 0;
-   der = LONGITUD_array – 1;
+   encontrado <- 0
+   izq <- 0    // Primera posición del vector
+   der <- 99   // Última posición del vector
 
-   while ((izq < der-1) && (encontrado == 0))
-   {
-	mitad = izq + ((der - izq) / 2);	// Calculamos la posición “mitad”
+   Mientras izq < der-1 y encontrado = 0 Hacer
+	   mitad <- izq + ((der - izq) / 2)    // Calculamos la posición "mitad"
+      Si v[mitad] = busc Entonces
+         // ¡Lo hemos encontrado!
+         encontrado <- 1
+      FinSi
+      Si v[mitad] > busc Entonces
+         // Seguiremos buscando por la mitad izquierda
+         der <- mitad
+      FinSi
+      Si v[mitad] < busc Entonces
+         // Seguiremos buscando por la mitad derecha
+         izq <- mitad
+   FinMientras
 
-	if (v[mitad] == busc)	// ¡Lo hemos encontrado!
-	   encontrado = 1;
-	if (v[mitad] > busc)	// Seguimos buscando en la mitad izquierda
-	   der = mitad;
-	if (v[mitad] < busc)	// Seguimos buscando en la mitad derecha
-	   izq = mitad;
+   Si encontrado = 1 Entonces
+      Escribir "El dato ", busc, " está en la posición ", encontrado, " del vector"
+   SiNo
+      Escribir "El dato ", busc, " no está en el vector"
+   FinSi
+```
 
-   }
+Este algoritmo de búsqueda es más complejo que el secuencial, como puede verse, pero los tiempos de búsqueda con el método binario son mucho más pequeños.
 
-   if (encontrado == 1)
-	return mitad;
-   else
-	return -1;
-}
-El algoritmo de búsqueda es más complejo, como puede verse, pero los tiempos de búsqueda con el método binario son mucho más pequeños. Para un array de N elementos, el método secuencial necesita un promedio de N/2 pasos para localizar el elemento buscado, mientras que el método binario tarda una media de log2 N pasos. ¿Qué no parece muy impresionante? Fíjate en estos datos:
-    1. Si el array es pequeño (por ejemplo, N = 10):
-        a. La búsqueda secuencial necesita una media de 5 pasos.
-        b. La búsqueda binaria necesita una media de 3 pasos.
-    2. Si el array es mediano (por ejemplo, N = 100):
-        a. La búsqueda secuencial necesita una media de 50 pasos.
-        b. La búsqueda binaria necesita una media de 6 ó 7 pasos.
-    3. Si el array es grande (por ejemplo, N = 1000), la mejora de tiempo empieza a ser notable:
-        a. La búsqueda secuencial necesita una media de 500 pasos.
-        b. La búsqueda binaria necesita una media de… ¡10 pasos!
-    4. Si el array es muy grande (por ejemplo, N = 100.000), la mejora de tiempo es aún mayor:
-        a. La búsqueda secuencial necesita una media de 50.000 pasos.
-        b. La búsqueda binaria necesita una media de sólo 16 pasos.
-La mejora en el tiempo de búsqueda es, por lo tanto, mayor cuanto mayor es el array. Por eso dijimos que la búsqueda binaria se emplea cuando los arrays son muy grandes.
-2.3    Arrays como parámetros
-Para pasar un array como parámetro a un método, en la llamada a la función se escribe simplemente el nombre del array. Recuerda que los arrays son objetos, y que los objetos, en Java, se pasan como direcciones de memoria.
-El hecho de que a la función se le pase la dirección del array y no sus valores provoca un efecto importante: que los arrays siempre pueden modificarse en el interior del método y esa modificación afecta al exterior. Esta discusión la mantuvimos en el tema 2 (sección "paso de parámetros"), así que revísala si no lo tienes claro, porque es un asunto importante. Esto mismo también sucede con los arrays multidimensionales que veremos más adelante. 
-Repetimos: si algún elemento del array se modifica en un método, también será modificado en el métdo desde el que fue pasado.
-Por ejemplo, supongamos que serie es un array de 15 números enteros. Para pasarlo como parámetro a un método llamado metodo1() escribiríamos simplemente esto:
-int serie[] = new int[15];
-metodo1(serie);
-En cuanto a la definición del método, la declaración de un parámetro que en realidad es un array se hace así:
-void metodo1 (int serie[]);	
+Para un vector de N elementos, el método secuencial necesita un promedio de N/2 pasos para localizar el elemento buscado, mientras que el método binario tarda una media de log<sub>2</sub>N pasos. 
 
- Ejemplo  Un programa que sirve para leer 50 números por teclado, y calcular la suma, la media y la desviación típica de todos los valores. La desviación es una magnitud estadística que se calcula restando cada valor del valor medio, y calculando la media de todas esas diferencias.
-Observa el siguiente programa de ejemplo detenidamente, prestando sobre todo atención al uso de los arrays unidimensionales y a cómo se pasan como parámetros. 
-Los números de la serie se almacenarán en un array float de 50 posiciones llamado valores. La introducción de datos en el array se hace en el método introducirValores(). Recuerda que, al modificar el array dentro del método, también se modificará en el método que lo llamó. 
-Después, se invoca a 3 métodos que calculan las tres magnitudes.
-class Estadisticas
-{
-   public static void main(String[] args)
-   {
-	float valores[] = new float[50];
-	float suma, media, desviacion;
-	
-	introducirValores(valores);
-	suma = calcularSuma(valores);	
-	media = calcularMedia(valores, suma);
-	desviacion = calcularDesviacion(valores, media);
-	System.out.println("La suma es " + suma);
-	System.out.println("La media es " + media);
-	System.out.println("La desviación es " + desviacion);
-   }
+¿No te parece una diferencia muy impresionante? Fíjate en estos datos:
 
-   /* Lee 50 números y los almacena en el array N pasado por variable */
-   private void introducir_valores(float n[])
-   {
-	int i;
-	for (i=1; i<=49; i++)
-	{
-		printf("Introduzca el valor nº %d: ", i);
-		n = Integer.parseInt(System.console().readLine());
-	}
-   }
+* Si el vector es pequeño (por ejemplo, N = 10):
+   * a. La búsqueda secuencial necesita una media de 5 pasos.
+   * b. La búsqueda binaria necesita una media de 3 pasos.
+* Si el vector es mediano (por ejemplo, N = 100):
+   * a. La búsqueda secuencial necesita una media de 50 pasos.
+   * b. La búsqueda binaria necesita una media de 6 ó 7 pasos.
+* Si el vector es grande (por ejemplo, N = 1000), la mejora de tiempo empieza a ser notable:
+   * a. La búsqueda secuencial necesita una media de 500 pasos.
+   * b. La búsqueda binaria necesita una media de… ¡10 pasos!
+* Si el vector es muy grande (por ejemplo, N = 100.000), la mejora de tiempo es aún mayor:
+   * a. La búsqueda secuencial necesita una media de 50.000 pasos.
+   * b. La búsqueda binaria necesita una media de sólo 16 pasos.
 
-   /* Devuelve la suma todos los elementos del array N */
-   private float calcularSuma(float n[50])	
-   {
-	int i;
-	float suma;
-	suma = 0;
-	for (i=1; i<=49; i++)
-		suma = suma + n[i];
-	return suma;
-   }
-
-   /* Devuelve el valor medio de los elementos del array N. 
-      Necesita conocer la suma de los elementos para calcular la media */
-   private float calcularMedia(float N[50], float suma)	
-   {
-	int i;
-	float media;
-	media = suma / 50;
-	return media;
-   }
-
-   /* Calcula la desviación típica de los elementos del array N. 
-      Necesita conocer la media para hacer los cálculos */
-   private float calcularDesviacion(float n[50], float media)
-   {
-	int i;
-	float diferencias;
-	diferencias = 0;
-	for (i=1; i<=49; i++)
-		diferencias = diferencias + abs(N[i] – media) ;
-	diferencias = diferencias / 50;
-	return diferencias;
-   }
-}
-2.4 Métodos para arrays unidimensionales
-Los arrays unidimensionales, como objetos que son, disponen de varios métodos muy útiles que facilitan el trabajo con ellos. Por ejemplo, los heredados de la clase Object (v. tema 4):
-    • equals(): permite discernir si dos referencias son el mismo objeto.
-    • clone(): permite duplicar el array en profundidad. 
-En el tema 4 hablábamos de las peculiaridades y limitaciones de estos dos métodos, y de cómo a veces es conveniente sobreescribirlos. Pues bien, el método clone() para arrays unidimensionales está sobreescrito, y produce una copia en profundidad del array original. Por lo tanto, el array clonado tiene un contenido idéntico al original, pero está alojado en otra zona de la memoria y tienen vidas separadas. Son arrays unidimensionales de igual contenido pero distinta referencia.
-Eso significa que, en el ejemplo siguiente, aunque los 3 arrays unidimensionales v1, v2 y v3 contienen los mismos valores, v1.equals(v2) devolverá false y v1.equals(v3) devolverá true:
-byte[] v1 ={1,2,3};
-byte[] v2 = (byte[]) v1.clone();
-byte[] v3 = v1;
-
-Además, los arrays unidimensionales en Java tiene otros métodos propios. Citamos a continuación los más usuales:
-    • length: devuelve el número de elementos del array. ¡Cuidado! No es un método, sino un atributo (no lleva paréntesis)
-    • sort(): permite ordenar el array por casi cualquier criterio. Se puede seleccionar el rango de ordenación (para no ordenar todo el array, solo una parte) y el método.
-    • fill(): para rellenar de valores el array.
-    • binarySearch(): realiza una búsqueda binaria.
-Como ves, los chicos de Sun Microsystems pensaron en todo para hacer la vida del programador más sencilla. Puedes encontrar información detallada de estos métodos y otros en el sitio oficial de Oracle: http://docs.oracle.com/javase/8/docs/api/index.html
-
-2.5 Representación interna de los arrays unidimensionales
-Finalizaremos la sección sobre arrays unidimensionales hablando de cómo se almacenan en la memoria del ordenador. Es importante tener una idea clara porque muchas de las cosas que suceden con los arrays unidimensionales se explican fácilmente a partir de su disposición en memoria.
-En la memoria del ordenador, todos los elementos de los arrays unidimensionales se almacenan en posiciones de memoria consecutivas.
-Por ejemplo, si v1 es un array de 10 números de tipo byte (cada número de dicho tipo ocupa 1 byte de memoria), el compilador asignará un espacio de memoria al elemento 0. Imaginemos que dicho espacio de memoria se ubica en la dirección 2000. Entonces, el resto de elementos del array ocuparán la posición 2001, la 2002, la 2003, … hasta la 2009 (ver figura)
-Por otro lado, si un array v2 consta de 50 números de tipo short, y suponemos que los datos de este tipo ocupan 2 bytes, si el primer elemento tiene asignada la posición 2000, el siguiente estará en la posición 2002, el siguiente en la 2004, etc.
-¿Qué ocurre si se intenta acceder a un elemento del array más allá de su límite? Dicho de otro modo, si tenemos un array de 10 elementos, ¿qué pasa si intentamos utilizar el elemento undécimo? Lógicamente, que estaremos invadiendo el espacio de direcciones que hay más allá del límite del array: la dirección 2010 y siguientes en el caso del array v1, y la 2020 y siguientes en el caso del array v2. Esas direcciones pertenecerán a otras variables o, lo que es peor, a algún fragmento de código.
-La JVM, durante la ejecución, comprobará que no intentemos acceder más allá del límite del array (ni por arriba, ni por abajo). Si lo hacemos, obtendremos un error de ejecución que es deseable evitar a toda costa. Esto se puede conseguir encerrando las operaciones sobre arrays unidimensionales en bloques try-catch y capturando las posibles excepciones, o bien programando las rutinas de acceso a arrays unidimensionales con el debido cuidado. Un enfoque mixto, utilizando ambas técnicas, es sin duda el más adecuado.
+La mejora en el tiempo de búsqueda es, por lo tanto, mayor cuanto mayor es el vector. Por eso dijimos que la búsqueda binaria se emplea cuando los vectores son muy grandes.
 
 
-3 Arrays bidimiensionales (matrices)
-Una matriz, tabla o array bidimiensional, como un array, es una colección de elementos individuales, todos del mismo tipo, agrupados bajo el mismo identificador. La diferencia con el array es que, en el momento de declararlo y de acceder a cada elemento individual, debemos utilizar dos índices en lugar de uno:
-int[][] matriz = new int[4][4];
-Tenemos aquí una variable compleja llamada matriz que no consta de 4 elementos enteros, sino de 16, es decir, 4x4. Podemos representar gráficamente la matriz como una tabla:
+## 4.3. Arrays bidimiensionales (matrices)
 
-Columnas
-Filas
-0
-1
-2
-3
-0
+Una **matriz**, **tabla** o **array bidimiensional**, igual que un vector, es una colección de elementos individuales, todos del mismo tipo, agrupados bajo el mismo identificador. 
 
+La diferencia con el vector es que, en el momento de declararlo y de acceder a cada elemento individual, debemos utilizar **dos índices** en lugar de uno.
 
+Una matriz de, por ejemplo, 4x4 elementos, se declara así:
 
+```
+Definir matriz como Entero
+Dimension matriz[4][4]
+```
 
-1
+La variable *matriz* no consta de 4 elementos enteros, sino de 16, organizados en 4 filas y 4 columnas. Podemos representar gráficamente la matriz como una tabla:
 
+<pre>
+     Filas
+       |
+       V
+     +----+----+----+----+----+
+     |    |  0 |  1 |  2 |  3 |   <-- Columnas
+     +----+----+----+----+----+
+     |  0 |    |    |    |    |
+     +----+----+----+----+----+
+     |  1 |    |    |    |    |
+     +----+----+----+----+----+
+     |  2 |    |    |    |    |
+     +----+----+----+----+----+
+     |  3 |    |    |    |    |
+     +----+----+----+----+----+
+</pre>
 
+**Cada casilla de la matriz es identificable mediante una pareja de índices**. Normalmente, el primero de los índices se refiere a la fila y, el segundo, a la columna. 
 
+Por ejemplo, si hacemos estas asignaciones:
 
-2
+```
+matriz[0][0] <- 5
+matriz[1][0] <- 1
+matriz[3][2] <- 13
+```
 
+...el estado en el que quedará la matriz anterior será este:
 
+<pre>
+     Filas
+       |
+       V
+     +----+----+----+----+----+
+     |    |  0 |  1 |  2 |  3 |   <-- Columnas
+     +----+----+----+----+----+
+     |  0 |  5 |    |    |    |
+     +----+----+----+----+----+
+     |  1 |  1 |    |    |    |
+     +----+----+----+----+----+
+     |  2 |    |    |    |    |
+     +----+----+----+----+----+
+     |  3 |    |    | 13 |    |
+     +----+----+----+----+----+
+</pre>
 
+Por descontado, los dos tamaños de la matriz pueden ser diferentes, obteniéndose tablas que son más anchas que altas o más altas que anchas.
 
-3
+Por lo demás, **las matrices se utilizan exactamente igual que los vectores**. A modo de ejemplo, este sería el código para inicializar una matriz de 5x10 enteros con todos sus elementos a 0. Observa cómo se usan los dos bucles anidados para acceder a todos los elementos:
 
+```
+Definir i, j como Entero
+Definir m como Entero
+Dimension m[5][10]
 
+Para i <- 0 hasta 4 hacer
+   Para j <- 0 hasta 9 hacer
+       m[i][j] <- 0
+   FinPara
+FinPara
+```
 
+## 4.4. Arrays de múltiples dimensiones
 
-Cada casilla de la tabla o matriz es identificable mediante una pareja de índices. Normalmente, el primero de los índices se refiere a la fila, y el segundo, a la columna. Por ejemplo, si hacemos estas asignaciones:
-matriz[0][0] = 5;
-matriz[1][0] = 1;
-matriz[3][2] = 13;
-…el estado en el que quedará la matriz será el siguiente:
+Del mismo modo que a los arrays unidimensionales (vectores) se les puede añadir un segundo índice, obteniendo las matrices, se puede generalizar esta práctica, dando lugar a **arrays multidimensionales**. 
 
-0
-1
-2
-3
-0
-5
+Por ejemplo, el siguiente es un array de cinco dimensiones compuesto de números enteros:
 
+```
+Definir ejemplo como Entero
+Dimension Ejemplo[10][10][4][5][7];
+```
 
-
-1
-1
-
-
-
-2
-
-
-
-
-3
-
-
-13
-
-Por descontado, los dos índices de la matriz pueden ser diferentes, obteniéndose tablas que son más anchas que altas o más altas que anchas.
-Una matriz es realmente un array de arrays unidimensionales, así que la salida por pantalla de las siguientes instrucciones será, respectivamente, 4 y 4. El primer 4 se refiere al número de filas de la matriz, y,  el segundo, al número de columnas de la primera fila:
-System.out.println(matriz.length);
-System.out.println(matriz[0].length);
-Por lo demás, las matrices se utilizan exactamente igual que los arrays unidimensionales. A modo de ejemplo, este sería el código para inicializar una matriz de 5x10 enteros con todos sus elementos a 0. Observa cómo se usan los dos bucles anidados para acceder a todos los elementos:
-int m[][] = new int[5][10];
-int i, j;
-for (i = 0; i <= 4; i++)
-{
-   for (j = 0; j <= 9; j++)
-   {
-       m[i][j] = 0;
-   }
-}
-3.1   Arrays de múltiples dimensiones
-Del mismo modo que a los arrays unidimensionales se les puede añadir un segundo índice, obteniendo las matrices, se puede generalizar esta práctica, dando lugar a arrays multidimensionales. Por ejemplo, el siguiente es un array de cinco dimensiones compuesto de números enteros:
-int ejemplo[][][][] = new int[10][10][4][5][7];
 Estos arrays no se pueden representar gráficamente (aunque con los de tres dimensiones se puede intentar dibujar un cubo), pero su utilización es idéntica a la de los arrays de una o dos dimensiones.
+
+## 4.5. Ejercicios propuestos
+
+#### Ejercicios de vectores (arrays unidimensionales)
+
+**Ejercicio 1: Inicializar un vector**. Escribe un programa en pseudocódigo en el que se defina un vector de 100 números enteros, se inicialicen todos los elementos al valor –1 y se impriman por pantalla.
+
+**Ejercicio 2: Inicializar un vector (más complejo)**. Define dos vectores de 100 números enteros, uno llamado *pares* y otro *impares*. Inicializa el primero con los 100 primeros números pares positivos (es decir, pares[0] contendrá el valor 2, pares[1] contendrá el valor 4, pares[2] contendrá el valor 6, y así sucesivamente). Inicializa el segundo con los 100 primeros números impares positivos. Imprímelo por pantalla para comprobar que lo has hecho correctamente.
+
+**Ejercicio 3: Lotería primitiva**. Escribe un programa que genere al azar una combinación para jugar a la lotería primitiva asegurándote de que ningún número se repite. Pista: puedes utilizar un array de 6 números enteros, asignando a cada posición un número entero aleatorio entre 1 y 49, y comprobando que el número asignado no es igual a ninguno de los asignados anteriormente.
+
+**Ejercicio 4. Estadística básica**. Escribe un programa que pida al usuario N números enteros (siendo N un valor introducido por teclado) y calcule el valor medio de todos ellos, mostrando luego en la pantalla los números que están por encima de la media y los que están por debajo de ella.
+
+**Ejercicio 5. Ordenar vector gigante**. Escribe un programa que defina un vector de 1000 elementos y lo inicialice con valores aleatorios entre 0 y 2.000.000. Posteriormente, el programa debe ordenar los elementos del array de menor a mayor. Prueba luego a cambiar el tamaño del vector hasta los 10.000, 100.000 y 1.000.000 de elementos. ¿El tiempo de respuesta del programa crece linealmente con el tamaño del vector?
+
+**Ejercicio 6. Vector creciente**. Escribe un programa que defina un vector de 10 enteros y lo rellene con números CRECIENTES al azar entre 1 y 100. Es decir, los números serán elegidos aleatoriamente pero siempre tienen que ser mayores que los anteriores: el número que ocupe la posición 1 debe ser mayor que el de la posición 0, el de la posición 2 mayor que el de la 1, y así sucesivamente.
+
+Después de eso, se pedirá al usuario un número entre 1 y el número mayor que exista en el vector. El número introducido por el usuario se insertará en la posición del vector adecuada para conservar el orden, desplazando los demás elementos hacia la derecha, de manera que se pierda el último elemento.
+
+Después de insertar el número introducido por el usuario, el contenido del vector debe mostrarse por la pantalla. El proceso se repetirá hasta que el usuario introduzca un número negativo.
+
+Por ejemplo, supongamos que el array generado al azar por el ordenador, después de ordenarlo, es este:
+
+<pre>
+     4 – 18 – 23 – 25 – 44 - 45 – 51 – 72 – 78 - 85
+</pre>
+
+Como el número más alto es 85, el programa debe pedir al usuario:
+
+<pre>
+     Introduzca un número entre 1 y 85: _
+</pre>
+
+Si el usuario teclea, por ejemplo, el número 67, éste debe ser insertado en la posición adecuada para conservar el orden, es decir, entre los números 51 y 72, desplazando a los demás números hacia la derecha, con lo cual se pierde el mayor de todos ellos (85). El vector quedaría así:
+
+<pre>
+    4 – 18 – 23 – 25 – 44 - 45 – 51 – 67 - 72 – 78
+</pre>
+
+
+#### Ejercicios de matrices (arrays bidimensionales)
+
+**Ejercicio 7. Inicializar matriz simple**. Escribe un programa en el que se defina una matriz de 10x10 números enteros. Inicializa todos los elementos al valor –1.
+
+**Ejercicio 8. Inicializar matriz complejo**. Repite el ejercicio anterior, inicializando ahora todas las filas pares al valor 0 y todas las filas impares al valor –1.
+
+**Ejercicio 9. Sumar filas**. Escribe un programa que defina una matriz de 6x3 números enteros y luego pida al usuario que introduzca los valores de cada elemento. Después, el programa debe sumar los tres números de cada fila, mostrando los resultados.
+
+**Ejercicio 10. Permutar filas**. Escribe un programa que defina una matriz de 3x5 números enteros y luego pida al usuario que introduzca los valores de cada elemento. Después, debe permutar el contenido de la fila 3 por el de la fila 1, y mostrar por último el contenido de la matriz.
+
+**Ejercicio 11. Sumar matrices**. Escribe un programa que defina dos matrices de 10x5 números enteros y las inicialice con números aleatorios entre 0 y 255. Posteriormente, cada elemento de la primera matriz debe ser sumado con el mismo elemento de la segunda matriz, guardando el resultado en una tercera matriz. Se deben sumar todas las parejas de elementos y mostrar el resultado en la pantalla.
+
+**Ejercicio 12. Jugueteando con matrices**. Escribe un programa que genere al azar una matriz cuadrada de NxN números enteros (siendo N un valor introducido por el usuario) y que luego haga lo siguiente:
+
+* *Mostrar*. Mostrará la matriz tal y como ha sido generada.
+
+* *Perímetro*. Mostrará los elementos que ocupan el borde de la matriz, partiendo de la esquina superior izquierda y recorriéndola hacia la derecha y luego hacia abajo.
+
+* *Centro*. Mostrará los elementos que ocupan el centro geométrico de la matriz. Puede ser 1 (si N es impar) o 4 (si N es par).
+
+* *Espiral*. Hará un recorrido en espiral por la matriz partiendo de la esquina superior izquierda.
+
+Por ejemplo, si la matriz fuera de 4x4 y tuviera este contenido:
+
+<pre>
+    4 6 7 8
+    2 4 3 9
+    0 1 3 4
+    7 3 3 5
+</pre>
+
+...las distintas operaciones deben obtener este resultado:
+
+* Perímetro: 4 6 7 8 9 4 5 3 3 7 0 2
+* Centro: 4 3 1 3
+* Espiral: 4 6 7 8 9 4 5 3 3 7 0 2 4 3 3 1
+
+## 4.6. Ejercicios resueltos
+
+(Iremos poniendo aquí los ejercicios resueltos en clase)
