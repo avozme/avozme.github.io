@@ -1,13 +1,13 @@
 ---
 layout: page
-title: 4. Estructuras de datos
+title: 4. Estructuras de datos. Subalgoritmos
 permalink: /estructuras-de-datos/
 nav_order: 4
 has_children: true
 parent: Introd. a la prog. y al diseño 3D
 ---
 
-# 4. Estructuras de datos
+# 4. Estructuras de datos. Subalgoritmos
 {: .no_toc }
 
 - TOC
@@ -21,7 +21,7 @@ Todos los datos que hemos manejado hasta ahora eran simples, es decir, se almace
 
 En este capítulo hablaremos de las estructuras de datos y nos centraremos en la más utilizada con diferencia: el **array**. 
 
-Después, introduciremos los conceptos de subalgoritmo, función y biblioteca de funciones, para terminar hablando de uno de los principios básicos de la ingeniería del software: la reutilización del código.
+Después, introduciremos los conceptos de **subalgoritmo, función y biblioteca de funciones**, para terminar hablando de uno de los principios básicos de la ingeniería del software: la **reutilización del código**.
 
 ## 4.1. Estructuras de almacenamiento de datos
 
@@ -274,18 +274,17 @@ Esta es una posible implementación en pseudocódigo, suponiendo que el vector t
   Definir i, posicion, v como Entero
   Dimension v[100]
   i <- 0
-  posicion <- -1
+  posicion <- -1               // Si posición vale -1 significa que
+                               // aún no hemos encontrado lo que buscamos
   
-  Mientras i < 100 y x = -1 hacer
-     Si v[i] = dato  Entonces
-        // ¡Lo hemos encontrado!
-        x <- i   // Ano
-     if (v[i] == dato)	// ¡Lo hemos encontrado!
-	  posicion = i       // Anotamos la posición
+  Mientras i < 100 y posicion = -1 hacer
+     Si v[i] = dato  Entonces  // ¡Lo hemos encontrado!
+        posicion <- i         // Anotamos la posición
+     FinSi
      i <- i + 1
   FinMientras
 
-  Si x >= 0 Entonces
+  Si posicion >= 0 Entonces
      Escribir "El dato ", dato, " estaba en la posición ", posicion
   SiNo
      Escribir "No he encontrado el dato ", dato, " en el vector"
@@ -298,7 +297,7 @@ Para que esta búsqueda funcione, como hemos dicho, **el vector debe estar previ
 
 El **método de búsqueda binaria** consiste en lo siguiente: 
 
-* **Paso 1**. Supongamos que v es el vector y que contiene N elementos. Llamaremos *izq* a la posición del elemento izquierdo del array (inicialmente, iz = 0). Llamaremos *der* a la posición del elemento derecho del array (inicialmente, de = N-1)
+* **Paso 1**. Supongamos que v es el vector y que contiene N elementos. Llamaremos *izq* a la posición del elemento izquierdo del array (inicialmente, izq = 0). Llamaremos *der* a la posición del elemento derecho del array (inicialmente, der = N-1)
 * **Paso 2**. Tomamos un x igual al punto medio entre izq y der, es decir, x <- (izq/der) / 2
 * **Paso 3**. Miramos el elemento v[x]. Si es el dato que buscábamos, ya hemos terminado. Si no, pueden ocurrir dos cosas:
    * **3a**. Que v[x] sea mayor que el dato que buscábamos. En ese caso, y dado que el array está ordenado, continuamos la búsqueda a la izquierda de x, haciendo que der <- x.
@@ -320,7 +319,7 @@ Esta es una posible implementación en pseudocódigo. Recuerda: no mires el cód
    der <- 99   // Última posición del vector
 
    Mientras izq < der-1 y encontrado = 0 Hacer
-	   mitad <- izq + ((der - izq) / 2)    // Calculamos la posición "mitad"
+      mitad <- izq + ((der - izq) / 2)    // Calculamos la posición "mitad"
       Si v[mitad] = busc Entonces
          // ¡Lo hemos encontrado!
          encontrado <- 1
@@ -448,12 +447,364 @@ Por ejemplo, el siguiente es un array de cinco dimensiones compuesto de números
 
 ```
 Definir ejemplo como Entero
-Dimension Ejemplo[10][10][4][5][7];
+Dimension ejemplo[10][10][4][5][7];
 ```
 
 Estos arrays no se pueden representar gráficamente (aunque con los de tres dimensiones se puede intentar dibujar un cubo), pero su utilización es idéntica a la de los arrays de una o dos dimensiones.
 
-## 4.5. Ejercicios propuestos
+## 4.5. Programación modular: subalgoritmos
+
+Los algoritmos tienden a hacerse muy grandes cuando tratamos de resolver un problema complejo. Esto es lógico, ¿no te parece? Cuanto más complicado sea el problema, más difícil y largo será plantear su solución.
+
+Para enfrentar este hecho inevitable existe la **programación modular**. Consiste en algo tan simple como dividir el problema en subproblemas más sencillos, y estos a su vez en otros más sencillos, hasta que tengamos un conjunto de mucho problemas pequeñitos que sí podemos resolver individualmente de forma simple. Después, solo nos queda unir todas las piezas del puzle para obtener nuestra solución compleja.
+
+Cada una de esas soluciones a pequeños problemas se denomina **subalgoritmo** (no es un nombre muy original, lo sé). Y esta técnica de descomposición sucesiva en problemas complejos en subproblemas simples se conoce como **divide y vencerás** (*divide and conquer*, en inglés). Es muy útil no solo en programación, sino en la mayor parte de los problemas del mundo real.
+
+### 4.5.1. Algoritmo principal y subalgoritmos
+
+El problema principal siempre se resuelve en un algoritmo que denominaremos **algoritmo principal**. Este es el que hará de "pegamento" del puzle.
+
+Los subproblemas más sencillos se resolverán en **subalgoritmos**, también llamados **módulos** a secas. Los subalgoritmos están subordinados al algoritmo principal, de manera que éste es el que decide cuándo debe ejecutarse cada subalgoritmo y con qué conjunto de datos.
+
+El algoritmo principal realiza **llamadas** o **invocaciones** a los subalgoritmos, mientras que estos le devuelven resultados. Así, el algoritmo principal va recogiendo todos los resultados y puede generar la solución al problema global.
+
+Cuando el algoritmo principal hace una llamada al subalgoritmo (es decir, lo invoca), se empiezan a ejecutar las instrucciones del subalgoritmo. Cuando este termina, la ejecución continúa por la instrucción siguiente a la de invocación. También se dice que el subalgoritmo devuelve el control al algoritmo principal, ya que éste toma de nuevo el control del flujo de instrucciones después de habérselo cedido temporalmente al subalgoritmo.
+
+El programa principal puede invocar a cada subalgoritmo el número de veces que sea necesario. A su vez, cada subalgoritmo puede invocar a otros subalgoritmos, y éstos a otros, etc. Cada subalgoritmo devolverá el control al algoritmo que lo invocó.
+
+Lógicamente, **los subalgoritmos deben tener asignado un nombre** para que puedan ser invocados desde el algoritmo principal. Ahora bien, la forma de declarar un subalgoritmo varía ligeramente según el tipo de subalgoritmo de que se trate. Porque existen dos tipos de subalgoritmo, llamados **funciones** y **procedimientos**, que vamos a ver enseguida.
+
+### 4.5.2. Funciones
+
+Las **funciones** son subalgoritmos que resuelven un problema sencillo y **devuelven un resultado** al algoritmo que las invoca. Esto último es lo que las distingue de los procedimientos.
+
+Las funciones pueden tener argumentos, aunque no es obligatorio. Los **argumentos** son los datos que se proporcionan a la función en la invocación, y que la función utilizará para sus cálculos.
+
+Las funciones tienen, obligatoriamente, que devolver un resultado. Si no lo hacen, no son funciones. Este resultado suele almacenarse en una variable para usarlo posteriormente.
+
+Veamos un ejemplo. Nuevamente, emplearemos la sintaxis del pseudocódigo de PSeInt, pero cualquier otro pseudocódigo o lenguaje de programación real utilizará una sintaxis semejante.
+
+Supongamos que tenemos estamos escribiendo un programa para calcular los precios de unos artículos a la venta en una tienda. Vamos a escribir un subalgoritmo que se encargue de calcular el IVA de cada artículo.
+
+```
+Algoritmo precios
+	Definir nombre como cadena
+	Definir precio como real
+	Definir precio_con_iva como real
+	
+	Repetir
+	Escribir "Dime el nombre de otro artículo:"
+		Leer nombre
+		Escribir "Dime su precio (negativo para terminar):"
+		Leer precio
+		precio_con_iva <- precio + calcular_iva(precio)
+		Escribir "El precio con IVA es ", precio_con_iva
+	Hasta Que precio < 0
+FinAlgoritmo
+
+SubAlgoritmo iva <- calcular_iva(precio)
+	Definir porcentaje como real
+	Definir iva como real
+	iva <-  precio * 0.21   // Suponemos que el IVA es el 21%
+FinSubalgoritmo
+```
+
+En este ejemplo puedes ver cómo **se declara un subalgoritmo**:
+
+* Se utiliza la palabra **SubAlgoritmo**
+* Se indica a continuación cuál es el dato que devolverá al algoritmo principal (en este caso, la variable *iva*)
+* Luego se indica su nombre, *calcular_iva* y, entre paréntesis, los datos que recibirá del algoritmo principal (en este ejemplo, *precio*). Esos datos se denominan *parámetros* del subalgoritmo.
+* Después se escribe el código del subalgoritmo. Fíjate en que es un código completamente normal, como el de cualquier algoritmo.
+
+Los lenguajes de programación, de hecho, poseen un puñado de funciones predefinidas de las que ya hemos usado unas cuántas. ¿Recuerdas cuando usabas las funciones azar(), truncar() o redondear()? No son más que funciones, es decir, subalgoritmos, que ya vienen incorporados al lenguaje de programación.
+
+### 4.5.3.  Procedimientos
+
+Los **procedimientos** son subalgoritmos que no devuelven ningún valor al algoritmo principal. Es decir, sin como las funciones, pero no devuelven ninguna variable al terminar.
+
+La declaración de un procedimiento es similar a la de una función. Lo vemos en este ejemplo, sacado el juego de las 3 en raya del tema anterior. Si repasas aquel ejercicio resuelto, verás que está lleno de procedimientos.
+
+```
+Algoritmo tres_en_raya
+	Definir tablero Como Caracter
+	Dimension tablero[10]
+	
+	inicializar(tablero)
+	mostrar(tablero)
+   // Etc (el juego de las tres en raya continuaba a partir de aquí)
+FinAlgoritmo
+
+SubAlgoritmo inicializar(tablero por referencia) 
+	Definir i como entero
+	Para i <- 1 hasta 9 Hacer
+		tablero[i] <- " "
+	FinPara
+FinSubAlgoritmo
+
+SubAlgoritmo mostrar(tablero)
+	Escribir "ESTADO ACTUAL DEL TABLERO"
+	Escribir "+---+---+---+"
+	Escribir "| ",tablero[1]," | ",tablero[2]," | ",tablero[3]," |"
+	Escribir "+---+---+---+"
+	Escribir "| ",tablero[4]," | ",tablero[5]," | ",tablero[6]," |"
+	Escribir "+---+---+---+"
+	Escribir "| ",tablero[7]," | ",tablero[8]," | ",tablero[9]," |"
+	Escribir "+---+---+---+"	
+FinSubAlgoritmo
+```
+
+Este algoritmo principal invoca a dos procedimientos: uno, llamado *inicializar()*, se encarga de poner un espacio en blanco en cada posición del tablero. Otro, llamado *mostrar()*, se encarga de dibujar el tablero en la pantalla. Como ves, cada subalgoritmo tiene el encargo de resolver una pequeña parte del problema global.
+
+Fíjate en que la declaración de los procedimientos es idéntica a la de las funciones, pero sin devolver ninguna variable.
+
+### 4.5.4. Invocación de subalgoritmos
+
+Para que las instrucciones escritas en un subalgoritmo sean ejecutadas es necesario, como ya hemos dicho, que el subalgoritmo se *llame* o *invoque* desde otro algoritmo.
+
+La invocación consiste en una mención al **nombre del subalgoritmo** seguida, entre paréntesis, de los **valores que se desan asignar a los parámetros**. Deben aparecer tantos valores como parámetros tenga el subalgoritmo, y además coincidir en el tipo de datos. 
+
+Estos parámetros se podrán utilizar, dentro del subalgoritmo, como cualquier otra variable.
+
+Como las funciones devuelven valores, la **invocación de una función** debe aparecer a la derecha de una **instrucción de asignación**:
+
+```
+precio_con_iva <- precio + calcular_iva(precio)
+```
+
+En cambio, como los procedimientos no devuelven ningún valor, la **invocación de un procedimiento** nunca aparece en una instrucción de asignación:
+
+```
+inicializar(tablero)
+mostrar(tablero)
+```
+
+### 4.5.5. Paso de parámetros
+
+XXXX
+El paso de parámetros, o comunicación de datos del algoritmo invocante al subalgoritmo invocado, puede hacerse mediante, al menos, dos métodos:
+    • Paso de parámetros por valor, que es la forma más sencilla pero no permite al subalgoritmo devolver resultados en los parámetros.
+    • Paso de parámetros por referencia, que es más complejo pero permite a los subalgoritmos devolver resultados en los parámetros.
+Veamos cada método detenidamente.
+Paso de parámetros por valor
+Los subalgoritmos/subprogramas, como hemos visto, pueden tener una serie de parámetros en su declaración. Estos parámetros se denominan parámetros formales. 
+Ejemplo: Una función que calcula la potencia de un número elevado a otro
+real función potencia(base es real, exponente es real)
+inicio
+   devolver (base ^ exponente)
+fin
+En esta declaración de función, base y exponente son parámetros formales.
+Cuando el subalgoritmo es invocado, se le pasan entre paréntesis los valores de los parámetros. A éstos se les denomina parámetros actuales; por ejemplo:
+A = 5
+B = 3
+C = potencia(A,B)
+En esta invocación de la función potencia(), los parámetros actuales son A y B, es decir, 5 y 3.
+Al invocar un subalgritmo, los parámetros actuales son asignados a los parámetros formales en el mismo orden en el que fueron escritos. Dentro del subalgoritmo, los parámetros se pueden utilizar como si fueran variables. Así, en el ejemplo anterior, dentro de la función potencia(), el parámetro base puede usarse como una variable a la que se hubiera asignado el valor 5, mientras que exponente es como una variable a la que se hubiera asignado el valor 3.
+Cuando el subalgoritmo termina de ejecutarse, sus parámetros formales base y exponente dejan de existir y se devuelve el resultado (en nuestro ejemoplo, 53), que se asigna a la variable C.
+Paso de parámetros por referencia
+En el paso de parámetros por referencia se produce una ligadura entre el parámetro actual y el parámetro formal, de modo que si el parámetro formal se modifica dentro del subalgoritmo, el parámetro actual, propio del algoritmo principal, también será modificado.
+Los argumentos pasan sus parámetros por valor excepto cuando indiquemos que el paso es por referencia colocando el símbolo * (asterisco) delante del nombre del argumento.
+Ejemplo: Escribiremos el mismo subalgoritmo de antes, pero utilizando un procedimiento (que, en principio, no devuelve resultados) en lugar de una función.
+procedimiento potencia(base es real, exponente es real, *resultado es real)
+inicio
+   resultado = base ^ exponente
+fin
+Observa el símbolo * delante del nombre del argumento resultado: esa es la señal de que el paso de parámetros será por referencia para ese argumento. Si no aparece el símbolo *, el paso será por valor, como es el caso de los argumentos base y exponente.
+La invocación del subalgoritmo se hace del mismo modo que hasta ahora, pero delante del parámetro que se pasa por referencia debe colocarse el símbolo &:
+A = 5
+B = 3
+C = 0
+potencia(A, B, &C)
+En este caso, pasamos tres parámetros actuales, ya que el subalgoritmo tiene tres parámetros formales. El tercero de ellos, C, se pasa por referencia (para señalar esta circunstancia, se antepone el símbolo &), y por lo tanto queda ligado al parámetro formal resultado.
+El parámetro formal es modificado en la instrucción resutado = base ^ exponente, y como está ligado con el parámetro actual C, el valor de la variable C también se modifica. Por lo tanto, C toma el valor 53.
+Cuando el subalgoritmo termina de ejecutarse, dejan de existir todos sus parámetros formales (base, exponente y resultado), pero la ligadura de resultado con la variable C hace que esta variable conserve el valor 53 incluso cuando el parámetro resultado ya no exista.
+Diferencias entre los métodos de paso de parámetros
+La utilidad del método de paso de parámetros por referencia es evidente: un subalgoritmo puede devolver tantos resultados como argumentos tenga, y no tiene que limitarse a un único resultado, como en el caso de las funciones.
+El paso de parámetros por referencia suele, por lo tanto, usarse en procedimientos que tienen que devolver muchos resultados al algoritmo que los invoca. Cuando el resultado es sólo uno, lo mejor es emplear una función. Esto no quiere decir que las funciones no puedan tener argumentos pasados por referencia: al contrario, a veces es muy útil.
+Expresado de otro modo: 
+    • el paso por valor es unidireccional, es decir, sólo permite transmitir datos del algoritmo al subalgoritmo a través de los argumentos.
+    • el paso por referencia es bidireccional, es decir, permite transmitir datos del algoritmo al subalgoritmo, pero también permite al subalgoritmo transmitir resultados al algoritmo.
+ 7.5  El problema del ámbito
+Variables locales
+Se llama ámbito de una variable a la parte de un programa donde dicha variable puede utilizarse.
+En principio, todas las variables declaradas en un algoritmo son locales a ese algoritmo, es decir, no existen fuera del algoritmo, y, por tanto, no pueden utilizarse más allá de las fronteras marcadas por inicio y fin. El ámbito de una variable es local al algoritmo donde se declara.
+Cuando el algoritmo comienza, las variables se crean, reservándose un espacio en la memoria RAM del ordenador para almacenar su valor. Cuando el algoritmo termina, todas sus variables se destruyen, liberándose el espacio en la memoria RAM. Todos los resultados que un algoritmo obtenga durante su ejecución, por lo tanto, se perderán al finalizar, salvo que sean devueltos al algoritmo que lo invocó o sean dirigidos a algún dispositivo de salida (como la pantalla). Esta forma de funcionar ayuda a que los algoritmos sean módulos independientes entre sí, que únicamente se comunican los resultados de sus procesos unos a otros.
+Ejemplo: Calcular el cuadrado de un valor X introducido por teclado utilizando diseño modular.
+algoritmo cuadrado
+variables
+   N, result son reales
+inicio
+   leer(N)
+   calcular_cuadrado()
+   escribir("El cuadrado es ", result)
+fin
+
+procedimiento cacular_cuadrado ()	// Calcula el cuadrado de un número
+inicio
+   result = N ^ 2
+fin
+En este algoritmo hay un grave error, ya que se han intentado utilizar las variables result y N, que son locales al algoritmo principal, en el subalgoritmo cuadrado(), desde donde no son accesibles.
+Es importante señalar que en algunos lenguajes de programación, y bajo determinadas circunstancias, cuando un algoritmo invoca a un subalgoritmo, puede que todas las variables locales del algoritmo estén disponibles en el subalgoritmo. Así, el ejemplo anterior podría llegar a ser correcto. Esto no ocurre en C, debido a que no se pueden anidar funciones dentro de funciones, pero debe ser tenido en cuenta por el alumno/a si en algún momento debe programar en otro lenguaje. El problema que surge en esas situaciones es similar al de las variables globales que tratamos a continuación.
+Variables globales
+En ocasiones es conveniente utilizar variables cuyo ámbito exceda el del algoritmo donde se definen y puedan utilizarse en varios algoritmos y subalgoritmos. Las variables globales implican una serie de riesgos, como veremos más adelante, por lo que no deben utilizarse a menos que sea estrictamente necesario. A pesar de los riesgos, la mayoría de los lenguajes de programación disponen de algún mecanismo para manejar variables globales.
+Aunque ese mecanismo varía mucho de un lenguaje a otro, diremos como regla general que las variables globales deben declararse en el algoritmo principal, anteponiendo el identificador global al nombre de la variable, siendo entonces accesibles a todos los algoritmos y subalgoritmos que conformen el programa.
+Ejemplo: Calcular el cuadrado de un valor X introducido por teclado utilizando diseño modular.
+algoritmo cuadrado
+variables
+   global N es real
+   global result es reales
+inicio
+   leer(N)
+   calcular_cuadrado()
+   escribir("El cuadrado es ", result)
+fin
+
+procedimiento cacular_cuadrado ()	// Calcula el cuadrado de un número
+inicio
+   result = N ^ 2
+fin
+El error que existía antes ya no ocurre, porque ahora las variables result y N han sido declaradas como globales en el algoritmo principal, y por lo tanto pueden utilizarse en cualquier subalgoritmo, como cuadrado().
+Pudiera ocurrir que una variable global tenga el mismo nombre que una variable local. En ese caso, el comportamiento depende del lenguaje de programación (los hay que ni siquiera lo permiten), pero lo habitual es que la variable local sustituya a la global, haciendo que ésta última sea inaccesible desde el interior del subalgoritmo. Al terminar la ejecución del subalgoritmo y destruirse la variable local, volverá a estar accesible la variable global que, además, habrá conservado su valor, pues no ha podido ser modificada desde el subalgoritmo.
+De todas formas, y puestos a evitar la utilización de variables globales (a menos que no quede otro remedio), con más razón aún evitaremos usar variables locales que tengan el mismo nombre que las globales.
+Los efectos laterales
+Al utilizar variables globales, muchas de las ventajas de la programación modular desaparecen.
+Efectivamente, la filosofía de la programación modular consiste en diseñar soluciones sencillas e independientes (llamadas módulos) para problemas sencillos, haciendo que los módulos se comuniquen entre sí sólo mediante el paso de parámetros y la devolución de resultados.
+Cuando empleamos variables globales como en el ejemplo anterior, se crea una comunicación alternativa entre módulos a través de la variable global. Ahora un módulo puede influir por completo en otro modificando el valor de una variable global. Los módulos dejan de ser "compartimentos estanco" y pasan a tener fuertes dependencias mutuas que es necesario controlar. Cuando el programa es complejo y consta de muchos módulos, ese control de las dependencias es cada vez más difícil de hacer.
+Cualquier comunicación de datos entre un algoritmo y un subalgoritmo al margen de los parámetros y la devolución de resultados se denomina efecto lateral. Los efectos laterales, como el ilustrado en el ejemplo anterior, son peligrosísimos y fuente habitual de malfuncionamiento de los programas. Por esa razón, debemos tomar como norma:
+    • Primero, evitar la utilización de variables globales.
+    • Segundo, si no quedara más remedio que emplear variables globales, no hacer uso de ellas en el interior de los procedimientos y las funciones, siendo preferible pasar el valor de la variable global como un parámetro más al subalgoritmo.
+    • Por último: si, a pesar de todo, decidimos usar variables globales por algún motivo, asegurarnos de que sabemos por qué lo hacemos y de que lo documentamos bien.
+ 7.6  La reutilización de módulos
+El diseño modular tiene, entre otras ventajas, la posibilidad de reutilizar módulos previamente escritos. Es habitual que, una vez resuelto un problema sencillo mediante una función o un procedimiento, ese mismo problema, o uno muy parecido, se nos presente más adelante, durante la realización de otro programa. Entonces nos bastará con volver a utilizar esa función o procedimiento, sin necesidad de volver a escribirlo.
+Es por esto, entre otras razones, que los módulos deben ser independientes entre sí, comunicándose con otros módulos únicamente mediante los datos de entrada (paso de parámetros por valor) y los de salida (devolución de resultados – en las funciones – y paso de parámetros por referencia). Los módulos que escribamos de este modo nos servirán probablemente para otros programas, pero no así los módulos que padezcan efectos laterales, pues sus relaciones con el resto del programa del que eran originarios serán diferentes y difíciles de precisar.
+Es habitual agrupar varios algoritmos relacionados (por ejemplo: varios algoritmos que realicen diferentes operaciones matemáticas) en un mismo archivo, formando lo que se denomina una biblioteca de funciones. Cada lenguaje trata las librerías de manera distinta, de modo que volveremos sobre este asunto al estudiar el lenguaje C.
+Por último, señalemos que, para reutilizar con éxito el código, es importante que esté bien documentado. En concreto, en cada algoritmo deberíamos documentar claramente:
+    • la función del algoritmo, es decir, explicar qué hace
+    • los parámetros de entrada
+    • los datos de salida, es decir, el resultado que devuelve o la forma de utilizar los parámetros por referencia
+Ejemplo: Documentaremos la función potencia(), que hemos utilizado como ejemplo en otras partes de este capítulo. Es un caso exagerado, pues la función es muy sencilla y se entiende sin necesidad de tantos comentarios, pero ejemplifica cómo se puede hacer la documentación de una función.
+{ Función: potencia() --> Calcula una potencia de números enteros
+  Entrada: base       --> Base de la potencia
+           exponente  --> Exponente de la potencia
+  Salida:  base elevado a exponente }
+
+real función potencia(base es real, exponente es real)
+inicio
+   devolver (base ^ exponente)
+fin
+
+ 8  Algunas reglas de estilo
+No podemos finalizar esta primera parte del libro sin referirnos a algunas reglas de estilo básicas que deben observarse a la hora de escribir código fuente. Y es que la escritura de un algoritmo debe ser siempre lo más clara posible, ya se esté escribiendo en pseudocódigo o en un lenguaje de programación real. La razón es evidente: los algoritmos pueden llegar a ser muy complejos, y si a su complejidad le añadimos una escritura sucia y desordenada, se volverán ininteligibles.
+Esto es un aviso para navegantes: todos los programadores han experimentado la frustración que se siente al ir a revisar un algoritmo redactado pocos días antes y no entender ni una palabra de lo que uno mismo escribió. Multiplíquese esto por mil en el caso de revisión de algoritmos escritos por otras personas.
+Por esta razón, y ya desde el principio, debemos acostumbrarnos a respetar ciertas reglas básicas en cuanto al estilo de escritura. Por supuesto, un programa puede funcionar correctamente sin aplicar ninguna de las cosas que vamos a mencionar aquí, pero no es a la corrección a lo que nos referimos ahora, sino al estilo. 
+Por cierto: cada programador desarrollará con el tiempo su estilo de codificación propio, pero debería hacerlo siempre dentro de un marco aceptado por la mayoría, salvo que piense desarrollar su carrera como programador en Saturno.
+ 8.1  Partes de un algoritmo
+Los algoritmos deberían tener siempre una estructura en tres partes:
+1 - Cabecera
+2 - Declaraciones
+3 - Acciones
+Algunos lenguajes, C entre ellos, son lo bastante flexibles como para permitir saltarse a la torera esta estructura, pero es una buena costumbre respetarla siempre:
+    • La cabecera: contiene el nombre del programa o algoritmo.
+    • Las declaraciones: contiene las declaraciones de variables y constantes que se usan en el algoritmo
+    • Las acciones: son el cuerpo en sí del algoritmo, es decir, las instrucciones
+Puedes observar esta estructura en todos los ejemplos que hemos visto hasta ahora. 
+ 8.2  Documentación
+La documentación del programa comprende el conjunto de información interna y externa que facilita su posterior mantenimiento.
+    • La documentación externa la forman todos los documentos ajenos al programa: guías de instalación, guías de usuario, etc.
+    • La documentación interna es la que acompaña al programa. Nosotros sólo nos ocuparemos, por ahora, de esta documentación.
+La forma más habitual de plasmar la documentación interna es por medio de comentarios significativos que acompañen a las instrucciones del algoritmo o programa. Los comentarios son líneas de texto insertadas entre las instrucciones, o bien al lado, que se ignoran durante la ejecución del programa y aclaran el funcionamiento del algoritmo a cualquier programador que pueda leerlo en el futuro.
+Para que el ordenador sepa qué debe ignorar y qué debe ejecutar, los comentarios se escriben precedidos de determinados símbolos que la máquina interpreta como "principio de comentario" o "fin de comentario".
+Los símbolos que marcan las zonas de comentario dependen del lenguaje de programación, como es lógico. Así, por ejemplo, en Pascal se escriben encerrados entre los símbolos (* y *):
+(* Esto es un comentario en Pascal *)
+El lenguaje C, sin embargo, utiliza los símbolos /*  y */ para marcar los comentarios. Además, C++ permite emplear la doble barra ( / / ) para comentarios que ocupen sólo una línea. Nosotros usaremos indistintamente estos dos métodos:
+/* Esto es un comentario en C */
+// Esto es un comentario en C++
+Ejemplo: Escribir un algoritmo que sume todos los números naturales de 1 hasta 1000
+algoritmo sumar1000
+/* Función: Sumar los números naturales entre 1 y 1000 
+   Autor:   Nombre y apellidos
+   Fecha:   08-11-17 */
+
+variables
+  cont es entero	/* variable contador */
+  suma es entero	/* variable acumulador */
+  N es entero
+inicio
+  suma = 0	/* se pone el acumulador a 0 */
+  para cont desde 1 hasta 1000 hacer	/* repetir 1000 veces */
+  inicio
+    suma = suma + cont	/* los números se suman al acumulador */
+  fin
+  escribir (suma)
+fin
+Este es un ejemplo de algoritmo comentado. Observa que los comentarios aparecen a la derecha de las instrucciones, encerrados entre llaves. A efectos de ejecución, se ignora todo lo que haya escrito entre los símbolos /* y */, pero a efectos de documentación y mantenimiento, lo que haya escrito en los comentarios puede ser importantísimo.
+Una buena e interesante costumbre es incluir un comentario al principio de cada algoritmo que explique bien la función del mismo y, si se considera necesario, el autor, la fecha de modificación y cualquier otra información que se considere interesante.
+Pero ¡cuidado! Comentar un programa en exceso no sólo es tedioso para el programador, sino contraproducente, porque un exceso de documentación lo puede hacer más ilegible. Sólo hay que insertar comentarios en los puntos que se considere que necesitan una explicación. En este sentido, el algoritmo del ejemplo está demasiado comentado.
+ 8.3  Estilo de escritura
+A lo largo de este capítulo has podido ver diversos ejemplos de algoritmos. Si te fijas en ellos, todos siguen ciertas convenciones en el uso de la tipografía, las sangrías, los espacios, etc. Escribir los algoritmos cumpliendo estas reglas es una sana costumbre.
+Sangrías
+Las instrucciones que aparezcan debajo de "inicio" deben tener una sangría mayor que dicha instrucción. Ésta sangría se mantendrá hasta la aparición del "fin" correspondiente. Esto es particularmente importante cumplirlo si existen varios bloques inicio–fin anidados. Asimismo, un algoritmo es más fácil de leer si los comentarios tienen todos la misma sangría.
+Ejemplo: Escribir un algoritmo que determine, entre dos números A y B, cuál es el mayor o si son iguales. Observa bien las sangrías de cada bloque de instrucciones, así como la posición alineada de los comentarios.
+algoritmo comparar
+// Función: Comparar dos números A y B
+variables
+  A,B son enteros
+inicio
+  leer (A)	// leemos los dos números del teclado 
+  leer (B)
+  si (A == B) entonces	// los números son iguales 
+  inicio 
+     escribir ('Los dos números son iguales')
+  fin
+  si_no	// los números son distintos, así que 
+  inicio	// vamos a compararlos entre sí 
+     si (A > B) entonces	
+     inicio	// A es mayor 
+        escribir ('A es mayor que B')	
+     fin
+     si_no
+     inicio	// B es mayor 
+        escribir ('B es mayor que A')
+     fin
+  fin
+fin
+Cuándo prescindir de "inicio" y "fin"
+Cuando un bloque de instrucciones sólo contiene una instrucción, podemos escribirla directamente, sin necesidad de encerrarla entre un "inicio" y un "fin". Esto suele redundar en una mayor facilidad de lectura.
+Ejemplo: Repetiremos el mismo ejemplo anterior, prescindiendo de los "inicio" y "fin" que no sean necesarios. Fíjate en que el algoritmo es más corto y, por lo tanto, más fácil de leer y entender.
+algoritmo comparar
+// Función: Comparar dos números A y B
+variables
+  A,B son enteros
+inicio
+  leer (A)	// leemos los dos números del teclado 
+  leer (B)
+  si (A == B) entonces	// los números son iguales 
+     escribir ('Los dos números son iguales')
+  si_no	// los números son distintos, así que 
+  inicio	// vamos a compararlos entre sí 
+     si (A > B) entonces	// A es mayor 
+        escribir ('A es mayor que B')	
+     si_no	// B es mayor 
+        escribir ('B es mayor que A') 
+  fin
+fin
+Tipografía
+En todos los ejemplos del tema hemos resaltado las palabras del pseudocódigo en negrita, para distinguirlas de identificadores de variable, símbolos, etc. Esto también aumenta la legibilidad del algoritmo, pero, cuando utilicemos un lenguaje de programación real, no será necesario hacerlo, ya que los editores de texto que se usan en programación suelen estar preparados para resaltar las palabras reservadas.
+Ahora bien, si vas a escribir un algoritmo con un procesador de texto normal o usando pseudocódigo, es conveniente que uses una fuente de tamaño fijo o monoespaciada (el tipo Courier New es el que hemos empleado en la versión impresa de este texto; si lo estás leyendo en un e-reader, el tipo concreto dependerá del dispositivo). A veces se distinguen en negrita las palabras clave del lenguaje para facilitar la lectura de los algoritmos.
+Los editores de texto orientados a la programación (hablaremos de ellos más adelante) hacen algo parecido: siempre usan un tipo de fuente monoespaciado, y colorean el código para distinguir de un solo vistazo palabras reservadas, números, literales y otros elementos del lenguaje, de modo que facilitan enormemente la legibilidad.
+Espacios
+Otro elemento que aumenta la legibilidad es espaciar suficientemente (pero no demasiado) los distintos elementos de cada instrucción. Por ejemplo, esta instrucción ya es bastante complicada y difícil de leer:
+si (a > b) y (c > d * raiz(k) ) entonces a = k + 5.7 * b
+Pero se lee mucho mejor que esta otra, en la que se han suprimido los espacios (excepto los imprescindibles):
+si (a>b)y(c>d*raiz(k))entonces a=k+5.7*b
+Al ordenador le dará igual si escribimos (a > b) o (a>b), pero a cualquier programador que deba leer nuestro código le resultará mucho más cómoda la primera forma.
+Por la misma razón, también es conveniente dejar líneas en blanco entre determinadas instrucciones del algoritmo cuando se considere que mejora la legibilidad.
+Identificadores
+A la hora de elegir identificadores de variables (o de constantes) es muy importante utilizar nombres que sean significativos, es decir, que den una idea de la información que almacena esa variable. Por ejemplo, si en un programa de nóminas vamos a guardar en una variable la edad de los empleados, es una buena ocurrencia llamar a esa variable "edad", pero no llamarla "X", "A" o "cosa".
+Ahora bien, dentro de esta política de elegir identificadores significativos, es conveniente optar por aquellos que sean lo más cortos posible, siempre que sean descifrables. Así, un identificador llamado "edad_de_los_empleados" es engorroso de escribir y leer, sobre todo si aparece muchas veces en el algoritmo, cuando probablemente "edad_empl" proporciona la misma información. Sin embargo, si lo acortamos demasiado (por ejemplo "ed_em") llegará un momento en el quede claro lo que significa.
+Toda esta idea de significación de los identificadores es extensible a los nombres de los algoritmos, de las funciones, de los procedimientos, de los archivos y, en general, de todos los objetos relacionados con un programa.
+Por último, señalar que muchos lenguajes de programación distinguen entre mayúsculas y minúsculas, es decir, que para ellos no es lo mismo el identificador "edad" que "Edad" o "EDAD". Es conveniente, por tanto, ir acostumbrándose a esta limitación. Nosotros preferiremos usar identificadores en minúscula, por ser lo más habitual entre los programadores de lenguaje C.
+
+## 4.6. Ejercicios propuestos
 
 #### Ejercicios de vectores (arrays unidimensionales)
 
@@ -529,6 +880,6 @@ Por ejemplo, si la matriz fuera de 4x4 y tuviera este contenido:
 * Centro: 4 3 1 3
 * Espiral: 4 6 7 8 9 4 5 3 3 7 0 2 4 3 3 1
 
-## 4.6. Ejercicios resueltos
+## 4.7. Ejercicios resueltos
 
 (Iremos poniendo aquí los ejercicios resueltos en clase)

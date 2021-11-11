@@ -814,13 +814,13 @@ Escribe un programa para jugar a los dados con el ordenador. Las reglas del jueg
 
 **Ejercicio 34. Juego de las Tres en Raya**
 
-<div style='background: #eee'>Vamos a hacer una versión del popular juego de las Tres en Raya para jugar contra el ordenador. No será un juego con inteligencia artificial como el de la WOPR (si no sabes qué es la WOPR, bueno, ¿para qué sirve wikipedia?), pero te permitirá pasar un buen rato programando, que es de lo que se trata.
+<div style='background: #eee'><p>Vamos a hacer una versión del popular juego de las Tres en Raya para jugar contra el ordenador. No será un juego con inteligencia artificial como el de la WOPR (si no sabes qué es la WOPR, bueno, ¿para qué sirve wikipedia?), pero te permitirá pasar un buen rato programando, que es de lo que se trata.</p>
 
-El juego se desarrolla en un tablero de 3 x 3 casillas en el que los jugadores van disponiendo sus fichas tratando de formar una línea vertical, horizontal o diagonal.
+<p>El juego se desarrolla en un tablero de 3 x 3 casillas en el que los jugadores van disponiendo sus fichas tratando de formar una línea vertical, horizontal o diagonal.</p>
 
-Las fichas del jugador humano tendrán forma de círculos (O), y las del ordenador, forma de aspa (X)
+<p>Las fichas del jugador humano tendrán forma de aspa (X) y, las del ordenador, forma de círculo (O)</p>
 
-Al principio, el tablero está en blanco. Comenzará jugando uno de los dos jugadores, elegido aleatoriamente. El jugador que comienza colocará una ficha en el tablero. Después, será el turno del otro jugador.
+Al principio, el tablero está en blanco. Comenzará jugando el jugador humano, que colocará una ficha en el tablero. Después, será el turno del ordenador.
 
 El proceso se repite hasta que uno de los dos consigue colocar tres fichas formando una línea, o hasta que ya no es posible colocar más fichas (situación de “tablas”)</div>
 
@@ -1466,4 +1466,212 @@ FinAlgoritmo
 
 (No mostramos la solución en diagrama de flujo porque ocupa demasiado espacio. No obstante, si te interesa verla, solo tienes que escribir el programa en PSeInt y pedirle que te muestre el diagrama de flujo equivalente)
 
+**Ejercicio 34. Juego de las 3 en raya**. El juego se desarrolla en un tablero de 3 x 3 casillas en el que los jugadores van disponiendo sus fichas tratando de formar una línea vertical, horizontal o diagonal. Las fichas del jugador humano tendrán forma de aspa (X) y, las del ordenador, forma de círculo (O). Al principio, el tablero está en blanco. Comenzará jugando el jugador humano, que colocará una ficha en el tablero. Después, será el turno del ordenador. El proceso se repite hasta que uno de los dos consigue colocar tres fichas formando una línea, o hasta que ya no es posible colocar más fichas (situación de “tablas”).
 
+*Solución en pseudocódigo:*
+
+En esta solución hemos utilizado arrays y subalgoritmos, dos elementos muy importantes en programación de lo que hablaremos en el próximo tema. Sin embargo, los introducimos ya aquí para que los vayas conociendo.
+
+Trata de leer y comprender el código fuente, aunque aparezcan esos elementos desconocidos. Verás que, a pesar de su longitud, es más fácil de lo que parece y puedes entender gran parte de lo que está aquí escrito.
+
+```
+Algoritmo tres_en_raya
+	Definir tablero Como Caracter
+	Dimension tablero[10]
+	Definir ganador como Cadena
+	Definir tablas como Logico
+	
+	inicializar(tablero)   // Esto es un subalgoritmo. Está escrito más abajo
+	Repetir
+		mostrar(tablero)
+		colocar_pieza_humano(tablero)
+		ganador <- comprobar_ganador(tablero)
+		tablas <- comprobar_tablas(tablero)
+		Si ganador = "Ninguno" y tablas = Falso Entonces
+			colocar_pieza_ordenador(tablero)
+			ganador <- comprobar_ganador(tablero)
+			tablas <- comprobar_tablas(tablero)
+		FinSi
+	Hasta Que ganador <> "Ninguno" o tablas = Verdadero
+	
+	mostrar(tablero)
+	Si ganador = "Ninguno" Entonces
+		Escribir "El juego ha terminado en tablas"
+	SiNo
+		Escribir "El juego ha terminado. El ganador es: ", ganador
+	FinSi
+FinAlgoritmo
+
+// --------------------------------------------
+// Inicializa el tablero con espacios en blanco
+// --------------------------------------------
+SubAlgoritmo inicializar(tablero por referencia) 
+	Definir i como entero
+	Para i <- 1 hasta 9 Hacer
+		tablero[i] <- " "
+	FinPara
+FinSubAlgoritmo
+
+// --------------------------------------------
+// Muestra el estado actual del tablero
+// --------------------------------------------
+SubAlgoritmo mostrar(tablero)
+	Escribir "ESTADO ACTUAL DEL TABLERO"
+	Escribir "+---+---+---+"
+	Escribir "| ",tablero[1]," | ",tablero[2]," | ",tablero[3]," |"
+	Escribir "+---+---+---+"
+	Escribir "| ",tablero[4]," | ",tablero[5]," | ",tablero[6]," |"
+	Escribir "+---+---+---+"
+	Escribir "| ",tablero[7]," | ",tablero[8]," | ",tablero[9]," |"
+	Escribir "+---+---+---+"	
+FinSubAlgoritmo
+
+// ---------------------------------------------------
+// Coloca una pieza del jugador humano en el tablero
+// ---------------------------------------------------
+SubAlgoritmo colocar_pieza_humano(tablero por referencia)
+	Definir casilla Como Entero
+	Definir casilla_correcta como Logico
+	Repetir
+		Escribir "¿En qué casilla quieres poner una pieza? (1-9)"
+		Leer casilla
+		casilla_correcta <- falso
+		Si tablero[casilla] = " " Entonces 
+			tablero[casilla] <- "X"
+			casilla_correcta <- verdadero
+		SiNo
+			Escribir "Error: Esa casilla ya está ocupada"
+		FinSi
+	Hasta Que casilla_correcta = Verdadero	
+FinSubAlgoritmo
+
+// ---------------------------------------------------
+// Coloca una pieza del ordenador en el tablero
+// ---------------------------------------------------
+SubAlgoritmo colocar_pieza_ordenador(tablero por referencia)
+	Definir casilla Como Entero
+	Definir casilla_correcta como Logico
+	Escribir "Es mi turno. Estoy pensando..."
+	Esperar 2 Segundos
+	casilla_correcta <- falso
+	Repetir
+		casilla <- azar(9)+1
+		Escribir "Voy a colocar mi pieza en la casilla ", casilla
+		Esperar 2 Segundos
+		Si tablero[casilla] = " " Entonces 
+			tablero[casilla] <- "O" 
+			casilla_correcta <- verdadero  
+		SiNo
+			Escribir "¡Está ocupada!"
+		FinSi
+	Hasta Que casilla_correcta = Verdadero	
+FinSubAlgoritmo
+
+// ---------------------------------------------------
+// Comprueba si hay un ganador según el estado del 
+// tablero. Devuelve "Ninguno", "Humano" u "Ordenador"
+// ---------------------------------------------------
+SubAlgoritmo ganador <- comprobar_ganador(tablero)
+	Definir ganador como cadena
+	ganador <- "Ninguno"
+	// Comprobamos primera fila
+	Si tablero[1] = tablero[2] y tablero[1] = tablero[3] Entonces
+		Si tablero[1] = "X" Entonces
+			ganador <- "Humano"
+		FinSi
+		Si tablero[1] = "O" Entonces
+			ganador <- "Ordenador"
+		FinSi
+	FinSi
+	// Comprobamos segunda fila
+	Si tablero[4] = tablero[5] y tablero[4] = tablero[6] Entonces
+		Si tablero[4] = "X" Entonces
+			ganador <- "Humano"
+		FinSi
+		Si tablero[4] = "O" Entonces
+			ganador <- "Ordenador"
+		FinSi
+	FinSi
+	// Comprobamos tercera fila
+	Si tablero[7] = tablero[8] y tablero[7] = tablero[9] Entonces
+		Si tablero[7] = "X" Entonces
+			ganador <- "Humano"
+		FinSi
+		Si tablero[7] = "O" Entonces
+			ganador <- "Ordenador"
+		FinSi
+	FinSi
+	// Comprobamos primera columna
+	Si tablero[1] = tablero[4] y tablero[1] = tablero[7] Entonces
+		Si tablero[1] = "X" Entonces
+			ganador <- "Humano"
+		FinSi
+		Si tablero[1] = "O" Entonces
+			ganador <- "Ordenador"
+		FinSi
+	FinSi
+	// Comprobamos segunda columna
+	Si tablero[2] = tablero[5] y tablero[2] = tablero[8] Entonces
+		Si tablero[2] = "X" Entonces
+			ganador <- "Humano"
+		FinSi
+		Si tablero[2] = "O" Entonces
+			ganador <- "Ordenador"
+		FinSi
+	FinSi
+	// Comprobamos tercera columna
+	Si tablero[3] = tablero[6] y tablero[3] = tablero[9] Entonces
+		Si tablero[3] = "X" Entonces
+			ganador <- "Humano"
+		FinSi
+		Si tablero[3] = "O" Entonces
+			ganador <- "Ordenador"
+		FinSi
+	FinSi
+	// Comprobamos una diagonal
+	Si tablero[1] = tablero[5] y tablero[1] = tablero[9] Entonces
+		Si tablero[1] = "X" Entonces
+			ganador <- "Humano"
+		FinSi
+		Si tablero[1] = "O" Entonces
+			ganador <- "Ordenador"
+		FinSi
+	FinSi
+	// Comprobamos la otra diagonal
+	Si tablero[3] = tablero[5] y tablero[3] = tablero[7] Entonces
+		Si tablero[3] = "X" Entonces
+			ganador <- "Humano"
+		FinSi
+		Si tablero[3] = "O" Entonces
+			ganador <- "Ordenador"
+		FinSi
+	FinSi
+FinSubAlgoritmo
+
+// -------------------------------------------
+// Comprueba si hay una situación de tablas
+// según el estado actual del tablero. Devuelve
+// verdadero si hay tablas o falso en otro caso.
+// -------------------------------------------
+SubAlgoritmo tablas <- comprobar_tablas(tablero)
+	Definir tablas Como Logico
+	Definir i, contador Como Entero
+	
+	contador <- 0
+	Para i <- 1 hasta 9 Hacer
+		Si (tablero[i] <> " ") Entonces
+			contador <- contador + 1
+		FinSi
+	FinPara
+	
+	// Si todas las casillas están ya ocupadas y no hay ganador,
+	// entonces estamos en tablas.
+	Si contador = 9 Entonces
+		tablas <- Verdadero
+	SiNo
+		tablas <- Falso
+	FinSi
+FinSubAlgoritmo
+```
+
+(No mostramos la solución en diagrama de flujo porque ocupa demasiado espacio. No obstante, si te interesa verla, solo tienes que escribir el programa en PSeInt y pedirle que te muestre el diagrama de flujo equivalente)
