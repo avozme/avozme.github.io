@@ -580,134 +580,126 @@ mostrar(tablero)
 
 ### 4.5.5. Paso de parámetros
 
-XXXX
 El paso de parámetros, o comunicación de datos del algoritmo invocante al subalgoritmo invocado, puede hacerse mediante, al menos, dos métodos:
-    • Paso de parámetros por valor, que es la forma más sencilla pero no permite al subalgoritmo devolver resultados en los parámetros.
-    • Paso de parámetros por referencia, que es más complejo pero permite a los subalgoritmos devolver resultados en los parámetros.
+
+* **Paso de parámetros por valor**, que es la forma más sencilla pero no permite al subalgoritmo devolver resultados en los parámetros.
+* **Paso de parámetros por referencia**, que es más complejo pero permite a los subalgoritmos devolver resultados en los parámetros.
+
 Veamos cada método detenidamente.
-Paso de parámetros por valor
-Los subalgoritmos/subprogramas, como hemos visto, pueden tener una serie de parámetros en su declaración. Estos parámetros se denominan parámetros formales. 
-Ejemplo: Una función que calcula la potencia de un número elevado a otro
-real función potencia(base es real, exponente es real)
-inicio
-   devolver (base ^ exponente)
-fin
-En esta declaración de función, base y exponente son parámetros formales.
-Cuando el subalgoritmo es invocado, se le pasan entre paréntesis los valores de los parámetros. A éstos se les denomina parámetros actuales; por ejemplo:
-A = 5
-B = 3
-C = potencia(A,B)
-En esta invocación de la función potencia(), los parámetros actuales son A y B, es decir, 5 y 3.
-Al invocar un subalgritmo, los parámetros actuales son asignados a los parámetros formales en el mismo orden en el que fueron escritos. Dentro del subalgoritmo, los parámetros se pueden utilizar como si fueran variables. Así, en el ejemplo anterior, dentro de la función potencia(), el parámetro base puede usarse como una variable a la que se hubiera asignado el valor 5, mientras que exponente es como una variable a la que se hubiera asignado el valor 3.
-Cuando el subalgoritmo termina de ejecutarse, sus parámetros formales base y exponente dejan de existir y se devuelve el resultado (en nuestro ejemoplo, 53), que se asigna a la variable C.
-Paso de parámetros por referencia
-En el paso de parámetros por referencia se produce una ligadura entre el parámetro actual y el parámetro formal, de modo que si el parámetro formal se modifica dentro del subalgoritmo, el parámetro actual, propio del algoritmo principal, también será modificado.
-Los argumentos pasan sus parámetros por valor excepto cuando indiquemos que el paso es por referencia colocando el símbolo * (asterisco) delante del nombre del argumento.
-Ejemplo: Escribiremos el mismo subalgoritmo de antes, pero utilizando un procedimiento (que, en principio, no devuelve resultados) en lugar de una función.
-procedimiento potencia(base es real, exponente es real, *resultado es real)
-inicio
+
+#### Paso de parámetros por valor
+
+Los subalgoritmos, como hemos visto, pueden tener una serie de parámetros en su declaración. Estos parámetros se denominan **parámetros formales**.
+
+Por ejemplo, imaginemos un subalgoritmo llamado *potencia()* que calcula la potencia de dos números enteros que llamaremos *base* y *exponente*. Ese subalgoritmo se declararía así:
+
+```
+SubAlgoritmo potencia(base, exponente)
+```
+
+En esta declaración, *base* y *exponente* son los **parámetros formales**.
+
+Cuando el subalgoritmo es invocado, se le pasan entre paréntesis los valores de los parámetros. A éstos se les denomina **parámetros actuales**; por ejemplo:
+
+```
+a <- 5
+b <- 3
+potencia(a,b)
+```
+
+En esta invocación de la función potencia(), los **parámetros actuales** son a y b, es decir, 5 y 3.
+
+Al invocar un subalgritmo, *los parámetros actuales son asignados a los parámetros formales en el mismo orden en el que fueron escritos*. 
+
+Dentro del subalgoritmo, los parámetros se pueden utilizar como si fueran variables. Así, en el ejemplo anterior, dentro de la función *potencia()*, el parámetro *base* puede usarse como una variable a la que se hubiera asignado el valor 5, mientras que *exponente* es como una variable a la que se hubiera asignado el valor 3.
+
+Cuando el subalgoritmo termina de ejecutarse, sus parámetros formales base y exponente **dejan de existir**.
+
+#### Paso de parámetros por referencia
+
+En el paso de parámetros por referencia se produce una **ligadura entre el parámetro actual y el parámetro formal**, de modo que si el parámetro formal se modifica dentro del subalgoritmo, *el parámetro actual, propio del algoritmo principal, también será modificado*.
+
+Los argumentos siempre se pasan por valor excepto cuando indiquemos explícitamente que el paso es por referencia colocando el símbolo.
+
+Por ejemplo:
+
+```
+SubAlgoritmo potencia(base, exponente, resultado por referencia)
    resultado = base ^ exponente
-fin
-Observa el símbolo * delante del nombre del argumento resultado: esa es la señal de que el paso de parámetros será por referencia para ese argumento. Si no aparece el símbolo *, el paso será por valor, como es el caso de los argumentos base y exponente.
-La invocación del subalgoritmo se hace del mismo modo que hasta ahora, pero delante del parámetro que se pasa por referencia debe colocarse el símbolo &:
-A = 5
-B = 3
-C = 0
-potencia(A, B, &C)
-En este caso, pasamos tres parámetros actuales, ya que el subalgoritmo tiene tres parámetros formales. El tercero de ellos, C, se pasa por referencia (para señalar esta circunstancia, se antepone el símbolo &), y por lo tanto queda ligado al parámetro formal resultado.
-El parámetro formal es modificado en la instrucción resutado = base ^ exponente, y como está ligado con el parámetro actual C, el valor de la variable C también se modifica. Por lo tanto, C toma el valor 53.
-Cuando el subalgoritmo termina de ejecutarse, dejan de existir todos sus parámetros formales (base, exponente y resultado), pero la ligadura de resultado con la variable C hace que esta variable conserve el valor 53 incluso cuando el parámetro resultado ya no exista.
-Diferencias entre los métodos de paso de parámetros
-La utilidad del método de paso de parámetros por referencia es evidente: un subalgoritmo puede devolver tantos resultados como argumentos tenga, y no tiene que limitarse a un único resultado, como en el caso de las funciones.
-El paso de parámetros por referencia suele, por lo tanto, usarse en procedimientos que tienen que devolver muchos resultados al algoritmo que los invoca. Cuando el resultado es sólo uno, lo mejor es emplear una función. Esto no quiere decir que las funciones no puedan tener argumentos pasados por referencia: al contrario, a veces es muy útil.
-Expresado de otro modo: 
-    • el paso por valor es unidireccional, es decir, sólo permite transmitir datos del algoritmo al subalgoritmo a través de los argumentos.
-    • el paso por referencia es bidireccional, es decir, permite transmitir datos del algoritmo al subalgoritmo, pero también permite al subalgoritmo transmitir resultados al algoritmo.
- 7.5  El problema del ámbito
-Variables locales
-Se llama ámbito de una variable a la parte de un programa donde dicha variable puede utilizarse.
-En principio, todas las variables declaradas en un algoritmo son locales a ese algoritmo, es decir, no existen fuera del algoritmo, y, por tanto, no pueden utilizarse más allá de las fronteras marcadas por inicio y fin. El ámbito de una variable es local al algoritmo donde se declara.
-Cuando el algoritmo comienza, las variables se crean, reservándose un espacio en la memoria RAM del ordenador para almacenar su valor. Cuando el algoritmo termina, todas sus variables se destruyen, liberándose el espacio en la memoria RAM. Todos los resultados que un algoritmo obtenga durante su ejecución, por lo tanto, se perderán al finalizar, salvo que sean devueltos al algoritmo que lo invocó o sean dirigidos a algún dispositivo de salida (como la pantalla). Esta forma de funcionar ayuda a que los algoritmos sean módulos independientes entre sí, que únicamente se comunican los resultados de sus procesos unos a otros.
-Ejemplo: Calcular el cuadrado de un valor X introducido por teclado utilizando diseño modular.
-algoritmo cuadrado
-variables
-   N, result son reales
-inicio
-   leer(N)
-   calcular_cuadrado()
-   escribir("El cuadrado es ", result)
-fin
+FinSubAlgoritmo
+```
 
-procedimiento cacular_cuadrado ()	// Calcula el cuadrado de un número
-inicio
-   result = N ^ 2
-fin
-En este algoritmo hay un grave error, ya que se han intentado utilizar las variables result y N, que son locales al algoritmo principal, en el subalgoritmo cuadrado(), desde donde no son accesibles.
-Es importante señalar que en algunos lenguajes de programación, y bajo determinadas circunstancias, cuando un algoritmo invoca a un subalgoritmo, puede que todas las variables locales del algoritmo estén disponibles en el subalgoritmo. Así, el ejemplo anterior podría llegar a ser correcto. Esto no ocurre en C, debido a que no se pueden anidar funciones dentro de funciones, pero debe ser tenido en cuenta por el alumno/a si en algún momento debe programar en otro lenguaje. El problema que surge en esas situaciones es similar al de las variables globales que tratamos a continuación.
-Variables globales
-En ocasiones es conveniente utilizar variables cuyo ámbito exceda el del algoritmo donde se definen y puedan utilizarse en varios algoritmos y subalgoritmos. Las variables globales implican una serie de riesgos, como veremos más adelante, por lo que no deben utilizarse a menos que sea estrictamente necesario. A pesar de los riesgos, la mayoría de los lenguajes de programación disponen de algún mecanismo para manejar variables globales.
-Aunque ese mecanismo varía mucho de un lenguaje a otro, diremos como regla general que las variables globales deben declararse en el algoritmo principal, anteponiendo el identificador global al nombre de la variable, siendo entonces accesibles a todos los algoritmos y subalgoritmos que conformen el programa.
-Ejemplo: Calcular el cuadrado de un valor X introducido por teclado utilizando diseño modular.
-algoritmo cuadrado
-variables
-   global N es real
-   global result es reales
-inicio
-   leer(N)
-   calcular_cuadrado()
-   escribir("El cuadrado es ", result)
-fin
+Observa cómo el parámetro *resultado* está pasado por referencia. Ahora veamos cómo se invoca a este subalgoritmo:
 
-procedimiento cacular_cuadrado ()	// Calcula el cuadrado de un número
-inicio
-   result = N ^ 2
-fin
-El error que existía antes ya no ocurre, porque ahora las variables result y N han sido declaradas como globales en el algoritmo principal, y por lo tanto pueden utilizarse en cualquier subalgoritmo, como cuadrado().
-Pudiera ocurrir que una variable global tenga el mismo nombre que una variable local. En ese caso, el comportamiento depende del lenguaje de programación (los hay que ni siquiera lo permiten), pero lo habitual es que la variable local sustituya a la global, haciendo que ésta última sea inaccesible desde el interior del subalgoritmo. Al terminar la ejecución del subalgoritmo y destruirse la variable local, volverá a estar accesible la variable global que, además, habrá conservado su valor, pues no ha podido ser modificada desde el subalgoritmo.
-De todas formas, y puestos a evitar la utilización de variables globales (a menos que no quede otro remedio), con más razón aún evitaremos usar variables locales que tengan el mismo nombre que las globales.
-Los efectos laterales
-Al utilizar variables globales, muchas de las ventajas de la programación modular desaparecen.
-Efectivamente, la filosofía de la programación modular consiste en diseñar soluciones sencillas e independientes (llamadas módulos) para problemas sencillos, haciendo que los módulos se comuniquen entre sí sólo mediante el paso de parámetros y la devolución de resultados.
-Cuando empleamos variables globales como en el ejemplo anterior, se crea una comunicación alternativa entre módulos a través de la variable global. Ahora un módulo puede influir por completo en otro modificando el valor de una variable global. Los módulos dejan de ser "compartimentos estanco" y pasan a tener fuertes dependencias mutuas que es necesario controlar. Cuando el programa es complejo y consta de muchos módulos, ese control de las dependencias es cada vez más difícil de hacer.
-Cualquier comunicación de datos entre un algoritmo y un subalgoritmo al margen de los parámetros y la devolución de resultados se denomina efecto lateral. Los efectos laterales, como el ilustrado en el ejemplo anterior, son peligrosísimos y fuente habitual de malfuncionamiento de los programas. Por esa razón, debemos tomar como norma:
-    • Primero, evitar la utilización de variables globales.
-    • Segundo, si no quedara más remedio que emplear variables globales, no hacer uso de ellas en el interior de los procedimientos y las funciones, siendo preferible pasar el valor de la variable global como un parámetro más al subalgoritmo.
-    • Por último: si, a pesar de todo, decidimos usar variables globales por algún motivo, asegurarnos de que sabemos por qué lo hacemos y de que lo documentamos bien.
- 7.6  La reutilización de módulos
-El diseño modular tiene, entre otras ventajas, la posibilidad de reutilizar módulos previamente escritos. Es habitual que, una vez resuelto un problema sencillo mediante una función o un procedimiento, ese mismo problema, o uno muy parecido, se nos presente más adelante, durante la realización de otro programa. Entonces nos bastará con volver a utilizar esa función o procedimiento, sin necesidad de volver a escribirlo.
-Es por esto, entre otras razones, que los módulos deben ser independientes entre sí, comunicándose con otros módulos únicamente mediante los datos de entrada (paso de parámetros por valor) y los de salida (devolución de resultados – en las funciones – y paso de parámetros por referencia). Los módulos que escribamos de este modo nos servirán probablemente para otros programas, pero no así los módulos que padezcan efectos laterales, pues sus relaciones con el resto del programa del que eran originarios serán diferentes y difíciles de precisar.
-Es habitual agrupar varios algoritmos relacionados (por ejemplo: varios algoritmos que realicen diferentes operaciones matemáticas) en un mismo archivo, formando lo que se denomina una biblioteca de funciones. Cada lenguaje trata las librerías de manera distinta, de modo que volveremos sobre este asunto al estudiar el lenguaje C.
+```
+a <- 5
+b <- 3
+c <- 0
+potencia(a, b, c)
+```
+
+En este caso, pasamos tres parámetros actuales, ya que el subalgoritmo tiene tres parámetros formales. El tercero de ellos, llamado c, se pasa por referencia, y por lo tanto queda ligado al parámetro formal *resultado*.
+
+El parámetro formal es modificado en la instrucción ```resutado = base ^ exponente```, y como está ligado con el parámetro actual c, el valor de la variable c también se modifica. Por lo tanto, c toma el valor 125.
+
+Cuando el subalgoritmo termina de ejecutarse, dejan de existir todos sus parámetros formales (base, exponente y resultado), *pero la ligadura de resultado con la variable c hace que esta variable conserve el valor 125* incluso cuando el parámetro resultado ya no exista.
+
+### 4.5.6. Ámbito de las variables
+
+#### Variables locales
+
+Se llama **ámbito de una variable** a la parte de un programa donde dicha variable puede utilizarse.
+
+En la mayoría de los lenguajes, las variables declaradas en un algoritmo son **locales** a ese algoritmo, es decir, no existen fuera del algoritmo y, por tanto, no pueden utilizarse más allá de sus fronteras.
+
+Cuando el algoritmo comienza, las variables se crean, reservándose un espacio en la memoria RAM del ordenador para almacenar su valor. Cuando el algoritmo termina, todas sus variables se destruyen, liberándose el espacio en la memoria RAM.
+
+Todos los resultados que un algoritmo obtenga durante su ejecución, por lo tanto, se perderán al finalizar, salvo que sean devueltos al algoritmo que lo invocó o sean dirigidos a algún dispositivo de salida (como la pantalla).
+
+#### Variables globales
+
+En ocasiones, es conveniente utilizar variables cuyo ámbito exceda el del algoritmo donde se definen y puedan utilizarse en varios algoritmos y subalgoritmos. Esas variables se denominan **globales**.
+
+Las variables globales son bombas de relojería en potencia. Pueden paracer objetos atractivos y útiles a primera vista, pero antes o después te explotarán en la cara. Si alguna vez sientes la tentación de usar variables globales para algo, es mejor que te sientes y esperes a que se te pasen.
+
+Si, aún así, estás convencido/a de que necesitas usar alguna variable global, debes saber que todos los lenguajes proporcionan algún mecanismo para crearlas, generalmente indicando durante su declaración que esa variable es de ámbito global.
+
+### 4.5.7. Reutilización de código
+
+El diseño de un algoritmo mediante divide y vencerás tiene, además de la ventaja evidente de poder afrontar problemas de gran tamaño, otra ventaja adicional: la posibilidad de **reutilizar subalgoritmos previamente escritos**. 
+
+Es habitual que, una vez resuelto un problema sencillo mediante una función o un procedimiento, ese mismo problema, o uno muy parecido, se nos presente más adelante, durante la realización de otro programa. Entonces nos bastará con volver a utilizar esa función o procedimiento, sin necesidad de volver a escribirlo.
+
+Es por esto, entre otras razones, que **los subalgoritmos deben ser lo más independientes y autónomos posible**.
+
+Es habitual agrupar varios subalgoritmos relacionados (por ejemplo: varios algoritmos que realicen diferentes operaciones matemáticas) en un mismo archivo, formando lo que se denomina una **biblioteca** (*libraries*, en inglés). Cada lenguaje trata las bibliotecas de manera distinta.
+
 Por último, señalemos que, para reutilizar con éxito el código, es importante que esté bien documentado. En concreto, en cada algoritmo deberíamos documentar claramente:
-    • la función del algoritmo, es decir, explicar qué hace
-    • los parámetros de entrada
-    • los datos de salida, es decir, el resultado que devuelve o la forma de utilizar los parámetros por referencia
-Ejemplo: Documentaremos la función potencia(), que hemos utilizado como ejemplo en otras partes de este capítulo. Es un caso exagerado, pues la función es muy sencilla y se entiende sin necesidad de tantos comentarios, pero ejemplifica cómo se puede hacer la documentación de una función.
-{ Función: potencia() --> Calcula una potencia de números enteros
-  Entrada: base       --> Base de la potencia
-           exponente  --> Exponente de la potencia
-  Salida:  base elevado a exponente }
 
-real función potencia(base es real, exponente es real)
-inicio
-   devolver (base ^ exponente)
-fin
+* La función del algoritmo, es decir, explicar qué hace
+* Los parámetros de entrada, si los hay
+* Los datos de salida, es decir, el resultado que devuelve o la forma de utilizar los parámetros por referencia
 
- 8  Algunas reglas de estilo
-No podemos finalizar esta primera parte del libro sin referirnos a algunas reglas de estilo básicas que deben observarse a la hora de escribir código fuente. Y es que la escritura de un algoritmo debe ser siempre lo más clara posible, ya se esté escribiendo en pseudocódigo o en un lenguaje de programación real. La razón es evidente: los algoritmos pueden llegar a ser muy complejos, y si a su complejidad le añadimos una escritura sucia y desordenada, se volverán ininteligibles.
-Esto es un aviso para navegantes: todos los programadores han experimentado la frustración que se siente al ir a revisar un algoritmo redactado pocos días antes y no entender ni una palabra de lo que uno mismo escribió. Multiplíquese esto por mil en el caso de revisión de algoritmos escritos por otras personas.
+## 4.6. El estilo de escritura
+
+No podemos finalizar estos temas de introducción sin referirnos a algunas **reglas de estilo básicas** que deben observarse a la hora de escribir código fuente. Y es que la escritura de un algoritmo debe ser siempre lo más clara posible, ya se esté escribiendo en pseudocódigo o en un lenguaje de programación real.
+
+La razón es evidente: los algoritmos pueden llegar a ser muy complejos, y si a su complejidad le añadimos una escritura sucia y desordenada, se volverán ininteligibles.
+
+Todos los programadores han experimentado la frustración que se siente al ir a revisar un algoritmo redactado pocos días antes y no entender ni una palabra de lo que uno mismo escribió.
+
 Por esta razón, y ya desde el principio, debemos acostumbrarnos a respetar ciertas reglas básicas en cuanto al estilo de escritura. Por supuesto, un programa puede funcionar correctamente sin aplicar ninguna de las cosas que vamos a mencionar aquí, pero no es a la corrección a lo que nos referimos ahora, sino al estilo. 
-Por cierto: cada programador desarrollará con el tiempo su estilo de codificación propio, pero debería hacerlo siempre dentro de un marco aceptado por la mayoría, salvo que piense desarrollar su carrera como programador en Saturno.
- 8.1  Partes de un algoritmo
+
+### 4.6.1. Partes de un algoritmo
+
 Los algoritmos deberían tener siempre una estructura en tres partes:
-1 - Cabecera
-2 - Declaraciones
-3 - Acciones
-Algunos lenguajes, C entre ellos, son lo bastante flexibles como para permitir saltarse a la torera esta estructura, pero es una buena costumbre respetarla siempre:
-    • La cabecera: contiene el nombre del programa o algoritmo.
-    • Las declaraciones: contiene las declaraciones de variables y constantes que se usan en el algoritmo
-    • Las acciones: son el cuerpo en sí del algoritmo, es decir, las instrucciones
-Puedes observar esta estructura en todos los ejemplos que hemos visto hasta ahora. 
- 8.2  Documentación
+
+1. Cabecera: contiene el nombre del programa o algoritmo.
+2. Declaraciones: contiene la declaración de las variables.
+3. Acciones: contiene las instrucciones del algoritmo.
+
+### 4.6.2. Documentación
+XXX
 La documentación del programa comprende el conjunto de información interna y externa que facilita su posterior mantenimiento.
     • La documentación externa la forman todos los documentos ajenos al programa: guías de instalación, guías de usuario, etc.
     • La documentación interna es la que acompaña al programa. Nosotros sólo nos ocuparemos, por ahora, de esta documentación.
