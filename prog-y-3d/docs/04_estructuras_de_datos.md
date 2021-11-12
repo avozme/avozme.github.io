@@ -699,104 +699,106 @@ Los algoritmos deberían tener siempre una estructura en tres partes:
 3. Acciones: contiene las instrucciones del algoritmo.
 
 ### 4.6.2. Documentación
-XXX
-La documentación del programa comprende el conjunto de información interna y externa que facilita su posterior mantenimiento.
-    • La documentación externa la forman todos los documentos ajenos al programa: guías de instalación, guías de usuario, etc.
-    • La documentación interna es la que acompaña al programa. Nosotros sólo nos ocuparemos, por ahora, de esta documentación.
-La forma más habitual de plasmar la documentación interna es por medio de comentarios significativos que acompañen a las instrucciones del algoritmo o programa. Los comentarios son líneas de texto insertadas entre las instrucciones, o bien al lado, que se ignoran durante la ejecución del programa y aclaran el funcionamiento del algoritmo a cualquier programador que pueda leerlo en el futuro.
-Para que el ordenador sepa qué debe ignorar y qué debe ejecutar, los comentarios se escriben precedidos de determinados símbolos que la máquina interpreta como "principio de comentario" o "fin de comentario".
-Los símbolos que marcan las zonas de comentario dependen del lenguaje de programación, como es lógico. Así, por ejemplo, en Pascal se escriben encerrados entre los símbolos (* y *):
-(* Esto es un comentario en Pascal *)
-El lenguaje C, sin embargo, utiliza los símbolos /*  y */ para marcar los comentarios. Además, C++ permite emplear la doble barra ( / / ) para comentarios que ocupen sólo una línea. Nosotros usaremos indistintamente estos dos métodos:
-/* Esto es un comentario en C */
-// Esto es un comentario en C++
-Ejemplo: Escribir un algoritmo que sume todos los números naturales de 1 hasta 1000
-algoritmo sumar1000
-/* Función: Sumar los números naturales entre 1 y 1000 
-   Autor:   Nombre y apellidos
-   Fecha:   08-11-17 */
 
-variables
-  cont es entero	/* variable contador */
-  suma es entero	/* variable acumulador */
-  N es entero
-inicio
-  suma = 0	/* se pone el acumulador a 0 */
-  para cont desde 1 hasta 1000 hacer	/* repetir 1000 veces */
-  inicio
-    suma = suma + cont	/* los números se suman al acumulador */
-  fin
-  escribir (suma)
-fin
-Este es un ejemplo de algoritmo comentado. Observa que los comentarios aparecen a la derecha de las instrucciones, encerrados entre llaves. A efectos de ejecución, se ignora todo lo que haya escrito entre los símbolos /* y */, pero a efectos de documentación y mantenimiento, lo que haya escrito en los comentarios puede ser importantísimo.
-Una buena e interesante costumbre es incluir un comentario al principio de cada algoritmo que explique bien la función del mismo y, si se considera necesario, el autor, la fecha de modificación y cualquier otra información que se considere interesante.
-Pero ¡cuidado! Comentar un programa en exceso no sólo es tedioso para el programador, sino contraproducente, porque un exceso de documentación lo puede hacer más ilegible. Sólo hay que insertar comentarios en los puntos que se considere que necesitan una explicación. En este sentido, el algoritmo del ejemplo está demasiado comentado.
- 8.3  Estilo de escritura
-A lo largo de este capítulo has podido ver diversos ejemplos de algoritmos. Si te fijas en ellos, todos siguen ciertas convenciones en el uso de la tipografía, las sangrías, los espacios, etc. Escribir los algoritmos cumpliendo estas reglas es una sana costumbre.
-Sangrías
-Las instrucciones que aparezcan debajo de "inicio" deben tener una sangría mayor que dicha instrucción. Ésta sangría se mantendrá hasta la aparición del "fin" correspondiente. Esto es particularmente importante cumplirlo si existen varios bloques inicio–fin anidados. Asimismo, un algoritmo es más fácil de leer si los comentarios tienen todos la misma sangría.
-Ejemplo: Escribir un algoritmo que determine, entre dos números A y B, cuál es el mayor o si son iguales. Observa bien las sangrías de cada bloque de instrucciones, así como la posición alineada de los comentarios.
-algoritmo comparar
-// Función: Comparar dos números A y B
-variables
-  A,B son enteros
-inicio
-  leer (A)	// leemos los dos números del teclado 
-  leer (B)
-  si (A == B) entonces	// los números son iguales 
-  inicio 
-     escribir ('Los dos números son iguales')
-  fin
-  si_no	// los números son distintos, así que 
-  inicio	// vamos a compararlos entre sí 
-     si (A > B) entonces	
-     inicio	// A es mayor 
-        escribir ('A es mayor que B')	
-     fin
-     si_no
-     inicio	// B es mayor 
-        escribir ('B es mayor que A')
-     fin
-  fin
-fin
-Cuándo prescindir de "inicio" y "fin"
-Cuando un bloque de instrucciones sólo contiene una instrucción, podemos escribirla directamente, sin necesidad de encerrarla entre un "inicio" y un "fin". Esto suele redundar en una mayor facilidad de lectura.
-Ejemplo: Repetiremos el mismo ejemplo anterior, prescindiendo de los "inicio" y "fin" que no sean necesarios. Fíjate en que el algoritmo es más corto y, por lo tanto, más fácil de leer y entender.
-algoritmo comparar
-// Función: Comparar dos números A y B
-variables
-  A,B son enteros
-inicio
-  leer (A)	// leemos los dos números del teclado 
-  leer (B)
-  si (A == B) entonces	// los números son iguales 
-     escribir ('Los dos números son iguales')
-  si_no	// los números son distintos, así que 
-  inicio	// vamos a compararlos entre sí 
-     si (A > B) entonces	// A es mayor 
-        escribir ('A es mayor que B')	
-     si_no	// B es mayor 
-        escribir ('B es mayor que A') 
-  fin
-fin
-Tipografía
-En todos los ejemplos del tema hemos resaltado las palabras del pseudocódigo en negrita, para distinguirlas de identificadores de variable, símbolos, etc. Esto también aumenta la legibilidad del algoritmo, pero, cuando utilicemos un lenguaje de programación real, no será necesario hacerlo, ya que los editores de texto que se usan en programación suelen estar preparados para resaltar las palabras reservadas.
-Ahora bien, si vas a escribir un algoritmo con un procesador de texto normal o usando pseudocódigo, es conveniente que uses una fuente de tamaño fijo o monoespaciada (el tipo Courier New es el que hemos empleado en la versión impresa de este texto; si lo estás leyendo en un e-reader, el tipo concreto dependerá del dispositivo). A veces se distinguen en negrita las palabras clave del lenguaje para facilitar la lectura de los algoritmos.
-Los editores de texto orientados a la programación (hablaremos de ellos más adelante) hacen algo parecido: siempre usan un tipo de fuente monoespaciado, y colorean el código para distinguir de un solo vistazo palabras reservadas, números, literales y otros elementos del lenguaje, de modo que facilitan enormemente la legibilidad.
-Espacios
-Otro elemento que aumenta la legibilidad es espaciar suficientemente (pero no demasiado) los distintos elementos de cada instrucción. Por ejemplo, esta instrucción ya es bastante complicada y difícil de leer:
-si (a > b) y (c > d * raiz(k) ) entonces a = k + 5.7 * b
+La expresión "documentación de un programa" se refiere, en realidad, a dos tipos muy distintos de documentación:
+    
+* La **documentación externa**, formada por todos los documentos ajenos al programa: guías de instalación, guías de usuario, manuales de referencia, manuales técnicos, etc.
+* La **documentación interna** es la que se incluye en el propio código programa. Está formada por los comentarios del código fuente.
+
+Los **comentarios** del código fuente deben ser significativos.
+
+Se dice que el código fuente perfecto es aquel que no necesita ningún comentario adicional, porque se explica suficientemente bien a sí mismo y puede leerse sin necesidad de aclaraciones adicionales. 
+
+Esto es un escenario utópico que nunca se da en la realidad, pero debemos programar con la vista puesta en él. Nuestro código debe ser lo más claro y autoexplicativo posible. Cuando no lo logremos, debemos acompañarlo de comentarios que expliquen lo que el código hace y faciliten su comprensión y mantenimiento posterior.
+
+Cada algoritmo, además, debería ir precedido de un comentario que explique lo que ese algoritmo hace. En los subalgoritmos, además, deberían añadirse a ese comentario otros que indiquen cuales son los parámetros de entrada (si existen) y cual es el valor devuelto (si es el caso).
+
+En PSeInt, los comentarios se escriben con una doble barra inclinada (//) al comienzo del mismo. Cada lenguaje de programación tiene su propio estilo de comentarios y deberás curiosear un poco en los manuales para averiguarlo cuando vayas a programar en un lenguaje de programación nuevo.
+
+### 4.6.3. Convenciones de escritura
+
+Se considera una buena práctica de programación seguir ciertas normas de escritura en el código fuente.
+
+Del mismo modo que al escribir en lenguaje natural no solo respetamos la ortografía y la sintaxis (o, al menos, deberíamos hacerlo), sino que también usamos signos de puntuación, dejamos márgenes a ambos lados y procuramos no hacer tachones para que el texto luzca bien y sea cómodo de leer (o, al menos, también deberíamos hacerlo), al escribir en un lenguaje de programación hay ciertas convenciones que no son imprescindibles pero sí muy recomendables.
+
+#### Sangrías
+
+Las instrucciones que aparezcan dentro de un bloque deben tener una sangría mayor que las de apertura y cierre de ese bloque. 
+
+Por ejemplo, las instrucciones que hay dentro de un bucle ```Mientras ... FinMientras``` deberían estar más sangradas que las propias instrucciones ```Mientras``` y ```FinMientras```:
+
+```
+Mientras condición hacer
+   Instrucción 1
+   Instrucción 2
+   ...
+   Instrucción N
+FinMientras
+```
+
+Esto es aplicable a cualquier bloque: ```Algoritmo ... FinAlgoritmo```, ```Para ... FinPara```, ```Si ... SiNo ... FinSi```, etc. En particular, este último caso, que puede llevar un bloque ```SiNo``` de forma optativa, se escribe así (fíjate bien en la sangría izquierda):
+
+```
+Si condición Entonces
+   Instrucciones
+SiNo
+   Otras Instrucciones
+FinSi
+```
+
+Si hay un bloque anidado dentro de otro, el bloque más interno se sangrará aún más que el bloque precedente. Por ejemplo:
+
+```
+Mientras i < 10 Hacer
+   Leer n
+   Si n > 0 Entonces
+      i <- i + n
+   SiNo
+      i <- i - n
+   FinSi
+FinMientras
+```
+
+#### Espacios
+
+Algo que aumenta la legibilidad del código es **espaciar suficientemente** (pero no demasiado) los distintos elementos de cada instrucción. Por ejemplo, esta instrucción ya es bastante complicada y difícil de leer:
+
+```
+si (a > b) y (c > d * raiz(k) ) entonces a <- k + 5.7 * b
+```
+
 Pero se lee mucho mejor que esta otra, en la que se han suprimido los espacios (excepto los imprescindibles):
-si (a>b)y(c>d*raiz(k))entonces a=k+5.7*b
-Al ordenador le dará igual si escribimos (a > b) o (a>b), pero a cualquier programador que deba leer nuestro código le resultará mucho más cómoda la primera forma.
+
+```
+si (a>b)y(c>d*raiz(k))entonces a<-k+5.7*b
+```
+
+Al ordenador le dará igual si escribimos ```(a > b)``` o ```(a>b)```, pero a cualquier programador que deba leer nuestro código le resultará mucho más cómoda la primera forma.
+
 Por la misma razón, también es conveniente dejar líneas en blanco entre determinadas instrucciones del algoritmo cuando se considere que mejora la legibilidad.
-Identificadores
-A la hora de elegir identificadores de variables (o de constantes) es muy importante utilizar nombres que sean significativos, es decir, que den una idea de la información que almacena esa variable. Por ejemplo, si en un programa de nóminas vamos a guardar en una variable la edad de los empleados, es una buena ocurrencia llamar a esa variable "edad", pero no llamarla "X", "A" o "cosa".
-Ahora bien, dentro de esta política de elegir identificadores significativos, es conveniente optar por aquellos que sean lo más cortos posible, siempre que sean descifrables. Así, un identificador llamado "edad_de_los_empleados" es engorroso de escribir y leer, sobre todo si aparece muchas veces en el algoritmo, cuando probablemente "edad_empl" proporciona la misma información. Sin embargo, si lo acortamos demasiado (por ejemplo "ed_em") llegará un momento en el quede claro lo que significa.
+
+#### Identificadores
+
+A la hora de elegir identificadores de variables (o de algoritmos y subalgoritmos) es muy importante utilizar **nombres que sean significativos**, es decir, que den una idea de la información que almacena esa variable.
+
+Por ejemplo, si en un programa de nóminas vamos a guardar en una variable la edad de los empleados, es una buena ocurrencia llamar a esa variable "edad", pero no llamarla "x", "a" o "cosa".
+
+Ahora bien, dentro de esta política de elegir identificadores significativos, es conveniente optar por aquellos que sean lo más cortos posible, siempre que sean descifrables. Un identificador llamado "edad_de_los_empleados" es engorroso de escribir y leer, sobre todo si aparece muchas veces en el algoritmo, cuando probablemente "edad_empl" proporciona la misma información. Sin embargo, si lo acortamos demasiado (por ejemplo "ed_em") llegará un momento en el no quede claro lo que significa.
+
 Toda esta idea de significación de los identificadores es extensible a los nombres de los algoritmos, de las funciones, de los procedimientos, de los archivos y, en general, de todos los objetos relacionados con un programa.
-Por último, señalar que muchos lenguajes de programación distinguen entre mayúsculas y minúsculas, es decir, que para ellos no es lo mismo el identificador "edad" que "Edad" o "EDAD". Es conveniente, por tanto, ir acostumbrándose a esta limitación. Nosotros preferiremos usar identificadores en minúscula, por ser lo más habitual entre los programadores de lenguaje C.
+
+Por último, señalar que muchos lenguajes de programación distinguen entre mayúsculas y minúsculas, es decir, que para ellos no es lo mismo el identificador "edad" que "Edad" o "EDAD". Por convenio, los algoritmos suelen nombrarse con la primera letra en mayúscula y el resto en minúsculas, mientras que las variables y funciones suelen nombrarse con la todas las letras en minúscula.
+
+Excepción: si el identificador consta de más de una palabra. En ese caso, ¿cómo es conveniente escribirlo? Existen dos convenciones para eso:
+
+* **CamelCase**: si el identificador consta de más de una palabra, se escriben todas juntas y la primera letra de cada palabra se escribe en mayúsculas. Por ejemplo: ```edadEmpleado```.
+* **snake_case**: si el identificador consta de más de una palabra, se escriben separadas por el signo de subrayado (_). Por ejemplo: ```edad_empleado```.
+
+Elegir CamelCase o snake_case es una cuestión de gustos personales. Lo importante es que, optes por el estilo que optes, lo utilices siempre y no mezcles identificadores de un tipo con identificadores de otro.
 
 ## 4.6. Ejercicios propuestos
+
+Resuelve los siguientes ejercicios utilizando subalgoritmos cuando la complejidad del problema así lo requiera. Puedes hacerlo con todos, excepto los números 1, 2, 7 y 8, que son tan simples que difícilmente podrás sacar un subalgoritmo de ellos.
 
 #### Ejercicios de vectores (arrays unidimensionales)
 
