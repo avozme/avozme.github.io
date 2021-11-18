@@ -200,65 +200,59 @@ Eso significa una cosa: que **aprender a programar con Javascript es una inversi
 
 Javascript es un lenguaje interpretado de alto nivel cuyas propiedades fundamentales son:
 
-* Es un lenguaje imperativo y estructurado. Admite orientación a objetos basada en prototipos, no en clases (puede que no entiendas lo que significa esto, pero de momento no importa).
-* Su tipado es débil y dinámico.
-XXX
-    • Los operadores de C son más numerosos que en la mayoría de los lenguajes de programación anteriores y contemporáneos suyos.
-    • Muchas de las sentencias de decisión y de bucles han servido de referencia para el diseño de todos los lenguajes creados en estos últimos años, de modo especial los populares Java y Visual Basic (no confundir Java con JavaScript: son dos lenguajes muy diferentes. Tampoco se debe confundir Visual Basic con el antiguo Basic)
-    • C es un lenguaje muy eficiente, casi tanto como el ensamblador, por lo que es adecuado para desarrollar software en el que la velocidad de ejecución sea importante: sistemas operativos, sistemas en tiempo real, compiladores, software de comunicaciones, etc.
-    • C es altamente portable, más que otros lenguajes de alto nivel, ya que existen compiladores para lenguaje C estándar en todas las plataformas imaginables
-    • Es un lenguaje muy popular y, por lo tanto, existen multitud de librerías de funciones ya programadas que se pueden reutilizar, así como documentación abundante.
-    • C es más críptico que la mayoría de los otros lenguajes de programación de alto nivel. Su naturaleza críptica proviene de la enorme cantidad de operadores y un número pequeño de palabras clave o palabras reservadas. El lenguaje C estándar (ANSI C) tiene solamente 32 palabras reservadas, un número extremadamente pequeño comparado a otros lenguajes como Visual Basic.
- 2.2  Breve historia de C
-En 1972, los laboratorios Bell necesitaban un nuevo sistema operativo. Hasta ese momento, la mayoría de los sistemas operativos estaban escritos en lenguaje ensamblador ya que los lenguajes de alto nivel no generaban programas lo suficientemente rápidos. Pero los programas escritos en ensamblador son difíciles de mantener y Bell quería que su nuevo sistema operativo se pudiera mantener y modificar con facilidad. Por lo tanto, se decidieron a inventar un lenguaje de alto nivel nuevo con el que programar su sistema operativo. Este lenguaje debía cumplir dos requisitos: ser tan manejable como cualquier otro lenguaje de alto nivel (para que los programas fueran fáciles de mantener) y generar un código binario tan rápido como el escrito directamente en ensamblador.
-Brian Kerningham y Dennis Ritchie, dos ingenieros de laboratorios Bell, tras varios intentos (C procede de otro lenguaje llamado B, que a su vez procede de otro anterior), terminaron de diseñar el lenguaje C en un ordenador DEC PDP-11. El lenguaje C pasó a convertirse y conocerse como "un lenguaje de programación de alto-bajo nivel". Eso significa que soporta todas las construcciones de programación de cualquier lenguaje de alto nivel, incluyendo construcciones de programación estructurada, y al mismo tiempo se compila en un código eficiente que corre casi tan rápidamente como un lenguaje ensamblador.
-Los laboratorios Bell terminaron de construir su sistema operativo Unix y su lenguaje de programación por excelencia, C. El tándem C – Unix ha sido la referencia fundamental en el mundo de la programación en el último medio siglo, y C se ha convertido en uno de los lenguajes de programación más populares y longevos de la historia de la informática. C creció en popularidad muy rápidamente y sigue siendo uno de los lenguajes fundamentales tanto en el mundo educativo como en el mundo profesional.
-El lenguaje C como tal aparece descrito por primera vez en el libro "The C Programming Language" (Prentice-Hall, 1978), auténtica biblia de la programación escrita por Kerningham y Ritchie. Todavía se pueden encontrar ediciones recientes de ese texto, y existe incluso una edición digital oficial. El lenguaje se extendió rápidamente y surgieron diferentes implementaciones con ligeras diferencias entre sí hasta que el instituto de estándares americano (ANSI) formó un comité en 1983 para definir un estándar del lenguaje.
-El primer estándar ANSI C apareció en 1990 y fue revisado en 1999. Una evolución de C fue el lenguaje C++ que, a parte de todas las características del ANSI C, incluye la posibilidad de orientación a objetos, una técnica de programación ligeramente diferente de la programación estructurada. En el año 2000, Microsoft patentó el lenguaje C#, otra evolución de C++ orientada al desarrollo de aplicaciones para la plataforma .NET de esta compañía.
-En la actualidad son muchos los fabricantes de compiladores C, y todos cumplen con la norma ANSI C, por lo que el código escrito para un compilador es altamente portable a otros. Algunos de ellos son Visual C++ (o C#) de Microsoft, Embarcadero C++ Builder (antiguo Borland C++), el Intel C++ Compiler y, por supuesto, el legendario compilador gcc con licencia GNU en sus diferentes versiones.
- 2.3  Un lenguaje para programadores
-H. Schildt, en su "Manual de referencia de Turbo C/C++" editado por McGraw-Hill, se hace una interesante reflexión que al principio puede resultar sorprendente: "pero... ¿no son todos los lenguajes para programadores? La respuesta es sencillamente: no."
-Analizando un poco más las razones del autor para tan rotunda negativa, se llega a la conclusión de que existen determinados lenguajes (algunos clásicos, como Basic, Cobol o Fortran, y otros más actuales, como Visual Basic, Python o PHP) que han sido diseñados para permitir que los no programadores puedan leer y comprender los programas y, presumiblemente, aprender a escribir los suyos propios para resolver problemas sencillos.
-Por el contrario, C fue creado, influenciado y probado en vivo por programadores profesionales. El resultado es que C da al programador lo que muchos programadores piden: unas pocas y bien escogidas palabras clave, una biblioteca poderosa y estandarizada, unas mínimas restricciones y un máximo control sobre lo que sucede en el interior de la máquina. Si a esto unimos que el código objeto generado por C es casi tan eficiente como el ensamblador, se entenderá por qué lleva medio siglo siendo uno de los lenguajes más populares entre los programadores profesionales.
-Ahora bien, C también tiene sus detractores que lo acusan de ser confuso, críptico y demasiado flexible. En efecto, con C se pueden desarrollar las técnicas de programación estructurada, pero también se puede programar "código espagueti". Esto, sin embargo, ocurre con todos los lenguajes: incluso los que tienen una sintaxis más estilizada y elegante, como Python o Ruby, pueden generar código absolutamente ininteligible en manos de un programador manazas. 
- 2.4  Un lenguaje estructurado y modular
-C es un lenguaje estructurado porque contiene las estructuras de control básicas que hemos estudiado con anterioridad. También permite romper las estructuras y escribir programas no estructurados, pero nosotros evitaremos hacerlo.
-C es un lenguaje estrictamente modular. Todos los algoritmos se escriben en forma de funciones, incluido el algoritmo principal (cuya función siembre recibe el mismo nombre: main() ). En C no existen los procedimientos, pero se pueden escribir funciones que no devuelvan ningún valor, es decir, funciones que en realidad son procedimientos.
- 3  Variables, operadores y expresiones en C
- 3.1  Generalidades sintácticas de C
-Antes de profundizar en la programación en C, debemos conocer algunas normas básicas del lenguaje:
-    • Los bloques de código se marcan con las llaves {...}. Son equivalentes al inicio y fin que usábamos en pseudocódigo.
-    • Todas las instrucciones terminan con un punto y coma ( ; )
-    • Los identificadores de variables, funciones, etc., no pueden empezar con un número ni contener espacios o símbolos especiales, salvo el de subrayado ( _ )
-    • Los caracteres se encierran entre comillas simples ( '…' )
-    • Las cadenas de caracteres se encierran entre comillas dobles ( "..." )
-    • El lenguaje es sensitivo a las mayúsculas. Es decir, no es lo mismo escribir main() que MAIN() o Main()
- 3.2  Tipos de datos simples
-Los tipos fundamentales o simples de datos admitidos por C son los siguientes:
-Denominación
-Tipo de datos
-Tamaño en bits
-Rango de valores
-char
-Carácter
-8
-de 0 a 255
-int
-Número entero
-16
-de –32768 a 32767
-float
-Número real de precisión simple
-32
-de 3.4 x 10-38 a 3.4 x 1038
-double
-Número real de precisión doble
-64
-de 1.7 x 10-308 a 1.7 x 10308
-void
-Tipo vacío
-0
-sin valor
+* Es un lenguaje **imperativo y estructurado**. Admite **orientación a objetos basada en prototipos**, no en clases (puede que no entiendas lo que significa esto, pero de momento no importa).
+* Su **tipado es débil y dinámico**.
+* La **sintaxis** de sus estructuras de control está **heredada del lenguaje C**, como la de Java, PHP o Python, por lo que guarda bastantes semejanzas con estos otros lenguajes.
+* Es un **lenguaje interpretado**, pensado para ser ejecutado dentro de un navegador web. Por lo tanto, no es particularmente eficiente, pero sí muy portable. Sin embargo, también existen **compiladores y precompiladores** que permiten construir con Javascript cualquier tipo de programa, no solo aplicaciones web.
+* Es **altamente portable**. Cualquier programa en Javascript debería poder ejecutarse sin ninguna adaptación particular en cualquier navegador web reciente.
+* Su integración con los navegadores web hace que pueda manipular cualquier página web, incluso después de estar cargada en el navegador.
+* Es uno de los lenguajes de programación **más populares** del mundo en la actualidad. Aunque se ha intentado reemplazar muchas veces, ningún otro lenguaje lo ha conseguido (de momento).
+
+### 5.2.2. Breve historia de Javascript
+
+Javascript fue un lenguaje creado en la década de 1990 para el ya desaparecido navegador web **Netscape Navigator**. En aquellos primeros tiempos de internet, las páginas web eran sitios muy poco vistosos, con mucho texto y unas pocas imágenes, y Javascript pretendía introducir un poco de movimiento y dinamismo en esas páginas.
+
+**Internet Explorer**, el principal competidor de Netscape, respondió introduciendo **VB Script** en su navegador y, posteriormente, un lenguaje muy similar a Javascript (pero no igual) llamado **JScript**. Esos lenguajes no tuvieron éxito e Internet Explorer terminó por aceptar la existencia de Javascript.
+
+Aquella competición entre Netscape e Internet Explorer se llamó *guerra de los navegadores* y, aunque Netscape la perdió y acabó desapareciendo, Javascript ha permanecido hasta hoy como un heredero directo aquella época.
+
+Durante ese tiempo, Javascript ha tenido una evolución enorme, y ha pasado de ser apenas un lenguaje de juguete con el que se podían conseguir un puñado de efectos dinámicos en los sitios web a ser un lenguaje enorme y bien definido capaz de sustentar la estructura de enormes aplicaciones web.
+
+Hoy en día, Javascript suele utilizarse con librerías y *frameworks* que mejoran su estructura y aumentan su potencia. El estándar del lenguaje está publicado por la ECMA (European Computer Manufacturers Association) y se denomina ECMAScript. Todos los navegadores web respetan ese estándar casi en gran medida.
+
+### 5.2.3. Sintaxis básica de Javascript: variables, operadores y expresiones
+ 
+#### Generalidades sintácticas
+
+Hay algunas normas básicas de la sintaxis de Javascript que tienes que conocer:
+
+* Los bloques de código se marcan con las llaves {...}. Por ejemplo, después de una sentencia *while* (equivalente al *mientras* de pseudocódigo) hay que abrir una llave. El cuerpo de bucle comprenderá desde esa llave de apertura hasta la siguiente llave de cierre, así:
+
+   ```javascript
+   while (condicion) {
+      Instrucción 1 del bucle
+      Instrucción 2 del bulce
+      ...
+      Instrucción N del bucle
+   }
+   ```
+
+   La llave de cierre, por tanto, sería el equivalente al *FinMientras* de pseudocódigo.
+
+* Todas las instrucciones terminan con un punto y coma ( ; )
+* Los identificadores de variables, funciones, etc., no pueden empezar con un número ni contener espacios o símbolos especiales, salvo el de subrayado ( _ )
+* Las cadenas de caracteres pueden encerrarse entre comillas simples ( '...' ) o comillas dobles ( "..." )
+* El lenguaje es sensitivo a las mayúsculas. Es decir, no es lo mismo que una variable se llame *edad* que *Edad* o *EDAD*.
+
+#### Tipos de datos simples
+
+Javascript utiliza los tipos de datos simples habituales: enteros, reales, lógicos... 
+
+Pero, como es un lenguaje de tipado dinámico, esos tipos pueden variar durante la ejecución, dependiendo de lo que hagas con las variables.
+
+De hecho, Javascript es tan flexible que ni siquiera es necesario declarar las variables (aunque es aconsejable). Es decir, que puedes usar una variable cuando la necesites sin tener que declararla antes.
+
+Las variables en Javascript se declaran con XXX
 
 Esta tabla es sólo una orientación, ya que pueden existir variaciones entre compiladores. Por ejemplo, el viejo compilador Borland C++ para Windows utilizaba enteros de 16 bits, pero el compilador mingw integrado con el Dev-C++ utiliza enteros de 32 bits (en realidad, interpreta que todos los “int” son “long int”; véase el modificador “long” más abajo).
 El programador debe estar al tanto de los límites que utiliza el compilador que esté usando para evitar los overflows. Una forma sencilla de hacerlo es utilizando el operador sizeof(tipo). Por ejemplo, sizeof(int) nos devuelve la cantidad de bytes que ocupa un dato de tipo int.
@@ -290,7 +284,7 @@ int cont;
 char respuesta;
 float x, y, resultado;
 En C no está delimitado el lugar del algoritmo donde deben declararse las variables, siendo la única condición que se declaren antes de ser usadas por primera vez. Sin embargo, nosotros recomendamos, al menos al principio, hacer la declaración inmediatamente después de abrir el bloque algorítmico, antes de la primera instrucción.
-Todas las variables son, salvo que se indique otra cosa, locales a la función donde estén definidas, dejando de existir al finalizar la función. Las variables globales se declaran fuera del cuerpo de todas las funciones y antes de la función main(), que es el algoritmo principal. Recuerda que debes evitar el uso de variables globales a menos que sea estrictamente necesario.
+Todas las variable, aunque se considera una buena prácticas son, salvo que se indique otra cosa, locales a la función donde estén definidas, dejando de existir al finalizar la función. Las variables globales se declaran fuera del cuerpo de todas las funciones y antes de la función main(), que es el algoritmo principal. Recuerda que debes evitar el uso de variables globales a menos que sea estrictamente necesario.
 Se pueden aplicar ciertos modificadores a las variables que modifican la forma en la que almacenan y/o su ámbito. Estos modificadores puedes consultarlos en la sexta parte del libro. Por ahora, no te van a hacer falta.
 Para asignar un valor a una variable se utiliza la sentencia de asignación, exactamente igual que en pseudocódigo. Por ejemplo:
 cont = cont + 1;
