@@ -246,269 +246,349 @@ Hay algunas normas básicas de la sintaxis de Javascript que tienes que conocer:
 
 #### Tipos de datos simples
 
-Javascript utiliza los tipos de datos simples habituales: enteros, reales, lógicos... 
+Javascript utiliza varios tipos de datos llamados **primitivos**: 
 
-Pero, como es un lenguaje de tipado dinámico, esos tipos pueden variar durante la ejecución, dependiendo de lo que hagas con las variables.
+* **number**: números enteros y reales, indistintamente.
+* **string**: cadenas de caracteres.
+* **boolean**: datos de tipo lógico, es decir, de los que solo pueden valer *true* (verdadero) o *false* (falso). 
 
-De hecho, Javascript es tan flexible que ni siquiera es necesario declarar las variables (aunque es aconsejable). Es decir, que puedes usar una variable cuando la necesites sin tener que declararla antes.
+Como es un lenguaje de tipado dinámico, esos tipos **pueden variar durante la ejecución**, dependiendo de lo que hagas con las variables.
 
-Las variables en Javascript se declaran con XXX
+De hecho, Javascript es tan flexible que **ni siquiera es necesario declarar las variables** (aunque es aconsejable). Es decir, que puedes usar una variable cuando la necesites sin tener que declararla antes.
 
-Esta tabla es sólo una orientación, ya que pueden existir variaciones entre compiladores. Por ejemplo, el viejo compilador Borland C++ para Windows utilizaba enteros de 16 bits, pero el compilador mingw integrado con el Dev-C++ utiliza enteros de 32 bits (en realidad, interpreta que todos los “int” son “long int”; véase el modificador “long” más abajo).
-El programador debe estar al tanto de los límites que utiliza el compilador que esté usando para evitar los overflows. Una forma sencilla de hacerlo es utilizando el operador sizeof(tipo). Por ejemplo, sizeof(int) nos devuelve la cantidad de bytes que ocupa un dato de tipo int.
-El tipo char se usa normalmente para variables que guardan un único carácter, aunque lo que en realidad guardan es un código ASCII, es decir, un número entero de 8 bits sin signo (de 0 a 255). Los caracteres se escriben siempre entre comillas simples ( '…' ). Por lo tanto, si suponemos que x es una variable de tipo char, estas dos asignaciones tienen exactamente el mismo efecto, ya que 65 es el código ASCII de la letra A:
-x = 'A';
-x = 65;
-Mucho cuidado con esto, porque las cadenas de caracteres se escriben con comillas dobles ("…") a diferencia de las comillas simples de los caracteres sueltos.
-El tipo int se usa para números enteros, mientras que los tipos float y double sirven para números reales. El segundo permite representar números mayores, a costa de consumir más espacio en memoria.
-El tipo void tiene tres usos. El primero es para declarar funciones que no devuelven ningún valor (procedimientos); el segundo, para declarar funciones sin argumentos; el tercero, para crear punteros genéricos. En posteriores epígrafes se discutirán los tres usos.
-Observa que en C no existe el tipo de dato lógico. Se utiliza en su lugar el tipo int, representando el 0 el valor falso y cualquier otra cantidad (normalmente 1) el valor verdadero.
-Modificadores de tipo
-Existen, además, unos modificadores de tipo que pueden preceder a los tipos de datos char e int. Dichos modificadores son:
-    • signed: obliga a que los datos se almacenen con signo
-    • unsigned: los datos se almacenan sin signo
-    • long: los datos ocuparán el doble de espacio en bits del habitual, y, por lo tanto, aumentará su rango de valores
-    • short: los datos ocuparán la mitad del espacio habitual, y, por lo tanto, disminuirá su rango de valores
-De este modo, nos podemos encontrar, por ejemplo, con estos tipos de datos (suponiendo que un “int” normal ocupe 16 bits):
-    • unsigned int: Número entero de 16 bits sin signo. Rango: de 0 a 65535.
-    • signed int: Número entero de 16 bits con signo. No tiene sentido, porque el tipo int ya es con signo por definición, pero es sintácticamente correcto.
-    • signed char: Carácter (8 bits) con signo. Rango: de –128 a 127
-    • long int: Número entero de 32 bits. Rango: de –2147483648 a 2147483647
-Incluso podemos encontrar combinaciones de varios modificadores. Por ejemplo:
-    • unsigned long int: Número entero de 32 bits sin signo. Rango: de 0 a 4294967295
- 3.3  Variables: ámbito y asignación
-Todas las variables deben declararse antes de ser usadas. La sintaxis de la declaración incluye su tipo y su nombre (identificador):
-tipo_de_datos lista_de_variables;
+Las variables en Javascript se declaran con las palabras clave **var** o **let**. Las diferencias entre una y otra tienen que ver con el ámbito de la variable y las veremos enseguida.
+
 Por ejemplo:
-int cont;
-char respuesta;
-float x, y, resultado;
-En C no está delimitado el lugar del algoritmo donde deben declararse las variables, siendo la única condición que se declaren antes de ser usadas por primera vez. Sin embargo, nosotros recomendamos, al menos al principio, hacer la declaración inmediatamente después de abrir el bloque algorítmico, antes de la primera instrucción.
-Todas las variable, aunque se considera una buena prácticas son, salvo que se indique otra cosa, locales a la función donde estén definidas, dejando de existir al finalizar la función. Las variables globales se declaran fuera del cuerpo de todas las funciones y antes de la función main(), que es el algoritmo principal. Recuerda que debes evitar el uso de variables globales a menos que sea estrictamente necesario.
-Se pueden aplicar ciertos modificadores a las variables que modifican la forma en la que almacenan y/o su ámbito. Estos modificadores puedes consultarlos en la sexta parte del libro. Por ahora, no te van a hacer falta.
-Para asignar un valor a una variable se utiliza la sentencia de asignación, exactamente igual que en pseudocódigo. Por ejemplo:
-cont = cont + 1;
-respuesta = 'S';
-x = 5.33;
- 3.4  Constantes
-Recuerda que también se pueden usar identificadores para asociarlos a valores constantes, es decir, valores que no cambiarán nunca durante la ejecución del programa.
-Para declarar una constante y asignarle un valor se utiliza el modificador const delante de la declaración:
-const tipo_de_datos nombre_constante = valor;
-Por ejemplo:
-const float pi = 3.141592;
-El valor de la constante pi no podrá ser modificado a lo largo del programa.
-Otra forma de definir constantes es mediante una directiva del compilador:
-#define PI = 3.141592
-Las directivas no son instrucciones de C, sino consignas comunicadas al compilador para que sepa que, si encuentra el símbolo PI en el código fuente, debe sustituirlo por 3.141592. Puedes leer más detalles sobre las directivas en los apéndices de este libro. Por ahora nos basta saber que existen estas dos formas de declarar constantes.
- 3.5  Conversiones de tipo
-C es un lenguaje débilmente tipado, es decir, no hace comprobaciones estrictas de tipos a la hora de asignar un valor a una variable o de comparar dos expresiones.
+
+```javascript
+var a = "Hola";
+let b = 1;
+var c;
+d = 3;
+```
+
+En el código anterior hemos declarado tres variables, a, b y c. Observa que, **al declarar una variable, no se especifica el tipo**: Javascript decidirá su tipo en función del valor que se le asigne.
+
+Así pues, el tipo de la variable a será *string*, y el de la variable b será *number*. ¿Qué pasará con el tipo de la variable c? Pues que, hasta que no se le asigne algún valor, permanecerá *undefined*. 
+
+Fíjate, por último, en que no hemos declarado la variable d, sino que la hemos usado directamente. Esto también es válido en Javascript, aunque, en general, poco recomendable por razones que comentaremos luego. El tipo de esta variable también será *number*.
+
+
+#### 5.2.4. Conversiones de tipo
+
+Javascript, como hemos dicho, es un lenguaje de **tipado dinámico**. Es decir, que las variables pueden variar de tipo a lo largo del programa:
+
+```javascript
+var a = 1;    // Variable tipo number
+// Aquí pueden ir varias instrucciones más
+a = "Hola";   // Ahora la variable es de tipo string
+```
+
+Además, Javascript también es un lenguaje **débilmente tipado**, lo que significa que no hace comprobaciones estrictas de tipos a la hora de asignar un valor a una variable o de comparar dos expresiones.
+
 Por ejemplo, estas instrucciones son correctas:
-float a;
-int b;
-b = 5;
-a = b;
-Se ha asignado un valor entero a la variable "a", que es de tipo float. En otros lenguajes esto no está permitido, pero en C se realizan conversiones automáticas de tipo cuando en una misma expresión aparecen datos de tipos diferentes. Esto, que en principio es una ventaja, pues elimina algunas limitaciones engorrosas, otras veces es peligroso porque algunos datos pueden cambiar extrañamente de valor al hacerse esa conversión automática.
-La conversión puede ser de dos clases:
-    • Asignación de un valor a una variable que permita más precisión. Por ejemplo, asignar un número entero a una variable float. En este caso, el número se convierte a real añadiendo ".0" a la parte decimal. No hay pérdida de información.
-    • Asignación de un valor a una variable que permita menos precisión. Por ejemplo, asignar un número long int a una variable de tipo int. En este caso, el número se recorta, perdiendo sus bits más significativos, es decir, los que están a la izquierda, y por lo tanto hay pérdida de información. Hay que tener mucho cuidado con este tipo de conversiones porque pueden producir resultados imprevisibles
-Además de las conversiones automáticas de tipo, el programador puede forzar la conversión de tipos a voluntad utilizando moldes. Un molde es una expresión de un tipo de datos entre paréntesis que aparece delante de un dato. Entonces, antes de evaluar la expresión, el dato es convertido al tipo especificado en el molde. Por ejemplo:
-float a;
-int b;
+
+```javascript
 a = 5;
-b = (float)a/2;
-Sin el molde (float), la división a/2 sería entera, ya que a es una variable de tipo int, y se perdería la parte decimal. Al aplicar el molde, se convierte momentáneamente el valor entero 5 al valor real 5.0 y se evalúa la expresión, que ahora sí se realiza como división real, conservando sus decimales.
- 3.6  Operadores y expresiones
-C es un lenguaje muy rico en operadores, por lo que ahora solo hablaremos de los más habituales, dejando otros muy específicos para temas posteriores.
-Operadores aritméticos
-Igual que en pseudocódigo, en C existen los operadores aritméticos típicos, y alguno más que más abajo comentaremos:
-Operador
-Operación
-+
-Suma
--
-Resta
-*
-Multiplicación
-/
-División
-%
-Módulo
-++
-Incremento
---
-Decremento
-Se pueden utilizar paréntesis ( ) para cambiar el orden de las operaciones, pero no corchetes [ ], que C se reserva para otros usos.
-Observa que no existe el operador potencia. En C, las potencias se calculan con funciones de librería.
-Tampoco existe el operador de división entera. En C se utiliza el mismo símbolo para la división entera y la real: la barra ( / ). Simplemente, si los operandos son de tipo entero, C realiza una división entera, y si son de tipo real, la división será con decimales.
-Los operadores incremento y decremento no suelen existir en otros lenguajes, pero son muy prácticos. Sirven para abreviar las expresiones típicas de los contadores:
-cont++;
-es equivalente a
-cont = cont + 1;
-cont--;
-es equivalente a
-cont = cont – 1;
-Los operadores de incremento y decremento pueden escribirse antes o después de la variable. Es decir, que estas dos expresiones son correctas y realizan la misma operación:
-cont++;
-++cont;
-Ahora bien, no son exactamente iguales cuando aparecen como parte de una expresión, ya que la primera se realiza después de evaluar la expresión, y, la segunda, antes.
-Esto quiere decir que, en este caso, tanto la variable x como la variable y tomarán el valor 11:
-x = 10;
-y = ++x;
-Pero, escrito de esta otra forma, la variable x toma el valor 11, pero y se queda con 10, ya que el incremento (x++) se realiza después de evaluar la expresión y asignarla a la variable y:
-x = 10;
-y = x++;
-Operadores relacionales
-Los operadores relacionales no ofrecen ninguna dificultad porque son exactamente iguales a los que hemos utilizado en pseudocódigo. Sólo hay que hacer una salvedad: el C, como se ha dicho, no existe el tipo de dato lógico, sino que se emplean números enteros. Falso se representa con el valor 0. Verdadero se representa con cualquier valor distinto de cero, aunque preferentemente se usa el 1.
-    • Falso = 0
-    • Verdadero = 1 (o cualquier número distinto de 0)
-Los operadores relacionales en C son:
-Operador
-Operación
->
-Mayor que
->=
-Mayor o igual que
-<
-Menor que
-<=
-Menor o igual que
-==
-Igual que
-!=
-Distinto de
-Operadores lógicos
-Los operadores lógicos de C también son los mismos que usamos en pseudocódigo, aunque se escriben de manera diferente. Recuerda que el resultado de las operaciones lógicas, en C, no es verdadero o falso, sino 1 ó 0.
-Operador
-Operación
-&&
-Y
-||
-O
-!
-No
-Otros operadores de C
-C dispone de otros operadores sobre los que el lector puede obtener información en cualquier manual de programación en C. Aquí nos limitaremos a mencionarlos, apuntando que algunos de ellos los estudiaremos en temas posteriores, cuando nos sean necesarios.
-    • Operadores a nivel de bits:  & (and), | (or), ^ (xor), ~ (complemento a uno), >> (desplazamiento a la derecha) y << (desplazamiento a la izquierda). Actúan directamente sobre los bits de la representación binaria de un dato.
-    • Operador condicional: ? (puede sustituir a condicionales simples y dobles)
-    • Operadores puntero: & (dirección) y * (contenido). Los estudiaremos detenidamente en el tema de estructuras dinámicas, aunque empezaremos a manejarlos antes.
-    • Operador en tiempo de compilación: sizeof (longitud en bytes de un identificador). También los estudiaremos en el tema de estructuras dinámicas.
-    • Operadores de acceso a elementos de estructuras: . (acceso directo) y -> (acceso por puntero). Estos los veremos en dos temas posteriores: el dedicado a las estructuras de datos estáticas y el de estructuras dinámicas.
-Precedencia de operadores y conversión de tipos en expresiones
-Las expresiones en C son similares a las que hemos estado usando en pseudocódigo: combinaciones de variables, constantes y operadores. Las expresiones se evalúan, es decir, se calcula su resultado, aplicando las reglas de precedencia de operadores, que pueden alterarse mediante el uso de paréntesis. Las reglas de precedencia son las mismas que aplicamos en pseudocódigo.
-En una expresión es posible que aparezcan variables y/o constantes de diferentes tipos de datos. Cuando esto ocurre, C convierte todos los datos al tipo más grande. Por ejemplo, si aparecen datos de tipo short int, int y long int, todos ellos se convertirán a long int antes de realizar las operaciones. 
+b = "A";
+c = a + b;
+```
 
- 4  Estructuras de control
-Las estructuras de control en C son muy similares a las que hemos utilizado en pseudocódigo, cambiando ligeramente la notación empleada. Pasamos a continuación a presentarlas todas, con su equivalente en pseudocódigo. Para una explicación más extensa de cada una de ellas, puedes volver a leer la primera parte de este libro.
- 4.1  Condicional simple
-Pseudocódigo
-Lenguaje C
-si condición entonces 
-inicio
-   acciones
-fin
-if (condición)
-{
-   acciones
-}
-Observa que, en C, la condición debe escribirse entre paréntesis y que no se emplea la palabra "entonces".
- 4.2  Condicional doble
-Pseudocódigo
-Lenguaje C
-si condición entonces
-  inicio
-    acciones-1
-  fin
-si_no
-  inicio
-    acciones-2
-  fin
-if (condición)
-{
-   acciones-1
-}
-else
-{
-   acciones-2
-}
+La variable a es de tipo *number* (recuerda que el tipo lo asigna automáticamente Javascript) y la variable b es de tipo *string*. Por lo tanto, en la expresión ```c = a + b``` se están mezclando los tipos *number* y *string* en la misma expresión, algo que solo es posible en los lenguajes débilmente tipados.
 
- 4.3  Condicional múltiple
-Pseudocódigo
-Lenguaje C
-según expresión hacer
-inicio
-  valor1: acciones-1
-  valor2: acciones-2
-  valor3: acciones-3
-    ...
-  valorN: acciones-N
-  si_no: acciones-si_no
-fin
-switch (expresión)
-{
-  case valor1: acciones-1;
-               break;
-  case valor2: acciones-2;
-               break;
-  case valor3: acciones-3;
-               break;
-    ...
-  case valorN: acciones-N;
-               break;
-  default: acciones-si_no;
+¿Qué resultado crees que obtendrás de una mezcla así? ¿Por qué no haces la prueba?
+
+Cuando mezclas tipos, estás dejando que el lenguaje de programación decida cuál será el resultado, por lo que puedes obtener resultados imprevisibles. Es mejor que tú controles qué conversiones de tipo se hacen:
+
+* **typeof**: Nos dice de qué tipo es una variable.
+
+   ```javascript
+   a = 5;
+   document.write(typeof a);
+   ```
+
+* **String**: Convierte la variable a un string (cadena de caracteres).
+
+   ```javascript
+   a = 5;          // a es el número entero 5 
+   b = String(a);  // b es la cadena "5"
+   ```
+* **Number**: Convierte la variable a un string (cadena de caracteres).
+
+   ```javascript
+   a = "5 pollos"; // a es una cadena
+   b = Number(a);  // Javascript tratará de convertir la cadena a un número
+   document.write(b);  // ¿Qué crees que aparecerá en la pantalla?
+
+
+### 5.2.5. Variables: asignación y ámbito
+
+La **asignación** de valores a variables en Javascript es fácil de explicar: se hace con el **símbolo igual (=)**, no con el símbolo <= que usábamos en pseudocódigo:
+
+```
+var a;      // Declaración de la variable a
+var b = 1;  // Declaración y asignación de valor a la variable b
+a = b + 5;  // Asignación de valor a la variable a
+```
+
+El problema del **ámbito de las variables** es más complicado de explicar.
+
+El **ámbito** (o ***scope***, en inglés) de una variable es el lugar del programa donde esa variable está disponible.
+
+Primero, la versión corta: las **variables en Javascript son locales**. Es decir, solo son accesibles desde el algoritmo o subalgoritmo donde se declaran.
+
+La versión larga es que Javascript ofrece una flexibilidad un poco mareante para manejar el ámbito de las variables.
+
+Vamos a tratar de explicarlo con unos cuantos ejemplos sencillos. 
+
+Unas líneas más arriba dijimos que Javascript permite declarar las variables con **var** o con **let**, o bien no declararlas, ¿verdad?
+
+Pues bien: el ámbito de la variable dependerá de *dónde* declaremos la variable (si lo hacemos) y de cómo lo hagamos (con var o con let).
+
+#### Declarar variables con var
+
+Las variables declaradas con **var** son **locales a la función** donde se declaran, o **globales** si se declaran en el exterior de cualquier función.
+
+```javascript
+var a = 1;  // Variable global
+
+function mostrarMensaje() {
+    var b = 2;    // Variable local
+    document.write("La variable a vale ", a, " y la variable b vale ", b);
 }
-Esta estructura presenta algunas peculiaridades, a saber:
-    • La expresión discriminante debe escribirse entre paréntesis y ser de un tipo ordinal (int, char o similar). No pueden usarse cadenas ni números reales.
-    • Los valores no pueden ser expresiones, sino constantes, es decir, números o caracteres fijos.
-    • ¡Cuidado! Las acciones no son bloques de instrucciones, es decir, no van encerradas entre { y }. Eso quiere decir que, si se ejecutan las acciones-2, después se ejecutarán automáticamente las acciones-3, luego las acciones-4, etc. La forma de evitar esto es insertar la instrucción break al final de cada bloque de instrucciones.
- 4.4  Bucle mientras
-Pseudocódigo
-Lenguaje C
-mientras condición hacer
-inicio
-  acciones
-fin
-while (condición)
-{
-  acciones
+```
+
+En este ejemplo, la variable a es **global**, lo que significa que será accesible desde cualquier parte de este programa (incluyendo el interior de la función *mostrarMensaje()*).
+
+La variable b, en cambio, es **local a la función** *mostrarMensaje()*. Si tratamos de acceder a ella desde el exterior de esa función, se producirá un error de ejecución.
+
+#### Declarar variables con let
+
+Las variables declaradas con **let** son **locales al bloque** donde se declaran, o **globales** si se declaran en el exterior de cualquier bloque.
+
+Un **bloque** es cualquier cosa encerrada entre dos llaves ({ y }). Observa el siguiente ejemplo:
+
+```javascript
+let a = 1;  // Variable global
+
+function mostrarMensaje() {
+    let b = 2;    // Variable local a la función
+    if (b > 0) {
+        let c = 3;   // Variable local al bloque if
+        document.write("La variable a vale ", a, ", la variable b vale ", b, " y la variable c vale ", c);
+    }
 }
- 4.5  Bucle repetir
-Pseudocódigo
-Lenguaje C
-repetir
-inicio
-   acciones
-fin
-mientras que condición
-do
-{
-   acciones
+```
+
+En este ejemplo tenemos 3 variables:
+
+* La variable a vuelve a ser **global**, lo que significa que será accesible desde cualquier parte de este programa.
+* La variable b es **local a la función**. Está disponible desde su declaración hasta la llave de cierre de la función.
+* La variable c es **local a su bloque**. Es decir, está disponible desde su declaración hasta la llave de cierre del *if*.
+
+#### No declarar las variables
+
+Con Javascript, como ya hemos visto, es perfectamente posible **no declarar las variables** y usarlas sin más.
+
+Sin embargo, cuando haces este tipo de cosas, dejas que sea el lenguaje de programación el que tome decisiones por ti. En este caso, que decida sobre el ámbito de la variable. Por eso mi consejo es que *siempre* declares las variables, aunque no les asignes ningún valor inicial.
+
+Si decides usar las variables sin declarar, tienes que saber que Javascript las considerará a todas **globales**, independientemente del punto del programa donde hayas usado la variable por primera vez.
+
+```javascript
+a = 1;  // Variable global
+
+function mostrarMensaje() {
+    b = 2;    // Variable global
+    if (b > 0) {
+        c = 3;   // Variable global
+        document.write("La variable a vale ", a, ", la variable b vale ", b, " y la variable c vale ", c);
+    }
 }
-while (condición)
- 4.6  Bucle para
-Pseudocódigo
-Lenguaje C
-para cont desde valor_inicial hasta valor_final 
-inicio
-   acciones
-fin
-for (inicialización; condición; incremento)
-{
-   acciones
-}
-Cuidado con este tipo de bucle porque es algo diferente a como lo hemos visto en pseudocódigo. Ya se ha dicho en varias ocasiones que C es a veces un poco críptico. El bucle para (o bucle for) es un ejemplo típico de ello ya que:
-    • La variable contador debe ser inicializada con una asignación dentro de la instrucción for.
-    • El valor final debe ser expresado en forma de condición, como haríamos en un bucle mientras.
-    • El incremento del contador hay que indicarlo explícitamente.
-Por ejemplo, el siguiente bucle en pseudocódigo:
-para cont desde 1 hasta 100 inc 2 hacer
-inicio
-    acciones
-fin
-Tendría esta traducción en C:
-for (cont = 1; cont <= 100; cont = cont + 2)
-{
-    acciones
-}
+```
+
+### 3.6  Operadores y expresiones
+
+Los **operadores y expresiones en Javascript** son iguales que los que hemos empleado en pseudocódigo:
+
+* Operadores aritméticos: +, -, *, /, % (este último significa *módulo de la división*).
+* Operadores relacionales: >, <, >=, <=...
+
+Sin embargo, hay algunas diferencias importantes entre el pseudocódigo de PseInt y Javascript. Son estas:
+
+* La **asignación**, como ya hemos visto más arriba, se hace con el **símbolo igual (=)**, no con <=.
+   
+   ```javascript
+   a = 5;        // A la variable a se le asigna el valor 5
+   b = a + 1;    // A la variable b se le asigna el valor a + 1
+   ```
+
+* La **comparación de igualdad** se hace con un **doble igual (==)**, no con un solo igual (=). Esto se hace así para distinguir la comparación de la asignación.
+   
+   ```javascript
+   if (a == 5) {    // Comparación: ¿es a igual a 5?
+       b = a + 1;   // Asignación: b toma el valor a + 1
+   }
+   ```
+   
+* Existe el **operador incremento**. Se utiliza para sumar una unidad a una variable.
+   
+   ```javascript
+   while (i < 10) {
+       i++;         // Esto es equivalente a: i = i + 1
+   }
+   ```
+   
+* También existe el **operador decremento**, para restar una unidad a una variable.
+   
+   ```javascript
+   while (i > 0) {
+       i--;     // Equivalente a: i = i - 1
+   }
+   ```
+   
+* El **operador lógico Y** se escribe **&&**. El **operador lógico O** se escribe **||**. El **operador lógico NO** se escribe *!*
+   
+   ```javascript
+   if (a > 0) && (b > 0) {   // Operador Y: tienen que darse las dos condiciones a la vez
+       ...
+   }
+   ```
+   
+Hay algunas otras diferencias, desde luego, pero con esto ya tienes para hacer la mayoría de las cosas.
+
+## 4. Estructuras de control en Javascript
+
+Las **estructuras de control** en Javascript son muy similares a las que hemos utilizado en pseudocódigo, cambiando ligeramente la notación empleada. 
+
+A continuación te muestro una tabla con las más habituales y su equivalente en pseudocódigo, sin entrar en explicaciones, porque supondremos que ya sabes manejarlas. Si no recuerdas para qué servía alguna de ellas, quizá sería buena idea que le dieras un repaso al capítulo dedicado al pseudocódigo.
+
+<table>
+   <th>
+      <td>Instrucción</td>
+      <td>Pseudocódigo</td>
+      <td>Javascript</td>
+    </th>
+    <tr>
+      <td>Condicional simple</td>
+      <td>
+         <code>
+         Si condición entonces
+            acciones
+         FinSi
+         </code>
+      </td>
+      <td>
+         <code>
+         if (condicion) {
+            acciones
+         }
+         </code>
+      </td>
+    </tr>
+    <tr>
+      <td>Condicional doble</td>
+      <td>
+         <code>
+         Si condicion entonces
+            acciones
+         SiNo
+            acciones
+         FinSi
+         </code>
+      </td>
+      <td>
+         <code>
+         if (condicion) {
+            acciones
+         }
+         else {
+            acciones
+         }
+         </code>
+      </td>
+    </tr>
+    <tr>
+      <td>Bucle tipo mientras</td>
+      <td>
+         <code>
+         Mientras condicion hacer
+            acciones
+         FinMientras
+         </code>
+      </td>
+      <td>
+         <code>
+         while (condicion) {
+            acciones
+         }
+         </code>
+      </td>
+    </tr>
+    <tr>
+      <td>Bucle tipo repetir</td>
+      <td>
+         <code>
+         Repetir
+            acciones
+         Hasta Que condicion
+         </code>
+      </td>
+      <td>
+         <code>
+         do {
+            acciones
+         }
+         while (condicion)
+         </code>
+      </td>
+    </tr>
+    <tr>
+      <td>Bucle tipo para</td>
+      <td>
+         <code>
+         Para variable <- valor_inicial hasta valor_final con paso incremento hacer
+            acciones
+         FinPara
+         </code>
+      </td>
+      <td>
+         <code>
+         for (variable = valor_inicial; variable != valor_final; variable = variable + incremento) {
+            acciones
+         }
+         </code>
+      </td>
+    </tr>
+</table>
+
+Fíjate en que casi todo se escribe del mismo modo que en pseudocódigo con un par de diferencias notables:
+
+1. En el bucle tipo *repetir*, la condición de salida se expresa al revés ("repetir mientras.." en lugar de "repetir hasta que...". Lo verás mejor en este ejemplo que muestra los números del 1 al 100. Observa la condición del final del bucle:
+
+   En pseudocódigo:
+   ```
+   i <- 1
+   Repetir
+      Escribir i
+      i <- i + 1
+   Hasta que i >= 100
+   ```
+
+   En Javascript:
+   ```
+   i = 0;
+   do {
+      document.write(i);
+      i = i + 1;
+   }
+   while (i < 100);
+   ```
+
+2. El bucle tipo *para*. XXX
+
+
+
+
  5  Funciones. La función main()
 Como se ha dicho anteriormente, C es un lenguaje modular hasta el extremo de que todas las líneas de código deben pertenecer a alguna función, incluyendo las instrucciones del algoritmo principal, que se escriben en una función llamada principal (main en inglés)
  5.1  Funciones
