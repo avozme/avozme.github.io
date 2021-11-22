@@ -10,10 +10,6 @@ parent: Introd. a la prog. y al diseño 3D
 # 5. El lenguaje Javascript
 {: .no_toc }
 
-<p style='color:red'><strong>ATENCIÓN: este capítulo aún está en fase de redacción y su contenido es provisional. ¡No lo leas todavía!</strong></p>
-
-Contenidos: Tipos de lenguajes según su nivel de abstracción y su modo de traducción. Historia de los lenguajes de programación. El lenguaje Javascript
-
 - TOC
 {:toc}
 
@@ -194,7 +190,7 @@ En concreto, **Typescript** podría llegar a ser el sucesor de Javascript, puest
 
 Eso significa una cosa: que **aprender a programar con Javascript es una inversión para el presente y para el futuro**.
 
-## 5.2. Javascript
+## 5.2. ¡Bienvenidos a Javascript!
 
 ### 5.2.1.  Características básicas de Javascript
 
@@ -216,11 +212,11 @@ Javascript fue un lenguaje creado en la década de 1990 para el ya desaparecido 
 
 Aquella competición entre Netscape e Internet Explorer se llamó *guerra de los navegadores* y, aunque Netscape la perdió y acabó desapareciendo, Javascript ha permanecido hasta hoy como un heredero directo aquella época.
 
-Durante ese tiempo, Javascript ha tenido una evolución enorme, y ha pasado de ser apenas un lenguaje de juguete con el que se podían conseguir un puñado de efectos dinámicos en los sitios web a ser un lenguaje enorme y bien definido capaz de sustentar la estructura de enormes aplicaciones web.
+Desde entonces, Javascript ha tenido una evolución enorme, y ha pasado de ser apenas un lenguaje de juguete con el que se podían conseguir un puñado de efectos dinámicos en los sitios web a ser un lenguaje enorme y bien definido capaz de sustentar la estructura de enormes aplicaciones web.
 
 Hoy en día, Javascript suele utilizarse con librerías y *frameworks* que mejoran su estructura y aumentan su potencia. El estándar del lenguaje está publicado por la ECMA (European Computer Manufacturers Association) y se denomina ECMAScript. Todos los navegadores web respetan ese estándar casi en gran medida.
 
-### 5.2.3. Sintaxis básica de Javascript: variables, operadores y expresiones
+### 5.2.3. Sintaxis básica de Javascript
  
 #### Generalidades sintácticas
 
@@ -244,9 +240,9 @@ Hay algunas normas básicas de la sintaxis de Javascript que tienes que conocer:
 * Las cadenas de caracteres pueden encerrarse entre comillas simples ( '...' ) o comillas dobles ( "..." )
 * El lenguaje es sensitivo a las mayúsculas. Es decir, no es lo mismo que una variable se llame *edad* que *Edad* o *EDAD*.
 
-#### Tipos de datos simples
+#### Tipos de datos primitivos
 
-Javascript utiliza varios tipos de datos llamados **primitivos**: 
+Javascript utiliza varios tipos de datos simples llamados **primitivos**: 
 
 * **number**: números enteros y reales, indistintamente.
 * **string**: cadenas de caracteres.
@@ -273,8 +269,7 @@ Así pues, el tipo de la variable a será *string*, y el de la variable b será 
 
 Fíjate, por último, en que no hemos declarado la variable d, sino que la hemos usado directamente. Esto también es válido en Javascript, aunque, en general, poco recomendable por razones que comentaremos luego. El tipo de esta variable también será *number*.
 
-
-#### 5.2.4. Conversiones de tipo
+### 5.2.4. Conversiones de tipo
 
 Javascript, como hemos dicho, es un lenguaje de **tipado dinámico**. Es decir, que las variables pueden variar de tipo a lo largo del programa:
 
@@ -319,9 +314,9 @@ Cuando mezclas tipos, estás dejando que el lenguaje de programación decida cu�
    a = "5 pollos"; // a es una cadena
    b = Number(a);  // Javascript tratará de convertir la cadena a un número
    document.write(b);  // ¿Qué crees que aparecerá en la pantalla?
+   ```
 
-
-### 5.2.5. Variables: asignación y ámbito
+### 5.2.5. Asignación y ámbito de las variables
 
 La **asignación** de valores a variables en Javascript es fácil de explicar: se hace con el **símbolo igual (=)**, no con el símbolo <= que usábamos en pseudocódigo:
 
@@ -406,7 +401,7 @@ function mostrarMensaje() {
 }
 ```
 
-### 3.6  Operadores y expresiones
+### 5.2.6. Operadores y expresiones
 
 Los **operadores y expresiones en Javascript** son iguales que los que hemos empleado en pseudocódigo:
 
@@ -456,31 +451,31 @@ Sin embargo, hay algunas diferencias importantes entre el pseudocódigo de PseIn
    
 Hay algunas otras diferencias, desde luego, pero con esto ya tienes para hacer la mayoría de las cosas.
 
-## 4. Estructuras de control en Javascript
+### 5.2.7. Estructuras de control
 
 Las **estructuras de control** en Javascript son muy similares a las que hemos utilizado en pseudocódigo, cambiando ligeramente la notación empleada. 
 
 A continuación te muestro una tabla con las más habituales y su equivalente en pseudocódigo, sin entrar en explicaciones, porque supondremos que ya sabes manejarlas. Si no recuerdas para qué servía alguna de ellas, quizá sería buena idea que le dieras un repaso al capítulo dedicado al pseudocódigo.
 
 <table>
-   <th>
-      <td>Instrucción</td>
-      <td>Pseudocódigo</td>
-      <td>Javascript</td>
-    </th>
+    <tr>
+      <th>Instrucción</th>
+      <th>Pseudocódigo</th>
+      <th>Javascript</th>
+    </tr>
     <tr>
       <td>Condicional simple</td>
       <td>
          <code>
-         Si condición entonces
-            acciones
+         Si condición entonces<br>
+         &nbsp;&nbsp;&nbsp;acciones<br>
          FinSi
          </code>
       </td>
       <td>
          <code>
-         if (condicion) {
-            acciones
+         if (condicion) {<br>
+         &nbsp;&nbsp;&nbsp;acciones<br>
          }
          </code>
       </td>
@@ -489,20 +484,20 @@ A continuación te muestro una tabla con las más habituales y su equivalente en
       <td>Condicional doble</td>
       <td>
          <code>
-         Si condicion entonces
-            acciones
-         SiNo
-            acciones
+         Si condicion entonces<br>
+         &nbsp;&nbsp;&nbsp;acciones<br>
+         SiNo<br>
+         &nbsp;&nbsp;&nbsp;acciones<br>
          FinSi
          </code>
       </td>
       <td>
          <code>
-         if (condicion) {
-            acciones
-         }
-         else {
-            acciones
+         if (condicion) {<br>
+         &nbsp;&nbsp;&nbsp;acciones<br>
+         }<br>
+         else {<br>
+         &nbsp;&nbsp;&nbsp;acciones<br>
          }
          </code>
       </td>
@@ -511,15 +506,15 @@ A continuación te muestro una tabla con las más habituales y su equivalente en
       <td>Bucle tipo mientras</td>
       <td>
          <code>
-         Mientras condicion hacer
-            acciones
+         Mientras condicion hacer<br>
+         &nbsp;&nbsp;&nbsp;acciones<br><br>
          FinMientras
          </code>
       </td>
       <td>
          <code>
-         while (condicion) {
-            acciones
+         while (condicion) {<br>
+         &nbsp;&nbsp;&nbsp;acciones<br>
          }
          </code>
       </td>
@@ -528,16 +523,16 @@ A continuación te muestro una tabla con las más habituales y su equivalente en
       <td>Bucle tipo repetir</td>
       <td>
          <code>
-         Repetir
-            acciones
+         Repetir<br>
+         &nbsp;&nbsp;&nbsp;acciones<br>
          Hasta Que condicion
          </code>
       </td>
       <td>
          <code>
-         do {
-            acciones
-         }
+         do {<br>
+         &nbsp;&nbsp;&nbsp;acciones<br>
+         }<br>
          while (condicion)
          </code>
       </td>
@@ -546,15 +541,15 @@ A continuación te muestro una tabla con las más habituales y su equivalente en
       <td>Bucle tipo para</td>
       <td>
          <code>
-         Para variable <- valor_inicial hasta valor_final con paso incremento hacer
-            acciones
+         Para variable <- valor_inicial hasta valor_final con paso incremento hacer<br>
+         &nbsp;&nbsp;&nbsp;acciones<br>
          FinPara
          </code>
       </td>
       <td>
          <code>
-         for (variable = valor_inicial; variable != valor_final; variable = variable + incremento) {
-            acciones
+         for (variable = valor_inicial; variable != valor_final; variable = variable + incremento) {<br>
+         &nbsp;&nbsp;&nbsp;acciones<br>
          }
          </code>
       </td>
@@ -563,7 +558,7 @@ A continuación te muestro una tabla con las más habituales y su equivalente en
 
 Fíjate en que casi todo se escribe del mismo modo que en pseudocódigo con un par de diferencias notables:
 
-1. En el bucle tipo *repetir*, la condición de salida se expresa al revés ("repetir mientras.." en lugar de "repetir hasta que...". Lo verás mejor en este ejemplo que muestra los números del 1 al 100. Observa la condición del final del bucle:
+* **DIFERENCIA 1: En el bucle tipo *repetir***, la condición de salida se expresa al revés ("repetir mientras.." en lugar de "repetir hasta que...". Lo verás mejor en este ejemplo que muestra los números del 1 al 100. Observa la condición del final del bucle:
 
    En pseudocódigo:
    ```
@@ -584,407 +579,704 @@ Fíjate en que casi todo se escribe del mismo modo que en pseudocódigo con un p
    while (i < 100);
    ```
 
-2. El bucle tipo *para*. XXX
+* **DIFERENCIA 2: En el bucle tipo *para*** hay que indicar la asignación a la variable que controla el bucle, la condición de salida y la forma en la que esa variable cambiará en cada iteración. Observa este ejemplo:
 
+   En pseudocódigo:
+   ```
+   Para i <- 1 hasta 10 hacer
+      Escribir i
+   FinPara
+   ```
 
+   En Javascript:
+   ```
+   for (i = 1; i <=10; i = i + 1)
+      document.write(i);
+   }
+   ```
 
+   Si el **paso** del bucle no es +1 (es decir, si la variable que controla el bucle no incrementa su valor de 1 en 1 en cada iteración), hay que indicarlo de este modo:
 
- 5  Funciones. La función main()
-Como se ha dicho anteriormente, C es un lenguaje modular hasta el extremo de que todas las líneas de código deben pertenecer a alguna función, incluyendo las instrucciones del algoritmo principal, que se escriben en una función llamada principal (main en inglés)
- 5.1  Funciones
-La declaración de funciones se hace de forma similar a la empleada en pseudocódigo:
-tipo_devuelto nombre_función (parámetros_formales)
-{
-   ...instrucciones...
+   En pseudocódigo:
+   ```
+   Para i <- 1 hasta 10 con paso 2 hacer
+      Escribir i
+   FinPara
+   ```
+
+   En Javascript:
+   ```
+   for (i = 1; i <=10; i = i + 2)
+      document.write(i);
+   }
+   ```
+
+   Por último, recuerda que en Javascript existe una abreviatura para ```i = i + 1```, que se escribe ```i++```, por lo que lo más habitual es encontrar los bucles de tipo *para* escritos así:
+
+   ```
+   for (i = 1; i <=10; i++)
+      document.write(i);
+   }
+   ```   
+
+### 5.2.8. Subalgoritmos
+
+#### Las funciones de Javascript
+
+Javascript es un lenguaje **modular**, es decir, permite la escritura de subalgoritmos.
+
+Todos los subalgoritmos en Javascript se llaman **funciones**, independientemente de si devuelven algo o no.
+
+Esta es la forma de declarar una función:
+
+```javascript
+function nombre_funcion(parámetros) {
+   Instrucciones de la función;
    return expresión;
 }
-Observa que las únicas diferencias con el pseudocódigo son que no se usa la palabra "función", que las llaves { y } sustituyen a inicio y fin, y que se emplea la palabra return en lugar de devolver.
- 5.2  Procedimientos
-Si el tipo_devuelto es void, se considera que la función no devuelve ningún valor y que, por lo tanto, es un procedimiento. Entonces, un procedimiento se declara así:
-void nombre_procedimiento (parámetros_formales)
-{
-   ...instrucciones...
-}
- 5.3  Paso de parámetros
-Los parámetros formales son, como en pseudocódigo, una lista de tipos e identificadores que se sustituirán por los parámetros actuales y se usarán como variables dentro de la función. 
-Los parámetros se pasan normalmente por valor, pero también se pueden pasar por referencia. El paso de parámetros por referencia admite dos sitaxis ligeramente diferentes en C: anteponiendo el operador * (asterisco) al nombre del parámetro (como hemos hecho en pseudocódigo) o anteponiendo el operador &. 
-Paso de parámetros por valor
-Por ejemplo, en esta función el paso de parámetros es por valor:
-int funcion1 (int x, int y)
-Esto quiere decir que la función1 recibirá únicamente el valor de los dos parámetros, x e y. Podrá utilizar esos valores a lo largo de su código, e incluso podrá cambiarlos. Pero cualquier cambio en x e y no afectará a los parámetros actuales, es decir, a los parámetros del programa que llamó a función1.
-Paso de parámetros por referencia con el operador *
-En la siguiente función, el paso del parámetro "x" es por valor y el del parámetro "y", por referencia:
-int funcion2 (int x, int *y)
-¡OJO! Recuerda que cada vez que se vaya a usar el parámetro "y" dentro del código de la función, será necesario acompañarlo del asterisco. Por ejemplo:
-*y = 5;
-x = 17 + *y;
-(Hay algunas excepciones a esta regla, pero ya las veremos cuando surjan más adelante)
-Por último, también en la llamada a la función hay que indicar explícitamente si alguno de los parámetros se está pasando por referencia, utilizando el operador &, como en pseudocódigo. Por lo tanto, para llamar a la funcion2 del ejemplo anterior con los parámetros A y B habrá que escribir:
-resultado = funcion2 (A, &B);
-Observa que el segundo parámetro (el que se pasa por referencia), lleva delante el operador &.
-Una última observación: en realidad, en C no existe en paso por referencia propiamente dicho, sino que se pasa a la función la dirección de memoria del parámetro actual  por valor. Es decir, se pasa un puntero por valor (véanse los punteros más adelante en este mismo texto). Como la función accede directamente a esa posición de memoria, puede cambiar la variable del programa principal. En la práctica, el resultado es el mismo que si se pasase por referencia, y para el programador no apreciará diferencia alguna.
-Paso de parámetros por referencia con el operador &
-Otra forma de pasar un argumento por referencia es usar el operador & en los parámetros formales, así:
-int funcion3 (int x, int &y)
-En esta función, el parámetro x se pasa por valor y el parámetro “y” se pasa por referencia. Utilizando esta sintaxis no es necesario añadir asteriscos cada vez que se usa la “y” en el cuerpo de la función, ni tampoco usar “&” en la llamada a la función.
-Esta tercera forma de paso por referencia no es estándar en C, sino que es propia de C++, por lo que evitaremos utilizarla.
-Juntándolo todo en un ejemplo
-En el siguiente ejemplo se ilustra los dos tipos de paso de parámetros y, en el paso por referencia, las dos sintaxis alternativas de que dispone C.
-El ejemplo muestra tres funciones muy similares que reciben dos parámetros, a y b. Las tres intentan intercambiar el valor de a y b mediante una tercera variable, tmp. Sin embargo, en la primera de ellas el intercambio no tiene ningún efecto en el programa main(), ya que los parámetros están pasados por valor. En las otras dos funciones sí que se consigue el intercambio, ya que los parámetros está pasados por referencia.
-Lo más interesante de este ejemplo es mostrar cuál es la sintaxis correcta en cada tipo de paso de parámetros.
-#include <stdio.h>
+```
 
-// Paso de parámetros por valor.
-// En este ejemplo, esta función no tendrá el efecto deseado, porque las variables
-// del programa principal no se verán afectadas.
-void intercambiar1(int a, int b)
-{
-     int tmp = a;
-     a = b;
-     b = tmp;
-}
+El **return** es optativo. Una función de Javascript puede no tener **return** y, por lo tanto, ser en la práctica un procedimiento (aunque se siga declarando con la palabra *function*).
 
-// Paso de parámetros por referencia, sintaxis 1.
-// Esta función sí que consigue intercambiar los valores de las variables
-// del programa principal.
-void intercambiar2(int *a, int *b)
-{
-     int tmp = *a;
-     *a = *b;
-     *b = tmp;
-}
+Los **parámetros** también son optativos, claro: puede haber funciones sin ningún parámetro y funciones con decenas de ellos (aunque esto último no sea demasiado recomendable).
 
-// Paso de parámetros por referencia, sintaxis 2.
-// Esta función también consigue su objetivo. A todos los efectos,
-// es idéntica a la función anterior.
-void intercambiar3(int &a, int &b)
-{
-     int tmp = a;
-     a = b;
-     b = tmp;
-}
+La **invocación** de la función se hace como en pseudocódigo: poniendo el nombre de la función y su lista de parámetros (si los tiene).
 
-
-// Programa principal
-int main()
-{
-    int dato1 = 30, dato2 = 90;
-    
-    printf("Antes de la llamada a las funcioens: dato1 = %i, dato2 = %i\n", dato1, dato2);
-    intercambiar1(dato1, dato2);
-    printf("Después de intercambiar1: dato1 = %i, dato2 = %i\n", dato1, dato2);
-    intercambiar2(&dato1, &dato2);
-    printf("Después de intercambiar2: dato1 = %i, dato2 = %i\n", dato1, dato2);
-    intercambiar3(dato1, dato2);
-    printf("Después de intercambiar3: dato1 = %i, dato2 = %i\n", dato1, dato2);
-    
-    return 0;
-}
- 5.4  La función main()
-La función main() contiene el algoritmo o módulo principal del programa. La ejecución de un programa siempre empieza por la primera línea de la función main()
-La función main(), como todas las funciones de C, puede devolver un valor. El valor devuelto por main() debe ser de tipo entero. Esto se utiliza para pasar algún valor al programa que haya llamado al nuestro, que suele ser el sistema operativo. Si main() no devuelve un número entero al sistema operativo mediante una sentencia return, entonces nuestro programa devolverá un número desconocido. Moraleja: es una buena idea incluir un return al final de la función main(). Generalmente, la devolución de un 0 indica al sistema operativo que el programa a finalizado sin problemas, mientras que cualquier otro valor señala que se ha producido algún error.
-Por lo tanto, la forma habitual de la función main() será:
-int main(void)
-{
-   ...instrucciones del algoritmo principal...
-   return 0;
-}
-Observa que main() no tiene argumentos, por lo que aparece el identificador void entre paréntesis en la declaración. También se pueden utilizar argumentos en main(), pero eso es algo que trataremos en otro momento.
- 5.5  Prototipos de funciones
-En C no es necesario escribir las funciones (subalgoritmos) antes de su primera invocación. El mecanismo de compilación y enlace de C permite, de hecho, que las funciones puedan estar físicamente en un archivo distinto del lugar desde el que se invocan.
-En la práctica, esto plantea un problema: C no tiene forma de saber si la llamada a una función se hace correctamente, es decir, si se le pasan los argumentos debidos y con el tipo correcto, ni si el resutado devuelto es asignado a una variable del tipo adecuado. 
-Para conseguir que C realice esas comprobaciones se utilizan los prototipos de función. Un prototipo de función es la declaración de una función. Consiste, simplemente, en la primera línea del código la función. El prototipo debe aparecer antes de que la función se invoque por primera vez, aunque el código completo de la función esté en otra parte. Los prototipos permiten al compilador comprobar que los argumentos de la función coinciden en tipo y número con los de la invocación de la misma, y que el tipo devuelto es el correcto.
-Los prototipos suelen aparecer al principio del programa, antes de la función main(). Observa, en el siguiente ejemplo, que el prototipo de la función calcular_area() se coloca delante de main(). Sin embargo, el código concreto de esta función no aparece hasta después (incluso podría estar situado en otro archivo diferente):
-float calcular_area (float base, float altura);	// Prototipo de la función
-
-int main()				// Algoritmo principal
-{
-   ...instrucciones...
-   area = calcular_area (x,y);
-   ...más instrucciones...
-   return 0;
-}
-
-float calcular_area(float base, float altura)	// Código de la función
-{
-   ... instrucciones...
-}
-Cuando se vayan a usar funciones de librería, como fabs() (valor absoluto), sqrt() (raíz cuadrada) o cualquier otra, hay que escribir sus prototipos antes de la función main(). Sin embargo, como estas funciones no las hemos escrito nosotros, desconocemos cuales son sus prototipos.
-En C se soluciona este problema con los archivos de cabecera, que son archivos proporcionados con el compilador de C que incluyen en su interior los prototipos de las funciones de librería, entre otras cosas. Como funciones de librería hay muchas, también hay muchos archivos de cabecera. Por ejemplo, el archivo math.h tiene los prototipos de todas las funciones matemáticas. Todos los archivos de cabecera tienen la extensión .h en su nombre (h de "header").
-Para incluir un archivo de cabecera en nuestro programa se utiliza #include, que no es exactamente una instrucción de C, sino una directiva de compilación. Más adelante veremos qué significa eso. Ya hemos visto otra directiva de compilación: #define, que usábamos para definir constantes. Las directivas de compilación se detallan en uno de los apéndices de este libro, y puedes ir ahora allí si quieres ampliar esta información.
-Por ejemplo, esta línea de código sirve para incluir todos los prototipos de las funciones de librería matemática en nuestro programa:
-#include <math.h>
-Al final del tema, en el apéndice dedicada a las funciones ANSI, encontrarás una lista con las funciones utilizadas más habitualmente y sus correspondientes archivos de cabecera. Cada vez que necesites usar una de esas funciones en un programa, debes escribir al principio del mismo el #include del archivo de cabecera para disponer así del prototipo.
- 5.6  Estructura general de un programa en C
-Visto todo esto, ya estamos en condiciones de echar un vistazo a cual será el aspecto de (casi) todos los programas que escribamos en C.
-Todo programa C, desde el más pequeño hasta el más complejo, tiene un programa principal ubicado en la función main(). Además, por encima de main() deben aparecer los prototipos de funciones (y esto implica a los archivos de cabecera, si se utilizan funciones de librería) y las variables y constantes globales. Por debajo de main() encontraremos el código de las funciones de usuario.
-Por lo tanto, la estructura habitual de nuestros programas en C debería ser esta: 
-/* Comentario inicial: nombre del programa, del programador, fecha, etc */
-
-/* Archivos de cabecera (prototipos de funciones de librería) */
-#include <archivo_cabecera.h>
-#include <archivo_cabecera.h>
-
-/* Prototipos de funciones escritas por nosotros */
-float función1 (argumentos);
-float función2 (argumentos);
-
-/* Variables globales */
-int variable_global1;
-char variable_global2;
-
-/* Algoritmo principal */
-int main(void)
-{
-   /* Variables locales del algoritmo principal */
-   int a, b;
-   float x, y;
-   ...
-   ...
-   /* Instrucciones del algoritmo principal */
-   ...
-   función1(argumentos);
-   ...
-   función2(argumentos);
-   ...
-   return 0;
-}
-
-/* Código completo de las funciones escritas por nosotros */
-float función1 (argumentos)
-{
-   /* Variables locales e instrucciones de este subalgoritmo */
-}
-float función2 (argumentos)
-{
-   /* Variables locales e instrucciones de este subalgoritmo */
-}
-
- 6  Entrada y salida estándar
-La entrada y salida de datos en C, es decir, la traducción de las instrucciones leer() y escribir() de pseudocódigo, es uno de los aspectos más difíciles (y criticables) de C.
-El estándar ANSI C dispone de muchas funciones para hacer las entradas y salidas de datos. En concreto, dispone de un subconjunto de ellas para hacer la entrada y salida por consola, es decir, por teclado y pantalla.
-Podemos clasificar estas funciones de E/S en dos grupos:
-    • Funciones de E/S simples: getchar(), putchar(), gets(), puts()
-    • Funciones de E/S con formato: printf(), scanf()
-Las más utilizadas y versátiles son sin duda las segundas, así que nos detendremos más en ellas.
- 6.1  E/S con formato
-Salida de datos: printf()
-La función printf() (de "print" = imprimir y "f" = formato) sirve para escribir datos en el dispositivo de salida estándar (generalmente la pantalla) con un formato determinado por el programador. La forma general de utilizarla es la siguiente:
-printf(cadena_de_formato, datos);
-El prototipo de printf() se encuentra en el archivo de cabecera stdio.h (de "std" = standard e "io" = input/output, es decir, entrada/salida; por lo tanto, "stdio" es un acrónimo de "entrada/salida estándar")
-El primer argumento, la cadena_de_formato, especifica el modo en el que se deben mostrar los datos que aparecen a continuación. Esta cadena se compone de una serie de códigos de formato que indican a C qué tipo de datos son los que se desean imprimir. Todos los códigos están precedidos del símbolo de porcentaje ("%"). Por ejemplo, el código "%i" indica a la función que se desea escribir un número de tipo int, y el código "%f", que se desea escribir un número real de tipo float.
-La forma más simple de utilizar printf() es:
-int a;
-a = 5;
-printf("%i", a);
-Esto escribirá el valor de la variable entera a en la pantalla, es decir, 5. Fíjate que el primer argumento de printf() es una cadena (y, por lo tanto, se escribe entre comillas) cuyo contenido es el código del tipo de dato que se pretende escribir. El segundo argumento es el dato mismo.
-En una sola instrucción printf() pueden escribirse varios datos. Por ejemplo:
-int a;
-float x;
-a = 5;
-x = 10.33;
-printf("%i%f", a, x);
-Observa detenidamente la cadena de formato: primero aparece "%i" y luego "%f". Esto indica que el primer dato que debe imprimirse es un entero, y el segundo, un real. Después, aparecen esos datos separados por comas y exactamente en el mismo orden que en la cadena de formato: primero a (la variable entera) y luego x (la variable real). El resultado será que en la pantalla se escribirán los números 5 y 10.33.
-Los códigos de formato que se pueden utilizar en printf() son:
-Código
-Tipo del dato que se escribe
-%c
-Carácter
-%d
-Número entero
-%i
-Número entero
-%e
-Número real con notación científica
-%f
-Número real
-%g
-Usar %e o %f, el más corto
-%o
-Número octal
-%s
-Cadena de caracteres
-%u
-Entero sin signo
-%x
-Número hexadecimal
-%p
-Puntero
-Algunos de estos códigos sirven para imprimir tipos de datos que aún no conocemos, pero que iremos viendo en las siguientes páginas.
-Hay códigos que admiten modificadores. Por ejemplo:
-    • Los códigos numéricos "%i", "%d", "%u" (para números enteros) y "%f", "%e" y "%g" (para números reales), permiten insertar modificadores de longitud "l" (longitud doble) y "h" (longitud corta). Así, por ejemplo, "%ld" indica que se va a imprimir un entero de longitud doble (long int); "%hu" sirve para enteros cortos sin signo (unsigned short int); "%lf" indica que se imprimirá un número real de longitud doble (double), etc.
-    • El código "%f" (números reales) se pueden usar con un modificador de posiciones decimales que se desean mostrar. Por ejemplo, con "%10.4f" obligamos a que se impriman diez dígitos a la izquierda de la coma decimal y cuatro a la derecha. La escritura se ajusta a la derecha. Para ajustarla a la izquierda se utiliza el modificador "-", de esta forma: "%-10.4f"
-    • El código "%s" (cadenas de caracteres) se puede combinar con un especificador de longitud máxima y mínima de la cadena. Por ejemplo, "%4.8s" escribe una cadena de al menos cuatro caracteres y no más de ocho. Si la cadena tiene más, se pierden los que excedan de ocho. También se puede utilizar el modificador "-" para alinear el texto a la izquierda.
-Además de los códigos de formato, en la cadena de formato puede aparecer cualquier texto entremezclado con los códigos. A la hora de escribir en la pantalla, los códigos serán sustituidos por los datos correspondientes. Por ejemplo:
-int a;
-float x;
-a = 5;
-x = 10.33;
-printf("El número entero es %i y el real es %f", a, x);
-Lo que aparecerá en la pantalla al ejecutar este fragmento de código será: 
-El número entero es 5 y el real es 10.33
-Una última observación sobre printf(). Hay ciertos caracteres que no son directamente imprimibles desde el teclado. Uno de ellos es el salto de línea. Para poder ordenar a printf() que escriba un salto de línea (o cualquier otro carácter no imprimible) se utilizan los códigos de barra invertida, que con códigos especiales precedidos del carácter "\".
-En concreto, el carácter "salto de línea" se indica con el código "\n". Observa las diferencias entre estos dos bloques de instrucciones para intentar comprender la importancia del salto de línea:
-int a;
-a = 5;
-printf("La variable a vale %i", a);
-a = 14;
-printf("La variable a vale %i", a);
-El resultado en la pantalla de la ejecución de estas instrucciones es: 
-La variable a vale 5La variable a vale 14
-Veamos el mismo ejemplo usando el código del salto de línea (\n):
-int a;
-a = 5;
-printf("La variable a vale %i\n", a);
-a = 14;
-printf("La variable a vale %i", a);
-El resultado en la pantalla será:
-La variable a vale 5
-La variable a vale 14
-Entrada de datos: scanf()
-La función scanf() es, en muchos sentidos, la inversa de printf(). Puede leer desde el dispositivo de entrada estándar (normalmente el teclado) datos de cualquier tipo de los manejados por el compilador, convirtiéndolos al formato interno apropiado. Funciona de manera análoga a printf(), por lo que su sintaxis es:
-scanf(cadena_de_formato, datos);
-El prototipo de scanf() se encuentra en el archivo de cabecera stdio.h (de "std" = standard e "io" = input/output, es decir, entrada/salida)
-La cadena_de_formato tiene la misma composición que la de printf(). Los datos son las variables donde se desea almacenar el dato o datos leidos desde el teclado. ¡Cuidado! Con los tipos simples, es necesario utilizar el operador & delante del nombre de la variable, porque esa variable se pasa por referencia a scanf() para que ésta pueda modificarla.
 Por ejemplo:
-int a, b;
-float x;
-scanf("%d", &a);
-scanf("%d%f", &b, &x);
-La primera llamada a scanf() sirve para leer un número entero desde teclado y almacenarlo en la variable a. La segunda llamada lee dos números: el primero, entero, que se almacena en b; y, el segundo, real, que se almacena en x.
-La función scanf() tiene alguna otra funcionalidad añadida para el manejo de cadenas de caracteres que ya veremos en su momento.
-Ejemplo de uso de scanf() y  printf()
-Debido a la relativa complejidad de estas funciones de entrada y salida, vamos a presentar un pequeño ejemplo de traducción de pseudocódigo a C. Se trata de un algoritmo que lee dos números enteros, A y B. Si A es mayor que B los resta, y en otro caso los suma.
-Observa detenidamente la correspondencia entre cada pareja de instrucciones, especialmente las de entrada y salida.
-Pseudocódigo
-Traducción a C
-algoritmo suma_y_resta
 
-variables
-   a y b son enteros
-inicio
-   escribir ("Introduzca dos números enteros")
-   leer(a, b)
-   si (a < b) entonces
-       escribir("La suma de a y b es:", a+b)
-   si_no
-       escribir("La resta de a menos b es:", a–b)
-fin
-/* Programa suma y resta */
-#include <stdio.h>
-int main()
-{   
-  int a, b;
-  printf ("Introduzca dos números enteros\n");
-  scanf("%d%d", &a, &b);
-  if (a < b) 
-     printf("La suma de %d y %d es: %d", a, b, a+b);
-  else
-     printf("La resta de %d menos %d es: %d", a, b, a–b);
-  return 0;
+```javascript
+// Definición de la función
+function potencia(base, exponente) {
+   var i;
+   var resultado = 1;
+   for (i = 1; i <= exponente; i++) {
+      resultado = resultado * base;
+   }
+   return resultado;
 }
- 6.2  E/S simple por consola
-Técnicamente, con printf() y scanf() es posible escribir y leer cualquier tipo de datos desde cualquier dispositivo de salida o entrada, no solo la pantalla y el teclado, como de hecho comprobaremos cuando estudiemos los ficheros.
-En la práctica, aunque printf() resulta bastante efectiva y versátil, scanf() puede darte muchos dolores de cabeza. Para hacerte una idea, sólo tienes que probar a hacer un scanf() de un número entero e inmediatamente después otro scanf() de una cadena de caracteres. El segundo scanf() fallará. La razón es bastante rocambolesca: el flujo de entrada no consumirá el carácter de retorno de carro al leer el número entero, por lo que dicho carácter se adjudicará al segundo scanf() automáticamente.
-Por suerte, existe otro grupo de funciones en ANSI C específicamente diseñadas para hacer la E/S por consola, es decir, por teclado y pantalla, de manera más simple. Las resumimos en el siguiente cuadro.
-Los prototipos de estas funciones se encuentran en el archivo de cabecera stdio.h (de "std" = standard e "io" = input/output, es decir, "entrada/salida")
-Función
-Utilidad
-Ejemplo
-getchar()
-Espera a que se pulse una tecla seguida de INTRO y devuelve su valor. Muestra el eco en la pantalla, es decir, la tecla pulsada aparece en la pantalla.
-putchar(carácter)
-Escribe un carácter en la pantalla
-char car;
-car = getchar();
-printf("Tecla pulsada:\n");
-putchar(car);
-gets(cadena)
-Lee del teclado una cadena de caracteres seguida de INTRO.
-puts(cadena)
-Escribe una cadena de caracteres en la pantalla
-char cadena[50];
-gets(cadena);
-printf("Cadena tecleada:\n");
-puts(cadena);
-Para evitar los problemas que a menudo causa scanf(), podemos recurrir a gets() para leer las cadenas de caracteres. Si necesitamos leer un número, podemos usar gets() y luego convertir la cadena a un tipo de dato numérico con las funciones de conversión atoi() y atof(), como se muestra en el siguiente ejemplo:
-char cadena[50];
-int a;
-float x;
 
-gets(cadena);		// Leemos una cadena de caracteres
-a = atoi(cadena);		// Convertimos la cadena en un número entero
-x = atof(cadena);		// Convertimos la cadena en un número real
-Las funciones de conversión atoi() y atof() tratarán de convertir la cadena en un número, si ello es posible (es decir, si la cadena realmente contiene números). Estas funciones, junto con muchas otras, se describen en el apéndice I de este capítulo.
-Usar la combinación de gets() con atoi() o atof() es más costoso que utilizar scanf(). Primero, porque necesitamos una variable auxiliar de tipo cadena. Y, segundo, porque gets() es una función peligrosa: si se teclean más caracteres de los que caben en la cadena, el resultado es imprevisible (a menudo el programa se cuelga). Esto también tiene solución utilizando en su lugar la función fgets().
-Tal vez pienses que resulta demasiado complicado hacer algo muy simple como una entrada de datos por teclado. Tienes razón. Pero ten en cuenta dos cosas: las entradas de datos nunca son simples (son el punto donde el usuario interacciona con más libertad con el programa, y los usuarios humanos tendemos a hacer cosas impredecibles y complicadas), y C es un lenguaje de nivel intermedio, por lo que muchas tareas de alto nivel, simplemente, no las resolverá por nosotros. En ese sentido, C requiere del programador prestar atención a ciertos detalles que podría obviar en otros lenguajes. Es por esto, entre otras cosas, por las que C tiene exaltados detractores pero también incondicionales entusiastas.
-Por último, mencionaremos que los compiladores de Borland tienen dos variaciones muy útiles de la función getchar() llamadas getche() y getch(). Estas funciones, no definidas en el estándar ANSI de C, son como getchar() pero sin necesidad de pulsar INTRO detrás del carácter. La primera muestra el eco, es decir, escribe en la pantalla la tecla pulsada, y la segunda no. Los prototipos de estas funciones se encuentran en conio.h (de "con" = consola e "io" = input/output)
- 7  Flujo de trabajo programando con lenguaje C
-Como vimos más arriba, el ciclo de vida de desarrollo del software consta de una serie de etapas. En esta parte del libro nos estamos centrando a la etapa de implementación o codificación del software, ya que estamos aprendiendo un lenguaje de programación concreto.
-Antes de continuar profundizando en el lenguaje, vamos a hacer un pequeño paréntesis para especificar cuál suele ser el flujo de trabajo en el desarrollo de programas con lenguaje C. 
-Cuando se trabaja con C, la implementación de un programa suele dividirse en varias subfases: edición, compilación, enlace y depuración. Pasamos a describirlas brevemente a continuación.
- 7.1  Edición del código fuente
-Editar consiste en escribir el código fuente del programa en el lenguaje seleccionado, en nuestro caso C.
-Para escribir el código nos puede servir cualquier procesador de textos que permita guardar el documento en forma de texto ASCII plano (sin códigos de control y formato propios de los procesadores avanzados, como MS Word). 
-Existen multitud de procesadores de texto plano para programar en lenguaje C. Solo tienes que hacer una pequeña búsqueda en internet para encontrar una pléyade de candidatos. La ventaja de estos procesadores es que resaltan, en diferentes colores y tipografías, las palabras clave, las funciones, las cadenas, los comentarios, etc, haciendo de este modo mucho más legible el código fuente. Necesitarás probar unos cuantos antes de decidir cuál es el que más te gusta.
-Además, es habitual que los compiladores de C incluyan también un editor. Por ejemplo, los compiladores de Borland (como Turbo C/C++, Borland C/C++ o C++ Builder) poseen un entorno integrado de desarrollo, que es un programa que une al editor de texto, al compilador y al depurador en una sola aplicación controlada por un único interfaz, lo cual facilita mucho el trabajo. Estos editores con funcionalidades añadidas suelen denominarse IDEs (Integrated Development Environment, entorno integrado de desarrollo), y nos referiremos a ellos con más detalle en los apéndices de este libro. 
-Mi recomendación es que, al menos al principio, intentes usar un editor simple, que no incluya el compilador. Esto te obligará a hacer un trabajo adicional al tener que compilar y enlazar manualmente tu programa, pero es la mejor forma de comprender realmente en qué consiste la compilación y el enlace. En el futuro, esta comprensión te puede ayudar a resolver muchos errores de compilación y enlace.
-En cualquier caso, las recomendaciones que hemos de seguir durante la edición del código fuente son:
-    • No empezar a teclear código sin haber entendido bien el problema que se nos plantea. Si éste es complejo, es imprescindible plantear antes su descomposición modular en papel, resolviendo los módulos con pseudocódigo.
-    • Recuerda: comenzar a teclear a lo loco y sin pensar antes la solución detenidamente es la manera más segura de tardar el mayor tiempo posible en desarrollar un programa que, además, no funcione bien.
-    • Realizar un diseño modular previo del programa. Recuerda que un módulo de más de 30 ó 40 líneas (aproximadamente) empieza a ser demasiado largo.
-    • Evitar las variables globales.
-    • Elegir bien el nombre de los identificadores (variables, constantes, funciones...). Que sean significativos y no excesivamente largos.
-    • Identar el texto, es decir, dejar las sangrías necesarias para facilitar su comprensión.
-    • Usar espacios y líneas en blanco siempre que se considere que facilita la lectura.
-    • Ser generosos documentando el código fuente. Mejor que sobren comentarios que no que falten.
-    • Guardar el código fuente en archivos de texto cuya extensión sea ".c" (por ejemplo: "ejercicio.c")
- 7.2  Compilación
-El proceso de compilación, como sabes, consiste en que un programa, llamado compilador, traduzca el código fuente en lenguaje C a código binario. La compilación, por lo tanto, no es más que una traducción.
-El resultado de la compilación es el mismo programa traducido a código binario. Como el programa fuente estaba almacenado en un archivo con extensión .C, el compilador suele guardar el programa objeto en otro archivo con el mismo nombre y extensión .OBJ.
-Los programas cortos se guardan en un único archivo fuente que se traducirá a un único archivo objeto. Pero cuando los programas crecen, es habitual distribuir el código fuente en varios archivos con el objetivo de manipularlo mejor.
-Los compiladores de C usan compilación separada. Esto significa que, si un programa largo está escrito en varios archivos fuente, no es necesario compilarlos todos cada vez que se modifica algo. Basta con volver a compilar el archivo modificado. Por eso, dividir un programa fuente largo en varios archivos más cortos también sirve para mejorar los tiempos de compilación.
+// Invocación de la función
+var b = 9;
+var e = 4;
+var p = potencia(9, 4);
+document.write("9 elevado a 4 es " + p);
+```
+#### Paso de parámetros: ¿por valor o por referencia?
 
-Cuando tenemos varios archivos fuente es normal que existan dependencias entre ellos. Por ejemplo, cuando en un archivo A1 se utiliza (con la directiva #include) un archivo de cabecera A2. Si modificamos el archivo A2 es necesario volver a compilar el archivo A1, aunque A1 no haya sido modificado en absoluto. Se dice entonces que existe una dependencia entre los archivos A1 y A2.
-Controlar las dependencias es un trabajo tedioso y propenso a errores. Por fortuna, los compiladores se encargan de controlarlas por sí mismos. Así que no te extrañes si, al volver a compilar un archivo fuente después de modificarlo, se compilan automáticamente algunos otros archivos, aunque no los hayas tocado. El control de las dependencias lo puede realizar el compilador de manera automática o semiautomática (mediante archivos de dependencias o makefiles escritos por el programador), como veremos en los apéndices.
-Los compiladores, en fin, son programas muy complejos que, además, tienen multitud de opciones de compilación. Algunas de esas opciones también las veremos en los apéndices del libro. Allí encontrarás información sobre cómo compilar tus programas con Mingw, un compilador de C/C++ para Windows, y con gcc, el compilador nativo de Linux.
- 7.3  Enlace (link)
-Cuando existen varios programas objeto es necesario combinarlos todos para dar lugar al programa ejecutable definitivo. Este proceso se denomina enlace.
-El código objeto de las funciones de librería de C se encuentra almacenado en varios archivos (cuya extensión es .LIB) situados en ubicaciones conocidas por el enlazador. De este modo, el código objeto de las funciones de librería que hayamos utilizado en nuestro programa puede unirse con el código objeto del programa durante en enlace, generándose el programa ejecutable.
-Por lo tanto, es necesario hacer el enlace cuando el programa se encuentra distribuido en varios archivos, o cuando dentro del programa se utilizan funciones de librería. Esto quiere decir que, en la práctica, el enlace hay que hacerlo siempre.
-El enlazador o linker, es decir, el programa encargado de hacer el enlace, es en realidad diferente del compilador, que sólo hace la traducción. Sin embargo, la mayoría de los compiladores de C lanzan automáticamente el enlazador al finalizar la compilación para que el programador no tenga que hacerlo.
+Recuerda que, cuando se invoca un subalgoritmo, hay dos modos de enviarle los parámetros y que es muy importante distinguirlos.
 
-El enlace de nuestro código objeto con las funciones de librería puede hacerse de dos maneras:
-    • Enlace estático. Consiste en unir durante el enlace el código objeto de las librerías con el código del programa, generando así el ejecutable. El programa ejecutable crece notablemente de tamaño respecto de los archivos objeto, ya que incorpora el código de todas las funciones de las librerías. El enlace estático es el que normalmente se utiliza a menos que indiquemos otra cosa.
-    • Enlace dinámico. El código de las librerías no se une al del programa, sino que se busca durante la ejecución, únicamente cuando es requerido. El enlace dinámico produce, por lo tanto, ejecuciones más lentas, ya que cada vez que se use una función de librería dinámica es necesario buscar el archivo en el que se encuentra y ejecutar su código. Además, pueden producirse errores de enlace durante la ejecución del programa. Sin embargo, el enlace dinámico tiene las ventajas de reducir el tamaño del archivo ejecutable y permitir la compartición de librerías entre diferentes aplicaciones.
- 7.4  Depuración
-La depuración del programa consiste en localizar y corregir los errores que se hayan podido producir durante el desarrollo. El objetivo es conseguir un programa que funcione lo más correctamente posible, aunque hay que tener presente que ningún programa complejo está libre de errores al 100%
-Los errores pueden ser de tres tipos:
-    • Errores en tiempo de compilación. Se producen al traducir el código fuente a código objeto. El compilador los detecta y marca en qué línea se han producido, y de qué tipo son, por lo que son relativamente fáciles de corregir. Los errores de compilación más frecuentes son:
-    • Errores sintácticos: escribir mal alguna instrucción o algún identificador, u olvidarnos del punto y coma que debe terminar cada instrucción.
-    • Errores de tipos: intentar asignar a una variable de cierto tipo un valor de otro tipo incompatible, o invocar a una función con argumentos de tipo equivocado. Recuerda que C puede hacer conversiones de tipo automáticas, por lo que estos errores pueden quedar enmascarados.
-    • Errores de identificadores no reconocidos: ocurren cuando se intenta utilizar una variable o una constante que no ha sido declarada, o cuyo ámbito no llega al lugar donde se intenta utilizar.
-    • Avisos. Además de los errores, el compilador puede dar avisos (warnings) en lugares donde potencialmente puede existir un error de compilación. Es conveniente revisar todos los avisos y tratar de corregirlos antes de continuar con la ejecución.
-    • Errores en tiempo de enlace. Cuando el compilador termina la traducción se produce el enlace de todos los archivos objeto. En este momento se resuelven todas las llamadas a funciones, de modo que si alguna función no está presente en el conjunto de archivos objeto, el enlazador fallará y explicará la causa del error.
-    • Errores en tiempo de ejecución. Si la compilación y el enlace terminan sin novedad, se genera un archivo ejecutable (con extensión .EXE en sistemas Windows). Es el momento de comprobar que el programa realmente hace lo que se espera que haga. Para ello hay que probarlo con diversos conjuntos de datos de entrada; la elaboración de estos juegos de pruebas es una técnica que excede nuestras pretensiones.
-Los errores que surgen en tiempo de ejecución son los más complicados de corregir, ya que muchas veces no está clara la causa del error. En el peor de los casos, puede ser necesario rediseñar la aplicación por completo.
-Simplificando mucho, podemos encontrarnos con estos errores en tiempo de ejecución:
-    • Errores lógicos. Se producen cuando alguna condición lógica está mal planteada. Entonces, el flujo del programa puede ir por la rama "si_no" cuando debería ir por la rama "si", o puede salirse de un bucle cuando debería repetir una vez más, o entrar en un bucle infinito, etc.
-    • Errores aritméticos. Ocurren cuando una variable se desborda (overflow), o se intenta una operación de división entre cero, o alguna operación aritmética está mal planteada.
-    • Errores de punteros. Los punteros son herramientas muy potentes que permiten la manipulación dinámica de la memoria, pero también conllevan grandes riesgos porque un puntero "descontrolado" puede hacer auténticas locuras en la memoria del ordenador, hasta el punto de colgar sistemas poco fiables (Windows 9x)
-    • Errores de conversión automática de tipos. Se producen cuando C realiza una conversión automática que no teníamos prevista. Entonces el dato puede cambiar y dar al traste con la lógica del programa.
-    • Errores de diseño. Ocurren cuando el programa no está bien diseñado y realiza tareas diferentes de las que se pretendían. Son los peores errores, porque obligarán a modificar una parte (o la totalidad) del trabajo realizado, debiendo, en ocasiones, volver a las primeras fases del ciclo de vida para repetir todo el proceso.
-Estos y otros errores en tiempo de ejecución pueden manifestarse con distintas frecuencias:
-    • Siempre que se ejecuta el programa: son los más fáciles de localizar y corregir.
-    • Solo cuando se introducen determinados datos de entrada: puede ser complicado dar con la secuencia de datos de entrada que provocan el error, pero una vez que la encontramos, puede localizarse con facilidad.
-    • Al azar: algunas veces, los programas fallan sin motivo aparente, cuando han estado funcionando en el pasado con el mismo conjunto de datos. Son los errores más difíciles de localizar, porque ni siquiera se sabe bajo qué circunstancias ocurren.
-El depurador
-El depurador es un programa independiente del editor, el compilador y el enlazador. La mayoría de los compiladores disponen de uno y, además, suele estar integrado con los otros tres, de modo que desde el editor se puede lanzar cualquiera de los otros. 
-El depurador es una herramienta fundamental para localizar y corregir errores en tiempo de ejecución. Para que la depuración sea cómoda, hay que activar una opción específica del compilador que permita hacer la depuración sobre el código fuente. Si no se activa, la depuración se hará sobre el código binario o, como mínimo, será imposible acceder a los identificadores de variables, lo cual complica mucho la depuración. Muchos compiladores tienen esta opción activada por defecto. 
-Cada depurador tiene sus propias opciones y características, pero todos suelen coincidir en varios aspectos:
-    • Permiten ejecutar paso a paso cada instrucción del programa, deteniéndose antes de ejecutar la siguiente para permitirnos ver el estado de las variables o de los dispositivos de E/S.
-    • Permiten ver y manipular el contenido de las variables en cualquier punto del programa.
-    • Permiten ver y manipular la estructura de la memoria asignada al programa y de los registros del microprocesador.
-    • Permiten insertar puntos de ruptura (breakpoints), es decir, puntos donde la ejecución se detendrá momentáneamente para que hagamos alguna comprobación de las anteriormente expuestas.
-Haciendo correcto uso de estas posibilidades, podemos localizar rápidamente cualquier error en tiempo de ejecución y afrontar la tarea de corregirlo.
-Si quieres ver ejemplos concretos de depuradores para Windows y para Linux, puedes consultar los apéndices del libro en este momento.
+Observa el ejemplo anterior de la función *potencia()*. Los **parámetros formales** son *base* y *exponente*. Los **parámetros actuales** son *b* y *e*.
+
+* **Paso de parámetros por valor**: el *valor* de los parámetros actuales (*b* y *e*) se asigna a los **parámetros formales** del subalgoritmo. Así, *base* y *exponente* adquieren los mismos valores que tenían *b* y *e*, pero ahí termina toda su relación: a partir de entonces, se comportan como variables independientes unas de otras.
+* **Paso de parámetros por referencia**: los parámetros actuales (*b* y *e*) quedan *ligados* a los **parámetros formales** (*base* y *exponente*). Si el valor de *base* o de *exponente* cambia, también estaremos cambiando *b* y *e*, porque en realidad son las mismas variables.
+
+En Javascript, el paso de parámetros de **tipos primitivos** (ya sabes, *number*, *string*, *boolean*, etc) **siempre se hace por valor**.
+
+En cambio, el paso de parámetros de tipos complejos, llamados **objetos**, siempre se hace por referencia.
+
+¿Que qué son los objetos, preguntas? Bueno, ya veremos exactamente qué son objetos más adelante, pero, de momento, quédate con la idea de que un objeto es *cualquier variable que no sea de un tipo primitivo*. Por ejemplo, los **arrays** son objetos en Javascript.
+
+Así que la conclusión es que **los arrays siempre se pasan por referencia** en Javascript, mientras que **las variables simples siempre se pasan por valor**.
+
+### 5.2.9. Entrada y salida
+
+Hay varias formas de hacer la entrada y salida de datos con Javascript, es decir, hay varios equivalentes a la instrucciones **Leer** y **Escribir** de pseudocódigo.
+
+Para nuestros primeros programas, usaremos la función **prompt()** para hacer la entrada y la propiedad **innerHTML** para hacer la salida. A veces, la sustituiremos por la función **document.write()** (o su variante, **document.writeln()**)o por la función **alert()**.
+
+<table>
+    <tr>
+      <th>Instrucción</th>
+      <th>Pseudocódigo</th>
+      <th>Javascript</th>
+    </tr>
+    <tr>
+      <td>Entrada</td>
+      <td>
+         <code>
+         Leer variable
+         </code>
+      </td>
+      <td>
+         <code>
+         variable = prompt();
+         </code>
+      </td>
+    </tr>
+    <tr>
+      <td>Salida</td>
+      <td>
+         <code>
+         Escribir expresión
+         </code>
+      </td>
+      <td>
+         <code>
+         document.getElementById('selector').innerHTML = expresión;
+         </code>
+         <br>O bien:<br>
+         document.write(expresión);
+         <br>O bien:<br>
+         document.writeln(expresión);
+         </code>
+         <br>O bien:<br>
+         <code>
+         alert(expresión);
+         </code>
+      </td>
+    </tr>
+</table>
+
+Vamos a ver un poco más despacio cómo se usa cada una de estas funciones:
+
+#### Entrada de datos con prompt()
+
+La **entrada de datos** en Javascript puede hacerse de diversas maneras. En particular, usando **formularios HTML**, pero de momento no vamos a pelearnos con eso.
+
+De momento vamos a conformarnos con la función **prompt()**. Esta función muestra un mensaje en forma de ventana emergente y permite escribir un texto, asignándolo a una variable.
+
+Observa cómo se usa *prompt()* con este ejemplo escrito primero en pseudocódigo y luego en Javascript:
+
+Pseudocódigo:
+```
+Escribir("Dime un número")
+Leer n
+```
+
+Javascript:
+```javascript
+document.write("Dime un número");
+n = prompt();
+```
+
+Si pruebas este código, verás que sucede algo raro: el mensaje "Dime un número" sale escrito en la ventana del navegador web, pero el número nos lo pide en una ventana emergente que se sitúa *por encima* del mensaje. ¡Y, en algunos navegadores, el mensaje "Dime un número" ni siquiera aparecerá!
+
+![Prompt sin texto](/docs/prog-y-3d/_site/assets/images/05-prompt-sin-texto.png)
+
+Esto hace un efecto muy raro. ¿verdad?. Para evitarlo, puedes **unir las dos instrucciones** en una sola, puesto que *prompt()* te permite escribir un mensaje. Así:
+
+```javascript
+n = prompt("Dime un número");
+```
+
+Al ejecutar este código, verás que el efecto es mucho más natural:
+
+![Prompt con texto](/docs/prog-y-3d/_site/assets/images/05-prompt-con-texto.png)
+
+(Nota: la forma exacta en la que veas estas pantallas dependerá de tu navegador web, puesto que cada uno hace el *prompt* de manera ligeramente distinta)
+
+#### Salida de datos con document.write(), alert() e innerHTML
+
+La forma más sencilla de hacer la salida de datos con Javascript es usar **document.write()** o su hermana melliza, **document.writeln()**:
+
+```javascript
+<script>
+document.write("Hola, mundo");
+</script>
+```
+
+![Salida de datos con document.write()](/docs/prog-y-3d/_site/assets/images/05-salida-de-datos-con-document-write.png)
+
+La diferencia entre *write()* y *writeln()* es que la segunda insertará automáticamente un salto de línea tras la salida, y la primera no.
+
+Sin embargo, estas funciones tiene un grave problema: puede que el texto de salida *no se muestre inmediatamente*. La decisión de cuándo se muestra la salida la toma el navegador y hay poco que puedas hacer al respecto. Por eso, la usaremos en contadas ocasiones.
+
+Otra manera muy sencilla de hacer salida de datos es con **alert()**. Esta función muestra un texto en forma de ventana emergente. Por ejemplo:
+
+```javascript
+<script>
+alert("Hola, mundo");
+</script>
+```
+
+![Salida de datos con alert()](/docs/prog-y-3d/_site/assets/images/05-salida-de-datos-con-alert.png)
+
+La salida con *alert()* es simple y efectiva, pero resulta muy invasiva. Si haces todo tu programa con *alert()*, el usuario se sentirá enseguida apabullado por esa cantidad de ventanas emergentes que le saltan a la cara.
+
+De modo que nos queda la tercera vía. Es la más complicada, pero también la mejor. Y, en fin, tampoco es tan complicado.
+
+Consiste en preparar una zona de la pantalla del navegador para hacer en ella la salida de datos, y luego acceder a la misma con **document.getElementById().innerHTML**.
+
+Si sabes un poco de **HTML**, el lenguaje de marcado con el que se codifican las páginas web, enseguida comprenderás lo que estamos haciendo. Si no tienes ni idea de HTML, no te preocupes. Basta con que sigas los pasos que proponemos aquí para que puedas ejecutar tus programas Javascript. Ya tendrás tiempo de aprender HTML más adelante.
+
+**Paso 1. Prepara la caja donde se hará la salida**. La caja se crea un la etiqueta **<div>** de HTML, a la que puedes asignar un estilo de visualización. La primeras veces, puedes limitarte copiar y pegar este código en todos los programas Javascript que vayas a hacer:
+
+```html
+<div id='salida' style='text-align: center; border-style: solid; border-color: black'></div>
+<script>
+   // Escribe aquí tu programa Javascript
+</script>
+```
+
+**Paso 2. Dentro de tu programa Javascript, utiliza ```document.getElementById('salida').innerHTML = expresión``` para hacer la salida**. Sí, lo sé, es un poco largo, pero Javascript es así. Por ejemplo:
+
+```html
+<div id='salida' style='text-align: center; border-style: solid; border-color: black'></div>
+<script>
+   document.getElementById('salida').innerHTML = "Hola, mundo";
+</script>
+```
+
+![Salida de datos con innerHTML](/docs/prog-y-3d/_site/assets/images/05-salida-de-datos-con-innerhtml.png)
+
+**Paso 3. Utiliza ```document.getElementById('salida').innerHTML += expresión``` si no quieres perder la salida anterior**. Es decir, si usas un **igual** (=), cada salida de datos borrará la pantalla. Si usas **más igual**, la salida de datos se añadirá a la anterior, sin borrarla:
+
+```html
+<div id='salida' style='text-align: center; border-style: solid; border-color: black'></div>
+<script>
+   document.getElementById('salida').innerHTML += "Hola, mundo";
+</script>
+```
+
+**Paso 4 (OPTATIVO). Cambia las propiedades de tu caja de salida**. Intenta juguetear con las propiedades ***text-align***, ***border-style*** o ***border-color*** del *div* de salida. Además, hay muchas otras propiedades que puedes asignarle a esa caja. Si te atreves, investiga un poco cómo cambiar el color del texto o la tipografía.
+
+### 5.2.10. Arrays
+
+Los arrays en Javascript son mucho más que simples arrays: se trata de elementos muy complejos y flexibles que se adaptan a multitud de soluciones.
+
+Aquí solo vamos a ver una introducción a los mismos. Conforme vayas profundizando en tu conocimiento de Javascript, descubrirás cosas nuevas sobre estas asombrosas estructuras y les sacarás más y más partido.
+
+#### Declaración de arrays
+
+Los **arrays en Javascript** se pueden **declarar** de diversas formas:
+
+```javascript
+// Una forma de declarar un array:
+var ciudades = ['Almería', 'Granada', 'Málaga'];
+// Otra forma de declarar un array:
+var ciudades = new Array('Almería', 'Granada', 'Málaga');
+// Esta es otra forma:
+var ciudades = new Array(3);
+ciudades[0] = 'Almería';
+ciudades[1] = 'Granada';
+ciudades[2] = 'Málaga';
+// Y otra forma más:
+var ciudades = [];
+ciudades[0] = 'Almería';
+ciudades[1] = 'Granada';
+ciudades[2] = 'Málaga';
+```
+
+Realmente, no todas estas formas son equivalentes, porque Javascript a veces tratará a la variable *ciudades* como un **Array** y a veces como un **objeto**. La diferencia entre una y otra cosa es tan sutil que, de momento, puedes desentenderte de ello. Si algún día te vuelves un experto en Javascript, ya entenderás esa diferencia.
+
+Por ahora, quédate con la idea de que todas estas formas son válidas para declarar un array.
+
+#### Características de los arrays en Javascript
+
+Como puedes observar por los ejemplos anteriores, los arrays de Javascript tienen dos características importantes:
+
+* **No es necesario indicar su tamaño**, aunque se puede hacer. Los arrays son dinámicos: irán creciendo o decreciendo conforme sea necesario.
+* **El índice empieza en 0**. Es decir, el primer elemento es el 0, el segundo es el 1, etc.
+* El **acceso a los elementos** del array se hace como en pseudocódigo: indicando el índice del elemento entre corchetes.
+
+El array en sí mismo se considera **un objeto** de Javascript, no una variable primitiva (simple). Veremos los objetos en el próximo capítulo, pero, de momento, recuerda que los objetos se pasan por referencia a las funciones, mientras que las variables primitivas se pasan por valor.
+
+Una cosa muy peculiar de los arrays de Javascript es que **sus elementos pueden ser de diferente tipo**. Por ejemplo:
+
+```javascript
+// Este array tiene elementos del mismo tipo (strings):
+var ciudades = ['Almería', 'Granada', 'Málaga'];
+// Este array tiene elementos de diferente tipo:
+var miArray = ['Lunes', 5, ciudades];
+```
+
+En el ejemplo anterior, el array *ciudades* solo contiene elementos de tipo *string*, mientras que el array *miArray* contiene elementos de tipo dispares: un *string*, un *number* y un *array*.
+
+Como ves, nada impida que un elemento de un array sea otro array. De hecho, puede ser cualquier cosa.
+
+#### Propiedades y métodos
+
+Los arrays de Javascript, como cualquier objeto, tienen una serie de **propiedades y métodos**. Ya veremos exactamente qué son las propiedades y los métodos, pero de momento te basta saber que se trata de funciones y variables que *están dentro* del objeto de tipo array y que permiten usarlo.
+
+Algunas propiedades y métodos útiles de los arrays son:
+
+* **nombreArray.length**: devuelve el número de elementos del array.
+* **nombreArray.sort()**: ordena el array.
+* **nombreArray.push(valor)**: añade un elemento al array (a continuación de la última posición usada). Como consecuencia, el tamaño del array crecerá.
+* **nombreArray.pop()**: elimina el último elemento del array. Como consecuencia, el tamaño del array decrecerá.
+* **nombreArray.indexOf(valor)**: busca el elemento *valor* en el array y devuelve su posición (si lo encuentra) o -1 (si no lo encuentra).
+
+Hay muchas otras propiedades y métodos que puedes consultar en la [referencia oficial del lenguaje](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/Arrays).
+
+#### Recorrido de un array
+
+El **recorrido** de un array puede hacerse igual que en pseudocódigo, con la salvedad de que tendremos que averiguar la longitud del array antes de recorrerlo, puesto que el tamaño del array puede variar a lo largo del programa:
+
+```javascript
+var ciudades = ['Almería', 'Granada', 'Málaga'];
+var longArray = ciudades.length;
+var i;
+for (i = 0; i < longArray; i++) {
+   document.write(ciudades[i]);
+}
+```
+
+Existen formas alternativas de hacer esto en Javascript sin necesidad de averiguar la longitud del array ni usar variables índice. Por ejemplo, así:
+
+```javascript
+var ciudades = ['Almería', 'Granada', 'Málaga'];
+var ciudad;
+for (ciudad of ciudades) {
+   document.write(ciudad);
+}
+```
+
+### 5.2.11. Los objetos predefinidos de Javascript
+
+Los **objetos**, como hemos dicho varias veces ya, los estudiaremos en el próximo capítulo. Por ahora te basta saber que son construcciones de Javascript que encierran dentro de sí una serie de funciones y variables para manipular diferentes elementos y facilitar la vida al programador.
+
+Por ejemplo, los arrays son objetos.
+
+Pues bien, existen muchos otros objetos predefinidos en Javascript. Te voy a presentar a unos cuantos particularmente útiles, aunque debes saber que hay muchos más. Cuando vayas profundizando tu conocimiento de este lenguaje los irás conociendo.
+
+* **Date**. Permite obtener la fecha y hora actual del reloj del ordenador. Por ejemplo:
+
+   ```javascript
+   var d = new Date(); // Fecha y hora actual
+   document.write('Día de la semana', d.getDay());
+   document.write('Día del mes', d.getDate());
+   document.write('Mes', d.getMonth());
+   document.write('Año', d.getFullYear());
+   ```
+* **Math**. Este objeto contiene una enorme colección de funciones matemáticas. Algunas son: 
+   * *sin(x), cos(x), tan(x)*: calcula el seno, el coseno y la tangente de x.
+   * *max(valor1, valor2, ..., valorN), min(valor1, valor2, ..., valorN)*: calcula el máximo o el mínimo de una lista de valores.
+   * *round(x)*: redondea el número x.
+   * *pow(b, e)*: calcula la potencia de b elevado a e.
+   * *random()*: devuelve un número real aleatorio entre 0 y 1. Si quieres que sea un aleatorio entero entre dos valores cualesquiera, tendrás que hacer algo así:
+
+      ```javascript
+      document.write("Aleatorio de 0 a 1:  " + Math.random());
+      document.write("Aleatorio de 0 a 99: " + Math.round(Math.random()*100));
+      document.write("Aleatorio de 1 a 100:" + Math.round(Math.random()*100 + 1));
+      document.write("Aleatorio de 0 a 100:" + Math.round(Math.random()*101));
+      ```
+
+* **window**. Proporciona acceso a la ventana del navegador web donde se está ejecutando Javascript. Te ofrece métodos muy interesantes como:
+   * *open()*: abre otra ventana del navegador.
+   * *close()*: cierra la ventana actual (¡y destruye el programa en ejecución, ojo!).
+   * *moveTo(x, y)*: mueve la ventana actual a la posición x, y.
+   * *resizeTo(tamañoX, tamañoY)*: cambia el tamaño de la ventana actual.
+
+* **document**. Proporciona acceso al texto escrito dentro de la ventana del navegador. Lo hemos estado usando para generar la salida de nuestros programas. Estos son algunos métodos:
+   * *write()*: añade texto a la ventana del navegador.
+   * *writeln()*: añade texto a la ventana del navegador, y termina con una salto de línea.
+   * *open()*: elimina todo el contenido que haya en la ventana del navegador e inicia una nueva salida.
+   * *close()*: finaliza el envío de datos a la ventana del navegador.
+   * *getElementById()*: recupera un elemento del navegador a partir de su id. Es un método muy útil para interactuar con los elementos de la pantalla. Lo usaremos en los ejercicios.
+
+## 5.3. Escribiendo programas con Javascript
+
+Ya conocemos cómo se manejan los principales elementos de un programa con Javascript: variables, instrucciones de control, asignaciones, funciones, etc.
+
+Ahora nos queda saber cómo juntamos todo eso para escribir nuestros programas, ¿no te parece?
+
+Por fortuna, en esto Javascript también se parece mucho a pseudocódigo. 
+
+### 5.3.1. Caja de herramientas
+
+¿Qué necesitamos para comenzar a escribir programas en Javascript? ¿Tendrás que instalar un montón de programas de desarrollo en tu ordenador?
+
+La verdad es que no. Para desarrollar con Javascript basta con que tengas instalado:
+
+* **Un editor de texto**. No te sirve Microsoft Word ni Libreoffice Writer. Tiene que ser un editor de texto *plano*, es decir, que no introduzca información de formato en el archivo. Solo el texto.
+
+   Existen muchísimos editores de estas características, porque son programas muy, muy simples y livianos. El **bloc de notas** de Windows es uno de ellos, aunque resulta poco recomendable porque no colorea el código fuente ni te ayuda a corregir errores.
+
+   Un editor de texto para programación que ha tenido un crecimiento espectacular en los últimos años a nivel aficionado y profesional es **[Visual Studio Code](https://code.visualstudio.com/)**. Es multiplataforma (tiene versiones para Windows, Linux y Mac) y de código abierto. Y es una auténtica maravilla, así que te recomiendo que lo descargues (¡siempre de la web oficial, por favor!) y lo instales.
+
+   Si trabajas con Linux, seguramente lo encuentres en los repositorios oficiales de tu distribución. Esa, por supuesto, también es una fuente confiable desde donde instalarlo.
+
+* **Un navegador web**. Todos los navegadores web llevan en sus tripas un intérprete de Javascript, puesto que todas las páginas web actuales utilizan Javascript para funcionar. Puedes usar el navegador web que más te guste: Google Chrome, Mozilla Firefox, Microsoft Edge, el Safari de Apple, Opera, etc.
+
+### 5.3.2. Flujo de trabajo
+
+Lo habitual cuando estés escribiendo y depurando programas en Javascript es que **tengas abiertos a la vez** los dos programas:
+
+* El editor de texto, para ir escribiendo y modificando tu código.
+* El navegador web, para ir probando tu código.
+
+El flujo de trabajo, al menos al principio, será este:
+
+1. Comprender bien el problema que se pretende resolver.
+2. Pensar un rato en el algoritmo que vas a escribir. Si es necesario, hacer un boceto en papel y/o en pseudocódigo.
+3. Abrir el editor de texto y escribir una primera versión del programa. Si es muy largo, dividirlo en trozos más pequeños y escribir solo el primero de ellos.
+4. Comprobar que el programa o fragmento de programa funciona en el navegador web. No pasar al siguiente fragmento hasta que este no funcione correctamente.
+5. Repetir los pasos 3 y 4 hasta que el programa esté completo.
+
+Ten en cuenta que, cuando los programas empiecen a volverse complejos, no podrás resolverlos de una sentada. Escribir un programa muy complejo puede llevarte días, semanas o meses.
+
+### 5.3.3. Dónde y cómo escribir el código fuente
+
+Los programas en Javascript pueden guardarse en dos tipos de archivo:
+
+* **Archivos con extensión .js**. Estos archivos suelen contener bibliotecas de funciones Javascript usadas por otros programas. No se ejecutan directamente.
+* **Archivos con extensión .html o .htm**. El navegador web los interpretará como páginas web y, por lo tanto, los ejecutará. Aquí es donde debemos colocar nuestro código.
+
+Dentro del archivo .html, el código Javascript debe ir incrustado entre las etiquetas ```<script>``` y ```</script>```, que marcan el comienzo y el fin del programa:
+
+```html
+<script>
+   Aquí va el código Javascript
+</script>
+```
+
+Escribiremos el **algoritmo principal** de un programa en Javascript sin ninguna palabra especial que lo identifique como tal. Es decir, el código estará sin más en el archivo fuente, entre las etiquetas ```<script>``` y ```</script>```.
+
+(Hay otras formas de hacer esto, pero, de momento, esta es más que suficiente para nosotros).
+
+Los subalgoritmos sí que deben identificarse con la palabra **function** seguida del nombre del subalgoritmo, como hemos visto más arriba.
+
+**El orden en el que escribas los algoritmos es indiferente**. En el archivo, puede aparecer primero el algoritmo principal y luego los subalgoritmos, o al revés. Utiliza el orden que te parezca más lógico y con el que te sientas cómodo.
+
+## 5.4. Un ejemplo completo
+
+LLegó la hora de poner manos a la obra.
+
+Si hay una sección de este capítulo que tienes que leer con atención, es esta. Así que es un mal momento para tener prisa.
+
+Vamos a escribir un programa de ejemplo en Javascript para que veas qué aspecto tiene un programa en este lenguaje. Te puede servir de plantilla para desarrollar tus propios programas a partir de aquí.
+
+El programa en cuestión será una versión del juego de las tres en raya que resolvimos en el tema de introducción a la programación. No dudes en repasar aquel ejercicio resuelto para ver el pseudocódigo, puesto que nuestro programa será una traducción literal de ese pseudocódigo a Javascript.
+
+Aquí tienes el código fuente completo. Léelo con atención y asegúrate de entenderlo todo o casi todo antes de continuar. Ah, y no dejes de compararlo línea a línea con el mismo código en pseudocódigo.
+
+### 5.4.1. El código fuente
+
+```html
+<div id='salida' style='text-align: center; border-style: solid; border-color: black; font-family: mono'></div>
+<script>
+//-------------------------
+//   ALGORITMO PRINCIPAL
+//-------------------------
+var tablero = new Array(10);
+var ganador;
+var tablas;
+
+inicializar(tablero)   // Esto es un subalgoritmo. Está escrito más abajo
+mostrar(tablero);
+/*
+do {
+   mostrar(tablero);
+   colocar_pieza_humano(tablero);
+   ganador = comprobar_ganador(tablero);
+   tablas = comprobar_tablas(tablero);
+   if ((ganador == "Ninguno") && (tablas == false)) {
+      colocar_pieza_ordenador(tablero);
+      ganador = comprobar_ganador(tablero);
+      tablas = comprobar_tablas(tablero);
+   }
+}
+while ((ganador == "Ninguno") && (tablas == false));
+	
+mostrar(tablero);
+if (ganador == "Ninguno") {
+   alert("El juego ha terminado en tablas");
+}
+else {
+   alert("El juego ha terminado. El ganador es: " + ganador);
+}
+*/
+
+// --------------------------------------------
+// Inicializa el tablero con espacios en blanco
+// --------------------------------------------
+function inicializar(tablero) {
+   //let i;
+   for (i = 1; i <= 9; i++) {
+      // Como tablero es un array, se pasa por referencia y los cambios que
+      // hagamos aquí se reflejarán en el algoritmo principal
+      tablero[i] = i;
+   }
+}
+
+// --------------------------------------------
+// Muestra el estado actual del tablero
+// --------------------------------------------
+function mostrar(tablero) {
+   document.getElementById('salida').innerHTML = "ESTADO ACTUAL DEL TABLERO<br>";
+   document.getElementById('salida').innerHTML += "|" + tablero[1] + "|" + tablero[2] + "|" + tablero[3] + "|<br>";
+   document.getElementById('salida').innerHTML += "|" + tablero[4] + "|" + tablero[5] + "|" + tablero[6] + "|<br>";
+   document.getElementById('salida').innerHTML += "|" + tablero[7] + "|" + tablero[8] + "|" + tablero[9] + "|<br>";
+}
+
+// ---------------------------------------------------
+// Coloca una pieza del jugador humano en el tablero
+// ---------------------------------------------------
+function colocar_pieza_humano(tablero) {
+   var casilla, casilla_correcta;
+   do {
+      casilla = prompt("¿En qué casilla quieres poner una pieza? (1-9)");
+      casilla_correcta = false;
+      if (tablero[casilla] == " ") {
+         tablero[casilla] = "X";
+         casilla_correcta = true;
+      }
+      else {
+         document.getElementById('salida').innerHTML += "Error: Esa casilla ya está ocupada<br>";
+      }
+   }
+   while (casilla_correcta == false);
+}
+
+// ---------------------------------------------------
+// Coloca una pieza del ordenador en el tablero
+// ---------------------------------------------------
+function colocar_pieza_ordenador(tablero) {
+   var casilla, casilla_correcta;
+   casilla_correcta = false;
+   do {
+      casilla = Math.round(Math.random()*9+1);
+      document.getElementById('salida').innerHTML += "Voy a colocar mi pieza en la casilla " + casilla + "<br>";
+      if (tablero[casilla] == " ") {
+         tablero[casilla] = "O";
+         casilla_correcta = true;
+      }
+      else {
+         alert("¡Está ocupada!");
+      }
+   }
+   while (casilla_correcta == false);
+}
+
+// ---------------------------------------------------
+// Comprueba si hay un ganador según el estado del 
+// tablero. Devuelve "Ninguno", "Humano" u "Ordenador"
+// ---------------------------------------------------
+function comprobar_ganador(tablero) {
+   var ganador = "Ninguno";
+   // Comprobamos primera fila
+   if ((tablero[1] == tablero[2]) && (tablero[1] == tablero[3])) {
+      if (tablero[1] == "X") {
+         ganador = "Humano";
+      }
+      if (tablero[1] == "O") {
+         ganador = "Ordenador";
+      }
+   }
+   // Comprobamos segunda fila
+   if ((tablero[4] == tablero[5]) && (tablero[4] == tablero[6])) {
+      if (tablero[4] == "X") {
+         ganador = "Humano";
+      }
+      if (tablero[4] == "O") {
+         ganador = "Ordenador";
+      }
+   }
+   // Comprobamos tercera fila
+   if ((tablero[7] == tablero[8]) && (tablero[7] == tablero[9])) {
+      if (tablero[7] == "X") {
+         ganador = "Humano";
+      }
+      if (tablero[7] == "O") {
+         ganador = "Ordenador";
+      }
+   }
+   // Comprobamos primera columna
+   if ((tablero[1] == tablero[4]) && (tablero[1] == tablero[7])) {
+      if (tablero[1] == "X") {
+         ganador = "Humano";
+      }
+      if (tablero[1] == "O") {
+         ganador = "Ordenador";
+      }
+   }
+   // Comprobamos segunda columna
+   if ((tablero[2] == tablero[2]) && (tablero[2] == tablero[8])) {
+      if (tablero[2] == "X") {
+         ganador = "Humano";
+      }
+      if (tablero[2] == "O") {
+         ganador = "Ordenador";
+      }
+   }
+   // Comprobamos tercera columna
+   if ((tablero[3] == tablero[6]) && (tablero[3] == tablero[9])) {
+      if (tablero[3] == "X") {
+         ganador = "Humano";
+      }
+      if (tablero[3] == "O") {
+         ganador = "Ordenador";
+      }
+   }
+   // Comprobamos una diagonal
+   if ((tablero[1] == tablero[5]) && (tablero[1] == tablero[9])) {
+      if (tablero[1] == "X") {
+         ganador = "Humano";
+      }
+      if (tablero[1] == "O") {
+         ganador = "Ordenador";
+      }
+   }
+   // Comprobamos la otra diagonal
+   if ((tablero[3] == tablero[5]) && (tablero[3] == tablero[7])) {
+      if (tablero[3] == "X") {
+         ganador = "Humano";
+      }
+      if (tablero[3] == "O") {
+         ganador = "Ordenador";
+      }
+   }
+   return ganador;
+}
+
+// -------------------------------------------
+// Comprueba si hay una situación de tablas
+// según el estado actual del tablero. Devuelve
+// verdadero si hay tablas o falso en otro caso.
+// -------------------------------------------
+function comprobar_tablas(tablero) {
+   var tablas;
+   var i, contador = 0;
+   for (i = 1; i <= 9; i++) {
+      if (tablero[i] != " ") {
+         contador++;
+      }
+   }
+	
+	// Si todas las casillas están ya ocupadas y no hay ganador,
+	// entonces estamos en tablas.
+   if (contador == 9) {
+      tablas = true;
+   }
+   else {
+      tablas = false;
+   }
+   return tablas;
+}
+</script>
+```
+
+### 5.4.2. ¿Cómo ejecutar y depurar este programa?
+
+Guarda el programa anterior en un archivo de texto con extensión .html (por ejemplo, ```3-en-raya.html```).
+
+Luego, sencillamente, haz doble clic sobre él para abrirlo. El sistema operativo usará el navegador web predeterminado de tu sistema para abrir el archivo y la ejecución comenzará.
+
+¿El resultado no es el esperado? Es lo habitual. Habrá algún error en el código y te tocará depurarlo.
+
+Pulsa **F12** en tu navegador para abrir la **consola de errores** de Javascript. ¡Atención! Dependiendo del navegador que uses, puede que esa consola de errores se abra con otra combinación de teclas. Tendrás que bichear un poco por internet para averiguarlo. Lo habitual, sin embargo, es F12.
+
+![Consola de errores de Javascript](/docs/prog-y-3d/_site/assets/images/05-consola-errores-javascript.png)
+
+En la consola de errores verás los mensajes de error que haya lanzado el intérprete de Javascript, indicándote el tipo de error y la línea en la que se ha detectado. Los mensajes estarán en inglés, por supuesto, pero ¿qué esperabas? Si quieres aprender a programar, tienes que acostumbrarte a manejar el inglés técnico.
+
+Cuando hayas localizado el error, ****regresa a tu editor de texto, haz los cambios necesarios, guarda las modificaciones y recarga la página** (pulsando **F5** en la mayoría de los navegadores).
+
+Y así hasta que funcione.
+
+¡Mucha paciencia y sangre fría! Recuerda siempre que la mayor parte del tiempo de programación se va en depurar programas, no en escribirlos.
+
+## 5.5. Ejercicios propuestos
+
+XXX
+(tabla de multiplicar)
+(número secreto)
+(mejoras en 3 en raya mediante CSS y HTML: visualización con tablas, colores, etc)
+(juego de la carretera)
+(pelotita que rebota)
+(juego de tenis)
+
+## 5.6. Ejercicios resueltos
+
+XXX
