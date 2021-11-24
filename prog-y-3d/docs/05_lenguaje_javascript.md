@@ -1301,24 +1301,121 @@ Y así hasta que funcione.
 
 ¡Mucha paciencia y sangre fría! Recuerda siempre que la mayor parte del tiempo de programación se va en depurar programas, no en escribirlos.
 
-## 5.5. Ejercicios propuestos
+## 5.5. Eventos
 
-**Esta sección aún está en desarollo XXX**
+Javascript puede responder a los **eventos** que sucedan en la página web.
 
-(tabla de multiplicar)
+¿Qué es un evento? Esto es fácil de responder: un evento es cualquier cosa que suceda dentro del navegador a lo que el navegador pueda responder.
 
-(número secreto)
+Por ejemplo, un evento es "hacer clic con el ratón sobre un enlace". Otro evento es "escribir un carácter en un cuadro de texto". Y otro evento es: "cerrar la ventana del navegador".
 
-(jugar con la window del navegador: mover, temblar, etc)
+Hay muchos eventos distintos, y cada uno puede ocurrir asociado a cualquier elemento de la página web. Pero el evento estrella es, sin duda, "hacer clic".
 
-(pelotita que rebota)
+Observa el siguiente fragmento de código HTML. No hace falta que sepas HTML. Tú solo míralo:
 
-(mejoras en 3 en raya mediante CSS y HTML: visualización con tablas, colores, etc)
+```html
+<button>Púlsame</button>
+```
 
-(juego de tenis)
+¿Te imaginas lo que se verá en el navegador si cargas esa página? Pues sí: un botón cuyo texto será "Púlsame".
 
-(juego de la carretera)
+Ahora mira el mismo código, ligeramente modificado:
 
-## 5.6. Ejercicios resueltos
+```html
+<button onclick='procesar_boton()'>Púlsame</button>
+```
+
+Ese "onclick" a continuación del botón significa que **vamos a capturar el evento clic de ratón** asociado al botón. Al hacer clic sobre él, se ejecutará la función *porcesar_boton()* de Javascript.
+
+Usaremos algún evento onclick() como este en los ejercicios para conseguir resultados curiosos. Ya lo verás...
+
+## 5.6. Ejercicios propuestos
+
+**Ejercicio 1. Tabla de multiplicar**.
+
+Vamos a empezar por algo sencillito.
+
+Escribe un programa en Javascript que pida un número y muestre la tabla de multiplicar de ese número.
+
+Puedes utilizar esta plantilla para tu primer programa:
+
+```html
+<div id='salida' style='text-align: center; border-style: solid; border-color: black'></div>
+<script>
+   // Escribe aquí el programa de la tabla de multiplicar
+</script>
+```
+
+Recuerda que la salida la puedes enviar al <div> 'salida' con la expresión: *document.getElementById('salida').innerHTML*
+
+**Ejercicio 2. Juego del número secreto**.
+
+Ahora algo solo un poquito más complicado: una versión en Javascript del juego del número secreto.
+
+(Puedes encontrarlo resuelto en el capítulo "Introducción a la programación")
+
+**Ejercicio 3. Botones saltarines**
+
+Aquí empezamos a divertirnos.
+
+Vamos a hacer una página web con un botón. Al pulsar ese botón, Javascript hará que ¡el botón cambie de sitio!
+
+Para eso, capturaremos el **evento *click*** del botón.
+
+El botón lo tienes que crear antes mediante HTML. Algo así:
+
+```html
+<body>
+   <button id='boton' onclick='mover_boton()' style='position: absolute; top: 100px; left: 200px'>Púlsame</button>
+   <script>
+      function mover_boton() {
+          // Escribe aquí tu código javascript
+      }
+   </script>
+</body>
+```
+
+Ahora solo te queda programar la función *mover_boton()*.
+
+Para lograr que el botón se mueva, tendrás que fijarte primero en cómo está el botón creado: tiene un **id**, un **value** (el texto del botón), el evento **onclick** y un **style**. Este último es el que nos interesa.
+
+En el **style** del botón se definen dos propiedades:
+* **top** es la distancia desde la parte superior de la ventana del navegador hasta el botón. Lo hemos establecido en 100 píxeles (100px).
+* **left** es la distancia desde la parte izquierda de la ventana del navegador hasta el botón. Le hemos dado 200 píxeles.
+
+Pues bien, debes hacer que Javascript modifique esas dos propiedades. Por ejemplo, así:
+
+```javascript
+function mover_boton() {
+   document.getElementById('boton').style.top = '150px';
+   document.getElementById('boton').style.left = '250px';
+}
+```
+
+Con eso, el botón se moverá al hacer clic sobre él, pero solo la primera vez. Quedará emplazado en la posición top = 150px y left = 250px y ya no se desplazará más.
+
+¿Y si quisiéramos que se moviera *siempre* que hagamos clic sobre él? Es es lo que tienes que conseguir en este ejercicio.
+
+**Ejercicio 4. Ventana nerviosa y botones evanescentes**
+
+XXX
+
+**Ejercicio 5. Pelota de goma**
+
+XXX
+
+**Ejercicio 6. Tres en raya improved**
+
+XXX
+
+**Ejercicio 7. Tenis**
+
+XXX
+
+**Ejercicio 8. Carretera al infierno**
+
+XXX
+
+## 5.7. Ejercicios resueltos
 
 Aquí iremos poniendo los ejercicios que resolvamos en clase.
