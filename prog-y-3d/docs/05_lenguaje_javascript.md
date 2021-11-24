@@ -138,13 +138,13 @@ Sin embargo, muchos lenguajes muy populares en la actualidad, como Javascript, P
 
 Pues sí: la **gran ventaja de los intérpretes** es que hacen que **los programas sean más portables**. 
 
-Así, un programa compilado en una máquina PC bajo Windows no funcionará en un Macintosh, o en un PC bajo Linux, a menos que se vuelva a compilar el programa fuente en el nuevo sistema. En cambio, un programa interpretado funcionará en todas las plataformas, siempre que dispongamos del intérprete en cada una de ellas.
+Así, un programa compilado en una máquina PC bajo Windows no funcionará en un Mac o en un PC bajo Linux, a menos que se vuelva a compilar el programa fuente en el nuevo sistema. En cambio, un programa interpretado funcionará en todas las plataformas, siempre que dispongamos del intérprete en cada una de ellas.
 
 **JavaScript** es un ejemplo de lenguaje interpretado tremendamente popular gracias al crecimiento de Internet. Los programas escritos con JavaScript (llamados comúnmente *scripts*) pueden funcionar en cualquier máquina que disponga de un intérperte Javascript, y resulta que todos los navegadores web tienen uno.
 
-Por eso, cualquier programa escrito en Javascript puede ejecutarse prácticamente en cualquier ordenador del mundo sin tocarle ni una coma.
+Por eso, **cualquier programa escrito en Javascript puede ejecutarse prácticamente en cualquier ordenador del mundo** sin tocarle ni una coma.
 
-En cambio, **C/C++** es un lenguaje compilado, lo que hace que los programas desarrollados con estos lenguajes se ejecuten más rápido (¡pero mucho más rápido!) que sus equivalentes en JavaScript. Sin embargo, tendrás que volver a compilarlos si deseas ejecutarlos en una máquina con diferente hardware o diferente sistema operativo.
+En cambio, **C++**, por ejemplo, es un lenguaje compilado, lo que hace que los programas desarrollados con estos lenguajes se ejecuten más rápido (¡pero mucho más rápido!) que sus equivalentes en JavaScript. Sin embargo, tendrás que volver a compilarlos si deseas ejecutarlos en una máquina con diferente hardware o diferente sistema operativo.
 
 ### 5.1.4. Tipos de lenguaje según su tipado
 
@@ -163,9 +163,9 @@ Las dos primeras categorías y las dos segundas no son excluyentes. Por ejemplo,
 
 Es difícil saber cuales son los lenguajes más populares en un determinado momento porque no existen estadísticas fiables a nivel mundial. Además, las cosas pueden cambiar mucho de un territorio a otro.
 
-Sin embargo, ciertos sitios de internet, como **GitHub**, almacenan enormes cantidades de proyectos de software. GitHub, de hecho, es el mayor almacén de código fuente conocido, de modo que sus estadísticas nos pueden dar una idea de cual es el grado de uso de cada lenguaje.
+Sin embargo, ciertos sitios de internet, como **GitHub**, almacenan enormes cantidades de proyectos de software. GitHub, de hecho, es el mayor almacén de código fuente conocido, de modo que sus estadísticas nos pueden dar una idea bastante exacta de cuál es el grado de uso de cada lenguaje.
 
-Pues bien, según Madnight, un proyecto que recopila y publica estadísticas de uso de lenguajes en GitHub, el *top ten* de lenguajes de programación más usados en GitHub es:
+Según [Madnight](https://madnight.github.io/githut), un proyecto que recopila y publica estadísticas de uso de lenguajes en GitHub, el *top ten* de lenguajes de programación más usados en GitHub es:
 
 Puesto|Lenguaje|Porcentaje de uso|Variación de uso en 12 meses
 -|-|-|-
@@ -182,21 +182,18 @@ Puesto|Lenguaje|Porcentaje de uso|Variación de uso en 12 meses
 
 El porcentaje de uso indica la proporción de proyectos en GitHub que usan ese lenguaje de programación sobre el total de proyectos. La última cifra señala la variación interanual del porcentaje de uso.
 
-Estos datos son de tercer cuatrimestre de 2021. Para obtener datos actualizados, puedes visitar la web [https://madnight.github.io/](https://madnight.github.io/)
+Estos datos son de tercer cuatrimestre de 2021. Para obtener datos de otras fechas, puedes visitar la web [https://madnight.github.io/](https://madnight.github.io/)
 
-Como puede verse, Javascript continúa siendo el lenguaje preferido por la mayoría de los programadores (aunque está lejos de sus tiempos memorables, donde llegó a utilizarse en casi el 30% de los nuevos proyectos). Viejas glorias como Java, C++, PHP y C aguantan muy bien el tipo, con unos números muy estables, porque tienen una base de programadores muy fieles a sus espaldas, mientras que algunos lenguajes recientes como Go y Typescript se han hecho un hueco en el ránking de los 10 más usados.
+Ten en cuenta de nuevo que esto no son cifras de uso absoluto de los lenguajes a nivel mundial. Solo se trata de una pista de cuál es la situación. De hecho, si consultas otras estadísticas como el [TIOBE index](https://tiobe.com/tiobe-index/), encontrarás datos diferentes.
 
-En concreto, **Typescript** podría llegar a ser el sucesor de Javascript, puesto que es un superconjunto de este. Es decir, todo el código escrito en Javascript es también Typescript, solo que este último posee nuevas características que no existen en Javascript.
-
-Eso significa una cosa: que **aprender a programar con Javascript es una inversión para el presente y para el futuro**.
+Según las cifras de Madnight, Javascript continúa siendo el lenguaje preferido por la mayoría de los programadores (aunque está lejos de sus tiempos memorables, donde llegó a utilizarse en casi el 30% de los proyectos activos en Github). Viejas glorias como Java, C++, PHP y C aguantan muy bien el tipo, con unos números muy estables, porque tienen una base de programadores muy fieles a sus espaldas, mientras que algunos lenguajes recientes como Go y Typescript se han hecho un hueco en el ránking de los 10 más usados.
 
 ## 5.2. ¡Bienvenidos a Javascript!
 
 ### 5.2.1.  Características básicas de Javascript
 
-Javascript es un lenguaje interpretado de alto nivel cuyas propiedades fundamentales son:
-
-* Es un lenguaje **imperativo y estructurado**. Admite **orientación a objetos basada en prototipos**, no en clases (puede que no entiendas lo que significa esto, pero de momento no importa).
+* Javascript es un lenguaje de **alto nivel**.
+* Es **imperativo y estructurado**. Admite **orientación a objetos basada en prototipos**, no en clases (puede que no entiendas lo que significa esto, pero de momento no importa).
 * Su **tipado es débil y dinámico**.
 * La **sintaxis** de sus estructuras de control está **heredada del lenguaje C**, como la de Java, PHP o Python, por lo que guarda bastantes semejanzas con estos otros lenguajes.
 * Es un **lenguaje interpretado**, pensado para ser ejecutado dentro de un navegador web. Por lo tanto, no es particularmente eficiente, pero sí muy portable. Sin embargo, también existen **compiladores y precompiladores** que permiten construir con Javascript cualquier tipo de programa, no solo aplicaciones web.
@@ -206,15 +203,15 @@ Javascript es un lenguaje interpretado de alto nivel cuyas propiedades fundament
 
 ### 5.2.2. Breve historia de Javascript
 
-Javascript fue un lenguaje creado en la década de 1990 para el ya desaparecido navegador web **Netscape Navigator**. En aquellos primeros tiempos de internet, las páginas web eran sitios muy poco vistosos, con mucho texto y unas pocas imágenes, y Javascript pretendía introducir un poco de movimiento y dinamismo en esas páginas.
+Javascript fue un lenguaje creado en la década de 1990 para el ya desaparecido navegador web **Netscape Navigator**. En aquellos primeros tiempos de internet, las páginas web eran sitios muy poco vistosos, con mucho texto y unas pocas imágenes, y Javascript pretendía introducir un poco de movimiento y dinamismo en esas páginas tan aburridas.
 
-**Internet Explorer**, el principal competidor de Netscape, respondió introduciendo **VB Script** en su navegador y, posteriormente, un lenguaje muy similar a Javascript (pero no igual) llamado **JScript**. Esos lenguajes no tuvieron éxito e Internet Explorer terminó por aceptar la existencia de Javascript.
+**Internet Explorer**, el principal competidor de Netscape, respondió creando el **VB Script** y, posteriormente, un lenguaje muy similar a Javascript (pero no igual) llamado **JScript**. Esos lenguajes no tuvieron éxito e Internet Explorer terminó por aceptar la existencia de Javascript.
 
-Aquella competición entre Netscape e Internet Explorer se llamó *guerra de los navegadores* y, aunque Netscape la perdió y acabó desapareciendo, Javascript ha permanecido hasta hoy como un heredero directo aquella época.
+Aquella competición entre Netscape e Internet Explorer se llamó *guerra de los navegadores* y, aunque Netscape la perdió y acabó desapareciendo, Javascript ha permanecido hasta hoy como el heredero directo aquella época convulsa.
 
-Desde entonces, Javascript ha tenido una evolución enorme, y ha pasado de ser apenas un lenguaje de juguete con el que se podían conseguir un puñado de efectos dinámicos en los sitios web a ser un lenguaje enorme y bien definido capaz de sustentar la estructura de enormes aplicaciones web.
+Desde entonces, Javascript ha tenido una evolución enorme, y ha pasado de ser apenas un lenguaje de juguete con el que se podían conseguir un puñado de efectos dinámicos en los sitios web a ser un lenguaje muy potente y bien definido, capaz de sustentar la estructura de aplicaciones web complejas.
 
-Hoy en día, Javascript suele utilizarse con librerías y *frameworks* que mejoran su estructura y aumentan su potencia. El estándar del lenguaje está publicado por la ECMA (European Computer Manufacturers Association) y se denomina ECMAScript. Todos los navegadores web respetan ese estándar casi en gran medida.
+Hoy en día, Javascript suele utilizarse con librerías y *frameworks* que mejoran su estructura y aumentan su potencia. El estándar del lenguaje está publicado por la **ECMA** (European Computer Manufacturers Association) y se denomina **ECMAScript**. Todos los navegadores web respetan ese estándar en gran medida.
 
 ### 5.2.3. Sintaxis básica de Javascript
  
@@ -222,7 +219,7 @@ Hoy en día, Javascript suele utilizarse con librerías y *frameworks* que mejor
 
 Hay algunas normas básicas de la sintaxis de Javascript que tienes que conocer:
 
-* Los bloques de código se marcan con las llaves {...}. Por ejemplo, después de una sentencia *while* (equivalente al *mientras* de pseudocódigo) hay que abrir una llave. El cuerpo de bucle comprenderá desde esa llave de apertura hasta la siguiente llave de cierre, así:
+* **Los bloques de código se marcan con las llaves** ( **{** y **}** ). Por ejemplo, después de una sentencia *while* (equivalente al *mientras* de pseudocódigo) hay que abrir una llave. El cuerpo de bucle comprenderá desde esa llave de apertura hasta la siguiente llave de cierre, así:
 
    ```javascript
    while (condicion) {
@@ -235,14 +232,34 @@ Hay algunas normas básicas de la sintaxis de Javascript que tienes que conocer:
 
    La llave de cierre, por tanto, sería el equivalente al *FinMientras* de pseudocódigo.
 
-* Todas las instrucciones terminan con un punto y coma ( ; )
-* Los identificadores de variables, funciones, etc., no pueden empezar con un número ni contener espacios o símbolos especiales, salvo el de subrayado ( _ )
-* Las cadenas de caracteres pueden encerrarse entre comillas simples ( '...' ) o comillas dobles ( "..." )
-* El lenguaje es sensitivo a las mayúsculas. Es decir, no es lo mismo que una variable se llame *edad* que *Edad* o *EDAD*.
+* Todas las instrucciones **terminan con un punto y coma** ( **;** ). Excepción: si una instrucción contiene un bloque marcado con llaves ( { ... } ), se considera que esa instrucción termina al cerrar el bloque, y en ese caso no hace falta poner punto y coma.
+
+   ```javascript
+   a = 10;                     // La instrucción de asignación termina con ;
+   while (condicion) {
+      // Cuerpo del bucle
+   }                           // El bucle termina con }, así que no necesita ;
+   ```
+
+* Los **identificadores** de variables, funciones, etc., no pueden empezar con un número ni contener espacios o símbolos especiales, salvo el de subrayado ( _ )
+
+   ```javascript
+   a5 = 1;     // Identificador de variable válido
+   5a = 1;     // Identificador de variable NO válido
+   ```
+
+* Las **cadenas de caracteres** pueden encerrarse entre **comillas simples** ( '...' ) o **comillas dobles** ( "..." )
+
+   ```javascript
+   a = "Soy una cadena";
+   b = 'Yo también soy una cadena';
+   ```
+
+* El lenguaje es **sensitivo a las mayúsculas**. Es decir, no es lo mismo que una variable se llame *edad* que *Edad* o *EDAD*.
 
 #### Tipos de datos primitivos
 
-Javascript utiliza varios tipos de datos simples llamados **primitivos**: 
+Javascript utiliza varios tipos de datos simples llamados **primitivos**. Los más importantes son: 
 
 * **number**: números enteros y reales, indistintamente.
 * **string**: cadenas de caracteres.
@@ -265,11 +282,13 @@ d = 3;
 
 En el código anterior hemos declarado tres variables, a, b y c. Observa que, **al declarar una variable, no se especifica el tipo**: Javascript decidirá su tipo en función del valor que se le asigne.
 
-Así pues, el tipo de la variable a será *string*, y el de la variable b será *number*. ¿Qué pasará con el tipo de la variable c? Pues que, hasta que no se le asigne algún valor, permanecerá *undefined*. 
+Así pues, el tipo de la variable a será *string*, y el de la variable b será *number*. ¿Qué pasará con el tipo de la variable c? Hasta que no se le asigne algún valor, permanecerá *undefined*. 
 
 Fíjate, por último, en que no hemos declarado la variable d, sino que la hemos usado directamente. Esto también es válido en Javascript, aunque, en general, poco recomendable por razones que comentaremos luego. El tipo de esta variable también será *number*.
 
 ### 5.2.4. Conversiones de tipo
+
+XXX
 
 Javascript, como hemos dicho, es un lenguaje de **tipado dinámico**. Es decir, que las variables pueden variar de tipo a lo largo del programa:
 
@@ -284,31 +303,29 @@ Además, Javascript también es un lenguaje **débilmente tipado**, lo que signi
 Por ejemplo, estas instrucciones son correctas:
 
 ```javascript
-a = 5;
-b = "A";
-c = a + b;
+a = 5;      // La variable a es de tipo number
+b = "A";    // La variable b es de tipo string
+c = a + b;  // ¿Qué ocurre si las mezclamos en una expresión?
 ```
 
-La variable a es de tipo *number* (recuerda que el tipo lo asigna automáticamente Javascript) y la variable b es de tipo *string*. Por lo tanto, en la expresión ```c = a + b``` se están mezclando los tipos *number* y *string* en la misma expresión, algo que solo es posible en los lenguajes débilmente tipados.
+¿Qué resultado crees que obtendrás con una mezcla de tipos como esta? ¿Por qué no haces la prueba?
 
-¿Qué resultado crees que obtendrás de una mezcla así? ¿Por qué no haces la prueba?
-
-Cuando mezclas tipos, estás dejando que el lenguaje de programación decida cuál será el resultado, por lo que puedes obtener resultados imprevisibles. Es mejor que tú controles qué conversiones de tipo se hacen:
+Cuando mezclas tipos, estás dejando que el lenguaje de programación decida cuál será el resultado, por lo que puedes obtener resultados imprevisibles. Es mejor que tú controles qué conversiones de tipo se hacen. Para eso, Javacript dispone de varias herramientas:
 
 * **typeof**: Nos dice de qué tipo es una variable.
 
    ```javascript
    a = 5;
-   document.write(typeof a);
+   document.write(typeof a);   // En la pantalla, aparecerá escrito "number"
    ```
 
-* **String**: Convierte la variable a un string (cadena de caracteres).
+* **String**: Convierte la variable a un *string* (cadena de caracteres).
 
    ```javascript
    a = 5;          // a es el número entero 5 
    b = String(a);  // b es la cadena "5"
    ```
-* **Number**: Convierte la variable a un string (cadena de caracteres).
+* **Number**: Convierte la variable a un *number*.
 
    ```javascript
    a = "5 pollos"; // a es una cadena
@@ -320,7 +337,7 @@ Cuando mezclas tipos, estás dejando que el lenguaje de programación decida cu�
 
 La **asignación** de valores a variables en Javascript es fácil de explicar: se hace con el **símbolo igual (=)**, no con el símbolo <= que usábamos en pseudocódigo:
 
-```
+```javascript
 var a;      // Declaración de la variable a
 var b = 1;  // Declaración y asignación de valor a la variable b
 a = b + 5;  // Asignación de valor a la variable a
@@ -328,7 +345,7 @@ a = b + 5;  // Asignación de valor a la variable a
 
 El problema del **ámbito de las variables** es más complicado de explicar.
 
-El **ámbito** (o ***scope***, en inglés) de una variable es el lugar del programa donde esa variable está disponible.
+El **ámbito** (o ***scope***, en inglés) de una variable es *el lugar del programa donde esa variable está disponible*.
 
 Primero, la versión corta: las **variables en Javascript son locales**. Es decir, solo son accesibles desde el algoritmo o subalgoritmo donde se declaran.
 
@@ -336,13 +353,13 @@ La versión larga es que Javascript ofrece una flexibilidad un poco mareante par
 
 Vamos a tratar de explicarlo con unos cuantos ejemplos sencillos. 
 
-Unas líneas más arriba dijimos que Javascript permite declarar las variables con **var** o con **let**, o bien no declararlas, ¿verdad?
+Unas líneas más arriba dijimos que Javascript permite declarar las variables con ***var*** o con ***let***, o bien no declararlas, ¿verdad?
 
-Pues bien: el ámbito de la variable dependerá de *dónde* declaremos la variable (si lo hacemos) y de cómo lo hagamos (con var o con let).
+Pues bien: el ámbito de la variable dependerá de *dónde* declaremos la variable (si lo hacemos) y de cómo lo hagamos (con *var* o con *let*).
 
-#### Declarar variables con var
+#### Declarar variables con *var*
 
-Las variables declaradas con **var** son **locales a la función** donde se declaran, o **globales** si se declaran en el exterior de cualquier función.
+Las variables declaradas con ***var*** son **locales a la función** donde se declaran, o **globales** si se declaran en el exterior de cualquier función.
 
 ```javascript
 var a = 1;  // Variable global
@@ -357,9 +374,9 @@ En este ejemplo, la variable a es **global**, lo que significa que será accesib
 
 La variable b, en cambio, es **local a la función** *mostrarMensaje()*. Si tratamos de acceder a ella desde el exterior de esa función, se producirá un error de ejecución.
 
-#### Declarar variables con let
+#### Declarar variables con *let*
 
-Las variables declaradas con **let** son **locales al bloque** donde se declaran, o **globales** si se declaran en el exterior de cualquier bloque.
+Las variables declaradas con ***let*** son **locales al bloque** donde se declaran, o **globales** si se declaran en el exterior de cualquier bloque.
 
 Un **bloque** es cualquier cosa encerrada entre dos llaves ({ y }). Observa el siguiente ejemplo:
 
@@ -405,10 +422,10 @@ function mostrarMensaje() {
 
 Los **operadores y expresiones en Javascript** son iguales que los que hemos empleado en pseudocódigo:
 
-* Operadores aritméticos: +, -, *, /, % (este último significa *módulo de la división*).
-* Operadores relacionales: >, <, >=, <=...
+* Operadores **aritméticos**: +, -, \*, /, % (este último significa *módulo de la división*).
+* Operadores **relacionales**: >, <, >=, <=...
 
-Sin embargo, hay algunas diferencias importantes entre el pseudocódigo de PseInt y Javascript. Son estas:
+Sin embargo, hay algunas **diferencias** importantes entre el pseudocódigo de PseInt y Javascript. Son estas:
 
 * La **asignación**, como ya hemos visto más arriba, se hace con el **símbolo igual (=)**, no con <=.
    
@@ -417,7 +434,7 @@ Sin embargo, hay algunas diferencias importantes entre el pseudocódigo de PseIn
    b = a + 1;    // A la variable b se le asigna el valor a + 1
    ```
 
-* La **comparación de igualdad** se hace con un **doble igual (==)**, no con un solo igual (=). Esto se hace así para distinguir la comparación de la asignación.
+* La **comparación de igualdad** se hace con un **doble igual (==)**, no con un solo igual (=). Esto es así para distinguir la comparación de la asignación.
    
    ```javascript
    if (a == 5) {    // Comparación: ¿es a igual a 5?
@@ -425,7 +442,7 @@ Sin embargo, hay algunas diferencias importantes entre el pseudocódigo de PseIn
    }
    ```
    
-* Existe el **operador incremento**. Se utiliza para sumar una unidad a una variable.
+* Existe el **operador incremento (++)**. Se utiliza para sumar una unidad a una variable.
    
    ```javascript
    while (i < 10) {
@@ -433,7 +450,7 @@ Sin embargo, hay algunas diferencias importantes entre el pseudocódigo de PseIn
    }
    ```
    
-* También existe el **operador decremento**, para restar una unidad a una variable.
+* También existe el **operador decremento (- -)**, para restar una unidad a una variable.
    
    ```javascript
    while (i > 0) {
@@ -441,7 +458,10 @@ Sin embargo, hay algunas diferencias importantes entre el pseudocódigo de PseIn
    }
    ```
    
-* El **operador lógico Y** se escribe **&&**. El **operador lógico O** se escribe **||**. El **operador lógico NO** se escribe *!*
+* Los **operadores lógicos** (Y, O, NO) se escriben de forma distinta:
+   * **Y** se escribe **&&**. 
+   * **O** se escribe **\|\|**. 
+   * **NO** se escribe **!** (sí, sí, es una admiración).
    
    ```javascript
    if (a > 0) && (b > 0) {   // Operador Y: tienen que darse las dos condiciones a la vez
@@ -449,7 +469,7 @@ Sin embargo, hay algunas diferencias importantes entre el pseudocódigo de PseIn
    }
    ```
    
-Hay algunas otras diferencias, desde luego, pero con esto ya tienes para hacer la mayoría de las cosas.
+Hay algunas otras diferencias, desde luego, pero con esto ya tienes para hacer un buen montón de programas.
 
 ### 5.2.7. Estructuras de control
 
@@ -507,7 +527,7 @@ A continuación te muestro una tabla con las más habituales y su equivalente en
       <td>
          <code>
          Mientras condicion hacer<br>
-         &nbsp;&nbsp;&nbsp;acciones<br><br>
+         &nbsp;&nbsp;&nbsp;acciones<br>
          FinMientras
          </code>
       </td>
@@ -532,8 +552,7 @@ A continuación te muestro una tabla con las más habituales y su equivalente en
          <code>
          do {<br>
          &nbsp;&nbsp;&nbsp;acciones<br>
-         }<br>
-         while (condicion)
+         } while (condicion)
          </code>
       </td>
     </tr>
@@ -570,11 +589,11 @@ Fíjate en que casi todo se escribe del mismo modo que en pseudocódigo con un p
    ```
 
    En Javascript:
-   ```
-   i = 0;
+   ```javascript
+   i = 1;
    do {
       document.write(i);
-      i = i + 1;
+      i++;
    }
    while (i < 100);
    ```
@@ -589,8 +608,8 @@ Fíjate en que casi todo se escribe del mismo modo que en pseudocódigo con un p
    ```
 
    En Javascript:
-   ```
-   for (i = 1; i <=10; i = i + 1)
+   ```javascript
+   for (i = 1; i <= 10; i = i + 1)
       document.write(i);
    }
    ```
@@ -605,15 +624,15 @@ Fíjate en que casi todo se escribe del mismo modo que en pseudocódigo con un p
    ```
 
    En Javascript:
-   ```
-   for (i = 1; i <=10; i = i + 2)
+   ```javascript
+   for (i = 1; i <= 10; i = i + 2)
       document.write(i);
    }
    ```
 
    Por último, recuerda que en Javascript existe una abreviatura para ```i = i + 1```, que se escribe ```i++```, por lo que lo más habitual es encontrar los bucles de tipo *para* escritos así:
 
-   ```
+   ```javascript
    for (i = 1; i <=10; i++)
       document.write(i);
    }
@@ -667,14 +686,15 @@ Recuerda que, cuando se invoca un subalgoritmo, hay dos modos de enviarle los pa
 
 Observa el ejemplo anterior de la función *potencia()*. Los **parámetros formales** son *base* y *exponente*. Los **parámetros actuales** son *b* y *e*.
 
-* **Paso de parámetros por valor**: el *valor* de los parámetros actuales (*b* y *e*) se asigna a los **parámetros formales** del subalgoritmo. Así, *base* y *exponente* adquieren los mismos valores que tenían *b* y *e*, pero ahí termina toda su relación: a partir de entonces, se comportan como variables independientes unas de otras.
-* **Paso de parámetros por referencia**: los parámetros actuales (*b* y *e*) quedan *ligados* a los **parámetros formales** (*base* y *exponente*). Si el valor de *base* o de *exponente* cambia, también estaremos cambiando *b* y *e*, porque en realidad son las mismas variables.
+* **Paso de parámetros por valor**: el *valor* de los parámetros actuales (*b* y *e*) se asigna a los parámetros formales del subalgoritmo. Así, *base* y *exponente* adquieren los mismos valores que tenían *b* y *e*, pero ahí termina toda su relación: a partir de entonces, se comportan como variables independientes de *base* y *exponente*.
+* **Paso de parámetros por referencia**: los parámetros actuales (*b* y *e*) quedan *ligados* a los parámetros formales (*base* y *exponente*). Si el valor de *base* o de *exponente* cambia dentro de la función, también cambiarán *b* y *e* fuera de la función, porque en realidad son las mismas variables.
 
-En Javascript, el paso de parámetros de **tipos primitivos** (ya sabes, *number*, *string*, *boolean*, etc) **siempre se hace por valor**.
+Pues bien, en Javascript:
 
-En cambio, el paso de parámetros de tipos complejos, llamados **objetos**, siempre se hace por referencia.
+* el paso de parámetros de **tipos primitivos** (ya sabes, *number*, *string*, *boolean*, etc) **siempre se hace por valor**.
+* el paso de parámetros de **tipos complejos** (llamados *objetos*), **siempre se hace por referencia**.
 
-¿Que qué son los objetos, preguntas? Bueno, ya veremos exactamente qué son objetos más adelante, pero, de momento, quédate con la idea de que un objeto es *cualquier variable que no sea de un tipo primitivo*. Por ejemplo, los **arrays** son objetos en Javascript.
+¿Que qué son los famosos *objetos*, preguntas? Tal vez hayas oído hablar de la *programación orientada a objetos*. Le dedicaremos a ese tema un capítulo más adelante, pero, de momento, quédate con la idea de que un objeto es *cualquier variable que no sea de un tipo primitivo*. Por ejemplo, los **arrays** son objetos en Javascript.
 
 Así que la conclusión es que **los arrays siempre se pasan por referencia** en Javascript, mientras que **las variables simples siempre se pasan por valor**.
 
@@ -682,7 +702,7 @@ Así que la conclusión es que **los arrays siempre se pasan por referencia** en
 
 Hay varias formas de hacer la entrada y salida de datos con Javascript, es decir, hay varios equivalentes a la instrucciones **Leer** y **Escribir** de pseudocódigo.
 
-Para nuestros primeros programas, usaremos la función **prompt()** para hacer la entrada y la propiedad **innerHTML** para hacer la salida. A veces, la sustituiremos por la función **document.write()** (o su variante, **document.writeln()**)o por la función **alert()**.
+Para nuestros primeros programas, usaremos la función **prompt()** para hacer la entrada y la propiedad **innerHTML** para hacer la salida. A veces, sustituiremos esta última por la función **document.write()** o por la función **alert()**.
 
 <table>
     <tr>
@@ -711,18 +731,11 @@ Para nuestros primeros programas, usaremos la función **prompt()** para hacer l
          </code>
       </td>
       <td>
-         <code>
-         document.getElementById('selector').innerHTML = expresión;
-         </code>
+         <code>document.getElementById('selector').innerHTML = expresión;</code>
          <br>O bien:<br>
-         document.write(expresión);
+         <code>document.write(expresión);</code>
          <br>O bien:<br>
-         document.writeln(expresión);
-         </code>
-         <br>O bien:<br>
-         <code>
-         alert(expresión);
-         </code>
+         <code>alert(expresión);</code>
       </td>
     </tr>
 </table>
@@ -733,7 +746,7 @@ Vamos a ver un poco más despacio cómo se usa cada una de estas funciones:
 
 La **entrada de datos** en Javascript puede hacerse de diversas maneras. En particular, usando **formularios HTML**, pero de momento no vamos a pelearnos con eso.
 
-De momento vamos a conformarnos con la función **prompt()**. Esta función muestra un mensaje en forma de ventana emergente y permite escribir un texto, asignándolo a una variable.
+En esta primera toma de contacto con el lenguaje, vamos a conformarnos con la función **prompt()**. Esta función muestra un mensaje en forma de ventana emergente y permite escribir un texto, asignándolo a una variable.
 
 Observa cómo se usa *prompt()* con este ejemplo escrito primero en pseudocódigo y luego en Javascript:
 
@@ -749,51 +762,57 @@ document.write("Dime un número");
 n = prompt();
 ```
 
-Si pruebas este código, verás que sucede algo raro: el mensaje "Dime un número" sale escrito en la ventana del navegador web, pero el número nos lo pide en una ventana emergente que se sitúa *por encima* del mensaje. ¡Y, en algunos navegadores, el mensaje "Dime un número" ni siquiera aparecerá!
+Si pruebas este código, verás que sucede algo raro: el mensaje "Dime un número" sale escrito en la ventana del navegador web, pero el número nos lo pide en una ventana emergente que se sitúa *por encima* del mensaje. ¡Y, en algunos navegadores, el mensaje "Dime un número" ni siquiera llega a verse!
 
 ![Prompt sin texto](/docs/prog-y-3d/_site/assets/images/05-prompt-sin-texto.png)
 
-Esto hace un efecto muy raro. ¿verdad?. Para evitarlo, puedes **unir las dos instrucciones** en una sola, puesto que *prompt()* te permite escribir un mensaje. Así:
+Esto hace un efecto muy raro. ¿verdad? Para evitarlo, puedes **unir las dos instrucciones** en una sola, puesto que *prompt()* te permite incluir un mensaje en la caja de texto. Así:
 
 ```javascript
 n = prompt("Dime un número");
 ```
 
-Al ejecutar este código, verás que el efecto es mucho más natural:
+Al ejecutar este código, verás que el resultado es mucho más natural:
 
 ![Prompt con texto](/docs/prog-y-3d/_site/assets/images/05-prompt-con-texto.png)
 
 (Nota: la forma exacta en la que veas estas pantallas dependerá de tu navegador web, puesto que cada uno hace el *prompt* de manera ligeramente distinta)
 
-#### Salida de datos con document.write(), alert() e innerHTML
+#### Salida de datos con innerHTML, document.write() y alert()
 
-La forma más sencilla de hacer la salida de datos con Javascript es usar **document.write()** o su hermana melliza, **document.writeln()**:
+La forma más sencilla de hacer la salida de datos con Javascript es usar **document.write()** o su hermana melliza, **document.writeln()**.
 
+Mira cómo se usa en este ejemplo y el resultado que produce en la ventana del navegador:
+
+Código:
 ```javascript
 <script>
 document.write("Hola, mundo");
 </script>
 ```
 
+Resultado:
 ![Salida de datos con document.write()](/docs/prog-y-3d/_site/assets/images/05-salida-de-datos-con-document-write.png)
 
 La diferencia entre *write()* y *writeln()* es que la segunda insertará automáticamente un salto de línea tras la salida, y la primera no.
 
 Sin embargo, estas funciones tiene un grave problema: puede que el texto de salida *no se muestre inmediatamente*. La decisión de cuándo se muestra la salida la toma el navegador y hay poco que puedas hacer al respecto. Por eso, la usaremos en contadas ocasiones.
 
-Otra manera muy sencilla de hacer salida de datos es con **alert()**. Esta función muestra un texto en forma de ventana emergente. Por ejemplo:
+Otra manera muy sencilla de hacer salida de datos es con **alert()**. Esta función muestra un texto en forma de ventana emergente. Parecido a *prompt()*, pero sin caja de texto para escribir. Observa a *alert()* en acción en el siguiente ejemplo:
 
+Código:
 ```javascript
 <script>
 alert("Hola, mundo");
 </script>
 ```
 
+Resultado:
 ![Salida de datos con alert()](/docs/prog-y-3d/_site/assets/images/05-salida-de-datos-con-alert.png)
 
 La salida con *alert()* es simple y efectiva, pero resulta muy invasiva. Si haces todo tu programa con *alert()*, el usuario se sentirá enseguida apabullado por esa cantidad de ventanas emergentes que le saltan a la cara.
 
-De modo que nos queda la tercera vía. Es la más complicada, pero también la mejor. Y, en fin, tampoco es tan complicado.
+De modo que nos queda la tercera vía. Es la más enrevesada, pero también la mejor. Y, en fin, tampoco es tan complicado.
 
 Consiste en preparar una zona de la pantalla del navegador para hacer en ella la salida de datos, y luego acceder a la misma con **document.getElementById().innerHTML**.
 
@@ -808,7 +827,7 @@ Si sabes un poco de **HTML**, el lenguaje de marcado con el que se codifican las
 </script>
 ```
 
-**Paso 2. Dentro de tu programa Javascript, utiliza ```document.getElementById('salida').innerHTML = expresión``` para hacer la salida**. Sí, lo sé, es un poco largo, pero Javascript es así. Por ejemplo:
+**Paso 2. Dentro de tu programa Javascript, utiliza *document.getElementById('salida').innerHTML = expresión* para hacer la salida**. Sí, lo sé, es un poco largo, pero Javascript es así. Por ejemplo, este código:
 
 ```html
 <div id='salida' style='text-align: center; border-style: solid; border-color: black'></div>
@@ -817,9 +836,11 @@ Si sabes un poco de **HTML**, el lenguaje de marcado con el que se codifican las
 </script>
 ```
 
+...producirá este resultado:
+
 ![Salida de datos con innerHTML](/docs/prog-y-3d/_site/assets/images/05-salida-de-datos-con-innerhtml.png)
 
-**Paso 3. Utiliza ```document.getElementById('salida').innerHTML += expresión``` si no quieres perder la salida anterior**. Es decir, si usas un **igual** (=), cada salida de datos borrará la pantalla. Si usas **más igual**, la salida de datos se añadirá a la anterior, sin borrarla:
+**Paso 3. Utiliza *document.getElementById('salida').innerHTML += expresión* si no quieres perder la salida anterior**. Es decir, si usas un **igual** (=), cada salida de datos borrará la pantalla. Si usas **más igual** (+=), la salida de datos se añadirá a la anterior, sin borrarla:
 
 ```html
 <div id='salida' style='text-align: center; border-style: solid; border-color: black'></div>
@@ -832,13 +853,13 @@ Si sabes un poco de **HTML**, el lenguaje de marcado con el que se codifican las
 
 ### 5.2.10. Arrays
 
-Los arrays en Javascript son mucho más que simples arrays: se trata de elementos muy complejos y flexibles que se adaptan a multitud de soluciones.
+Los **arrays en Javascript** son mucho más que simples arrays: se trata de elementos muy complejos y flexibles que se adaptan a multitud de soluciones.
 
 Aquí solo vamos a ver una introducción a los mismos. Conforme vayas profundizando en tu conocimiento de Javascript, descubrirás cosas nuevas sobre estas asombrosas estructuras y les sacarás más y más partido.
 
 #### Declaración de arrays
 
-Los **arrays en Javascript** se pueden **declarar** de diversas formas:
+Los arrays en Javascript se pueden **declarar** de diversas formas:
 
 ```javascript
 // Una forma de declarar un array:
@@ -865,11 +886,11 @@ Por ahora, quédate con la idea de que todas estas formas son válidas para decl
 
 Como puedes observar por los ejemplos anteriores, los arrays de Javascript tienen dos características importantes:
 
-* **No es necesario indicar su tamaño**, aunque se puede hacer. Los arrays son dinámicos: irán creciendo o decreciendo conforme sea necesario.
+* **No es necesario indicar su tamaño al declararlos**, aunque se puede hacer. Esto se debe a que los arrays en Javascript son dinámicos: pueden crecer o decrecer durante la ejecución del programa.
 * **El índice empieza en 0**. Es decir, el primer elemento es el 0, el segundo es el 1, etc.
 * El **acceso a los elementos** del array se hace como en pseudocódigo: indicando el índice del elemento entre corchetes.
 
-El array en sí mismo se considera **un objeto** de Javascript, no una variable primitiva (simple). Veremos los objetos en el próximo capítulo, pero, de momento, recuerda que los objetos se pasan por referencia a las funciones, mientras que las variables primitivas se pasan por valor.
+Los arrays NO son variables primitivas (simples). Recuerda que esto significa que **siempre se pasan por referencia** a las funciones, mientras que las variables primitivas se pasan por valor. Repasa el paso de parámetros a funciones del que hablamos un poco más arriba si no recuerdas bien todo esto.
 
 Una cosa muy peculiar de los arrays de Javascript es que **sus elementos pueden ser de diferente tipo**. Por ejemplo:
 
@@ -882,7 +903,7 @@ var miArray = ['Lunes', 5, ciudades];
 
 En el ejemplo anterior, el array *ciudades* solo contiene elementos de tipo *string*, mientras que el array *miArray* contiene elementos de tipo dispares: un *string*, un *number* y un *array*.
 
-Como ves, nada impida que un elemento de un array sea otro array. De hecho, puede ser cualquier cosa.
+Como ves, nada impide que un elemento de un array sea otro array. De hecho, un elemento de un array puede ser cualquier cosa.
 
 #### Propiedades y métodos
 
@@ -905,13 +926,12 @@ El **recorrido** de un array puede hacerse igual que en pseudocódigo, con la sa
 ```javascript
 var ciudades = ['Almería', 'Granada', 'Málaga'];
 var longArray = ciudades.length;
-var i;
 for (i = 0; i < longArray; i++) {
    document.write(ciudades[i]);
 }
 ```
 
-Existen formas alternativas de hacer esto en Javascript sin necesidad de averiguar la longitud del array ni usar variables índice. Por ejemplo, así:
+Existen formas alternativas de hacer esto mismo sin necesidad de averiguar la longitud del array ni usar variables índice. Por ejemplo, así:
 
 ```javascript
 var ciudades = ['Almería', 'Granada', 'Málaga'];
@@ -927,7 +947,7 @@ Los **objetos**, como hemos dicho varias veces ya, los estudiaremos en el próxi
 
 Por ejemplo, los arrays son objetos.
 
-Pues bien, existen muchos otros objetos predefinidos en Javascript. Te voy a presentar a unos cuantos particularmente útiles, aunque debes saber que hay muchos más. Cuando vayas profundizando tu conocimiento de este lenguaje los irás conociendo.
+Pues bien, existen muchos otros objetos predefinidos en Javascript. Te voy a presentar a unos cuantos particularmente útiles, aunque debes saber que hay muchos más. Cuando vayas profundizando en tu conocimiento de este lenguaje los irás conociendo.
 
 * **Date**. Permite obtener la fecha y hora actual del reloj del ordenador. Por ejemplo:
 
@@ -941,15 +961,16 @@ Pues bien, existen muchos otros objetos predefinidos en Javascript. Te voy a pre
 * **Math**. Este objeto contiene una enorme colección de funciones matemáticas. Algunas son: 
    * *sin(x), cos(x), tan(x)*: calcula el seno, el coseno y la tangente de x.
    * *max(valor1, valor2, ..., valorN), min(valor1, valor2, ..., valorN)*: calcula el máximo o el mínimo de una lista de valores.
-   * *round(x)*: redondea el número x.
+   * *round(x)*: redondea el número x al entero más próximo. Si ya era entero, lo deja como estaba.
+   * *trunc(x)*: trunca el número x. Es decir, elimina los decimales, sin redondear.
    * *pow(b, e)*: calcula la potencia de b elevado a e.
    * *random()*: devuelve un número real aleatorio entre 0 y 1. Si quieres que sea un aleatorio entero entre dos valores cualesquiera, tendrás que hacer algo así:
 
       ```javascript
       document.write("Aleatorio de 0 a 1:  " + Math.random());
-      document.write("Aleatorio de 0 a 99: " + Math.round(Math.random()*100));
-      document.write("Aleatorio de 1 a 100:" + Math.round(Math.random()*100 + 1));
-      document.write("Aleatorio de 0 a 100:" + Math.round(Math.random()*101));
+      document.write("Aleatorio de 0 a 99: " + Math.trunc(Math.random()*100));
+      document.write("Aleatorio de 1 a 100:" + Math.trunc(Math.random()*100 + 1));
+      document.write("Aleatorio de 0 a 100:" + Math.trunc(Math.random()*101));
       ```
 
 * **window**. Proporciona acceso a la ventana del navegador web donde se está ejecutando Javascript. Te ofrece métodos muy interesantes como:
@@ -963,11 +984,11 @@ Pues bien, existen muchos otros objetos predefinidos en Javascript. Te voy a pre
    * *writeln()*: añade texto a la ventana del navegador, y termina con una salto de línea.
    * *open()*: elimina todo el contenido que haya en la ventana del navegador e inicia una nueva salida.
    * *close()*: finaliza el envío de datos a la ventana del navegador.
-   * *getElementById()*: recupera un elemento del navegador a partir de su id. Es un método muy útil para interactuar con los elementos de la pantalla. Lo usaremos en los ejercicios.
+   * *getElementById()*: recupera un elemento del navegador a partir de su id.
 
 ## 5.3. Escribiendo programas con Javascript
 
-Ya conocemos cómo se manejan los principales elementos de un programa con Javascript: variables, instrucciones de control, asignaciones, funciones, etc.
+Ya conocemos cómo se manejan los principales componentes de un programa con Javascript: variables, instrucciones de control, asignaciones, funciones, etc.
 
 Ahora nos queda saber cómo juntamos todo eso para escribir nuestros programas, ¿no te parece?
 
@@ -981,7 +1002,7 @@ La verdad es que no. Para desarrollar con Javascript basta con que tengas instal
 
 * **Un editor de texto**. No te sirve Microsoft Word ni Libreoffice Writer. Tiene que ser un editor de texto *plano*, es decir, que no introduzca información de formato en el archivo. Solo el texto.
 
-   Existen muchísimos editores de estas características, porque son programas muy, muy simples y livianos. El **bloc de notas** de Windows es uno de ellos, aunque resulta poco recomendable porque no colorea el código fuente ni te ayuda a corregir errores.
+   Existen muchísimos editores de estas características, porque son programas muy simples y livianos. El **bloc de notas** de Windows es uno de ellos, aunque resulta poco recomendable porque no colorea el código fuente ni te ayuda a corregir errores.
 
    Un editor de texto para programación que ha tenido un crecimiento espectacular en los últimos años a nivel aficionado y profesional es **[Visual Studio Code](https://code.visualstudio.com/)**. Es multiplataforma (tiene versiones para Windows, Linux y Mac) y de código abierto. Y es una auténtica maravilla, así que te recomiendo que lo descargues (¡siempre de la web oficial, por favor!) y lo instales.
 
@@ -1011,7 +1032,7 @@ Ten en cuenta que, cuando los programas empiecen a volverse complejos, no podrá
 Los programas en Javascript pueden guardarse en dos tipos de archivo:
 
 * **Archivos con extensión .js**. Estos archivos suelen contener bibliotecas de funciones Javascript usadas por otros programas. No se ejecutan directamente.
-* **Archivos con extensión .html o .htm**. El navegador web los interpretará como páginas web y, por lo tanto, los ejecutará. Aquí es donde debemos colocar nuestro código.
+* **Archivos con extensión .html o .htm**. El navegador web los interpretará como páginas web y, por lo tanto, los ejecutará. *Aquí es donde colocaremos nuestro código*, al menos al principio.
 
 Dentro del archivo .html, el código Javascript debe ir incrustado entre las etiquetas ```<script>``` y ```</script>```, que marcan el comienzo y el fin del programa:
 
@@ -1023,7 +1044,7 @@ Dentro del archivo .html, el código Javascript debe ir incrustado entre las eti
 
 Escribiremos el **algoritmo principal** de un programa en Javascript sin ninguna palabra especial que lo identifique como tal. Es decir, el código estará sin más en el archivo fuente, entre las etiquetas ```<script>``` y ```</script>```.
 
-(Hay otras formas de hacer esto, pero, de momento, esta es más que suficiente para nosotros).
+(Insisto: hay otras formas de hacer esto, pero, de momento, esta es más que suficiente para nosotros).
 
 Los subalgoritmos sí que deben identificarse con la palabra **function** seguida del nombre del subalgoritmo, como hemos visto más arriba.
 
@@ -1031,15 +1052,15 @@ Los subalgoritmos sí que deben identificarse con la palabra **function** seguid
 
 ## 5.4. Un ejemplo completo
 
-LLegó la hora de poner manos a la obra.
+Llegó la hora de poner manos a la obra.
 
 Si hay una sección de este capítulo que tienes que leer con atención, es esta. Así que es un mal momento para tener prisa.
 
-Vamos a escribir un programa de ejemplo en Javascript para que veas qué aspecto tiene un programa en este lenguaje. Te puede servir de plantilla para desarrollar tus propios programas a partir de aquí.
+Vamos a escribir un **programa completo en Javascript**. Te puede servir de plantilla para desarrollar tus propios programas a partir de aquí.
 
-El programa en cuestión será una versión del juego de las tres en raya que resolvimos en el tema de introducción a la programación. No dudes en repasar aquel ejercicio resuelto para ver el pseudocódigo, puesto que nuestro programa será una traducción literal de ese pseudocódigo a Javascript.
+El programa en cuestión será una versión del juego de **las tres en raya** que resolvimos en el tema de introducción a la programación. No dudes en repasar aquel ejercicio resuelto para ver el pseudocódigo, puesto que nuestro programa será una traducción literal de ese pseudocódigo a Javascript.
 
-Aquí tienes el código fuente completo. Léelo con atención y asegúrate de entenderlo todo o casi todo antes de continuar. Ah, y no dejes de compararlo línea a línea con el mismo código en pseudocódigo.
+Aquí tienes el código fuente completo. Estúdialo con atención y asegúrate de entenderlo todo (o un gran porcentaje) antes de continuar. Ah, y no dejes de compararlo línea a línea con el mismo código en pseudocódigo.
 
 ### 5.4.1. El código fuente
 
@@ -1054,8 +1075,6 @@ var ganador;
 var tablas;
 
 inicializar(tablero)   // Esto es un subalgoritmo. Está escrito más abajo
-mostrar(tablero);
-/*
 do {
    mostrar(tablero);
    colocar_pieza_humano(tablero);
@@ -1071,12 +1090,11 @@ while ((ganador == "Ninguno") && (tablas == false));
 	
 mostrar(tablero);
 if (ganador == "Ninguno") {
-   alert("El juego ha terminado en tablas");
+   document.getElementById('salida').innerHTML += "EL JUEGO HA TERMINADO EN TABLAS";
 }
 else {
-   alert("El juego ha terminado. El ganador es: " + ganador);
+   document.getElementById('salida').innerHTML += "EL JUEGO HA TERMINADO. EL GANADOR ES: " + ganador;
 }
-*/
 
 // --------------------------------------------
 // Inicializa el tablero con espacios en blanco
@@ -1086,7 +1104,7 @@ function inicializar(tablero) {
    for (i = 1; i <= 9; i++) {
       // Como tablero es un array, se pasa por referencia y los cambios que
       // hagamos aquí se reflejarán en el algoritmo principal
-      tablero[i] = i;
+      tablero[i] = " ";
    }
 }
 
@@ -1095,9 +1113,13 @@ function inicializar(tablero) {
 // --------------------------------------------
 function mostrar(tablero) {
    document.getElementById('salida').innerHTML = "ESTADO ACTUAL DEL TABLERO<br>";
+   document.getElementById('salida').innerHTML += "+-+-+-+<br>";
    document.getElementById('salida').innerHTML += "|" + tablero[1] + "|" + tablero[2] + "|" + tablero[3] + "|<br>";
+   document.getElementById('salida').innerHTML += "+-+-+-+<br>";
    document.getElementById('salida').innerHTML += "|" + tablero[4] + "|" + tablero[5] + "|" + tablero[6] + "|<br>";
+   document.getElementById('salida').innerHTML += "+-+-+-+<br>";
    document.getElementById('salida').innerHTML += "|" + tablero[7] + "|" + tablero[8] + "|" + tablero[9] + "|<br>";
+   document.getElementById('salida').innerHTML += "+-+-+-+<br>";
 }
 
 // ---------------------------------------------------
@@ -1126,14 +1148,14 @@ function colocar_pieza_ordenador(tablero) {
    var casilla, casilla_correcta;
    casilla_correcta = false;
    do {
-      casilla = Math.round(Math.random()*9+1);
-      document.getElementById('salida').innerHTML += "Voy a colocar mi pieza en la casilla " + casilla + "<br>";
+      casilla = Math.round(Math.random()*9);
+      alert("Voy a colocar mi pieza en la casilla " + casilla);
       if (tablero[casilla] == " ") {
          tablero[casilla] = "O";
          casilla_correcta = true;
       }
       else {
-         alert("¡Está ocupada!");
+         alert("¡Está ocupada! Voy a elegir otra");
       }
    }
    while (casilla_correcta == false);
@@ -1249,19 +1271,31 @@ function comprobar_tablas(tablero) {
 
 ### 5.4.2. ¿Cómo ejecutar y depurar este programa?
 
-Guarda el programa anterior en un archivo de texto con extensión .html (por ejemplo, ```3-en-raya.html```).
+Guarda el programa anterior en un archivo de texto con extensión .html (por ejemplo, *3-en-raya.html*).
 
 Luego, sencillamente, haz doble clic sobre él para abrirlo. El sistema operativo usará el navegador web predeterminado de tu sistema para abrir el archivo y la ejecución comenzará.
 
+#### ¡Socorro! El programa no funciona
+
 ¿El resultado no es el esperado? Es lo habitual. Habrá algún error en el código y te tocará depurarlo.
 
-Pulsa **F12** en tu navegador para abrir la **consola de errores** de Javascript. ¡Atención! Dependiendo del navegador que uses, puede que esa consola de errores se abra con otra combinación de teclas. Tendrás que bichear un poco por internet para averiguarlo. Lo habitual, sin embargo, es F12.
+Las páginas web (con Javascript incluido) son extraordinariamente resistentes a los errores. No te mostrarán mensajes de error cada vez que haya algo mal escrito.
+
+Al contrario, permanecerán en silencio para no asustar al usuario de la web y provocar que salga corriendo de allí.
+
+Por ese motivo, los errores de Javascript solo se dejan ver en la "sala de máquinas" del navegador. Por supuesto, los programadores/as tienen una manera de acceder a esa "sala de máquinas".
+
+Pulsa **F12** en tu navegador para abrir la **consola de errores** de Javascript. Asegúrate de seleccionar la pestaña etiquetada como ***Console***. Verás algo como esto:
 
 ![Consola de errores de Javascript](/docs/prog-y-3d/_site/assets/images/05-consola-errores-javascript.png)
 
-En la consola de errores verás los mensajes de error que haya lanzado el intérprete de Javascript, indicándote el tipo de error y la línea en la que se ha detectado. Los mensajes estarán en inglés, por supuesto, pero ¿qué esperabas? Si quieres aprender a programar, tienes que acostumbrarte a manejar el inglés técnico.
+En la consola de errores aparecen, en rojo, los mensajes de error que haya lanzado el intérprete de Javascript, indicándote el tipo de error y la línea en la que se ha detectado. Los mensajes estarán en inglés, por supuesto, pero ¿qué esperabas? Si quieres aprender a programar, tienes que acostumbrarte a manejar el inglés técnico.
 
-Cuando hayas localizado el error, ****regresa a tu editor de texto, haz los cambios necesarios, guarda las modificaciones y recarga la página** (pulsando **F5** en la mayoría de los navegadores).
+¡Atención! Dependiendo del navegador que uses, puede que esa consola de errores se abra con otra combinación de teclas. Tendrás que bichear un poco por internet para averiguarlo. Lo habitual, sin embargo, es F12.
+
+Cuando hayas localizado el error, **regresa a tu editor de texto, haz los cambios necesarios, guarda las modificaciones y recarga la página** (pulsando **F5** en la mayoría de los navegadores).
+
+Si el navegador se había quedado colgado, tendrás que cerrarlo, esperar unos segundos y volver a abrirlo.
 
 Y así hasta que funcione.
 
@@ -1269,14 +1303,22 @@ Y así hasta que funcione.
 
 ## 5.5. Ejercicios propuestos
 
-XXX
+**Esta sección aún está en desarollo XXX**
+
 (tabla de multiplicar)
+
 (número secreto)
-(mejoras en 3 en raya mediante CSS y HTML: visualización con tablas, colores, etc)
-(juego de la carretera)
+
+(jugar con la window del navegador: mover, temblar, etc)
+
 (pelotita que rebota)
+
+(mejoras en 3 en raya mediante CSS y HTML: visualización con tablas, colores, etc)
+
 (juego de tenis)
+
+(juego de la carretera)
 
 ## 5.6. Ejercicios resueltos
 
-XXX
+Aquí iremos poniendo los ejercicios que resolvamos en clase.
