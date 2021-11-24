@@ -1,4 +1,4 @@
-Algoritmo estadistica_basica
+Algoritmo ordenar_array
 	Definir n, i como Entero
 	Definir vector Como Entero
 	
