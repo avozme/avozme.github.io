@@ -256,15 +256,211 @@ FinSi
 FinMientras
 </code></pre></div></div> <h4 id="espacios"> <a href="#espacios" class="anchor-heading" aria-labelledby="espacios"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Espacios </h4> <p>Algo que aumenta la legibilidad del código es <strong>espaciar suficientemente</strong> (pero no demasiado) los distintos elementos de cada instrucción. Por ejemplo, esta instrucción ya es bastante complicada y difícil de leer:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>si (a &gt; b) y (c &gt; d * raiz(k) ) entonces a &lt;- k + 5.7 * b
 </code></pre></div></div> <p>Pero se lee mucho mejor que esta otra, en la que se han suprimido los espacios (excepto los imprescindibles):</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>si (a&gt;b)y(c&gt;d*raiz(k))entonces a&lt;-k+5.7*b
-</code></pre></div></div> <p>Al ordenador le dará igual si escribimos <code class="language-plaintext highlighter-rouge">(a &gt; b)</code> o <code class="language-plaintext highlighter-rouge">(a&gt;b)</code>, pero a cualquier programador que deba leer nuestro código le resultará mucho más cómoda la primera forma.</p> <p>Por la misma razón, también es conveniente dejar líneas en blanco entre determinadas instrucciones del algoritmo cuando se considere que mejora la legibilidad.</p> <h4 id="identificadores"> <a href="#identificadores" class="anchor-heading" aria-labelledby="identificadores"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Identificadores </h4> <p>A la hora de elegir identificadores de variables (o de algoritmos y subalgoritmos) es muy importante utilizar <strong>nombres que sean significativos</strong>, es decir, que den una idea de la información que almacena esa variable.</p> <p>Por ejemplo, si en un programa de nóminas vamos a guardar en una variable la edad de los empleados, es una buena ocurrencia llamar a esa variable “edad”, pero no llamarla “x”, “a” o “cosa”.</p> <p>Ahora bien, dentro de esta política de elegir identificadores significativos, es conveniente optar por aquellos que sean lo más cortos posible, siempre que sean descifrables. Un identificador llamado “edad_de_los_empleados” es engorroso de escribir y leer, sobre todo si aparece muchas veces en el algoritmo, cuando probablemente “edad_empl” proporciona la misma información. Sin embargo, si lo acortamos demasiado (por ejemplo “ed_em”) llegará un momento en el no quede claro lo que significa.</p> <p>Toda esta idea de significación de los identificadores es extensible a los nombres de los algoritmos, de las funciones, de los procedimientos, de los archivos y, en general, de todos los objetos relacionados con un programa.</p> <p>Por último, señalar que muchos lenguajes de programación distinguen entre mayúsculas y minúsculas, es decir, que para ellos no es lo mismo el identificador “edad” que “Edad” o “EDAD”. Por convenio, los algoritmos suelen nombrarse con la primera letra en mayúscula y el resto en minúsculas, mientras que las variables y funciones suelen nombrarse con la todas las letras en minúscula.</p> <p>Excepción: si el identificador consta de más de una palabra. En ese caso, ¿cómo es conveniente escribirlo? Existen dos convenciones para eso:</p> <ul> <li><strong>CamelCase</strong>: si el identificador consta de más de una palabra, se escriben todas juntas y la primera letra de cada palabra se escribe en mayúsculas. Por ejemplo: <code class="language-plaintext highlighter-rouge">edadEmpleado</code>.</li> <li><strong>snake_case</strong>: si el identificador consta de más de una palabra, se escriben separadas por el signo de subrayado (_). Por ejemplo: <code class="language-plaintext highlighter-rouge">edad_empleado</code>.</li> </ul> <p>Elegir CamelCase o snake_case es una cuestión de gustos personales. Lo importante es que, optes por el estilo que optes, lo utilices siempre y no mezcles identificadores de un tipo con identificadores de otro.</p> <h2 id="46-ejercicios-propuestos"> <a href="#46-ejercicios-propuestos" class="anchor-heading" aria-labelledby="46-ejercicios-propuestos"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.6. Ejercicios propuestos </h2> <p>Resuelve los siguientes ejercicios utilizando subalgoritmos cuando la complejidad del problema así lo requiera. Puedes hacerlo con todos, excepto los números 1, 2, 7 y 8, que son tan simples que difícilmente podrás sacar un subalgoritmo de ellos.</p> <h4 id="ejercicios-de-vectores-arrays-unidimensionales"> <a href="#ejercicios-de-vectores-arrays-unidimensionales" class="anchor-heading" aria-labelledby="ejercicios-de-vectores-arrays-unidimensionales"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Ejercicios de vectores (arrays unidimensionales) </h4> <p><strong>Ejercicio 1: Inicializar un vector</strong>. Escribe un programa en pseudocódigo en el que se defina un vector de 100 números enteros, se inicialicen todos los elementos al valor –1 y se impriman por pantalla.</p> <p><strong>Ejercicio 2: Inicializar un vector (más complejo)</strong>. Define dos vectores de 100 números enteros, uno llamado <em>pares</em> y otro <em>impares</em>. Inicializa el primero con los 100 primeros números pares positivos (es decir, pares[0] contendrá el valor 2, pares[1] contendrá el valor 4, pares[2] contendrá el valor 6, y así sucesivamente). Inicializa el segundo con los 100 primeros números impares positivos. Imprímelo por pantalla para comprobar que lo has hecho correctamente.</p> <p><strong>Ejercicio 3: Lotería primitiva</strong>. Escribe un programa que genere al azar una combinación para jugar a la lotería primitiva asegurándote de que ningún número se repite. Pista: puedes utilizar un array de 6 números enteros, asignando a cada posición un número entero aleatorio entre 1 y 49, y comprobando que el número asignado no es igual a ninguno de los asignados anteriormente.</p> <p><strong>Ejercicio 4. Estadística básica</strong>. Escribe un programa que pida al usuario N números enteros (siendo N un valor introducido por teclado) y calcule el valor medio de todos ellos, mostrando luego en la pantalla los números que están por encima de la media y los que están por debajo de ella.</p> <p><strong>Ejercicio 5. Ordenar vector gigante</strong>. Escribe un programa que defina un vector de 1000 elementos y lo inicialice con valores aleatorios entre 0 y 2.000.000. Posteriormente, el programa debe ordenar los elementos del array de menor a mayor. Prueba luego a cambiar el tamaño del vector hasta los 10.000, 100.000 y 1.000.000 de elementos. ¿El tiempo de respuesta del programa crece linealmente con el tamaño del vector?</p> <p><strong>Ejercicio 6. Vector creciente</strong>. Escribe un programa que defina un vector de 10 enteros y lo rellene con números CRECIENTES al azar entre 1 y 100. Es decir, los números serán elegidos aleatoriamente pero siempre tienen que ser mayores que los anteriores: el número que ocupe la posición 1 debe ser mayor que el de la posición 0, el de la posición 2 mayor que el de la 1, y así sucesivamente.</p> <p>Después de eso, se pedirá al usuario un número entre 1 y el número mayor que exista en el vector. El número introducido por el usuario se insertará en la posición del vector adecuada para conservar el orden, desplazando los demás elementos hacia la derecha, de manera que se pierda el último elemento.</p> <p>Después de insertar el número introducido por el usuario, el contenido del vector debe mostrarse por la pantalla. El proceso se repetirá hasta que el usuario introduzca un número negativo.</p> <p>Por ejemplo, supongamos que el array generado al azar por el ordenador, después de ordenarlo, es este:</p><pre>
+</code></pre></div></div> <p>Al ordenador le dará igual si escribimos <code class="language-plaintext highlighter-rouge">(a &gt; b)</code> o <code class="language-plaintext highlighter-rouge">(a&gt;b)</code>, pero a cualquier programador que deba leer nuestro código le resultará mucho más cómoda la primera forma.</p> <p>Por la misma razón, también es conveniente dejar líneas en blanco entre determinadas instrucciones del algoritmo cuando se considere que mejora la legibilidad.</p> <h4 id="identificadores"> <a href="#identificadores" class="anchor-heading" aria-labelledby="identificadores"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Identificadores </h4> <p>A la hora de elegir identificadores de variables (o de algoritmos y subalgoritmos) es muy importante utilizar <strong>nombres que sean significativos</strong>, es decir, que den una idea de la información que almacena esa variable.</p> <p>Por ejemplo, si en un programa de nóminas vamos a guardar en una variable la edad de los empleados, es una buena ocurrencia llamar a esa variable “edad”, pero no llamarla “x”, “a” o “cosa”.</p> <p>Ahora bien, dentro de esta política de elegir identificadores significativos, es conveniente optar por aquellos que sean lo más cortos posible, siempre que sean descifrables. Un identificador llamado “edad_de_los_empleados” es engorroso de escribir y leer, sobre todo si aparece muchas veces en el algoritmo, cuando probablemente “edad_empl” proporciona la misma información. Sin embargo, si lo acortamos demasiado (por ejemplo “ed_em”) llegará un momento en el no quede claro lo que significa.</p> <p>Toda esta idea de significación de los identificadores es extensible a los nombres de los algoritmos, de las funciones, de los procedimientos, de los archivos y, en general, de todos los objetos relacionados con un programa.</p> <p>Por último, señalar que muchos lenguajes de programación distinguen entre mayúsculas y minúsculas, es decir, que para ellos no es lo mismo el identificador “edad” que “Edad” o “EDAD”. Por convenio, los algoritmos suelen nombrarse con la primera letra en mayúscula y el resto en minúsculas, mientras que las variables y funciones suelen nombrarse con la todas las letras en minúscula.</p> <p>Excepción: si el identificador consta de más de una palabra. En ese caso, ¿cómo es conveniente escribirlo? Existen dos convenciones para eso:</p> <ul> <li><strong>CamelCase</strong>: si el identificador consta de más de una palabra, se escriben todas juntas y la primera letra de cada palabra se escribe en mayúsculas. Por ejemplo: <code class="language-plaintext highlighter-rouge">edadEmpleado</code>.</li> <li><strong>snake_case</strong>: si el identificador consta de más de una palabra, se escriben separadas por el signo de subrayado (_). Por ejemplo: <code class="language-plaintext highlighter-rouge">edad_empleado</code>.</li> </ul> <p>Elegir CamelCase o snake_case es una cuestión de gustos personales. Lo importante es que, optes por el estilo que optes, lo utilices siempre y no mezcles identificadores de un tipo con identificadores de otro.</p> <h2 id="46-ejercicios-propuestos"> <a href="#46-ejercicios-propuestos" class="anchor-heading" aria-labelledby="46-ejercicios-propuestos"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.6. Ejercicios propuestos </h2> <p>Resuelve los siguientes ejercicios utilizando subalgoritmos cuando la complejidad del problema así lo requiera. Puedes hacerlo con todos, excepto los números 1, 2, 7 y 8, que son tan simples que difícilmente podrás sacar un subalgoritmo de ellos.</p> <h4 id="ejercicios-de-vectores-arrays-unidimensionales"> <a href="#ejercicios-de-vectores-arrays-unidimensionales" class="anchor-heading" aria-labelledby="ejercicios-de-vectores-arrays-unidimensionales"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Ejercicios de vectores (arrays unidimensionales) </h4> <p><strong>Ejercicio 1: Inicializar un vector</strong>. Escribe un programa en pseudocódigo en el que se defina un vector de 100 números enteros, se inicialicen todos los elementos al valor –1 y se impriman por pantalla.</p> <p><strong>Ejercicio 2: Inicializar un vector (más complejo)</strong>. Define dos vectores de 100 números enteros, uno llamado <em>pares</em> y otro <em>impares</em>. Inicializa el primero con los 100 primeros números pares positivos (es decir, pares[0] contendrá el valor 2, pares[1] contendrá el valor 4, pares[2] contendrá el valor 6, y así sucesivamente). Inicializa el segundo con los 100 primeros números impares positivos. Imprímelo por pantalla para comprobar que lo has hecho correctamente.</p> <p><strong>Ejercicio 3: Lotería primitiva</strong>. Escribe un programa que genere al azar una combinación para jugar a la lotería primitiva asegurándote de que ningún número se repite. Pista: puedes utilizar un array de 6 números enteros, asignando a cada posición un número entero aleatorio entre 1 y 49, y comprobando que el número asignado no es igual a ninguno de los asignados anteriormente.</p> <p><strong>Ejercicio 4. Estadística básica</strong>. Escribe un programa que pida al usuario N números enteros (siendo N un valor introducido por teclado) y calcule el valor medio de todos ellos, mostrando luego en la pantalla los números que están por encima de la media y los que están por debajo de ella.</p> <p><strong>Ejercicio 5. Ordenar vector gigante</strong>. Escribe un programa que defina un vector de 1000 elementos y lo inicialice con valores aleatorios entre 0 y 2.000.000. Posteriormente, el programa debe ordenar los elementos del array de menor a mayor. Prueba luego a cambiar el tamaño del vector hasta los 10.000, 100.000 y 1.000.000 de elementos. ¿El tiempo de respuesta del programa crece linealmente con el tamaño del vector?</p> <p><strong>Ejercicio 6. Vector creciente</strong>.</p> <div style="background: #eee">Escribe un programa que defina un vector de 10 enteros y lo rellene con números CRECIENTES al azar entre 1 y 100. Es decir, los números serán elegidos aleatoriamente pero siempre tienen que ser mayores que los anteriores: el número que ocupe la posición 1 debe ser mayor que el de la posición 0, el de la posición 2 mayor que el de la 1, y así sucesivamente. Después de eso, se pedirá al usuario un número entre 1 y el número mayor que exista en el vector. El número introducido por el usuario se insertará en la posición del vector adecuada para conservar el orden, desplazando los demás elementos hacia la derecha, de manera que se pierda el último elemento. Después de insertar el número introducido por el usuario, el contenido del vector debe mostrarse por la pantalla. El proceso se repetirá hasta que el usuario introduzca un número negativo. Por ejemplo, supongamos que el array generado al azar por el ordenador, después de ordenarlo, es este:<pre>
      4 – 18 – 23 – 25 – 44 - 45 – 51 – 72 – 78 - 85
-</pre><p>Como el número más alto es 85, el programa debe pedir al usuario:</p><pre>
+</pre>Como el número más alto es 85, el programa debe pedir al usuario:<pre>
      Introduzca un número entre 1 y 85: _
-</pre><p>Si el usuario teclea, por ejemplo, el número 67, éste debe ser insertado en la posición adecuada para conservar el orden, es decir, entre los números 51 y 72, desplazando a los demás números hacia la derecha, con lo cual se pierde el mayor de todos ellos (85). El vector quedaría así:</p><pre>
+</pre>Si el usuario teclea, por ejemplo, el número 67, éste debe ser insertado en la posición adecuada para conservar el orden, es decir, entre los números 51 y 72, desplazando a los demás números hacia la derecha, con lo cual se pierde el mayor de todos ellos (85). El vector quedaría así:<pre>
     4 – 18 – 23 – 25 – 44 - 45 – 51 – 67 - 72 – 78
-</pre><h4 id="ejercicios-de-matrices-arrays-bidimensionales"> <a href="#ejercicios-de-matrices-arrays-bidimensionales" class="anchor-heading" aria-labelledby="ejercicios-de-matrices-arrays-bidimensionales"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Ejercicios de matrices (arrays bidimensionales) </h4> <p><strong>Ejercicio 7. Inicializar matriz simple</strong>. Escribe un programa en el que se defina una matriz de 10x10 números enteros. Inicializa todos los elementos al valor –1.</p> <p><strong>Ejercicio 8. Inicializar matriz complejo</strong>. Repite el ejercicio anterior, inicializando ahora todas las filas pares al valor 0 y todas las filas impares al valor –1.</p> <p><strong>Ejercicio 9. Sumar filas</strong>. Escribe un programa que defina una matriz de 6x3 números enteros y luego pida al usuario que introduzca los valores de cada elemento. Después, el programa debe sumar los tres números de cada fila, mostrando los resultados.</p> <p><strong>Ejercicio 10. Permutar filas</strong>. Escribe un programa que defina una matriz de 3x5 números enteros y luego pida al usuario que introduzca los valores de cada elemento. Después, debe permutar el contenido de la fila 3 por el de la fila 1, y mostrar por último el contenido de la matriz.</p> <p><strong>Ejercicio 11. Sumar matrices</strong>. Escribe un programa que defina dos matrices de 10x5 números enteros y las inicialice con números aleatorios entre 0 y 255. Posteriormente, cada elemento de la primera matriz debe ser sumado con el mismo elemento de la segunda matriz, guardando el resultado en una tercera matriz. Se deben sumar todas las parejas de elementos y mostrar el resultado en la pantalla.</p> <p><strong>Ejercicio 12. Jugueteando con matrices</strong>. Escribe un programa que genere al azar una matriz cuadrada de NxN números enteros (siendo N un valor introducido por el usuario) y que luego haga lo siguiente:</p> <ul> <li> <p><em>Mostrar</em>. Mostrará la matriz tal y como ha sido generada.</p> </li> <li> <p><em>Perímetro</em>. Mostrará los elementos que ocupan el borde de la matriz, partiendo de la esquina superior izquierda y recorriéndola hacia la derecha y luego hacia abajo.</p> </li> <li> <p><em>Centro</em>. Mostrará los elementos que ocupan el centro geométrico de la matriz. Puede ser 1 (si N es impar) o 4 (si N es par).</p> </li> <li> <p><em>Espiral</em>. Hará un recorrido en espiral por la matriz partiendo de la esquina superior izquierda.</p> </li> </ul> <p>Por ejemplo, si la matriz fuera de 4x4 y tuviera este contenido:</p><pre>
+</pre></div> <h4 id="ejercicios-de-matrices-arrays-bidimensionales"> <a href="#ejercicios-de-matrices-arrays-bidimensionales" class="anchor-heading" aria-labelledby="ejercicios-de-matrices-arrays-bidimensionales"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Ejercicios de matrices (arrays bidimensionales) </h4> <p><strong>Ejercicio 7. Inicializar matriz simple</strong>. Escribe un programa en el que se defina una matriz de 10x10 números enteros. Inicializa todos los elementos al valor –1.</p> <p><strong>Ejercicio 8. Inicializar matriz complejo</strong>. Repite el ejercicio anterior, inicializando ahora todas las filas pares al valor 0 y todas las filas impares al valor –1.</p> <p><strong>Ejercicio 9. Sumar filas</strong>. Escribe un programa que defina una matriz de 6x3 números enteros y luego pida al usuario que introduzca los valores de cada elemento. Después, el programa debe sumar los tres números de cada fila, mostrando los resultados.</p> <p><strong>Ejercicio 10. Permutar filas</strong>. Escribe un programa que defina una matriz de 3x5 números enteros y luego pida al usuario que introduzca los valores de cada elemento. Después, debe permutar el contenido de la fila 3 por el de la fila 1, y mostrar por último el contenido de la matriz.</p> <p><strong>Ejercicio 11. Sumar matrices</strong>. Escribe un programa que defina dos matrices de 10x5 números enteros y las inicialice con números aleatorios entre 0 y 255. Posteriormente, cada elemento de la primera matriz debe ser sumado con el mismo elemento de la segunda matriz, guardando el resultado en una tercera matriz. Se deben sumar todas las parejas de elementos y mostrar el resultado en la pantalla.</p> <p><strong>Ejercicio 12. Jugueteando con matrices</strong>.</p> <div style="background: #eee"> Escribe un programa que genere al azar una matriz cuadrada de NxN números enteros (siendo N un valor introducido por el usuario) y que luego haga lo siguiente: * *Mostrar*. Mostrará la matriz tal y como ha sido generada. * *Perímetro*. Mostrará los elementos que ocupan el borde de la matriz, partiendo de la esquina superior izquierda y recorriéndola hacia la derecha y luego hacia abajo. * *Centro*. Mostrará los elementos que ocupan el centro geométrico de la matriz. Puede ser 1 (si N es impar) o 4 (si N es par). * *Espiral*. Hará un recorrido en espiral por la matriz partiendo de la esquina superior izquierda. Por ejemplo, si la matriz fuera de 4x4 y tuviera este contenido:<pre>
     4 6 7 8
     2 4 3 9
     0 1 3 4
     7 3 3 5
-</pre><p>…las distintas operaciones deben obtener este resultado:</p> <ul> <li>Perímetro: 4 6 7 8 9 4 5 3 3 7 0 2</li> <li>Centro: 4 3 1 3</li> <li>Espiral: 4 6 7 8 9 4 5 3 3 7 0 2 4 3 3 1</li> </ul> <h2 id="47-ejercicios-resueltos"> <a href="#47-ejercicios-resueltos" class="anchor-heading" aria-labelledby="47-ejercicios-resueltos"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.7. Ejercicios resueltos </h2> <p>(Iremos poniendo aquí los ejercicios resueltos en clase)</p> <hr> <h2 class="text-delta">Table of contents</h2> <ul> </ul> </div> </div> <div class="search-overlay"></div> </div> </body> </html>
+</pre>...las distintas operaciones deben obtener este resultado: * Perímetro: 4 6 7 8 9 4 5 3 3 7 0 2 * Centro: 4 3 1 3 * Espiral: 4 6 7 8 9 4 5 3 3 7 0 2 4 3 3 1 </div> <h2 id="47-ejercicios-resueltos"> <a href="#47-ejercicios-resueltos" class="anchor-heading" aria-labelledby="47-ejercicios-resueltos"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.7. Ejercicios resueltos </h2> <p><strong>Ejercicio 1: Inicializar un vector</strong>. Escribe un programa en pseudocódigo en el que se defina un vector de 100 números enteros, se inicialicen todos los elementos al valor –1 y se impriman por pantalla.</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Algoritmo InicializarVectorSimple
+	Definir i, vector Como Entero
+	Dimension vector[100]
+	
+	// Inicializamos el array
+	Para i &lt;- 0 hasta 99 Hacer
+		vector[i] &lt;- -1
+	FinPara
+	
+	// Mostramos el array
+	Para i &lt;- 0 hasta 99 Hacer
+		Escribir "Vector[", i, "] = ", vector[i]
+	FinPara
+FinAlgoritmo
+</code></pre></div></div> <p><strong>Ejercicio 2: Inicializar un vector (más complejo)</strong>. Define dos vectores de 100 números enteros, uno llamado <em>pares</em> y otro <em>impares</em>. Inicializa el primero con los 100 primeros números pares positivos (es decir, pares[0] contendrá el valor 2, pares[1] contendrá el valor 4, pares[2] contendrá el valor 6, y así sucesivamente). Inicializa el segundo con los 100 primeros números impares positivos. Imprímelo por pantalla para comprobar que lo has hecho correctamente.</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Algoritmo InicializarVectorComplejo
+	Definir i, pares, impares Como Entero
+	Dimension pares[100]
+	Dimension impares[100]
+	
+	// Inicializa los arrays
+	Para i &lt;- 0 hasta 99 Hacer
+		pares[i] &lt;- (i+1)*2
+		impares[i] &lt;- (i*2)+1
+	FinPara
+	
+	// Muestra el array de números pares
+	Para i &lt;- 0 hasta 99 Hacer
+		Escribir "Pares[", i, "] = ", pares[i]
+	FinPara
+		
+	// Muestra el array de números impares
+	Para i &lt;- 0 hasta 99 Hacer
+		Escribir "Impares[", i, "] = ", impares[i]
+	FinPara
+FinAlgoritmo
+</code></pre></div></div> <p><strong>Ejercicio 3: Lotería primitiva</strong>. Escribe un programa que genere al azar una combinación para jugar a la lotería primitiva asegurándote de que ningún número se repite. Pista: puedes utilizar un array de 6 números enteros, asignando a cada posición un número entero aleatorio entre 1 y 49, y comprobando que el número asignado no es igual a ninguno de los asignados anteriormente.</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Algoritmo InicializarVector
+	Definir repetido como Lógico
+	Definir i, j, apuesta como Entero
+	Dimension apuesta[6]
+	
+	// Genera la combinación al azar (sin números repetidos)
+	Para i &lt;- 0 hasta 5 hacer
+		Repetir
+			apuesta[i] &lt;- azar(49)+1      // Saca un número al azar entre 1 y 49
+			repetido &lt;- falso             // Suponemos que NO está repetido...
+			Para j &lt;- 0 hasta i-1 con paso 1 hacer      // ...pero vamos a asegurarnos mirando todos los anteriores
+				Si apuesta[j] = apuesta[i] entonces   // ¡Sí que estaba repetido!
+					repetido &lt;- verdadero              // Ponemos a "verdadero" la variable centinela
+				FinSi
+			FinPara
+		Hasta Que repetido = falso       // Sacaremos otro número al azar hasta que no esté repetido
+	FinPara
+	
+	// Mostramos la combinación
+	Escribir "La combinación para la lotería es:"
+	Para i &lt;- 0 hasta 5 hacer
+		Escribir sin saltar apuesta[i], "   "
+	FinPara
+FinAlgoritmo
+</code></pre></div></div> <p><strong>Ejercicio 4. Estadística básica</strong>. Escribe un programa que pida al usuario N números enteros (siendo N un valor introducido por teclado) y calcule el valor medio de todos ellos, mostrando luego en la pantalla los números que están por encima de la media y los que están por debajo de ella.</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Algoritmo estadistica_basica
+	Definir n, i, acum como Entero
+	Definir vector Como Entero
+	Definir media como Real
+	
+	// Dimensionamos el array
+	Escribir "¿Cuántos números vas a escribir?"
+	Leer n
+	Dimension vector[n]
+	
+	// Leemos los valores del array
+	Escribir "Por favor, teclea los ", n, " valores (pulsa Intro después de cada uno):"
+	Para i &lt;- 0 hasta n-1 hacer
+		Leer vector[i]
+	FinPara
+	
+	// Calculamos la media
+	acum &lt;- vector[0]
+	Para i &lt;- 1 hasta n-1 hacer
+		acum &lt;- acum + vector[i]
+	FinPara
+	media &lt;- acum / n
+	Escribir "El promedio es: ", media
+	
+	// Mostramos los valores que están por debajo de la media
+	Escribir "Valores por debajo de la media:"
+	Para i &lt;- 1 hasta n-1 Hacer
+		Si vector[i] &lt; media Entonces
+			Escribir vector[i]
+		FinSi
+	FinPara
+	
+	// Mostramos los valores que están por encima de la media
+	Escribir "Valores por encima de la media:"
+	Para i &lt;- 1 hasta n-1 Hacer
+		Si vector[i] &gt; media Entonces
+			Escribir vector[i]
+		FinSi
+	FinPara
+FinAlgoritmo
+</code></pre></div></div> <p><strong>Ejercicio 5. Ordenar vector gigante</strong>. Escribe un programa que defina un vector de 1000 elementos y lo inicialice con valores aleatorios entre 0 y 2.000.000. Posteriormente, el programa debe ordenar los elementos del array de menor a mayor. Prueba luego a cambiar el tamaño del vector hasta los 10.000, 100.000 y 1.000.000 de elementos. ¿El tiempo de respuesta del programa crece linealmente con el tamaño del vector?</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Algoritmo ordenar_array
+	Definir n, i como Entero
+	Definir vector Como Entero
+	
+	// Dimensionamos el array
+	Escribir "¿De qué tamaño quieres el array?"
+	Leer n
+	Dimension vector[n]
+	
+	// Inicializamos el array con valores aleatorios
+	Para i &lt;- 0 hasta n-1 hacer
+		vector[i] &lt;- azar(n*2)
+	FinPara
+	
+	// Ordenamos el array. Lo mostramos antes y después para comprobar la diferencia
+	Escribir "Pulsa una tecla para ver el array desordenado"
+	Esperar Tecla
+	mostrar(vector, n)
+	
+	Escribir "Pulsa una tecla para iniciar la ordenación del array"
+	Esperar Tecla
+	ordenar(vector, n)
+	
+	Escribir "Ordenación terminada. Pulsa una tecla para ver el array ordenado"
+	Esperar Tecla
+	mostrar(vector, n)	
+FinAlgoritmo
+
+SubAlgoritmo mostrar(vector, n)
+	Definir i Como Entero
+	para i &lt;- 0 hasta n-1 Hacer
+		Escribir vector[i]
+	FinPara
+FinSubAlgoritmo
+
+SubAlgoritmo ordenar(vector por referencia, n)
+	Definir i, j, aux Como Entero
+	para i &lt;- 0 hasta n-2 Hacer
+		para j &lt;- 0 hasta n-2 Hacer
+			si vector[j] &gt; vector[j+1] Entonces
+				aux &lt;- vector[j]
+				vector[j] &lt;- vector[j+1]
+				vector[j+1] &lt;- aux
+			FinSi
+		FinPara
+		Borrar Pantalla
+		Escribir "Ordenando el array... ", redon(i*100/(n-2)), "%"
+	FinPara
+FinSubAlgoritmo
+</code></pre></div></div> <p><strong>Ejercicio 7. Inicializar matriz simple</strong>. Escribe un programa en el que se defina una matriz de 10x10 números enteros. Inicializa todos los elementos al valor –1.</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Algoritmo inicializar_matriz_simple
+	Definir fila, columna como entero
+	Definir matriz como entero
+	Dimension matriz(10,10)
+	
+	// Primero inicializamos la matriz
+	Para fila &lt;- 0 hasta 9 Hacer
+		Para columna &lt;- 0 hasta 9 Hacer
+			matriz[fila, columna] &lt;- -1
+		FinPara
+	FinPara
+	
+	// Después mostramos la matriz por pantalla
+	Para fila &lt;- 0 hasta 9 Hacer
+		Para columna &lt;- 0 hasta 9 Hacer
+			Escribir sin saltar matriz[fila, columna], "  "
+		FinPara
+		Escribir " "  // Hace el salto de línea al final de cada columna
+	FinPara
+FinAlgoritmo
+</code></pre></div></div> <p><strong>Ejercicio 8. Inicializar matriz complejo</strong>. Repite el ejercicio anterior, inicializando ahora todas las filas pares al valor 0 y todas las filas impares al valor –1.</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Algoritmo inicializar_matriz_complejo
+	Definir fila, columna como entero
+	Definir matriz como entero
+	Dimension matriz(10,10)
+	
+	// Primero inicializamos la matriz
+	Para fila &lt;- 0 hasta 9 Hacer
+		Para columna &lt;- 0 hasta 9 Hacer
+			Si fila MOD 2 = 0 Entonces
+				matriz[fila, columna] &lt;- 0
+			SiNo
+				matriz[fila, columna] &lt;- -1
+			FinSi
+		FinPara
+	FinPara
+	
+	// Después mostramos la matriz por pantalla
+	Para fila &lt;- 0 hasta 9 Hacer
+		Para columna &lt;- 0 hasta 9 Hacer
+			Si fila MOD 2 = 0 Entonces
+			    Escribir sin saltar " ", matriz[fila, columna], "  "
+			SiNo
+				Escribir sin saltar matriz[fila, columna], "  "
+			FinSi
+		FinPara
+		Escribir " "  // Hace el salto de línea al final de cada columna
+	FinPara
+FinAlgoritmo
+</code></pre></div></div> <hr> <h2 class="text-delta">Table of contents</h2> <ul> </ul> </div> </div> <div class="search-overlay"></div> </div> </body> </html>

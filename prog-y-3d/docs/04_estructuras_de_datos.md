@@ -812,7 +812,8 @@ Resuelve los siguientes ejercicios utilizando subalgoritmos cuando la complejida
 
 **Ejercicio 5. Ordenar vector gigante**. Escribe un programa que defina un vector de 1000 elementos y lo inicialice con valores aleatorios entre 0 y 2.000.000. Posteriormente, el programa debe ordenar los elementos del array de menor a mayor. Prueba luego a cambiar el tamaño del vector hasta los 10.000, 100.000 y 1.000.000 de elementos. ¿El tiempo de respuesta del programa crece linealmente con el tamaño del vector?
 
-**Ejercicio 6. Vector creciente**. Escribe un programa que defina un vector de 10 enteros y lo rellene con números CRECIENTES al azar entre 1 y 100. Es decir, los números serán elegidos aleatoriamente pero siempre tienen que ser mayores que los anteriores: el número que ocupe la posición 1 debe ser mayor que el de la posición 0, el de la posición 2 mayor que el de la 1, y así sucesivamente.
+**Ejercicio 6. Vector creciente**. 
+<div style='background: #eee'>Escribe un programa que defina un vector de 10 enteros y lo rellene con números CRECIENTES al azar entre 1 y 100. Es decir, los números serán elegidos aleatoriamente pero siempre tienen que ser mayores que los anteriores: el número que ocupe la posición 1 debe ser mayor que el de la posición 0, el de la posición 2 mayor que el de la 1, y así sucesivamente.
 
 Después de eso, se pedirá al usuario un número entre 1 y el número mayor que exista en el vector. El número introducido por el usuario se insertará en la posición del vector adecuada para conservar el orden, desplazando los demás elementos hacia la derecha, de manera que se pierda el último elemento.
 
@@ -835,7 +836,7 @@ Si el usuario teclea, por ejemplo, el número 67, éste debe ser insertado en la
 <pre>
     4 – 18 – 23 – 25 – 44 - 45 – 51 – 67 - 72 – 78
 </pre>
-
+</div>
 
 #### Ejercicios de matrices (arrays bidimensionales)
 
@@ -849,7 +850,9 @@ Si el usuario teclea, por ejemplo, el número 67, éste debe ser insertado en la
 
 **Ejercicio 11. Sumar matrices**. Escribe un programa que defina dos matrices de 10x5 números enteros y las inicialice con números aleatorios entre 0 y 255. Posteriormente, cada elemento de la primera matriz debe ser sumado con el mismo elemento de la segunda matriz, guardando el resultado en una tercera matriz. Se deben sumar todas las parejas de elementos y mostrar el resultado en la pantalla.
 
-**Ejercicio 12. Jugueteando con matrices**. Escribe un programa que genere al azar una matriz cuadrada de NxN números enteros (siendo N un valor introducido por el usuario) y que luego haga lo siguiente:
+**Ejercicio 12. Jugueteando con matrices**. 
+<div style='background: #eee'>
+Escribe un programa que genere al azar una matriz cuadrada de NxN números enteros (siendo N un valor introducido por el usuario) y que luego haga lo siguiente:
 
 * *Mostrar*. Mostrará la matriz tal y como ha sido generada.
 
@@ -873,7 +876,237 @@ Por ejemplo, si la matriz fuera de 4x4 y tuviera este contenido:
 * Perímetro: 4 6 7 8 9 4 5 3 3 7 0 2
 * Centro: 4 3 1 3
 * Espiral: 4 6 7 8 9 4 5 3 3 7 0 2 4 3 3 1
+</div>
 
 ## 4.7. Ejercicios resueltos
 
-(Iremos poniendo aquí los ejercicios resueltos en clase)
+**Ejercicio 1: Inicializar un vector**. Escribe un programa en pseudocódigo en el que se defina un vector de 100 números enteros, se inicialicen todos los elementos al valor –1 y se impriman por pantalla.
+
+```
+Algoritmo InicializarVectorSimple
+	Definir i, vector Como Entero
+	Dimension vector[100]
+	
+	// Inicializamos el array
+	Para i <- 0 hasta 99 Hacer
+		vector[i] <- -1
+	FinPara
+	
+	// Mostramos el array
+	Para i <- 0 hasta 99 Hacer
+		Escribir "Vector[", i, "] = ", vector[i]
+	FinPara
+FinAlgoritmo
+```
+
+**Ejercicio 2: Inicializar un vector (más complejo)**. Define dos vectores de 100 números enteros, uno llamado *pares* y otro *impares*. Inicializa el primero con los 100 primeros números pares positivos (es decir, pares[0] contendrá el valor 2, pares[1] contendrá el valor 4, pares[2] contendrá el valor 6, y así sucesivamente). Inicializa el segundo con los 100 primeros números impares positivos. Imprímelo por pantalla para comprobar que lo has hecho correctamente.
+
+```
+Algoritmo InicializarVectorComplejo
+	Definir i, pares, impares Como Entero
+	Dimension pares[100]
+	Dimension impares[100]
+	
+	// Inicializa los arrays
+	Para i <- 0 hasta 99 Hacer
+		pares[i] <- (i+1)*2
+		impares[i] <- (i*2)+1
+	FinPara
+	
+	// Muestra el array de números pares
+	Para i <- 0 hasta 99 Hacer
+		Escribir "Pares[", i, "] = ", pares[i]
+	FinPara
+		
+	// Muestra el array de números impares
+	Para i <- 0 hasta 99 Hacer
+		Escribir "Impares[", i, "] = ", impares[i]
+	FinPara
+FinAlgoritmo
+```
+
+**Ejercicio 3: Lotería primitiva**. Escribe un programa que genere al azar una combinación para jugar a la lotería primitiva asegurándote de que ningún número se repite. Pista: puedes utilizar un array de 6 números enteros, asignando a cada posición un número entero aleatorio entre 1 y 49, y comprobando que el número asignado no es igual a ninguno de los asignados anteriormente.
+
+```
+Algoritmo InicializarVector
+	Definir repetido como Lógico
+	Definir i, j, apuesta como Entero
+	Dimension apuesta[6]
+	
+	// Genera la combinación al azar (sin números repetidos)
+	Para i <- 0 hasta 5 hacer
+		Repetir
+			apuesta[i] <- azar(49)+1      // Saca un número al azar entre 1 y 49
+			repetido <- falso             // Suponemos que NO está repetido...
+			Para j <- 0 hasta i-1 con paso 1 hacer      // ...pero vamos a asegurarnos mirando todos los anteriores
+				Si apuesta[j] = apuesta[i] entonces   // ¡Sí que estaba repetido!
+					repetido <- verdadero              // Ponemos a "verdadero" la variable centinela
+				FinSi
+			FinPara
+		Hasta Que repetido = falso       // Sacaremos otro número al azar hasta que no esté repetido
+	FinPara
+	
+	// Mostramos la combinación
+	Escribir "La combinación para la lotería es:"
+	Para i <- 0 hasta 5 hacer
+		Escribir sin saltar apuesta[i], "   "
+	FinPara
+FinAlgoritmo
+```
+
+**Ejercicio 4. Estadística básica**. Escribe un programa que pida al usuario N números enteros (siendo N un valor introducido por teclado) y calcule el valor medio de todos ellos, mostrando luego en la pantalla los números que están por encima de la media y los que están por debajo de ella.
+
+```
+Algoritmo estadistica_basica
+	Definir n, i, acum como Entero
+	Definir vector Como Entero
+	Definir media como Real
+	
+	// Dimensionamos el array
+	Escribir "¿Cuántos números vas a escribir?"
+	Leer n
+	Dimension vector[n]
+	
+	// Leemos los valores del array
+	Escribir "Por favor, teclea los ", n, " valores (pulsa Intro después de cada uno):"
+	Para i <- 0 hasta n-1 hacer
+		Leer vector[i]
+	FinPara
+	
+	// Calculamos la media
+	acum <- vector[0]
+	Para i <- 1 hasta n-1 hacer
+		acum <- acum + vector[i]
+	FinPara
+	media <- acum / n
+	Escribir "El promedio es: ", media
+	
+	// Mostramos los valores que están por debajo de la media
+	Escribir "Valores por debajo de la media:"
+	Para i <- 1 hasta n-1 Hacer
+		Si vector[i] < media Entonces
+			Escribir vector[i]
+		FinSi
+	FinPara
+	
+	// Mostramos los valores que están por encima de la media
+	Escribir "Valores por encima de la media:"
+	Para i <- 1 hasta n-1 Hacer
+		Si vector[i] > media Entonces
+			Escribir vector[i]
+		FinSi
+	FinPara
+FinAlgoritmo
+```
+
+**Ejercicio 5. Ordenar vector gigante**. Escribe un programa que defina un vector de 1000 elementos y lo inicialice con valores aleatorios entre 0 y 2.000.000. Posteriormente, el programa debe ordenar los elementos del array de menor a mayor. Prueba luego a cambiar el tamaño del vector hasta los 10.000, 100.000 y 1.000.000 de elementos. ¿El tiempo de respuesta del programa crece linealmente con el tamaño del vector?
+
+```
+Algoritmo ordenar_array
+	Definir n, i como Entero
+	Definir vector Como Entero
+	
+	// Dimensionamos el array
+	Escribir "¿De qué tamaño quieres el array?"
+	Leer n
+	Dimension vector[n]
+	
+	// Inicializamos el array con valores aleatorios
+	Para i <- 0 hasta n-1 hacer
+		vector[i] <- azar(n*2)
+	FinPara
+	
+	// Ordenamos el array. Lo mostramos antes y después para comprobar la diferencia
+	Escribir "Pulsa una tecla para ver el array desordenado"
+	Esperar Tecla
+	mostrar(vector, n)
+	
+	Escribir "Pulsa una tecla para iniciar la ordenación del array"
+	Esperar Tecla
+	ordenar(vector, n)
+	
+	Escribir "Ordenación terminada. Pulsa una tecla para ver el array ordenado"
+	Esperar Tecla
+	mostrar(vector, n)	
+FinAlgoritmo
+
+SubAlgoritmo mostrar(vector, n)
+	Definir i Como Entero
+	para i <- 0 hasta n-1 Hacer
+		Escribir vector[i]
+	FinPara
+FinSubAlgoritmo
+
+SubAlgoritmo ordenar(vector por referencia, n)
+	Definir i, j, aux Como Entero
+	para i <- 0 hasta n-2 Hacer
+		para j <- 0 hasta n-2 Hacer
+			si vector[j] > vector[j+1] Entonces
+				aux <- vector[j]
+				vector[j] <- vector[j+1]
+				vector[j+1] <- aux
+			FinSi
+		FinPara
+		Borrar Pantalla
+		Escribir "Ordenando el array... ", redon(i*100/(n-2)), "%"
+	FinPara
+FinSubAlgoritmo
+```
+
+**Ejercicio 7. Inicializar matriz simple**. Escribe un programa en el que se defina una matriz de 10x10 números enteros. Inicializa todos los elementos al valor –1.
+
+```
+Algoritmo inicializar_matriz_simple
+	Definir fila, columna como entero
+	Definir matriz como entero
+	Dimension matriz(10,10)
+	
+	// Primero inicializamos la matriz
+	Para fila <- 0 hasta 9 Hacer
+		Para columna <- 0 hasta 9 Hacer
+			matriz[fila, columna] <- -1
+		FinPara
+	FinPara
+	
+	// Después mostramos la matriz por pantalla
+	Para fila <- 0 hasta 9 Hacer
+		Para columna <- 0 hasta 9 Hacer
+			Escribir sin saltar matriz[fila, columna], "  "
+		FinPara
+		Escribir " "  // Hace el salto de línea al final de cada columna
+	FinPara
+FinAlgoritmo
+```
+
+**Ejercicio 8. Inicializar matriz complejo**. Repite el ejercicio anterior, inicializando ahora todas las filas pares al valor 0 y todas las filas impares al valor –1.
+
+```
+Algoritmo inicializar_matriz_complejo
+	Definir fila, columna como entero
+	Definir matriz como entero
+	Dimension matriz(10,10)
+	
+	// Primero inicializamos la matriz
+	Para fila <- 0 hasta 9 Hacer
+		Para columna <- 0 hasta 9 Hacer
+			Si fila MOD 2 = 0 Entonces
+				matriz[fila, columna] <- 0
+			SiNo
+				matriz[fila, columna] <- -1
+			FinSi
+		FinPara
+	FinPara
+	
+	// Después mostramos la matriz por pantalla
+	Para fila <- 0 hasta 9 Hacer
+		Para columna <- 0 hasta 9 Hacer
+			Si fila MOD 2 = 0 Entonces
+			    Escribir sin saltar " ", matriz[fila, columna], "  "
+			SiNo
+				Escribir sin saltar matriz[fila, columna], "  "
+			FinSi
+		FinPara
+		Escribir " "  // Hace el salto de línea al final de cada columna
+	FinPara
+FinAlgoritmo
+```

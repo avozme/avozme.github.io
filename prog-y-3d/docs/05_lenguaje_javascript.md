@@ -979,6 +979,11 @@ Pues bien, existen muchos otros objetos predefinidos en Javascript. Te voy a pre
    * *moveTo(x, y)*: mueve la ventana actual a la posición x, y.
    * *resizeTo(tamañoX, tamañoY)*: cambia el tamaño de la ventana actual.
 
+* **screen**. Nos da información sobre el espacio disponible para la página web en el navegador:
+   * *heigth*: altura (en píxeles) de la ventana del navegador.
+   * *width*: anchura (en píxeles) de la ventana del navegador.
+   * *colorDepth*: número de bits de color por cada píxel. Suele ser 24 o 32.
+
 * **document**. Proporciona acceso al texto escrito dentro de la ventana del navegador. Lo hemos estado usando para generar la salida de nuestros programas. Estos son algunos métodos:
    * *write()*: añade texto a la ventana del navegador.
    * *writeln()*: añade texto a la ventana del navegador, y termina con una salto de línea.
@@ -1358,11 +1363,11 @@ Ahora algo solo un poquito más complicado: una versión en Javascript del juego
 
 Aquí empezamos a divertirnos.
 
-Vamos a hacer una página web con un botón. Al pulsar ese botón, Javascript hará que ¡el botón cambie de sitio!
+**Vamos a hacer una página web con un botón. Al pulsar ese botón, Javascript hará que ¡el botón cambie de sitio!**
 
 Para eso, capturaremos el **evento *click*** del botón.
 
-El botón lo tienes que crear antes mediante HTML. Algo así:
+El botón lo tienes que crear antes mediante HTML. No importa que no sepas HTML. Solo echa un vistazo a este código:
 
 ```html
 <body>
@@ -1377,9 +1382,8 @@ El botón lo tienes que crear antes mediante HTML. Algo así:
 
 Ahora solo te queda programar la función *mover_boton()*.
 
-Para lograr que el botón se mueva, tendrás que fijarte primero en cómo está el botón creado: tiene un **id**, un **value** (el texto del botón), el evento **onclick** y un **style**. Este último es el que nos interesa.
+Para lograr que el botón se mueva, tendrás que fijarte primero en cómo está el botón creado: tiene un **id**, un evento **onclick** y un **style**. Dentro del este último se definen dos propiedades:
 
-En el **style** del botón se definen dos propiedades:
 * **top** es la distancia desde la parte superior de la ventana del navegador hasta el botón. Lo hemos establecido en 100 píxeles (100px).
 * **left** es la distancia desde la parte izquierda de la ventana del navegador hasta el botón. Le hemos dado 200 píxeles.
 
@@ -1394,27 +1398,115 @@ function mover_boton() {
 
 Con eso, el botón se moverá al hacer clic sobre él, pero solo la primera vez. Quedará emplazado en la posición top = 150px y left = 250px y ya no se desplazará más.
 
-¿Y si quisiéramos que se moviera *siempre* que hagamos clic sobre él? Es es lo que tienes que conseguir en este ejercicio.
+**¿Y si quisiéramos que se moviera *siempre* que hagamos clic sobre él?** Es es lo que tienes que conseguir en este ejercicio.
 
 **Ejercicio 4. Ventana nerviosa y botones evanescentes**
 
-XXX
+**Ahora vamos a conseguir que la ventana entera del navegador se mueva al pulsar un botón.**
+
+De hecho, vamos a crear cuatro botones:
+
+* Botón "Saltar": al pulsarlo, la ventana dará un salto.
+* Botón "Temblar": al pulsarlo, la ventana se pondrá a "temblar", como si tuviera frío o se hubiera puesto nerviosa, durante un rato.
+* Botón "Ocultar": al pulsarlo, los dos botones anteriores desaparecerán de la vista.
+* Botón "Mostrar": al pulsarlo, los dos botones desaparecidos volverán a aparecer.
+
+Esos cuatro botones puedes crearlos con este código HTML:
+
+```html
+<body>
+   <button id='boton' onclick='btn_saltar()' style='position: absolute; top: 100px; left: 200px'>Saltar</button>
+   <button id='boton' onclick='btn_temblar()' style='position: absolute; top: 100px; left: 200px'>Temblar</button>
+   <button id='boton' onclick='btn_ocultar()' style='position: absolute; top: 100px; left: 200px'>Ocultar</button>
+   <button id='boton' onclick='btn_mostrar()' style='position: absolute; top: 100px; left: 200px'>Mostrar</button>
+   <script>
+      function btn_saltar() {
+          // Escribe aquí tu código javascript para cuando se pulse el botón "Saltar"
+      }
+      function btn_temblar() {
+          // Escribe aquí tu código javascript para cuando se pulse el botón "Temblar"
+      }
+      function btn_ocultar() {
+          // Escribe aquí tu código javascript para cuando se pulse el botón "Ocultar"
+      }
+      function btn_mostrar() {
+          // Escribe aquí tu código javascript para cuando se pulse el botón "Mostrar"
+      }
+   </script>
+</body>
+```
+
+Lo siguiente es programar el código de cada una de las cuatro funciones Javascript, que se ejecutarán al pulsar cada botón.
+
+No te voy a decir lo que tienes que escribir en ellas, pero sí te voy a dar un par de pistas:
+
+* **Pista nº 1**. Hay un objeto en Javascript llamado ***window***, que nos permite alterar las propiedades de la ventana del navegador. Por ejemplo, nos permite cambiar su posición y su tamaño. En el apartado 5.2.11, sobre *Objetos predefinidos de Javascript*, hablamos de qué modo se puede cambiar eso.
+* **Pista nº 2**. En el ejercicio anterior cambiábamos las propiedades *top* y *left* de un botón, pero los botones (y cualquier cosa que haya en una página web) tienen muchas otras propiedades (¡pero MUCHAS!). Una de ellas se llama ***visibility***, y puede tomar dos valores: *visible* o *hidden*.
 
 **Ejercicio 5. Pelota de goma**
 
-XXX
+Busca en internet una imagen de una pelota que te guste y descárgala. En esa imagen no debe aparecer nada más, excepto la pelota. 
+
+Luego insértala en una página web, así:
+
+```html
+<body>
+   <img src='nombre-del-archivo.jpg' style='width: 100px; height: 100px' id='pelota'>
+</body>  
+```
+
+En *'nombre-del-archivo.jpg'*, como es lógico, tendrás que escribir el nombre del archivo que contiene tu pelota. Le hemos asignado 100 píxeles de ancho y 100 de alto, pero si es demasiado pequeña o demasiado grande, siéntete libre de cambiar esas cantidades.
+
+**Ahora escribe en Javascript un programa para que la pelota rebote por la pantalla como si fuera una pelota de verdad.**
+
+Para conseguirlo, tendrás que alterar de nuevo las propiedades *top* y *left* de la pelota, y usar las propiedades el objeto ***screen*** para evitar que la pelota se salga de los márgenes de la pantalla.
+
+**Mejora para los más valientes**: trata de añadir un botón a esta página web. Al pulsarlo, la pelota se detendrá. Al volver a pulsarlo, la pelota se pondrá en marcha de nuevo.
 
 **Ejercicio 6. Tres en raya improved**
 
-XXX
+**Modifica el juego de las tres en raya para que sea más atractivo al usuario y más cómodo de jugar.**
+
+Tienes que eliminar todas las entradas de datos mediante *prompt()* y sustituirlas por cajas de texto HTML, como esta:
+
+```html
+¿En qué casilla quieres poner tu pieza? (1-9)
+<input type='text' id='casilla'>
+<button onclick='colocar_pieza()'>Aceptar</button>
+
+<script>
+   function colocar_pieza() {
+      var casilla = document.getElementById('casilla').value;
+      // A partir de aquí, iría el código para colocar la pieza del jugador en esa casilla
+   }
+</script>
+```
+
+Al hacer clic en el botón, se ejecutará la función *colocar_pieza()*. Observa cómo se extrae el texto escrito en el cuadro de texto para llevárnoslo a una variable de Javascript (llamada *casilla*).
+
+También puedes mejorar la apariencia del juego alterando sus colores, tipografías, etc. Tendrás que investigar un poco en internet sobre cómo puede hacerse eso.
 
 **Ejercicio 7. Tenis**
 
-XXX
+(Aviso: este ejercicio es de dificultad elevada)
+
+Ya sabes hacer que una pelota rebote (ejercicio 5). **Vamos a mejorar ese programa haciendo una versión del clásico juego de tenis *"Pong"***, el primer videojuego comercial de la historia.
+
+Si no conoces el *Pong*, bichea un poco por Internet para averiguar cómo es.
+
+¡Y ahora trata de programarlo en Javascript!
 
 **Ejercicio 8. Carretera al infierno**
 
-XXX
+(Aviso: este ejercicio es de dificultad elevada)
+
+En esta ocasión, vamos a programar **un juego que llamaremos "Carretera al infierno"**.
+
+En el juego, manejaremos un coche (busca en internet la imagen de un coche visto desde arriba). El coche aparecerá en la parte inferior de la pantalla, centrado y mirando hacia arriba.
+
+Una carretera irá desplazándose de arriba a abajo. La carretera no será recta, sino que tendrá irregularidades aleatorias hacia la izquierda y hacia la derecha. Nuestro objetivo es mover el coche hacia la izquierda y hacia la derecha para evitar que se salga de la carretera.
+
+La carreterá se moverá cada vez más deprisa. **El objetivo del juego es aguantar la mayor cantidad posible de tiempo sin salirnos.**
 
 ## 5.7. Ejercicios resueltos
 
