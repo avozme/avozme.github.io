@@ -973,11 +973,12 @@ Pues bien, existen muchos otros objetos predefinidos en Javascript. Te voy a pre
       document.write("Aleatorio de 0 a 100:" + Math.trunc(Math.random()*101));
       ```
 
-* **window**. Proporciona acceso a la ventana del navegador web donde se está ejecutando Javascript. Te ofrece métodos muy interesantes como:
-   * *open()*: abre otra ventana del navegador.
-   * *close()*: cierra la ventana actual (¡y destruye el programa en ejecución, ojo!).
+* **window**. Proporciona acceso a una ventana del navegador web. Te ofrece métodos muy interesantes como:
+   * *open()*: abre una ventana del navegador nueva.
+   * *close()*: cierra una ventana del navegador.
    * *moveTo(x, y)*: mueve la ventana actual a la posición x, y.
    * *resizeTo(tamañoX, tamañoY)*: cambia el tamaño de la ventana actual.
+   * *screenX* y *screenY*: las coordenadas X e Y donde se encuentra la ventana ubicada en este momento.
 
 * **screen**. Nos da información sobre el espacio disponible para la página web en el navegador:
    * *heigth*: altura (en píxeles) de la ventana del navegador.
@@ -1336,7 +1337,7 @@ Usaremos algún evento onclick() como este en los ejercicios para conseguir resu
 
 ## 5.6. Ejercicios propuestos
 
-**Ejercicio 1. Tabla de multiplicar**.
+#### Ejercicio 1. Tabla de multiplicar
 
 Vamos a empezar por algo sencillito.
 
@@ -1353,13 +1354,13 @@ Puedes utilizar esta plantilla para tu primer programa:
 
 Recuerda que la salida la puedes enviar al <div> 'salida' con la expresión: *document.getElementById('salida').innerHTML*
 
-**Ejercicio 2. Juego del número secreto**.
+#### Ejercicio 2. Juego del número secreto
 
 Ahora algo solo un poquito más complicado: una versión en Javascript del juego del número secreto.
 
 (Puedes encontrarlo resuelto en el capítulo "Introducción a la programación")
 
-**Ejercicio 3. Botones saltarines**
+#### Ejercicio 3. Botón saltarín
 
 Aquí empezamos a divertirnos.
 
@@ -1400,26 +1401,28 @@ Con eso, el botón se moverá al hacer clic sobre él, pero solo la primera vez.
 
 **¿Y si quisiéramos que se moviera *siempre* que hagamos clic sobre él?** Es es lo que tienes que conseguir en este ejercicio.
 
-**Ejercicio 4. Ventana nerviosa y botones evanescentes**
+#### Ejercicio 4. Ventana nerviosa y botones evanescentes
 
-**Ahora vamos a conseguir que la ventana entera del navegador se mueva al pulsar un botón.**
+**Ahora vamos a conseguir que una ventana entera del navegador se mueva al pulsar un botón. Y a hacer aparecer y desaparecer botones.**
 
 De hecho, vamos a crear cuatro botones:
 
-* Botón "Saltar": al pulsarlo, la ventana dará un salto.
-* Botón "Temblar": al pulsarlo, la ventana se pondrá a "temblar", como si tuviera frío o se hubiera puesto nerviosa, durante un rato.
-* Botón "Ocultar": al pulsarlo, los dos botones anteriores desaparecerán de la vista.
-* Botón "Mostrar": al pulsarlo, los dos botones desaparecidos volverán a aparecer.
+* **Botón "Saltar"**: al pulsarlo, la ventana dará un salto. Es decir, cambiará de posición..
+* **Botón "Temblar"**: al pulsarlo, la ventana se pondrá a "temblar", como si tuviera frío o se hubiera puesto nerviosa, durante un rato.
+* **Botón "Ocultar"**: al pulsarlo, los dos botones anteriores desaparecerán de la vista.
+* **Botón "Mostrar"**: al pulsarlo, los botones desaparecidos volverán a aparecer.
 
-Esos cuatro botones puedes crearlos con este código HTML:
+Esos cuatro botones puedes crearlos con este código HTML. También crearemos una segunda ventana del navegador, que será la que cambiará de posición:
 
 ```html
+<h1>Ventana nerviosa</h1>
 <body>
-   <button id='boton' onclick='btn_saltar()' style='position: absolute; top: 100px; left: 200px'>Saltar</button>
-   <button id='boton' onclick='btn_temblar()' style='position: absolute; top: 100px; left: 200px'>Temblar</button>
-   <button id='boton' onclick='btn_ocultar()' style='position: absolute; top: 100px; left: 200px'>Ocultar</button>
-   <button id='boton' onclick='btn_mostrar()' style='position: absolute; top: 100px; left: 200px'>Mostrar</button>
+   <button id='btn_saltar' onclick='btn_saltar()'>Saltar</button>
+   <button id='btn_temblar' onclick='btn_temblar()'>Temblar</button>
+   <button id='btn_ocultar' onclick='btn_ocultar()'>Ocultar</button>
+   <button id='btn_mostrar' onclick='btn_mostrar()'>Mostrar</button>
    <script>
+      myWindow = window.open('', '', 'width=300, height=200'); 
       function btn_saltar() {
           // Escribe aquí tu código javascript para cuando se pulse el botón "Saltar"
       }
@@ -1443,7 +1446,7 @@ No te voy a decir lo que tienes que escribir en ellas, pero sí te voy a dar un 
 * **Pista nº 1**. Hay un objeto en Javascript llamado ***window***, que nos permite alterar las propiedades de la ventana del navegador. Por ejemplo, nos permite cambiar su posición y su tamaño. En el apartado 5.2.11, sobre *Objetos predefinidos de Javascript*, hablamos de qué modo se puede cambiar eso.
 * **Pista nº 2**. En el ejercicio anterior cambiábamos las propiedades *top* y *left* de un botón, pero los botones (y cualquier cosa que haya en una página web) tienen muchas otras propiedades (¡pero MUCHAS!). Una de ellas se llama ***visibility***, y puede tomar dos valores: *visible* o *hidden*.
 
-**Ejercicio 5. Pelota de goma**
+#### Ejercicio 5. Pelota de goma
 
 Busca en internet una imagen de una pelota que te guste y descárgala. En esa imagen no debe aparecer nada más, excepto la pelota. 
 
@@ -1463,7 +1466,7 @@ Para conseguirlo, tendrás que alterar de nuevo las propiedades *top* y *left* d
 
 **Mejora para los más valientes**: trata de añadir un botón a esta página web. Al pulsarlo, la pelota se detendrá. Al volver a pulsarlo, la pelota se pondrá en marcha de nuevo.
 
-**Ejercicio 6. Tres en raya improved**
+#### Ejercicio 6. Tres en raya improved
 
 **Modifica el juego de las tres en raya para que sea más atractivo al usuario y más cómodo de jugar.**
 
@@ -1486,7 +1489,7 @@ Al hacer clic en el botón, se ejecutará la función *colocar_pieza()*. Observa
 
 También puedes mejorar la apariencia del juego alterando sus colores, tipografías, etc. Tendrás que investigar un poco en internet sobre cómo puede hacerse eso.
 
-**Ejercicio 7. Tenis**
+#### Ejercicio 7. Tenis
 
 (Aviso: este ejercicio es de dificultad elevada)
 
@@ -1496,7 +1499,7 @@ Si no conoces el *Pong*, bichea un poco por Internet para averiguar cómo es.
 
 ¡Y ahora trata de programarlo en Javascript!
 
-**Ejercicio 8. Carretera al infierno**
+#### Ejercicio 8. Carretera al infierno
 
 (Aviso: este ejercicio es de dificultad elevada)
 
