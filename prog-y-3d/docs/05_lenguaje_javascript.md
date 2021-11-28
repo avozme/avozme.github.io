@@ -288,8 +288,6 @@ Fíjate, por último, en que no hemos declarado la variable d, sino que la hemos
 
 ### 5.2.4. Conversiones de tipo
 
-XXX
-
 Javascript, como hemos dicho, es un lenguaje de **tipado dinámico**. Es decir, que las variables pueden variar de tipo a lo largo del programa:
 
 ```javascript
@@ -325,11 +323,11 @@ Cuando mezclas tipos, estás dejando que el lenguaje de programación decida cu�
    a = 5;          // a es el número entero 5 
    b = String(a);  // b es la cadena "5"
    ```
-* **Number**: Convierte la variable a un *number*.
+* **parseInt** y **parseFloat**: Convierte la variable a un *number* entero o real (es decir, a sin decimales o con decimales).
 
    ```javascript
    a = "5 pollos"; // a es una cadena
-   b = Number(a);  // Javascript tratará de convertir la cadena a un número
+   b = parseInt(a);  // Javascript tratará de convertir la cadena a un número entero
    document.write(b);  // ¿Qué crees que aparecerá en la pantalla?
    ```
 
@@ -978,12 +976,8 @@ Pues bien, existen muchos otros objetos predefinidos en Javascript. Te voy a pre
    * *close()*: cierra una ventana del navegador.
    * *moveTo(x, y)*: mueve la ventana actual a la posición x, y.
    * *resizeTo(tamañoX, tamañoY)*: cambia el tamaño de la ventana actual.
-   * *screenX* y *screenY*: las coordenadas X e Y donde se encuentra la ventana ubicada en este momento.
-
-* **screen**. Nos da información sobre el espacio disponible para la página web en el navegador:
-   * *heigth*: altura (en píxeles) de la ventana del navegador.
-   * *width*: anchura (en píxeles) de la ventana del navegador.
-   * *colorDepth*: número de bits de color por cada píxel. Suele ser 24 o 32.
+   * *screenX* y *screenY*: nos da las coordenadas X e Y donde se encuentra la ventana ubicada en este momento.
+   * *innerWidth* y *innerHeight*: nos devuelve el espacio disponible dentro de la ventana del navegador (en píxeles).
 
 * **document**. Proporciona acceso al texto escrito dentro de la ventana del navegador. Lo hemos estado usando para generar la salida de nuestros programas. Estos son algunos métodos:
    * *write()*: añade texto a la ventana del navegador.
@@ -1056,7 +1050,84 @@ Los subalgoritmos sí que deben identificarse con la palabra **function** seguid
 
 **El orden en el que escribas los algoritmos es indiferente**. En el archivo, puede aparecer primero el algoritmo principal y luego los subalgoritmos, o al revés. Utiliza el orden que te parezca más lógico y con el que te sientas cómodo.
 
-## 5.4. Un ejemplo completo
+## 5.4. Eventos y temporizadores
+
+### 5.4.1. Eventos de Javascript
+
+Javascript puede responder a los **eventos** que sucedan en la página web.
+
+¿Qué es un evento? Esto es fácil de responder: un evento es cualquier cosa que suceda dentro del navegador a lo que el navegador pueda responder.
+
+Por ejemplo, un evento es "hacer clic con el ratón sobre un enlace". Otro evento es "escribir un carácter en un cuadro de texto". Y otro evento es: "cerrar la ventana del navegador".
+
+Hay muchos eventos distintos, y cada uno puede ocurrir asociado a cualquier elemento de la página web. Pero el evento estrella es, sin duda, "hacer clic".
+
+Observa el siguiente fragmento de código HTML. No hace falta que sepas HTML. Tú solo míralo:
+
+```html
+<button>Púlsame</button>
+```
+
+¿Te imaginas lo que se verá en el navegador si cargas esa página? Pues sí: un botón cuyo texto será "Púlsame".
+
+Ahora mira el mismo código, ligeramente modificado:
+
+```html
+<button onclick='procesar_boton()'>Púlsame</button>
+```
+
+Ese "onclick" a continuación del botón significa que **vamos a capturar el evento clic de ratón** asociado al botón. Al hacer clic sobre él, se ejecutará la función *procesar_boton()* de Javascript.
+
+Usaremos algún evento *onclick()* como este en los ejercicios para conseguir resultados curiosos.
+
+Sobre los eventos, se podría hablar muchísimo más, pero como introducción a Javascript es suficiente por ahora...
+
+### 5.4.2. Temporizadores de Javascript
+
+Lo que te voy a contar ahora puede considerarse Javascript avanzado (o, al menos, no es Javascript básico). Pero lo vas a necesitar para hacer juegos y otras diversiones con Javascript y, en fin, tampoco es tan complicado...
+
+Se trata de los **temporizadores**.
+
+Un temporizador es como el cronómetro de una bomba de relojería de las que salen en las películas. Ya sabes, esas bombas que siempre tienen una pantalla LCD donde se ve una cuenta atrás que indica cuánto falta para que explote.
+
+(El temporizador es el cronómetro, no la bomba, que conste...)
+
+Un temporizador se pone en marcha así:
+
+```javascript
+setTimeout('nombre-de-función', intervalo);
+```
+
+El *nombre-de-función* es exactamente eso: el nombre de alguna función Javascript que ya exista. El *intervalo* es un número entero.
+
+Lo que hace el temporizador es **iniciar una cuenta atrás de *intervalo* milisegundos y, cuando el cronómetro llega a cero, se ejecuta la función indicada**.
+
+Por ejemplo:
+
+```javascript
+setTimeout('saludar', 1000);
+
+function saludar() {
+   alert("Hola, mundo");
+}
+```
+
+Si ejecutas este código, verás que el saludo (¡Hola, mundo!) tarda exactamente un segundo en aparecer. El temporizador se ha encargado de ello. Nada más ejecutar el código, se ha puesto en marcha un temporizador cuyo encargo es ejecutar la función *saludar()* al cabo de 1000 milisegundos (es decir, un segundo).
+
+Programar acciones para que se realicen en el futuro abre muchísimas posibilidades. En particular, piensa en qué ocurriría si hacemos que la propia función *saludar()* vuelva a reestablecer el temporizador:
+
+```javascript
+setTimeout('saludar', 1000);
+
+function saludar() {
+   alert("Hola, mundo");
+   setTimeout('saludar', 1000);
+}
+```
+
+Detente un momento a tratar de averiguar qué ocurriría al ejecutar este programa y por qué podríamos decir sin dudarlo que se trata de uno de los programas más plastas que hemos escrito hasta ahora. Si no te lo crees, pruébalo y lo comprobarás.
+
+## 5.5. Un ejemplo completo
 
 Llegó la hora de poner manos a la obra.
 
@@ -1068,7 +1139,7 @@ El programa en cuestión será una versión del juego de **las tres en raya** qu
 
 Aquí tienes el código fuente completo. Estúdialo con atención y asegúrate de entenderlo todo (o un gran porcentaje) antes de continuar. Ah, y no dejes de compararlo línea a línea con el mismo código en pseudocódigo.
 
-### 5.4.1. El código fuente
+### 5.5.1. El código fuente
 
 ```html
 <div id='salida' style='text-align: center; border-style: solid; border-color: black; font-family: mono'></div>
@@ -1275,7 +1346,7 @@ function comprobar_tablas(tablero) {
 </script>
 ```
 
-### 5.4.2. ¿Cómo ejecutar y depurar este programa?
+### 5.5.2. ¿Cómo ejecutar y depurar este programa?
 
 Guarda el programa anterior en un archivo de texto con extensión .html (por ejemplo, *3-en-raya.html*).
 
@@ -1306,34 +1377,6 @@ Si el navegador se había quedado colgado, tendrás que cerrarlo, esperar unos s
 Y así hasta que funcione.
 
 ¡Mucha paciencia y sangre fría! Recuerda siempre que la mayor parte del tiempo de programación se va en depurar programas, no en escribirlos.
-
-## 5.5. Eventos
-
-Javascript puede responder a los **eventos** que sucedan en la página web.
-
-¿Qué es un evento? Esto es fácil de responder: un evento es cualquier cosa que suceda dentro del navegador a lo que el navegador pueda responder.
-
-Por ejemplo, un evento es "hacer clic con el ratón sobre un enlace". Otro evento es "escribir un carácter en un cuadro de texto". Y otro evento es: "cerrar la ventana del navegador".
-
-Hay muchos eventos distintos, y cada uno puede ocurrir asociado a cualquier elemento de la página web. Pero el evento estrella es, sin duda, "hacer clic".
-
-Observa el siguiente fragmento de código HTML. No hace falta que sepas HTML. Tú solo míralo:
-
-```html
-<button>Púlsame</button>
-```
-
-¿Te imaginas lo que se verá en el navegador si cargas esa página? Pues sí: un botón cuyo texto será "Púlsame".
-
-Ahora mira el mismo código, ligeramente modificado:
-
-```html
-<button onclick='procesar_boton()'>Púlsame</button>
-```
-
-Ese "onclick" a continuación del botón significa que **vamos a capturar el evento clic de ratón** asociado al botón. Al hacer clic sobre él, se ejecutará la función *porcesar_boton()* de Javascript.
-
-Usaremos algún evento onclick() como este en los ejercicios para conseguir resultados curiosos. Ya lo verás...
 
 ## 5.6. Ejercicios propuestos
 
@@ -1454,17 +1497,21 @@ Luego insértala en una página web, así:
 
 ```html
 <body>
-   <img src='nombre-del-archivo.jpg' style='width: 100px; height: 100px' id='pelota'>
+   <img src='nombre-del-archivo-de-la-imagen' style='width: 100px; height: 100px' id='pelota'>
 </body>  
 ```
 
-En *'nombre-del-archivo.jpg'*, como es lógico, tendrás que escribir el nombre del archivo que contiene tu pelota. Le hemos asignado 100 píxeles de ancho y 100 de alto, pero si es demasiado pequeña o demasiado grande, siéntete libre de cambiar esas cantidades.
+En *'nombre-del-archivo-de-la-imagen'*, como es lógico, tendrás que escribir el nombre del archivo que contiene tu pelota. Le hemos asignado 100 píxeles de ancho y 100 de alto, pero si es demasiado pequeña o demasiado grande, siéntete libre de cambiar esas cantidades.
 
 **Ahora escribe en Javascript un programa para que la pelota rebote por la pantalla como si fuera una pelota de verdad.**
 
-Para conseguirlo, tendrás que alterar de nuevo las propiedades *top* y *left* de la pelota, y usar las propiedades el objeto ***screen*** para evitar que la pelota se salga de los márgenes de la pantalla.
+Para conseguirlo, tendrás que:
 
-**Mejora para los más valientes**: trata de añadir un botón a esta página web. Al pulsarlo, la pelota se detendrá. Al volver a pulsarlo, la pelota se pondrá en marcha de nuevo.
+* Alterar de nuevo las propiedades *top* y *left* de la pelota
+* Usar las propiedades el objeto ***window*** para evitar que la pelota se salga de los márgenes de la pantalla.
+* Utilizar un **temporizador** para mover la pelota cada x milisegundos. Según el valor de x, la pelota se moverá más deprisa o más despacio.
+
+**Mejora para los más valientes**: trata de añadir un botón a este programa. Al pulsarlo, la pelota se detendrá. Al volver a pulsarlo, la pelota se pondrá en marcha de nuevo.
 
 #### Ejercicio 6. Tres en raya improved
 
@@ -1497,7 +1544,7 @@ Ya sabes hacer que una pelota rebote (ejercicio 5). **Vamos a mejorar ese progra
 
 Si no conoces el *Pong*, bichea un poco por Internet para averiguar cómo es.
 
-¡Y ahora trata de programarlo en Javascript!
+¡Y ahora trata de programar una versión actualizada en Javascript!
 
 #### Ejercicio 8. Carretera al infierno
 
