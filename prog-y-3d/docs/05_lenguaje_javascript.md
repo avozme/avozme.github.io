@@ -1095,7 +1095,7 @@ Un temporizador es como el cronómetro de una bomba de relojería de las que sal
 Un temporizador se pone en marcha así:
 
 ```javascript
-setTimeout('nombre-de-función', intervalo);
+var timer = setTimeout('nombre-de-función', intervalo);
 ```
 
 El *nombre-de-función* es exactamente eso: el nombre de alguna función Javascript que ya exista. El *intervalo* es un número entero.
@@ -1105,7 +1105,7 @@ Lo que hace el temporizador es **iniciar una cuenta atrás de *intervalo* milise
 Por ejemplo:
 
 ```javascript
-setTimeout('saludar', 1000);
+var timer = setTimeout('saludar', 1000);
 
 function saludar() {
    alert("Hola, mundo");
@@ -1117,7 +1117,7 @@ Si ejecutas este código, verás que el saludo (¡Hola, mundo!) tarda exactament
 Programar acciones para que se realicen en el futuro abre muchísimas posibilidades. En particular, piensa en qué ocurriría si hacemos que la propia función *saludar()* vuelva a reestablecer el temporizador:
 
 ```javascript
-setTimeout('saludar', 1000);
+var timer = setTimeout('saludar', 1000);
 
 function saludar() {
    alert("Hola, mundo");
@@ -1126,6 +1126,14 @@ function saludar() {
 ```
 
 Detente un momento a tratar de averiguar qué ocurriría al ejecutar este programa y por qué podríamos decir sin dudarlo que se trata de uno de los programas más plastas que hemos escrito hasta ahora. Si no te lo crees, pruébalo y lo comprobarás.
+
+Por último, si, por lo que sea, necesitas **detener un temporizador** que ya está en marcha, solo tienes que usar la función ***clearTimeout()***:
+
+```javascript
+clearTimeout(timer);
+```
+
+Lógicamente, la variable *timer* debe ser la misma que usaste al crear el temporizador.
 
 ## 5.5. Un ejemplo completo
 
@@ -1458,8 +1466,8 @@ De hecho, vamos a crear cuatro botones:
 Esos cuatro botones puedes crearlos con este código HTML. También crearemos una segunda ventana del navegador, que será la que cambiará de posición:
 
 ```html
-<h1>Ventana nerviosa</h1>
 <body>
+   <h1>Ventana nerviosa</h1>
    <button id='btn_saltar' onclick='btn_saltar()'>Saltar</button>
    <button id='btn_temblar' onclick='btn_temblar()'>Temblar</button>
    <button id='btn_ocultar' onclick='btn_ocultar()'>Ocultar</button>
@@ -1487,9 +1495,46 @@ Lo siguiente es programar el código de cada una de las cuatro funciones Javascr
 No te voy a decir lo que tienes que escribir en ellas, pero sí te voy a dar un par de pistas:
 
 * **Pista nº 1**. Hay un objeto en Javascript llamado ***window***, que nos permite alterar las propiedades de la ventana del navegador. Por ejemplo, nos permite cambiar su posición y su tamaño. En el apartado 5.2.11, sobre *Objetos predefinidos de Javascript*, hablamos de qué modo se puede cambiar eso.
+
+   Observa que, en el fragmento de código anterior, hemos creado un objeto *window* llamado ***myWindow***. Es sobre ese objeto sobre el que tienes que actuar.
+
 * **Pista nº 2**. En el ejercicio anterior cambiábamos las propiedades *top* y *left* de un botón, pero los botones (y cualquier cosa que haya en una página web) tienen muchas otras propiedades (¡pero MUCHAS!). Una de ellas se llama ***visibility***, y puede tomar dos valores: *visible* o *hidden*.
 
-#### Ejercicio 5. Pelota de goma
+#### Ejercicio 5. Colorines
+
+Vamos a juguetear más con las propiedades de la página web cargada desde Javascript.
+
+En esta ocasión, construiremos una página con un cuadro de texto, un botón y un recuadro de color negro.
+
+Si escribimos en la caja de texto otro color (por ejemplo, "orange") y hacemos click en el botón, **el recuadro negro tiene que cambiar de color** y volverse naranja.
+
+El código HTML que puedes usar como base es este:
+
+```html
+<!DOCTYPE html>
+<head>
+   <title>Colorines</title>
+</head>
+<body>
+   <h1>Colorines</h1>
+   <div id='caja_color' style='position: absolute; top: 5%; left: 70%; width: 25%; height: 20%; background-color: black'></div>
+   <input type='text' id='color' value='yellow'>
+   <button id='boton' onclick='cambiar_color()'>Cambiar color</button>
+   <script>
+      function cambiar_color() {
+         // Escribe aquí el código Javascript
+      }
+   </script>
+</body>
+```
+
+Observa que, además de preparar los tres elementos que necesitamos (el recuadro de color negro, la caja de texto y el botón), hemos añadido más elementos HTML como *head* o *title*. Esos elementos son necesarios para que la página web se considere bien formada. Si no sabes lo que significan (aunque es bastante evidente), puedes repasarlos en el capítulo dedicado a HTML.
+
+(El navegador se tragará la página web aunque no esté bien formada, pero lo correcto es hacerla bien dentro de lo posible).
+
+Ahora solo te falta escribir el código de la función Javascript para cambiar el color del recuadro.
+
+#### Ejercicio 6. Pelota de goma
 
 Busca en internet una imagen de una pelota que te guste y descárgala. En esa imagen no debe aparecer nada más, excepto la pelota. 
 
@@ -1513,7 +1558,7 @@ Para conseguirlo, tendrás que:
 
 **Mejora para los más valientes**: trata de añadir un botón a este programa. Al pulsarlo, la pelota se detendrá. Al volver a pulsarlo, la pelota se pondrá en marcha de nuevo.
 
-#### Ejercicio 6. Tres en raya improved
+#### Ejercicio 7. Tres en raya improved
 
 **Modifica el juego de las tres en raya para que sea más atractivo al usuario y más cómodo de jugar.**
 
@@ -1536,7 +1581,7 @@ Al hacer clic en el botón, se ejecutará la función *colocar_pieza()*. Observa
 
 También puedes mejorar la apariencia del juego alterando sus colores, tipografías, etc. Tendrás que investigar un poco en internet sobre cómo puede hacerse eso.
 
-#### Ejercicio 7. Tenis
+#### Ejercicio 8. Tenis
 
 (Aviso: este ejercicio es de dificultad elevada)
 
@@ -1546,7 +1591,7 @@ Si no conoces el *Pong*, bichea un poco por Internet para averiguar cómo es.
 
 ¡Y ahora trata de programar una versión actualizada en Javascript!
 
-#### Ejercicio 8. Carretera al infierno
+#### Ejercicio 9. Carretera al infierno
 
 (Aviso: este ejercicio es de dificultad elevada)
 

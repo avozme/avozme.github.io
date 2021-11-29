@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<head>
+   <title>Colorines</title>
+</head>
+<body>
+   <h1>Colorines</h1>
+   <div id='caja_color' style='position: absolute; top: 5%; left: 70%; width: 25%; height: 20%; background-color: black'></div>
+   <input type='text' id='color' value='yellow'>
+   <button id='boton' onclick='cambiar_color()'>Cambiar color</button>
+   <script>
+      function cambiar_color() {
+          var color = document.getElementById('color').value;
+          document.getElementById('caja_color').style.backgroundColor = color;
+      }
+   </script>
+</body>
