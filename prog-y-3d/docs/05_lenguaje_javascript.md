@@ -1511,7 +1511,7 @@ Si escribimos en la caja de texto otro color (por ejemplo, "orange") y hacemos c
 El código HTML que puedes usar como base es este:
 
 ```html
-<!DOCTYPE html>
+<html>
 <head>
    <title>Colorines</title>
 </head>
@@ -1526,6 +1526,7 @@ El código HTML que puedes usar como base es este:
       }
    </script>
 </body>
+</html>
 ```
 
 Observa que, además de preparar los tres elementos que necesitamos (el recuadro de color negro, la caja de texto y el botón), hemos añadido más elementos HTML como *head* o *title*. Esos elementos son necesarios para que la página web se considere bien formada. Si no sabes lo que significan (aunque es bastante evidente), puedes repasarlos en el capítulo dedicado a HTML.
@@ -1542,7 +1543,7 @@ Luego insértala en una página web, así:
 
 ```html
 <body>
-   <img src='nombre-del-archivo-de-la-imagen' style='width: 100px; height: 100px' id='pelota'>
+   <img  id='pelota' src='nombre-del-archivo-de-la-imagen' style='position: absolute; width: 100px; height: 100px'>
 </body>  
 ```
 
