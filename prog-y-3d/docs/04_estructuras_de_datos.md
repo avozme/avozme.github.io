@@ -851,32 +851,28 @@ Si el usuario teclea, por ejemplo, el número 67, éste debe ser insertado en la
 **Ejercicio 11. Sumar matrices**. Escribe un programa que defina dos matrices de 10x5 números enteros y las inicialice con números aleatorios entre 0 y 255. Posteriormente, cada elemento de la primera matriz debe ser sumado con el mismo elemento de la segunda matriz, guardando el resultado en una tercera matriz. Se deben sumar todas las parejas de elementos y mostrar el resultado en la pantalla.
 
 **Ejercicio 12. Jugueteando con matrices**. 
-<div style='background: #eee'>
-Escribe un programa que genere al azar una matriz cuadrada de NxN números enteros (siendo N un valor introducido por el usuario) y que luego haga lo siguiente:
+Escribe un programa que genere al azar una matriz cuadrada de NxN números enteros (siendo N un valor introducido por el usuario) y que luego haga lo siguiente: 
 
-* *Mostrar*. Mostrará la matriz tal y como ha sido generada.
-
-* *Perímetro*. Mostrará los elementos que ocupan el borde de la matriz, partiendo de la esquina superior izquierda y recorriéndola hacia la derecha y luego hacia abajo.
-
-* *Centro*. Mostrará los elementos que ocupan el centro geométrico de la matriz. Puede ser 1 (si N es impar) o 4 (si N es par).
-
-* *Espiral*. Hará un recorrido en espiral por la matriz partiendo de la esquina superior izquierda.
+* *Mostrar*. Mostrará la matriz tal y como ha sido generada. 
+* *Perímetro*. Mostrará los elementos que ocupan el borde de la matriz, partiendo de la esquina superior izquierda y recorriéndola hacia la derecha y luego hacia abajo. 
+* *Centro*. Mostrará los elementos que ocupan el centro geométrico de la matriz. Puede ser 1 (si N es impar) o 4 (si N es par). 
+* *Espiral*. Hará un recorrido en espiral por la matriz partiendo de la esquina superior izquierda. 
 
 Por ejemplo, si la matriz fuera de 4x4 y tuviera este contenido:
 
-<pre>
+```
     4 6 7 8
     2 4 3 9
     0 1 3 4
     7 3 3 5
-</pre>
+```
 
-...las distintas operaciones deben obtener este resultado:
+...las distintas operaciones deben obtener este resultado: 
 
-* Perímetro: 4 6 7 8 9 4 5 3 3 7 0 2
-* Centro: 4 3 1 3
-* Espiral: 4 6 7 8 9 4 5 3 3 7 0 2 4 3 3 1
-</div>
+* Perímetro: 4 6 7 8 9 4 5 3 3 7 0 2 
+* Centro: 4 3 1 3 
+* Espiral: 4 6 7 8 9 4 5 3 3 7 0 2 4 3 3 1 
+
 
 ## 4.7. Ejercicios resueltos
 
@@ -1053,6 +1049,64 @@ SubAlgoritmo ordenar(vector por referencia, n)
 FinSubAlgoritmo
 ```
 
+**Ejercicio 6. Vector creciente**. Escribe un programa que defina un vector de 10 enteros y lo rellene con números CRECIENTES al azar entre 1 y 100. Es decir, los números serán elegidos aleatoriamente pero siempre tienen que ser mayores que los anteriores: el número que ocupe la posición 1 debe ser mayor que el de la posición 0, el de la posición 2 mayor que el de la 1, y así sucesivamente. Después de eso, se pedirá al usuario un número entre 1 y el número mayor que exista en el vector. El número introducido por el usuario se insertará en la posición del vector adecuada para conservar el orden, desplazando los demás elementos hacia la derecha, de manera que se pierda el último elemento. Después de insertar el número introducido por el usuario, el contenido del vector debe mostrarse por la pantalla. El proceso se repetirá hasta que el usuario introduzca un número negativo. Por ejemplo, supongamos que el array generado al azar por el ordenador, después de ordenarlo, es este:
+
+     4 – 18 – 23 – 25 – 44 - 45 – 51 – 72 – 78 - 85
+
+Como el número más alto es 85, el programa debe pedir al usuario:
+
+     Introduzca un número entre 1 y 85: _
+
+Si el usuario teclea, por ejemplo, el número 67, éste debe ser insertado en la posición adecuada para conservar el orden, es decir, entre los números 51 y 72, desplazando a los demás números hacia la derecha, con lo cual se pierde el mayor de todos ellos (85). El vector quedaría así:
+
+    4 – 18 – 23 – 25 – 44 - 45 – 51 – 67 - 72 – 78
+
+```
+Algoritmo vector_creciente
+	Definir i, n, posicion como entero
+	Definir v Como Entero
+	Dimension v[10]
+	
+	// Inicializamos el vector con números crecientes, para que ya salga ordenado
+	Para i <- 0 hasta 9 Hacer
+		v[i] <- i*10 + azar(10)
+	FinPara
+	
+	// Mostramos el vector
+	mostrar_vector(v)
+	
+	// Pedimos al usuario un número
+	Repetir
+		Escribir "Introduce un número entre 1 y ", v[9]
+		Leer n
+	Hasta que n >= 1 y n <= v[9]
+	
+	// Localizamos la posición de inserción
+	posicion <- 0
+	Mientras n > v[posicion]
+		posicion <- posicion + 1
+	FinMientras
+	
+	// Desplazamos el contenido del vector hacia la derecha desde esa posición
+	Para i <- 8 hasta posicion con paso -1 hacer
+		v[i+1] <- v[i]
+	FinPara
+	
+	// Insertamos por fin el número y volvemos a mostrar el vector
+	v[posicion] <- n
+	mostrar_vector(v)
+FinAlgoritmo
+
+SubAlgoritmo mostrar_vector(v) 
+	Definir i como entero
+	Para i desde 0 hasta 9 Hacer
+		escribir sin saltar v[i], " - "
+	FinPara
+	Escribir ""	
+FinSubAlgoritmo
+```
+
+
 **Ejercicio 7. Inicializar matriz simple**. Escribe un programa en el que se defina una matriz de 10x10 números enteros. Inicializa todos los elementos al valor –1.
 
 ```
@@ -1109,4 +1163,124 @@ Algoritmo inicializar_matriz_complejo
 		Escribir " "  // Hace el salto de línea al final de cada columna
 	FinPara
 FinAlgoritmo
+```
+
+**Ejercicio 12. Jugueteando con matrices**.
+
+Escribe un programa que genere al azar una matriz cuadrada de NxN números enteros (siendo N un valor introducido por el usuario) y que luego haga lo siguiente: 
+
+* *Mostrar*. Mostrará la matriz tal y como ha sido generada. 
+* *Perímetro*. Mostrará los elementos que ocupan el borde de la matriz, partiendo de la esquina superior izquierda y recorriéndola hacia la derecha y luego hacia abajo. 
+* *Centro*. Mostrará los elementos que ocupan el centro geométrico de la matriz. Puede ser 1 (si N es impar) o 4 (si N es par). 
+* *Espiral*. Hará un recorrido en espiral por la matriz partiendo de la esquina superior izquierda. 
+
+Por ejemplo, si la matriz fuera de 4x4 y tuviera este contenido:
+
+```
+    4 6 7 8
+    2 4 3 9
+    0 1 3 4
+    7 3 3 5
+```
+
+...las distintas operaciones deben obtener este resultado: 
+
+* Perímetro: 4 6 7 8 9 4 5 3 3 7 0 2 
+* Centro: 4 3 1 3 
+* Espiral: 4 6 7 8 9 4 5 3 3 7 0 2 4 3 3 1 
+
+```
+Algoritmo jugando_con_matrices
+	// Atención: en esta solución supondremos que los arrays comienzan en el índice 0.
+	// Si se configura PseInt para que empiecen en 1, habría que modificar el código, como es lógico.
+	Definir matriz, tam Como Entero
+	Escribir sin saltar "Elige el tamaño de la matriz cuadrada: "
+	Leer tam
+	Dimension matriz[tam,tam]
+	inicializar_matriz(matriz, tam)
+	mostrar_matriz(matriz, tam)
+	perimetro(matriz, tam)
+	centro(matriz, tam)
+	espiral(matriz, tam)
+FinAlgoritmo
+
+SubAlgoritmo inicializar_matriz(matriz, tam)
+	Definir f, c como entero
+	Para f desde 0 hasta tam-1 hacer
+		Para c desde 0 hasta tam-1 hacer
+			matriz[f,c] <- azar(10)
+		FinPara
+	FinPara
+FinSubAlgoritmo
+
+SubAlgoritmo mostrar_matriz(matriz, tam) 
+	Definir f, c como entero
+	Escribir "MATRIZ:"
+	Para f desde 0 hasta tam-1 hacer
+		Para c desde 0 hasta tam-1 hacer
+			Escribir sin saltar matriz[f,c], " "
+		FinPara
+		Escribir ""
+	FinPara
+FinSubAlgoritmo
+
+SubAlgoritmo perimetro(matriz, tam)
+	Definir f, c como entero
+	Escribir "PERÍMETRO:"
+	Para c <- 0 hasta tam-1 Hacer
+		Escribir sin saltar matriz[0, c], " "
+	FinPara
+	Para f <- 1 hasta tam-1 Hacer
+		Escribir sin saltar matriz[f, tam-1], " "
+	FinPara
+	Para c <- tam-2 hasta 0 con paso -1 Hacer
+		Escribir sin saltar matriz[tam-1, c], " "
+	FinPara
+	Para f <- tam-2 hasta 1 con paso -1 Hacer
+		Escribir sin saltar matriz[f, 0], " "
+	FinPara
+	Escribir ""
+FinSubAlgoritmo
+
+SubAlgoritmo centro(matriz, tam)
+	Definir c como entero
+	Escribir "CENTRO:"
+	Si tam % 2 = 0 entonces
+		// Matriz de tamaño PAR. El centro consta de cuatro números
+		c <- tam / 2
+		Escribir sin saltar matriz[c-1, c-1], " "
+		Escribir sin saltar matriz[c-1, c], " "
+		Escribir sin saltar matriz[c, c-1], " "
+		Escribir sin saltar matriz[c, c]
+	SiNo
+		// Matriz de tamaño IMPAR. El centro es un solo número
+		c <- trunc(tam / 2)
+		Escribir sin saltar matriz[c, c]
+	FinSi
+	Escribir ""
+FinSubAlgoritmo
+
+SubAlgoritmo espiral(matriz, tam)
+	Definir f, c, inicio, final como entero
+	Escribir "ESPIRAL:"
+	inicio <- 0
+	final <- tam-1
+	Mientras inicio < final hacer
+		Para c <- inicio hasta final Hacer
+			Escribir sin saltar matriz[inicio, c], " "
+		FinPara
+		Para f <- inicio+1 hasta final Hacer
+			Escribir sin saltar matriz[f, final], " "
+		FinPara
+		Para c <- final-1 hasta inicio con paso -1 Hacer
+			Escribir sin saltar matriz[final, c], " "
+		FinPara
+		Para f <- final-1 hasta inicio+1 con paso -1 Hacer
+			Escribir sin saltar matriz[f, inicio], " "
+		FinPara
+		inicio <- inicio + 1
+		final <- final - 1
+	FinMientras
+	Escribir ""
+FinSubAlgoritmo
 ```
