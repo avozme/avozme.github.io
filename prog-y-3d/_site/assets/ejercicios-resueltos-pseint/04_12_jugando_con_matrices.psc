@@ -14,8 +14,8 @@ FinAlgoritmo
 
 SubAlgoritmo inicializar_matriz(matriz, tam)
 	Definir f, c como entero
-	Para f desde 0 hasta tam-1 hacer
-		Para c desde 0 hasta tam-1 hacer
+	Para f <- 0 hasta tam-1 hacer
+		Para c <- 0 hasta tam-1 hacer
 			matriz[f,c] <- azar(10)
 		FinPara
 	FinPara
@@ -24,8 +24,8 @@ FinSubAlgoritmo
 SubAlgoritmo mostrar_matriz(matriz, tam) 
 	Definir f, c como entero
 	Escribir "MATRIZ:"
-	Para f desde 0 hasta tam-1 hacer
-		Para c desde 0 hasta tam-1 hacer
+	Para f <- 0 hasta tam-1 hacer
+		Para c <- 0 hasta tam-1 hacer
 			Escribir sin saltar matriz[f,c], " "
 		FinPara
 		Escribir ""
@@ -73,7 +73,7 @@ SubAlgoritmo espiral(matriz, tam)
 	Escribir "ESPIRAL:"
 	inicio <- 0
 	final <- tam-1
-	Mientras inicio < final hacer
+	Mientras inicio <= final hacer
 		Para c <- inicio hasta final Hacer
 			Escribir sin saltar matriz[inicio, c], " "
 		FinPara

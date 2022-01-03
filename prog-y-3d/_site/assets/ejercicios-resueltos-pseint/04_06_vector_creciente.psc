@@ -19,7 +19,7 @@ Algoritmo vector_creciente
 	
 	// Localizamos la posición de inserción
 	posicion <- 0
-	Mientras n > v[posicion]
+	Mientras n > v[posicion] hacer
 		posicion <- posicion + 1
 	FinMientras
 	
@@ -35,7 +35,7 @@ FinAlgoritmo
 
 SubAlgoritmo mostrar_vector(v) 
 	Definir i como entero
-	Para i desde 0 hasta 9 Hacer
+	Para i <- 0 hasta 9 Hacer
 		escribir sin saltar v[i], " - "
 	FinPara
 	Escribir ""	
