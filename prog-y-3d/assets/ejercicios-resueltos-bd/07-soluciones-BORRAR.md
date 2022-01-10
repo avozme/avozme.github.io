@@ -104,17 +104,48 @@ Las únicas excepciones son las relaciones de FACTURAS con COMPAÑÍAS AÉREAS y
 
 **Diagrama E-R:**
 
+Este sistema es más complejo que los anteriores y, en consecuencia, también la base de datos resultante lo es.
+
+Eso significa que hay aún más interpretaciones diferentes, es decir, más soluciones distintas que pueden considerarse correctas. Aquí te presentamos una de ellas para que puedas compararla con la tuya y ver en qué se parecen, en qué se diferencian y si las diferencias son razonables o no.
+
+También significa que el diagrama necesitará más revisiones y refinamientos antes de considerarse correcto. Considera la solución que te propongo solo una versión preliminar que sin duda puede mejorarse. La idea es que te enfrentes al menos una vez a una base de datos un poco más ambiciosa antes de pasar a otra cosa.
+
 ![Diagrama ER del ejercicio 5](/docs/prog-y-3d/_site/assets/images/07-05-diagrama-er.png)
 
 **Paso a tablas:**
 
-Las tablas que resultan de la aplicación de las reglas de paso a tablas son estas:
+Las tablas que resultan de la aplicación de las reglas de paso a tablas al diagrama E-R anterior son estas:
 
 ```
-XXX
+DECORACIONES(id_objeto#, bitmap)
+HABITACIONES(id_habitación#, ubicación)
+HABITACIONES_DECORACIÓN(id_habitación#, id_objeto#)
+JUGADORES(id_jugador#, vidas, ubicación)
+JUGADOR_ESTA_EN_HABITACION(id_jugador#, id_habitación#)
+OBJETOS(id_objeto#, ubicación, id_habitacion)
+ENEMIGOS(id_enemigo#, tipo)
+LLAVES(id_llave#, tipo)
+PUERTAS(id_puerta#, tipo, estado)
+RECARGA(id_recarga#, cantidad, tipo)
+ARMA(id_arma#, tipo)
+LANZALLAMAS(id_arma#, carga)
+INSECTICIDA(id_arma#, carga)
+JUGADOR_ARMAS(id_jugador#, id_arma#)
+JUGADOR_LLAVES(id_jugador#, id_llave#)
+LLAVE_ABRE_PUERTA(id_llave#, id_puerta#)
 ```
+
+Fíjate en que la mayor parte de las relaciones han generado tabla: algunas porque su cardinalidad es N:N y otras porque, pese a ser 1:N o 1:1, tienen la participación mínima a (0,1).
+
+Por otro lado, en la relación de jerarquía entre OBJETOS y sus subtipos, no se ha expandido la clave del supertipo (*id_objeto#*) hacia los subtipos porque cada subtipo tiene su propia clave. Esta es una cuestión discutible del diagrama E-R que habría que repensar bien. A eso nos referíamos antes cuando decíamos que, cuanto más compleja es una base de datos, más revisiones necesita su diseño antes de darlo por bueno.
+
+De nuevo, considera esto solo una primera aproximación a la solución y una forma de ejercitarte en el trabajo con bases de datos más grandes.
 
 #### Ejercicio 6: Carreras de caballos
+
+Para normalizar una tabla, lo primero que debemos hacer es identificar las dependencias funcionales entre sus campos.
+
+Y, para eso, lo más cómodo es dibujar el **diagrama de dependencias**, donde se aprecia gráficamente qué campos dependen de otros. En el caso de la tabla CARRERAS, el diagrama de dependencias es este:
 
 XXX hacer diagrama de dependencias
 

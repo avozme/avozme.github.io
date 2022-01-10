@@ -43,27 +43,27 @@ Esto es fácil de hacer. Y muy recomendable. Te aconsejo empezar a trastear con 
 
 ### 7.1.3. Y, sin embargo, Ajax ha cambiado la forma en la que desarrollamos aplicaciones web
 
-Como algo que, en realidad, no sirve para nada ha logrado cambiar la forma en la que desarrollamos aplicaciones web puede parecer un misterio a simple vista, pero existe una razón muy simple para ello:
+Cómo algo que, en realidad, no sirve para nada ha logrado cambiar la forma en la que desarrollamos aplicaciones web puede parecer un misterio a simple vista, pero existe una razón muy simple para ello y te la cuento ahora mismo.
 
-La mayoría de las aplicaciones web se pasan todo el tiempo haciendo lo mismo: accediendo a recursos de una base de datos para consultarlos, crearlos, modificarlos o borrarlos, todo ello mediante un interfaces de usuario básicamente semejantes. Es decir, el interfaz de usuario para crear, modificar y borrar productos de una base de datos es prácticamente el mismo que el que se usa para crear, modificar y borrar proveedores, por decir algo.
+La mayoría de las aplicaciones web se pasan todo el tiempo haciendo lo mismo: accediendo a recursos de una base de datos para consultarlos, crearlos, modificarlos o borrarlos, todo ello mediante interfaces de usuario semejantes. Es decir, el interfaz de usuario para crear, modificar y borrar productos de una base de datos es prácticamente el mismo que el que se usa para crear, modificar y borrar proveedores, por decir algo.
 
-Así que alguien se preguntó: ¿por qué estamos programando todo el tiempo lo mismo?
+Así que alguien se preguntó: *¿por qué estamos programando todo el tiempo lo mismo?*
 
-Ajax nos permite hacer algo muy ingenioso para evitar este engorro: diseñar un interfaz de usuario genérico y vacío, solo compuesto por contenedores preparados para nutrirse de datos del servidor.
+Ajax nos permite hacer algo muy ingenioso para evitar este engorro: **diseñar un interfaz de usuario genérico y vacío, solo compuesto por contenedores preparados para nutrirse de datos del servidor**.
 
 Por ejemplo, podemos diseñar un típico interfaz de usuario HTML que nos muestre una lista de recursos (productos, proveedores, o lo que sea) junto con los botones de "Update" y "Delete", además de un botón de "Add new". Pero ese interfaz estará vacío, y mediante Ajax lo cargaremos con productos, con proveedores o con lo que necesitemos. Crearemos el interfaz una vez y lo podemos reutilizar miles de veces, para todo tipo de recursos.
 
-Este tipo de aplicaciones, también llamadas **SPA (Single-page applications)**, necesitan una arquitectura algo distinta de la que usamos en las aplicaciones web tradicionales, además de una librería en el lado del cliente para ayudarnos en la creación de contenedores genéricos (librerías como **Angular**, **React** o **Vue.js**). Aunque excede a nuestros propósitos profundizar en estas librerías, hemos visto algunos fundamentos sobre el uso de Vue.js con Laravel en el capítulo dedicado a Laravel. Consútalo si quieres profundizar en esta forma de uso masivo de Ajax.
+Este tipo de aplicaciones, también llamadas **SPA (Single-page applications)**, necesitan una arquitectura algo distinta de la que usamos en las aplicaciones web tradicionales, además de una librería en el lado del cliente para ayudarnos en la creación de contenedores genéricos (librerías como **Angular**, **React** o **Vue.js**). Aunque excede a nuestros propósitos profundizar en estas librerías, veremos algunos fundamentos sobre el uso de Vue.js con Laravel al final de este capítulo.
 
-En lo que sigue de este capítulo, utilizaremos Ajax de forma puntual en el entorno de una aplicación web convencional con arquitectura MVC.
+En lo que sigue de este capítulo, aprenderemos los fundamentos de Ajax usándolo de forma puntual en el entorno de una aplicación web convencional con arquitectura MVC, no construyendo una aplicación SPA, que es algo mucho más complejo que, en todo caso, llegará después.
 
 ## 7.2. Cómo enviar peticiones Ajax al servidor
 
 ### 7.2.1. Peticiones sin datos al servidor
 
-La forma más sencilla (y primitiva) de usar Ajax es lanzar una petición asíncrona al servidor sin que el usuario de la web se percate de ello (porque se hará en segundo plano). El servidor no sabrá si la petición se lanzó en primer o en segundo plano y, en realidad, no le importa: él se limitará a atender la petición.
+La forma más sencilla (y primitiva) de usar Ajax es **lanzar una petición asíncrona al servidor** sin que el usuario de la web se percate de ello (porque se hará en segundo plano). El servidor no sabrá si la petición se lanzó en primer o en segundo plano y, en realidad, no le importa: él se limitará a atender la petición.
 
-Para lanzar una petición mediante Ajax usando JavaScript tradicional (luego veremos cómo hacerlo con jQuery, que simplifica bastante el proceso), necesitamos crear un objeto de tipo XMLHttpRequest. Este objeto nos permitirá controlar todo el proceso de envío de la petición, recepción de la posible respuesta y control de los errores que hayan podido ocurrir.
+Para lanzar una petición mediante Ajax usando JavaScript tradicional (luego veremos cómo hacerlo con jQuery, que simplifica bastante el proceso), necesitamos crear un objeto de tipo **XMLHttpRequest**. Este objeto nos permitirá controlar todo el proceso de envío de la petición, recepción de la posible respuesta y control de los errores que hayan podido ocurrir.
 
 Observa detenidamente este fragmento de código JavaScript:
 
@@ -84,25 +84,25 @@ function procesa_respuesta() {
 ```
 
 En las cuatro primeras líneas se crea el objeto de tipo XMLHttpRequest y luego se hacen tres cosas clave con él:
-1. Se le indica qué función se debe ejecutar cuando el servidor responda. Recuerda que esta función se ejecutará también en segundo plano, sin que el usuario de la página se percate de que está sucediendo algo.
-2. Se le indica qué recurso del servidor se quiere invocar (típicamente, una URL). Para ello se usa el método open(). Ahí también se indica el método de envío de datos al servidor (GET o POST), incluso si no se envían datos al servidor en absoluto, como en este ejemplo.
-3. Por último, se lanza la petición al servidor con el método send(). El argumento "null" debe sustituirse por los datos que se envían al servidor mediante GET en caso de que los hubiera.
+1. **Se le indica qué función se debe ejecutar cuando el servidor responda**. Recuerda que esta función se ejecutará también en segundo plano, sin que el usuario de la página se percate de que está sucediendo algo.
+2. **Se le indica qué recurso del servidor se quiere invocar** (típicamente, una URL). Para ello se usa el método open(). Ahí también se indica el método de envío de datos al servidor (GET o POST), incluso si no se envían datos al servidor en absoluto, como en este ejemplo.
+3. Por último, **se lanza la petición al servidor** con el método send(). El argumento "null" debe sustituirse por los datos que se envían al servidor mediante GET en caso de que los hubiera.
 
 Eso deja lista la petición. JavaScript permanecerá a la escucha en segundo plano hasta que el servidor responda. Cuando lo haga, se ejecutará la función procesa_respuesta().
 
 En esa función se hacen tres cosas muy importantes:
-1. Se comprueba si el estado de la petición (readyState) es 4. Eso significa que el servidor ha terminado de procesarla. La petición pasa por varios estados hasta completarse, y el servidor informa de todos ellos. Es decir, la función procesa_respuesta() se ejecuta al menos una vez para cada uno de estos estados:
+1. **Se comprueba si el estado de la petición (readyState) es 4**. Eso significa que el servidor ha terminado de procesarla. La petición pasa por varios estados hasta completarse, y el servidor informa de todos ellos. Es decir, la función procesa_respuesta() se ejecuta al menos una vez para cada uno de estos estados:
    * readyState == 1 -> OPENED: Se acaba de abrir la comunicación con el servidor. Es decir, se acaba de ejecutar open().
    * readyState == 2 -> HEADERS_RECEIVED: Se acaba de enviar la petición al servidor. Es decir, se acaba de ejecutar send().
    * readyState == 3 -> LOADING: Se está recibiendo la respuesta del servidor.
    * readyState == 4 -> DONE: Se ha recibido la respuesta del servidor.
    Por eso es necesario comprobar que readyState == 4 antes de hacer ninguna otra cosa.
-2. Se comprueba que la respuesta del servidor es 200. Esto, según el protocolo http, significa que no hay errores en la página. El servidor puede responder con otros códigos, como 404 (recurso no encontrado) o 403 (prohibido el acceso a ese recurso). Puedes encontrar en miles de sitios de internet todas las posibles respuestas de una petición http.
-3. Si readyState == 4 y status == 200, significa que todo ha ido bien y el servidor ha respondido. Ya podemos hacer lo que sea que tengamos que hacer con esa respuesta. En este ejemplo, nos hemos limitado a mostrar esa respuesta en un alert. Observa en el ejemplo como la respuesta del servidor se recibe en forma de String en el atributo responseText.
+2. **Se comprueba que la respuesta del servidor es 200**. Esto, según el protocolo http, significa que no hay errores en la página. El servidor puede responder con otros códigos, como 404 (recurso no encontrado) o 403 (prohibido el acceso a ese recurso). Puedes encontrar en miles de sitios de internet todas las posibles respuestas de una petición http.
+3. Si readyState == 4 y status == 200, significa que **todo ha ido bien y el servidor ha respondido**. Ya podemos hacer lo que sea que tengamos que hacer con esa respuesta. En este ejemplo, nos hemos limitado a mostrar esa respuesta en un alert. Observa en el ejemplo como la respuesta del servidor se recibe en forma de String en el atributo responseText.
 
 ### 7.2.2. Peticiones con datos al servidor (GET)
 
-Si has entendido el ejemplo anterior, este te va a costar muy poco. Simplemente, vamos a enviar algunos datos al servidor por GET, exactament igual que lo haríamos si los enviáramos mediante un formulario. De hecho, el servidor no notará la diferencia.
+Si has entendido el ejemplo anterior, este te va a costar muy poco. Simplemente, vamos a **enviar algunos datos al servidor por GET**, exactament igual que lo haríamos si los enviáramos mediante un formulario. De hecho, el servidor no notará la diferencia.
 
 El código para lograrlo es este:
 
@@ -131,7 +131,7 @@ Por último, en el momento de hacer send(), hemos agregado nuestra query_string 
 
 ### 7.2.3. Peticiones con datos al servidor (POST)
 
-Si, en lugar de enviar datos al servidor por GET, preferimos enviarlos por POST, la técnica es muy similar a la anterior, con un par de variaciones:
+Si, en lugar de enviar datos al servidor por GET, preferimos **enviar datos por POST**, la técnica es muy similar a la anterior, con un par de variaciones:
 
 1. Debemos indicar "POST" en lugar de "GET" en el método open(), como es lógico.
 2. Debemos indicarle a Ajax que el paquete http llevará variables POST en su cabecera. Para eso se usa el método setRequestHeader().
@@ -156,9 +156,9 @@ function procesa_respuesta() { .... }
 
 ### 7.2.4. Peticiones con datos al servidor (XML)
 
-Todo esto está muy bien si lo que enviamos al servidor son un par de datos sueltos, como el código postal y el teléfono en los ejemplos anteriores. Pero ¿y si tenemos que enviar mucha información? Digamos, por ejemplo, un array de códigos postales y teléfonos.
+Todo esto está muy bien si lo que enviamos al servidor son un par de datos sueltos, como el código postal y el teléfono en los ejemplos anteriores. Pero **¿y si tenemos que enviar mucha información?** Digamos, por ejemplo, un array de códigos postales y teléfonos.
 
-En ese caso, usar GET se hace inviable (por la limitación de caracteres), así que recurriremos a POST y empaquetaremos nuestros datos en un string XML o JSON. En este ejemplo, vamos a usar XML:
+En ese caso, usar GET se hace inviable (por la limitación de caracteres), así que recurriremos a POST y **empaquetaremos nuestros datos en un string XML o JSON**. En este ejemplo, vamos a usar XML:
 
 ```javascript
 var cp = document.getElementById("codigo_postal");
@@ -180,13 +180,13 @@ function procesa_respuesta() { .... }
 
 En todos los ejemplos anteriores, el servidor conestaba con un simple texto que mostrábamos por medio de un alert() de Javascript. Ni siquiera nos preocupamos por el contenido de ese texto. Podría ser cualquier cosa: algo como "petición procesada", "usuario borrado" o cosas por el estilo.
 
-Pero ¿y si el servidor tiene que contestar algo complejo? Por ejemplo, una tabla completa. En ese caso, como es lógico, necesitamos recurrir a XML o JSON para empaquetar todos los datos de la respuesta y enviarlos desde el servidor hacia el cliente.
+Pero **a veces el servidor tiene que contestar algo complejo**. Por ejemplo, una tabla completa. En ese caso, como es lógico, necesitamos recurrir a **XML o JSON** para empaquetar todos los datos de la respuesta y enviarlos desde el servidor hacia el cliente.
 
 Vamos a ver un par de ejemplo, uno resuelto con XML y otro con JSON. En ninguno de los dos casos mostraremos cómo lo hace el servidor para crear los datos: supondremos que eso ya sabes hacerlo, puesto que se trata de PHP. Nos centraremos en cómo procesa Ajax, es decir, Javascript, esa respuesta.
 
 ### 7.3.1. Recepción de datos XML
 
-En este ejemplo, el servidor nos devuelve un String XML consistente en un array de códigos postales y teléfonos (de clientes, de usuarios, de lo que sea. Recuerda -otra vez- que solo es un ejemplo).
+En este ejemplo, el servidor nos devuelve un string XML consistente en un array de códigos postales y teléfonos (de clientes, de usuarios, de lo que sea. Recuerda -otra vez- que solo es un ejemplo).
 
 Observa cómo esa respuesta se accede por medio de responseXML (no responseText, como hasta ahora). A partir de ahí, Javascript puede usar esa respuesta como un objeto XML cualquiera: puede buscar hijos de un nodo, puede buscar nodos por su tag, etc.
 
@@ -243,10 +243,10 @@ El uso de jQuery facilita enormemente la programación de llamadas Ajax al servi
 
 jQuery ofrece varias funciones para hacer llamadas Ajax:
 
-* $.ajax() → La más configurable pero también la más compleja.
-* $.get() → Para lanzar peticiones GET sencillas.
-* $.post() → Para lanzar peticiones POST sencillas
-* $.load() → Para lanzar peticiones GET y cargar la respuesta en una capa.
+* **$.ajax()** → La más configurable pero también la más compleja.
+* **$.get()** → Para lanzar peticiones GET sencillas.
+* **$.post()** → Para lanzar peticiones POST sencillas
+* **$.load()** → Para lanzar peticiones GET y cargar la respuesta en una capa.
 
 Vamos a verlas una por una.
 
@@ -308,7 +308,7 @@ En la sección ***error***, por último, lanzamos un mensaje de error mediante u
 
 ### 7.4.2. Funciones $.get() y $.post()
 
-En muchas ocasiones, no necesitamos usar ni la mínima parte de las posibilidades de la función $.ajax(). Cuando tenemos que hacer una llamada sencillita por Ajax al servidor y no queremos complicarnos la vida, puede ser más útil y rápido recurrir a las funciones $.get() y $.post().
+En muchas ocasiones, no necesitamos usar ni la mínima parte de las posibilidades de la función $.ajax(). Cuando tenemos que **hacer una llamada sencillita por Ajax** al servidor y no queremos complicarnos la vida, puede ser más útil y rápido recurrir a las funciones **$.get()** y **$.post()**.
 
 Como su propio nombre indica, $.get() lanza una petición Ajax mediante GET y $.post() hace lo mismo, pero con POST. Su sintaxis es esta:
 
@@ -330,13 +330,13 @@ $.get('mi-script.php',
 
 ### 7.4.3. Función $.load()
 
-Un caso particularmente simple (y habitual) de uso de Ajax es aquel en el que lanzamos una petición al servidor para rellenar una capa de nuestra página con la información que el servidor nos devuelve.
+Un caso particularmente simple (y habitual) de uso de Ajax es aquel en el que **lanzamos una petición al servidor para rellenar una capa de nuestra página con la información que el servidor nos devuelve**.
 
 Por ejemplo, imagina que tenemos un formulario de registro de usuarios y, en el campo del nick del usuario, deseamos comprobar si ese nick ya está en uso en la base de datos. Mediante Ajax, se puede hacer de forma dinámica y atractiva capturando el evento onblur en del campo nick y lanzando en ese momento una petición Ajax al servidor para que haga la consulta a la base de datos.
 
 Si el usuario ya existe, el servidor puede responder con un texto el tipo "Ese usuario ya existe". En caso contrario, puede responder con "Ese nick está disponible" o algo así. En ambos casos, ese String puede mostrarse en una capa junto al cuadro de texto, una capa que, hasta ese momento, habrá estado vacía.
 
-Este escenario tan habitual se puede resolver con $.ajax(), con $.get() o con $.post(), pero existe una función jQuery específica para ello. Se llama $.load() y tiene esta sintaxis:
+Este escenario tan habitual se puede resolver con $.ajax(), con $.get() o con $.post(), pero existe una función jQuery específica para ello. Se llama **$.load()** y tiene esta sintaxis:
 
 ```javascript
 $('#info').load('mi-script.php');
@@ -354,13 +354,13 @@ Y eso es precisamente lo que devuelve Laravel al rederizar cualquier vista. Así
 
 ### 7.5.1. Paso 1. Crear un controlador para las peticiones Ajax
 
-Esto no es imprescindible, pero sí suele ser una práctica habitual: reunir todas las peticiones Ajax en un único controlador. 
+Esto no es imprescindible, pero sí suele ser una práctica habitual: **reunir todas las peticiones Ajax en un único controlador**. 
 
 Ten en cuenta que, para el servidor, no hay diferencia entre una petición Ajax y una petición normal. El servidor recibe su petición por http o https y la atiende, ejecutando en enrutador, el controlador y todo lo que venga detrás, y produciendo una salida como resultado que se envía de vuelta al cliente. Punto.
 
 Así que suele ser buena idea separar las peticiones Ajax de las peticiones normales mediante la diferenciación de controladores, salvo que tengas una muy biena razón para no hacerlo.
 
-Por lo tanto, crearemos un controlador AjaxController y añadiremos a nuestro enrutador (/routes/web.php) las líneas correspondientes, como esta:
+Por lo tanto, crearemos un controlador ***AjaxController*** y añadiremos a nuestro enrutador (*/routes/web.php*) las líneas correspondientes, como esta:
 
 ```php
 Route::post('miJqueryAjax','AjaxController@miMetodo');
@@ -368,7 +368,7 @@ Route::post('miJqueryAjax','AjaxController@miMetodo');
 
 ### 7.5.2. Paso 2. Crear los métodos del controlador
 
-Lo siguiente sería crear los métodos que necesitemos en AjaxController (o, si hemos decidido no crear un controlador específico para Ajax, crear los métodos en los controladores que corresponda).
+Lo siguiente sería **crear los métodos que necesitemos en AjaxController** (o, si hemos decidido no crear un controlador específico para Ajax, crear los métodos en los controladores que corresponda).
 
 Solo hay que tener una cosa clara: estos métodos que responderán a las peticiones Ajax **no pueden terminar con una vista**. 
 
@@ -405,11 +405,11 @@ Ten en cuenta que:
 
 ### 7.5.3. Paso 3. Agregar el token CSRF a las peticiones
 
-Como vimos al estudiar Laravel, las peticiones enviadas por POST con Laravel deben llevar el token CSRF o serán rechazadas. Esto se hacía para prevenir cierto tipo de ataques frecuentes a través de formularios HTML. Los detalles no son importantes aquí y, en todo caso, puedes repasar el capítulo sobre Laravel o sobre Sesiones, Cookies y Seguridad para revisar el concepto.
+Como vimos al estudiar Laravel, **las peticiones enviadas por POST con Laravel deben llevar el token CSRF** o serán rechazadas. Esto se hacía para prevenir cierto tipo de ataques frecuentes a través de formularios HTML. Los detalles no son importantes aquí y, en todo caso, puedes repasar el capítulo sobre Laravel o sobre Sesiones, Cookies y Seguridad para revisar el concepto.
 
 Lo importante ahora es esto: cuando lances una petición POST mediante Ajax, Laravel la rechazará porque no llevará el token CSRF. Recuerda que el servidor no tiene ni idea de si la petición llega desde Ajax o no: para él, se trata de datos que provienen de un formulario HTML, y si no lleva ese token, automáticamente se convierte en un formulario sospechoso.
 
-Así que, si tienes Laravel en el lado del servidor, necesitas agregar el token CSRF a las peticiones por POST, así:
+Así que, si tienes Laravel en el lado del servidor, **necesitas agregar el token CSRF a las peticiones por POST**, así:
 
 ```javascript
 $.ajax({
@@ -441,4 +441,4 @@ A partir de ahora, podremos hacer las peticiones Ajax normalmente, porque el tok
 
 ### Ajax, Laravel y Vue.js
 
-XXX TODO XXX
+Esta parte la veremos más adelante... ¡si nos da tiempo!
