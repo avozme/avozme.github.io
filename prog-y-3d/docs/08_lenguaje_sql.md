@@ -477,7 +477,7 @@ Y así borramos **todos los registros** de una tabla y la dejamos completamente 
 DELETE FROM personas;
 ```
 
-### 8.3.4. Consultas: SELECT
+## 8.4. Consultas. Las instrucción SELECT
 
 Para **buscar datos** entre las tablas de una base de datos se usa la sentencia **SELECT**. Estas búsquedas suelen recibir el nombre de **consultas**.
 
@@ -499,7 +499,7 @@ id|nombre|apellido1|apellido2|estatura|fecha_nacimiento|pais_nacimiento
 6|Ana Lucía|Smith|López|185|19/01/2000|Argentina
 7|Fernando José|Delgado|Aguas|157|17/08/1969|México
 
-#### Seleccionar columnas de una tabla
+### 8.4.1. Seleccionar columnas de una tabla
 
 La sintaxis más básica concebible de una sentencia SELECT funcional es esta:
 
@@ -545,7 +545,7 @@ El resultado de esta consulta será:
 7 Fernando José Delgado Aguas 157 17/08/1969 México
 ```
 
-#### Filtrar resultados: la cláusula WHERE
+### 8.4.2. Filtrar resultados: la cláusula WHERE
 
 Normalmente, no vamos a necesitar *todos* los registros de una tabla, sino que queremos localizar alguno o algunos en concreto. Para eso sirven las búsquedas, ¿no? Para encontrar unos pocos resultados entre un montón de datos.
 
@@ -628,7 +628,7 @@ Esteban López López
 Ana Lucía Smith López
 ```
 
-#### Búsquedas aproximadas con caracteres comodín
+### 8.4.3. Búsquedas aproximadas con caracteres comodín
 
 Las comparaciones en la cláusula WHERE permiten usar lo que se llaman **caracteres comodín**, que son básicamente dos: % (símbolo del tanto por ciento) y _ (símbolo del subrayado).
 
@@ -667,7 +667,7 @@ Luis Fernando Guzmán Rojas
 Ana Lucía Smith López
 ```
 
-#### Ordenar resultados con ORDER BY
+### 8.4.4. Ordenar resultados con ORDER BY
 
 Los resultados obtenidos en una consulta pueden **ordenarse** por cualquier campo con la **cláusula ORDER BY**, independientemente de cuales sean las condiciones de búsqueda.
 
@@ -732,7 +732,7 @@ Antonia López Zapata 171
 Esteban López López 166
 ```
 
-#### Agrupar resultados con DISTINCT
+### 8.4.5. Agrupar resultados con DISTINCT
 
 Atención, pregunta. ¿Qué ocurrirá si ejecutamos esta consulta?
 
@@ -774,7 +774,7 @@ López
 Smith
 ```
 
-#### Funciones de agregado y GROUP BY
+### 8.4.6. Funciones de agregado y GROUP BY
 
 En la lista de campos, se pueden utilizar las llamadas **funciones de agregado**. Se trata de funciones que realizan cálculos sobre los resultados de la consulta.
 
@@ -868,7 +868,7 @@ Resultado:
 México 3
 ```
 
-#### Obtener resultados de varias tablas: JOIN
+### 8.4.7. Obtener resultados de varias tablas: JOIN
 
 Hasta ahora, solo hemos visto ejemplos de consultas que obtienen datos de una sola tabla, pero es muy frecuente que queramos **extraer datos de varias tablas relacionadas entre sí**.
 
@@ -995,7 +995,7 @@ Antonia López Zapata España Europa
 Ana Lucía Smith López Argentina América
 ```
 
-#### Subconsultas
+### 8.4.8. SQL avanzado: introducción a las subconsultas
 
 Hay ciertas situaciones en las que nos encontramos con una consulta tan compleja que no se puede resolver con las herramientas que hemos visto hasta ahora.
 
@@ -1045,7 +1045,101 @@ SELECT nombre, apellido1, apellido2
 
 Las subconsultas se pueden considerar SQL avanzado, por lo que no es necesario que las domines en este momento, pero sí que conozcas su existencia por si más adelante en tu carrera como programador/a tienes que profundizar en ellas.
 
-## 8.4. Ejercicios propuestos
+### 8.4.9. Otras cuestiones avanzadas: alias y combinaciones de consultas
+
+Como dijimos al principio, SQL en general y la instrucción SELECT en particular son muy amplios y se pueden aplicar en muchísimos casos diferentes, desde consultas sencillísimas hasta casos complejos donde tu cerebro puede tener un amago de explosión mientras trata de buscar una solución.
+
+Te menciono aquí **algunos aspectos avanzados de los SELECT** para que los conozcas, haciéndote saber que, si no aprendes a controlarlos ahora, no es ninguna tragedia: más adelante, si te especializas en esto, sin duda aprenderás a dominarlos.
+
+Por ahora basta con que los conozcas y los comprendas. En algunos de los ejercicios del tema usaremos estos aspectos avanzados para buscar soluciones a supuestos prácticos particularmente enrevesados.
+
+**ALIAS**
+
+Los alias son **nombres alternativos que se asignan a las tablas o a las columnas** en una consulta.
+
+El objetivo del alias puede ser doble:
+
+* Usar un nombre más corto para facilitar la escritura de una expresión que, de otro modo, sería muy larga.
+* Poder referirse a la misma tabla en dos conextos diferentes.
+
+El primer uso es muy fácil de entender. El segundo, no tanto. De momento, vamos a ver el uso más fácil. No te preocupes demasiado por el otro: veremos algún ejemplo en los ejercicios de este capítulo.
+
+El **alias se indica con la palabra AS**.
+
+Por ejemplo, en la siguiente consulta, se usan alias para acortar los identificadores de los campos *persona.nombre*, *paises.nombre* y *continentes.nombre*, que pasan a ser *nom_pers*, *nom_pais* y *nom_cont*, respectivamente. Observa como podemos referirnos a cualquiera de esos campos por su nombre o su alias, como hacemos en la cláusula WHERE de este ejemplo.
+
+```sql
+SELECT personas.nombre AS nom_pers, apellido1, apellido2, paises.nombre AS nom_pais, continentes.nombre AS nom_cont
+  FROM personas
+  JOIN paises ON personas.id_pais = paises.id
+  JOIN continentes ON paises.id_continente = continentes.id
+  WHERE nom_pers LIKE 'A%'
+  ORDER BY apellido1, apellido2;
+```
+
+**COMBINACIONES DE CONSULTAS**
+
+Es posible **combinar los resultados de dos consultas** para obtener un resultado más amplio.
+
+Si tenemos dos consultas, que llamaremos C1 y C2, sus resultados pueden combinarse de tres modos diferentes:
+
+* Con **UNION**: los registros de C1 y de C2 se sumarán, es decir, el resultado de **C1 UNION C2** serán todas las filas que estén en C1 más las que estén en C2.
+* Con **INSERSECT**: el resultado de **C1 INSERSECT C2** serán todas las filas que están a la vez en C1 y en C2, es decir, la insersección de los dos conjuntos de resultados.
+* Con **EXCEPT**: el resultado de **C1 EXCEPT C2** serán todas las filas que estén en C1, quitando las que estén en C2.
+
+Para poder hacer UNION, INSERSECT o EXCEPT de dos consultas, ambas tienen que haber producido exactamente el mismo conjunto de campos. Si no, estas operaciones no son posibles.
+
+Por ejemplo, observa el siguiente código. Fíjate en que las dos consultas producen el mismo conjunto de campos (*nombre, apellido1, apellido2*). Si no, no sería posible combinarlas. Observa también el uso de los paréntesis:
+
+```sql
+(SELECT nombre, apellido1, apellido2
+  FROM personas
+  WHERE pais_nacimiento = '1')
+UNION
+(SELECT nombre, apellido1, apellido2
+   FROM personas)
+   WHERE estatura > '180');
+```
+
+(por supuesto, esto mismo puede resolverse sin usar UNION)
+
+* La combinación de estas dos consultas con **UNION** nos devuelve la lista de personas que han nacido en Argentina **O** que miden más de 180 cm. Cualquier persona que cumpla una de las dos condiciones estará en el resultado final.
+
+* Si combinásemos las mismas consultas con **INSERSECT** en lugar de con UNION, lo que obtendríamos sería la lista de personas que nacieron en Argentina **Y** que miden más de 180 cm. Es decir, las personas que formen parte de los dos resultados y, por lo tanto, cumplan *a la vez* las dos condiciones.
+
+   Fíjate en que en el enunciado solo hemos cambiado una "O" por una "Y", pero es que esa es precisamente la diferencia entre UNION e INTERSECT.
+
+* Por último, si combinamos las mismas consultas con **EXCEPT**, obtendremos la lista de personas que nacieron en Argentina, excepto las que miden más de 180 cm. Habremos eliminado del primer SELECT los resultados que estén en el segundo SELECT. Esto es, obtendremos la lista de personas nacidas en argentina que miden 180 cm o menos.
+
+Es un lío desde el punto de vista lógico, ¿verdad? Y es que no se te habrán escapado las semejanzas de UNION, INTERSECT y EXCEPT con los operadores lógicos Y, O y NO. En efecto, UNION, INSERSECT y EXCEPT son los equivalentes a Y, O y NO a nivel de consultas completas.
+
+Aplicaremos UNION, INSERSECT y EXCEPT a algunas de las consultas más complejas de nuestros ejercicios propuestos.
+
+## 8.5. ¿Y cómo puedo probar todo esto?
+
+Seguro que te has hecho esta pregunta mientras leías los ejemplos de este capítulo y tal vez incluso intentabas resolverlos por tu cuenta.
+
+Es una excelente pregunta.
+
+Para ejecutar SQL **necesitas un gestor de bases de datos relacionales**. Puede instalar un gestor de escritorio, para bases de datos domésticas, como *Microsoft Access* o *Libreoffice Base*, o puedes decantarte por un gestor profesional en red, como *MySQL, MariaDB, Oracle, SQLite* o *SQL Server*.
+
+En realidad, da igual, porque el SQL es más o menos igual en todos.
+
+(Digo "más o menos" porque cada base de datos hace su propia interpretación del estándar SQL y puede haber pequeñas diferencias entre uno y otro).
+
+Si nunca has usado una base de datos profesional como MySQL, Oracle u SQL Server, probablemente **lo más sencillo es que empieces por Microsoft Access o Libreoffice Base**. Si, en cambio, ya conoces las bases de datos profesionales, no necesitas leer este apartado. Puedes pasar directamente a los ejercicios, aunque probablemente tampoco los necesites.
+
+1. **Instala Microsoft Access (forma parte del paquete Microsoft Office) o Libreoffice Base (forma parte del paquete Libreoffice)** en tu ordenador. Microsoft ofrece una versión online de su Office. Recuerda que Microsoft Office es un paquete de software propietario y que copiar y usar programas de forma fraudulenta es un delito penal. Libreoffice, en cambio, es software libre y puedes usarlo y distribuirlo libremente. Eso sí: ¡Descárgalo solo de la web oficial, por favor! 
+
+2. **Arranca el programa** (claro).
+
+3. **En Microsoft Access**, crea una base de datos (o abre una existente). Ahora puedes ejecutar tus sentencias SQL pulsando el botón "Create" de la parte superior de la pantalla, y luego seleccionando "Query design" -> "Show table" -> "SQL view". Escribe tu sentencia SQL y pulsa "Run" para probarla.
+
+4. **En Libreoffice Base**, crea una base de datos (o abre una existente). Selecciona "Tool - SQL" y luego "Create Query in SQL view". En la pantalla siguiente, haz clic en "View" -> "Switch Design View On/Off". Escribe tu sentencia SQL y pulsa "Run" para probarla.
+
+En realidad, todo esto no tiene nada que ver con aprender SQL, sino con aprender a manejar un determinado programa. Elige el tuyo y bichea un poco hasta que averigües cómo se ejecuta el SQL. Se presupone de ti que eres un usuario/a de ordenadores de nivel medio-avanzado, y por eso quieres aprender a programar. No tiene mucho sentido explicar aquí cómo ejecutar SQL en cada gestor de bases de datos porque puede haber importantes diferencias entre un gestor de bases de datos y otro o, incluso, entre versiones del mismo programa. Y, en última instancia, es algo tan simple como trastear un rato con el programa.
+
+## 8.6. Ejercicios propuestos
 
 Como de costumbre, vamos a proponer una batería de ejercicios de SQL para que practiques todo lo que hemos visto a lo largo de este capítulo.
 
@@ -1070,23 +1164,23 @@ Se pide escribir el código SQL necesario para:
 **a) Crear las tablas** (CREATE TABLE), suponiendo las siguientes restricciones:
 
 * Todas las claves primarias y ajenas son campos obligatorios (no pueden ser nulos). Además, las claves primarias no pueden tomar valores repetidos.
-* Personas.país tendrá, por defecto, el valor “España”. Personas.ciudad tendrá, por defecto, el valor “Almería”.
+* *Personas.país* tendrá, por defecto, el valor "España". Personas.ciudad tendrá, por defecto, el valor "Almería".
 * Hay que activar el borrado y actualización en cascada en todas las relaciones.
-* Es conveniente definir todas las claves como restricciones (constraints), con el objeto de poder modificarlas más adelante.
+* Es conveniente definir todas las claves como restricciones (*constraints*), con el objeto de poder modificarlas más adelante.
 * Todos los datos son cadenas de caracteres (la longitud puedes elegirla tú, siempre que sea razonable), excepto los siguientes:
-   * Coches.potencia es un número real con tres cifras enteras y dos cifras decimales.
-   * Seguros.núm-póliza es un número entero largo.
-   * Seguros.franquicia es un número real con seis cifras enteras y dos decimales.
-   * Seguros.fecha es de tipo fecha (claro)
+   * *Coches.potencia* es un número real con tres cifras enteras y dos cifras decimales.
+   * *Seguros.núm-póliza* es un número entero largo.
+   * *Seguros.franquicia* es un número real con seis cifras enteras y dos decimales.
+   * *Seguros.fecha* es de tipo fecha (claro)
 
 **b) Realizar los siguientes cambios en las tablas** (ALTER TABLE, INSERT, UPDATE, DELETE):
 
-1. Agregar a la tabla Personas el campo sexo, con un sólo carácter y obligatorio.
+1. Agregar a la tabla Personas el campo *sexo*, con un sólo carácter y obligatorio.
 2. Desactivar el borrado en cascada (no la actualización) de la clave ajena en la tabla Seguros.
 3. Insertar estos registros:
-   * En Personas, DNI = 1111A, Juan Martín, C/ Barco, Roquetas de Mar, España
-   * En Seguros, Nº Póliza = 1, Compañía = Mapfre, Franquicia = 299,95 €, Tomador = Juan Martín
-4. Modificar todos los seguros de tipo “Todo riesgo” para que la franquicia sea de 120 €
+   * En *Personas*, DNI = 1111A, Juan Martín, C/ Barco, Roquetas de Mar, España
+   * En *Seguros*, Nº Póliza = 1, Compañía = Mapfre, Franquicia = 299,95 €, Tomador = Juan Martín
+4. Modificar todos los seguros de tipo "Todo riesgo" para que la franquicia sea de 120 €
 5. Borrar todas las personas que no vivan ni en España ni en Portugal.
 
 **c) Realizar las siguientes consultas** (SELECT):
@@ -1120,8 +1214,8 @@ La base de datos de una academia de idiomas está formada por las siguientes tab
 Se pide escribir las sentencias SQL necesarias para:
 
 1. Crear la tabla HORARIOS. Las claves y las horas son campos obligatorios. El aula es un número entero, y, aunque no es obligatorio, tomará por defecto el valor 1.
-2. Modificar la tabla ALUMNOS para agregar el campo “cod-grupo”, que es una clave ajena.
-3. Insertar el registro [“12345678-Z”, “Juan”, “López López”, “Italiano”] en la tabla PROFESORES.
+2. Modificar la tabla ALUMNOS para agregar el campo "cod-grupo", que es una clave ajena.
+3. Insertar el registro ["12345678-Z", "Juan", "López López", "Italiano"] en la tabla PROFESORES.
 4. Consultar los nombres y apellidos de los profesores que dan clase de francés de lunes a jueves a partir de las 16:00 horas, junto con la denominación de los grupos a los que dan clase y el horario de cada día.
 5. Consultar los nombres y apellidos de los alumnos que reciben clases de al menos dos idiomas diferentes.
 6. Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS y de FRANCÉS.
@@ -1132,7 +1226,7 @@ Se pide escribir las sentencias SQL necesarias para:
 
 Una empresa de venta de coches nuevos y usados tiene en su base de datos estas tablas:
 
-* COCHES(cod_coche#, marca, modelo, color, precio, tipo) – tipo puede ser “nuevo”, “km. 0” o “usado”
+* COCHES(cod_coche#, marca, modelo, color, precio, tipo) – tipo puede ser "nuevo", "km. 0" o "usado"
 * COCHES_USADOS(cod_coche#, año, kilometraje, descuento, cod_desperfecto)
 * DESPERFECTOS(cod_desperfecto#, descripción, observaciones)
 * TIENDAS(cod_tienda#, ciudad, provincia, dirección, teléfono)
@@ -1143,12 +1237,12 @@ Una empresa de venta de coches nuevos y usados tiene en su base de datos estas t
 A partir de esas tablas, se pide:
 
 1. Crear la tabla COCHES, de forma coherente a cómo la hayas diseñado en el primer apartado. Utiliza tipos de datos SQL adecuados a la información que se guardará en cada campo. El campo cod_coche es obligatorio, y el campo precio tiene 10000,00 como valor por defecto.
-2. Se ha detectado que algunos clientes tienen una “provincia” con valor nulo, pero, en cambio, sí que tienen un valor asignado al campo “ciudad”. Escribe la(s) intrucción(es) SQL necesarias para arreglar este problema de la mejor manera que se te ocurra.
+2. Se ha detectado que algunos clientes tienen una "provincia" con valor nulo, pero, en cambio, sí que tienen un valor asignado al campo "ciudad". Escribe la(s) intrucción(es) SQL necesarias para arreglar este problema de la mejor manera que se te ocurra.
 3. Obtener el NIF de los clientes y los códigos de tienda que no sean de la misma ciudad.
 4. Obtener la matrícula, la marca y el modelo de los coches vendidos en tiendas de la provincia de Madrid que no hayan sido vendidos en ninguna otra provincia.
-5. Obtener el código, ciudad y dirección de las tiendas que tengan entre 5 y 10 vehículos usados que sean de marca “Renault” y modelo “Megane”.
+5. Obtener el código, ciudad y dirección de las tiendas que tengan entre 5 y 10 vehículos usados que sean de marca "Renault" y modelo "Megane".
 6. Obtener el código, marca y modelo del coche, así como el nombre y apellidos del cliente, de todos los vehículos vendidos a un cliente de Almería por un concesionario de Almería.
-7. Obtener el nombre y apellidos de clientes que hayan adquirido un coche en algún concesionario que posea actualmente en stock el vehículo marca “Seat”, modelo “León”.
+7. Obtener el nombre y apellidos de clientes que hayan adquirido un coche en algún concesionario que posea actualmente en stock el vehículo marca "Seat", modelo "León".
 8. Obtener los nombres y apellidos de clientes que no han comprado ningún coche de color rojo a ningún concesionario de Andalucía.
 
 #### Ejercicio 5
@@ -1162,30 +1256,30 @@ Las siguientes tablas contienen información sobre la liga de fútbol (equipos, 
 * JUEGAN (nombre-eq-casa#, nombre_eq_visitante#, cod_partido#) - Relación entre EQUIPOS y PARTIDOS
 * CONTRATOS (num-contrato#, cod-futbolista, nombre-eq, fecha-contrato, duración, ficha, claúsulas)
 * ÁRBITROS (num-colegiado#, colegio, nombre, apellidos, num-temporadas)
-* ARBITRAN (cod-partido#, num-colegiado#, función) - Relación entre ÁRBITROS y PARTIDOS (“funciòn” puede ser “principal”, “juez de línea” o “cuarto”)
+* ARBITRAN (cod-partido#, num-colegiado#, función) - Relación entre ÁRBITROS y PARTIDOS ("función" puede ser "principal", "juez de línea" o "cuarto")
 
 Realiza estas consultas en lenguaje SQL:
 
 1. El número de goles marcados por el jugador Pantuflo Zapatilla en los partidos del mes de febrero de 2007.
 2. El nombre de los equipos contra los que ha jugado el Almería en partidos arbitrados por Esquinas Torres, así como el resultado y la jornada de esos partidos.
-3. Todos los datos de la plantilla de futbolistas del Poli Ejido.
-4. El nombre de los árbitros que hayan arbitrado (como árbitro principal) a TODOS los equipos durante la temporada 2005 – 2006.
+3. Todos los datos de la plantilla de futbolistas del Real Madrid.
+4. Buscar el nombre y la estatura del futbolista más alto del FC Barcelona.
 
-## 8.5. Ejercicios resueltos
+## 8.7. Ejercicios resueltos
 
 Vamos a resolver los ejercicios propuestos en el apartado anterior. Recuerda que es importante que, antes de mirar las soluciones, trates de resolverlos por tu cuenta.
 
 #### Ejercicio 1: compañía de seguros
 
-**a) Crear las tablas** con las restricciones detalladas en el enunciado del ejercicio:
+**a) Crear las tablas con las restricciones detalladas en el enunciado del ejercicio:**
 
 ```sql
 CREATE TABLE Personas (
 	dni		VARCHAR(12)	UNIQUE NOT NULL,
 	nombre	VARCHAR(50)	NOT NULL,
 	apellidos	VARCHAR(50)	NOT NULL,
-	ciudad	VARCHAR(50)	DEFAULT “Almería”,
-	país		VARCHAR(50)	DEFAULT “España”,
+	ciudad	VARCHAR(50)	DEFAULT "Almería",
+	país		VARCHAR(50)	DEFAULT "España",
 	CONSTRAINT pk_personas
 		PRIMARY KEY (dni)
 );
@@ -1225,18 +1319,18 @@ CREATE TABLE Coches (
 );
 ```
 
-**b) Realizar los siguientes cambios en las tablas** (ALTER TABLE, INSERT, UPDATE, DELETE):
+**b) Realizar los siguientes cambios en las tablas**
 
-1. Agregar a la tabla Personas el campo sexo, con un sólo carácter y obligatorio.
+**Agregar a la tabla Personas el campo sexo, con un sólo carácter y obligatorio.**
 
 ```sql
 ALTER TABLE Personas
 	ADD Sexo VARCHAR(1) NOT NULL;
 ```
 
-2. Desactivar el borrado en cascada (no la actualización) de la clave ajena en la tabla Seguros.
+**Desactivar el borrado en cascada (no la actualización) de la clave ajena en la tabla Seguros.**
 
-(No puede eliminarse solamente el borrado en cascada, así que hay que quitar por completo la restricción “fk_seguros_personas”, y luego volver a crearla sin borrado en cascada. Observa que esto no afectará a los datos de la tabla.)
+(No puede eliminarse solamente el borrado en cascada, así que hay que quitar por completo la restricción "fk_seguros_personas", y luego volver a crearla sin borrado en cascada. Observa que esto no afectará a los datos de la tabla.)
 
 ```sql
 ALTER TABLE Seguros
@@ -1248,7 +1342,7 @@ ALTER TABLE Seguros
 		ON UPDATE CASCADE;
 ```
 
-3. Insertar estos registros:
+**Insertar estos registros:**
    * En Personas, DNI = 1111A, Juan Martín, C/ Barco, Roquetas de Mar, España
    * En Seguros, Nº Póliza = 1, Compañía = Mapfre, Franquicia = 299,95 €, Tomador = Juan Martín
 
@@ -1259,7 +1353,7 @@ INSERT INTO Seguros (num_póliza, compañía, franquicia, dni_tomador)
 	VALUES (1, 'Mapfre', 299.95, '1111A');
 ```
 
-4. Modificar todos los seguros de tipo “Todo riesgo” para que la franquicia sea de 120 €
+**Modificar todos los seguros de tipo "Todo riesgo" para que la franquicia sea de 120 €**
 
 ```sql
 UPDATE Pacientes
@@ -1267,7 +1361,7 @@ UPDATE Pacientes
 	WHERE tipo = 'Todo riesgo';
 ```
 
-5. Borrar todas las personas que no vivan ni en España ni en Portugal.
+**Borrar todas las personas que no vivan ni en España ni en Portugal.**
 
 ```sql
 DELETE FROM Personas
@@ -1276,7 +1370,7 @@ DELETE FROM Personas
 
 **c) Realizar las siguientes consultas** (SELECT):
 
-1. Nombre y apellidos, ordenados alfabéticamente, de todas las personas que viven en ciudades que empiezan por "A" (consideraremos también la "A" con tilde):
+**Nombre y apellidos, ordenados alfabéticamente, de todas las personas que viven en ciudades que empiezan por "A" (consideraremos también la "A" con tilde):**
 
 ```sql
 SELECT nombre, apellidos
@@ -1285,7 +1379,7 @@ SELECT nombre, apellidos
 	ORDER BY apellidos, nombre;
 ```
 
-2. Compañías de seguros que aseguran coches de la marca Seat y cuyas pólizas fueron contratadas después del año 2005.
+**Compañías de seguros que aseguran coches de la marca Seat y cuyas pólizas fueron contratadas después del año 2005.**
 
 ```sql
 SELECT DISTINCT compañía
@@ -1295,7 +1389,7 @@ SELECT DISTINCT compañía
 	    AND fecha > '31/12/2005';
 ```
 
-3. Precio medio de las franquicias de los coches asegurados por la compañía Mapfre y cuya potencia es mayor de 100 caballos.
+**Precio medio de las franquicias de los coches asegurados por la compañía Mapfre y cuya potencia es mayor de 100 caballos.**
 
 ```sql
 SELECT AVG(franquicia)
@@ -1305,7 +1399,7 @@ SELECT AVG(franquicia)
 	    AND potencia > 100;
 ```
 
-4. Nombre, apellidos, marca, modelo y compañía aseguradora de los vehículos cuyos dueños tienen varios coches y están asegurados en compañías diferentes.
+**Nombre, apellidos, marca, modelo y compañía aseguradora de los vehículos cuyos dueños tienen varios coches y están asegurados en compañías diferentes.**
 
 Esta consulta no puede resolverse tal y como está, porque no conocemos a los dueños de los vehículos. Esa información, simplemente, no está en la base de datos. Así que supondremos que los dueños y los conductores son los mismos, porque los conductores sí están en la base de datos.
 
@@ -1339,16 +1433,16 @@ SELECT nombre, apellidos, marca, modelo, compañía
 
 #### Ejercicio 2: Biblioteca
 
-1. ¿A qué puede deberse que la base de datos esté dándonos ese error?
+**¿A qué puede deberse que la base de datos esté dándonos ese error?**
 
 En la tabla de Libros debe existir al menos un código de autor que no se corresponde con ningún autor de la tabla de Autores. Probablemente se deba a un error en la introducción de los datos. Al convertir a Libros.cód_autor en clave ajena que hace referencia a Autor.cód_autor, la integridad referencial quedaría rota, y por eso el gestor de base de datos nos impide crear esa clave ajena.
 
-2. ¿Cómo puede solucionarse? Escribe el código SQL que estimes necesario para intentar arreglar el problema.
+**¿Cómo puede solucionarse? Escribe el código SQL que estimes necesario para intentar arreglar el problema.**
 
 Habría que localizar los registros de Libros que tienen asociados autores que no existen en la tabla de Autores. Una vez localizados, tenemos varias opciones: 
 a) Borrarlos (una solución un poco bestia)
 b) Moverlos a una nueva tabla temporal, para que el administrador de la base de datos haga lo que estime conveniente con esos registros (solución válida porque no destruye datos, pero muy trabajosa)
-c) Asignarles un autor “ficticio”. Por ejemplo, podemos crear un autor llamado “Desconocido” en la tabla de autores con un código especial (p.ej: el 0), y asignar esos libros al nuevo autor. Esta será la solución que adoptaremos.
+c) Asignarles un autor "ficticio". Por ejemplo, podemos crear un autor llamado "Desconocido" en la tabla de autores con un código especial (p.ej: el 0), y asignar esos libros al nuevo autor. Esta será la solución que adoptaremos.
 
 ```sql
 INSERT INTO Autores (cód_autor, nombre) VALUES (0, 'Desconocido');
@@ -1361,7 +1455,7 @@ Ahora sí podemos crear la clave ajena de Autores sin provocar una violación de
 
 #### Ejercicio 3: academia de idiomas
 
-1. Crear la tabla HORARIOS. Las claves y las horas son campos obligatorios. El aula es un número entero, y, aunque no es obligatorio, tomará por defecto el valor 1.
+**Crear la tabla HORARIOS. Las claves y las horas son campos obligatorios. El aula es un número entero, y, aunque no es obligatorio, tomará por defecto el valor 1.**
 
 Como la clave primaria es triple (cod_grupo, dia_semana, dni_prof), no tiene sentido declarar esos atributos como UNIQUE de forma individual: lo que no puede repetirse es el conjunto de los tres, de modo que hay que crear una restricción de tabla que denominaremos pk_horarios_unique:
 
@@ -1384,7 +1478,7 @@ CREATE TABLE Horarios (
 );
 ```
 
-2. Modificar la tabla ALUMNOS para agregar el campo “cod-grupo”, que es una clave ajena.
+**Modificar la tabla ALUMNOS para agregar el campo "cod-grupo", que es una clave ajena.**
 
 ```sql
 ALTER TABLE Alumnos
@@ -1395,13 +1489,13 @@ ALTER TABLE Alumnos
 		FOREIGN KEY (cod_grupo) REFERENCES Grupos(cod_grupo);
 ```
 
-3. Insertar el registro [“12345678-Z”, “Juan”, “López López”, “Italiano”] en la tabla PROFESORES.
+**Insertar el registro ["12345678-Z", "Juan", "López López", "Italiano"] en la tabla PROFESORES.**
 
 ```sql
 INSERT INTO Profesores VALUES ('12345678-Z', 'Juan', 'López', 'Italiano');
 ```
 
-4. Consultar los nombres y apellidos de los profesores que dan clase de francés de lunes a jueves a partir de las 16:00 horas, junto con la denominación de los grupos a los que dan clase y el horario de cada día.
+**Consultar los nombres y apellidos de los profesores que dan clase de francés de lunes a jueves a partir de las 16:00 horas, junto con la denominación de los grupos a los que dan clase y el horario de cada día.**
 
 ```sql
 SELECT nombre, apellidos, denominación, día_semana, hora_inicio, hora_fin 
@@ -1413,7 +1507,7 @@ SELECT nombre, apellidos, denominación, día_semana, hora_inicio, hora_fin
 	    AND idioma = 'Francés';
 ```
 
-5. Consultar los nombres y apellidos de los alumnos que reciben clases de al menos dos idiomas diferentes.
+**Consultar los nombres y apellidos de los alumnos que reciben clases de al menos dos idiomas diferentes.**
 
 ```sql
 SELECT DISTINCT Alumnos.nombre, Alumnos.apellidos
@@ -1427,51 +1521,51 @@ SELECT DISTINCT Alumnos.nombre, Alumnos.apellidos
 				    AND Profes1.idioma <> Profes2.idioma);
 ```
 
-6. Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS y de FRANCÉS.
+**Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS y de FRANCÉS.**
 
 ```sql
 SELECT Alumnos.nombre, Alumnos.apellidos
 	FROM Alumnos, Horarios, Profesores
 	WHERE Alumnos.cod_grupo = Horarios.cod_grupo
 	    AND Horarios.dni_prof = Profesores.dni_prof
-	    AND Profesores.idioma = “Inglés”
+	    AND Profesores.idioma = "Inglés"
 INTERSECT
 SELECT Alumnos.nombre, Alumnos.apellidos
 	FROM Alumnos, Horarios, Profesores
 	WHERE Alumnos.cod_grupo = Horarios.cod_grupo
 	    AND Horarios.dni_prof = Profesores.dni_prof
-	    AND Profesores.idioma = “Francés”
+	    AND Profesores.idioma = "Francés"
 ```
 
-7. Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS o de FRANCÉS.
+**Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS o de FRANCÉS.**
 
 ```sql
 SELECT Alumnos.nombre, Alumnos.apellidos
 	FROM Alumnos, Horarios, Profesores
 	WHERE Alumnos.cod_grupo = Horarios.cod_grupo
 	    AND Horarios.dni_prof = Profesores.dni_prof
-	    AND (Profesores.idioma = “Inglés” OR Profesores.idioma = “Francés”);
+	    AND (Profesores.idioma = "Inglés" OR Profesores.idioma = "Francés");
 ```
 
-8. Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS pero no reciben clases de ALEMÁN.
+**Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS pero no reciben clases de ALEMÁN.**
 
 ```sql
 SELECT Alumnos.nombre, Alumnos.apellidos
 	FROM Alumnos, Horarios, Profesores
 	WHERE Alumnos.cod_grupo = Horarios.cod_grupo
 	    AND Horarios.dni_prof = Profesores.dni_prof
-	    AND Profesores.idioma = “Inglés”
+	    AND Profesores.idioma = "Inglés"
 EXCEPT
 SELECT Alumnos.nombre, Alumnos.apellidos
 	FROM Alumnos, Horarios, Profesores
 	WHERE Alumnos.cod_grupo = Horarios.cod_grupo
 	    AND Horarios.dni_prof = Profesores.dni_prof
-	    AND Profesores.idioma = “Alemán”;
+	    AND Profesores.idioma = "Alemán";
 ```
 
 #### Ejercicio 4: concesionario de automóviles
 
-1. Crear la tabla COCHES, de forma coherente a cómo la hayas diseñado en el primer apartado. Utiliza tipos de datos SQL adecuados a la información que se guardará en cada campo. El campo cod_coche es obligatorio, y el campo precio tiene 10000,00 como valor por defecto.
+**Crear la tabla COCHES, de forma coherente a cómo la hayas diseñado en el primer apartado. Utiliza tipos de datos SQL adecuados a la información que se guardará en cada campo. El campo cod_coche es obligatorio, y el campo precio tiene 10000,00 como valor por defecto.**
 
 ```sql
 CREATE TABLE Coches (
@@ -1484,23 +1578,23 @@ CREATE TABLE Coches (
 	CONSTRAINT pk_coches
 		PRIMARY KEY (cod_coche),
 	CONSTRAINT valores_tipo
-		CHECK (tipo = “NUEVO” OR tipo = “KM.0” OR tipo = “USADO”)
+		CHECK (tipo = "NUEVO" OR tipo = "KM.0" OR tipo = "USADO")
 );
 ```
 
-2. Se ha detectado que algunos clientes tienen una “provincia” con valor nulo, pero, en cambio, sí que tienen un valor asignado al campo “ciudad”. Escribe la(s) intrucción(es) SQL necesarias para arreglar este problema de la mejor manera que se te ocurra.
+**Se ha detectado que algunos clientes tienen una "provincia" con valor nulo, pero, en cambio, sí que tienen un valor asignado al campo "ciudad". Escribe la(s) intrucción(es) SQL necesarias para arreglar este problema de la mejor manera que se te ocurra.**
 
 Eso no habría ocurrido si la base de datos hubiera estado bien diseñada, con las provincias y las ciudades en sus respectivas tablas independientes de los Clientes.
 
-Ahora habremos perdido datos irremediablemente. Lo único que podemos hacer es insertar una provincia genérica (por ejemplo, “Desconocida”) en los registros que hayan perdido su provincia, para evitar tener valores nulos en la tabla de Clientes.
+Ahora habremos perdido datos irremediablemente. Lo único que podemos hacer es insertar una provincia genérica (por ejemplo, "Desconocida") en los registros que hayan perdido su provincia, para evitar tener valores nulos en la tabla de Clientes.
 
 ```sql
 UPDATE Clientes
-	SET Provincia = “Desconocida”
+	SET Provincia = "Desconocida"
 	WHERE Provincia IS NULL;
 ```
 
-3. Obtener el NIF de los clientes y los códigos de tienda que no sean de la misma ciudad.
+**Obtener el NIF de los clientes y los códigos de tienda que no sean de la misma ciudad.**
 
 ```sql
 SELECT Clientes.cod_cliente, Tiendas.cod_tienda
@@ -1510,20 +1604,20 @@ SELECT Clientes.cod_cliente, Tiendas.cod_tienda
 	    AND Clientes.ciudad <> Tiendas.ciudad;
 ```
 
-4. Obtener la matrícula, la marca y el modelo de los coches vendidos en tiendas de la provincia de Madrid que no hayan sido vendidos en ninguna otra provincia.
+**Obtener la matrícula, la marca y el modelo de los coches vendidos en tiendas de la provincia de Madrid que no hayan sido vendidos en ninguna otra provincia.**
 
 ```sql
 (SELECT Coches.cod_coche, marca, modelo
 	FROM Coches, Ventas, Tiendas
 	WHERE Coches.cod_coche = Ventas.cod_coche
 	    AND Ventas.cod_tienda = Tiendas.cod_tienda
-	    AND Tiendas.provincia = “Madrid”)
+	    AND Tiendas.provincia = "Madrid")
 EXCEPT
 (SELECT Coches.cod_coche, marca, modelo
 	FROM Coches, Ventas, Tiendas
 	WHERE Coches.cod_coche = Ventas.cod_coche
 	    AND Ventas.cod_tienda = Tiendas.cod_tienda
-	    AND Tiendas.provincia <> “Madrid”);
+	    AND Tiendas.provincia <> "Madrid");
 ```
 
 Existe una solución alternativa basada en subconsultas, pero el resultado debe ser el mismo:
@@ -1533,15 +1627,15 @@ SELECT Coches.cod_coche, marca, modelo
 	FROM Coches, Ventas, Tiendas
 	WHERE Coches.cod_coche = Ventas.cod_coche
 	    AND Ventas.cod_tienda = Tiendas.cod_tienda
-	    AND Tiendas.provincia = “Madrid”
+	    AND Tiendas.provincia = "Madrid"
 	    AND Coches.cod_coche NOT IN (SELECT cod_coche
 	FROM Coches, Ventas, Tiendas
 	WHERE Coches.cod_coche = Ventas.cod_coche
 	    AND Ventas.cod_tienda = Tiendas.cod_tienda
-	    AND Tiendas.provicia <> “Madrid”)
+	    AND Tiendas.provicia <> "Madrid")
 ```
 
-5. Obtener el código, ciudad y dirección de las tiendas que tengan entre 5 y 10 vehículos usados que sean de marca “Renault” y modelo “Megane”.
+**Obtener el código, ciudad y dirección de las tiendas que tengan entre 5 y 10 vehículos usados que sean de marca "Renault" y modelo "Megane".**
 
 ```sql
 SELECT Tiendas.cod_tienda, Tiendas.ciudad, Tiendas.dirección
@@ -1553,7 +1647,7 @@ SELECT Tiendas.cod_tienda, Tiendas.ciudad, Tiendas.dirección
 	    AND Coches.tipo = "U";
 ```
 
-6. Obtener el código, marca y modelo del coche, así como el nombre y apellidos del cliente, de todos los vehículos vendidos a un cliente de Almería por un concesionario de Almería.
+**Obtener el código, marca y modelo del coche, así como el nombre y apellidos del cliente, de todos los vehículos vendidos a un cliente de Almería por un concesionario de Almería.**
 
 ```sql
 SELECT Coches.cod_coche, marca, modelo, nombre, apellidos
@@ -1561,11 +1655,11 @@ SELECT Coches.cod_coche, marca, modelo, nombre, apellidos
 	WHERE Coches.cod_coche = Ventas.cod_coche
 	    AND Ventas.cod_tienda = Tiendas.cod_tienda
 	    AND Ventas.cod_cliente = Clientes.cod_cliente
-	    AND Tiendas.ciudad = “Almería”
-	    AND Clientes.ciudad = “Almería”;
+	    AND Tiendas.ciudad = "Almería"
+	    AND Clientes.ciudad = "Almería";
 ```
 
-7. Obtener el nombre y apellidos de clientes que hayan adquirido un coche en algún concesionario que posea actualmente en stock el vehículo marca “Seat”, modelo “León”.
+**Obtener el nombre y apellidos de clientes que hayan adquirido un coche en algún concesionario que posea actualmente en stock el vehículo marca "Seat", modelo "León".**
 
 ```sql
 SELECT DISTINCT nombre, apellidos
@@ -1573,11 +1667,11 @@ SELECT DISTINCT nombre, apellidos
 	WHERE Clientes.cod_cliente = Ventas.cod_cliente 
 	    AND Ventas.cod_coches = Coches.cod_coche
 	    AND Coches.cod_coches = Coches-están-en-venta.cod_coche
-	    AND Coches.marca = “Seat” AND Coches.modelo = “León”
+	    AND Coches.marca = "Seat" AND Coches.modelo = "León"
 	    AND Coches-están-en-tienda.cantidad > 0;
 ```
 
-8. Obtener los nombres y apellidos de clientes que no han comprado ningún coche de color rojo a ningún concesionario de Andalucía.
+**Obtener los nombres y apellidos de clientes que no han comprado ningún coche de color rojo a ningún concesionario de Andalucía.**
 
 ```sql
 SELECT nombre, apellidos
@@ -1588,50 +1682,74 @@ SELECT nombre, apellidos
 					FROM Clientes, Ventas, Tiendas
 					WHERE Clientes.cod_cliente = Ventas.cod_cliente
 					    AND Ventas.cod_tienda = Tiendas.cod_tienda
-					    AND Coches.color = “Rojo”
-					    AND Tiendas.provincia IN (“Almería”, “Granada”, “Jaén”,
-						“Málaga”, “Córdoba”, “Sevilla”, “Cádiz”, “Huelva”) );
+					    AND Coches.color = "Rojo"
+					    AND Tiendas.provincia IN ("Almería", "Granada", "Jaén",
+						"Málaga", "Córdoba", "Sevilla", "Cádiz", "Huelva") );
 ```
 
 #### Ejercicio 5
 
-XXX
-
-Las siguientes tablas contienen información sobre la liga de fútbol (equipos, jugadores, árbitros y partidos):
-
-* FUTBOLISTAS (cod-futbolista#, nombre, apellidos, fecha-nac, peso, estatura)
-* PARTIDOS (cod-partido#, jornada, fecha, resultado)
-* PARTICIPAN (cod-futbolista#, cod-partido#, minutos, goles, tarjetas) - Relación entre FUTBOLISTAS y PARTIDOS
-* EQUIPOS (nombre-eq#, año_fundación, presidente, num_socios, estadio)
-* JUEGAN (nombre-eq-casa#, nombre_eq_visitante#, cod_partido#) - Relación entre EQUIPOS y PARTIDOS
-* CONTRATOS (num-contrato#, cod-futbolista, nombre-eq, fecha-contrato, duración, ficha, claúsulas)
-* ÁRBITROS (num-colegiado#, colegio, nombre, apellidos, num-temporadas)
-* ARBITRAN (cod-partido#, num-colegiado#, función) - Relación entre ÁRBITROS y PARTIDOS (“funciòn” puede ser “principal”, “juez de línea” o “cuarto”)
-
-Realiza estas consultas en lenguaje SQL:
-
-1. El número de goles marcados por el jugador Pantuflo Zapatilla en los partidos del mes de febrero de 2007.
+**El número de goles marcados por el jugador Pantuflo Zapatilla en los partidos del mes de febrero de 2007.**
 
 ```sql
+SELECT ADD(goles)
+	FROM Futbolistas, Participan, Partidos
+	WHERE Futbolistas.cod_futbolista = Participan.cod_futbolista
+	    AND Participan.cod_partido = Partidos.cod_partido
+	    AND nombre = "Pantuflo" AND apellidos = "Zapatilla"
+	    AND fecha BETWEEN "1/2/07" AND "28/2/2007";
 ```
 
-2. El nombre de los equipos contra los que ha jugado el Almería en partidos arbitrados por Esquinas Torres, así como el resultado y la jornada de esos partidos.
+**El nombre de los equipos contra los que ha jugado el Almería en partidos arbitrados por Esquinas Torres, así como el resultado y la jornada de esos partidos.**
 
 ```sql
+(SELECT nombre-eq-visitante, resultado, jornada
+	FROM Juegan, Partidos, Arbitran, Arbitros
+	WHERE Juegan.cod_partido = Partidos.cod_partido
+	     AND Partidos.cod_partido = Arbitran.cod_partido
+	     AND Arbitran.num_colegiado = Arbitros.num_colegiado
+	     AND Arbitros.nombre = "Esquinas" AND Arbitros.apellidos = "Torres"
+	     AND Juegan.nombre-eq-casa = "Almería")
+UNION
+(SELECT nombre-eq-casa, resultado, jornada
+	FROM Juegan, Partidos, Arbitran, Arbitros
+	WHERE Juegan.cod_partido = Partidos.cod_partido
+	     AND Partidos.cod_partido = Arbitran.cod_partido
+	     AND Arbitran.num_colegiado = Arbitros.num_colegiado
+	     AND Arbitros.nombre = "Esquinas" AND Arbitros.apellidos = "Torres"
+	     AND Juegan.nombre-eq-visitante = "Almería")
 ```
 
-3. Todos los datos de la plantilla de futbolistas del Poli Ejido.
+Una solución alternativa es la siguiente, que muestra en todos los registros el nombre de equipo "Almería" junto con su contrincante, ya sea local o visitante:
 
 ```sql
+SELECT nombre-eq-casa, nombre-eq-visitante, resultado, jornada
+	FROM Juegan, Partidos, Arbitran, Arbitros
+	WHERE Juegan.cod_partido = Partidos.cod_partido
+	     AND Partidos.cod_partido = Arbitran.cod_partido
+	     AND Arbitran.num_colegiado = Arbitros.num_colegiado
+	     AND Arbitros.nombre = "Esquinas" AND Arbitros.apellidos = "Torres"
+	     AND (Juegan.nombre-eq-visitante = "Almería" OR Juegan.nombre-eq-casa = "Almeria")
 ```
 
-4. El nombre de los árbitros que hayan arbitrado (como árbitro principal) a TODOS los equipos durante la temporada 2005 – 2006.
+**Todos los datos de la plantilla de futbolistas del Real Madrid.**
 
 ```sql
+SELECT Futbolistas.*
+	FROM Futbolistas, Contratos
+	WHERE Futbolistas.cod-futbolista = Contratos.cod-futbolista
+	    AND Contratos.nombre_eq = "Real Madrid";
 ```
 
-## COSAS QUE FALTAN:
+**Buscar el nombre y la estatura del futbolista más alto del FC Barcelona.**
 
-* ¿Dónde se puede probar todo esto?
-* Alias de tablas
-* Revisar comillas tipográficas y datos (localistas) en ejercicios resueltos
+```sql
+SELECT nombre, estatura
+	FROM Futbolistas, Contratos
+	WHERE Futbolistas.cod-futbolista = Contratos.cod-futbolista
+	    AND Contratos.nombre_eq = "FC Barcelona"
+	    AND estatura IN (SELECT MAX(estatura)
+				FROM Futbolistas, Contratos
+				WHERE Futbolistas.cod-futbolista = Contratos.cod-futbolista
+				    AND Contratos.nombre_eq = "FC Barcelona");
+```

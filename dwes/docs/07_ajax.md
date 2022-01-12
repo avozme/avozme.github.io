@@ -8,8 +8,6 @@ nav_order: 7
 # 7. Ajax
 {: .no_toc }
 
-<strong><span style='color:red'>ATENCIÓN: todo este capítulo aún está pendiente de ser revisado</span></strong>
-
 - TOC
 {:toc}
 

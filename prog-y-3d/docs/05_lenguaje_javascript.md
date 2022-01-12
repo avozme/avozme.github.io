@@ -1135,7 +1135,7 @@ clearTimeout(timer);
 
 Lógicamente, la variable *timer* debe ser la misma que usaste al crear el temporizador.
 
-## 5.5. Un ejemplo completo
+## 5.5. Un ejemplo completo: las tres en raya
 
 Llegó la hora de poner manos a la obra.
 
@@ -1561,7 +1561,7 @@ Para conseguirlo, tendrás que:
 
 #### Ejercicio 7. Tres en raya improved
 
-**Modifica el juego de las tres en raya para que sea más atractivo al usuario y más cómodo de jugar.**
+**Modifica el juego de las tres en raya para que sea más atractivo al usuario y más cómodo de jugar.** Encontrarás el código fuente del juego más arriba, en este mismo capítulo.
 
 Tienes que eliminar todas las entradas de datos mediante *prompt()* y sustituirlas por cajas de texto HTML, como esta:
 
@@ -1607,3 +1607,16 @@ La carreterá se moverá cada vez más deprisa. **El objetivo del juego es aguan
 ## 5.7. Ejercicios resueltos
 
 Aquí iremos poniendo los ejercicios que resolvamos en clase.
+
+#### Ejercicio 1. Tabla de multiplicar
+
+```html
+<h1>Tabla de multiplicar</h1>
+<div id='salida' style='text-align: center; border-style: solid; border-color: black'></div>
+<script>
+   var n = prompt("Dime un número");
+   for (i = 1; i <= 10; i++) {
+      document.getElementById('salida').innerHTML += n + " x " + i + " = " + n*i + "<br>";
+   }
+</script>
+```
