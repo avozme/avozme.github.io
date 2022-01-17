@@ -1,10 +1,10 @@
 ---
 layout: page
-title: 9. Seguridad y privacidad
+title: X. Seguridad y privacidad
 permalink: /seguridad-y-privacidad/
-nav_order: 9
+nav_order: X
 has_children: true
-parent: Introd. a la prog. y al diseño 3D
+parent: None
 ---
 
 # 9. Seguridad y privacidad
