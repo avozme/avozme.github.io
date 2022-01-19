@@ -55,7 +55,15 @@ Este tipo de aplicaciones, también llamadas **SPA (Single-page applications)**,
 
 En lo que sigue de este capítulo, aprenderemos los fundamentos de Ajax usándolo de forma puntual en el entorno de una aplicación web convencional con arquitectura MVC, no construyendo una aplicación SPA, que es algo mucho más complejo que, en todo caso, llegará después.
 
-## 7.2. Cómo enviar peticiones Ajax al servidor
+## 7.2. Cómo enviar peticiones Ajax al servidor con JavaScript clásico
+
+En este apartado vamos a aprender a enviar y recibir respuestas por Ajax **mediante JavaScript clásico**.
+
+El objeto XMLHttpRequest es la forma tradicional de trabajar con Ajax en JavaScript. Hay rumores fundados de que este objeto va a ser declarado obsoleto en breve (puede que ya lo esté cuando leas estas líneas).
+
+Por esa razón, no es muy buena idea usarlo para desarrollos nuevos. Sin embargo, lo vamos a ver aquí por dos razones: primera, porque hay mucho código antiguo JavaScript circulando por ahí donde lo vas a encontrar. Y, segunda, porque es una forma muy conveniente de comprender cómo funciona la comunicación asíncrona con el servidor.
+
+En apartados posteriores veremos cómo trabajar con Ajax mediante otros mecanismos no (presuntamente) obsoletos.
 
 ### 7.2.1. Peticiones sin datos al servidor
 
@@ -342,7 +350,121 @@ $('#info').load('mi-script.php');
 
 Simplemente, se ejecuta ***mi-script.php*** en el servidor y se carga el texto de respuesta en la capa #info. Sin funcion manejadora ni historias. Más fácil, imposible, ¿verdad?
 
-## 7.5. Ajax y Laravel
+## 7.5. Ajax y la API Fetch
+
+Hubo un tiempo en el que todos los programadores que querían una sintaxis limpia a la hora de usar Ajax se decantaban por jQuery. Sin embargo, la tecnología en el campo del desarrollo web cambia tan deprisa, que jQuery ya se considera una biblioteca algo desfasada.
+
+Sin embargo, la sintaxis de $.ajax(), la función de jQuery para gestionar llamadas Ajax, ha tenido un eco en las versiones más recientes de JavaScript, que ahora tiene su propia forma integrada de hacer solicitudes Ajax: mediante la **API Fetch**, un nuevo estándar para realizar solicitudes de servidor.
+
+En esta sección vamos a aprender a lanzar peticiones GET y POST usando la API Fetch de JavaScript.
+
+### 7.5.1. Promesas de JavaScript
+
+Para hacer peticiones asíncronas al servidor el la API Fetch, usaremos el **método *fetch()***.
+
+Y el método *fetch()* devuelve lo que en JavaScript se denomina **una promesa** (*promise*), así que, antes de continuar, tenemos que comprender qué es eso de las promesas.
+
+#### Entendiendo las *promesas* de JavaScript
+
+Imagina que vas a pedir una pizza a un local de comida rápida. Pagas en el mostrador y te dan un ticket con un número. Cuando llamen a ese número, podrás recoger tu pizza.
+
+*Ese ticket es una promesa.*
+
+El ticket significa que, en el futuro, obtendrás una pizza. Pero que todavía no la tienes.
+
+Cuando llaman a tu número, significa que la promesa se ha cumplido. Si no te llaman, significa que la promesa no se cumplió.
+
+Hay múltiples razones por las que una promesa puede no cumplirse nunca, ¿verdad? En el caso de la pizza, puede que el cocinero se quede sin ingredientes, puede que un inspector de sanidad cierre el establecimiento o puede haber un incendio en la cocina.
+
+Literalmente, hay millones de razones por las que una promesa podría no cumplirse, aunque lo normal es que lo haga.
+
+En resumen, una promesa se resuelve cuando ocurre alguna de estas cosas:
+
+* Obtenemos la comida.
+* No obtenemos la comida pero sí una razón de por qué no.
+
+Trasladado a JavaScript:
+
+```javascript
+const ticket = getPizza();
+
+ticket
+	.then(pizza => eatPizza(pizza))
+	.catch(error => getRefund(error));
+```
+
+Cuando tratamos de obtener la pizza (*getFood()*) obtuvimos una promesa (*ticket*). Si la promesa se resuelve correctamente, recibimos nuestra comida (*pizza*) y nos la comemos (*eatPizza()*). Si no, obtenemos la razón por la que no nos sirven la pizza (*error*) y nos devuelven nuestro dinero (*getRefund()*).
+
+Las promesas pueden estar en **3 estados**:
+
+* **Pendientes**. Una promesa recién lanzada está en este estado.
+* **Resueltas**. La promesa pasa a este estado si llamamos a *resolve()*.
+* **Rechazadas**. La promesa pasa a este estado si llamamos a *reject()*.
+
+Pues bien, cuando la promesa pasa a estar resuelta, sse ejecuta la función indicada en el método ***.then***. Y si la promesa es rechazada, entonces se ejecuta la función indicada en ***.catch***.
+
+### 7.5.2. Lanzando peticiones asíncronas con fetch()
+
+La sintaxis básica de una petición asíncrona con *fetch()* es esta:
+
+```javascript
+fetch(url)
+.then(function() {
+    // Respuesta recibida con éxito
+.catch(function() {
+    // La promesa se rechazó
+});
+
+```
+ 
+Con el método *fetch()* se obtiene una **promesa**. Si la promesa se resuelve con éxito, es decir, si el servidor responde correctamente, se ejecuta la función dentro del método *then()*. Y, si falla, se ejecuta la función que hay dentro de *catch()*.
+
+### 7.5.3. Recibiendo datos del servidor
+
+Lo habitual, por supuesto, es que **el servidor responda a nuestras peticiones con datos**. Puede ser algo tan simple como un valor booleano o algo tan complejo como una tabla llena de objetos formateada en JSON.
+
+Si la llamada al servidor va a devolver datos, estos se recogen en un parámetro de la función del *then()*. Del mismo modo, si se ha producido un error, este se recoge como parámetro en la función del *catch()*:
+
+```javascript
+fetch(url)
+  .then(function(data) {
+    // Procesar la respuesta. Los datos están en "data"
+    })
+  })
+  .catch(function(error) {
+    // Procesar el error. El error está en "error"
+  });
+```
+
+### 7.5.4. Lanzar peticiones por POST
+
+Fetch supondrá que todas las peticiones al servidor se envían por GET, salvo que se le indique lo contrario. Para lanzar **una petición por POST** se debe utlizar un segundo argumento de la función *fetch()* y pasarle el encabezado http con los datos que se van a enviar.
+
+Por ejemplo:
+
+```javascript
+const url = 'https://mi-servidor/mi-ruta';
+
+let data = {
+  name: 'Pepe',
+  age: 42
+}
+
+let httpData = {
+  method: 'POST',
+  body: data,
+  headers: new Headers()
+}
+
+fetch(url, httpData)
+.then(function() {
+    // Procesar la respuesta del servidor
+});
+```
+
+***Headers*** es parte de la API Fetch. Permite manipular los encabezados de las solicitudes y respuestas http, que es donde se empaquetan los datos enviados por POST. La variable *fetchData*, por tanto, llevará todos los datos que se van a enviar por POST.
+
+## 7.6. Ajax y Laravel
 
 Al trabajar con Laravel, estamos acostumbrados a que cada método del controlador termine devolviendo una vista completa (retur view...). ¿Pero qué pasa si hacemos una petición Ajax a una aplicación web escrita con Laravel en el lado del servidor?
 
@@ -350,7 +472,7 @@ Laravel puede continuar devolviendo una vista completa, pero es no suele ser lo 
 
 Y eso es precisamente lo que devuelve Laravel al rederizar cualquier vista. Así que, ¿cómo lo hacemos?
 
-### 7.5.1. Paso 1. Crear un controlador para las peticiones Ajax
+### 7.6.1. Paso 1. Crear un controlador para las peticiones Ajax
 
 Esto no es imprescindible, pero sí suele ser una práctica habitual: **reunir todas las peticiones Ajax en un único controlador**. 
 
@@ -364,7 +486,7 @@ Por lo tanto, crearemos un controlador ***AjaxController*** y añadiremos a nues
 Route::post('miJqueryAjax','AjaxController@miMetodo');
 ```
 
-### 7.5.2. Paso 2. Crear los métodos del controlador
+### 7.6.2. Paso 2. Crear los métodos del controlador
 
 Lo siguiente sería **crear los métodos que necesitemos en AjaxController** (o, si hemos decidido no crear un controlador específico para Ajax, crear los métodos en los controladores que corresponda).
 
@@ -401,7 +523,7 @@ Ten en cuenta que:
 * La salida de una petición Ajax suele ser JSON, pero podría ser otra cosa: HTML, XML o simple texto plano.
 * Lo repetimos una vez más: para responder a una petición Ajax no se debe renderizar una vista (¡salvo que tengas una muy buena excusa para hacerlo!), sino que basta con un return response().
 
-### 7.5.3. Paso 3. Agregar el token CSRF a las peticiones
+### 7.6.3. Paso 3. Agregar el token CSRF a las peticiones
 
 Como vimos al estudiar Laravel, **las peticiones enviadas por POST con Laravel deben llevar el token CSRF** o serán rechazadas. Esto se hacía para prevenir cierto tipo de ataques frecuentes a través de formularios HTML. Los detalles no son importantes aquí y, en todo caso, puedes repasar el capítulo sobre Laravel o sobre Sesiones, Cookies y Seguridad para revisar el concepto.
 

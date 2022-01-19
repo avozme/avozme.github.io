@@ -15,15 +15,15 @@ parent: Desarrollo Web en Entorno Servidor
 
 # A1.1. Sistemas de control de versiones
 
-Es inconcebible que un desarrollador trabaje en la actualidad sin un sistema de control de versiones.
+Es *inconcebible* que un desarrollador trabaje en la actualidad sin un sistema de control de versiones.
 
 Fíjate que en la frase anterior no tiene cabida tu opinión. Lo siento, pero es lo que hay. No importa si te gustan estos sistemas o no. No importa si estás los usas de forma habitual o siempre has huido de ellos como de la peste. No importa si ni siquiera sabes qué son o cómo funcionan. Si quieres dedicarte profesionalmente al desarrollo de software, tienes que conocerlos porque te los vas a encontrar vayas donde vayas.
 
 ## A1.1.1. ¿Qué es un sistema de control de versiones?
 
-Un sistema de control de versiones es un almacén en la nube pensado para equipos de desarrollo de software.
+Un **sistema de control de versiones** es un *almacén en la nube pensado para equipos de desarrollo de software*.
 
-Es decir, es como Google Drive, pero a lo bestia.
+Es decir, como Google Drive, pero a lo bestia.
 
 El sistema de control de versiones no solo sirve para que un puñado de usuarios (entre uno y miles) suban su código fuente a la nube para ponerlo a salvo de posibles problemas con las máquinas locales, sino que, además, permite:
 
@@ -194,7 +194,6 @@ Ese archivo **contiene una lista de todas las cosas que no se deben subir al rep
 * **Bibliotecas de terceros**. A menudo, recurrimos a bibliotecas de terceros para usarlas en nuestra aplicación. Incluir ese código en nuestro repositorio nos puede meter en un embrollo legal (mírate bien la licencia de uso de *todas* las bibliotecas que vayas a utilizar) y, además, nos puede hacer engordar innecesariamente el repositorio. Tendrás que valorar una a una si es conveniente incluir determinada librería o no. Las librerías no incluidas deberán ser instaladas manualmente cuando la aplicación se despliegue en un servidor, lo cual deberás explicar muy bien en la documentación.
 
    Por ejemplo, en el caso de Laravel, se aconseja no incluir la carpeta "vendor" en el repositorio remoto. Es decir, hay que añadir la carpeta "vendor" a .gitignore antes de la primera sincronización. En "vendor" se encuentran todas las librerías de terceros que usa Laravel. Entonces, para desplegar esta aplicación en un servidor, ¿de dónde sacamos todas esas librerías? Fácil: cuando despleguemos el código en un servidor, solo tendremos que ejecutar "composer update" en el directorio raíz de la aplicacion, y el propio composer se encargará de instalar las librerías que sean necesarias en las versiones más adecuadas para ese servidor.
-
 
 # A1.3. Trabajo básico con Git
 
