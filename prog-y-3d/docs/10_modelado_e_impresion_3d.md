@@ -168,7 +168,7 @@ tutorial-tinkercad-15
 
 Si interiorizas todo esto bien (a base de practicar un buen rato), ya puedes considerarte un usuario/a avanzado/a en TinkerCAD. Pero aún vamos a aprender un par de cosas más...
 
-### 10.1.5. Edición de modelos STL para impresión 3D
+### 10.1.5. Edición de objetos externos a TinkerCAD
 
 TinkerCAD también puede manipular modelos 3D hechos por otras personas, aunque hayan usado otros programas.
 
@@ -194,61 +194,39 @@ Más o menos así debería quedarte el resultado: ¡una taza de Ironman para lat
 
 tutorial-tinkercad-18
 
-🧠 XXXYYY Genera Formas Imposibles con CAD online: Diseños de TinkerCAD 3D
-Cuando has usado las formas básicas te habrás dado cuenta de que cada objeto tenía sus propiedades concretas, pero ¿y si hubiera objetos con otras propiedades? ¿y sí los pudiéramos crear nosotros y darle las propiedades quisiéramos. Pues los hay, y están en el generador de formas.
+### 10.1.6. El generador de formas
 
-🌈 Generación de Figuras en TinkerCAD Predefinidas
-El generador de formas está en el mismo lugar que las formas básicas pero otra pestaña diferente. Ten en cuenta que todos estos objetos tienen propiedades modificables, una pared no será una simple pared, podrás cambiarla el grosor, grosor de los ladrillos, ancho, alto… Entre todo lo que puedes hacer, tienes:
+Si has usado las formas básicas un tiempo, te habrás dado cuenta de que cada objeto tiene sus propiedades: longitud, altura, anchura. Pero ¿y si hubiera objetos con otras propiedades diferentes? ¿Y si los pudiéramos crear nosotros y asignarles las propiedades que queramos?
 
-Mapas de los E.E.U.U., regiones de China y Japón, Australia, y Europa.
-Una casa con jardín.
-Importar archivos .svg
-Generador de código QR.
-Diagramas circulares y de barras.
-Figuras del Carcassonne.
-Cuatro tipos de engranaje.
-Un generador de funciones 3D y otro de superficies.
-Un taladro (la boquilla) y Un mandala.
-Una caja ventilada para meter placas electrónicas.
-Un reflector parabólico paramétrico.
-Perfiles aerodinámicos de avión.
-Una matriz circular de perfil personalizable.
-Una matriz 3D con cubos y nomenclatura matriz.
-La curva de Moebyus.
-Un árbol con fractales.
-El mosaico de Penrose.
-Simuladores de terreno (rocoso y de hierva).
-tutorial-tinkercad-19
-Y así hasta 17 páginas completas, yo me he quedado loco con lo de la generación de curvas 3D ¿tú no? Ya me imagino haciendo un megamapa de Estados Unidos impreso en 3D para un trabajo de colegio con mi hijo/a o explicándoles las funciones con diagramas 3D. No tiene límites.
+Para eso sirve el **generador de formas**. Lo encontrarás en el mismo lugar que las formas básicas, pero en otra pestaña diferente. Ten en cuenta que todos estos objetos tienen diferentes propiedades modificables: lapared de ladrillos, por ejemplo, además del grosor, el ancho o el alto, te permite manipular el número de filas de ladrillos o el grosor de los ladrillos, propiedades que no tendrían sentido en otros objetos.
 
-🖲️ Programa y crea tus propios objetos 3D online
-Si te mola JavaScript y TinkerCAD, el generador de formas mediante código es lo tuyo.
+Entre los objetos que puedes encontrar en el generador de formas encontrarás cosas tan locas como:
 
-Vete a panel de Formas/ You / Tus generadores de Formas, te creas un nuevo proyecto y a disfrutar.
+* Mapas de muchos lugares del mundo, incluyendo Europa y países europeos.
+* Una casa completa con jardín.
+* Importar archivos .svg (imágenes vectoriales)
+* Generador de código QR.
+* Diagramas circulares y de barras.
+* Figuras del Carcassonne (un popular juego de mesa).
+* Engranajes diversos.
+* Un generador de funciones 3D y otro de superficies.
+* Un taladro (la boquilla)
+* Un mandala.
+* Una caja ventilada para meter placas electrónicas.
+* Un reflector parabólico paramétrico.
+* Perfiles aerodinámicos de avión.
+* Una matriz circular de perfil personalizable.
+* Una matriz 3D con cubos y nomenclatura matriz.
+* La curva de Moebius.
+* Un árbol con fractales.
+* El mosaico de Penrose.
+* Simuladores de terreno (rocoso y de hierva).
 
-tutorial-tinkercad-20
-También puedes ver el código JavaScript de otros en las figuras del generador de formas, si pulsas sobre uno cualquiera te pondrá debajo si su código está disponible o no.
+¡Y así hasta 17 páginas completas!
 
-tutorial-tinkercad-21
-¿Ves cómo mola? Yo no entiendo ni papa de JavaScript (lo mío es C++), pero mira que cosas tan chulas comparte la gente. ¡Viva la comunidad maker!
+### 10.1.7
 
-tutorial-tinkercad-22
-👶🏻 Espacios adicionales en TinkerCAD para niños (y mayores) que casi nadie conoce
-Lo de que casi nadie conoce, no es por que estén muy escondidos, sino que la gente cuando piensa en TinkerCAD solo piensa en un programa de diseño 3D online para niños, y para nada es así. Te voy a enseñar alguno de los rincones más sorprendentes de este programa.
-
-💡 Crea Diseños y Simulaciones con Arduino y Circuits
-TinkerCAD te permite hacer montajes con componentes de Arduino y lo mejor de todo: los puedes simular. Es una pasada y vicia mucho, perfecto para dar clases o aprender cuando no se tiene recursos materiales para hacerlo.
-
-tutorial-tinkercad-23
-🐉 Diseña tus porpios Mods para Minecraft
-Mods significa modificaciones, y es que en Minecraft puedes importar tus propias figuras y edificios, siempre que estén hechos por cuadrados. Como una imagen vale más que mil palabras y mil imágenes más que una imagen, te dejo un video flipante del tema.
-
-
-🏰 Haz construcciones técnicas con Lego
-En este caso tenemos lo mismo, pero con Lego. Personalmente no le acabo de pillar el punto a esto, ya que lo mismo que tardas en diseñar algo básico en el programa lo tardas montando tú en casa. Te dejo a un video de alguien haciendo un 3D Benchy y si se lo pillas tú me lo cuentas en comentarios.
-
-
-Actualización: Aunque sigo sin verle tanto la gracia, hay una nueva funcionalidad que permite transformar cualquier figura 3D en Lego para que puedas montarla y no tengas que pensar cómo hacerlo. Está bien 🙂
+XXXYYY
 
 📝 Esto no acaba aquí guaperas: Ejercicio Práctico.
 ¿Te has enterado de algo? No contestes, y haz mi ejercicio.
