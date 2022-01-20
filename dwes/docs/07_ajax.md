@@ -182,7 +182,7 @@ peticion_http.send(xml);
 function procesa_respuesta() { .... }
 ```
 
-## 7.3. Cómo recibir la respuesta del servidor
+## 7.3. Cómo recibir la respuesta del servidor con JavaScript clásico
 
 En todos los ejemplos anteriores, el servidor conestaba con un simple texto que mostrábamos por medio de un alert() de Javascript. Ni siquiera nos preocupamos por el contenido de ese texto. Podría ser cualquier cosa: algo como "petición procesada", "usuario borrado" o cosas por el estilo.
 
@@ -383,43 +383,26 @@ En resumen, una promesa se resuelve cuando ocurre alguna de estas cosas:
 * Obtenemos la comida.
 * No obtenemos la comida pero sí una razón de por qué no.
 
-Trasladado a JavaScript:
-
-```javascript
-const ticket = getPizza();
-
-ticket
-	.then(pizza => eatPizza(pizza))
-	.catch(error => getRefund(error));
-```
-
-Cuando tratamos de obtener la pizza (*getFood()*) obtuvimos una promesa (*ticket*). Si la promesa se resuelve correctamente, recibimos nuestra comida (*pizza*) y nos la comemos (*eatPizza()*). Si no, obtenemos la razón por la que no nos sirven la pizza (*error*) y nos devuelven nuestro dinero (*getRefund()*).
-
-Las promesas pueden estar en **3 estados**:
+Las promesas, de hecho, pueden estar en **3 estados**:
 
 * **Pendientes**. Una promesa recién lanzada está en este estado.
-* **Resueltas**. La promesa pasa a este estado si llamamos a *resolve()*.
-* **Rechazadas**. La promesa pasa a este estado si llamamos a *reject()*.
+* **Resueltas**. La promesa pasa a este estado si se resuelve correctamente.
+* **Rechazadas**. La promesa pasa a este estado si se produce un error y no puede atenderse la petición.
 
-Pues bien, cuando la promesa pasa a estar resuelta, sse ejecuta la función indicada en el método ***.then***. Y si la promesa es rechazada, entonces se ejecuta la función indicada en ***.catch***.
-
-### 7.5.2. Lanzando peticiones asíncronas con fetch()
+### 7.5.2. Lanzando peticiones asíncronas con *Fetch*
 
 La sintaxis básica de una petición asíncrona con *fetch()* es esta:
 
 ```javascript
 fetch(url)
-.then(function() {
-    // Respuesta recibida con éxito
-.catch(function() {
-    // La promesa se rechazó
+  .then(function() {
+    // Este código se ejecuta cuando el estado pasa a "Promesa Resuelta"
+  .catch(function() {
+    // Este código se ejecuta cuando el estado pasa a "Promesa Rechazada"
 });
-
 ```
  
 Con el método *fetch()* se obtiene una **promesa**. Si la promesa se resuelve con éxito, es decir, si el servidor responde correctamente, se ejecuta la función dentro del método *then()*. Y, si falla, se ejecuta la función que hay dentro de *catch()*.
-
-### 7.5.3. Recibiendo datos del servidor
 
 Lo habitual, por supuesto, es que **el servidor responda a nuestras peticiones con datos**. Puede ser algo tan simple como un valor booleano o algo tan complejo como una tabla llena de objetos formateada en JSON.
 
@@ -429,14 +412,13 @@ Si la llamada al servidor va a devolver datos, estos se recogen en un parámetro
 fetch(url)
   .then(function(data) {
     // Procesar la respuesta. Los datos están en "data"
-    })
   })
   .catch(function(error) {
     // Procesar el error. El error está en "error"
   });
 ```
 
-### 7.5.4. Lanzar peticiones por POST
+### 7.5.3. Lanzar peticiones por POST
 
 Fetch supondrá que todas las peticiones al servidor se envían por GET, salvo que se le indique lo contrario. Para lanzar **una petición por POST** se debe utlizar un segundo argumento de la función *fetch()* y pasarle el encabezado http con los datos que se van a enviar.
 
@@ -464,9 +446,11 @@ fetch(url, httpData)
 
 ***Headers*** es parte de la API Fetch. Permite manipular los encabezados de las solicitudes y respuestas http, que es donde se empaquetan los datos enviados por POST. La variable *fetchData*, por tanto, llevará todos los datos que se van a enviar por POST.
 
+El API Fetch puede usarse de otras maneras, pero esto es más que suficiente para empezar a trabajar con el servidor en modo asíncrono en una gran variedad de situaciones diferentes.
+
 ## 7.6. Ajax y Laravel
 
-Al trabajar con Laravel, estamos acostumbrados a que cada método del controlador termine devolviendo una vista completa (retur view...). ¿Pero qué pasa si hacemos una petición Ajax a una aplicación web escrita con Laravel en el lado del servidor?
+Al trabajar con **Laravel**, estamos acostumbrados a que cada método del controlador termine devolviendo una vista completa (*return view...*). ¿Pero qué pasa si hacemos una petición Ajax a una aplicación web escrita con Laravel en el lado del servidor?
 
 Laravel puede continuar devolviendo una vista completa, pero es no suele ser lo que Ajax espera recibir como respuesta. Ajax espera respuestas cortas y concisas: algo como 'true' o 'false', o un número, o un String o, como mucho, una estructura de datos más compleja formateada en XML o JSON. Pero no una página web completa con su cabecera, su cuerpo y toda la parafernalia.
 

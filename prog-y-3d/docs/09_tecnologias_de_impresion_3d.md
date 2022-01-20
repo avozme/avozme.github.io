@@ -69,7 +69,7 @@ Lo siguiente es utilizar **el material más adecuado** para su fabricación. Las
 
 Y, por último, está **la propia impresora**. Casi todas se parecen entre sí y la mayor diferencia se da en su tamaño, su velocidad y el tipo de material que pueden utilizar para imprimir los modelos 3D.
 
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=yW4EbCWaJHE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/yW4EbCWaJHE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <div style='font-size: 75%; font-style: italic'>
 Ejemplo de impresión 3D por SLA o estereolitografía
 </div>
@@ -273,7 +273,17 @@ Obviamente, el tamaño máximo del objeto que se puede imprimir con una de estas
 
 Algunas impresoras 3D domésticas de gama alta están equipadas con varios extrusores para combinar varios colores o materiales.
 
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=ik39_sv-wgQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ik39_sv-wgQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <div style='font-size: 75%; font-style: italic'>
 Una impresora 3D por FDM trabajando
 </div>
+
+## 9.4. Actividades propuestas
+
+**Ejercicio 1**. Busca tres aplicaciones de las impresoras 3D (presentes o futuras) que te parezcan sorprendentes y que no se hayan mencionado en este tema.
+
+**Ejercicio 2**. Busca los precios actuales de los tipos principales de impresora 3D. Para cada tipo de impresora, busca al menos tres modelos: uno de gama baja, otro de gama media y otro de gama alta. Elabora una tabla comparativa. ¿Qué tipo de impresora es, en promedio, más asequible? ¿Y cuáles son las más caras?
+
+**Ejercicio 3**. No todo lo que rodea a las impresoras 3D son buenas noticias. Cada vez que los seres humanos inventamos una nueva tecnología, a alguien se le ocurre utilizarla de manera poco recomendable. Lee [este artículo](https://www.vozpopuli.com/internacional/armas-impresoras-3d-europa.html) y trata de imaginar otros peligros que pueden suponer, en el presente y en el futuro, las impresoras 3D.
+
+**Ejercicio 4**. En el tema hemos mencionado los paquetes de software de modelado 3D más importantes, como *Maya*, *Blender* o *3DS Max*. Busca en internet información acerca de qué software utiliza la industria del entretenimiento (cine, televisión, publicidad, videojuegos...) para hacer los modelos y animaciones 3D que vemos a diario.
