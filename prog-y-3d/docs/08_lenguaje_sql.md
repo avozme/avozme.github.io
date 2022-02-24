@@ -1268,3 +1268,165 @@ Realiza estas consultas en lenguaje SQL:
 ## 8.7. Ejercicios resueltos
 
 Aquí iremos resolviendo los ejercicios propuestos en el apartado anterior. Recuerda que es importante que, antes de mirar las soluciones, trates de hacerlos por tu cuenta.
+
+#### Ejercicio 1: compañía de seguros
+
+**a) Crear las tablas con las restricciones detalladas en el enunciado del ejercicio:**
+
+```sql
+CREATE TABLE Personas (
+	dni		VARCHAR(12)	UNIQUE NOT NULL,
+	nombre	VARCHAR(50)	NOT NULL,
+	apellidos	VARCHAR(50)	NOT NULL,
+	ciudad	VARCHAR(50)	DEFAULT "Almería",
+	país		VARCHAR(50)	DEFAULT "España",
+	CONSTRAINT pk_personas
+		PRIMARY KEY (dni)
+);
+
+CREATE TABLE Seguros (
+	num_póliza	BIGINT	UNIQUE NOT NULL,
+	compañía	VARCHAR(50)	NOT NULL,
+	tipo		VARCHAR(20),
+	franquicia	DECIMAL(8,2)	DEFAULT 0,
+	dni_tomador	VARCHAR(12)	NOT NULL,
+	fecha		DATE,
+	CONSTRAINT pk_seguros
+		PRIMARY KEY (num_póliza),
+	CONSTRAINT fk_seguros_personas
+		FOREIGN KEY (dni_tomador) REFERENCES Personas(dni)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+);
+
+CREATE TABLE Coches (
+	matrícula	VARCHAR(7)	UNIQUE NOT NULL,
+	marca	VARCHAR(30)	NOT NULL,
+	modelo	VARCHAR(30),
+	potencia	DECIMAL(5,2),
+	conductor	VARCHAR(12)	NOT NULL,
+	seguro	BIGINT	NOT NULL,
+	CONSTRAINT pk_coches
+		PRIMARY KEY (matricula),
+	CONSTRAINT fk_coches_personas
+		FOREIGN KEY (conductor) REFERENCES Personas(dni)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	CONSTRAINT fk_coches_seguros
+		FOREIGN KEY (seguro) REFERENCES Seguros(num_póliza)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+);
+```
+
+**b) Realizar los siguientes cambios en las tablas**
+
+**Agregar a la tabla Personas el campo sexo, con un sólo carácter y obligatorio.**
+
+```sql
+ALTER TABLE Personas
+	ADD Sexo VARCHAR(1) NOT NULL;
+```
+
+**Desactivar el borrado en cascada (no la actualización) de la clave ajena en la tabla Seguros.**
+
+(No puede eliminarse solamente el borrado en cascada, así que hay que quitar por completo la restricción "fk_seguros_personas", y luego volver a crearla sin borrado en cascada. Observa que esto no afectará a los datos de la tabla.)
+
+```sql
+ALTER TABLE Seguros
+	DROP CONSTRAINT fk_seguros_personas;
+
+ALTER TABLE Seguros
+	ADD CONSTRAINT fk_seguros_personas
+		FOREIGN KEY (dni_tomador) REFERENCES Personas(dni)
+		ON UPDATE CASCADE;
+```
+
+**Insertar estos registros:**
+   * En Personas, DNI = 1111A, Juan Martín, C/ Barco, Roquetas de Mar, España
+   * En Seguros, Nº Póliza = 1, Compañía = Mapfre, Franquicia = 299,95 €, Tomador = Juan Martín
+
+```sql
+INSERT INTO Personas VALUES ('1111A', 'Juan', 'Martín', 'C/ Barco', 'Roquetas de Mar', 'España');
+
+INSERT INTO Seguros (num_póliza, compañía, franquicia, dni_tomador)
+	VALUES (1, 'Mapfre', 299.95, '1111A');
+```
+
+**Modificar todos los seguros de tipo "Todo riesgo" para que la franquicia sea de 120 €**
+
+```sql
+UPDATE Pacientes
+	SET pais = 'Desconocido'
+	WHERE tipo = 'Todo riesgo';
+```
+
+**Borrar todas las personas que no vivan ni en España ni en Portugal.**
+
+```sql
+DELETE FROM Personas
+	WHERE país <> 'España' AND país <> 'Portugal';
+```
+
+**c) Realizar las siguientes consultas** (SELECT):
+
+**Nombre y apellidos, ordenados alfabéticamente, de todas las personas que viven en ciudades que empiezan por "A" (consideraremos también la "A" con tilde):**
+
+```sql
+SELECT nombre, apellidos
+	FROM Personas
+	WHERE ciudad LIKE 'A*'  OR  ciudad LIKE 'Á*'
+	ORDER BY apellidos, nombre;
+```
+
+**Compañías de seguros que aseguran coches de la marca Seat y cuyas pólizas fueron contratadas después del año 2005.**
+
+```sql
+SELECT DISTINCT compañía
+	FROM Seguros, Coches
+	WHERE Seguros.num_póliza = Coches.seguro
+	    AND marca = 'Seat'
+	    AND fecha > '31/12/2005';
+```
+
+**Precio medio de las franquicias de los coches asegurados por la compañía Mapfre y cuya potencia es mayor de 100 caballos.**
+
+```sql
+SELECT AVG(franquicia)
+	FROM Seguros, Coches
+	WHERE Seguros.num_póliza = Coches.seguro
+	    AND compañía = 'Mapfre'
+	    AND potencia > 100;
+```
+
+**Nombre, apellidos, marca, modelo y compañía aseguradora de los vehículos cuyos dueños tienen varios coches y están asegurados en compañías diferentes.**
+
+Esta consulta no puede resolverse tal y como está, porque no conocemos a los dueños de los vehículos. Esa información, simplemente, no está en la base de datos. Así que supondremos que los dueños y los conductores son los mismos, porque los conductores sí están en la base de datos.
+
+```sql
+SELECT nombre, apellidos, marca, modelo, compañía
+	FROM Personas AS P1, Coches AS C1, Seguros
+	WHERE P1.dni = Seguros.dni_tomador
+	     AND Seguros.num_póliza = C1.seguro
+	     AND compañía NOT IN (SELECT compañía 
+ 				FROM Personas AS P2, Coches AS C2, Seguros
+				WHERE P2.dni = Seguros.dni_tomador
+				     AND Seguros.num_póliza = C2.seguro
+				     AND P2.dni = P1.dni
+				     AND C2.matrícula <> C1.matrícula);
+```
+
+Otra solución posible pasa por conectar la consulta y la subconsulta a través del dni del conductor:
+
+```sql
+SELECT nombre, apellidos, marca, modelo, compañía
+	FROM Personas AS P1, Coches, Seguros AS S1
+	WHERE P1.dni = S1.dni_tomador
+	     AND S1.num_póliza = Coches.seguro
+	     AND dni IN (SELECT dni 
+ 			FROM Personas AS P2, Coches, Seguros AS S2
+			WHERE P2.dni = S2.dni_tomador
+			     AND S2.num_póliza = Coches.seguro
+			     AND S1.compañía <> S2.compañía
+			     AND P1.dni = P2.dni);
+```
