@@ -1129,13 +1129,17 @@ En realidad, da igual, porque el SQL es más o menos igual en todos.
 
 Si nunca has usado una base de datos profesional como MySQL, Oracle u SQL Server, probablemente **lo más sencillo es que empieces por Microsoft Access o Libreoffice Base**. Si, en cambio, ya conoces las bases de datos profesionales, no necesitas leer este apartado. Puedes pasar directamente a los ejercicios, aunque probablemente tampoco los necesites.
 
-1. **Instala Microsoft Access (forma parte del paquete Microsoft Office) o Libreoffice Base (forma parte del paquete Libreoffice)** en tu ordenador. Microsoft ofrece una versión online de su Office. Recuerda que Microsoft Office es un paquete de software propietario y que copiar y usar programas de forma fraudulenta es un delito penal. Libreoffice, en cambio, es software libre y puedes usarlo y distribuirlo libremente. Eso sí: ¡Descárgalo solo de la web oficial, por favor! 
+Ten en cuenta que tanto Microsoft Access como Libreoffice Base usan versiones de SQL bastante alejadas del estándar (más aún en el caso de Base). Son la manera más sencilla de ejecutar SQL, pero probablemente no la mejor. Si aún así es lo único que tienes a mano, te cuento brevemente cómo ponerlas en marcha:
+
+1. **Instala Microsoft Access (forma parte del paquete Microsoft Office) o Libreoffice Base (forma parte del paquete Libreoffice)** en tu ordenador. Microsoft ofrece una versión online de su Office. Recuerda que Microsoft Office es un paquete de software propietario y que copiar y usar programas de forma fraudulenta es un delito penal. Libreoffice, en cambio, es software libre y puedes usarlo y distribuirlo libremente. Eso sí: ¡descárgalo solo de la web oficial, por favor! 
 
 2. **Arranca el programa** (claro).
 
 3. **En Microsoft Access**, crea una base de datos (o abre una existente). Ahora puedes ejecutar tus sentencias SQL pulsando el botón "Create" de la parte superior de la pantalla, y luego seleccionando "Query design" -> "Show table" -> "SQL view". Escribe tu sentencia SQL y pulsa "Run" para probarla.
 
 4. **En Libreoffice Base**, crea una base de datos (o abre una existente). Selecciona "Tool - SQL" y luego "Create Query in SQL view". En la pantalla siguiente, haz clic en "View" -> "Switch Design View On/Off". Escribe tu sentencia SQL y pulsa "Run" para probarla.
+
+Existe otra posibilidad para ejecutar SQL sin complicarte la vida: las **soluciones online**. Hay páginas son [sqliteonline.com](https://sqliteonline.com) o [sqlfiddle.com](https://sqlfiddle.com) que te permiten lanzar sentencias SQL contra bases de datos virtuales de forma gratuita y sin necesidad de registrarte en ningún sitio.
 
 En realidad, todo esto no tiene nada que ver con aprender SQL, sino con aprender a manejar un determinado programa. Elige el tuyo y bichea un poco hasta que averigües cómo se ejecuta el SQL. Se presupone de ti que eres un usuario/a de ordenadores de nivel medio-avanzado, y por eso quieres aprender a programar. No tiene mucho sentido explicar aquí cómo ejecutar SQL en cada gestor de bases de datos porque puede haber importantes diferencias entre un gestor de bases de datos y otro o, incluso, entre versiones del mismo programa. Y, en última instancia, es algo tan simple como trastear un rato con el programa.
 
@@ -1383,9 +1387,9 @@ SELECT nombre, apellidos
 
 ```sql
 SELECT DISTINCT compañía
-	FROM Seguros, Coches
-	WHERE Seguros.num_póliza = Coches.seguro
-	    AND marca = 'Seat'
+	FROM Seguros
+  INNER JOIN Coches ON Seguros.num_póliza = Coches.seguro
+	    WHERE marca = 'Seat'
 	    AND fecha > '31/12/2005';
 ```
 
@@ -1393,9 +1397,9 @@ SELECT DISTINCT compañía
 
 ```sql
 SELECT AVG(franquicia)
-	FROM Seguros, Coches
-	WHERE Seguros.num_póliza = Coches.seguro
-	    AND compañía = 'Mapfre'
+	FROM Seguros
+  INNER JOIN Coches ON Seguros.num_póliza = Coches.seguro
+	    WHERE compañía = 'Mapfre'
 	    AND potencia > 100;
 ```
 
@@ -1405,13 +1409,14 @@ Esta consulta no puede resolverse tal y como está, porque no conocemos a los du
 
 ```sql
 SELECT nombre, apellidos, marca, modelo, compañía
-	FROM Personas AS P1, Coches AS C1, Seguros
-	WHERE P1.dni = Seguros.dni_tomador
-	     AND Seguros.num_póliza = C1.seguro
-	     AND compañía NOT IN (SELECT compañía 
- 				FROM Personas AS P2, Coches AS C2, Seguros
-				WHERE P2.dni = Seguros.dni_tomador
-				     AND Seguros.num_póliza = C2.seguro
+	FROM Personas AS P1
+  INNER JOIN Seguros ON P1.dni = Seguros.dni_tomador
+  INNER JOIN Coches AS C1 ON Seguros.num_póliza = C1.seguro
+	  WHERE compañía NOT IN (SELECT compañía 
+ 				FROM Personas AS P2
+          INNER JOIN Seguros ON P2.dni = Seguros.dni_tomador
+          INNER JOIN Coches AS C2 ON Seguros.num_póliza = C2.seguro
+				     WHERE Seguros.num_póliza = C2.seguro
 				     AND P2.dni = P1.dni
 				     AND C2.matrícula <> C1.matrícula);
 ```
@@ -1420,13 +1425,277 @@ Otra solución posible pasa por conectar la consulta y la subconsulta a través 
 
 ```sql
 SELECT nombre, apellidos, marca, modelo, compañía
-	FROM Personas AS P1, Coches, Seguros AS S1
-	WHERE P1.dni = S1.dni_tomador
-	     AND S1.num_póliza = Coches.seguro
-	     AND dni IN (SELECT dni 
- 			FROM Personas AS P2, Coches, Seguros AS S2
-			WHERE P2.dni = S2.dni_tomador
-			     AND S2.num_póliza = Coches.seguro
-			     AND S1.compañía <> S2.compañía
-			     AND P1.dni = P2.dni);
+	FROM Personas AS P1
+  INNER JOIN Seguros AS S1 ON P1.dni = S1.dni_tomador
+  INNER JOIN Coches ON S1.num_póliza = Coches.seguro
+    WHERE dni IN (SELECT dni 
+    	FROM Personas AS P2
+      INNER JOIN Seguros AS S2 ON P2.dni = S2.dni_tomador
+      INNER JOIN Coches ON S2.num_póliza = Coches.seguro
+			  WHERE S1.compañía <> S2.compañía
+			    AND P1.dni = P2.dni);
 ```
+
+#### Ejercicio 2: Biblioteca
+
+**¿A qué puede deberse que la base de datos esté dándonos ese error?**
+
+En la tabla de Libros debe existir al menos un código de autor que no se corresponde con ningún autor de la tabla de Autores. Probablemente se deba a un error en la introducción de los datos. Al convertir a Libros.cód_autor en clave ajena que hace referencia a Autor.cód_autor, la integridad referencial quedaría rota, y por eso el gestor de base de datos nos impide crear esa clave ajena.
+
+**¿Cómo puede solucionarse? Escribe el código SQL que estimes necesario para intentar arreglar el problema.**
+
+Habría que localizar los registros de Libros que tienen asociados autores que no existen en la tabla de Autores. Una vez localizados, tenemos varias opciones: 
+a) Borrarlos (una solución un poco bestia)
+b) Moverlos a una nueva tabla temporal, para que el administrador de la base de datos haga lo que estime conveniente con esos registros (solución válida porque no destruye datos, pero muy trabajosa)
+c) Asignarles un autor "ficticio". Por ejemplo, podemos crear un autor llamado "Desconocido" en la tabla de autores con un código especial (p.ej: el 0), y asignar esos libros al nuevo autor. Esta será la solución que adoptaremos.
+
+```sql
+INSERT INTO Autores (cód_autor, nombre) VALUES (0, 'Desconocido');
+
+UPDATE Libros SET cód_autor = 0
+	WHERE cód_autor NOT IN (SELECT cód_autor FROM Autores);
+```
+
+Ahora sí podemos crear la clave ajena de Autores sin provocar una violación de la integridad referencial. Además, deberíamos repasar los datos de la tabla de Autores para asignar autores válidos a los libros marcados con el código de autor 0 (esto hay que hacerlo manualmente: la base de datos no puede saber qué códigos son los correctos)
+
+
+
+#### Ejercicio 3: academia de idiomas
+
+**Crear la tabla HORARIOS. Las claves y las horas son campos obligatorios. El aula es un número entero, y, aunque no es obligatorio, tomará por defecto el valor 1.**
+
+Como la clave primaria es triple (cod_grupo, dia_semana, dni_prof), no tiene sentido declarar esos atributos como UNIQUE de forma individual: lo que no puede repetirse es el conjunto de los tres, de modo que hay que crear una restricción de tabla que denominaremos pk_horarios_unique:
+
+```sql
+CREATE TABLE Horarios (
+	cod_grupo	VARCHAR(5)	NOT NULL,
+	dia_semana	CHAR(1)	NOT NULL,
+	dni_prof	VARCHAR(12)	NOT NULL,
+	hora_inicio	TIME	NOT NULL,
+	hora_fin	TIME	NOT NULL,
+	aula		SMALLINT	DEFAULT 1,
+	CONSTRAINT pk_horarios
+		PRIMARY KEY (cod_grupo, dia_semana, dni_prof),
+	CONSTRAINT pk_horarios_unique
+		UNIQUE (cod_grupo, dia_semana, dni_prof),
+	CONSTRAINT fk_horarios_1
+		FOREIGN KEY (cod_grupo) REFERENCES Grupos(cod_grupo),
+	CONSTRAINT fk_horarios_2
+		FOREIGN KEY (dni_prof) REFERENCES Profesores(dni_prof)
+);
+```
+
+**Modificar la tabla ALUMNOS para agregar el campo "cod-grupo", que es una clave ajena.**
+
+```sql
+ALTER TABLE Alumnos
+	ADD cod_grupo VARCHAR(5) NOT NULL;
+
+ALTER TABLE Alumnos
+	ADD CONSTRAINT fk_alumnos
+		FOREIGN KEY (cod_grupo) REFERENCES Grupos(cod_grupo);
+```
+
+**Insertar el registro ["12345678-Z", "Juan", "López López", "Italiano"] en la tabla PROFESORES.**
+
+```sql
+INSERT INTO Profesores VALUES ('12345678-Z', 'Juan', 'López', 'Italiano');
+```
+
+**Consultar los nombres y apellidos de los profesores que dan clase de francés de lunes a jueves a partir de las 16:00 horas, junto con la denominación de los grupos a los que dan clase y el horario de cada día.**
+
+```sql
+SELECT nombre, apellidos, denominación, día_semana, hora_inicio, hora_fin 
+	FROM Profesores
+  INNER JOIN Horarios ON Profesores.dni_prof = Horarios.dni_prof
+  INNER JOIN Grupos ON Horarios.cod_grupo = Grupos.cod_grupo
+	  WHERE (día_semana = 'L' OR día_semana = 'M' OR día_semana = 'X' OR día_semana = 'J')
+	    AND hora_inicio >= '16:00'
+	    AND idioma = 'Francés';
+```
+
+**Consultar los nombres y apellidos de los alumnos que reciben clases de al menos dos idiomas diferentes.**
+
+```sql
+SELECT DISTINCT Alumnos.nombre, Alumnos.apellidos
+	FROM Alumnos
+  INNER JOIN Horarios ON Alumnos.cod_grupo = Horarios.cod_grupo
+  INNER JOIN Profesores AS Profes1 ON Horarios.dni_prof = Profes1.dni_prof
+    WHERE Alumnos.dni IN (SELECT Alumnos.dni 
+				FROM Alumnos
+        INNER JOIN Horarios ON Alumnos.cod_grupo = Horarios.cod_grupo
+        INNER JOIN Profesores AS Profes2 ON Horarios.dni_prof = Profes2.dni_prof
+				  WHERE Profes1.idioma <> Profes2.idioma);
+```
+
+**Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS y de FRANCÉS.**
+
+```sql
+SELECT Alumnos.nombre, Alumnos.apellidos
+	FROM Alumnos
+  INNER JOIN Horarios ON Alumnos.cod_grupo = Horarios.cod_grupo
+  INNER JOIN Profesores ON Horarios.dni_prof = Profesores.dni_prof
+	WHERE Profesores.idioma = "Inglés"
+INTERSECT
+SELECT Alumnos.nombre, Alumnos.apellidos
+	FROM Alumnos
+  INNER JOIN Horarios ON Alumnos.cod_grupo = Horarios.cod_grupo
+  INNER JOIN Profesores ON Horarios.dni_prof = Profesores.dni_prof
+	  WHERE Profesores.idioma = "Francés"
+```
+
+**Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS o de FRANCÉS.**
+
+```sql
+SELECT Alumnos.nombre, Alumnos.apellidos
+	FROM Alumnos
+  INNER JOIN Horarios ON Alumnos.cod_grupo = Horarios.cod_grupo
+  INNER JOIN Profesores ON Horarios.dni_prof = Profesores.dni_prof
+	  WHERE (Profesores.idioma = "Inglés" OR Profesores.idioma = "Francés");
+```
+
+**Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS pero no reciben clases de ALEMÁN.**
+
+```sql
+SELECT Alumnos.nombre, Alumnos.apellidos
+	FROM Alumnos
+  INNER JOIN Horarios ON Alumnos.cod_grupo = Horarios.cod_grupo
+  INNER JOIN Profesores ON Horarios.dni_prof = Profesores.dni_prof
+	  WHERE Profesores.idioma = "Inglés"
+EXCEPT
+SELECT Alumnos.nombre, Alumnos.apellidos
+	FROM Alumnos
+  INNER JOIN Horarios ON Alumnos.cod_grupo = Horarios.cod_grupo
+  INNER JOIN Profesores ON Horarios.dni_prof = Profesores.dni_prof
+	  WHERE Profesores.idioma = "Alemán";
+```
+
+
+
+#### Ejercicio 4: concesionario de automóviles
+
+**Crear la tabla COCHES, de forma coherente a cómo la hayas diseñado en el primer apartado. Utiliza tipos de datos SQL adecuados a la información que se guardará en cada campo. El campo cod_coche es obligatorio, y el campo precio tiene 10000,00 como valor por defecto.**
+
+```sql
+CREATE TABLE Coches (
+	cod_coche 	INTEGER	NOT NULL UNIQUE,
+	marca	VARCHAR(50)	NOT NULL,
+	modelo	VARCHAR(50)	NOT NULL,
+	color		VARCHAR(20),
+	precio	DECIMAL(8,2)	DEFAULT 10000.00,
+	tipo		VARCHAR(5),	
+	CONSTRAINT pk_coches
+		PRIMARY KEY (cod_coche),
+	CONSTRAINT valores_tipo
+		CHECK (tipo = "NUEVO" OR tipo = "KM.0" OR tipo = "USADO")
+);
+```
+
+**Se ha detectado que algunos clientes tienen una "provincia" con valor nulo, pero, en cambio, sí que tienen un valor asignado al campo "ciudad". Escribe la(s) intrucción(es) SQL necesarias para arreglar este problema de la mejor manera que se te ocurra.**
+
+Eso no habría ocurrido si la base de datos hubiera estado bien diseñada, con las provincias y las ciudades en sus respectivas tablas independientes de los Clientes.
+
+Ahora habremos perdido datos irremediablemente. Lo único que podemos hacer es insertar una provincia genérica (por ejemplo, "Desconocida") en los registros que hayan perdido su provincia, para evitar tener valores nulos en la tabla de Clientes.
+
+```sql
+UPDATE Clientes
+	SET Provincia = "Desconocida"
+	WHERE Provincia IS NULL;
+```
+
+**Obtener el NIF de los clientes y los códigos de tienda que no sean de la misma ciudad.**
+
+```sql
+SELECT Clientes.cod_cliente, Tiendas.cod_tienda
+	FROM Clientes
+  INNER JOIN Ventas ON Clientes.cod_cliente = Ventas.cod_cliente
+  INNER JOIN Tiendas ON Ventas.cod_tienda = Tiendas.cod_tienda
+	WHERE Clientes.ciudad <> Tiendas.ciudad;
+```
+
+**Obtener la matrícula, la marca y el modelo de los coches vendidos en tiendas de la provincia de Madrid que no hayan sido vendidos en ninguna otra provincia.**
+
+```sql
+(SELECT Coches.cod_coche, marca, modelo
+	FROM Clientes
+  INNER JOIN Ventas ON Clientes.cod_cliente = Ventas.cod_cliente
+  INNER JOIN Tiendas ON Ventas.cod_tienda = Tiendas.cod_tienda
+	  WHERE Tiendas.provincia = "Madrid")
+EXCEPT
+(SELECT Coches.cod_coche, marca, modelo
+	FROM Clientes
+  INNER JOIN Ventas ON Clientes.cod_cliente = Ventas.cod_cliente
+  INNER JOIN Tiendas ON Ventas.cod_tienda = Tiendas.cod_tienda
+	  WHERE Tiendas.provincia <> "Madrid");
+```
+
+Existe una solución alternativa basada en subconsultas, pero el resultado debe ser el mismo:
+
+```sql
+SELECT Coches.cod_coche, marca, modelo
+	FROM Coches 
+  INNER JOIN Ventas ON Coches.cod_coche = Ventas.cod_coche
+  INNER JOIN Tiendas ON Ventas.cod_tienda = Tiendas.cod_tienda
+	WHERE Tiendas.provincia = "Madrid"
+	  AND Coches.cod_coche NOT IN (SELECT cod_coche
+	           FROM Coches 
+             INNER JOIN Ventas ON Coches.cod_coche = Ventas.cod_coche
+             INNER JOIN Tiendas ON Ventas.cod_tienda = Tiendas.cod_tienda
+	              WHERE Tiendas.provicia <> "Madrid")
+```
+
+**Obtener el código, ciudad y dirección de las tiendas que tengan entre 5 y 10 vehículos usados que sean de marca "Renault" y modelo "Megane".**
+
+```sql
+SELECT Tiendas.cod_tienda, Tiendas.ciudad, Tiendas.dirección
+	FROM Tiendas
+  INNER JOIN Coches-están-en-tiendas ON Tiendas.cod_tienda = Coches-están-en-tiendas.cod_tienda
+  INNER JOIN Coches ON Coches-están-en-tiendas.cod_coche = Coches.cod_coche
+	WHERE Coches-están-en-tiendas.cantidad BETWEEN 5 AND 10
+	    AND Coches.marca = "Renault" AND Coches.modelo = "Megane"
+	    AND Coches.tipo = "U";
+```
+
+**Obtener el código, marca y modelo del coche, así como el nombre y apellidos del cliente, de todos los vehículos vendidos a un cliente de Almería por un concesionario de Almería.**
+
+```sql
+SELECT Coches.cod_coche, marca, modelo, nombre, apellidos
+	FROM Coches
+  INNER JOIN Ventas ON Coches.cod_coche = Ventas.cod_coche
+  INNER JOIN Clientes ON Ventas.cod_cliente = Clientes.cod_cliente
+  INNER JOIN Coches-estan-en-tiendas ON Coches.cod_coches = Coches-están-en-tiendas.cod_coche
+  INNER JOIN Tiendas ON Ventas.cod_tienda = Tiendas.cod_tienda
+	WHERE Tiendas.ciudad = "Almería"
+	    AND Clientes.ciudad = "Almería";
+```
+
+**Obtener el nombre y apellidos de clientes que hayan adquirido un coche en algún concesionario que posea actualmente en stock el vehículo marca "Seat", modelo "León".**
+
+```sql
+SELECT DISTINCT nombre, apellidos
+	FROM Coches, Ventas, Clientes, Coches-están-en-tiendas
+	FROM Coches
+  INNER JOIN Ventas ON Coches.cod_coche = Ventas.cod_coche
+  INNER JOIN Clientes ON Ventas.cod_cliente = Clientes.cod_cliente
+  INNER JOIN Coches-estan-en-tiendas ON Coches.cod_coches = Coches-están-en-tiendas.cod_coche
+  INNER JOIN Tiendas ON Ventas.cod_tienda = Tiendas.cod_tienda
+	  WHERE Coches.marca = "Seat" AND Coches.modelo = "León"
+	    AND Coches-están-en-tienda.cantidad > 0;
+```
+
+**Obtener los nombres y apellidos de clientes que no han comprado ningún coche de color rojo a ningún concesionario de Andalucía.**
+
+```sql
+SELECT nombre, apellidos
+	FROM Clientes 
+  INNER JOIN Ventas ON Clientes.cod_cliente = Ventas.cod_cliente
+  INNER JOIN Tiendas ON Ventas.cod_tienda = Tiendas.cod_tienda
+	WHERE Cliende.cod_cliente NOT IN (SELECT cod_cliente 
+          	FROM Clientes 
+            INNER JOIN Ventas ON Clientes.cod_cliente = Ventas.cod_cliente
+            INNER JOIN Tiendas ON Ventas.cod_tienda = Tiendas.cod_tienda
+					    WHERE Coches.color = "Rojo"
+					      AND Tiendas.provincia IN ("Almería", "Granada", "Jaén",
+						         "Málaga", "Córdoba", "Sevilla", "Cádiz", "Huelva") );
+```
+
