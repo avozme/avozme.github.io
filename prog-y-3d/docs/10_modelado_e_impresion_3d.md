@@ -586,6 +586,24 @@ Asegúrate de que en el entorno de la impresora no se producen **corrientes de a
 Una pieza antes y después de la aplicación de una resina XTC.
 </div>
 
+### 10.5.4. Algunos *tips* para usar la impresora de CR10-mini con éxito
+
+En el momento de escribir esto, en el IES Celia Viñas contamos con una impresora **Crealty CR10-mini**. Se trata de una impresora de filamento capaz de imprimir en plástico ABS y PLA.
+
+Después de varios meses de experiencia trabajando con ella, podemos proporcionarte algunos consejos adicionales referidos a este modelo concreto:
+
+* Calienta el filamento un poco por encima de la temperatura indicada por el fabricante del mismo, sobre todo en invierno. Alrededor de 210 o 215º van bien para el PLA. El ABS necesitará que pongas la máquina a tope de temperatura. Ojo, porque cada vez que inicies una nueva impresión, la impresora hará bajar su temperatura hasta los valores establecidos de fábrica y tendrás que volver a subirlos.
+* Calienta también la cama un poco por encima de lo normal: unos 60º para el PLA y 70-80º para el ABS.
+* La calibración de la altura de la cama es *fundamental* para obtener un buen resultado. Si no, las piezas se despegarán hagas lo que hagas. Recuerda que el ABS se despega con más facilidad que el PLA.
+* Limpia y calibra la cama antes de cada impresión. Los laminados de Cura hacen varias pasadas de calibración previas antes de empezar a imprimir. Úsalas para darle un último toque a la calibración mirando de perfil cómo se mueve el extrusor y a qué distancia de la cama está. Recuerda que debe estar muy, muy cerca del cristal pero sin llegar a tocarlo.
+* Usa laca del pelo extrafuerte o, mejor aún, algún spray específico para mejorar el agarre de la pieza a la cama. Debes reponerlo antes de cada impresión y extender una capa generosa cuando la cama aún no esté demasiado caliente.
+* Usa un poco de cinta de carrocero para asegurarte de que el cristal no se mueve de su posición en la cama.
+* Las piezas con una base muy grande se imprimen mejor. Cuanto menor es la base con la que apoyan en la cama, más posibilidades hay de que se muevan y la impresión se estropee. Si la pieza es pequeña y siempre se te despega, platéate alguna de estas alternativas:
+   * Aumentar su tamaño.
+   * Reducir la velocidad de impresión.
+   * Añadir a la pieza una base de apoyo de tamaño generoso.
+
+
 ## 10.6. Actividades propuestas
 
 **Ejercicio 1**.  Regístrate en TinkerCAD y trata de crear la cabaña mediante unión y vaciado de objetos como se describe [aquí](/docs/prog-y-3d/_site/modelado-e-impresion-3d/#1014-c%C3%B3mo-modelar-objetos-3d-con-tinkercad). 
