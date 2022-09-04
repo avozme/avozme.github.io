@@ -20,11 +20,56 @@ En esta sección presentamos un resumen de las características de los medios in
 
 Son carritos móviles con capacidad para 10 ordenadores portátiles cada uno, aunque, más a menudo de lo que nos gustaría, son menos de 10 los que están operativos. 
 
-El centro dispone de 5 carritos de estas características distribuidos de la siguiente forma:
+El centro dispone de 9 carritos de estas características distribuidos de la siguiente forma:
 
-* Planta baja: 1 carrito en junto a la puerta de la Secretaría.
-* Planta primera: 2 carritos en el Departamento de Física y Química. La llave está disponible en Conserjería.
-* Planta segunda: 2 carritos en el Laboratorio de Ciencias Naturales. La llave está disponible en Consejería.
+SÓTANO
+
+<table>
+<thead>
+<tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
+</thead>
+<tbody>
+<tr><td>F</td><td>24 portátiles</td><td>Ateca</td></tr>
+</tbody>
+</table>
+
+PLANTA BAJA
+
+<table>
+<thead>
+<tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
+</thead>
+<tbody>
+<tr><td>G</td><td>24 portátiles</td><td>Junto a secretaría</td></tr>
+</tbody>
+</table>
+
+PLANTA PRIMERA
+
+<table>
+<thead>
+<tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
+</thead>
+<tbody>
+<tr><td>A</td><td>10 portátiles</td><td>Dpto. de Física y Química</td></tr>
+<tr><td>B</td><td>12 portátiles</td><td>Dpto. de Física y Química</td></tr>
+<tr><td>C</td><td>12 portátiles</td><td>Biblioteca</td></tr>
+<tr><td>I</td><td>36 portátiles</td><td>Biblioteca</td></tr>
+</tbody>
+</table>
+
+PLANTA SEGUNDA
+
+<table>
+<thead>
+<tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
+</thead>
+<tbody>
+<tr><td>D</td><td>10 portátiles</td><td>Lab. de Ciencias Naturales</td></tr>
+<tr><td>E</td><td>10 portátiles</td><td>Lab. de Ciencias Naturales</td></tr>
+<tr><td>H</td><td>24 portátiles</td><td>Aula 23</td></tr>
+</tbody>
+</table>
 
 ![Uno de los carritos de portátiles](medios-tic/carrito.jpg)
 
@@ -37,14 +82,14 @@ Los ordenadores portátiles de los carritos están destinados al alumnado para s
 Para usar un carrito de portátiles, el procedimiento general es el siguiente:
 
 * Reservarlo en el cuadrante horario correspondiente dispuesto en el tablón de anuncios TIC (en la Sala de Profesores)
-* Conseguir la llave de la dependencia donde se ubiquen los carritos que se han reservado (las llaves están en Conserjería o en Jefatura de Estudios; véase apartado anterior)
+* Conseguir la llave de la dependencia donde se ubiquen los carritos que se han reservado (las llaves están en Conserjería). Los carritos ubicados en aulas pueden conseguirse sin llave, puesto que el aula, normalmente, estará en uso.
 * Acceder a la dependencia y desenchufar los carritos de la toma de corriente.
 * Llevar los carritos hasta el aula. Aunque son pesados, se transportan con facilidad porque disponen de ruedas.
 * Repartir los ordenadores entre el alumnado y velar por que se usen adecuadamente (de vez en cuando sufrimos epidemias de extracción de teclas o de decoración de los portátiles con pegatinas de diverso pelaje y condición)
 * Al final de la clase, vigilar la reposición de los ordenadores a sus lugares originales. Para que los siguientes compañeros no los encuentren descargados, hay que dejarlos conectados a sus respectivos cargadores.
 * Devolver el carrito a la dependencia en la que se encontraba, enchufarlo de nuevo a la corriente y devolver la llave.
 
-MUY IMPORTANTE: si se detecta una incidencia en cualquier ordenador, es imprescindible hacerla llegar al coordinador TIC a la mayor brevedad posible. Más información en el apartado “Gestión de incidencias”
+***MUY IMPORTANTE: si se detecta una incidencia en cualquier ordenador, es imprescindible hacerla llegar al coordinador TIC a la mayor brevedad posible. Más información en el apartado “Gestión de incidencias”***
 
 ## 1.2. Equipos del profesorado en aulas generales
 
@@ -113,13 +158,20 @@ Fíjate que la botonera de la pizarra y las funciones táctiles no están contec
 
 ![PDI Smartboard con PC sobremesa](medios-tic/pdi-smartboard-2.jpg)
 
-**Aulas 20 y 21: pizarra Toshiba (aulas 20 y 21)**
+**Aulas con TV de gran formato**
 
-Algunas aulas específicas de los ciclos formativos poseen PDIs obsoletas que no describiremos en este documento.
+Los proyectores que se averían se están sustituyendo, cuando es posible, por televisores de gran formato (65 y 75 pulgadas).
 
-**Resto de aulas**
+Estos televisores se usan para proyectar la imagen y el sonido del ordenador del profesorado. Para usarlos, el procedimiento es:
 
-El resto de aulas disponen de cañones proyectores (sin PDI) o televisores de gran formato.
+1. Encender el ordenador y el televisor (da igual el orden). El televisor puede encenderse con el mando a distancia o pulsando directamente el botón de la carcasa, que suele ubicarse en el marco inferior.
+2. Ajustar el nivel de volumen del ordenador y del televisor.
+
+Es importante que recordemos apagar el televisor al finalizar la clase con el fin de prolongar su vida útil.
+
+**Aulas específicas de ciclos formativos**
+
+Las aulas de los ciclos formativos tienen su propio equipamiento derivado de la actividad lectiva que se lleva a cabo en ellas y no se describe en este documento.
 
 ## 1.3. Usuarios y contraseñas
 
@@ -132,28 +184,9 @@ Si alguien necesita disponer de un usuario personalizado en alguno de los ordena
 
 ## 1.4. Aulas de informática
 
-Estas aulas son para uso del alumnado de secundaria, bachillerato y adultos, siempre bajo la supervisión de un profesor/a responsable.
+El centro, debido a la falta de espacio, no dispone de ningún aula de informática específica más allá de las propias de los ciclos formativos.
 
-Dejando de lado las aulas específicas de los Ciclos Formativos, el centro dispone en este momento de un aula de informática con capacidad para 30 puestos y 60 personas.
-
-![Aula de informática](medios-tic/aula-informatica.jpg)
-
-**Ubicación de las aulas de informática**
-
-El aula de informática está actualmente ubicada en la Biblioteca del centro (primera planta).
-
-**Cómo usar las aulas de informática**
-
-El procedimiento general para usar estas aulas es el siguiente:
-
-1. Reservar el uso del aula en el cuadrante horario dispuesto en el tablón de anuncios TDE (en la Sala de Profesores)
-2. Conseguir la llave del aula (disponible en Conserjería)
-3. Al final de la clase, asegurarse de que todos los equipos han sido apagados y se encuentran en buen estado.
-4. Devolver la llave.
-
-MUY IMPORTANTE: si se detecta una incidencia en cualquier ordenador, se ruega comunicarla al coordinador TDE lo antes posible. Asimismo, si el alumnado detecta cualquier problema ANTES de usar el equipo, debe comunicarla al profesor/a con el mismo objetivo.
-
-Más información en el apartado “Gestión de averías e incidencias”
+Sin embargo, cualquier aula del centro puede convertirse temporalmente en aula de informática usando los abundantes carritos de portátiles que existen distribuidos por el centro (véase sección "Carritos de portátiles").
 
 ## 1.5. Otros medios
 
@@ -161,19 +194,17 @@ El IES Celia Viñas dispone de otros muchos medios relacionados con las TIC. Sus
 
 Para cualquier consulta o incidencia relacionada con su uso, por favor, recurre al coordinador TIC.
 
-* Ordenadores e impresoras de uso común en la sala de profesores y la sala de juntas.
-* Ordenadores y proyectores en las aulas multimedia del sótano (religión, inglés, francés y arte)
-* Ordenadores y proyector del taller de tecnología.
+* Ordenadores e impresoras de uso común en la sala de profesores y departamentos.
+* Ordenadores y proyectores en las aulas específicas (taller de tecnología, arte, laboratorios, emprendimiento...)
 * Ordenadores del aula de pedagogía terapéutica.
 * Ordenadores para uso del alumnado en la biblioteca.
 * Ordenador para uso del profesorado encargado de la biblioteca.
-* Ordenadores e impresoras de los diversos departamentos didácticos, del equipo directivo y del personal de administración.
+* Ordenadores e impresoras del personal de administración y equipo directivo.
 * Ordenador ubicado en la conserjería y conectado al televisor del hall para proyección de presentaciones y vídeos.
 * Ordenador y proyector del salón de actos.
-* Ordenador y proyector del laboratorio de ciencias naturales.
-* Ordenador y proyector del aula de música.
 * Ordenadores y proyectores de las aulas específicas de los ciclos formativos de informática.
-* Servidor TIC, puntos de acceso inalámbrico y switches de planta programables.
+* Servidor TIC y toda la infraestructura de red cableada e inalámbrica.
+* Equipación propia del Aula de Tecnología Aplicada (Ateca).
 
 ## 1.6. Gestión de incidencias
 
@@ -187,28 +218,19 @@ Si la incidencia parece más grave, se debe poner en conocimiento del coordinado
 
 Es muy importante poner la incidencia por escrito. Comentársela al coordinador TDE en un pasillo o en el semáforo de la rambla a las tres de la tarde puede tener un cierto valor terapéutico, pero poca utilidad práctica.
 
-Existen **tres maneras de comunicar una incidencia de forma eficaz**. Cada cual puede escoger la que le resulte más cómoda. de incidencias que se puede rellenar en menos de un minuto. 
+Existen **dos maneras de comunicar una incidencia de forma eficaz**. Cada cual puede escoger la que le resulte más cómoda.
 
 Forma número 1:
 
-* Conseguir un parte de incidencia. Encontrarás ejemplares disponibles colgados en el tablón TDE de la sala de profesores.
-* Dedicar unos segundos a rellenar el parte, intentando ser explícito/a con el problema y el equipo al que afecta.
-* Hacer llegar el parte al coordinador TDE por alguno de estos medios:
-    * En persona (su horario estará expuesto en el tablón TDE, en la sala de profesores)
-    * Dejándoselo sobre su mesa.
-    * Clavándolo con una chincheta en el tablón TDE de la sala de profesores.
-
-Forma número 2:
-
 * Enviar un mensaje por Séneca a coordinador TDE, intentando ser explícito/a con el problema y el equipo al que afecta.
 
-Forma número 3:
+Forma número 2:
 
 * Enviar un email al coordinador TDE, a la dirección buzontic@iescelia.org, intentando ser explícito/a con el problema y el equipo al que afecta.
 
 **El peliagudo caso de los carritos de portátiles**
 
-Los carritos de portátiles y, en menor medida, las aulas de informática del sótano, son una fuente inagotable de incidencias porque son usados durante muchas horas al día por un alumnado cambiante.
+Los carritos de portátiles son una fuente inagotable de incidencias porque son usados durante muchas horas al día por un alumnado cambiante.
 
 En estos ordenadores hemos encontrado de todo: teclas arrancadas, chicles pegados, pantallas partidas y otras cosas de las que preferimos no dejar constancia por escrito.
 
@@ -218,13 +240,6 @@ Por ello rogamos la máxima colaboración en el uso de esta equipación. Es la �
 * Informar lo antes posible de la incidencia al coordinador TDE.
 
 Con esta simple precaución, podremos atender las incidencias con celeridad, mantener los carritos en un estado razonable de funcionamiento y atajar los actos de vandalismo.
-
-**¿Y si se han agotado las hojas de incidencias?**
-
-Es inevitable: las hojas de incidencia se agotan tarde o temprano. Para reponerlas, hay dos medios:
-
-* Comunicarlo al coordinador TDE para que las reponga.
-* Hacernos con una copia y reponerlas nosotros mismos o, mejor aún, tener nuestras propias copias para nuestro uso personal.
 
 ## 1.7. Preguntas frecuentes
 
@@ -287,10 +302,6 @@ Este problema se solventa actualizando el navegador web. Si te ocurre en alguno 
 **Mis archivos han desaparecido**
 
 Probablemente el ordenador ha sido formateado o cambiado. Los ordenadores del instituto son de uso compartido y no deberíamos dejar archivos personales en ellos o, al menos, tendríamos que disponer de copias de seguridad de todo. En cualquier momento, pueden sufrir una avería y necesitar ser formateados o cambiados por otros sin previo aviso.
-
-**No quedan partes de incidencia**
-
-Los partes disponibles en la sala de profesores son repuestos por el Coordinador TDE con regularidad y siempre debería haber varios de reserva. Si no es así, comunícalo verbalmente o con una nota y lo solucionaremos de inmediato.
 
 **Necesito instalar Microsoft Windows**
 

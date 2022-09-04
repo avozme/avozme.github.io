@@ -1,15 +1,15 @@
 ---
 layout: page
-title: 2.6 Ejercicios propuestos
+title: 2.7 Ejercicios propuestos
 permalink: /php/ejercicios-propuestos.html
-nav_order: 6
+nav_order: 7
 has_children: false
 parent: 2 Introducción a PHP
 grand_parent: Desarrollo Web en Entorno Servidor
 ---
 
 
-## 2.6. Ejercicios propuestos
+## 2.7. Ejercicios propuestos
 {: .no_toc }
 
 - TOC
@@ -25,7 +25,7 @@ También puedes escribir tus propios programas si los que aparecen aquí no te i
 
 Estos ejercicios requerirán de ti dedicación, esfuerzo y constancia. Como ir al gimnasio, vamos. Pero por eso estás aquí, ¿no es cierto? Y recuerda lo que ya hemos dicho varias veces antes: ***a programar solo se aprende programando***.
 
-### 2.6.1. Ejercicios sin acceso a bases de datos
+### 2.7.1. Ejercicios sin acceso a bases de datos
 
 #### Ejercicio 1: positivo, negativo
 
@@ -59,7 +59,7 @@ Nosotros vamos a construir una versión simplificada que muestre secuencias de n
 
 El programa mostrará un número entre 1 y 4 durante un instante, y luego borrará la pantalla y pedirá al usuario que lo repita. Después mostrará dos números aleatorios entre 1 y 4 (por ejemplo, 3 – 1), y luego el usuario los tendrá que repetir, y así hasta que el usuario falle al introducir los números.
 
-### 2.6.2. Ejercicios con acceso a bases de datos
+### 2.7.2. Ejercicios con acceso a bases de datos
 
 #### Ejercicio 6: videoclub simplificado
 

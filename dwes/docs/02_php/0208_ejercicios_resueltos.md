@@ -1,15 +1,15 @@
 ---
 layout: page
-title: 2.5 Ejercicios resueltos
+title: 2.8 Ejercicios resueltos
 permalink: /php/ejercicios-resueltos.html
-nav_order: 5
+nav_order: 7
 has_children: false
 parent: 2 Introducción a PHP
 grand_parent: Desarrollo Web en Entorno Servidor
 ---
 
 
-## 2.5. Ejercicios resueltos
+## 2.8. Ejercicios resueltos
 {: .no_toc }
 
 - TOC
@@ -23,7 +23,7 @@ Mira con detenimiento el código y asegúrate de comprenderlo. Para empezar a pr
 
 Eso sí, es imprescindible que, después, dediques un tiempo a tratar de escribir tú mismo/a tus propios programas sencillos. Al final de esta sección te propondremos algunos, aunque tú puedes cambiarlos por otros que te apetezcan más. Lo importante es que recuerdes siempre algo que parece obvio pero que, a menudo, la gente olvida: *a programar solo puede aprenderse programando*.
 
-### 2.5.1. Tabla de multiplicar
+### 2.8.1. Tabla de multiplicar
 
 Vamos a escribir un programa en PHP que pida un número al usuario y muestre su tabla de multiplicar hasta el 25 en una tabla HTML de 5 por 5 casillas.
 
@@ -130,7 +130,7 @@ Observa como se usa la ***función isset()*** para averiguar en cuál de esas do
 </html>
 ```
 
-### 2.5.2. Juego del número secreto
+### 2.8.2. Juego del número secreto
 
 Vamos a escribir una aplicación web en PHP para jugar al *juego del número secreto*. 
 
@@ -273,7 +273,7 @@ Observa detenidamente cómo se usan las variables de sesión con PHP mediante el
 </html>
 ```
 
-### 2.5.3. Biblioteca
+### 2.8.3. Biblioteca
 
 Este es un caso práctico muy importante por dos razones:
 
