@@ -52,9 +52,9 @@ PLANTA PRIMERA
 </thead>
 <tbody>
 <tr><td>A</td><td>10 portátiles</td><td>Dpto. de Física y Química</td></tr>
-<tr><td>B</td><td>12 portátiles</td><td>Dpto. de Física y Química</td></tr>
-<tr><td>C</td><td>12 portátiles</td><td>Biblioteca</td></tr>
-<tr><td>I</td><td>36 portátiles</td><td>Biblioteca</td></tr>
+<tr><td>B</td><td>10 portátiles</td><td>Dpto. de Física y Química</td></tr>
+<tr><td>C</td><td>10 portátiles</td><td>Biblioteca</td></tr>
+<tr><td>I</td><td>30 portátiles</td><td>Biblioteca</td></tr>
 </tbody>
 </table>
 
@@ -67,7 +67,7 @@ PLANTA SEGUNDA
 <tbody>
 <tr><td>D</td><td>10 portátiles</td><td>Lab. de Ciencias Naturales</td></tr>
 <tr><td>E</td><td>10 portátiles</td><td>Lab. de Ciencias Naturales</td></tr>
-<tr><td>H</td><td>24 portátiles</td><td>Aula 23</td></tr>
+<tr><td>H</td><td>24 portátiles</td><td>Aula 22</td></tr>
 </tbody>
 </table>
 
