@@ -328,7 +328,13 @@ La Consejería de Educación y Deporte proporciona una plataforma para Moodle pa
 
 Existen múltiples recursos en la red orientados al alumnado y al profesorado para aprender a usar Moodle, tanto a nivel principiante como avanzado. En esta sección solo explicaremos como habilitar nuestros usuarios y cursos y dar los primeros pasos en Moodle Centros.
 
-**Soy nuevo/a en Moodle Centros y quiero crear un aula virtual**
+Para aprender a manejar Moodle Centros, puedes consultar:
+
+* El [manual de iniciación a Moodle para docentes](http://agrega.juntadeandalucia.es//repositorio/09122020/98/es-an_2020120911_9092449/rol_profesorado/index.html) de la Junta de Andalucía.
+* El [manual completo de Moodle](https://www.juntadeandalucia.es/educacion/eaprendizaje/moodle-centros/) de la Junta de Andalucía.
+* Nuestra guía para absolutos novatos/as, que encontrarás justo a continuación en este mismo documento.
+
+### 2.1.1. Soy novato/a en Moodle Centros y quiero crear un aula virtual
 
 **Paso 1.** Con cualquier navegador web, entra en la siguiente dirección y selecciona la provincia de Almería: https://educacionadistancia.juntadeandalucia.es/centros/almeria/
 
@@ -379,7 +385,7 @@ Haz clic en "Administración del curso" (en el panel de la izquierda). Se desple
 
 ¡Tu curso está listo para empezar a subir material! Consulta el apartado siguiente si quieres aprender a hacerlo.
 
-**Ya tengo mi aula virtual en Moodle. ¿Ahora qué?**
+### 2.1.2. Ya tengo mi aula virtual en Moodle. ¿Ahora qué?
 
 Ya tienes un aula virtual en Moodle Centros y ahora quieres crear contenido dentro de ella, ¿verdad?
 
@@ -434,7 +440,7 @@ Luego haz clic en "Crear sesión", asigna un nombre a la sesión (Por ejemplo: "
 
 Todos los usuarios del curso (es decir, tú y tu alumnado) tendréis acceso a esa videoconferencia en el horario programado. Si deseas que otras personas puedan entrar, debes hacer clic en "Acceso de invitados". Te aparecerá una dirección que puedes compartir con las personas que quieras invitar. Esto es lo que hace el equipo directivo, por ejemplo, cuando nos pasan el enlace para los claustros telemáticos.
 
-**Quiero separar al alumnado en grupos**
+### 2.1.3. Quiero separar al alumnado en grupos
 
 En las aulas virtuales creadas automáticamente mediante el proceso que hemos visto en el apartado 1, nos encontraremos con todo el alumnado del mismo nivel agrupado en la misma aula virtual.
 
@@ -459,7 +465,7 @@ Para ello, debes solicitar la creación manual de estas aulas al equipo de coord
 
 Ten encuentra que, en estas aulas creadas manualmente, deberás dar de alta también manualmente al alumnado (mediante la opción "Participantes" del panel de la izquierda de cada aula virtual). Cuando te confirmemos la creación de las aulas virtuales solicitadas, te indicaremos lo que debes hacer para ponerlas en funcionamiento.
 
-**Quiero echar un vistazo a las preguntas más frecuentes de mis compañeros/as**
+### 2.1.4. Quiero echar un vistazo a las preguntas más frecuentes de mis compañeros/as
 
 ***¿Cómo puede el alumnado acceder a Moodle Centros?***
 
@@ -495,12 +501,12 @@ Por ejemplo, si quieres enlazar unos vídeos de Youtube para tu alumnado, bastar
 
 ***¿Las aulas virtuales de Moodle Centros se borran de un año para otro?***
 
-Sí. El equipo encargado del mantenimiento de Moodle Centros realiza una limpieza a fondo de la plataforma durante el mes de septiembre. Para no perder sus aulas virtuales, cada profesor/a debe responsabilizarse de realizar una copia de seguridad antes del 15 de septiembre de cada año. Esa copia puede restaurarse posteriormente.
+Sí. El equipo encargado del mantenimiento de Moodle Centros realiza una limpieza completa de la plataforma durante el mes de septiembre. Para no perder sus aulas virtuales, cada profesor/a debe responsabilizarse de realizar una copia de seguridad antes de esa fecha. Esa copia puede restaurarse posteriormente en el Moodle Centros limpio.
 
 No te agobies demasiado por ello: es un proceso sencillísimo que no requiere más de diez minutos al año. Y, si tienes problemas para hacerlo, puedes pedir ayuda al equipo de coordinación TDE.
 
 
-**¿Necesitas ayuda personalizada?**
+### 2.1.4. ¿Necesitas ayuda personalizada?
 
 Si, a pesar de los pasos que hemos detallado en este documento, sigues estando perdido/a en Moodle Centros y crees que necesitas ayuda individualizada, puedes solicitar esa ayuda enviando un mensaje a través de Séneca al coordinador TDE o por correo electrónico a la dirección buzontic@iescelia.org.
 
@@ -551,17 +557,24 @@ No. Tu cuenta de Google Suite se creará automáticamente alrededor de 24 horas 
 
 ## 2.3. Videoconferencias
 
-Las videoconferencias para las clases semipresenciales o a distancia (o para cualquier otra situación en la que sea necesario establecer una videoconferencia) deben realizarse, por motivos de protección de datos, a través de las dos plataformas seleccionadas por la Consejería de Educación y Deporte: Moodle Centros o Google Suite (Meet o Hangouts).
+Las videoconferencias para las clases semipresenciales o a distancia (o para cualquier otra situación en la que sea necesario establecer una videoconferencia) deben realizarse, por motivos de **protección de datos**, a través de las dos plataformas seleccionadas por la Consejería de Educación y Deporte: Moodle Centros o Google Suite (Google Meet).
 
 Si necesitas utilizar imperativamente cualquier otro sistema de videoconferencia como Jitsi, Zoom o Teams, asegúrate de que el alumnado no participará en esa videoconferencia aportando ningún dato de carácter personal, lo que incluye su nombre, dirección de email y, por supuesto, su propia imagen.
 
-**Moodle Centros: BB Collaborate**
+**Moodle Centros: Webex**
 
-Moodle Centros tiene integrado un sistema de videoconfencia basado en BB Collaborate, propiedad de la una compañía llamada Blackboard, especializada en tecnología educativa.
+Desde el curso 21-22 el servicio de videoconferencia integrado con Moodle es **Webex**.
 
-Todas las aulas virtuales de Moodle Centros tienen por defecto creada una sala de videoconferencia conectada a los servidores de BB Collaborate. Si entras a la sala a través de un aula virtual de Moodle Centros y tu alumnado hace lo mismo, la información de carácter personal estará protegida.
+El módulo de videoconferencia Webex solo está incluido por defecto en las aulas Sala del Profesorado y Punto de encuentro. En el resto de aulas, hay que añadir el servicio Webex al curso Moodle en el que queramos usarlo. Para ello se siguen los siguientes pasos:
 
-![BB Collaborate](plataformas-online/bbcollaborate.jpg)
+1. Entrar en el curso.
+2. Hacer clic en "Activar edición".
+3. Hacer clic en "Añadir una actividad o recurso".
+4. Seleccionar Herramienta externa > Webex. A partir de ahí, seguiremos las instrucciones de Webex para crear la sesión de videoconferencia.
+
+IMPORTANTE: la primera vez, Webex nos pedirá que nos registremos en su servicio. *NO debe crearse el usuario directamente a través de la web o la APP de WEBEX, debe hacerse SIEMPRE a través del módulo en Moodle*, siguiendo las instrucciones que aparecerán en la pantalla.
+
+Más información: [Guía Rápida Webex](https://www.juntadeandalucia.es/educacion/eaprendizaje/wp-content/uploads/2021/09/Guia-rapida-Webex-21-22.pdf)
 
 **Google Suite: Meet o Hangouts**
 
