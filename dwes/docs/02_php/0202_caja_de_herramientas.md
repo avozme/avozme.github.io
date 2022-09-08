@@ -133,7 +133,7 @@ Nosotros nos centraremos primero en PHP clásico, y más adelante veremos los fr
 * PHP5 (2004) tiene soporte para orientación a objetos y una biblioteca de clases bastante bien diseñada. Por lo tanto, desde esta versión PHP pasa de ser un lenguaje estructurado (3GL) a ser un lenguaje orientado a objetos.
 * PHP6 empezó a desarrollarse en 2007 y se canceló en 2014.
 * PHP7 introdujo novedades menores y estuvo vigente hasta 2020. En el momento de escribi esto (junio de 2021) es la versión dominante en la mayoría de los servidores web.
-* PHP8 es la última versión (8.0.7 en junio de 2021). Las versiones PHP4 y PHP5 se consideran obsoletas e inseguras, aunque muchas aplicaciones existentes aún las utilicen. Sigue habiendo soporte para PHP7, pero todas las nuevas aplicaciones se deberían escribir pensando en PHP8.
+* PHP8 es la última versión (8.1.7 cuando escribo esto, en septiembre de 2022). Las versiones PHP4 y PHP5 se consideran obsoletas e inseguras, aunque muchas aplicaciones existentes aún las utilicen. Sigue habiendo soporte para PHP7, pero todas las nuevas aplicaciones se deberían escribir pensando en PHP8.
 
 #### Lo nuevo en PHP8
 
@@ -168,7 +168,7 @@ Algunas de las ventajas que han hecho de PHP el líder de los lenguajes del lado
 * Comunidad muuuy grande.
 * Su sintaxis, estabilidad y seguridad han mejorado enormemente desde los tiempos algo caóticos de PHP4.
 
-#### Inconvenientes de PHP
+#### Inconvenientes de PHP con respecto a otros lenguajes
 
 PHP también presenta algunos inconvenientes, por supuesto. No hay nada perfecto. Entre ellos, podemos destacar:
 
@@ -217,5 +217,5 @@ A partir de ahora, cuando hablemos de bases de datos, siempre nos estaremos refi
 * Las primeras versiones (que se denominaron mSQL) eran muy ineficientes.
 * La popularización de PHP y su ganancia en eficiencia a partir de la versión 3 la han hecho muy popular en la actualidad.
 * Tras su adquisición por Oracle, se intentó relegar al segmento medio-bajo en el mercado de los SGBD y surgió un fork: MariaDB (traducción para los recién llegados: "fork" significa "proyecto nuevo surgido a partir de otro proyecto ya existente").
-* La versión más reciente (actualizado en junio de 2021) es MariaDB 10.5.10
+* La versión más reciente (cuando escribo esto, en septiembre de 2022) es MariaDB 10.9.2
 

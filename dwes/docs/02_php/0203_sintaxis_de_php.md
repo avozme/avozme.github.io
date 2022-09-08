@@ -38,18 +38,9 @@ Los comentarios de PHP se pueden escribir de varias formas:
 /* Comentario de una o varias líneas */
 ```
 
-### 2.3.3. Operadores
+### 2.3.3. Variables y constantes
 
-Los operadores en PHP son iguales que los de Java, que, a su vez, los heredó de C/C++:
-
-* Asignación: $a = 3;
-* Comparación:  ==, <=, >=, !=, <=>, etc.
-* Operadores aritméticos: +, -, *, /, %...
-* Operadores lógicos: &&, \|\|, !
-
-### 2.3.4. Variables
-
-Las variables de una función/clase/método PHP son siempre **locales**, es decir, sólo están disponibles en esa función/clase/método, salvo que se indique otra cosa.
+Las **variables** de una función/clase/método PHP son siempre **locales**, es decir, sólo están disponibles en esa función/clase/método, salvo que se indique otra cosa.
 
 Si se definen variables fuera de una función, serán **globales** a todo el fichero actual, pero no pueden usarse en el código ubicado en otros ficheros. Existen maneras de lograr que una variable sea global a todo el código, pero, vamos... ¿en serio quieres hacer eso?
 
@@ -68,11 +59,21 @@ $media = 52.75;          // Variable real
 $texto = "Hoy es lunes"; // Variable string
 ```
 
-Cualquier variable puede **cambiarse de tipo** con la función **setType()**:
+Cualquier variable puede **cambiarse de tipo** con funciones como **intval(), floatval()** o **strval()**:
 
 ```php
-$a = "10";                 // a es una cadena
-setType($a, "integer");    // a se convierte a entero
+$a = "10";          // $a es una cadena
+$b = intval($a);    // $a se convierte a entero y se asigna a $b
+```
+
+Como no hay que declarar las variables, a veces no estaremos seguros de si una variable existe y tiene un valor válido (no nulo) asignado. Para averiguarlo existe la función **isset()**, que nos devuelve *true* si la variable existe y *false* en caso contrario. Del mismo modo, hay otra función muy útil, **unset()**, que hace desaparecer a una variable ya definida y libera la memoria que ocupaba:
+
+```php
+if (isset($nombre)) {
+    echo $nombre;    // Solo muestra el nombre si la variable tiene algún valor
+} else {
+    echo "El nombre no está definido";
+}
 ```
 
 **El tipado de PHP es débil**, así que puedes encontrarte expresiones donde **se mezclen tipos**. PHP hará las conversiones que le parezca oportunas, con resultados a veces imprevisibles, por lo que no es buena idea recurrir a estas estratagemas a menos que sepas muy bien lo que estás haciendo y el resultado que obtendrás. Por ejemplo:
@@ -90,6 +91,45 @@ Los **tipos de datos** predefinidos en PHP son:
 * bool (booleano)
 * string (cadena)
 * array (pues eso)
+
+En cuanto a las **constantes**, se crean con la función **define()**:
+
+```php
+define("NOMBRE", "Pepito Pérez");  // NOMBRE es una constante
+echo NOMBRE;    // Muestra el valor de la constante. ¡Fíjate en que no lleva el símbolo $!
+```
+
+Las constantes, por convenio, suelen nombrarse en MAYÚSCULAS. El propio PHP tiene muchas constantes predefinidas (todas en mayúsculas) de ámbito global, como PHP_VERSION o PHP_OS. 
+
+Algunas de estas constantes predefinidas empiezan y terminan por un doble subrayado, como \_\_LINE\_\_ o \_\_FILE\_\_. Estas constantes se llaman **constantes mágicas** y nos van a resultar muy útiles más adelante. 
+
+
+### 2.3.4. Operadores
+
+Los operadores en PHP son iguales que los de Java, que, a su vez, los heredó de C/C++:
+
+* Asignación: $a = 3;
+* Comparación:  ==, <=, >=, !=, <=>, etc.
+* Operadores aritméticos: +, -, *, /, %...
+* Operadores lógicos: &&, \|\|, !
+* Operadores de asignación combinados: +=, -=, ++, --, *=, /=, etc
+
+Existen operadores más esotéricos, como el operador ternario o los operadores a nivel de bit, que no usaremos demasiado. Sin embargo, PHP cuenta con algunos operadores curiosos que a lo mejor no conoces y que te pueden ahorrar mucho trabajo. Te los cuento brevemente:
+
+**Operador de coalescencia nulo**. Con ese nombre tan rebuscado se conoce al operador ?? (doble interrogante). Simplemente, asigna a una variable valor u otro dependiendo de si está definida o no:
+
+```php
+$user = $nombreUsuario ?? "sin-nombre";
+```
+
+La variable $user del ejemplo anterior tomará el valor $nombreUsuario si y solo si esa variable, $nombreUsuario, existe y tiene un valor asignado. En caso contrario, tomará el valor "sin-nombre".
+
+**Operador nave espacial**. Así se conoce el operador <==>. ¡Otro bonito chiste de informáticos! Se usa para comparar dos expresiones y decidir cuál es la menor. Devuelve -1 (si la primera expresión es menor que la segunda), 0 (si son iguales) o 1 (si la primera expresión es mayor que la segunda):
+
+```php
+$resultado = $var1 <==> $var2;
+echo $resultado;   // Mostrará -1, 0 o 1, dependiendo de los valores de $var1 y $var2
+```
 
 ### 2.3.5. Arrays
 
@@ -110,6 +150,17 @@ $a["ESP"] = "España";
 $a["FRA"] = "Francia";
 $a["POR"] = "Portugal";
 ```
+
+Como los arrays son objetos, dispones de un montón de métodos y atributos para consultarlos y manipularlos. No es mi intención proporcionarte aquí una lista exhaustiva, porque son muchos y para eso ya está la documentación oficial, pero sí te voy a mostrar algunos que te permitan hacerte una idea:
+
+* **count($a)**: devuelve el número de elementos del array $a.
+* **in_array("valor", $a)**: busca el elemento "valor" en el array $a. Devuelve *true* o *false*.
+* **unset($a[4])**: elimina un elemento (el 4, en este ejemplo) del array $a.
+* **next($a)**: devuelve el siguiente elemento de un array (el primero, si es la primera vez que se invoca).
+* **prev($a)**: devuelve el elemento anterior de un array (el último si es la primera vez que se invoca).
+* **array_push($a, $elemento)**: añade el $elemento al final del array $a.
+* **$elemento = array_pop($a)**: elmina el último elemento del array $a (y lo asigna a la variable $elemento).
+* **sort($a)** y **asort($a)**: ordena el array $a. *sort()* se utiliza con arrays convencionales y *asort()* con arrays asociativos.
 
 ### 2.3.6. Estructuras de control
 
@@ -197,6 +248,33 @@ Nombre del país: Francia - Código: FRA
 Nombre del país: Portugal - Código: POR
 ```
 
+#### break y continue
+
+Como en muchos otros lenguajes, las instrucciones **break** y **continue** pueden usarse en el interior del cuerpo de los bucles para lograr este comportamiento:
+
+* **break**. "Rompe" el bucle, es decir, se sale del bucle y continúa ejecutando el programa por la instrucción que haya inmediatamente después del mismo.
+* **continue**. Deja de ejecutar la iteración actual y vuelve al comienzo del bucle para iniciar una nueva iteración.
+
+#### Sintaxis alternativa con dos puntos
+
+Las estructuras de control de PHP tienen una sintaxis alternativa que elimina el uso de las llaves, muy denostadas por algunos programadores. Por ejemplo, una instrucción *if* puede escribirse de forma tradicional:
+
+```php
+if ($i < 0) {
+    echo "La variable es menor que cero";
+}
+```
+
+...o bien con la "sintaxis dos puntos":
+
+```php
+if ($i < 0):
+    echo "La variable es menor que cero";
+endif;
+```
+
+Puedes elegir la sintaxis con la que te sientas más cómodo/a. Nosotros, en este manual, usaremos la primera por estar más extendida, pero las dos son igualmente válidas.
+
 ### 2.3.7. Funciones y procedimientos
 
 Los subprogramas (funciones y procedimientos) se escriben en PHP del mismo modo: con la palabra *function*.
@@ -229,7 +307,91 @@ En esta ocasión, hemos invocado a la función $calcular_iva() con dos parámetr
 
 Si esto del paso de parámetros por valor sigue sonándote a chino, quizá deberías repasar tus conocimientos sobre fundamentos de programación. Busca en internet algo como "paso de parametros por valor y por referencia" y dedica un rato a desentrañar los misterios del paso de parámetros antes de continuar.
 
-### 2.3.8. Clases y objetos (¡solo en PHP5 y PHP7!)
+#### Definir el tipo de los argumentos
+
+Desde PHP7, se puede definir el tipo de los argumentos de cualquier función:
+
+```php
+function calcular_iva(float $base, float $porcentaje) {
+    ...
+}
+```
+
+Esto es completamente optativo. Ahora bien, si defines el tipo de los argumentos y luego le pasas a la función un argumento de otro tipo, obtendrás un error de ejecución *TypeError*, como es lógico.
+
+#### Definir el tipo de la función
+
+Desde PHP7 también se puede, optativamente, definir el tipo de datos que devolverá la función en el *return*:
+
+```php
+function calcular_iva(float $base, float $porcentaje): float {
+    ...
+}
+```
+
+Esto provocará que se evalúe de forma estricta el tipo de datos durante la invocación a la función y que se puedan producir errores de tipo (*TypeError*) en tiempo de ejecución, como es natural.
+
+#### Argumentos con valor predefinido
+
+Algo muy útil que nos ofrece PHP es la posibilidad de asignar un valor por defecto a los argumentos de las funciones. Observa este ejemplo:
+
+```php
+function calcular_iva($base, $porcentaje = 0.21) {
+    ...
+}
+```
+
+El argumento *$porcentaje* tiene un valor por defecto, 0.21. Eso significa que podemos invocar esta función de dos maneras:
+
+```php
+$a = calcular_iva(1000, 0.04); // Calculará el IVA de 1000 euros con un porcentaje del 4%
+$b = calcular_iva(1000);       // Calculará el IVA de 1000 euros con un porcentaje del 21%
+```
+
+Como ves, en la primera invocación pasamos un valor para el argumento *$porcentaje* (0.04), por lo que ese argumento tomará ese valor. En cambio, en la segunda invocación nos olvidamos del segundo parámetro. Eso provocaría un error de ejecución en muchos lenguajes de programación, ¿verdad? Bueno, pues PHP lo ejecutará sin problemas, porque le hemos asignado un valor por defecto a *$porcentaje*.
+
+Eso significa que, si no le pasamos ningún valor, el argumento tomará su valor por defecto (0.21), y la función se ejecutará con ese valor asignado a esa variable.
+
+#### Funciones anónimas o *closures*
+
+Javascript ha extendido como una plaga el uso de las funciones anónimas o *closures*. Se trata de funciones que no tienen nombre y que se usan directamente en una asignación a una variable o como parámetro de otra función.
+
+Yo tengo una opinión muy radical al respecto: *las funciones anónimas hacen el código mucho más ilegible y su uso debería restringirse al máximo*. Pero tienes que saber que esta no es una opinión mayoritaria, al menos actualmente.
+
+Las funciones anónimas deberían usarse solo cuando la función en cuestión no va a invocarse nunca desde ningún otro punto del programa: el hecho de no asignarles nombre hace que su código no sea reutilizable.
+
+Aquí puedes ver un ejemplo sencillo de función anónima:
+
+
+```php
+$numero = 8;
+$doble = function(int $numero) {
+    return $numero * 2;
+}
+echo $doble;   // Imprimirá 16
+```
+
+#### include y require
+
+Cuando desarrollamos mucho código, a menudo colocamos colecciones de funciones (llamadas **bibliotecas**) en archivos diferentes que el resto del código.
+
+Para usar una función definida en otro archivo, necesitamos incluir ese código en nuestro archivo actual. Eso se hace con **include** y **require**:
+
+* **include** se utiliza para incluir el código fuente de la biblioteca en nuestro archivo actual. Si la biblioteca no se encuentra, se produce un error de ejecución, pero el script actual continúa ejecutándose.
+* **require** también se utiliza para incluir el código fuente de la biblioteca en nuestro archivo actual. Pero si la biblioteca no se encuentra, se produce un error de ejecución y el script actual se detiene.
+
+Las variantes **include_once** y **require_once** se utilizan para evitar las inclusiones repetidas de código. Estas suelen ocurrir cuando nuestro programa es muy grande y varios scripts incluyen las mismas bibliotecas. Para prevenir errores por redefinición de funciones, se usa **include_once** o **require_once**:
+
+```php
+include_once "mi_biblioteca.php";    // Incluye las funciones del archivo mi_biblioteca.php
+```
+
+El uso de *include* y *require* está en retroceso gracias a los **espacios con nombre** de las versiones recientes de PHP. Más adelante hablaremos de ellos.
+
+
+### 2.3.8. Clases y objetos
+
+A partir de la versión 5, PHP incluyó un completo soporte para orientación a objetos.
 
 Las clases, métodos y atributos se declaran de forma muy semejante a C++ y Java.
 
