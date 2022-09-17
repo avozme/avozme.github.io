@@ -20,9 +20,11 @@ MySQL/MariaDB, como ya hemos visto, es un SGBD relacional de probada eficacia. L
 
 Hay básicamente tres métodos de utilizar MySQL/MariaDB:
 
-* **A través de la línea de comandos:**
+* **A través de un cliente de línea de comandos:**
 
-   Iniciamos una sesión en MySQL con:
+   El cliente mysql de línea de comandos puede ser tu tabla de salvación en más de una ocasión. Cuando todo lo demás se ha caído, este cliente todavía suele responder, así que más te vale saber defenderte con él.
+   
+   Como viste en primer curso, basta con abrir una sesión MySQL escribiendo esto:
    
    ```
    $ mysql -h servidor -u nombre_usuario -p
@@ -30,7 +32,7 @@ Hay básicamente tres métodos de utilizar MySQL/MariaDB:
 
    Y luego tenemos a nuestra disposición montones de comandos para hacer cosas con la base de datos, incluyendo ejecutar cualquier instrucción válida en SQL.
 
-* **A través de una aplicación con interfaz gráfico**, como PHPMyAdmin, una aplicación web escrita en PHP que proporciona un interfaz muy cómodo para trabajar con MySQL o MariaDB. Si no la conoces, te recomiendo que la uses a partir de ahora porque te la vas a encontrar en casi todos los servidores web.
+* **A través de un cliente con interfaz gráfico**, como MysqlWorkBench o PHPMyAdmin. Esta últiam es una aplicación web escrita en PHP que proporciona un interfaz bastante cómodo para trabajar con MySQL o MariaDB. Como suele estar presente en casi todos los servidores web, te aconsejo que, si no la conoces, la uses a partir de ahora porque te la vas a encontrar a menudo en tu vida profesional.
 
 * **A través de un programa escrito en PHP** o algún otro lenguaje con posibilidad de acceso a MySQL. Este método de acceso será el que nosotros usaremos en nuestros programas para convertirlos en auténticas aplicaciones web.
 
@@ -98,7 +100,7 @@ mysql_free_result($result)
 </body>
 ```
 
-### 2.4.2. MySQL/MariaDB con PHP5+
+### 2.4.2. MySQL/MariaDB a partir de PHP5
 
 Desde PHP5, se utiliza **una biblioteca de clases para acceder a los diferentes SGBDs**.
 
@@ -132,7 +134,7 @@ PHP proporciona varios mecanismos para acceder a bases de datos (ya te lo dije a
    
    Esto significa que, independientemente de la base de datos que se esté utilizando, PDO permite utilizar los mismos métodos para realizar consultas y obtener datos, por lo que es una forma de trabajo perfectamente válida y que podríamos haber usado en lugar de la extensión mysqli.
 
-#### Inserción, modificación y borrado de datos con PHP5+
+#### Inserción, modificación y borrado de datos
 
 Vamos a ver cómo funciona la clase *mysqli* mediante unos cuantos ejemplos. En primer lugar, lanzaremos una inserción de datos.
 
@@ -154,7 +156,7 @@ Si sustituyes la sentencia INSERT por cualquier otra instrucción SQL válida, t
 
 Por lo tanto, el código anterior te puede servir de base para ejecutar cualquier INSERT, UPDATE o DELETE sobre tu base de datos. O incluso sentencias de definición de la base de datos, como CREATE TABLE o ALTER TABLE (siempre que el usuario con el que te estés conectando tenga permisos para ejecutarlas, claro)
 
-#### Consultas con PHP5+
+#### Consultas
 
 Hemos dicho que las sentencias SELECT se lanzan desde PHP de un modo diferente al resto. ¿Por qué será?
 

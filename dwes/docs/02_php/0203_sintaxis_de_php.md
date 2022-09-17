@@ -391,11 +391,11 @@ El uso de *include* y *require* está en retroceso gracias a los **espacios con 
 
 ### 2.3.8. Clases y objetos
 
-A partir de la versión 5, PHP incluyó un completo soporte para orientación a objetos.
+A partir de la versión 5, PHP incluyó un completo soporte para orientación a objetos. Las clases, métodos y atributos se declaran de forma muy semejante a C++ y Java.
 
-Las clases, métodos y atributos se declaran de forma muy semejante a C++ y Java.
+#### Declaración de clases
 
-Esto es una clase en PHP:
+En este ejemplo puedes ver cómo se declara una clase en PHP. Observa cómo se indica la **herencia** (*extends*) y cómo se declara el **constructor**  (*__construct()*):
 
 ```php
 class MiClase extends ClaseMadre
@@ -406,16 +406,17 @@ class MiClase extends ClaseMadre
 
     // Método constructor (siempre se llama __construct)
     public function __construct($valor) {
-        $var = $valor;
+        $this->var2 = $valor;
     }
 
-    // Declaración de métodos
+    // Declaración de un método público
     public function mostrarVar() {
-        echo $this->var;
+        echo $this->var2;
     }
 
+    // Declaración de un método privado
     private function resetVar() {
-       $this->var = '';
+       $this->var2 = '';
     }
 
     public function otroMetodo() {
@@ -424,7 +425,11 @@ class MiClase extends ClaseMadre
 }
 ```
 
-Para instanciar un objeto de una clase, se usa la palabra *new*. El constructor puede llevar parámetros o no, como en Java. En el ejemplo anterior, el constructor tenía un argumento, así que *new* se usará así:
+Algo que suele llamar la atención de los programadores que vienen de Java u otros lenguajes semejantes es que PHP **no utiliza la notación punto** para acceder a los miembros de una clase, sino la **notación flecha (->)**. Por eso en el ejemplo anterior ves cosas como *$this->var* en lugar de *this.var*
+
+#### Instanciación de objetos
+
+Para **instanciar** un objeto de una clase, se usa la palabra ***new***. El constructor puede llevar parámetros o no, como en Java. En el ejemplo anterior, el constructor tenía un argumento, así que *new* se usará así:
 
 ```php
 $miObjeto = new miClase('Estoy aprendiendo PHP');
@@ -432,6 +437,135 @@ $miObjeto->mostrarVar();
 ```
 
 La salida de este programa sería "Estoy aprendiendo PHP".
+
+#### $this y parent
+
+Como ya habrás supuesto, la variable **$this** se refiere siempre al objeto que está ejecutando el código, exactamente igual que en Java, Javascript y muchos otros lenguajes orientados a objeto.
+
+A veces, cuando tenemos una jerarquía de clases y unas heredan de otras, necesitamos invocar algún método de la clase madre o superclase. En ese caso, usaremos la palabra **parent** seguida de la **notación cuatro puntos (::)**. Observa cómo se hace en este ejemplo, en el que el constructor de la subclase invoca al constructor de la superclase:
+
+```php
+class MiClase {
+    private $var1;
+    public function __construct($param) {
+        $this->var1 = $param;
+    }
+}
+
+class MiSubclase extends MiClase {
+    private $var2;
+    public function __construct($param1, $param2) {
+        $this->var2 = $param2;
+        parent::__construct($param1);   // Llamada a un método de la superclase
+    }
+}
+```
+
+#### Miembros públicos, privados y protegidos
+
+En PHP, mientras no se indique otra cosa, todos los miembros de una clase se considerarán públicos (*public*). Como en Java, existen tres niveles de visibilidad que podemos escoger para cada atributo y cada método:
+
+* **public**: ese método o atributo es accesible desde el exterior de la clase.
+* **private**: ese método o atributo solo puede usarse desde dentro de la clase.
+* **protected**: ese método o atributo puede usarse desde dentro de la clase o desde cualquier clase hija.
+
+#### Getters y setters
+
+En PHP también es habitual, como en muchos lenguajes de programación, que los atributos sean a menudo privados y que existan métodos ***getters*** y ***setters*** que se encarguen de manipularlos adecuadamente, sin que se acceda a los datos de los objetos desde el exterior. Esto es esencial para que los objetos funcionen como "cajas negras".
+
+Los *getters* suelen devolver el valor de un atributo, pero los *setters*, en otros lenguajes, no devuelven nada. Sin embargo, en PHP es costumbre que los *setters* devuelvan el objeto completo, es decir, que terminen con un ***return $this***. Así:
+
+```php
+class MiClase {
+    private $var1 = "Esto es un atributo privado";
+    // Getter
+    public function getVar1() {
+        return $var1;
+    }
+    // Setter
+    public function setVar1($value) {
+        $var1 = $value;
+        return $this;   // Devolvemos el objeto al terminar
+    }
+}
+```
+
+Si lo hacemos así, estaremos creando lo que se llama un **fluent interface** o interfaz fluido, que es una forma rebuscada de decir que podremos encadenar varias invocaciones a métodos del objeto en una sola instrucción, algo que permite que el código se vea más organizado y legible.
+
+Para que veas en qué consiste el *fluent interface*, vamos a poner un ejemplo. Imagina que la clase anterior tuviera más atributos (*$var1, $var2, $var3*, etc), cada uno con sus respectivos *setters*. La forma tradicional de invocarlos todos sería algo así:
+
+```php
+$obj = new MiClase();
+$obj->setVar1($valor1);
+$obj->setVar2($valor2);
+$obj->setVar3($valor3);
+// etc.
+```
+
+En cambio, si los *setters* devuelven *this* podemos usar un *fluent interface* y escribirlo así:
+
+```php
+$obj = new MiClase();
+$obj->setVar1($valor1)
+    ->setVar2($valor2)
+    ->setVar3($valor2);
+```
+
+Puede parecer un cambio insignificante, pero cuando los objetos son muy complejos, el código *fluent* se hace mucho más legible que el código tradicional. ¡Además, es gratis!
+
+#### Clases abstractas e interfaces
+
+Como en Java y otros lenguajes orientados a objetos, PHP también permite construir **clases abstractas**, que son clases que no se pueden instanciar. El objetivo de estas clases, como recordarás, es crear un molde a partir del cual puedan heredar otras clases que sí sean instanciables.
+
+Una clase abstracta se crea añadiendo la palabra *abstract* a la definición de la clase:
+
+```php
+abstract class MiClase {
+    ...
+}
+```
+
+También existen los **interfaces**, que son parecidos a las clases abstractas pero no pueden incorporar nada de código a los métodos. Es decir, se trata de una mera definición de métodos. Todas las clases que usen ese interfaz deben respetar e implementar esos métodos. Esto se hace cuando queremos que una colección de clases independientes proporcionen un conjunto de métodos homogéneos.
+
+Los interfaces se definen así:
+
+```php
+interface MiInterface {
+    public function unMetodo();
+    public function otroMetodo($parametro1, $parametro2);
+    etc.
+}
+```
+
+Posteriormente, todas las clases que vayan a usar ese interface deben declararse de este modo:
+
+```php
+class MiClase implements MiInterface {
+    ...
+}
+```
+
+#### Métodos estáticos
+
+Los métodos estáticos en PHP funcionan igual que en Java: se usan cuando una clase no tiene estado (es decir, no tiene atributos), o bien cuando ese método no tiene nada que ver con el estado de los objetos, sino que responde exactamente igual para todas las instancias.
+
+Los métodos estáticos se declaran así:
+
+```php
+class MiClase {
+    // Esto es un método estático
+    public static function miMetodo() {
+        ...
+    }
+}
+```
+
+Para invocar un método estático, como es lógico, no es necesario instanciar ningún objeto. De hecho, si intentamos invocarlo a través de un objeto, fallará. Estos métodos se invocan a través del nombre de la clase directamente, usando la **notación cuatro puntos (::)**:
+
+```php
+// Esto invocará el método estático del ejemplo anterior
+MiClase::miMetodo();
+```
 
 ### 2.3.9. Salida de datos
 
@@ -490,7 +624,7 @@ echo "La variable 2 vale:".$_GET['variable2']."<br>";
 
 Observa el uso del carácter punto (.) para concatenar strings en la salida de *echo*. Esto, en Java y muchos otros lenguajes, se haría con el carácter más (+). PHP es un poquito especial en este detalle.
 
-### 2.3.11. Entrada de datos a través de formulario (1)
+### 2.3.11. Entrada de datos a través de formulario
 
 Como PHP se ejecuta dentro de HTML, sólo puede recibir datos del usuario de la aplicación a través del navegador web.
 
@@ -525,3 +659,106 @@ Para acceder a las variables HTML, se usa el array del sistema **$_POST**, index
 Observa que *$_POST* es una variable semejante a *$_GET*. Puedes utilizar una u otra según el valor del atributo *method* de tu formulario HTML.
 
 La variable **$_REQUEST** sirve tanto para POST como para GET. **Por eso será la que nosotros usaremos preferentemente en nuestros programas**.
+
+### 2.3.12. Validación y saneamiento de formularios
+
+Los datos que llegan desde un formulario son una fuente inagotable de quebraderos de cabeza. Para empezar, casi todos los ataques a las aplicaciones web provienen de intentos de los atacantes de usar los formularios como puerta de entrada al servidor. Y no hay que menospreciar el caos que puede provocar en una aplicación un usuario bienintencionado pero torpe que envía al servidor cosas totalmente imprevistas a través de un formulario.
+
+Por lo tanto, todo lo que los usuarios de la aplicación escriban en un formulario debe filtrarse:
+
+1. En el cliente, usando los atributos HTML5 necesarios y, si hace falta, recurriendo a Javascript.
+2. En el servidor, mediante PHP o el lenguaje de servidor que estemos usando.
+
+Ese filtro puede ser algo muy simple, como eliminar todos los caracteres no alfabéticos que provengan del formulario, o algo más complejo, como comprobar que el usuario ha escrito una dirección de email bien formada.
+
+Ese proceso de filtrado se denomina **validación y saneamiento**.
+
+Para ayudarnos en esta validación, PHP proporciona la función ***filter_var()***, que limpia diferentes conjuntos de caracteres sospechosos de cualquier dato que provenga del formulario. Esta función recibe como parámetro un string y permite tanto sanearlo como validarlo.
+
+Por ejemplo, supongamos que tenemos un sencillo formulario con dos campos, *nombre* y *email*:
+
+```html
+<form action='procesa_formulario.php'>
+    <input type='text' name='nombre'>
+    <input type='text' name='email'>
+    <button type='submit'>Enviar</button>
+</form>
+```
+
+El script *procesa_formulario.php* recibirá los datos enviados por este formulario (nombre y email) en las variables *$_REQUEST["nombre"]* y *$_REQUEST["email"]*. Pues bien, si queremos sanear (limpiar) cualquier carácter sospechoso que pueda venir en esas variables, podemos hacerlo así:
+
+```php
+if (!isset($_REQUEST["nombre"])) {
+    echo "Error: el campo nombre es obligatorio";
+}
+if (!isset($_REQUEST["email"])) {
+    echo "Error: el campo email es obligatorio";
+}
+$nombre = filter_var($_REQUEST["nombre"], FILTER_SANITIZE_STRING);
+$email = filter_var($_REQUEST["nombre"], FILTER_SANITIZE_STRING);
+```
+
+Tras la ejecución de este código nos habremos asegurado de que el usuario ha rellenado los dos campos y que esos campos no contienen ningún carácter sospechoso de ataque.
+
+*filter_var()* admite otros valores como segundo parámetro. Son estos:
+
+* **FILTER_SANITIZE_STRING**: elimina cualquier etiqueta HTML que encuentre en el string.
+* **FILTER_SANITIZE_NUMBER_INT**: elimina cualquier carácter que no sea numérico (solo respeta los caracteres "+" y "-")
+* **FILTER_SANITIZE_URL**: elimina cualquier carácter que no forme parte de una URL. El decir, solo deja las letras, los números y algunos caracteres especiales como _, : o ?
+* **FILTER_SANITIZE_EMAIL**: elimina cualquier carácter que no forme parte de una dirección de email típica.
+
+Si solo queremos validar un string procedente de un formulario, podemos cambiar los valores anteriores por FILTER_VALIDATE_STRING, FILTER_VALIDATE_NUMBER_INT, etc. Es decir, cambiaremos la palabra SANITIZE por VALIDATE. De ese modo, la función *filter_var()* no cambiará el string, sino que comprobará si pasa el filtro o no y nos devolverá *true* o *false*.
+
+Existen otros filtros más complejos que puedes consultar en la referencia oficial del lenguaje.
+
+Y, por supuesto, para construir validaciones más específicas, siempre puede programarlas por tu cuenta y riesgo, usando las funciones de procesamiento de strings que te ofrece PHP y currándotelo un poco.
+
+### 2.3.13. Namespaces
+
+Cuando las aplicaciones se hacen muy complejas pueden llegar a usar muchísimas clases (tanto nuestras como de librerías) y antes o después nos encontramos con problemas de redefinición. Es decir: dos clases, dos métodos o dos funciones que se llaman igual pero que pertenecen a librerías diferentes.
+
+Los **namespaces** o **espacios con nombre** permiten organizar clases mediante nombres descriptivos, igual los archivos se organizan en carpetas. ¿Verdad que puedes tener dos archivos que se llamen igual en dos lugares distintos de tu disco duro? Pues eso mismo.
+
+Por ejemplo, podemos tener una clase llamada *Planta* para manejar las existencias de plantas vegetales de un centro comercial, y una clase diferente llamada también *Planta* que se refiera a los diferentes pisos del centro comercial. Cada clase estaría dentro de un *namespace* diferente, y así no se confundirían.
+
+Para asignar una clase (o lo que sea) a un espacio con nombres, basta con indicarlo al principio del archivo que contiene esa clase, así:
+
+```php
+namespace vegetales
+```
+
+Cualquier clase o función que se declare en este archivo pertenecerá al *namespace* "vegetales".
+
+Para mantener un **código limpio y bien organizado**, lo habitual es escribir una sola clase en cada archivo, y colocar esos archivos en subcarpetas que tengan el mismo nombre que el *namespace*. De hecho, los *namespaces* de los sistemas complejos suelen incluir una jerarquía de carpetas que se indica así:
+
+```php
+namespace Persona\Empleado
+```
+
+El archivo que comience de ese modo debería contener el código fuente de una clase llamada también *Empleado*, y el propio archivo debería llamarse *empleado.php* y localizarse en una subcarpeta llamada *persona/empleado*.
+
+¿Y cómo se usa una clase localizada en un *namespace*? Muy sencillo: indicaremos el *namespace* que queremos utilizar mediante la instrucción ***use***:
+
+```php
+include_once("Persona/Empleado/empleado.php");   // Esto incluye el código fuente de la clase Empleado
+use Persona/Empleado/Empleado;                   // Esto indica el namespace que queremos utilizar
+$emp = new Empleado();                           // ¡Y ya tenemos disponible la clase Empleado!
+```
+
+### 2.3.14. Extensiones de PHP y referencia del lenguaje: cómo usar la biblioteca del lenguaje sin volverse loco
+
+Para terminar con esta introducción a PHP, no podemos dejar de hablar de las **bibliotecas de clases y funciones** que vienen con cualquier distribución del lenguaje.
+
+PHP dispone, literalmente, de miles de funciones y métodos disponibles para usar con nuestros programas. Estas funciones y métodos resuelven casi cualquier problema común concebible.
+
+Como la biblioteca de PHP es tan grande, los administradores del servidor deben decidir qué funciones y clases están disponibles activando o desactivando **extensiones de PHP**, que es una forma rebuscada de referirse a las bibliotecas del lenguaje. Cuando un servidor tiene activada una determinada extensión de PHP, todas sus funciones y métodos están disponibles para nuestros programas.
+
+Es imposible conocer toda esa vasta colección de funciones, clases y métodos. Para eso está la referencia oficial del lenguaje, que puedes encontrar en [https://www.php.net/manual](https://www.php.net/manual)
+
+Por ejemplo, existen muchas funciones para manipular strings. Imagina que un día necesitas convertir todos los caracteres de un string a mayúsculas. Parece razonable suponer que, si las bibliotecas de PHP son tan grandes, exitirá una función que pueda hacer eso por nosotros. ¿Cómo la localizamos?
+
+Mi consejo es que acudas siempre a [https://www.php.net/manual](https://www.php.net/manual) y allí utilices el buscador. Por ejemplo, teclea en la caja de búsqueda la palabra "strings". En la página de resultados obtendrás una lista con todas las funciones relativas a strings. La función que estamos buscando debe incluir la palabra "upper". Una rápida búsqueda por la página de resultados te conducirá a la función *strtoupper()*, que es justo la que estábamos buscando.
+
+Si accedes a la página de *strtoupper()* encontrarás una completa descripción de la función y, lo que es más importante, algunos ejemplos de código que puedes copiar, pegar y adaptar a tu caso concreto.
+
+Si, por alguna razón, decides buscar información sobre las biblioteca de PHP fuera de la web oficial, asegúrate que el sitio es de confianza y que la información que ofrece está actualizada: hay muchos sitios web que proporcionan soluciones obsoletas, inseguras o directamente erróneas.

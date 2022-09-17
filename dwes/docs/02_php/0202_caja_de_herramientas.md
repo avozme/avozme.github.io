@@ -181,6 +181,68 @@ PHP también presenta algunos inconvenientes, por supuesto. No hay nada perfecto
 * Pérdida lenta pero constante de cuota de mercado.
 * Pésima relación señal/ruido en la web: ¡hay demasiados *malos* desarrolladores en PHP!
 
+#### Gestión de dependencias con composer
+
+Aunque PHP puede instalarse como un programa independiente, en el contexto del desarrollo de aplicaciones web siempre se utiliza como parte de un servidor web.
+
+Casi todos los servidores web proporcionan soporte nativo para PHP. Por ejemplo, Apache lo incorpora "de serie", de modo que solo tenemos que tener un servidor con Apache instalado para poder desarrollar con PHP. Lo mismo puede decirse de otros servidores basados en sistemas Unix y Linux, como nginx o lighttpd.
+
+Cuando las aplicaciones se empiezan a hacer complejas, suele ser habitual que necesitemos paquetes de PHP que no son estándar, es decir, que no vienen con el lenguaje. Podemos instalarlos manualmente, desde luego, pero PHP, como todos los lenguajes medianamente serios, tiene su propio **gestor de dependencias** llamado ***composer***.
+
+*composer* se usa desde la línea de comandos y trabaja utilizando un archivo de configuración llamado *composer.json* (porque está escrito en formato JSON) donde se especifican qué paquetes (o librerías) usa el proyecto en cuestión. Al ejecutar *composer*, ese archivo es leído y las dependencias instaladas o actualizadas en una carpeta del proyecto llamada ***/vendor***. De ese modo, podemos tener todas las librerías correctamente instaladas y actualidadas con facilidad.
+
+El aspecto del archivo de configuración *composer.json* es algo así:
+
+```javascript
+{
+    "require": {
+        "monolog/monolog": "2.0.*",
+        "phpunit/phpunit": "^9.5",
+        "phpunit/php-code-coverage": "^9.2"
+    }
+}
+```
+
+Con la clave *require* le estamos indicando a *composer* que los paquetes siguientes son imprescindibles para nuestro programa y que tiene que instalarlos en */vendor* junto con todas sus dependencias (si las tuvieran), es decir, junto con cualquier otra librería que esos paquetes necesiten para funcionar.
+
+El nombre de cada paquete está formado por el nombre del fabricante seguido del nombre del proyecto en cuestión. A menudo, ambos nombres son iguales (como en "monolog/monolog"), pero a veces no es así ("php-unit/php-code-coverage").
+
+A continuación del nombre se indica la versión del paquete que necesitamos. Se pueden usar símbolos comodín. Así, por ejemplo, "2.0.*" significa "2.0." seguido de cualquier otro número, mientras que "^9.5" significa "versión 9.5 o superior".
+
+Existen otras secciones que se pueden añadir al archivo *composer.json*, como:
+
+* ***require-dev***: paquetes necesarios solo en el entorno de desarrollo (no en el de producción).
+* ***autoload***: paquetes que deben cargarse automáticamente en memoria durante la ejecución de la aplicación, de manera que no sea necesari incluirlos con *include* o *require*.
+* ***conflict***: paquetes que no funcionan bien con tu aplicación y que no deben ser instalados en ningún caso.
+
+La configuración de *composer* tiene muchos recovecos y se puede convertir en algo bastante complicado. No es nuestra intención dar ahora un curso sobre *composer*. Solo tienes que saber cómo añadir las librerías necesarias para tu aplicación (con *require*) y cómo lanzar su instalación y actualización.
+
+Para instalar los paquetes que necesita tu aplicación, solo tienes que teclear este comando (en el directorio raíz de tu aplicación, donde ya debe existir *composer.json*):
+
+```
+$ composer install
+```
+
+También se puede instalar un paquete suelto, sin necesidad de añadirlo a *composer.json*:
+
+```
+$ composer install nombre-del-paquete
+```
+
+Si lo que quieres es actualizar los paquetes de *composer.json* a la última versión disponible, teclea esto:
+
+```
+$ composer update
+```
+
+Por último, si quieres lanzar la autocarga de paquetes (los que hayas puesto en la sección "autoload"), teclea:
+
+```
+$ composer dump-autoload
+```
+
+Desde luego, *composer* tiene otras muchas opciones que no vamos a ver en este momento. Este es el uso básico de este gestor de dependencias, e irás aprendiendo otras cosas sobre él conforme lo necesites.
+
 ### 2.2.6. MariaDB
 
 ![Logo de MariaDB](/docs/dwes/_site/assets/images/02-logo-mariadb.jpg)

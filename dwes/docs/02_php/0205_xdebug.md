@@ -56,10 +56,10 @@ Como es una extensión, ***xdebug*** no viene de serie y necesita ser instalada 
 
 La configuración más habitual del servidor web, es decir, un **Apache bajo Linux** (supondremos que es Debian o Ubuntu), necesita estos pasos para lograr la instalación de xdebug:
 
-1. Instalar ***php-dev***, un paquete de herramientas de desarrollo para PHP: ```$sudo apt install php-dev```
-2. Instalar ***xdebug*** a través de *composer* o de *pecl* (el precursor de *composer*): ```$sudo pecl install xdebug```
-3. Habilitar el módulo xdebug en nuestro servidor: ```$sudo phpenmod xdebug```
-4. Reiniciar el servidor: ```$sudo service apache2 restart```
+1. Instalar ***php-dev***, un paquete de herramientas de desarrollo para PHP: ```$ sudo apt install php-dev```
+2. Instalar ***xdebug*** a través de *composer*: ```$ composer install xdebug```
+3. Habilitar el módulo xdebug en nuestro servidor: ```$ sudo phpenmod xdebug```
+4. Reiniciar el servidor: ```$ sudo service apache2 restart```
 
 Obviamente, estos pasos son diferentes en otros servidores y otros sistemas operativos, incluso en otros sistemas Linux. Es imposible mostrar aquí todas las configuraciones posibles de todos los sistemas, por lo que, nuevamente, tendrás que buscar cuál es la manera de instalar *xdebug* en tu servidor dependiendo de cuál sea tu configuración exacta.
 
