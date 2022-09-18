@@ -1,21 +1,21 @@
 ---
 layout: page
-title: 7. Bases de datos
+title: 1. Bases de datos
 permalink: /bases-de-datos/
-nav_order: 7
+nav_order: 1
 has_children: true
 parent: Introd. a la prog. y al diseño 3D
 ---
 
-# 7. Bases de datos
+# 1. Bases de datos
 {: .no_toc }
 
 - TOC
 {:toc}
 
-## 7.1. Almacenamiento de la información
+## 1.1. Almacenamiento de la información
 
-### 7.1.1. Sistemas lógicos de almacenamiento
+### 1.1.1. Sistemas lógicos de almacenamiento
 
 Desde los primeros tiempos de la informática ha sido necesario **almacenar grandes cantidades de información** en soportes fisicos utilizando mecanismos que fueran independientes del propio soporte. 
 
@@ -28,7 +28,7 @@ El sistema lógico de almacenamiento más habitual es el **sistema de ficheros**
 
 Las bases de datos que estudiaremos en este capítulo también son sistemas lógicos de almacenamiento, solo que más complejos que los sistemas de ficheros. El componente software encargado de traducir operaciones lógicas en físicas se denomia **sistema gestor de bases de datos**, y en este capítulo y el siguiente vamos a aprender a familiarizarnos con él.
 
-### 7.1.2. Sistemas de ficheros
+### 1.1.2. Sistemas de ficheros
 
 Antes de comenzar a pelearnos con las bases de datos, conviene conocer por encima a su hermano pobre: el sistema de ficheros.
 
@@ -55,7 +55,7 @@ Cada programa suele tener su propio formato de fichero nativo. Y los gestores de
 * Access guarda las bases de datos en un fichero con extensión .mdb o .accdb 
 * MySQL guarda las bases de datos en tres ficheros de extensión .frm, .myd y .myi 
 
-### 7.1.3. Bases de datos
+### 1.1.3. Bases de datos
 
 Una **base de datos** es una colección de ficheros relacionados entre sí que almacenan tanto la representación abstracta de un fragmento de información del mundo real como los datos correspondientes a ese fragmento del mundo. 
 
@@ -137,7 +137,7 @@ SQL, así como otros lenguajes de la base de datos, puede usarse de tres formas 
 
 Empezaremos usando SQL en las dos primeras formas, pero en aplicaciones web se usa continuamente de la tercera forma. La veremos cuando hablemos de desarrollo de aplicaciones con PHP.
 
-## 7.2. El modelo de datos
+## 1.2. El modelo de datos
 
 Antes de aprender el lenguaje SQL, tenemos que hacer otra cosa que muchos programadores detestan: **diseñar la base de datos** con la que vamos a trabajar.
 
@@ -148,7 +148,7 @@ Un **modelo de datos** es una simplificación (o *modelización*) de la parte de
 El modelo de datos, por lo tanto, busca una representación de forma abstracta y no ambigua de los datos de la aplicación y las relaciones entre ellos. Para una aplicación dada, suelen existir varios modelos de datos válidos (e infinitos modelos incorrectos). En esta sección vamos a aprender a construir modelos de datos razonablemente correctos para sistemas sencillos.
 
 
-### 7.2.1. Diagramas E-R
+### 1.2.1. Diagramas E-R
 
 Los **diagramas E-R** o **diagramas entidad-relación** son una representación gráfica de los datos del mundo real que pretendemos modelar.
 
@@ -165,7 +165,7 @@ Por una razón muy sencilla: si la aplicación es pequeña, no suele existir un 
 De entre todos los "planos" de la aplicación, el diagrama E-R es uno de los más importantes, sobre todo si hablamos de aplicaciones web. Así que es muy conveniente que aprendas a elaborarlos y a interpretarlos. Además, son muy sencillos de hacer.
 
 
-### 7.2.2. Elementos de los diagramas E-R
+### 1.2.2. Elementos de los diagramas E-R
 
 Los símbolos concretos de los diagramas E-R puede diferir ligeramente entre metodologías, pero en realidad significan lo mismo.
 
@@ -184,7 +184,7 @@ Aquí te dejo un ejemplo de diagrama E-R. ¡No te asustes todavía! Solo es para
 ![Ejemplo de diagrama ER](/docs/prog-y-3d/_site/assets/images/07-02-diagramas-er-ejemplo.png)
 
 
-### 7.2.3. Entidades
+### 1.2.3. Entidades
 
 En un diagrama E-R, las **entidades** representan las categorías de datos que son importantes para el sistema, es decir, datos que nuestra base de datos debe almacenar.
 * Pueden corresponderse con **objetos tangibles** (personas, artículos, libros, billetes de avión, etc) o con **objetos intangibles** (organizaciones, profesiones, sucesos, etc.)
@@ -192,7 +192,7 @@ En un diagrama E-R, las **entidades** representan las categorías de datos que s
 * Se les asigna un nombre que debe ser un **sustativo**. Por ejemplo: CLIENTE, HOTEL, FACTURA, etc. Si no puedes asignarles un sustantivo con facilidad, probablemente no estás ante una entidad.
 * En particular, *nunca* deberías asignar un **verbo** a una entidad. Los verbos implican acciones, y las acciones son parte del código de tu programa, no de la base de datos. Es decir, una acción probablemente se referirá a algo que tu programa hace con los datos, no a los datos mismos, que es lo que estamos tratando de modelar ahora. 
 
-### 7.2.4. Atributos 
+### 1.2.4. Atributos 
 
 Los **atributos** son características que definen a cada entidad, como los atributos de las clases en programación orientada a objetos.
 * Los atributos pueden ser:
@@ -206,7 +206,7 @@ Hay dos formas de representar los atributos de una entidad en un diagrama E-R. P
 
 ![Ejemplo de atributos en un diagrama ER](/docs/prog-y-3d/_site/assets/images/07-03-diagramas-er-ejemplo-de-atributos.png)|![Ejemplo de atributos en un diagrama ER](/docs/prog-y-3d/_site/assets/images/07-03-diagramas-er-ejemplo-de-atributos-2.png)
 
-### 7.2.5. Relaciones
+### 1.2.5. Relaciones
 
 Las **relaciones** representan las conexiones que existen entre las entidades en el mundo real. 
 
@@ -223,7 +223,7 @@ Las dos frases tienen sentido, aunque lo habitual es que tengamos que cambiar el
 
 Es importante que tengas en cuenta que no hay por qué representar en la base de datos *todas* las relaciones que existen en el mundo real (que suelen ser numerosísimas), sino solo las que resultan relevantes para la aplicación. Si alguna vez tienes dudas sobre si debes incluir o no una relación en tu diagrama E-R, hazte esta pregunta. ¿Realmente necesito guardar *eso* en mi base de datos?
 
-### 7.2.6. Grado de las relaciones
+### 1.2.6. Grado de las relaciones
 
 Casi todas las relaciones son **binarias**, es decir, relacionan a dos entidades entre sí. Se dice que esas relaciones tienen **grado 2**.
 
@@ -235,7 +235,7 @@ Por ejemplo, esta es una relación ternaria:
 
 La recomendación general es que cualquier relación de grado mayor que 2 debe tratar de reducirse (sin perder información) a varias relaciones de grado 2, porque las relaciones no binarias son más difíciles de manejar. Sin embargo, esto no siempre es posible y tenemos que apañarnos con relaciones de grado 3 o 4.
 
-### 7.2.7. Cardinalidad de las relaciones
+### 1.2.7. Cardinalidad de las relaciones
 
 La **cardinalidad** de una relación es el número de ocurrencias de una entidad asociado a cada ocurrencia de la otra entidad.
 
@@ -298,7 +298,7 @@ Existe otra forma de dibujar las entidades y las relaciones, prescindiendo del r
 
 ![Ejemplo de grafía alternativa para los diagramas ER](/docs/prog-y-3d/_site/assets/images/07-06-diagramas-er-grafia-alternativa.png)
 
-### 7.2.8. Atributos propios de las relaciones
+### 1.2.8. Atributos propios de las relaciones
 
 No solo las entidades tienen atributos: **algunas relaciones complejas tienen sus propios atributos**.
 
@@ -311,7 +311,7 @@ Intenta encajar el atributo *fecha de entrada* en cualquiera de las dos entidade
 * No encaja bien en HOTEL, porque en cada hotel habrá un montón de fechas de entrada (una por cada cliente que haya reservado).
 * Por lo tanto, la fecha de entrada solo encaja en la relación. Si lo piensas, tiene sentido: la fecha de entrada es un atributo de la RESERVA, no del cliente ni del hotel.
 
-### 7.2.9. Relaciones reflexivas
+### 1.2.9. Relaciones reflexivas
 
 En ocasiones, una entidad puede relacionarse consigo misma.
 
@@ -325,7 +325,7 @@ La respuesta es simple: no podríamos. O, al menos, no podríamos hacerlo *bien*
 
 Las relaciones reflexivas existen por la sencilla razón de que también existen en el mundo real.
 
-### 7.2.10. Entidades fuertes y débiles
+### 1.2.10. Entidades fuertes y débiles
 
 A veces, se distingue entre **entidades fuertes** y **entidades débiles**.
 
@@ -346,7 +346,7 @@ Y este es un ejemplo de **dependencia en identificación**. En este caso, no sol
 
 ![Ejemplo de dependencia en identificación](/docs/prog-y-3d/_site/assets/images/07-09-diagramas-er-entidades-debiles-dependencia-en-identificacion.png)
 
-### 7.2.11. Control de la redundancia
+### 1.2.11. Control de la redundancia
 
 Un diagrama ER es **redundante** si, al eliminar una relación, no se pierde información importante para el sistema.
 
@@ -358,7 +358,7 @@ Las redundancias pueden detectarse porque:
 * Hay dos o más relaciones en el ciclo con el mismo significado
 * Las cardinalidades permiten eliminar una relación sin perder información (generalmente ocurre con cardinaridades 1:1 o, como mucho, 1:N)
 
-### 7.2.12. Diagramas extendidos: relaciones jerárquicas
+### 1.2.12. Diagramas extendidos: relaciones jerárquicas
 
 Los **diagramas EE-R** (**diagramas entidad-relación extendidos**) permiten representar de forma especial una relación muy habitual en el mundo real cuyo significado, sin embargo, no puede atraparse completamente en un diagrama E-R convencional. Se trata de la **relación jerárquica**.
 
@@ -429,7 +429,7 @@ Y, en este último ejemplo, tenemos que un VEHÍCULO:
 
 ![Ejemplo de relación jerárquica inclusiva parcial](/docs/prog-y-3d/_site/assets/images/07-10-diagramas-er-relacion-jerarquica-inclusiva-parcial.png)
 
-## 7.3. Paso del diagrama E-R al modelo relacional
+## 1.3. Paso del diagrama E-R al modelo relacional
 
 Los diagramas E-R son una herramienta para representar gráficamente el **modelo conceptual** de una base de datos. Es decir, para crear un modelo abstracto y no ambiguo de la realidad.
 
@@ -437,7 +437,7 @@ Pero un diagrama E-R no se puede implementar directamente en un ordenador. Antes
 
 El modelo lógico más popular desde hace décadas es el **modelo relacional**. En esta sección vamos a ver en qué consiste y cómo convertir nuestros diagramas E-R en tablas relacionales que podamos transformar en bases de datos reales.
 
-### 7.3.1. Qué es el modelo relacional
+### 1.3.1. Qué es el modelo relacional
 
 El modelo relacional se basa en el **álgebra relacional**, una rama de las matemáticas muy bien desarrollada. Por ese motivo, las tablas también se llaman **relaciones**, lo cual puede inducir a errores, porque en los diagramas E-R llamábamos relaciones a la conexiones entre entidades.
 
@@ -456,7 +456,7 @@ Aunque los diagramas E-R y el modelo relacional se inventaron separadamente, amb
 
 El paso de un modelo al otro se hace mediante unas reglas, aunque en determinados casos hay que saber saltárselas si existe una buena razón para ello.
 
-### 7.3.2. Pasos para convertir un diagrama E-R en un modelo relacional
+### 1.3.2. Pasos para convertir un diagrama E-R en un modelo relacional
 
 La **conversión de un diagrama E-R a un modelo relacional**, es decir, a un **conjunto de tablas**, debe ser un proceso en el que *no se pierda información* y en el que obtengamos como resultado *una base de datos lo más optimizada posible*.
 
@@ -474,7 +474,7 @@ Para lograr esos dos objetivos, **seguiremos siempre estos dos pasos**:
    
 A continuación, vamos a ver cómo dar estos dos pasos. Pero antes necesitamos familiarizarnos con la terminología del modelo relacional.
 
-### 7.3.3. Conceptos clave del modelo relacional
+### 1.3.3. Conceptos clave del modelo relacional
 
 Antes de comenzar a ver las reglas de paso a tablas, tienes que tener muy clara la **terminología del modelo relacional**. Si ya conoces estos términos, puedes saltar sin ningún problema al siguiente apartado.
 
@@ -518,7 +518,7 @@ En el siguiente ejemplo puedes ver todos esos elementos señalados en una tabla 
 
 ![Partes de una tabla relacional](/docs/prog-y-3d/_site/assets/images/07-11-partes-de-una-tabla-relacional.png)
 
-### 7.3.4. Reglas de paso a tablas
+### 1.3.4. Reglas de paso a tablas
 
 Lo hemos dicho varias veces, pero lo repetimos: **en las bases de datos relacionales *sólo existen tablas***.
 
@@ -680,7 +680,7 @@ Como normas aproximadas podemos dar estas reglas:
 
 ![Paso a tablas - Relaciones jerárquicas inclusivas](/docs/prog-y-3d/_site/assets/images/07-12-paso-a-tablas-relaciones-jerarquicas-inclusivas.png)
    
-### 7.3.5. Y después del paso a tablas, ¿qué?
+### 1.3.5. Y después del paso a tablas, ¿qué?
 
 Una vez creada la lista de tablas, es necesario **revisarlas y detallarlas** antes de continuar.
 
@@ -706,7 +706,7 @@ FACTURAS(numFactura#, fechaFactura, importe, observaciones, idCliente)
    - idCliente: entero(16 bits) NOT NULL
 ```
 
-### 7.3.6. Normalización
+### 1.3.6. Normalización
 
 La **normalización** es un proceso de revisión de las tablas relacionales que sirve para **prevenir ciertos problemas habituales** en las bases de datos mal diseñadas.
 
@@ -1001,7 +1001,7 @@ El diagrama de dependencias permite observar las dependencias con más facilidad
 
 ![Ejemplo de diagrama de dependencias](/docs/prog-y-3d/_site/assets/images/07-13-diagrama-de-dependencias.png)
 
-## 7.4. Ejercicios propuestos
+## 1.4. Ejercicios propuestos
 
 En esta sección vamos a proponer varios casos prácticos sencillos pero, al mismo tiempo, realistas, ordenados por dificultad creciente.
 
@@ -1127,7 +1127,7 @@ Supón que la red de bibliotecas públicas de tu localidad tuviera una base de d
 
 ![Diagrama ER del ejercicio 8](/docs/prog-y-3d/_site/assets/images/07-14-ejercicio-8-diagrama-er.png)
 
-## 7.5. Ejercicios resueltos
+## 1.5. Ejercicios resueltos
 
 #### Ejercicio 1: Biblioteca
 
@@ -1271,53 +1271,3 @@ Fíjate en que la mayor parte de las relaciones han generado tabla: algunas porq
 Por otro lado, en la relación de jerarquía entre OBJETOS y sus subtipos, no se ha expandido la clave del supertipo (*id_objeto#*) hacia los subtipos porque cada subtipo tiene su propia clave. Esta es una cuestión discutible del diagrama E-R que habría que repensar bien. A eso nos referíamos antes cuando decíamos que, cuanto más compleja es una base de datos, más revisiones necesita su diseño antes de darlo por bueno.
 
 De nuevo, considera esto solo una primera aproximación a la solución y una forma de ejercitarte en el trabajo con bases de datos más grandes.
-
-#### Ejercicio 6: Carreras de caballos
-
-Para normalizar una tabla, lo primero que debemos hacer es identificar las dependencias funcionales entre sus campos.
-
-Y, para eso, lo más cómodo es dibujar el **diagrama de dependencias**, donde se aprecia gráficamente qué campos dependen de otros. En el caso de la tabla CARRERAS, el diagrama de dependencias es este:
-
-XXX hacer diagrama de dependencias
-
-1. Explicar por qué la tabla NO está en BCNF y pasarla a BCNF.
-
-XXX
-
-2. Tomando de nuevo la tabla CARRERAS original, explicar por qué NO está en 2NF y pasarla a 2NF.
-
-XXX
-
-3. Con las tablas resultantes del apartado b), comprobar si están en 3NF y, en caso de no estarlo, pasarlas a 3NF.
-
-XXX
-
-#### Ejercicio 7: Autobuses urbanos
-
-Esta es la colección de tablas que surge del diagrama E-R:
-
-```
-AUTOBUSES (id_vehiculo#, matricula, fecha_compra, cod_modelo, fecha_revision)
-MODELOS (cod_modelo#, nombre_modelo, marca)
-LINEAS (num_linea#, descripcion)
-AUTOBUSES_CIRCULAN_EN_LINEAS (id_vehiculo#, num_linea)
-PARADAS (cod_parada#, direccion)
-LINEAS_TIENEN_PARADAS (num_linea#, cod_parada#, dia_semana#, hora#)
-CONDUCTORES (dni_conductor#, nombre, apellidos, salario_mensual, num_linea, fecha, hora_ini, hora_fin)
-EXPEDIENTES (cod_exp#, fecha, dni_conductor, cod_motivo)
-MOTIVOS (cod_motivo#, descrip_motivo)
-CONDUCTORES_EN_PRUEBAS (dni_conductor#, fin_periodo_pruebas)
-CONDUCTORES_EN_PLANTILLA (dni_conductor#, fecha_contrato)
-```
-
-Para hacer la normalización, vamos a dibujar los diagramas de dependencias, pero solo de las tablas más grandes (las pequeñas son triviales y se ven a simple vista):
-
-XXX diagramas de dependencias de AUTOBUSES, MODELOS, CONDUCTORES y EXPEDIENTES.
-
-A partir de esos diagramas de dependencias, tenemos que:
-
-XXX normalización
-
-#### Ejercicio 8: Red de bibliotecas públicas
-
-XXX

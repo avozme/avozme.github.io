@@ -1,13 +1,13 @@
 ---
 layout: page
-title: 4. Estructuras de datos. Subalgoritmos
+title: 6. Estructuras de datos. Subalgoritmos
 permalink: /estructuras-de-datos/
-nav_order: 4
+nav_order: 6
 has_children: true
 parent: Introd. a la prog. y al diseño 3D
 ---
 
-# 4. Estructuras de datos. Subalgoritmos
+# 6. Estructuras de datos. Subalgoritmos
 {: .no_toc }
 
 - TOC
@@ -23,7 +23,7 @@ En este capítulo hablaremos de las estructuras de datos y nos centraremos en la
 
 Después, introduciremos los conceptos de **subalgoritmo, función y biblioteca de funciones**, para terminar hablando de uno de los principios básicos de la ingeniería del software: la **reutilización del código**.
 
-## 4.1. Estructuras de almacenamiento de datos
+## 6.1. Estructuras de almacenamiento de datos
 
 Hemos trabajado, por el momento, con los tipos de datos básicos: enteros, reales, caracteres, lógicos...  Es el momento de dar el salto a los **tipos de datos complejos**, también llamados **estructuras de datos**.
 
@@ -36,7 +36,7 @@ Existe todo un universo de estructuras de datos: desde los arrays, presentes en 
 
 Nosotros no pretendemos verlas todas, ni mucho menos, pero sí que conozcas la más importante de todas: el array.
 
-## 4.2. Arrays unidimensionales (vectores)
+## 6.2. Arrays unidimensionales (vectores)
 
 Un **array** (también llamado **arreglo**, sobre todo en América latina) es una *agrupación de muchos datos individuales del mismo tipo bajo el mismo nombre*. Cada dato individual de un array es accesible mediante un índice.
 
@@ -44,7 +44,7 @@ Por ejemplo, un array de números enteros es una colección de muchos números e
 
 El caso más simple de array es el **array unidimensional**, también llamado **vector**. Se trata, sin duda, del rey de las estructuras de almacenamiento.
 
-### 4.2.1. Declaración de vectores
+### 6.2.1. Declaración de vectores
 
 La **declaración de un vector** en pseudocódigo (seguiremos usando la sintaxis de PSeInt) se hace así:
 
@@ -98,7 +98,7 @@ Como es lógico, se pueden construir vectores cuyos elementos sean de cualquier 
 Y, por supuesto, pueden construirse vectores cuyos elementos sean otros vectores. Obtendremos así un array bidimensional, del que hablaremos un poco más adelante.
    
 
-### 4.2.2. Manipulación de elementos de un vector
+### 6.2.2. Manipulación de elementos de un vector
 
 Los vectores deben manipularse **elemento a elemento**. *No se pueden modificar todos los elementos a la vez.*
 
@@ -126,7 +126,7 @@ Escribir "Dime un número entero"
 Leer (serie[4])
 ```
 
-### 4.2.3. Recorrido de un vector
+### 6.2.3. Recorrido de un vector
 
 La forma habitual de utilizar un vector es **accediendo en secuencia a todos sus elementos**, uno tras otro. 
 
@@ -166,7 +166,7 @@ Supongamos, por ejemplo, que tenemos un vector de 10 números enteros declarado 
    Escribir "La suma de todos los elementos es: ", suma
    ```
 
-### 4.2.4. Ordenación de vectores
+### 6.2.4. Ordenación de vectores
 
 Otra operación típica que se realiza con vectores es **ordenar sus elementos** mediante algún criterio. 
 
@@ -245,7 +245,7 @@ Algoritmo seleccion_directa
 FinAlgoritmo
 ```
 
-### 4.2.5. Búsqueda en vectores
+### 6.2.5. Búsqueda en vectores
 
 En los vectores, como en todas las estructuras de datos que contienen muchos datos en su interior, también es habitual encontrarse con la **operación de búsqueda**.
 
@@ -362,7 +362,7 @@ Para un vector de N elementos, el método secuencial necesita un promedio de N/2
 La mejora en el tiempo de búsqueda es, por lo tanto, mayor cuanto mayor es el vector. Por eso dijimos que la búsqueda binaria se emplea cuando los vectores son muy grandes.
 
 
-## 4.3. Arrays bidimiensionales (matrices)
+## 6.3. Arrays bidimiensionales (matrices)
 
 Una **matriz**, **tabla** o **array bidimiensional**, igual que un vector, es una colección de elementos individuales, todos del mismo tipo, agrupados bajo el mismo identificador. 
 
@@ -439,7 +439,7 @@ Para i <- 0 hasta 4 hacer
 FinPara
 ```
 
-## 4.4. Arrays de múltiples dimensiones
+## 6.4. Arrays de múltiples dimensiones
 
 Del mismo modo que a los arrays unidimensionales (vectores) se les puede añadir un segundo índice, obteniendo las matrices, se puede generalizar esta práctica, dando lugar a **arrays multidimensionales**. 
 
@@ -452,7 +452,7 @@ Dimension ejemplo[10][10][4][5][7];
 
 Estos arrays no se pueden representar gráficamente (aunque con los de tres dimensiones se puede intentar dibujar un cubo), pero su utilización es idéntica a la de los arrays de una o dos dimensiones.
 
-## 4.5. Programación modular: subalgoritmos
+## 6.5. Programación modular: subalgoritmos
 
 Los algoritmos tienden a hacerse muy grandes cuando tratamos de resolver un problema complejo. Esto es lógico, ¿no te parece? Cuanto más complicado sea el problema, más difícil y largo será plantear su solución.
 
@@ -460,7 +460,7 @@ Para enfrentar este hecho inevitable existe la **programación modular**. Consis
 
 Cada una de esas soluciones a pequeños problemas se denomina **subalgoritmo** (no es un nombre muy original, lo sé). Y esta técnica de descomposición sucesiva en problemas complejos en subproblemas simples se conoce como **divide y vencerás** (*divide and conquer*, en inglés). Es muy útil no solo en programación, sino en la mayor parte de los problemas del mundo real.
 
-### 4.5.1. Algoritmo principal y subalgoritmos
+### 6.5.1. Algoritmo principal y subalgoritmos
 
 El problema principal siempre se resuelve en un algoritmo que denominaremos **algoritmo principal**. Este es el que hará de "pegamento" del puzle.
 
@@ -474,7 +474,7 @@ El programa principal puede invocar a cada subalgoritmo el número de veces que 
 
 Lógicamente, **los subalgoritmos deben tener asignado un nombre** para que puedan ser invocados desde el algoritmo principal. Ahora bien, la forma de declarar un subalgoritmo varía ligeramente según el tipo de subalgoritmo de que se trate. Porque existen dos tipos de subalgoritmo, llamados **funciones** y **procedimientos**, que vamos a ver enseguida.
 
-### 4.5.2. Funciones
+### 6.5.2. Funciones
 
 Las **funciones** son subalgoritmos que resuelven un problema sencillo y **devuelven un resultado** al algoritmo que las invoca. Esto último es lo que las distingue de los procedimientos.
 
@@ -518,7 +518,7 @@ En este ejemplo puedes ver cómo **se declara un subalgoritmo**:
 
 Los lenguajes de programación, de hecho, poseen un puñado de funciones predefinidas de las que ya hemos usado unas cuántas. ¿Recuerdas cuando usabas las funciones azar(), truncar() o redondear()? No son más que funciones, es decir, subalgoritmos, que ya vienen incorporados al lenguaje de programación.
 
-### 4.5.3.  Procedimientos
+### 6.5.3.  Procedimientos
 
 Los **procedimientos** son subalgoritmos que no devuelven ningún valor al algoritmo principal. Es decir, sin como las funciones, pero no devuelven ninguna variable al terminar.
 
@@ -557,7 +557,7 @@ Este algoritmo principal invoca a dos procedimientos: uno, llamado *inicializar(
 
 Fíjate en que la declaración de los procedimientos es idéntica a la de las funciones, pero sin devolver ninguna variable.
 
-### 4.5.4. Invocación de subalgoritmos
+### 6.5.4. Invocación de subalgoritmos
 
 Para que las instrucciones escritas en un subalgoritmo sean ejecutadas es necesario, como ya hemos dicho, que el subalgoritmo se *llame* o *invoque* desde otro algoritmo.
 
@@ -578,7 +578,7 @@ inicializar(tablero)
 mostrar(tablero)
 ```
 
-### 4.5.5. Paso de parámetros
+### 6.5.5. Paso de parámetros
 
 El paso de parámetros, o comunicación de datos del algoritmo invocante al subalgoritmo invocado, puede hacerse mediante, al menos, dos métodos:
 
@@ -644,7 +644,7 @@ El parámetro formal es modificado en la instrucción ```resutado = base ^ expon
 
 Cuando el subalgoritmo termina de ejecutarse, dejan de existir todos sus parámetros formales (base, exponente y resultado), *pero la ligadura de resultado con la variable c hace que esta variable conserve el valor 125* incluso cuando el parámetro resultado ya no exista.
 
-### 4.5.6. Ámbito de las variables
+### 6.5.6. Ámbito de las variables
 
 #### Variables locales
 
@@ -664,7 +664,7 @@ Las variables globales son bombas de relojería en potencia. Pueden paracer obje
 
 Si, aún así, estás convencido/a de que necesitas usar alguna variable global, debes saber que todos los lenguajes proporcionan algún mecanismo para crearlas, generalmente indicando durante su declaración que esa variable es de ámbito global.
 
-### 4.5.7. Reutilización de código
+### 6.5.7. Reutilización de código
 
 El diseño de un algoritmo mediante divide y vencerás tiene, además de la ventaja evidente de poder afrontar problemas de gran tamaño, otra ventaja adicional: la posibilidad de **reutilizar subalgoritmos previamente escritos**. 
 
@@ -680,7 +680,7 @@ Por último, señalemos que, para reutilizar con éxito el código, es important
 * Los parámetros de entrada, si los hay
 * Los datos de salida, es decir, el resultado que devuelve o la forma de utilizar los parámetros por referencia
 
-## 4.6. El estilo de escritura
+## 6.6. El estilo de escritura
 
 No podemos finalizar estos temas de introducción sin referirnos a algunas **reglas de estilo básicas** que deben observarse a la hora de escribir código fuente. Y es que la escritura de un algoritmo debe ser siempre lo más clara posible, ya se esté escribiendo en pseudocódigo o en un lenguaje de programación real.
 
@@ -690,7 +690,7 @@ Todos los programadores han experimentado la frustración que se siente al ir a 
 
 Por esta razón, y ya desde el principio, debemos acostumbrarnos a respetar ciertas reglas básicas en cuanto al estilo de escritura. Por supuesto, un programa puede funcionar correctamente sin aplicar ninguna de las cosas que vamos a mencionar aquí, pero no es a la corrección a lo que nos referimos ahora, sino al estilo. 
 
-### 4.6.1. Partes de un algoritmo
+### 6.6.1. Partes de un algoritmo
 
 Los algoritmos deberían tener siempre una estructura en tres partes:
 
@@ -698,7 +698,7 @@ Los algoritmos deberían tener siempre una estructura en tres partes:
 2. Declaraciones: contiene la declaración de las variables.
 3. Acciones: contiene las instrucciones del algoritmo.
 
-### 4.6.2. Documentación
+### 6.6.2. Documentación
 
 La expresión "documentación de un programa" se refiere, en realidad, a dos tipos muy distintos de documentación:
     
@@ -715,7 +715,7 @@ Cada algoritmo, además, debería ir precedido de un comentario que explique lo 
 
 En PSeInt, los comentarios se escriben con una doble barra inclinada (//) al comienzo del mismo. Cada lenguaje de programación tiene su propio estilo de comentarios y deberás curiosear un poco en los manuales para averiguarlo cuando vayas a programar en un lenguaje de programación nuevo.
 
-### 4.6.3. Convenciones de escritura
+### 6.6.3. Convenciones de escritura
 
 Se considera una buena práctica de programación seguir ciertas normas de escritura en el código fuente.
 
@@ -796,7 +796,7 @@ Excepción: si el identificador consta de más de una palabra. En ese caso, ¿c�
 
 Elegir CamelCase o snake_case es una cuestión de gustos personales. Lo importante es que, optes por el estilo que optes, lo utilices siempre y no mezcles identificadores de un tipo con identificadores de otro.
 
-## 4.6. Ejercicios propuestos
+## 6.6. Ejercicios propuestos
 
 Resuelve los siguientes ejercicios utilizando subalgoritmos cuando la complejidad del problema así lo requiera. Puedes hacerlo con todos, excepto los números 1, 2, 7 y 8, que son tan simples que difícilmente podrás sacar un subalgoritmo de ellos.
 
@@ -874,7 +874,7 @@ Por ejemplo, si la matriz fuera de 4x4 y tuviera este contenido:
 * Espiral: 4 6 7 8 9 4 5 3 3 7 0 2 4 3 3 1 
 
 
-## 4.7. Ejercicios resueltos
+## 6.7. Ejercicios resueltos
 
 **Ejercicio 1: Inicializar un vector**. Escribe un programa en pseudocódigo en el que se defina un vector de 100 números enteros, se inicialicen todos los elementos al valor –1 y se impriman por pantalla.
 

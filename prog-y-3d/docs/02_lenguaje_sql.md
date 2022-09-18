@@ -1,13 +1,13 @@
 ---
 layout: page
-title: 8. El lenguaje SQL
+title: 2. El lenguaje SQL
 permalink: /lenguaje-sql/
-nav_order: 8
+nav_order: 2
 has_children: true
 parent: Introd. a la prog. y al diseño 3D
 ---
 
-# 8. El lenguaje SQL
+# 2. El lenguaje SQL
 {: .no_toc }
 
 - TOC
@@ -25,9 +25,9 @@ Bien, luego tienes que **acceder a esa base de datos para operar con ella**: ins
 
 Para hacer todo eso existe un lenguaje estandarizado que soportan la mayoría de las bases de datos relaciones. Puede que tu nombre te suene: se llama **SQL**, y vamos a dedicar todo este capítulo a aprenderlo
 
-## 8.1. Introducción a SQL
+## 2.1. Introducción a SQL
 
-### 8.1.1. Breve historia de SQL
+### 2.1.1. Breve historia de SQL
 
 **SQL (Structured Query Language)** es un lenguaje bastante antiguo en términos informáticos, porque su origen se remonta a 1970:
 
@@ -40,7 +40,7 @@ Para hacer todo eso existe un lenguaje estandarizado que soportan la mayoría de
 
 A partir de entonces, SQL se ha convertido en el lenguaje universal para acceso a bases de datos relacionales y su estándar ha sido revisado continuamente, dando lugar a diferentes versiones: SQL-89, SQL-92, SQL-99, SQL-2003, etc. La revisión más reciente, en el momento de escribir estas líneas, es SQL-2016.
 
-### 8.1.2. Dialectos de SQL
+### 2.1.2. Dialectos de SQL
 
 A pesar de que SQL se estandarizó hace mucho tiempo, los SGBD comerciales respetan solo aproximadamente ese estándar.
 
@@ -50,7 +50,7 @@ Por ese motivo, podemos hablar de ***dialectos* de SQL**.
 
 Si queremos que nuestra base de datos sea portable, hay intentar respetar al máximo el estándar SQL.
 
-### 8.1.3. SQL, un lenguaje para todo
+### 2.1.3. SQL, un lenguaje para todo
 
 Como vimos en el capítulo anterior, los SGBD relacionales tienen varios lenguajes incorporados:
 
@@ -63,7 +63,7 @@ Una de las grandes bazas de SQL es que él solito se las apaña para hacer todas
 
 Otro aspecto increíble de SQL es que **no es un lenguaje imperativo**, es decir, no tienes que indicarle cómo hacer las cosas escribiendo algoritmos tradicionales. Más bien, a SQL le dices *el resultado que quieres obtener* y él se encarga de generar un algoritmo para obtenerlo de forma totalmente transparente.
 
-## 8.2. Creando la estructura: lenguaje de definición de datos
+## 2.2. Creando la estructura: lenguaje de definición de datos
 
 El **DDL o lenguaje de definición de datos** es un lenguaje pensado para crar la estructura lógica de la base de datos.
 
@@ -77,7 +77,7 @@ SQL, como hemos dicho, incluye instrucciones para implemental el DDL. En concret
 
 Escribiremos, a partir de ahora, las palabras reservadas de SQL en MAYÚSCULA por convenio y para distinguirlas del resto. Realmente, SQL no distingue mayúsculas de minúsculas, así que puedes escribirlas como prefieras.
 
-### 8.2.1. Creación de tablas: CREATE TABLE
+### 2.2.1. Creación de tablas: CREATE TABLE
 
 La instrucción **CREATE TABLE** sirve para **crear tablas** en la base de datos. Tiene muchísimas posibilidades. No es mi intención mostrártelas todas, porque para eso necesitarías un curso de SQL avanzado. Pero, a través de algunos ejemplos, aprenderás a usarla a un nivel básico enseguida.
 
@@ -179,7 +179,7 @@ Como ves, basta con añadir **CONSTRAINT nombre** a la restricción de clave pri
 
 El nombre para las restricciones de clave primaria suele empezar por las letras *pk_* (de "primary key") y el de las restricciones de clave ajena por *fk_* (de "foreign key"), pero esto solo es una convención que no tienes por qué respetar.
 
-### 8.2.2. Modificación de tablas: ALTER TABLE
+### 2.2.2. Modificación de tablas: ALTER TABLE
 
 La **modificación de la estructura de una tabla** que ya existe se hace con la instrucción **ALTER TABLE**.
 
@@ -227,7 +227,7 @@ ALTER TABLE
     DROP CONSTRAINT pk_clientes;
 ```
 
-### 8.2.3. Borrado de tablas: DROP TABLE
+### 2.2.3. Borrado de tablas: DROP TABLE
 
 El **borrado de tablas** se hace en sql con la instrucción **DROP TABLE**. Es muy fácil de usar, puesto que solo hay que indicar el nombre de la tabla que queremos borrar.
 
@@ -239,7 +239,7 @@ Por ejemplo, para borrar la tabla *clientes* de los ejemplos anteriores, escribi
 DROP TABLE clientes;
 ```
 
-### 8.2.4. Algunas consideraciones sobre la integridad referencial
+### 2.2.4. Algunas consideraciones sobre la integridad referencial
 
 La **integridad referencial** es un mecanismo de seguridad de las bases de datos que asegura que la información entre las claves ajenas y las claves primarias a las que hacen referencia permanezca siempre bien sincronizada.
 
@@ -342,7 +342,7 @@ CREATE TABLE libros (
 
 Como ves en este código, la actualización y el borrado en cascada pueden usarse simultáneamente. También pueden habilitarse más tarde, cuando la tabla ya está en uso, mediante un **ALTER TABLE**.
 
-## 8.3. Usando los datos: lenguaje de manipulación de datos
+## 2.3. Usando los datos: lenguaje de manipulación de datos
 
 Hasta aquí hemos visto cómo SQL nos permite crear la estructura de la base de datos, es decir, las tablas con sus campos, tipos, restricciones, etc.
 
@@ -361,7 +361,7 @@ SQL tiene varias instrucciones para manipular datos, pero nos vamos a centrar en
 
 Insisto en la idea: estas instrucciones actúan a nivel de datos, es decir, de *registros* o *filas* de las tablas. Insertan, modifican y borran registros. Para insertar, modificar y borrar *campos* está el lenguaje de definición de datos, es decir, CREATE TABLE, ALTER TABLE o DROP TABLE.
 
-### 8.3.1. Inserción de datos: INSERT
+### 2.3.1. Inserción de datos: INSERT
 
 La instrucción **INSERT** se utiliza para **insertar registros en una tabla**.
 
@@ -410,7 +410,7 @@ INSERT INTO personas(nombre, apellido1, apellido2)
 
 En cambio, si intentamos dejar en blanco el nombre o uno de los dos apellidos, el INSERT fallará.
 
-### 8.3.2. Modificación de datos: UPDATE
+### 2.3.2. Modificación de datos: UPDATE
 
 La **modificación o actualización de registros** se hace mediante la instrucción **UPDATE**.
 
@@ -451,7 +451,7 @@ UPDATE personas
 ¡Acabamos de cambiar el nombre de todas las personas de nuestra base de datos!
 
 
-### 8.3.3. Borrado de datos: DELETE
+### 2.3.3. Borrado de datos: DELETE
 
 Para **eliminar registros** utilizamos la instrucción **DELETE**.
 
@@ -477,7 +477,7 @@ Y así borramos **todos los registros** de una tabla y la dejamos completamente 
 DELETE FROM personas;
 ```
 
-## 8.4. Consultas. Las instrucción SELECT
+## 2.4. Consultas. Las instrucción SELECT
 
 Para **buscar datos** entre las tablas de una base de datos se usa la sentencia **SELECT**. Estas búsquedas suelen recibir el nombre de **consultas**.
 
@@ -499,7 +499,7 @@ id|nombre|apellido1|apellido2|estatura|fecha_nacimiento|pais_nacimiento
 6|Ana Lucía|Smith|López|185|19/01/2000|Argentina
 7|Fernando José|Delgado|Aguas|157|17/08/1969|México
 
-### 8.4.1. Seleccionar columnas de una tabla
+### 2.4.1. Seleccionar columnas de una tabla
 
 La sintaxis más básica concebible de una sentencia SELECT funcional es esta:
 
@@ -545,7 +545,7 @@ El resultado de esta consulta será:
 7 Fernando José Delgado Aguas 157 17/08/1969 México
 ```
 
-### 8.4.2. Filtrar resultados: la cláusula WHERE
+### 2.4.2. Filtrar resultados: la cláusula WHERE
 
 Normalmente, no vamos a necesitar *todos* los registros de una tabla, sino que queremos localizar alguno o algunos en concreto. Para eso sirven las búsquedas, ¿no? Para encontrar unos pocos resultados entre un montón de datos.
 
@@ -628,7 +628,7 @@ Esteban López López
 Ana Lucía Smith López
 ```
 
-### 8.4.3. Búsquedas aproximadas con caracteres comodín
+### 2.4.3. Búsquedas aproximadas con caracteres comodín
 
 Las comparaciones en la cláusula WHERE permiten usar lo que se llaman **caracteres comodín**, que son básicamente dos: % (símbolo del tanto por ciento) y _ (símbolo del subrayado).
 
@@ -667,7 +667,7 @@ Luis Fernando Guzmán Rojas
 Ana Lucía Smith López
 ```
 
-### 8.4.4. Ordenar resultados con ORDER BY
+### 2.4.4. Ordenar resultados con ORDER BY
 
 Los resultados obtenidos en una consulta pueden **ordenarse** por cualquier campo con la **cláusula ORDER BY**, independientemente de cuales sean las condiciones de búsqueda.
 
@@ -732,7 +732,7 @@ Antonia López Zapata 171
 Esteban López López 166
 ```
 
-### 8.4.5. Agrupar resultados con DISTINCT
+### 2.4.5. Agrupar resultados con DISTINCT
 
 Atención, pregunta. ¿Qué ocurrirá si ejecutamos esta consulta?
 
@@ -774,7 +774,7 @@ López
 Smith
 ```
 
-### 8.4.6. Funciones de agregado y GROUP BY
+### 2.4.6. Funciones de agregado y GROUP BY
 
 En la lista de campos, se pueden utilizar las llamadas **funciones de agregado**. Se trata de funciones que realizan cálculos sobre los resultados de la consulta.
 
@@ -868,7 +868,7 @@ Resultado:
 México 3
 ```
 
-### 8.4.7. Obtener resultados de varias tablas: JOIN
+### 2.4.7. Obtener resultados de varias tablas: JOIN
 
 Hasta ahora, solo hemos visto ejemplos de consultas que obtienen datos de una sola tabla, pero es muy frecuente que queramos **extraer datos de varias tablas relacionadas entre sí**.
 
@@ -995,7 +995,7 @@ Antonia López Zapata España Europa
 Ana Lucía Smith López Argentina América
 ```
 
-### 8.4.8. SQL avanzado: introducción a las subconsultas
+### 2.4.8. SQL avanzado: introducción a las subconsultas
 
 Hay ciertas situaciones en las que nos encontramos con una consulta tan compleja que no se puede resolver con las herramientas que hemos visto hasta ahora.
 
@@ -1045,7 +1045,7 @@ SELECT nombre, apellido1, apellido2
 
 Las subconsultas se pueden considerar SQL avanzado, por lo que no es necesario que las domines en este momento, pero sí que conozcas su existencia por si más adelante en tu carrera como programador/a tienes que profundizar en ellas.
 
-### 8.4.9. Otras cuestiones avanzadas: alias y combinaciones de consultas
+### 2.4.9. Otras cuestiones avanzadas: alias y combinaciones de consultas
 
 Como dijimos al principio, SQL en general y la instrucción SELECT en particular son muy amplios y se pueden aplicar en muchísimos casos diferentes, desde consultas sencillísimas hasta casos complejos donde tu cerebro puede tener un amago de explosión mientras trata de buscar una solución.
 
@@ -1115,7 +1115,7 @@ Es un lío desde el punto de vista lógico, ¿verdad? Y es que no se te habrán 
 
 Aplicaremos UNION, INSERSECT y EXCEPT a algunas de las consultas más complejas de nuestros ejercicios propuestos.
 
-## 8.5. ¿Y cómo puedo probar todo esto?
+## 2.5. ¿Y cómo puedo probar todo esto?
 
 Seguro que te has hecho esta pregunta mientras leías los ejemplos de este capítulo y tal vez incluso intentabas resolverlos por tu cuenta.
 
@@ -1143,7 +1143,7 @@ Existe otra posibilidad para ejecutar SQL sin complicarte la vida: las **solucio
 
 En realidad, todo esto no tiene nada que ver con aprender SQL, sino con aprender a manejar un determinado programa. Elige el tuyo y bichea un poco hasta que averigües cómo se ejecuta el SQL. Se presupone de ti que eres un usuario/a de ordenadores de nivel medio-avanzado, y por eso quieres aprender a programar. No tiene mucho sentido explicar aquí cómo ejecutar SQL en cada gestor de bases de datos porque puede haber importantes diferencias entre un gestor de bases de datos y otro o, incluso, entre versiones del mismo programa. Y, en última instancia, es algo tan simple como trastear un rato con el programa.
 
-## 8.6. Ejercicios propuestos
+## 2.6. Ejercicios propuestos
 
 Como de costumbre, vamos a proponer una batería de ejercicios de SQL para que practiques todo lo que hemos visto a lo largo de este capítulo.
 
@@ -1269,7 +1269,7 @@ Realiza estas consultas en lenguaje SQL:
 3. Todos los datos de la plantilla de futbolistas del Real Madrid.
 4. Buscar el nombre y la estatura del futbolista más alto del FC Barcelona.
 
-## 8.7. Ejercicios resueltos
+## 2.7. Ejercicios resueltos
 
 Aquí iremos resolviendo los ejercicios propuestos en el apartado anterior. Recuerda que es importante que, antes de mirar las soluciones, trates de hacerlos por tu cuenta.
 

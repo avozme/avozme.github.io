@@ -1,13 +1,13 @@
 ---
 layout: page
-title: 2. Representación de la información
+title: 4. Representación de la información
 permalink: /representacion-de-la-informacion/
-nav_order: 2
+nav_order: 4
 has_children: true
 parent: Introd. a la prog. y al diseño 3D
 ---
 
-# 2. Representación de la información
+# 4. Representación de la información
 {: .no_toc }
 
 El ordenador es una máquina digital, es decir, binaria. Cualquier aprendiz de programador/a debe conocer esa forma de codificación, y otras primas suyas (como la octal y la hexadecimal) antes de aventurarse en los vericuetos de la programación. Dedicaremos todo este tema a hacerlo.
@@ -15,7 +15,7 @@ El ordenador es una máquina digital, es decir, binaria. Cualquier aprendiz de p
 - TOC
 {:toc}
 
-## 2.1. Los códigos
+## 4.1. Los códigos
 
 Un **código** es un *método de representación de la información*. Se compone de un conjunto de símbolos, llamado **alfabeto**, y de un conjunto de **reglas** para combinar esos símbolos de forma correcta.
 
@@ -25,7 +25,7 @@ Estos son algunos ejemplos de códigos que utilizas todos los días o que, al me
 * **Ejemplo 2**: el código morse también es un código. Su alfabeto es muy reducido: sólo el punto (.) y la raya (–), pero combinando los dos símbolos correctamente, se puede transmitir cualquier información.
 * **Ejemplo 3**: el sistema de numeración decimal es un código. Tiene un alfabeto de 10 símbolos (0, 1, 2, 3, 4, 5, 6, 7, 8 y 9). Combinándolos según ciertas reglas, puede usarse para transmitir información. Pero ojo, no cualquier información, solamente información numérica. Hemos dicho que los códigos sirven para representar información, pero no que tengan que servir para representar toda la información posible. Aunque sólo sirva para los números, el sistema de numeración también es un código.
 
-### 2.1.1. El código binario
+### 4.1.1. El código binario
 
 Pues bien, **el sistema de numeración binario también es un código**.
 
@@ -119,7 +119,7 @@ Vamos a sumar los números 11001<sub>2</sub> y 1011<sub>2</sub>:
 
 Del mismo modo, pueden realizarse otras operaciones aritméticas como restas, productos o divisiones.
 
-### 2.1.2. El código ASCII
+### 4.1.2. El código ASCII
 
 Hasta ahora hemos visto que mediante el código binario se pueden representar números, pero no sabemos cómo se las apaña un ordenador para **representar las letras**, o, dicho en terminología informática, los **caracteres alfanuméricos** (que incluyen números, letras y otros símbolos, como los signos de puntuación).
 
@@ -142,7 +142,7 @@ Si te tomas la molestia de calcular cuántos caracteres diferentes pueden repres
 
 Si queremos dar cabida a cualquier idioma del mundo, el código ASCII se nos queda rápidamente pequeño. Por eso se ideó otra forma de codificación de caracteres que es la que más se usa en la actualidad: Unicode.
 
-### 2.1.3. El código UTF-8 de Unicode
+### 4.1.3. El código UTF-8 de Unicode
 
 El código ASCII no es, desde luego, el único que existe para representar letras en binario, pero sí el más popular por motivos históricos.
 
@@ -160,7 +160,7 @@ La codificación más popular es la **UTF-8 de Unicode**. Aunque es algo más co
 
 Los primeros 127 caracteres del UTF-8 se corresponden con el viejo código ASCII. Por eso mismo, y para propósitos prácticos, las tablas clásicas de código ASCII siguen siendo vigentes, al menos hasta el carácter número 127.
 
-### 2.1.4. El código hexadecimal
+### 4.1.4. El código hexadecimal
 
 Es importante conocer y saber manejar el código binario al ser el método de codificación que emplean los ordenadores digitales, pero este código tiene dos serios inconvenientes:
 
@@ -253,7 +253,7 @@ Observa que hemos rellenado con ceros a la izquierda para obtener bloques de 4 d
 
 Por supuesto, no es obligatorio usar este truco de rellenar con ceros a la izquierda, pero las primeras veces puede facilitar las cosas. Con un poco de práctica conseguirás convertir binarios a hexadecimales y viceversa de un sólo vistazo y sin necesidad de consultar la tabla.
 
-## 2.2. Unidades de medida de información
+## 4.2. Unidades de medida de información
 
 Como hemos visto, el código binario es el fundamento del funcionamiento de los ordenadores: toda la información que el ordenador maneja, ya sea numérica o alfanumérica, se encuentra codificada en binario.
 
@@ -315,7 +315,7 @@ Por ejemplo, 1 KB es un 2,35% más pequeño que 1 KiB, pero 1 EB es un 13,3% má
 
 Por último, hacemos notar que, en ocasiones, también se usan los mismos múltiplos para el bit, no para el Byte. Así, puedes encontrarte con megabits (Mb) o mebibits (Mib), que son, respectivamente, un millón (1.000.000) de bits y 220 bits (1.048.576). O con gigabits (Gb) o gigibits (Gib). La conversión entre los múltiplos del bit los del Byte se realiza multiplicando o dividiendo entre 8, como es lógico. Observa como **se usa la "b" minúscula para distinguir los bits de los Bytes**. 
 
-## 2.3. Ejercicios propuestos
+## 4.3. Ejercicios propuestos
 
 **Ejercicio 1**. Investiga y responde a las siguientes cuestiones:
 

@@ -1,20 +1,20 @@
 ---
 layout: page
-title: 3. Introducción a la programación
+title: 5. Introducción a la programación
 permalink: /introduccion-a-la-programacion/
-nav_order: 3
+nav_order: 5
 has_children: true
 parent: Introd. a la prog. y al diseño 3D
 ---
 
-# 3. Introducción a la programación
+# 5. Introducción a la programación
 {: .no_toc }
 
 
 - TOC
 {:toc}
 
-## 3.1. ¿Qué es exactamente eso de "programar un ordenador"?
+## 5.1. ¿Qué es exactamente eso de "programar un ordenador"?
 
 **Programar un ordenador** no es más que proporcionarle a la máquina un conjunto de instrucciones y datos para que realice una tarea. Esa tarea, generalmente, resuelve un problema concreto, que puede ir desde realizar complicados cálculos matemáticos hasta entretenernos con un videojuego en nuestros ratos de ocio.
 
@@ -53,7 +53,7 @@ echo implode(', ',bubble_Sort($test_array)). PHP_EOL;
 
 (Fuente: php.net)
 
-### 3.1.2. Programas y algoritmos
+### 5.1.2. Programas y algoritmos
 
 Para realizar un programa es necesario idear previamente un algoritmo. Esto es importante hasta el extremo de que, sin algoritmo, no existiría el programa.
 
@@ -74,7 +74,7 @@ Recuerda que este algoritmo está **escrito para que lo ejecute un ordenador**, 
 
 Este algoritmo resuelve el problema planteado en un número finito de pasos simples. Lógicamente, al ordenador no le podemos dar estas instrucciones tal y como las hemos escrito, sino que habrá que expresarlo en un lenguaje de programación, pero esto es algo que trataremos más adelante.
 
-### 3.1.3. Datos y tipos de datos
+### 5.1.3. Datos y tipos de datos
 
 Los algoritmos, como hemos dicho, son colecciones de instrucciones que resuelven un problema.
 
@@ -91,7 +91,7 @@ Los datos siempre pertenecen a un **tipo de datos**, que es el rango de valores 
 * **Cadenas de caracteres**. O, simplemente, *cadenas*. Son colecciones de letras, números, signos de puntuación... Es decir, palabras y cualquier cosa que se le parezca. Ejemplos: "Hoy es lunes", "sgcv08 e98 ie7f83 ?so9&/". Suelen distinguirse de los caracteres individuales por la doble comilla, aunque esto depende del lenguaje de programación.
 * **Lógicos o booleanos**. Estos datos solo pueden tener dos valores: *verdadero* o *falso*.
 
-### 3.1.4. Variables y constantes
+### 5.1.4. Variables y constantes
 
 Las **variables** de un algoritmo son como las variables en una ecuación matemática: representaciones de un dato a las que asignamos un nombre o identificador.
 
@@ -119,7 +119,7 @@ Así pues, podemos mejorar el algoritmo anterior con la declaración de las vari
 
 Las **constantes** se parecen a las variables: tienen un nombre y un tipo, y se les asigna un valor. La única diferencia es que una constante *no puede cambiar de valor durante la ejecución del algoritmo* y una variable sí.
 
-### 3.1.5. Subalgoritmos
+### 5.1.5. Subalgoritmos
 
 Cuando un algoritmo es muy complejo, lo dividimos en trozos más simples que denominamos **subalgoritmos**. En programación, esos subalgoritmos se denominan **procedimientos** o **funciones**. Son casi la misma cosa, con una sutil diferencia que ya veremos cuando llegue el momento.
 
@@ -139,7 +139,7 @@ Algunos subalgoritmos o funciones que existen en todos los lenguajes de programa
 * rc(x). Calcula la raíz cuadrada de x. Devuelve un valor real
 * azar(x). Genera un número al azar entre 0 y x. Supondremos que solo funciona con números enteros.
 
-### 3.1.6. Expresiones y operadores
+### 5.1.6. Expresiones y operadores
 
 Una **expresión** es una combinación de constantes, variables, operadores y funciones.
 
@@ -191,7 +191,7 @@ En general, los operadores aritméticos tienen la máxima prioridad y, entre ell
 
 Lo más apropiado, si tenemos dudas sobre el orden en el que se van a ejecutar las operaciones, es usar paréntesis, exactamente igual que hacemos en matemáticas.
 
-### 3.1.6. Tipos de instrucciones
+### 5.1.6. Tipos de instrucciones
 
 Hemos dicho varias veces que los algoritmos constan de dos elementos: un conjunto de datos (representados por constantes y variables) y un conjunto de instrucciones.
 
@@ -204,7 +204,7 @@ Son muy pocas, en realidad, las instrucciones que necesitamos para construir alg
 * **Instrucciones condicionales**. Sirven para bifurcar el posible flujo de ejecución del algoritmo. Las instrucciones condicionales contienen siempre una condición que puede ser verdadera o falsa. Si es verdadera, el algoritmo continúa por un camino. Si es falsa, continúa por otro. Antes o después, esa bifurcación finaliza y el flujo del algoritmo vuelve a reunirse.
 * **Instrucciones iterativas**. Sirven para repetir una o varias instrucciones un número finito de veces. Son la estructura más difícil de manejar para los programadores principiantes.
 
-### 3.1.6. Dos maneras formales de escribir los algoritmos: pseudocódigo y diagramas de flujo
+### 5.1.6. Dos maneras formales de escribir los algoritmos: pseudocódigo y diagramas de flujo
 
 Necesitamos un método de escritura de algoritmos que sea independiente del lenguaje de programación que luego se vaya a utilizar. Así se podrán traducir más tarde a cualquier lenguaje. 
 
@@ -252,9 +252,9 @@ FinAlgoritmo
 
 ![Diagrama de flujo par-impar](/docs/prog-y-3d/_site/assets/images/03-par-impar.png)
 
-## 3.2. Pseudocódigo
+## 5.2. Pseudocódigo
 
-### 3.2.1. Qué es y qué no es el pseudocódigo
+### 5.2.1. Qué es y qué no es el pseudocódigo
 
 El pseudocódigo, ya lo hemos dicho, no es un lenguaje formal de programación, sino un *pseudolenguaje*.
 
@@ -264,7 +264,7 @@ Nosotros vamos a usar una sintaxis concreta tomada de una utilidad llamada **[PS
 
 Hablaremos más de PSeInt en el apartado de ejercicios propuestos.
 
-### 3.2.2. Instrucciones típicas en pseudocódigo (versión PSeInt)
+### 5.2.2. Instrucciones típicas en pseudocódigo (versión PSeInt)
 
 La siguiente tabla muestra una lista de las instrucciones principales del pseudocódigo estándar de PSeInt.
 
@@ -335,7 +335,7 @@ teclado), asignando ese dato a la variable.</td>
 
 También existen instrucciones para crear y manejar subalgoritmos. Como nuestros programas, de momento, van a ser muy simples, aún no vamos a verlas. Nos dedicaremos a ellas cuando llegue el momento.
 
-### 3.2.3. Un ejemplo sencillo de algoritmo escrito en pseudocódigo
+### 5.2.3. Un ejemplo sencillo de algoritmo escrito en pseudocódigo
 
 Vamos a terminar esta sección mostrando un ejemplo sencillo pero muy completo de algoritmo escrito en pseudocódigo.
 
@@ -371,7 +371,7 @@ FinAlgoritmo
 Léelo con atención y asegúrate de entenderlo antes de continuar. En la siguiente sección, veremos cómo representar este mismo algoritmo mediante un diagrama de flujo.
 
 
-## 3.3. Los diagramas de flujo
+## 5.3. Los diagramas de flujo
 
 El diagrama de flujo es una de las herramientas más poderosas para describir algoritmos y, sin embargo, poco utilizado porque da algo más de trabajo y ocupa mucho espacio.
 
@@ -383,7 +383,7 @@ Los diagramas de flujo son herramientas descriptivas tan potentes que se utiliza
 
 ![Diagrama de flujo COVID-19](/docs/prog-y-3d/_site/assets/images/03-diagrama-de-flujo-covid-19.png)
 
-### 3.3.1. Simbología de los diagramas de flujo
+### 5.3.1. Simbología de los diagramas de flujo
 
 En los diagramas de flujo, cada **símbolo** representa una operación específica. Las operaciones se conectan entre ellas con **flechas**, que indican el orden de ejecución.
 
@@ -476,7 +476,7 @@ Para terminar, te muestro el algoritmo para contar números enteros entre dos n�
 
 ![Diagrama de flujo contar-numeros](/docs/prog-y-3d/_site/assets/images/03-contar-numeros.png)
 
-## 3.4. Errores frecuentes entre principiantes
+## 5.4. Errores frecuentes entre principiantes
 
 En esta sección recopilo para ti algunas de las dudas, errores y pifias más frecuentes que, según mi experiencia como profesor de programación, suelen asaltar a los principantes.
 
@@ -671,7 +671,7 @@ Así que, si estás dispuesto/a a aprender a programar, prepárate para pasar mu
 
 Así que mi principal consejo para todos los principiantes es: practica, practica y practica. Y si, mientras practicas, te das cuenta de que no estás disfrutando, plantéate si de verdad quieres aprender a programar. 
 
-### 3.5. Ejercicios propuestos
+### 5.5. Ejercicios propuestos
 
 A partir de este punto, necesitarás **instalar PSeInt** en tu ordenador.
 
@@ -942,7 +942,7 @@ Su saldo actual es de 39,5 euros.
 
 Este programa se puede mejorar haciendo que calcule la edad en años, meses y días (¡incluso en horas, minutos y segundos!), pero es una labor por ahora solo apta para los más atrevidos/as.
 
-### 3.6. Ejercicios resueltos
+### 5.6. Ejercicios resueltos
 
 A continuación, vamos a mostrar la solución de algunos de los ejercicios anteriores. No de todos, porque entonces este texto sería interminable, pero si de bastantes de ellos.
 
