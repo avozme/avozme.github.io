@@ -129,10 +129,10 @@ Nosotros nos centraremos primero en PHP clásico, y más adelante veremos los fr
 
 * Surge en 1995 como extensión de CGI (otro lenguaje para acceso a funciones del servidor)
 * PHP3 (1998) tuvo un gran éxito comercial.
-* PHP4 (2000) es la versión más extendida (por desgracia): la mayoría de los scripts en PHP que circulan por la red están escritos en esta versión obsoleta.
+* PHP4 (2000) supuso la eclosión de PHP como lenguaje del lado del servidor. Muchos scripts en PHP que circulan por la red están escritos en esta versión obsoleta, así que debes aprender a reconocerla para evitarla.
 * PHP5 (2004) tiene soporte para orientación a objetos y una biblioteca de clases bastante bien diseñada. Por lo tanto, desde esta versión PHP pasa de ser un lenguaje estructurado (3GL) a ser un lenguaje orientado a objetos.
 * PHP6 empezó a desarrollarse en 2007 y se canceló en 2014.
-* PHP7 introdujo novedades menores y estuvo vigente hasta 2020. En el momento de escribi esto (junio de 2021) es la versión dominante en la mayoría de los servidores web.
+* PHP7 introdujo novedades menores y estuvo vigente hasta 2020. Aún es la versión dominante en la mayoría de los servidores web.
 * PHP8 es la última versión (8.1.7 cuando escribo esto, en septiembre de 2022). Las versiones PHP4 y PHP5 se consideran obsoletas e inseguras, aunque muchas aplicaciones existentes aún las utilicen. Sigue habiendo soporte para PHP7, pero todas las nuevas aplicaciones se deberían escribir pensando en PHP8.
 
 #### Lo nuevo en PHP8
@@ -281,3 +281,93 @@ A partir de ahora, cuando hablemos de bases de datos, siempre nos estaremos refi
 * Tras su adquisición por Oracle, se intentó relegar al segmento medio-bajo en el mercado de los SGBD y surgió un fork: MariaDB (traducción para los recién llegados: "fork" significa "proyecto nuevo surgido a partir de otro proyecto ya existente").
 * La versión más reciente (cuando escribo esto, en septiembre de 2022) es MariaDB 10.9.2
 
+### 2.2.7. Montaje del servidor
+
+Para que todas las herramientas anteriores funcionen y, por lo tanto, para que podamos desarrollar una aplicación web completa, necesitamos dos componentes software adicionales:
+
+* **Un cliente web**, también llamado **navegador web**. En este programa se ejecutan todas las tecnologías del lado del cliente (HTML, CSS y Javascript). Puedes usar el que más te guste, como Mozilla Firefox, Chrome o Safari, pero es aconsejable que tengas varios a mano para probar tus aplicaciones en todos ellos, porque a veces ofrecen resultados ligeramente distintos.
+
+    Los navegadores web modernos ofrecen un completísimo sistema de *debug* para depurar el lado del cliente de la aplicación. Debes familiarizarte con el del navegador que prefieras. Verás todos estos detalles en el módulo de *Desarrollo web en entorno cliente*.
+
+* **Un servidor web**. Este programa se encarga de ejecutar el código del lado del servidor, es decir, PHP o el lenguaje de servidor que hayas elegido.
+
+    Instalar y configurar un servidor es una tarea muy compleja que no recae en los programadores, sino en los **administradores de sistemas**. No obstante, los programadores de aplicaciones web deben conocer los fundamentos de configuración de los servidores para trabajar con aplicaciones en el lado del servidor. Veréis bastante de esto en el módulo de *Despliegue de aplicaciones web*.
+
+    Los servidores web más populares son **Apache2**, **nginx** y **lighttpd**. Todos ellos corren en entornos Unix/Linux y permiten la ejecución de programas escritos en PHP y muchos otros lenguajes. El servidor **IIS** es el nativo de los sistemas basados en Windows Server y se utiliza para aplicaciones .NET, mientras que **Tomcat** es el preferido para ejecutar aplicaciones Java del lado del servidor.
+
+Los desarrolladores web suelen tener un servidor web instalado en su propia máquina de trabajo, de modo que el mismo hardware ejecuta simultáneamente el cliente web y el servidor web, emulando el entorno de ejecución real, en el que el servidor web está en una máquina físicamente distinta del cliente.
+
+Tener ambos programas, cliente y servidor, corriendo en la misma máquina agiliza el proceso de desarrollo, aunque desplegar la aplicación en un servidor real, distinto del de desarrollo, puede llegar a ser bastante fastidioso. Los detalles de estas operaciones los estudiaréis en el módulo de *Despliegue de aplicaciones web*.
+
+De modo que, para desarrollar, vamos a instalar un servidor web en nuestra propia máquina. Aunque hay muchas maneras de hacer esto, vamos a mencionar dos de las más habituales:
+
+* Instalar un **servidor nativo**.
+* Instalar un **servidor virtualizado con Docker**.
+
+#### Instalación de un servidor nativo
+
+Consiste en instalar en nuestra máquina todas las aplicaciones necesarias para convertirla en un servidor web. Esto incluye, como mínimo:
+
+* **Apache2** o el servidor que hayamos escogido.
+* **MySQL** o el servidor de bases de datos que prefiramos.
+
+Optativamente, podemos instalar un cliente para MySQL basado en la web. **PHPMyAdmin** es la opción más popular.
+
+En lugar de instalar y configurar estos programas de uno en uno, lo cual es un trabajo tedioso y bastante especializado, existen **paquetes** que instalan de una sola tacada todos los programas necesarios para transformar nuestro equipo en un servidor, preconfigurados para un entorno de desarrollo web:
+
+* **XAMPP**: este paquete incluye Apache2, MariaDB, PHP, Perl y PHPMyAdmin, entre otras cosas. Existen versiones para Windows, Mac y Linux y permite comenzar a desarrollar de forma muy rápida.
+* **WAMPP**: es un paquete parecido al anterior, pero solo para Windows.
+* **LAMPP** y **MAMPP**: son versiones de los paquetes anteriores, específicamente diseñadas para sistemas Linux y Mac, respectivamente.
+
+Estos paquetes se instalan con gran facilidad: solo hay que descargarlos de la web de fabricante (nunca de otros sitios) y seguir las intrucciones de instalación.
+
+Aunque XAMPP y compañía son soluciones rápidas y eficaces para empezar a desarrollar, el despliegue de las aplicaciones web desarrolladas sobre estos servidores puede darnos muchos quebraderos de cabeza, ya que cualquier diferencia entre la configuración de nuestro XAMPP y la configuración del servidor real puede hacer que la aplicación no funcione igual en el entorno de producción que en el de desarrollo.
+
+#### Instalación de un servidor virtualizado mediante Docker
+
+Para evitar los problemas del despliegue, lo más habitual en la actualidad es usar servidores virtualizados basados en Docker.
+
+**Docker** es un software de virtualización que usa el Kernel del sistema operativo real y virtualiza solo solo los servicios y el software necesario para la aplicación que estemos desarrollando.
+
+En nuestro caso, Docker puede ejecutar Apache o MySQL de forma virtualizada (es decir, sobre un entorno Linux virtualizado), aunque estemos trabajando en Windows o en MacOS. 
+
+Este enfoque tiene dos grandes ventajas:
+
+* No tenemos que instalar un montón de programas muy pesados en nuestro sistema. ¡Apache2 o MySQL Server son grandes devoradores de recursos! Además, ni siquiera funcionan bien en sistemas no-Linux. Al tenerlos virtualizados, no solo funcionarán a la perfección, sino que bastará con detener la máquina virtual para que dejen de consumir CPU y memoria RAM.
+* El entorno de desarrollo y el entorno de producción pueden ser completamente iguales, evitando los problemas de despliegue tan habituales en las apliaciones web.
+
+Docker es una herramienta de consola (aunque existe un **Docker Desktop**) que permite lanzar **contenedores**. Estos contenedores contienen el software virtualizado que nos interesa. Los contenedores están basados en **imágenes** disponibles libremente en repositorios como **DockerHub** ([https://hub.docker.com/](https://hub.docker.com/)).
+
+Por lo tanto, basta con encontrar en DockerHub las imágenes del software que necesitemos (Apache2, MySQL, PHPMyAdmin, etc) y lanzarlas en nuestro entorno de desarrollo. Para ello, debemos instalar previamente un **cliente de docker**, disponible de forma gratuita en [https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/).
+
+Por ejemplo, la empresa sevillana Bitnami (ahora propiedad de VMWare) tiene en DockerHub imágenes de Apache, MySQL y muchos otros servidores que resultan bastante confiables y fáciles de usar.
+
+Podemos lanzar el contenedor Apache de Bitnami con solo un comando:
+
+```
+$ docker run --name apache bitnami/apache:latest
+```
+
+Esto lanzará un contenedor basado en la última versión disponible de la imagen "bitnami/apache". La primera vez que lo ejecutemos, si no tenemos esa imagen en nuestro sistema, se descargará de los servidores de DockerHub.
+
+Solo con eso ya tendremos un servidor Apache local escuchando en la dirección http://localhost:8080/ (ese puerto es el predefinido en esta imagen, pero se puede cambiar).
+
+La imagen se puede lanzar mediante **docker-compose**, una herramienta que permite lanzar varios contenedores simultáneamente. Esto es algo muy útil para nosotros, puesto que cualquier aplicación web necesitará al menos dos contenedores: el del servidor web (Apache o similar) y el del servidor de bases de datos (MySQL o similiar).
+
+**docker-compose** trabaja con un archivo de configuración. Puedes obtener el archivo de configuración por defecto para la imagen bitnami/apache así:
+
+```
+$ curl -sSL https://raw.githubusercontent.com/bitnami/containers/main/bitnami/apache/docker-compose.yml > docker-compose.yml
+```
+
+El archivo de configuración se denomina **docker-compose.yml** y es bastante fácil de interpretar. Si lo dejas como está, lanzará el contenedor para que el servidor escuche en http://localhost:8080/, exactamente igual que hacía ```docker run```.
+
+Para lanzar todos los contenedores configurados en docker-compose.yml, basta con ejecutar este comando:
+
+```
+$ docker-compose up -d
+```
+
+(Pulsa CTRL + C cuando quieras detener los contenedores)
+
+Si haces esto mismo con el resto de contenedores que necesites, como el de MySQL, puedes crear un docker-compose.yml para lanzar todos los contenedores de una sola vez, y poner así tu servidor virtualizado en marcha cada vez que lo necesites tecleando tan solo el comando ```docker-compose up -d```.
