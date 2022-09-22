@@ -145,7 +145,7 @@ Esos puertos (el 80 y el 8000) se pueden cambiar trasteando un poco con el archi
 Por último, si necesitas instalar dependencias de PHP con **composer**, puedes hacerlo creando un archivo *composer.json* en el directorio raíz del proyecto y ejecutando *composer install* dentro del contenedor de PHP:
 
 ```
-$ docker-compose exec php composer install
+$ docker exec php composer install
 ```
 
 #### Cómo editar el archivo php.ini de un contenedor Docker
