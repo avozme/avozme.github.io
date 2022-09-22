@@ -212,7 +212,7 @@ A continuación del nombre se indica la versión del paquete que necesitamos. Se
 Existen otras secciones que se pueden añadir al archivo *composer.json*, como:
 
 * ***require-dev***: paquetes necesarios solo en el entorno de desarrollo (no en el de producción).
-* ***autoload***: paquetes que deben cargarse automáticamente en memoria durante la ejecución de la aplicación, de manera que no sea necesari incluirlos con *include* o *require*.
+* ***autoload***: paquetes que deben cargarse automáticamente en memoria durante la ejecución de la aplicación, de manera que no sea necesario incluirlos con *include* o *require*.
 * ***conflict***: paquetes que no funcionan bien con tu aplicación y que no deben ser instalados en ningún caso.
 
 La configuración de *composer* tiene muchos recovecos y se puede convertir en algo bastante complicado. No es nuestra intención dar ahora un curso sobre *composer*. Solo tienes que saber cómo añadir las librerías necesarias para tu aplicación (con *require*) y cómo lanzar su instalación y actualización.
@@ -371,3 +371,5 @@ $ docker-compose up -d
 (Pulsa CTRL + C cuando quieras detener los contenedores)
 
 Si haces esto mismo con el resto de contenedores que necesites, como el de MySQL, puedes crear un docker-compose.yml para lanzar todos los contenedores de una sola vez, y poner así tu servidor virtualizado en marcha cada vez que lo necesites tecleando tan solo el comando ```docker-compose up -d```.
+
+Puedes encontrar más información sobre Docker en el Apéndice II.
