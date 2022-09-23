@@ -1,0 +1,121 @@
+I"$<h2 class="no_toc" id="56-primeros-pasos-con-laravel-hola-mundo">5.6. Primeros pasos con Laravel: Hola mundo</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#paso-1-crea-una-clave-segura" id="markdown-toc-paso-1-crea-una-clave-segura">Paso 1. Crea una clave segura</a></li>
+  <li><a href="#paso-2-prueba-el-enrutador" id="markdown-toc-paso-2-prueba-el-enrutador">Paso 2. Prueba el enrutador</a></li>
+  <li><a href="#paso-3-crea-una-ruta-hacia-un-controlador" id="markdown-toc-paso-3-crea-una-ruta-hacia-un-controlador">Paso 3. Crea una ruta hacia un controlador</a></li>
+  <li><a href="#paso-4-cargar-una-vista-desde-el-controlador" id="markdown-toc-paso-4-cargar-una-vista-desde-el-controlador">Paso 4. Cargar una vista desde el controlador</a></li>
+</ul>
+
+<p>En esta sección vamos a crear nuestra primera aplicación funcional con Laravel: el tradicional “Hola mundo”.</p>
+
+<p>Vale, ya sé que no es gran cosa, pero nos servirá para aprender la dinámica de trabajo con Laravel y para construir un esqueleto de aplicación sobre la que montar algo más grande más adelante.</p>
+
+<p>Vamos a crear esta aplicación paso a paso. Tal vez te parezca un poco exagerado, pero recuerda que la curva de aprendizaje de Laravel es muy empinada al principio y se suaviza mucho después. Es decir: los primeros pasos son los que más cuestan.</p>
+
+<h3 id="paso-1-crea-una-clave-segura">Paso 1. Crea una clave segura</h3>
+
+<p>Lo primero que debes hacer en cualquier aplicación Laravel es crear una clave segura para la aplicación.</p>
+
+<p>Esto crea una clave de encriptación aleatoria que se guarda en el archivo de configuración de la aplicación (.env). Laravel utilizará esa clave para cifrar ciertas cosas (por ejemplo, las contraseñas de usuario).</p>
+
+<p>Por ahora, no te preocupes de para qué sirve exactamente esta clave. Lo único importante es que Laravel no funcionará sin ella.</p>
+
+<p>Así pues, lo primero que hay que hacer con cualquier aplicación Laravel nueva es ejecutar este comando:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">php</span> <span class="n">artisan</span> <span class="n">key</span><span class="o">:</span><span class="n">generate</span>
+</code></pre></div></div>
+
+<h3 id="paso-2-prueba-el-enrutador">Paso 2. Prueba el enrutador</h3>
+
+<p>Vamos a empezar probando algo sencillo: capturar una ruta.</p>
+
+<p>Edita el archivo <em>/routes/web.php</em> y añade esto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/hola'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="s2">"Hola, mundo"</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Esto significa que, cuando escribas la ruta “hola” en la barra de direcciones del navegador, se ejecutará esta función anónima (también denominadas <strong><em>closure</em></strong>) y, como resultado, se verá el texto “Hola, mundo” en la ventana del navegador.</p>
+
+<p>Pruébalo en el navegador, escribiendo la dirección: <em>http://mi-servidor/index.php/hola</em></p>
+
+<h3 id="paso-3-crea-una-ruta-hacia-un-controlador">Paso 3. Crea una ruta hacia un controlador</h3>
+
+<p>Los <em>closures</em> o funciones sin nombre raramente se usan en el enrutador.</p>
+
+<p>Lo que suele hacer en enrutador es redirigir la ejecución hacia un controlador. Es justo lo que vamos ahora.</p>
+
+<p>Edita el enrutador (<em>/routes/web.php</em>) y sustituye la ruta anterior por esto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/hola'</span><span class="p">,</span> <span class="s1">'HolaController@index'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Esto indica al enrutador que, al recibir la ruta “hola”, se debe ejecutar el método <em>index()</em> del controlador <em>HolaController</em>.</p>
+
+<p>Pero el controlador <em>HolaController</em> no existe, así que vamos a crearlo con este comando de Artisan::</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">php</span> <span class="n">artisan</span> <span class="n">make</span><span class="o">:</span><span class="n">controller</span> <span class="nc">HolaController</span>
+</code></pre></div></div>
+
+<p>Por último, edita el controlador (<em>/app/Http/Controllers/HolaController.php</em>) y añádele el método <em>index()</em>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">index</span><span class="p">()</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="s2">"Hola, mundo"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Comprueba que funciona en el navegador: <em>http://mi-servidor/index.php/hola</em></p>
+
+<p><strong>NOTA IMPORTANTE</strong>: a partir de Laravel 8, para que este enrutamiento funcione es necesario descomentar la siguiente línea del archivo <em>/app/Providers/RouteServiceProvider.php</em>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">// protected $namespace = 'App\Http\Controllers'; )</span>
+</code></pre></div></div>
+
+<h3 id="paso-4-cargar-una-vista-desde-el-controlador">Paso 4. Cargar una vista desde el controlador</h3>
+
+<p>¿Recuerdas que, en la arquitectura MVC, el controlador no debería producir ninguna salida HTML?</p>
+
+<p>Pues bien, nuestro controlador la está produciendo.</p>
+
+<p>Vamos a modificarlo para que el método <em>index()</em> del controlador no genere el “Hola, mundo”, sino que invoque a una <strong>vista</strong> que se encargue de ello.</p>
+
+<p>Además, vamos a inyectar en la URL una variable con el nombre del usuario para mostrar cómo se capturan esos valores y cómo se pasan a las vistas en Laravel.</p>
+
+<p>Comenzamos modificando el enrutador (<em>/routes/web.php</em>). Observa cómo se usan las llaves { y } para indicar la presencia de una variable en la URL:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/hola/{nombre}'</span><span class="p">,</span> <span class="s1">'HolaController@show'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Ahora creamos un método <em>show()</em> en el controlador (<em>/app/Http/Controllers/HolaController.php</em>):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">show</span><span class="p">(</span><span class="nv">$nombre</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nv">$data</span><span class="p">[</span><span class="s1">'nombre'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$nombre</span><span class="p">;</span>
+   <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'hola'</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Como ves, estamos invocando una vista llamada <em>hola</em> y le estamos pasando un array con los datos necesarios (el nombre del usuario, en este caso). Esa vista debe crearse en <em>/resources/views/hola.blade.php</em> y puede tener este aspecto:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+   Saludos, {{$nombre}}.
+   ¿Le apetece una partidita de ajedrez?
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+
+<p>Puedes probar esta nueva ruta cargando en el navegador una ruta como: <em>http://mi-servidor/index.php/hola/ProfesorFalken</em></p>
+
+<p>La respuesta debería ser esta:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Saludos, ProfesorFalken. ¿Le apetece una partidita de ajedrez?
+</code></pre></div></div>
+
+<p>Recuerda que, desde Laravel 8, el funcionamiento del enrutador ha cambiado. Para conservar compatibilidad hacia atrás, hay que abrir el archivo <em>/app/Providers/RouteServiceProvider.php</em> y descomentar esta línea:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// protected $namespace = 'App\Http\Controllers';</span>
+</code></pre></div></div>
+
+<p>Hay otras soluciones para esto que <a href="https://litvinjuan.medium.com/how-to-fix-target-class-does-not-exist-in-laravel-8-f9e28b79f8b4">se describen aquí</a>.</p>
+
+:ET

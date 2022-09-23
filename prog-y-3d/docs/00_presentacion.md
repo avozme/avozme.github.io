@@ -17,9 +17,7 @@ parent: Introd. a la prog. y al diseño 3D
 
 La asignatura **Introducción a la programación y al diseño 3D** se imparte como optativa en segundo curso de Bachillerato en el IES Celia Viñas de Almería y tiene una duración de 72 horas (2 horas semanales).
 
-El profesor encargado de impartirla durante el curso 2022-2023 es **Alfredo Moreno Vozmediano**, miembro del Departamento de Informática.
-
-Salvo cambio de criterio de la dirección del centro, durante el curso actual, el **horario** de clases será el siguiente:
+Durante el curso 2022-2023, el **horario** de clases será el siguiente:
 
 * Lunes de 13:35 a 14:35 horas (biblioteca).
 * Viernes de 11:35 a 12:35 horas (biblioteca).

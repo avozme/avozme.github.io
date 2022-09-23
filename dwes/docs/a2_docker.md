@@ -148,28 +148,37 @@ Por último, si necesitas instalar dependencias de PHP con **composer**, puedes 
 $ docker exec php composer install
 ```
 
-#### Cómo editar el archivo php.ini de un contenedor Docker
+### Cómo editar el archivo php.ini de un contenedor Docker
 
 Si necesitamos **editar el archivo php.ini** del servidor virtualizado, tendremos que conectarnos al contenedor de PHP.
 
-PASO 1. Sacamos la lista de contenedores activos. Así averiguaremos el ID del contenedor de PHP.
+**PASO 1**. Sacamos la lista de contenedores activos. Así averiguaremos el ID del contenedor de PHP.
 
 ```
 $ docker ps
 ```
 
-PASO 2. Copiamos el archivo php.ini del contenedir de PHP. En el caso de los contenedores de Bitnami, ese archivo está ubicado en /opt/bitnami/php/etc:
+**PASO 2**. Copiamos el archivo php.ini del contenedir de PHP. En el caso de los contenedores de Bitnami, ese archivo está ubicado en /opt/bitnami/php/etc:
 
 ```
-$ docker cp [id-del-contenedor]:/opt/bitnami/php/etc .
+$ docker cp [id-del-contenedor]:/opt/bitnami/php/etc/php.ini .
 ```
 
-3. Ya tenemos el archivo php.ini en nuestra carpeta de trabajo. Lo abrimos y lo editamos.
+**PASO 3**. Ya tenemos el archivo php.ini en nuestra carpeta de trabajo. Lo abrimos y lo editamos.
 
-4. Enviamos el php.ini modificado de nuevo al contenedor:
+**PASO 4**. Enviamos el php.ini modificado de nuevo al contenedor:
 
 ```
 $ docker cp php.ini [id-del-contenedor]:/opt/bitnami/php/etc
 ```
 
 No te olvides de detener el contenedor y volver a ponerlo en marcha para que los cambios surtan efecto.
+
+**ALGUNAS COSAS QUE TAL VEZ TENDRÁS QUE TOCAR EN PHP.INI**
+
+* Habilitar la depuración de errores: directivas *display_errors* (poner a "On") y *error_reporting* (poner a "E_ALL")
+* Deshabilitar la caché del servidor para que los cambios en tu código se reflejen de inmediato: directiva *opcache.enable* (poner a 0)
+* Incrementar el tamaño de los archivos de subida y el tiempo de procesamiento de los *requests*: directivas *upload_max_filesize* y *max_input_time*.
+* Incrementar el tiempo de ejecución de los scripts y la memoria que pueden consumir: directivas *max_execution_time* y *memory_limit*.
+
+Ten en cuenta que los valores que pongas en estas u otras directivas en un entorno de desarrollo no tienen por qué ser (ni *deben* ser) los mismos que te encuentres en el entorno de producción.
