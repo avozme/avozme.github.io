@@ -152,19 +152,19 @@ $ docker exec php composer install
 
 Si necesitamos **editar el archivo php.ini** del servidor virtualizado, tendremos que conectarnos al contenedor de PHP.
 
-1. Sacamos la lista de contenedores activos. Así averiguaremos el ID del contenedor de PHP.
+PASO 1. Sacamos la lista de contenedores activos. Así averiguaremos el ID del contenedor de PHP.
 
 ```
 $ docker ps
 ```
 
-2. Copiamos el archivo PHP.INI del PHP. En el caso de Bitnami, ese archivo está ubicado en /opt/bitnami/php/etc:
+PASO 2. Copiamos el archivo php.ini del contenedir de PHP. En el caso de los contenedores de Bitnami, ese archivo está ubicado en /opt/bitnami/php/etc:
 
 ```
 $ docker cp [id-del-contenedor]:/opt/bitnami/php/etc .
 ```
 
-3. Abrimos php.ini y lo editamos.
+3. Ya tenemos el archivo php.ini en nuestra carpeta de trabajo. Lo abrimos y lo editamos.
 
 4. Enviamos el php.ini modificado de nuevo al contenedor:
 
