@@ -13,63 +13,18 @@ parent: Introd. a la prog. y al diseño 3D
 - TOC
 {:toc}
 
-Ya sabemos cómo crear bases de datos para nuestros programas a partir del mundo real: diseñamos un diagrama entidad-relación, lo refinamos, lo pasamos a tablas relacionales y, por último, revisamos esas tablas hasta que queden normalizadas.
+Cuando tenemos una base de datos relacional ya diseñada, llega el momento de **acceder a esa base de datos para operar con ella**:
 
-Sí, lo sé: es un proceso largo y aburrido, pero la base de datos es el cimiento de muchas aplicaciones. Por ejemplo, la inmensa mayoría de las aplicaciones web están basadas en una base de datos. Equivócate en el diseño de esa base de datos, y el resto de la aplicación jamás funcionará bien, por mucho empeño que pongas en el proceso de implementación.
-
-Así que vale la pena dedicar un tiempo al diseño de la base de datos.
-
-¿Y luego qué?
-
-Bien, luego tienes que **acceder a esa base de datos para operar con ella**: insertar datos, modificarlos, borrarlos y, lo más habitual de todo, buscar información y recuperarla para que tu programa (aplicación web o lo que sea) la use.
+* En primer lugar, crear las tablas, es decir, las estructuras donde se van a guardar los datos.
+* En segundo lugar, operar con los datos: insertar, modificar, borrar y, lo más habitual de todo, buscar información y recuperarla.
 
 Para hacer todo eso existe un lenguaje estandarizado que soportan la mayoría de las bases de datos relaciones. Puede que tu nombre te suene: se llama **SQL**, y vamos a dedicar todo este capítulo a aprenderlo
 
-## 2.1. Introducción a SQL
+## 2.1. Creando las tablas con SQL
 
-### 2.1.1. Breve historia de SQL
+El lenguaje SQL nos permite **crear las tablas, modificarlas y borrarlas**.
 
-**SQL (Structured Query Language)** es un lenguaje bastante antiguo en términos informáticos, porque su origen se remonta a 1970:
-
-* 1970: Edgar Frank Codd propone el modelo relacional y un **lenguaje de acceso al mismo** basado en el **álgebra relacional**.
-* 1977: IBM crea el lenguaje **SEQUEL**, basado en la teoría de Codd, para un SGBD experimental.
-* 1979: Oracle utiliza un derivado de SEQUEL por primera vez en un producto comercial. Se cambió su nombre a SQL (Structured Query Language) porque SEQUEL ya estaba registrado como marca comercial.
-* 1980: IBM lanza varios gestores de bases de datos, entre ellos el exitoso **DB2**, basados en SQL.
-* Década de 1980: SQL tiene un éxito espectacular y cada fabricante de bases de datos utiliza su propio dialecto. Se hace patente la necesidad de una estandarización.
-* 1986: Nace **SQL-86**, el primer estándar del lenguaje. Fue publicado por ANSI. ISO lo confirmó en 1987, por lo que a veces se denomina SQL-87.
-
-A partir de entonces, SQL se ha convertido en el lenguaje universal para acceso a bases de datos relacionales y su estándar ha sido revisado continuamente, dando lugar a diferentes versiones: SQL-89, SQL-92, SQL-99, SQL-2003, etc. La revisión más reciente, en el momento de escribir estas líneas, es SQL-2016.
-
-### 2.1.2. Dialectos de SQL
-
-A pesar de que SQL se estandarizó hace mucho tiempo, los SGBD comerciales respetan solo aproximadamente ese estándar.
-
-Es decir, todos incluyen mejoras y añadidos sobre SQL para tratar de superar a los competidores. Estos añadidos son incompatibles entre diferentes SGBD.
-
-Por ese motivo, podemos hablar de ***dialectos* de SQL**.
-
-Si queremos que nuestra base de datos sea portable, hay intentar respetar al máximo el estándar SQL.
-
-### 2.1.3. SQL, un lenguaje para todo
-
-Como vimos en el capítulo anterior, los SGBD relacionales tienen varios lenguajes incorporados:
-
-* **Lenguaje de definición de datos (DDL)**: nos permite crear la representación lógica de los datos y sus relaciones. 
-* **Lenguaje de control de datos (DCL)**: sirve para gestionar los permisos de acceso. 
-* **Lenguaje de control de transacciones (TCL)**: se utiliza para asegurar la integridad de los datos. 
-* **Lenguaje de manipulación de datos (DML)**: nos permite insertar datos, borrarlos, modificarlos, etc. 
-
-Una de las grandes bazas de SQL es que él solito se las apaña para hacer todas estas cosas.
-
-Otro aspecto increíble de SQL es que **no es un lenguaje imperativo**, es decir, no tienes que indicarle cómo hacer las cosas escribiendo algoritmos tradicionales. Más bien, a SQL le dices *el resultado que quieres obtener* y él se encarga de generar un algoritmo para obtenerlo de forma totalmente transparente.
-
-## 2.2. Creando la estructura: lenguaje de definición de datos
-
-El **DDL o lenguaje de definición de datos** es un lenguaje pensado para crar la estructura lógica de la base de datos.
-
-Dicho en otras palabras, el DDL nos permite **crear las tablas, modificarlas y borrarlas**.
-
-SQL, como hemos dicho, incluye instrucciones para implemental el DDL. En concreto, las instrucciones más importantes del DDL de SQL son estas tres:
+Las instrucciones más importantes para hacer esto son:
 
 * **CREATE TABLE**: para crear tablas.
 * **ALTER TABLE**: para modificar una tabla existente.
@@ -77,7 +32,7 @@ SQL, como hemos dicho, incluye instrucciones para implemental el DDL. En concret
 
 Escribiremos, a partir de ahora, las palabras reservadas de SQL en MAYÚSCULA por convenio y para distinguirlas del resto. Realmente, SQL no distingue mayúsculas de minúsculas, así que puedes escribirlas como prefieras.
 
-### 2.2.1. Creación de tablas: CREATE TABLE
+### 2.1.1. Creación de tablas: CREATE TABLE
 
 La instrucción **CREATE TABLE** sirve para **crear tablas** en la base de datos. Tiene muchísimas posibilidades. No es mi intención mostrártelas todas, porque para eso necesitarías un curso de SQL avanzado. Pero, a través de algunos ejemplos, aprenderás a usarla a un nivel básico enseguida.
 
@@ -179,7 +134,7 @@ Como ves, basta con añadir **CONSTRAINT nombre** a la restricción de clave pri
 
 El nombre para las restricciones de clave primaria suele empezar por las letras *pk_* (de "primary key") y el de las restricciones de clave ajena por *fk_* (de "foreign key"), pero esto solo es una convención que no tienes por qué respetar.
 
-### 2.2.2. Modificación de tablas: ALTER TABLE
+### 2.1.2. Modificación de tablas: ALTER TABLE
 
 La **modificación de la estructura de una tabla** que ya existe se hace con la instrucción **ALTER TABLE**.
 
@@ -239,7 +194,7 @@ Por ejemplo, para borrar la tabla *clientes* de los ejemplos anteriores, escribi
 DROP TABLE clientes;
 ```
 
-### 2.2.4. Algunas consideraciones sobre la integridad referencial
+### 2.1.4. Algunas consideraciones sobre la integridad referencial
 
 La **integridad referencial** es un mecanismo de seguridad de las bases de datos que asegura que la información entre las claves ajenas y las claves primarias a las que hacen referencia permanezca siempre bien sincronizada.
 
@@ -342,7 +297,7 @@ CREATE TABLE libros (
 
 Como ves en este código, la actualización y el borrado en cascada pueden usarse simultáneamente. También pueden habilitarse más tarde, cuando la tabla ya está en uso, mediante un **ALTER TABLE**.
 
-## 2.3. Usando los datos: lenguaje de manipulación de datos
+## 2.2. Manipulando los datos con SQL
 
 Hasta aquí hemos visto cómo SQL nos permite crear la estructura de la base de datos, es decir, las tablas con sus campos, tipos, restricciones, etc.
 
@@ -361,7 +316,7 @@ SQL tiene varias instrucciones para manipular datos, pero nos vamos a centrar en
 
 Insisto en la idea: estas instrucciones actúan a nivel de datos, es decir, de *registros* o *filas* de las tablas. Insertan, modifican y borran registros. Para insertar, modificar y borrar *campos* está el lenguaje de definición de datos, es decir, CREATE TABLE, ALTER TABLE o DROP TABLE.
 
-### 2.3.1. Inserción de datos: INSERT
+### 2.2.1. Inserción de datos: INSERT
 
 La instrucción **INSERT** se utiliza para **insertar registros en una tabla**.
 
@@ -410,7 +365,7 @@ INSERT INTO personas(nombre, apellido1, apellido2)
 
 En cambio, si intentamos dejar en blanco el nombre o uno de los dos apellidos, el INSERT fallará.
 
-### 2.3.2. Modificación de datos: UPDATE
+### 2.2.2. Modificación de datos: UPDATE
 
 La **modificación o actualización de registros** se hace mediante la instrucción **UPDATE**.
 
@@ -451,7 +406,7 @@ UPDATE personas
 ¡Acabamos de cambiar el nombre de todas las personas de nuestra base de datos!
 
 
-### 2.3.3. Borrado de datos: DELETE
+### 2.2.3. Borrado de datos: DELETE
 
 Para **eliminar registros** utilizamos la instrucción **DELETE**.
 
@@ -477,7 +432,7 @@ Y así borramos **todos los registros** de una tabla y la dejamos completamente 
 DELETE FROM personas;
 ```
 
-## 2.4. Consultas. Las instrucción SELECT
+## 2.3. Buscando información con SQL: la instrucción SELECT
 
 Para **buscar datos** entre las tablas de una base de datos se usa la sentencia **SELECT**. Estas búsquedas suelen recibir el nombre de **consultas**.
 
@@ -499,7 +454,7 @@ id|nombre|apellido1|apellido2|estatura|fecha_nacimiento|pais_nacimiento
 6|Ana Lucía|Smith|López|185|19/01/2000|Argentina
 7|Fernando José|Delgado|Aguas|157|17/08/1969|México
 
-### 2.4.1. Seleccionar columnas de una tabla
+### 2.3.1. Seleccionar columnas de una tabla
 
 La sintaxis más básica concebible de una sentencia SELECT funcional es esta:
 
@@ -545,7 +500,7 @@ El resultado de esta consulta será:
 7 Fernando José Delgado Aguas 157 17/08/1969 México
 ```
 
-### 2.4.2. Filtrar resultados: la cláusula WHERE
+### 2.3.2. Filtrar resultados: la cláusula WHERE
 
 Normalmente, no vamos a necesitar *todos* los registros de una tabla, sino que queremos localizar alguno o algunos en concreto. Para eso sirven las búsquedas, ¿no? Para encontrar unos pocos resultados entre un montón de datos.
 
@@ -628,7 +583,7 @@ Esteban López López
 Ana Lucía Smith López
 ```
 
-### 2.4.3. Búsquedas aproximadas con caracteres comodín
+### 2.3.3. Búsquedas aproximadas con caracteres comodín
 
 Las comparaciones en la cláusula WHERE permiten usar lo que se llaman **caracteres comodín**, que son básicamente dos: % (símbolo del tanto por ciento) y _ (símbolo del subrayado).
 
@@ -667,7 +622,7 @@ Luis Fernando Guzmán Rojas
 Ana Lucía Smith López
 ```
 
-### 2.4.4. Ordenar resultados con ORDER BY
+### 2.3.4. Ordenar resultados con ORDER BY
 
 Los resultados obtenidos en una consulta pueden **ordenarse** por cualquier campo con la **cláusula ORDER BY**, independientemente de cuales sean las condiciones de búsqueda.
 
@@ -732,7 +687,7 @@ Antonia López Zapata 171
 Esteban López López 166
 ```
 
-### 2.4.5. Agrupar resultados con DISTINCT
+### 2.3.5. Agrupar resultados con DISTINCT
 
 Atención, pregunta. ¿Qué ocurrirá si ejecutamos esta consulta?
 
@@ -774,7 +729,7 @@ López
 Smith
 ```
 
-### 2.4.6. Funciones de agregado y GROUP BY
+### 2.3.6. Funciones de agregado y GROUP BY
 
 En la lista de campos, se pueden utilizar las llamadas **funciones de agregado**. Se trata de funciones que realizan cálculos sobre los resultados de la consulta.
 
@@ -868,7 +823,7 @@ Resultado:
 México 3
 ```
 
-### 2.4.7. Obtener resultados de varias tablas: JOIN
+### 2.3.7. Obtener resultados de varias tablas: JOIN
 
 Hasta ahora, solo hemos visto ejemplos de consultas que obtienen datos de una sola tabla, pero es muy frecuente que queramos **extraer datos de varias tablas relacionadas entre sí**.
 
@@ -995,7 +950,7 @@ Antonia López Zapata España Europa
 Ana Lucía Smith López Argentina América
 ```
 
-### 2.4.8. SQL avanzado: introducción a las subconsultas
+### 2.3.8. SQL avanzado: introducción a las subconsultas
 
 Hay ciertas situaciones en las que nos encontramos con una consulta tan compleja que no se puede resolver con las herramientas que hemos visto hasta ahora.
 
@@ -1045,7 +1000,7 @@ SELECT nombre, apellido1, apellido2
 
 Las subconsultas se pueden considerar SQL avanzado, por lo que no es necesario que las domines en este momento, pero sí que conozcas su existencia por si más adelante en tu carrera como programador/a tienes que profundizar en ellas.
 
-### 2.4.9. Otras cuestiones avanzadas: alias y combinaciones de consultas
+### 2.3.9. Otras cuestiones avanzadas: alias y combinaciones de consultas
 
 Como dijimos al principio, SQL en general y la instrucción SELECT en particular son muy amplios y se pueden aplicar en muchísimos casos diferentes, desde consultas sencillísimas hasta casos complejos donde tu cerebro puede tener un amago de explosión mientras trata de buscar una solución.
 
@@ -1115,7 +1070,7 @@ Es un lío desde el punto de vista lógico, ¿verdad? Y es que no se te habrán 
 
 Aplicaremos UNION, INSERSECT y EXCEPT a algunas de las consultas más complejas de nuestros ejercicios propuestos.
 
-## 2.5. ¿Y cómo puedo probar todo esto?
+## 2.4. ¿Y cómo puedo probar todo esto?
 
 Seguro que te has hecho esta pregunta mientras leías los ejemplos de este capítulo y tal vez incluso intentabas resolverlos por tu cuenta.
 
@@ -1143,7 +1098,7 @@ Existe otra posibilidad para ejecutar SQL sin complicarte la vida: las **solucio
 
 En realidad, todo esto no tiene nada que ver con aprender SQL, sino con aprender a manejar un determinado programa. Elige el tuyo y bichea un poco hasta que averigües cómo se ejecuta el SQL. Se presupone de ti que eres un usuario/a de ordenadores de nivel medio-avanzado, y por eso quieres aprender a programar. No tiene mucho sentido explicar aquí cómo ejecutar SQL en cada gestor de bases de datos porque puede haber importantes diferencias entre un gestor de bases de datos y otro o, incluso, entre versiones del mismo programa. Y, en última instancia, es algo tan simple como trastear un rato con el programa.
 
-## 2.6. Ejercicios propuestos
+## 2.5. Ejercicios
 
 Como de costumbre, vamos a proponer una batería de ejercicios de SQL para que practiques todo lo que hemos visto a lo largo de este capítulo.
 
@@ -1157,7 +1112,7 @@ Una compañía de seguros dispone de una base de datos con las siguientes tablas
 * Coches (matrícula#, marca, modelo, potencia, conductor, seguro)
 * Seguros (núm-póliza#, compañía, tipo, franquicia, dni-tomador, fecha)
 
-Las claves ajenas son estas:
+Las claves ajenas, es decir, las claves de unas tablas que se han copiado en otras para implementar las relaciones, son estas:
 
 * Coches.conductor → Personas.dni (es decir, el campo *coches.conductor* es una clave ajena de *personas.dni*)
 * Coches.seguro → Seguros.núm-póliza (el campo *coches.seguro* es una clave ajena de *seguros.num-numpoliza*)
@@ -1189,112 +1144,33 @@ Se pide escribir el código SQL necesario para:
 
 **c) Realizar las siguientes consultas** (SELECT):
 
-1. Nombre y apellidos, ordenados alfabéticamente, de todas las personas que viven en ciudades que empiezan por "A".
-2. Compañías de seguros que aseguran coches de la marca Seat y cuyas pólizas fueron contratadas después del año 2005.
-3. Precio medio de las franquicias de los coches asegurados por la compañía Mapfre y cuya potencia es mayor de 100 caballos.
-4. Nombre, apellidos, marca, modelo y compañía aseguradora de los vehículos cuyos dueños tienen varios coches y están asegurados en compañías diferentes.
+1. Nombre y apellidos, ordenados alfabéticamente, de todas las personas cuyo nombre sea "Laura"
+2. Nombre y apellidos, ordenados alfabéticamente, de todas las personas que viven en ciudades que empiezan por "A".
+3. Compañías de seguros que aseguran coches de la marca Seat y cuyas pólizas fueron contratadas después del año 2005.
+4. Precio medio de las franquicias de los coches asegurados por la compañía Mapfre y cuya potencia es mayor de 100 caballos.
 
-#### Ejercicio 2: Biblioteca
-
-Una base de datos de una biblioteca que lleva algún tiempo funcionando contiene, entre otras tablas, estas dos:
-
-* Libros (cód-libro#, título, editorial, cód-autor)
-* Autores (cód-autor#, nombre, apellidos, país, fecha-nacimiento)
-
-Por un error de implementación, el campo *libros.cód-autor* no se hizo clave ajena durante la creación de la tabla. Ahora se ha intentado crear la clave ajena con un ALTER TABLE, pero la base de datos impide la ejecución de la instrucción, alegando que se produce una violación de la integridad referencial.
-
-1. ¿A qué puede deberse que la base de datos esté dándonos ese error?
-2. ¿Cómo puede solucionarse? Escribe el código SQL que estimes necesario para intentar arreglar el problema.
-
-#### Ejercicio 3: academia de idiomas
-
-La base de datos de una academia de idiomas está formada por las siguientes tablas:
-
-* PROFESORES(#dni-prof, nombre, apellidos, idioma)
-* ALUMNOS(#dni-alum, nombre, apellidos)
-* GRUPOS(#cod-grupo, denominación)
-* HORARIOS(#cod-grupo, #día-semana, #dni-prof, hora-inicio, hora-fin, aula)
-
-Se pide escribir las sentencias SQL necesarias para:
-
-1. Crear la tabla HORARIOS. Las claves y las horas son campos obligatorios. El aula es un número entero, y, aunque no es obligatorio, tomará por defecto el valor 1.
-2. Modificar la tabla ALUMNOS para agregar el campo "cod-grupo", que es una clave ajena.
-3. Insertar el registro ["12345678-Z", "Juan", "López López", "Italiano"] en la tabla PROFESORES.
-4. Consultar los nombres y apellidos de los profesores que dan clase de francés de lunes a jueves a partir de las 16:00 horas, junto con la denominación de los grupos a los que dan clase y el horario de cada día.
-5. Consultar los nombres y apellidos de los alumnos que reciben clases de al menos dos idiomas diferentes.
-6. Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS y de FRANCÉS.
-7. Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS o de FRANCÉS.
-8. Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS pero no reciben clases de ALEMÁN.
-
-#### Ejercicio 4: concesionario de automóviles
-
-Una empresa de venta de coches nuevos y usados tiene en su base de datos estas tablas:
-
-* COCHES(cod_coche#, marca, modelo, color, precio, tipo) – tipo puede ser "nuevo", "km. 0" o "usado"
-* COCHES_USADOS(cod_coche#, año, kilometraje, descuento, cod_desperfecto)
-* DESPERFECTOS(cod_desperfecto#, descripción, observaciones)
-* TIENDAS(cod_tienda#, ciudad, provincia, dirección, teléfono)
-* COCHES-ESTÁN-EN-TIENDAS (cod_coche#, cod_tienda#, cantidad)
-* CLIENTES (cod_cliente#, nombre, apellidos, domicilio, ciudad, provincia)
-* VENTAS(cod_coche#, cod_tienda#, cod_cliente#, fecha)
-
-A partir de esas tablas, se pide:
-
-1. Crear la tabla COCHES, de forma coherente a cómo la hayas diseñado en el primer apartado. Utiliza tipos de datos SQL adecuados a la información que se guardará en cada campo. El campo cod_coche es obligatorio, y el campo precio tiene 10000,00 como valor por defecto.
-2. Se ha detectado que algunos clientes tienen una "provincia" con valor nulo, pero, en cambio, sí que tienen un valor asignado al campo "ciudad". Escribe la(s) intrucción(es) SQL necesarias para arreglar este problema de la mejor manera que se te ocurra.
-3. Obtener el NIF de los clientes y los códigos de tienda que no sean de la misma ciudad.
-4. Obtener la matrícula, la marca y el modelo de los coches vendidos en tiendas de la provincia de Madrid que no hayan sido vendidos en ninguna otra provincia.
-5. Obtener el código, ciudad y dirección de las tiendas que tengan entre 5 y 10 vehículos usados que sean de marca "Renault" y modelo "Megane".
-6. Obtener el código, marca y modelo del coche, así como el nombre y apellidos del cliente, de todos los vehículos vendidos a un cliente de Almería por un concesionario de Almería.
-7. Obtener el nombre y apellidos de clientes que hayan adquirido un coche en algún concesionario que posea actualmente en stock el vehículo marca "Seat", modelo "León".
-8. Obtener los nombres y apellidos de clientes que no han comprado ningún coche de color rojo a ningún concesionario de Andalucía.
-
-#### Ejercicio 5
-
-Las siguientes tablas contienen información sobre la liga de fútbol (equipos, jugadores, árbitros y partidos):
-
-* FUTBOLISTAS (cod-futbolista#, nombre, apellidos, fecha-nac, peso, estatura)
-* PARTIDOS (cod-partido#, jornada, fecha, resultado)
-* PARTICIPAN (cod-futbolista#, cod-partido#, minutos, goles, tarjetas) - Relación entre FUTBOLISTAS y PARTIDOS
-* EQUIPOS (nombre-eq#, año_fundación, presidente, num_socios, estadio)
-* JUEGAN (nombre-eq-casa#, nombre_eq_visitante#, cod_partido#) - Relación entre EQUIPOS y PARTIDOS
-* CONTRATOS (num-contrato#, cod-futbolista, nombre-eq, fecha-contrato, duración, ficha, claúsulas)
-* ÁRBITROS (num-colegiado#, colegio, nombre, apellidos, num-temporadas)
-* ARBITRAN (cod-partido#, num-colegiado#, función) - Relación entre ÁRBITROS y PARTIDOS ("función" puede ser "principal", "juez de línea" o "cuarto")
-
-Realiza estas consultas en lenguaje SQL:
-
-1. El número de goles marcados por el jugador Pantuflo Zapatilla en los partidos del mes de febrero de 2007.
-2. El nombre de los equipos contra los que ha jugado el Almería en partidos arbitrados por Esquinas Torres, así como el resultado y la jornada de esos partidos.
-3. Todos los datos de la plantilla de futbolistas del Real Madrid.
-4. Buscar el nombre y la estatura del futbolista más alto del FC Barcelona.
-
-## 2.7. Ejercicios resueltos
-
-Aquí iremos resolviendo los ejercicios propuestos en el apartado anterior. Recuerda que es importante que, antes de mirar las soluciones, trates de hacerlos por tu cuenta.
-
-#### Ejercicio 1: compañía de seguros
+#### EJERCICIO 1 RESUELTO:
 
 **a) Crear las tablas con las restricciones detalladas en el enunciado del ejercicio:**
 
 ```sql
 CREATE TABLE Personas (
-	dni		VARCHAR(12)	UNIQUE NOT NULL,
-	nombre	VARCHAR(50)	NOT NULL,
-	apellidos	VARCHAR(50)	NOT NULL,
-	ciudad	VARCHAR(50)	DEFAULT "Almería",
-	país		VARCHAR(50)	DEFAULT "España",
+	dni       VARCHAR(12)	UNIQUE NOT NULL,
+	nombre    VARCHAR(50)	NOT NULL,
+	apellidos VARCHAR(50)	NOT NULL,
+	ciudad    VARCHAR(50)	DEFAULT "Almería",
+	país      VARCHAR(50)	DEFAULT "España",
 	CONSTRAINT pk_personas
 		PRIMARY KEY (dni)
 );
 
 CREATE TABLE Seguros (
-	num_póliza	BIGINT	UNIQUE NOT NULL,
-	compañía	VARCHAR(50)	NOT NULL,
-	tipo		VARCHAR(20),
-	franquicia	DECIMAL(8,2)	DEFAULT 0,
-	dni_tomador	VARCHAR(12)	NOT NULL,
-	fecha		DATE,
+	num_póliza  BIGINT UNIQUE NOT NULL,
+	compañía    VARCHAR(50)	NOT NULL,
+	tipo        VARCHAR(20),
+	franquicia  DECIMAL(8,2)	DEFAULT 0,
+	dni_tomador VARCHAR(12)	NOT NULL,
+	fecha       DATE,
 	CONSTRAINT pk_seguros
 		PRIMARY KEY (num_póliza),
 	CONSTRAINT fk_seguros_personas
@@ -1304,12 +1180,12 @@ CREATE TABLE Seguros (
 );
 
 CREATE TABLE Coches (
-	matrícula	VARCHAR(7)	UNIQUE NOT NULL,
-	marca	VARCHAR(30)	NOT NULL,
-	modelo	VARCHAR(30),
-	potencia	DECIMAL(5,2),
-	conductor	VARCHAR(12)	NOT NULL,
-	seguro	BIGINT	NOT NULL,
+	matrícula  VARCHAR(7)	UNIQUE NOT NULL,
+	marca      VARCHAR(30)	NOT NULL,
+	modelo     VARCHAR(30),
+	potencia   DECIMAL(5,2),
+	conductor  VARCHAR(12)	NOT NULL,
+	seguro     BIGINT NOT NULL,
 	CONSTRAINT pk_coches
 		PRIMARY KEY (matricula),
 	CONSTRAINT fk_coches_personas
@@ -1374,6 +1250,15 @@ DELETE FROM Personas
 
 **c) Realizar las siguientes consultas** (SELECT):
 
+**Nombre y apellidos, ordenados alfabéticamente, de todas las personas cuyo nombre sea "Laura"**
+
+```sql
+SELECT nombre, apellidos
+	FROM Personas
+	WHERE nombre = 'Laura'
+	ORDER BY apellidos, nombre;
+```
+
 **Nombre y apellidos, ordenados alfabéticamente, de todas las personas que viven en ciudades que empiezan por "A" (consideraremos también la "A" con tilde):**
 
 ```sql
@@ -1403,106 +1288,28 @@ SELECT AVG(franquicia)
 	    AND potencia > 100;
 ```
 
-**Nombre, apellidos, marca, modelo y compañía aseguradora de los vehículos cuyos dueños tienen varios coches y están asegurados en compañías diferentes.**
+#### Ejercicio 2: academia de idiomas
 
-Esta consulta no puede resolverse tal y como está, porque no conocemos a los dueños de los vehículos. Esa información, simplemente, no está en la base de datos. Así que supondremos que los dueños y los conductores son los mismos, porque los conductores sí están en la base de datos.
+(Advertencia: las consultas de este ejercicio son más complicadas. Solo las ponemos aquí a modo de ejemplo, pero no os vamos a pedir que sepáis hacerlas).
 
-```sql
-SELECT nombre, apellidos, marca, modelo, compañía
-	FROM Personas AS P1
-  INNER JOIN Seguros ON P1.dni = Seguros.dni_tomador
-  INNER JOIN Coches AS C1 ON Seguros.num_póliza = C1.seguro
-	  WHERE compañía NOT IN (SELECT compañía 
- 				FROM Personas AS P2
-          INNER JOIN Seguros ON P2.dni = Seguros.dni_tomador
-          INNER JOIN Coches AS C2 ON Seguros.num_póliza = C2.seguro
-				     WHERE Seguros.num_póliza = C2.seguro
-				     AND P2.dni = P1.dni
-				     AND C2.matrícula <> C1.matrícula);
-```
+La base de datos de una academia de idiomas está formada por las siguientes tablas:
 
-Otra solución posible pasa por conectar la consulta y la subconsulta a través del dni del conductor:
+* PROFESORES(#dni-prof, nombre, apellidos, idioma)
+* ALUMNOS(#dni-alum, nombre, apellidos)
+* GRUPOS(#cod-grupo, denominación)
+* HORARIOS(#cod-grupo, #día-semana, #dni-prof, hora-inicio, hora-fin, aula)
 
-```sql
-SELECT nombre, apellidos, marca, modelo, compañía
-	FROM Personas AS P1
-  INNER JOIN Seguros AS S1 ON P1.dni = S1.dni_tomador
-  INNER JOIN Coches ON S1.num_póliza = Coches.seguro
-    WHERE dni IN (SELECT dni 
-    	FROM Personas AS P2
-      INNER JOIN Seguros AS S2 ON P2.dni = S2.dni_tomador
-      INNER JOIN Coches ON S2.num_póliza = Coches.seguro
-			  WHERE S1.compañía <> S2.compañía
-			    AND P1.dni = P2.dni);
-```
+Se pide escribir las sentencias SQL necesarias para:
 
-#### Ejercicio 2: Biblioteca
+1) Consultar los nombres y apellidos de los profesores que dan clase de francés de lunes a jueves a partir de las 16:00 horas, junto con la denominación de los grupos a los que dan clase y el horario de cada día.
+2) Consultar los nombres y apellidos de los alumnos que reciben clases de al menos dos idiomas diferentes.
+3) Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS y de FRANCÉS.
+4) Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS o de FRANCÉS.
+5) Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS pero no reciben clases de ALEMÁN.
 
-**¿A qué puede deberse que la base de datos esté dándonos ese error?**
+#### Solución del ejercicio 2:
 
-En la tabla de Libros debe existir al menos un código de autor que no se corresponde con ningún autor de la tabla de Autores. Probablemente se deba a un error en la introducción de los datos. Al convertir a Libros.cód_autor en clave ajena que hace referencia a Autor.cód_autor, la integridad referencial quedaría rota, y por eso el gestor de base de datos nos impide crear esa clave ajena.
-
-**¿Cómo puede solucionarse? Escribe el código SQL que estimes necesario para intentar arreglar el problema.**
-
-Habría que localizar los registros de Libros que tienen asociados autores que no existen en la tabla de Autores. Una vez localizados, tenemos varias opciones: 
-a) Borrarlos (una solución un poco bestia)
-b) Moverlos a una nueva tabla temporal, para que el administrador de la base de datos haga lo que estime conveniente con esos registros (solución válida porque no destruye datos, pero muy trabajosa)
-c) Asignarles un autor "ficticio". Por ejemplo, podemos crear un autor llamado "Desconocido" en la tabla de autores con un código especial (p.ej: el 0), y asignar esos libros al nuevo autor. Esta será la solución que adoptaremos.
-
-```sql
-INSERT INTO Autores (cód_autor, nombre) VALUES (0, 'Desconocido');
-
-UPDATE Libros SET cód_autor = 0
-	WHERE cód_autor NOT IN (SELECT cód_autor FROM Autores);
-```
-
-Ahora sí podemos crear la clave ajena de Autores sin provocar una violación de la integridad referencial. Además, deberíamos repasar los datos de la tabla de Autores para asignar autores válidos a los libros marcados con el código de autor 0 (esto hay que hacerlo manualmente: la base de datos no puede saber qué códigos son los correctos)
-
-
-
-#### Ejercicio 3: academia de idiomas
-
-**Crear la tabla HORARIOS. Las claves y las horas son campos obligatorios. El aula es un número entero, y, aunque no es obligatorio, tomará por defecto el valor 1.**
-
-Como la clave primaria es triple (cod_grupo, dia_semana, dni_prof), no tiene sentido declarar esos atributos como UNIQUE de forma individual: lo que no puede repetirse es el conjunto de los tres, de modo que hay que crear una restricción de tabla que denominaremos pk_horarios_unique:
-
-```sql
-CREATE TABLE Horarios (
-	cod_grupo	VARCHAR(5)	NOT NULL,
-	dia_semana	CHAR(1)	NOT NULL,
-	dni_prof	VARCHAR(12)	NOT NULL,
-	hora_inicio	TIME	NOT NULL,
-	hora_fin	TIME	NOT NULL,
-	aula		SMALLINT	DEFAULT 1,
-	CONSTRAINT pk_horarios
-		PRIMARY KEY (cod_grupo, dia_semana, dni_prof),
-	CONSTRAINT pk_horarios_unique
-		UNIQUE (cod_grupo, dia_semana, dni_prof),
-	CONSTRAINT fk_horarios_1
-		FOREIGN KEY (cod_grupo) REFERENCES Grupos(cod_grupo),
-	CONSTRAINT fk_horarios_2
-		FOREIGN KEY (dni_prof) REFERENCES Profesores(dni_prof)
-);
-```
-
-**Modificar la tabla ALUMNOS para agregar el campo "cod-grupo", que es una clave ajena.**
-
-```sql
-ALTER TABLE Alumnos
-	ADD cod_grupo VARCHAR(5) NOT NULL;
-
-ALTER TABLE Alumnos
-	ADD CONSTRAINT fk_alumnos
-		FOREIGN KEY (cod_grupo) REFERENCES Grupos(cod_grupo);
-```
-
-**Insertar el registro ["12345678-Z", "Juan", "López López", "Italiano"] en la tabla PROFESORES.**
-
-```sql
-INSERT INTO Profesores VALUES ('12345678-Z', 'Juan', 'López', 'Italiano');
-```
-
-**Consultar los nombres y apellidos de los profesores que dan clase de francés de lunes a jueves a partir de las 16:00 horas, junto con la denominación de los grupos a los que dan clase y el horario de cada día.**
+**1) Consultar los nombres y apellidos de los profesores que dan clase de francés de lunes a jueves a partir de las 16:00 horas, junto con la denominación de los grupos a los que dan clase y el horario de cada día.**
 
 ```sql
 SELECT nombre, apellidos, denominación, día_semana, hora_inicio, hora_fin 
@@ -1514,7 +1321,7 @@ SELECT nombre, apellidos, denominación, día_semana, hora_inicio, hora_fin
 	    AND idioma = 'Francés';
 ```
 
-**Consultar los nombres y apellidos de los alumnos que reciben clases de al menos dos idiomas diferentes.**
+**2) Consultar los nombres y apellidos de los alumnos que reciben clases de al menos dos idiomas diferentes.**
 
 ```sql
 SELECT DISTINCT Alumnos.nombre, Alumnos.apellidos
@@ -1528,7 +1335,7 @@ SELECT DISTINCT Alumnos.nombre, Alumnos.apellidos
 				  WHERE Profes1.idioma <> Profes2.idioma);
 ```
 
-**Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS y de FRANCÉS.**
+**3) Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS y de FRANCÉS.**
 
 ```sql
 SELECT Alumnos.nombre, Alumnos.apellidos
@@ -1544,7 +1351,7 @@ SELECT Alumnos.nombre, Alumnos.apellidos
 	  WHERE Profesores.idioma = "Francés"
 ```
 
-**Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS o de FRANCÉS.**
+**4) Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS o de FRANCÉS.**
 
 ```sql
 SELECT Alumnos.nombre, Alumnos.apellidos
@@ -1554,7 +1361,7 @@ SELECT Alumnos.nombre, Alumnos.apellidos
 	  WHERE (Profesores.idioma = "Inglés" OR Profesores.idioma = "Francés");
 ```
 
-**Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS pero no reciben clases de ALEMÁN.**
+**5) Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS pero no reciben clases de ALEMÁN.**
 
 ```sql
 SELECT Alumnos.nombre, Alumnos.apellidos
@@ -1570,132 +1377,17 @@ SELECT Alumnos.nombre, Alumnos.apellidos
 	  WHERE Profesores.idioma = "Alemán";
 ```
 
+#### Ejercicio obligatorio: Biblioteca
 
+Una base de datos de una biblioteca que lleva algún tiempo funcionando contiene, entre otras tablas, estas dos:
 
-#### Ejercicio 4: concesionario de automóviles
+* Libros (idLibro#, titulo, editorial, idAutor)
+* Autores (idAutor#, nombre, apellidos, pais, fechaNacimiento)
 
-**Crear la tabla COCHES, de forma coherente a cómo la hayas diseñado en el primer apartado. Utiliza tipos de datos SQL adecuados a la información que se guardará en cada campo. El campo cod_coche es obligatorio, y el campo precio tiene 10000,00 como valor por defecto.**
+Escribe las siguientes consultas:
 
-```sql
-CREATE TABLE Coches (
-	cod_coche 	INTEGER	NOT NULL UNIQUE,
-	marca	VARCHAR(50)	NOT NULL,
-	modelo	VARCHAR(50)	NOT NULL,
-	color		VARCHAR(20),
-	precio	DECIMAL(8,2)	DEFAULT 10000.00,
-	tipo		VARCHAR(5),	
-	CONSTRAINT pk_coches
-		PRIMARY KEY (cod_coche),
-	CONSTRAINT valores_tipo
-		CHECK (tipo = "NUEVO" OR tipo = "KM.0" OR tipo = "USADO")
-);
-```
-
-**Se ha detectado que algunos clientes tienen una "provincia" con valor nulo, pero, en cambio, sí que tienen un valor asignado al campo "ciudad". Escribe la(s) intrucción(es) SQL necesarias para arreglar este problema de la mejor manera que se te ocurra.**
-
-Eso no habría ocurrido si la base de datos hubiera estado bien diseñada, con las provincias y las ciudades en sus respectivas tablas independientes de los Clientes.
-
-Ahora habremos perdido datos irremediablemente. Lo único que podemos hacer es insertar una provincia genérica (por ejemplo, "Desconocida") en los registros que hayan perdido su provincia, para evitar tener valores nulos en la tabla de Clientes.
-
-```sql
-UPDATE Clientes
-	SET Provincia = "Desconocida"
-	WHERE Provincia IS NULL;
-```
-
-**Obtener el NIF de los clientes y los códigos de tienda que no sean de la misma ciudad.**
-
-```sql
-SELECT Clientes.cod_cliente, Tiendas.cod_tienda
-	FROM Clientes
-  INNER JOIN Ventas ON Clientes.cod_cliente = Ventas.cod_cliente
-  INNER JOIN Tiendas ON Ventas.cod_tienda = Tiendas.cod_tienda
-	WHERE Clientes.ciudad <> Tiendas.ciudad;
-```
-
-**Obtener la matrícula, la marca y el modelo de los coches vendidos en tiendas de la provincia de Madrid que no hayan sido vendidos en ninguna otra provincia.**
-
-```sql
-(SELECT Coches.cod_coche, marca, modelo
-	FROM Clientes
-  INNER JOIN Ventas ON Clientes.cod_cliente = Ventas.cod_cliente
-  INNER JOIN Tiendas ON Ventas.cod_tienda = Tiendas.cod_tienda
-	  WHERE Tiendas.provincia = "Madrid")
-EXCEPT
-(SELECT Coches.cod_coche, marca, modelo
-	FROM Clientes
-  INNER JOIN Ventas ON Clientes.cod_cliente = Ventas.cod_cliente
-  INNER JOIN Tiendas ON Ventas.cod_tienda = Tiendas.cod_tienda
-	  WHERE Tiendas.provincia <> "Madrid");
-```
-
-Existe una solución alternativa basada en subconsultas, pero el resultado debe ser el mismo:
-
-```sql
-SELECT Coches.cod_coche, marca, modelo
-	FROM Coches 
-  INNER JOIN Ventas ON Coches.cod_coche = Ventas.cod_coche
-  INNER JOIN Tiendas ON Ventas.cod_tienda = Tiendas.cod_tienda
-	WHERE Tiendas.provincia = "Madrid"
-	  AND Coches.cod_coche NOT IN (SELECT cod_coche
-	           FROM Coches 
-             INNER JOIN Ventas ON Coches.cod_coche = Ventas.cod_coche
-             INNER JOIN Tiendas ON Ventas.cod_tienda = Tiendas.cod_tienda
-	              WHERE Tiendas.provicia <> "Madrid")
-```
-
-**Obtener el código, ciudad y dirección de las tiendas que tengan entre 5 y 10 vehículos usados que sean de marca "Renault" y modelo "Megane".**
-
-```sql
-SELECT Tiendas.cod_tienda, Tiendas.ciudad, Tiendas.dirección
-	FROM Tiendas
-  INNER JOIN Coches-están-en-tiendas ON Tiendas.cod_tienda = Coches-están-en-tiendas.cod_tienda
-  INNER JOIN Coches ON Coches-están-en-tiendas.cod_coche = Coches.cod_coche
-	WHERE Coches-están-en-tiendas.cantidad BETWEEN 5 AND 10
-	    AND Coches.marca = "Renault" AND Coches.modelo = "Megane"
-	    AND Coches.tipo = "U";
-```
-
-**Obtener el código, marca y modelo del coche, así como el nombre y apellidos del cliente, de todos los vehículos vendidos a un cliente de Almería por un concesionario de Almería.**
-
-```sql
-SELECT Coches.cod_coche, marca, modelo, nombre, apellidos
-	FROM Coches
-  INNER JOIN Ventas ON Coches.cod_coche = Ventas.cod_coche
-  INNER JOIN Clientes ON Ventas.cod_cliente = Clientes.cod_cliente
-  INNER JOIN Coches-estan-en-tiendas ON Coches.cod_coches = Coches-están-en-tiendas.cod_coche
-  INNER JOIN Tiendas ON Ventas.cod_tienda = Tiendas.cod_tienda
-	WHERE Tiendas.ciudad = "Almería"
-	    AND Clientes.ciudad = "Almería";
-```
-
-**Obtener el nombre y apellidos de clientes que hayan adquirido un coche en algún concesionario que posea actualmente en stock el vehículo marca "Seat", modelo "León".**
-
-```sql
-SELECT DISTINCT nombre, apellidos
-	FROM Coches, Ventas, Clientes, Coches-están-en-tiendas
-	FROM Coches
-  INNER JOIN Ventas ON Coches.cod_coche = Ventas.cod_coche
-  INNER JOIN Clientes ON Ventas.cod_cliente = Clientes.cod_cliente
-  INNER JOIN Coches-estan-en-tiendas ON Coches.cod_coches = Coches-están-en-tiendas.cod_coche
-  INNER JOIN Tiendas ON Ventas.cod_tienda = Tiendas.cod_tienda
-	  WHERE Coches.marca = "Seat" AND Coches.modelo = "León"
-	    AND Coches-están-en-tienda.cantidad > 0;
-```
-
-**Obtener los nombres y apellidos de clientes que no han comprado ningún coche de color rojo a ningún concesionario de Andalucía.**
-
-```sql
-SELECT nombre, apellidos
-	FROM Clientes 
-  INNER JOIN Ventas ON Clientes.cod_cliente = Ventas.cod_cliente
-  INNER JOIN Tiendas ON Ventas.cod_tienda = Tiendas.cod_tienda
-	WHERE Cliende.cod_cliente NOT IN (SELECT cod_cliente 
-          	FROM Clientes 
-            INNER JOIN Ventas ON Clientes.cod_cliente = Ventas.cod_cliente
-            INNER JOIN Tiendas ON Ventas.cod_tienda = Tiendas.cod_tienda
-					    WHERE Coches.color = "Rojo"
-					      AND Tiendas.provincia IN ("Almería", "Granada", "Jaén",
-						         "Málaga", "Córdoba", "Sevilla", "Cádiz", "Huelva") );
-```
+1. Obtener todos los libros ordenados alfabéticamente por título.
+2. Obtener todos los libros del autor "Miguel de Cervantes"
+3. Obtener todos los libros de autores franceses nacidos en el siglo XIX. 
+4. Obtener *el número* de libros escritos por el autor "Miguel de Cervantes". Es decir, si hay 50 libros escritos por Cervantes en esta biblioteca, el resultado de la consulta debe ser "50", no la lista con los 50 libros (eso ya lo hicimos en el apartado 2).
 
