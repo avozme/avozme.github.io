@@ -148,37 +148,48 @@ Por último, si necesitas instalar dependencias de PHP con **composer**, puedes 
 $ docker exec php composer install
 ```
 
-### Cómo editar el archivo php.ini de un contenedor Docker
+### A2.4.1. Cómo editar el archivo php.ini de un contenedor Docker
 
-Si necesitamos **editar el archivo php.ini** del servidor virtualizado, tendremos que conectarnos al contenedor de PHP.
+Lo normal es que tengas que tocar ligeramente algunas de las directivas de **pnp.ini**, el archivo de configuración del PHP de tu servidor.
 
-**PASO 1**. Sacamos la lista de contenedores activos. Así averiguaremos el ID del contenedor de PHP.
+Si trabajas con un servidor nativo local, es tan fácil como buscar el archivo *php.ini* en tu disco duro, editarlo, cambiar lo que necesites y volver a poner en marcha tu servidor.
 
-```
-$ docker ps
-```
+Pero si trabajas con un servidor virtualizado con Docker, el archivo *php.ini* formará parte de la imagen que estés usando, por lo que no sirve de nada hacer cambios en el archivo: cada vez que reinicies tu contenedor, *php.ini* volverá a estar en su estado original.
 
-**PASO 2**. Copiamos el archivo php.ini del contenedir de PHP. En el caso de los contenedores de Bitnami, ese archivo está ubicado en /opt/bitnami/php/etc:
+#### Cosas que (probablemente) tendrás que modificar en php.ini
 
-```
-$ docker cp [id-del-contenedor]:/opt/bitnami/php/etc/php.ini .
-```
-
-**PASO 3**. Ya tenemos el archivo php.ini en nuestra carpeta de trabajo. Lo abrimos y lo editamos.
-
-**PASO 4**. Enviamos el php.ini modificado de nuevo al contenedor:
-
-```
-$ docker cp php.ini [id-del-contenedor]:/opt/bitnami/php/etc
-```
-
-No te olvides de detener el contenedor y volver a ponerlo en marcha para que los cambios surtan efecto.
-
-**ALGUNAS COSAS QUE TAL VEZ TENDRÁS QUE TOCAR EN PHP.INI**
+Cada aplicación tiene sus propias necesidades, pero, en general, las directivas que un desarrollador está siempre manoseando son: 
 
 * Habilitar la depuración de errores: directivas *display_errors* (poner a "On") y *error_reporting* (poner a "E_ALL")
 * Deshabilitar la caché del servidor para que los cambios en tu código se reflejen de inmediato: directiva *opcache.enable* (poner a 0)
 * Incrementar el tamaño de los archivos de subida y el tiempo de procesamiento de los *requests*: directivas *upload_max_filesize* y *max_input_time*.
 * Incrementar el tiempo de ejecución de los scripts y la memoria que pueden consumir: directivas *max_execution_time* y *memory_limit*.
 
-Ten en cuenta que los valores que pongas en estas u otras directivas en un entorno de desarrollo no tienen por qué ser (ni *deben* ser) los mismos que te encuentres en el entorno de producción.
+Ten en cuenta que los valores que pongas en estas u otras directivas en un entorno de desarrollo no tienen por qué ser (ni *deben* ser) los mismos que establezcas en el entorno de producción. Por ejemplo, en producción te interesará volver a poner *diplay_errors* a *Off*.
+
+#### Modificando el php.ini de la imagen bitnami/php-fpm
+
+Cada imagen Docker de PHP lo hará a su manera, pero todas deben proporcionar una forma de manipular el archivo *php.ini* con más o menos facilidad. Por seguir con nuestro ejemplo, nos vamos a centrar en la imagen **bitnami/php-fpm**, que es la que recomendamos para montar nuestro servidor por su (relativa) facilidad de uso.
+
+En el caso de esta imagen, lo que debemos hacer es construir con archivo *.ini* adicional, con la configuración de *php.ini* que necesitemos cambiar. El intérprete PHP tomará todas las directivas de *php.ini* y, si encuentra un archivo *.ini* adicional, lo procesará justo después, sobreescribiendo todas las directivas que encuentre en él.
+
+Por ejemplo, podemos crear en nuestra carpeta de trabajo un archivo llamado ***custom.ini*** con este contenido:
+
+```
+display_errors = On
+error_reporting = E_ALL
+opcache.enable = 0
+```
+
+Ahora bastará con añadir esto a la sección "php" de nuestro ***docker-compose.yml***:
+
+```
+  php:
+    ...
+    volumes:
+      - /ruta/hasta/custom.ini:/opt/bitnami/php/etc/conf.d/custom.ini
+```
+
+Por supuesto, debes sustituir "/ruta/hasta" por la ruta que dirija a tu archivo *custom.ini*. Esto colocará nuestro *custom.ini* en un directorio concreto de la imagen (*opt/bitnami/php/etc/conf.d/*), que es donde el PHP de Bitnami mirará en busca de configuraciones adicionales para su servidor.
+
+La próxima vez que iniciemos nuestro contenedor, la nueva configuración de *php.ini* ya estará disponible.
