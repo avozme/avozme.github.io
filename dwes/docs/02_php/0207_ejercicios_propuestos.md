@@ -31,10 +31,12 @@ Estos ejercicios requerirán de ti dedicación, esfuerzo y constancia. Como ir a
 
 Este ejercicio lo usaremos para probar la correcta puesta en marcha de nuestro servidor web. 
 
-Lo ideal es que trates de hacer con un servidor nativo y con un servidor virtualizado mediante Docker.
+Lo ideal es que trates de hacerlo con un servidor nativo y con un servidor virtualizado mediante Docker.
 
-1. Con un servidor nativo: instala un paquete como Xampp o instala manualmente Apache y MariaDB en tu sistema operativo. Luego ve al directorio htdocs de tu Apache y escribe un programa "holamundo.php"
-2. Con un servidor virtualizado con Docker: baja y configura las imágenes de Bitnami para Apache, MariaDB y PHP. Lánzalas y pruébalas con un programa "holamundo.php". Tienes toda la información sobre cómo hacerlo en el Apéndice II.
+1. **Con un servidor nativo**: instala un paquete como Xampp o instala manualmente Apache y MariaDB en tu sistema operativo. Luego ve al directorio *htdocs* de tu Apache y escribe un programa "holamundo.php"
+2. **Con un servidor virtualizado con Docker**: baja y configura las imágenes de Bitnami para Apache, MariaDB y PHP. Lánzalas y pruébalas con un programa "holamundo.php". Tienes toda la información sobre cómo hacerlo en el [Apéndice II](/docs/dwes/_site/docker/).
+
+Para hacer el resto de ejercicios y prácticas, puedes usar cualquiera de esos dos servidores.
 
 #### Ejercicio 1: positivo, negativo
 

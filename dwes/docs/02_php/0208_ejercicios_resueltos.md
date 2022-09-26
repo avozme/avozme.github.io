@@ -160,16 +160,8 @@ Esta es **una solución muy poco elegante**, un estilo de programación de aplic
         // Primero, comprobamos su ya existe la variable "numero" en la URL.
         // Si no existe, significa que el usuario tiene que escribir un número: tenemos que mostrarle el formulario.
         // Si ya existe, significa que el usuario ha escrito algún número y tenemos que comprobar si coincide con el aleatorio.
-        if (!isset($_REQUEST['numero']])) {
+        if (!isset($_REQUEST['numero'])) {
             // La variable "numero" NO existe. Vamos a pedirle que lo escriba en un formulario
-			echo "<form action='05-numero-secreto.php' method='get'>
-				Adivina mi número:
-				<input type='text' name='numero'><br>
-				<input type='hidden' name='aleatorio' value='$aleatorio'>
-				<input type='hidden' name='intentos' value='$intentos'>
-				<br>				
-				<input type='submit'>
-				</form>";
             // ¿Y el número aleatorio? Si aún no existe, significa que es LA PRIMERA ejecución y aún tenemos que elegirlo.
             // En cambio, si ya existe, tendremos que recuperarlo para seguir usando el mismo aleatorio y no uno nuevo cada vez.
             if (!isset($_REQUEST['aleatorio'])) {
@@ -179,6 +171,14 @@ Esta es **una solución muy poco elegante**, un estilo de programación de aplic
 				$aleatorio = $_REQUEST['aleatorio'];
 				$intentos = $_REQUEST['intentos'];
 			}
+			echo "<form action='numsecreto.php' method='get'>
+				Adivina mi número:
+				<input type='text' name='numero'><br>
+				<input type='hidden' name='aleatorio' value='$aleatorio'>
+				<input type='hidden' name='intentos' value='$intentos'>
+				<br>				
+				<input type='submit'>
+				</form>";
 		} else {
             // La variable "numero" existe. Eso indica que el usuario escribió un número en el formulario.
             // Vamos a recuperar ese número y a compararlo con el aleatorio.
@@ -199,7 +199,8 @@ Esta es **una solución muy poco elegante**, un estilo de programación de aplic
 			}
             // Volvemos a llamar a este mismo programa, pasándole como variables de URL el aleatorio
             // y el número de intentos, para seguir jugando con el mismo número secreto.
-			echo "<br><a href='index.php?aleatorio=$aleatorio&intentos=$intentos'>Sigue jugando...</a>";
+			echo "<br><a href='numsecreto.php?aleatorio=$aleatorio&intentos=$intentos'>Sigue jugando...</a>";
+            
 		}
 
 	?>
@@ -224,53 +225,47 @@ Observa detenidamente cómo se usan las variables de sesión con PHP mediante el
   <body>
 
 	<?php
-		session_start();  // Para poder usar variables de sesión
-
-		if (!isset($_REQUEST['numero'])) {
-			// NO existe la variable número: vamos a mostrar el formulario
-			echo "<form action='05-numero-secreto-v2.php' method='get'>
+		session_start();
+        // Primero, comprobamos su ya existe la variable "numero" en la URL.
+        // Si no existe, significa que el usuario tiene que escribir un número: tenemos que mostrarle el formulario.
+        // Si ya existe, significa que el usuario ha escrito algún número y tenemos que comprobar si coincide con el aleatorio.
+        if (!isset($_REQUEST['numero'])) {
+            // La variable "numero" NO existe. Vamos a pedirle que lo escriba en un formulario
+            // ¿Y el número aleatorio? Si aún no existe, significa que es LA PRIMERA ejecución y aún tenemos que elegirlo.
+            // En cambio, si ya existe, tendremos que recuperarlo para seguir usando el mismo aleatorio y no uno nuevo cada vez.
+            if (!isset($_SESSION['aleatorio'])) {
+				$_SESSION["intentos"] = 0;
+				$_SESSION["aleatorio"] = rand(1,100);
+			}
+			echo "<form action='numsecreto.php' method='get'>
 				Adivina mi número:
 				<input type='text' name='numero'><br>
 				<br>				
 				<input type='submit'>
 				</form>";
-			// ¿Será la primera ejecución? Vamos a ver si ya existe la variable "aleatorio".
-			// Si no existe, la creamos, pero esta vez como variable de sesión, no de URL.
-			// Esa variable quedará almacenada en el servidor y seguirá existiendo hasta que
-			// cerremos la sesión.
-			if (!isset($_SESSION['aleatorio'])) {
-				$_SESSION['aleatorio'] = rand(1,100);
-				$_SESSION['intentos'] = 0;
-			}
 		} else {
-			// Existe la variable "numero": significa que el usuario rellenó el formulario y pulsó "submit".
-			// Vamos a compararla con el aleatorio.
-			// Guardaremos "numero" y "aleatorio" en variable locales
-			// para manejarlas con más comodidad, pero no es imprescindible hacerlo.
+            // La variable "numero" existe. Eso indica que el usuario escribió un número en el formulario.
+            // Vamos a recuperar ese número y a compararlo con el aleatorio.
 			$n = $_REQUEST['numero'];
-			$aleatorio = $_SESSION['aleatorio'];
-			$_SESSION['intentos']++;
-
-            echo "Tu número es: $n<br>";
-			if ($n > $aleatorio) {
+			$_SESSION["intentos"]++;
+			echo "Tu número es: $n<br>";
+			if ($n > $_SESSION["aleatorio"]) {
 				echo "Mi número es MENOR";
-				echo "<br><a href='index.php'>Sigue jugando...</a>";
 			}
-			else if ($n < $aleatorio) {
+			else if ($n < $_SESSION["aleatorio"]) {
 				echo "Mi número es MAYOR";
-				echo "<br><a href='index.php'>Sigue jugando...</a>";
 			}
 			else {
 				echo "<p>ENHORABUENA, HAS ACERTADO</p>";
-				echo "Has necesitado ".$_SESSION['intentos']." intentos";
-				unset($_SESSION['aleatorio']);  // Esto destruye la variable de sesión
-				echo "<br><a href='index.php'>Jugar de nuevo</a>";
+				echo "Has necesitado ".$_SESSION["intentos"]." intentos";
 			}
+            // Volvemos a llamar a este mismo programa, pasándole como variables de URL el aleatorio
+            // y el número de intentos, para seguir jugando con el mismo número secreto.
+			echo "<br><a href='numsecreto.php'>Sigue jugando...</a>";
+            
 		}
 
 	?>
-</body>
-</html>
 ```
 
 ### 2.8.3. Biblioteca

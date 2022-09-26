@@ -372,4 +372,4 @@ $ docker-compose up -d
 
 Si haces esto mismo con el resto de contenedores que necesites, como el de MySQL, puedes crear un docker-compose.yml para lanzar todos los contenedores de una sola vez, y poner así tu servidor virtualizado en marcha cada vez que lo necesites tecleando tan solo el comando ```docker-compose up -d```.
 
-Puedes encontrar más información sobre Docker en el Apéndice II.
+**Puedes encontrar más información sobre Docker en el [Apéndice II](/docs/dwes/_site/docker/). Allí te explico cómo montar un servidor virtualizado que use Apache, MariaDB, PHP y PHPMyAdmin y ponerlo en marcha con un solo comando.**

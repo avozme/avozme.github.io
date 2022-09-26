@@ -159,7 +159,7 @@ Como los arrays son objetos, dispones de un montón de métodos y atributos para
 * **next($a)**: devuelve el siguiente elemento de un array (el primero, si es la primera vez que se invoca).
 * **prev($a)**: devuelve el elemento anterior de un array (el último si es la primera vez que se invoca).
 * **array_push($a, $elemento)**: añade el $elemento al final del array $a.
-* **$elemento = array_pop($a)**: elmina el último elemento del array $a (y lo asigna a la variable $elemento).
+* **$elemento = array_pop($a)**: elimina el último elemento del array $a (y lo asigna a la variable $elemento).
 * **sort($a)** y **asort($a)**: ordena el array $a. *sort()* se utiliza con arrays convencionales y *asort()* con arrays asociativos.
 
 ### 2.3.6. Estructuras de control
@@ -695,7 +695,7 @@ if (!isset($_REQUEST["email"])) {
     echo "Error: el campo email es obligatorio";
 }
 $nombre = filter_var($_REQUEST["nombre"], FILTER_SANITIZE_STRING);
-$email = filter_var($_REQUEST["nombre"], FILTER_SANITIZE_STRING);
+$email = filter_var($_REQUEST["email"], FILTER_SANITIZE_EMAIL);
 ```
 
 Tras la ejecución de este código nos habremos asegurado de que el usuario ha rellenado los dos campos y que esos campos no contienen ningún carácter sospechoso de ataque.
@@ -717,14 +717,14 @@ Y, por supuesto, para construir validaciones más específicas, siempre puede pr
 
 Cuando las aplicaciones se hacen muy complejas pueden llegar a usar muchísimas clases (tanto nuestras como de librerías) y antes o después nos encontramos con problemas de redefinición. Es decir: dos clases, dos métodos o dos funciones que se llaman igual pero que pertenecen a librerías diferentes.
 
-Los **namespaces** o **espacios con nombre** permiten organizar clases mediante nombres descriptivos, igual los archivos se organizan en carpetas. ¿Verdad que puedes tener dos archivos que se llamen igual en dos lugares distintos de tu disco duro? Pues eso mismo.
+Los **namespaces** o **espacios con nombre** permiten organizar clases mediante nombres descriptivos, igual que los archivos se organizan en carpetas. ¿Verdad que puedes tener dos archivos que se llamen igual en dos lugares distintos de tu disco duro? Pues eso mismo.
 
 Por ejemplo, podemos tener una clase llamada *Planta* para manejar las existencias de plantas vegetales de un centro comercial, y una clase diferente llamada también *Planta* que se refiera a los diferentes pisos del centro comercial. Cada clase estaría dentro de un *namespace* diferente, y así no se confundirían.
 
 Para asignar una clase (o lo que sea) a un espacio con nombres, basta con indicarlo al principio del archivo que contiene esa clase, así:
 
 ```php
-namespace vegetales
+namespace vegetales;
 ```
 
 Cualquier clase o función que se declare en este archivo pertenecerá al *namespace* "vegetales".
@@ -732,7 +732,7 @@ Cualquier clase o función que se declare en este archivo pertenecerá al *names
 Para mantener un **código limpio y bien organizado**, lo habitual es escribir una sola clase en cada archivo, y colocar esos archivos en subcarpetas que tengan el mismo nombre que el *namespace*. De hecho, los *namespaces* de los sistemas complejos suelen incluir una jerarquía de carpetas que se indica así:
 
 ```php
-namespace Persona\Empleado
+namespace Persona\Empleado;
 ```
 
 El archivo que comience de ese modo debería contener el código fuente de una clase llamada también *Empleado*, y el propio archivo debería llamarse *empleado.php* y localizarse en una subcarpeta llamada *persona/empleado*.

@@ -82,16 +82,8 @@
         <span class="c1">// Primero, comprobamos su ya existe la variable "numero" en la URL.</span>
         <span class="c1">// Si no existe, significa que el usuario tiene que escribir un número: tenemos que mostrarle el formulario.</span>
         <span class="c1">// Si ya existe, significa que el usuario ha escrito algún número y tenemos que comprobar si coincide con el aleatorio.</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">isset</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'numero'</span><span class="p">]]))</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">isset</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'numero'</span><span class="p">]))</span> <span class="p">{</span>
             <span class="c1">// La variable "numero" NO existe. Vamos a pedirle que lo escriba en un formulario</span>
-			<span class="k">echo</span> <span class="s2">"&lt;form action='05-numero-secreto.php' method='get'&gt;
-				Adivina mi número:
-				&lt;input type='text' name='numero'&gt;&lt;br&gt;
-				&lt;input type='hidden' name='aleatorio' value='</span><span class="nv">$aleatorio</span><span class="s2">'&gt;
-				&lt;input type='hidden' name='intentos' value='</span><span class="nv">$intentos</span><span class="s2">'&gt;
-				&lt;br&gt;				
-				&lt;input type='submit'&gt;
-				&lt;/form&gt;"</span><span class="p">;</span>
             <span class="c1">// ¿Y el número aleatorio? Si aún no existe, significa que es LA PRIMERA ejecución y aún tenemos que elegirlo.</span>
             <span class="c1">// En cambio, si ya existe, tendremos que recuperarlo para seguir usando el mismo aleatorio y no uno nuevo cada vez.</span>
             <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">isset</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'aleatorio'</span><span class="p">]))</span> <span class="p">{</span>
@@ -101,6 +93,14 @@
 				<span class="nv">$aleatorio</span> <span class="o">=</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'aleatorio'</span><span class="p">];</span>
 				<span class="nv">$intentos</span> <span class="o">=</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'intentos'</span><span class="p">];</span>
 			<span class="p">}</span>
+			<span class="k">echo</span> <span class="s2">"&lt;form action='numsecreto.php' method='get'&gt;
+				Adivina mi número:
+				&lt;input type='text' name='numero'&gt;&lt;br&gt;
+				&lt;input type='hidden' name='aleatorio' value='</span><span class="nv">$aleatorio</span><span class="s2">'&gt;
+				&lt;input type='hidden' name='intentos' value='</span><span class="nv">$intentos</span><span class="s2">'&gt;
+				&lt;br&gt;				
+				&lt;input type='submit'&gt;
+				&lt;/form&gt;"</span><span class="p">;</span>
 		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
             <span class="c1">// La variable "numero" existe. Eso indica que el usuario escribió un número en el formulario.</span>
             <span class="c1">// Vamos a recuperar ese número y a compararlo con el aleatorio.</span>
@@ -121,7 +121,8 @@
 			<span class="p">}</span>
             <span class="c1">// Volvemos a llamar a este mismo programa, pasándole como variables de URL el aleatorio</span>
             <span class="c1">// y el número de intentos, para seguir jugando con el mismo número secreto.</span>
-			<span class="k">echo</span> <span class="s2">"&lt;br&gt;&lt;a href='index.php?aleatorio=</span><span class="nv">$aleatorio</span><span class="s2">&amp;intentos=</span><span class="nv">$intentos</span><span class="s2">'&gt;Sigue jugando...&lt;/a&gt;"</span><span class="p">;</span>
+			<span class="k">echo</span> <span class="s2">"&lt;br&gt;&lt;a href='numsecreto.php?aleatorio=</span><span class="nv">$aleatorio</span><span class="s2">&amp;intentos=</span><span class="nv">$intentos</span><span class="s2">'&gt;Sigue jugando...&lt;/a&gt;"</span><span class="p">;</span>
+            
 		<span class="p">}</span>
 
 	<span class="cp">?&gt;</span>
@@ -133,53 +134,47 @@
   <span class="nt">&lt;body&gt;</span>
 
 	<span class="cp">&lt;?php</span>
-		<span class="nb">session_start</span><span class="p">();</span>  <span class="c1">// Para poder usar variables de sesión</span>
-
-		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">isset</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'numero'</span><span class="p">]))</span> <span class="p">{</span>
-			<span class="c1">// NO existe la variable número: vamos a mostrar el formulario</span>
-			<span class="k">echo</span> <span class="s2">"&lt;form action='05-numero-secreto-v2.php' method='get'&gt;
+		<span class="nb">session_start</span><span class="p">();</span>
+        <span class="c1">// Primero, comprobamos su ya existe la variable "numero" en la URL.</span>
+        <span class="c1">// Si no existe, significa que el usuario tiene que escribir un número: tenemos que mostrarle el formulario.</span>
+        <span class="c1">// Si ya existe, significa que el usuario ha escrito algún número y tenemos que comprobar si coincide con el aleatorio.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">isset</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'numero'</span><span class="p">]))</span> <span class="p">{</span>
+            <span class="c1">// La variable "numero" NO existe. Vamos a pedirle que lo escriba en un formulario</span>
+            <span class="c1">// ¿Y el número aleatorio? Si aún no existe, significa que es LA PRIMERA ejecución y aún tenemos que elegirlo.</span>
+            <span class="c1">// En cambio, si ya existe, tendremos que recuperarlo para seguir usando el mismo aleatorio y no uno nuevo cada vez.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">isset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'aleatorio'</span><span class="p">]))</span> <span class="p">{</span>
+				<span class="nv">$_SESSION</span><span class="p">[</span><span class="s2">"intentos"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+				<span class="nv">$_SESSION</span><span class="p">[</span><span class="s2">"aleatorio"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span>
+			<span class="p">}</span>
+			<span class="k">echo</span> <span class="s2">"&lt;form action='numsecreto.php' method='get'&gt;
 				Adivina mi número:
 				&lt;input type='text' name='numero'&gt;&lt;br&gt;
 				&lt;br&gt;				
 				&lt;input type='submit'&gt;
 				&lt;/form&gt;"</span><span class="p">;</span>
-			<span class="c1">// ¿Será la primera ejecución? Vamos a ver si ya existe la variable "aleatorio".</span>
-			<span class="c1">// Si no existe, la creamos, pero esta vez como variable de sesión, no de URL.</span>
-			<span class="c1">// Esa variable quedará almacenada en el servidor y seguirá existiendo hasta que</span>
-			<span class="c1">// cerremos la sesión.</span>
-			<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">isset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'aleatorio'</span><span class="p">]))</span> <span class="p">{</span>
-				<span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'aleatorio'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span>
-				<span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'intentos'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-			<span class="p">}</span>
 		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-			<span class="c1">// Existe la variable "numero": significa que el usuario rellenó el formulario y pulsó "submit".</span>
-			<span class="c1">// Vamos a compararla con el aleatorio.</span>
-			<span class="c1">// Guardaremos "numero" y "aleatorio" en variable locales</span>
-			<span class="c1">// para manejarlas con más comodidad, pero no es imprescindible hacerlo.</span>
+            <span class="c1">// La variable "numero" existe. Eso indica que el usuario escribió un número en el formulario.</span>
+            <span class="c1">// Vamos a recuperar ese número y a compararlo con el aleatorio.</span>
 			<span class="nv">$n</span> <span class="o">=</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'numero'</span><span class="p">];</span>
-			<span class="nv">$aleatorio</span> <span class="o">=</span> <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'aleatorio'</span><span class="p">];</span>
-			<span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'intentos'</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
-
-            <span class="k">echo</span> <span class="s2">"Tu número es: </span><span class="nv">$n</span><span class="s2">&lt;br&gt;"</span><span class="p">;</span>
-			<span class="k">if</span> <span class="p">(</span><span class="nv">$n</span> <span class="o">&gt;</span> <span class="nv">$aleatorio</span><span class="p">)</span> <span class="p">{</span>
+			<span class="nv">$_SESSION</span><span class="p">[</span><span class="s2">"intentos"</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+			<span class="k">echo</span> <span class="s2">"Tu número es: </span><span class="nv">$n</span><span class="s2">&lt;br&gt;"</span><span class="p">;</span>
+			<span class="k">if</span> <span class="p">(</span><span class="nv">$n</span> <span class="o">&gt;</span> <span class="nv">$_SESSION</span><span class="p">[</span><span class="s2">"aleatorio"</span><span class="p">])</span> <span class="p">{</span>
 				<span class="k">echo</span> <span class="s2">"Mi número es MENOR"</span><span class="p">;</span>
-				<span class="k">echo</span> <span class="s2">"&lt;br&gt;&lt;a href='index.php'&gt;Sigue jugando...&lt;/a&gt;"</span><span class="p">;</span>
 			<span class="p">}</span>
-			<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$n</span> <span class="o">&lt;</span> <span class="nv">$aleatorio</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$n</span> <span class="o">&lt;</span> <span class="nv">$_SESSION</span><span class="p">[</span><span class="s2">"aleatorio"</span><span class="p">])</span> <span class="p">{</span>
 				<span class="k">echo</span> <span class="s2">"Mi número es MAYOR"</span><span class="p">;</span>
-				<span class="k">echo</span> <span class="s2">"&lt;br&gt;&lt;a href='index.php'&gt;Sigue jugando...&lt;/a&gt;"</span><span class="p">;</span>
 			<span class="p">}</span>
 			<span class="k">else</span> <span class="p">{</span>
 				<span class="k">echo</span> <span class="s2">"&lt;p&gt;ENHORABUENA, HAS ACERTADO&lt;/p&gt;"</span><span class="p">;</span>
-				<span class="k">echo</span> <span class="s2">"Has necesitado "</span><span class="mf">.</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'intentos'</span><span class="p">]</span><span class="mf">.</span><span class="s2">" intentos"</span><span class="p">;</span>
-				<span class="k">unset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'aleatorio'</span><span class="p">]);</span>  <span class="c1">// Esto destruye la variable de sesión</span>
-				<span class="k">echo</span> <span class="s2">"&lt;br&gt;&lt;a href='index.php'&gt;Jugar de nuevo&lt;/a&gt;"</span><span class="p">;</span>
+				<span class="k">echo</span> <span class="s2">"Has necesitado "</span><span class="mf">.</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s2">"intentos"</span><span class="p">]</span><span class="mf">.</span><span class="s2">" intentos"</span><span class="p">;</span>
 			<span class="p">}</span>
+            <span class="c1">// Volvemos a llamar a este mismo programa, pasándole como variables de URL el aleatorio</span>
+            <span class="c1">// y el número de intentos, para seguir jugando con el mismo número secreto.</span>
+			<span class="k">echo</span> <span class="s2">"&lt;br&gt;&lt;a href='numsecreto.php'&gt;Sigue jugando...&lt;/a&gt;"</span><span class="p">;</span>
+            
 		<span class="p">}</span>
 
 	<span class="cp">?&gt;</span>
-<span class="nt">&lt;/body&gt;</span>
-<span class="nt">&lt;/html&gt;</span>
 </code></pre></div></div> <h3 id="283-biblioteca"> <a href="#283-biblioteca" class="anchor-heading" aria-labelledby="283-biblioteca"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 2.8.3. Biblioteca </h3> <p>Este es un caso práctico muy importante por dos razones:</p> <ol> <li>Porque es nuestra primera aplicación web “de verdad”, con una base de datos detrás.</li> <li>Porque volveremos sobre ella varias veces a lo largo de las siguientes secciones para hacerle sucesivas mejoras, hasta dejarla presentable.</li> </ol> <p>El código fuente es más largo, pero fácil de seguir. No te desesperes ni intentes leerlo en dos minutos para marcharte a hacer otra cosa. Tómatelo con calma, como si leer el código fuente fuera como leer un manual de instrucciones de un electrodoméstico nuevo que aún no tienes ni idea de cómo se usa.</p> <p><strong>Se trata de escribir una aplicación web en PHP que gestione, de forma muy simplificada, una biblioteca</strong>.</p> <p>La aplicación trabajará con una base de datos compuesta de solo dos tablas (ya te dije que estaría muy simplificada): <em>libros</em> y <em>autores</em>.</p> <p>Esta aplicación nos permitirá, en principio, ver la lista de todos los libros disponibles, así como dar de alta libros nuevos y modificar o borrar los libros existentes. De momento no trabajaremos con los autores, pero sería fácil extenderla para que también nos dejase hacer altas, bajas y modificaciones de los autores.</p> <p>Al leer el código, observa cómo utilizamos una variable muy especial llamada <strong><em>$action</em></strong> para saber qué tiene que hacer la aplicación en cada momento. Esa variable es el germen de la <em>arquitectura modelo-vista-controlador</em> con la que trabajaremos una y otra vez más adelante.</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- BIBLIOTECA VERSIÓN 1
      Características de esta versión:
        - Código monolítico (sin arquitectura MVC)
