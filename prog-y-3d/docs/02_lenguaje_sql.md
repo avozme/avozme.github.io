@@ -1377,17 +1377,21 @@ SELECT Alumnos.nombre, Alumnos.apellidos
 	  WHERE Profesores.idioma = "Alemán";
 ```
 
-#### Ejercicio obligatorio: Biblioteca
+#### Ejercicio obligatorio: Series de TV
 
-Una base de datos de una biblioteca que lleva algún tiempo funcionando contiene, entre otras tablas, estas dos:
+Nuestra base de datos para nuestras series de TV favoritas incluye estas tablas:
 
-* Libros (idLibro#, titulo, editorial, idAutor)
-* Autores (idAutor#, nombre, apellidos, pais, fechaNacimiento)
+* SERIES (id#, titulo, canal, puntuacion)
+* TEMPORADAS (id#, anyo, num_capitulos, id_serie)
+* PERSONAS (id#, nombre, apellido)
+* DIRIGEN (id_persona#, id_serie#)
+* ACTUAN (id_persona#, id_serie#)
 
-Escribe las siguientes consultas:
-
-1. Obtener todos los libros ordenados alfabéticamente por título.
-2. Obtener todos los libros del autor "Miguel de Cervantes"
-3. Obtener todos los libros de autores franceses nacidos en el siglo XIX. 
-4. Obtener *el número* de libros escritos por el autor "Miguel de Cervantes". Es decir, si hay 50 libros escritos por Cervantes en esta biblioteca, el resultado de la consulta debe ser "50", no la lista con los 50 libros (eso ya lo hicimos en el apartado 2).
+1. Crea las tablas con las instrucciones CREATE TABLE necesarias, asignando los tipos de datos que te parezcan más adecuados.
+2. Inserta unos cuantos datos de ejemplo en cada una de las tablas con INSERT INTO.
+3. Escribe las siguientes consultas:
+   * Obtener los títulos y canales de todas las series, ordenadas por puntuación (de mayor a menor) y, en caso de empate, por orden alfabético.
+   * Obtener los títulos de todas las series donde actúe... (pon aquí el nombre de tu actor o actriz favorito).
+   * Obtener todos los datos disponibles (reparto, directores, temporadas, etc.) de la serie... (pon aquí el título de tu serie preferida). 
+   * Obtener el número de personas que hay en el reparto de tu serie preferida. Es decir, si esa serie tiene 5 actores y actrices en el reparto, el resultado de esta consulta debe ser "5", no la lista de nombres de esas personas.
 
