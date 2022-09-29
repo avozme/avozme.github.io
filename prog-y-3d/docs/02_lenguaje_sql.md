@@ -1398,11 +1398,11 @@ La base de datos para nuestras series de TV favoritas incluye estas tablas:
 Para hacer este ejercicio, hemos creado una base de datos online a la que puedes acceder con un programa llamado PHPMyAdmin desde la dirección [https://acceso.donhosting.es/pma/](https://acceso.donhosting.es/pma/). Usa estas credenciales:
 
 * Usuario: la primera letra de tu nombre + tu apellido
-* Contraseña: la primera letra de tu nombre + tu apellido + 2022
+* Contraseña: la primera letra de tu nombre + tu apellido + 2022!
 
-Por ejemplo, si te llamas "Ana López", podrás entrar con el usuario "alopez" y la contraseña "alopez2022".
+Por ejemplo, si te llamas "Ana López", podrás entrar con el usuario "alopez" y la contraseña "alopez2022!". Si tu nombre es compuesto, como en "Jose Luis Rubio", tu cuenta será "jlrubio" y tu contraseña "jlrubio2022!". 
 
-Una vez conectado a MySQL, tendrás que seleccionar la base de datos que vas a usar (panel de la izquierda):
+Una vez conectado a MySQL, tendrás que seleccionar la base de datos que vas a usar (en el panel de la izquierda). Solo tienes una disponible, así que no tiene pérdida:
 
 ![Seleccionar la base de datos](/docs/prog-y-3d/_site/assets/images/08-phpmyadmin-seleccionar-bd.png)
 
@@ -1412,8 +1412,8 @@ Ahora escribe tus instrucciones SQL desde la pestaña "SQL" (pulsa "Continuar" p
 
 Para comprobar si tus instrucciones SQL están funcionando:
 
-a) Asegúrate de que no dan ningún error al ejecutarlas.
+1. Asegúrate de que no dan ningún error al ejecutarlas.
+2. Selecciona una tabla en la lista de tablas y mira en la pestaña "Estructura" a ver si se han creado las tablas como deberían.
+3. Selecciona una tabla en la lista de tablas y mira en la pestaña "Examinar" a ver si contiene los datos que debería.
 
-b) Selecciona una tabla en la lista de tablas y mira en la pestaña "Estructura" a ver si se han creado las tablas como deberían.
-
-c) Selecciona una tabla en la lista de tablas y mira en la pestaña "Examinar" a ver si contiene los datos que debería.
+No olvides ir copiando tu código SQL en algún editor de texto para poder luego subirme a Moodle el ejercicio completo.
