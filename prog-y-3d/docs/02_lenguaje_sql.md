@@ -1379,7 +1379,7 @@ SELECT Alumnos.nombre, Alumnos.apellidos
 
 #### Ejercicio obligatorio: Series de TV
 
-Nuestra base de datos para nuestras series de TV favoritas incluye estas tablas:
+La base de datos para nuestras series de TV favoritas incluye estas tablas:
 
 * SERIES (id#, titulo, canal, puntuacion)
 * TEMPORADAS (id#, anyo, num_capitulos, id_serie)
@@ -1395,3 +1395,25 @@ Nuestra base de datos para nuestras series de TV favoritas incluye estas tablas:
    * Obtener todos los datos disponibles (reparto, directores, temporadas, etc.) de la serie... (pon aquí el título de tu serie preferida). 
    * Obtener el número de personas que hay en el reparto de tu serie preferida. Es decir, si esa serie tiene 5 actores y actrices en el reparto, el resultado de esta consulta debe ser "5", no la lista de nombres de esas personas.
 
+Para hacer este ejercicio, hemos creado una base de datos online a la que puedes acceder con un programa llamado PHPMyAdmin desde la dirección [https://acceso.donhosting.es/pma/](https://acceso.donhosting.es/pma/). Usa estas credenciales:
+
+* Usuario: la primera letra de tu nombre + tu apellido
+* Contraseña: la primera letra de tu nombre + tu apellido + 2022
+
+Por ejemplo, si te llamas "Ana López", podrás entrar con el usuario "alopez" y la contraseña "alopez2022".
+
+Una vez conectado a MySQL, tendrás que seleccionar la base de datos que vas a usar (panel de la izquierda):
+
+![Seleccionar la base de datos](/docs/prog-y-3d/_site/assets/images/08-phpmyadmin-seleccionar-bd.png)
+
+Ahora escribe tus instrucciones SQL desde la pestaña "SQL" (pulsa "Continuar" para ejecutar la instrucción):
+
+![Ejecutar SQL](/docs/prog-y-3d/_site/assets/images/08-phpmyadmin-ejecutar-sql.png)
+
+Para comprobar si tus instrucciones SQL están funcionando:
+
+a) Asegúrate de que no dan ningún error al ejecutarlas.
+
+b) Selecciona una tabla en la lista de tablas y mira en la pestaña "Estructura" a ver si se han creado las tablas como deberían.
+
+c) Selecciona una tabla en la lista de tablas y mira en la pestaña "Examinar" a ver si contiene los datos que debería.
