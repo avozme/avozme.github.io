@@ -293,7 +293,6 @@ Al leer el código, observa cómo utilizamos una variable muy especial llamada *
        - Sin sesiones ni control de acceso
        - Sin reutilización de código
 -->
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -303,8 +302,6 @@ Al leer el código, observa cómo utilizamos una variable muy especial llamada *
 <body>
     <?php
 
-    $db = new mysqli("servidor-de-base-de-datos", "usuario", "password", "nombre-base-de-datos");
-
     // Miramos el valor de la variable "action", si existe. Si no, le asignamos una acción por defecto
     if (isset($_REQUEST["action"])) {
         $action = $_REQUEST["action"];
@@ -312,17 +309,24 @@ Al leer el código, observa cómo utilizamos una variable muy especial llamada *
         $action = "mostrarListaLibros";  // Acción por defecto
     }
 
-    // CONTROL DE FLUJO PRINCIPAL
-    // El programa saltará a la sección del switch indicada por la variable "action"
-    switch ($action) {
+    // Creamos un objeto de tipo Biblioteca y llamamos al método $action()
+    $biblio = new Biblioteca();
+    $biblio->$action();
+
+    class Biblioteca {
+        $db = null;     // Conexión con la base de datos
+
+        public function __construct() {
+            $this->db = new mysqli("servidor-de-base-de-datos", "usuario", "password", "nombre-base-de-datos");
+        }
+
 
         // --------------------------------- MOSTRAR LISTA DE LIBROS ----------------------------------------
-
-        case "mostrarListaLibros":
+        public function mostrarListaLibros() {
             echo "<h1>Biblioteca</h1>";
 
             // Buscamos todos los libros de la biblioteca
-            if ($result = $db->query("SELECT * FROM libros
+            if ($result = $this->db->query("SELECT * FROM libros
                                         INNER JOIN escriben ON libros.idLibro = escriben.idLibro
                                         INNER JOIN personas ON escriben.idPersona = personas.idPersona
                                         ORDER BY libros.titulo")) {
@@ -361,11 +365,11 @@ Al leer el código, observa cómo utilizamos una variable muy especial llamada *
                 echo "Error al tratar de recuperar los datos de la base de datos. Por favor, inténtelo más tarde";
             }
             echo "<p><a href='index.php?action=formularioInsertarLibros'>Nuevo</a></p>";
-            break;
+        }
 
-            // --------------------------------- FORMULARIO ALTA DE LIBROS ----------------------------------------
+        // --------------------------------- FORMULARIO ALTA DE LIBROS ----------------------------------------
 
-        case "formularioInsertarLibros":
+        public function formularioInsertarLibros() {
             echo "<h1>Modificación de libros</h1>";
 
             // Creamos el formulario con los campos del libro
@@ -377,7 +381,7 @@ Al leer el código, observa cómo utilizamos una variable muy especial llamada *
                     Número de páginas:<input type='text' name='numPaginas'><br>";
 
             // Añadimos un selector para el id del autor o autores
-            $result = $db->query("SELECT * FROM personas");
+            $result = $this->db->query("SELECT * FROM personas");
             echo "Autores: <select name='autor[]' multiple='true'>";
             while ($fila = $result->fetch_object()) {
                 echo "<option value='" . $fila->idPersona . "'>" . $fila->nombre . " " . $fila->apellido . "</option>";
@@ -391,11 +395,11 @@ Al leer el código, observa cómo utilizamos una variable muy especial llamada *
 				</form>";
             echo "<p><a href='index.php'>Volver</a></p>";
 
-            break;
+        }
 
-            // --------------------------------- INSERTAR LIBROS ----------------------------------------
+        // --------------------------------- INSERTAR LIBROS ----------------------------------------
 
-        case "insertarLibro":
+        public function insertarLibro() {
             echo "<h1>Alta de libros</h1>";
 
             // Vamos a procesar el formulario de alta de libros
@@ -409,15 +413,15 @@ Al leer el código, observa cómo utilizamos una variable muy especial llamada *
 
             // Lanzamos el INSERT contra la BD.
             echo "INSERT INTO libros (titulo,genero,pais,ano,numPaginas) VALUES ('$titulo','$genero', '$pais', '$ano', '$numPaginas')";
-            $db->query("INSERT INTO libros (titulo,genero,pais,ano,numPaginas) VALUES ('$titulo','$genero', '$pais', '$ano', '$numPaginas')");
-            if ($db->affected_rows == 1) {
+            $this->db->query("INSERT INTO libros (titulo,genero,pais,ano,numPaginas) VALUES ('$titulo','$genero', '$pais', '$ano', '$numPaginas')");
+            if ($this->db->affected_rows == 1) {
                 // Si la inserción del libro ha funcionado, continuamos insertando en la tabla "escriben"
                 // Tenemos que averiguar qué idLibro se ha asignado al libro que acabamos de insertar
-                $result = $db->query("SELECT MAX(idLibro) AS ultimoIdLibro FROM libros");
+                $result = $this->db->query("SELECT MAX(idLibro) AS ultimoIdLibro FROM libros");
                 $idLibro = $result->fetch_object()->ultimoIdLibro;
                 // Ya podemos insertar todos los autores junto con el libro en "escriben"
                 foreach ($autores as $idAutor) {
-                    $db->query("INSERT INTO escriben(idLibro, idPersona) VALUES('$idLibro', '$idAutor')");
+                    $this->db->query("INSERT INTO escriben(idLibro, idPersona) VALUES('$idLibro', '$idAutor')");
                 }
                 echo "Libro insertado con éxito";
             } else {
@@ -426,35 +430,35 @@ Al leer el código, observa cómo utilizamos una variable muy especial llamada *
             }
             echo "<p><a href='index.php'>Volver</a></p>";
 
-            break;
+        }
 
-            // --------------------------------- BORRAR LIBROS ----------------------------------------
+        // --------------------------------- BORRAR LIBROS ----------------------------------------
 
-        case "borrarLibro":
+        public function borrarLibro() {
             echo "<h1>Borrar libros</h1>";
 
             // Recuperamos el id del libro y lanzamos el DELETE contra la BD
             $idLibro = $_REQUEST["idLibro"];
-            $db->query("DELETE FROM libros WHERE idLibro = '$idLibro'");
+            $this->db->query("DELETE FROM libros WHERE idLibro = '$idLibro'");
 
             // Mostramos mensaje con el resultado de la operación
-            if ($db->affected_rows == 0) {
+            if ($this->db->affected_rows == 0) {
                 echo "Ha ocurrido un error al borrar el libro. Por favor, inténtelo de nuevo";
             } else {
                 echo "Libro borrado con éxito";
             }
             echo "<p><a href='index.php'>Volver</a></p>";
 
-            break;
+        }
 
-            // --------------------------------- FORMULARIO MODIFICAR LIBROS ----------------------------------------
+        // --------------------------------- FORMULARIO MODIFICAR LIBROS ----------------------------------------
 
-        case "formularioModificarLibro":
+        public function formularioModificarLibro() {
             echo "<h1>Modificación de libros</h1>";
 
             // Recuperamos el id del libro que vamos a modificar y sacamos el resto de sus datos de la BD
             $idLibro = $_REQUEST["idLibro"];
-            $result = $db->query("SELECT * FROM libros WHERE libros.idLibro = '$idLibro'");
+            $result = $this->db->query("SELECT * FROM libros WHERE libros.idLibro = '$idLibro'");
             $libro = $result->fetch_object();
 
             // Creamos el formulario con los campos del libro
@@ -470,8 +474,8 @@ Al leer el código, observa cómo utilizamos una variable muy especial llamada *
             // Vamos a añadir un selector para el id del autor o autores.
             // Para que salgan preseleccionados los autores del libro que estamos modificando, vamos a buscar
             // también a esos autores.
-            $todosLosAutores = $db->query("SELECT * FROM personas");  // Obtener todos los autores
-            $autoresLibro = $db->query("SELECT idPersona FROM escriben WHERE idLibro = '$idLibro'");             // Obtener solo los autores del libro que estamos buscando
+            $todosLosAutores = $this->db->query("SELECT * FROM personas");  // Obtener todos los autores
+            $autoresLibro = $this->db->query("SELECT idPersona FROM escriben WHERE idLibro = '$idLibro'");             // Obtener solo los autores del libro que estamos buscando
             // Vamos a convertir esa lista de autores del libro en un array de ids de personas
             $listaAutoresLibro = array();
             while ($autor = $autoresLibro->fetch_object()) {
@@ -497,11 +501,11 @@ Al leer el código, observa cómo utilizamos una variable muy especial llamada *
                   </form>";
             echo "<p><a href='index.php'>Volver</a></p>";
 
-            break;
+        }
 
-            // --------------------------------- MODIFICAR LIBROS ----------------------------------------
+        // --------------------------------- MODIFICAR LIBROS ----------------------------------------
 
-        case "modificarLibro":
+        public function modificarLibro() {
             echo "<h1>Modificación de libros</h1>";
 
             // Vamos a procesar el formulario de modificación de libros
@@ -515,7 +519,7 @@ Al leer el código, observa cómo utilizamos una variable muy especial llamada *
             $autores = $_REQUEST["autor"];
 
             // Lanzamos el UPDATE contra la base de datos.
-            $db->query("UPDATE libros SET
+            $this->db->query("UPDATE libros SET
 							titulo = '$titulo',
 							genero = '$genero',
 							pais = '$pais',
@@ -523,13 +527,13 @@ Al leer el código, observa cómo utilizamos una variable muy especial llamada *
 							numPaginas = '$numPaginas'
 							WHERE idLibro = '$idLibro'");
 
-            if ($db->affected_rows == 1) {
+            if ($this->db->affected_rows == 1) {
                 // Si la modificación del libro ha funcionado, continuamos actualizando la tabla "escriben".
                 // Primero borraremos todos los registros del libro actual y luego los insertaremos de nuevo
-                $db->query("DELETE FROM escriben WHERE idLibro = '$idLibro'");
+                $this->db->query("DELETE FROM escriben WHERE idLibro = '$idLibro'");
                 // Ya podemos insertar todos los autores junto con el libro en "escriben"
                 foreach ($autores as $idAutor) {
-                    $db->query("INSERT INTO escriben(idLibro, idPersona) VALUES('$idLibro', '$idAutor')");
+                    $this->db->query("INSERT INTO escriben(idLibro, idPersona) VALUES('$idLibro', '$idAutor')");
                 }
                 echo "Libro actualizado con éxito";
             } else {
@@ -537,17 +541,17 @@ Al leer el código, observa cómo utilizamos una variable muy especial llamada *
                 echo "Ha ocurrido un error al modificar el libro. Por favor, inténtelo más tarde.";
             }
             echo "<p><a href='index.php'>Volver</a></p>";
-            break;
+        }
 
-            // --------------------------------- BUSCAR LIBROS ----------------------------------------
+        // --------------------------------- BUSCAR LIBROS ----------------------------------------
 
-        case "buscarLibros":
+        public function buscarLibros() {
             // Recuperamos el texto de búsqueda de la variable de formulario
             $textoBusqueda = $_REQUEST["textoBusqueda"];
             echo "<h1>Resultados de la búsqueda: \"$textoBusqueda\"</h1>";
 
             // Buscamos los libros de la biblioteca que coincidan con el texto de búsqueda
-            if ($result = $db->query("SELECT * FROM libros
+            if ($result = $this->db->query("SELECT * FROM libros
 					INNER JOIN escriben ON libros.idLibro = escriben.idLibro
 					INNER JOIN personas ON escriben.idPersona = personas.idPersona
 					WHERE libros.titulo LIKE '%$textoBusqueda%'
@@ -589,16 +593,9 @@ Al leer el código, observa cómo utilizamos una variable muy especial llamada *
             }
             echo "<p><a href='index.php?action=formularioInsertarLibros'>Nuevo</a></p>";
             echo "<p><a href='index.php'>Volver</a></p>";
-            break;
+        }
 
-            // --------------------------------- ACTION NO ENCONTRADA ----------------------------------------
-
-        default:
-            echo "<h1>Error 404: página no encontrada</h1>";
-            echo "<a href='index.php'>Volver</a>";
-            break;
-    } // switch
-
+    } // class
     ?>
 
 </body>

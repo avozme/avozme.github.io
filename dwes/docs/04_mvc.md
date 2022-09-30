@@ -679,11 +679,21 @@ Se trata de **escribir una aplicación para reservar recursos** de una organizac
 Las tablas de la aplicación, por lo tanto, serán estas:
 
 * Resources(id#, name, description, location, image) -> Los recursos que se pueden reservar
-* Users(id#, username, password, realname) -> Los usuarios registrados
+* Users(id#, username, password, realname, type) -> Los usuarios registrados
 * TimeSlots(id#, dayOfWeek, startTime, endTime) -> Los tramos temporales en lo que se pueden hacer reservas
 * Reservations(idResource#, idUser#, idTimeSlot#, date, remarks) -> Las reservas (remarks = comentarios)
 
-La aplicación, una vez rellenadas con datos las tablas maestras *Resources*, *Users* y *TimeSlots*, permitirá a los usuarios registrados reservar recursos. Antes tendrán que autenticarse (es decir, pasar por un login). Para hacer una reserva, un usuario tiene que seleccionar un recurso, una fecha y un tramo horario. Si el recurso ya está reservado, no se podrá reservar por segunda vez, obviamente.
+La aplicación, una vez rellenadas con datos las tablas maestras *Resources*, *Users* y *TimeSlots*, permitirá a los usuarios registrados **reservar recursos**. Antes tendrán que autenticarse (es decir, pasar por un login). 
+
+Para hacer una reserva, un usuario tiene que seleccionar un recurso, una fecha y un tramo horario. Si el recurso ya está reservado, no se podrá reservar por segunda vez, obviamente.
+
+Además, habrá **usuarios de dos tipos**: 
+
+* *Type user*: es un usuario registrado cualquiera y puede hacer reservas y ver las reservas de otras personas, pero solo puede modificar y borrar sus propias reservas.
+
+* *Type admin*: es un usuario administrador. Puede hacer reservas y puede ver, modificar o borrar cualquier reserva de cualquier otro usuario. Además, puede hacer reservas "en bloque", es decir, puede reservar un recurso en un tramo horario durante un periodo de tiempo. Por ejemplo, puede reservar el recurso "Aula de informática" de 8:05 a 9:05 todos los lunes del primer trimestre sin necesidad de ir reservándolo día por día.
+
+* * *
 
 Para conseguir implementar la aplicación completa, vamos a hacerlo por pasos, de modo incremental. ¡Que cada persona llegue hasta donde buenamente pueda!
 

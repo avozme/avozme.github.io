@@ -182,7 +182,6 @@
        - Sin sesiones ni control de acceso
        - Sin reutilización de código
 --&gt;</span>
-
 <span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;head&gt;</span>
@@ -192,8 +191,6 @@
 <span class="nt">&lt;body&gt;</span>
     <span class="cp">&lt;?php</span>
 
-    <span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">mysqli</span><span class="p">(</span><span class="s2">"servidor-de-base-de-datos"</span><span class="p">,</span> <span class="s2">"usuario"</span><span class="p">,</span> <span class="s2">"password"</span><span class="p">,</span> <span class="s2">"nombre-base-de-datos"</span><span class="p">);</span>
-
     <span class="c1">// Miramos el valor de la variable "action", si existe. Si no, le asignamos una acción por defecto</span>
     <span class="k">if</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s2">"action"</span><span class="p">]))</span> <span class="p">{</span>
         <span class="nv">$action</span> <span class="o">=</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s2">"action"</span><span class="p">];</span>
@@ -201,17 +198,24 @@
         <span class="nv">$action</span> <span class="o">=</span> <span class="s2">"mostrarListaLibros"</span><span class="p">;</span>  <span class="c1">// Acción por defecto</span>
     <span class="p">}</span>
 
-    <span class="c1">// CONTROL DE FLUJO PRINCIPAL</span>
-    <span class="c1">// El programa saltará a la sección del switch indicada por la variable "action"</span>
-    <span class="k">switch</span> <span class="p">(</span><span class="nv">$action</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Creamos un objeto de tipo Biblioteca y llamamos al método $action()</span>
+    <span class="nv">$biblio</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Biblioteca</span><span class="p">();</span>
+    <span class="nv">$biblio</span><span class="o">-&gt;</span><span class="nv">$action</span><span class="p">();</span>
+
+    <span class="kd">class</span> <span class="nc">Biblioteca</span> <span class="p">{</span>
+        <span class="nv">$db</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>     <span class="c1">// Conexión con la base de datos</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">mysqli</span><span class="p">(</span><span class="s2">"servidor-de-base-de-datos"</span><span class="p">,</span> <span class="s2">"usuario"</span><span class="p">,</span> <span class="s2">"password"</span><span class="p">,</span> <span class="s2">"nombre-base-de-datos"</span><span class="p">);</span>
+        <span class="p">}</span>
+
 
         <span class="c1">// --------------------------------- MOSTRAR LISTA DE LIBROS ----------------------------------------</span>
-
-        <span class="k">case</span> <span class="s2">"mostrarListaLibros"</span><span class="o">:</span>
+        <span class="k">public</span> <span class="k">function</span> <span class="n">mostrarListaLibros</span><span class="p">()</span> <span class="p">{</span>
             <span class="k">echo</span> <span class="s2">"&lt;h1&gt;Biblioteca&lt;/h1&gt;"</span><span class="p">;</span>
 
             <span class="c1">// Buscamos todos los libros de la biblioteca</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT * FROM libros
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT * FROM libros
                                         INNER JOIN escriben ON libros.idLibro = escriben.idLibro
                                         INNER JOIN personas ON escriben.idPersona = personas.idPersona
                                         ORDER BY libros.titulo"</span><span class="p">))</span> <span class="p">{</span>
@@ -250,11 +254,11 @@
                 <span class="k">echo</span> <span class="s2">"Error al tratar de recuperar los datos de la base de datos. Por favor, inténtelo más tarde"</span><span class="p">;</span>
             <span class="p">}</span>
             <span class="k">echo</span> <span class="s2">"&lt;p&gt;&lt;a href='index.php?action=formularioInsertarLibros'&gt;Nuevo&lt;/a&gt;&lt;/p&gt;"</span><span class="p">;</span>
-            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
 
-            <span class="c1">// --------------------------------- FORMULARIO ALTA DE LIBROS ----------------------------------------</span>
+        <span class="c1">// --------------------------------- FORMULARIO ALTA DE LIBROS ----------------------------------------</span>
 
-        <span class="k">case</span> <span class="s2">"formularioInsertarLibros"</span><span class="o">:</span>
+        <span class="k">public</span> <span class="k">function</span> <span class="n">formularioInsertarLibros</span><span class="p">()</span> <span class="p">{</span>
             <span class="k">echo</span> <span class="s2">"&lt;h1&gt;Modificación de libros&lt;/h1&gt;"</span><span class="p">;</span>
 
             <span class="c1">// Creamos el formulario con los campos del libro</span>
@@ -266,7 +270,7 @@
                     Número de páginas:&lt;input type='text' name='numPaginas'&gt;&lt;br&gt;"</span><span class="p">;</span>
 
             <span class="c1">// Añadimos un selector para el id del autor o autores</span>
-            <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT * FROM personas"</span><span class="p">);</span>
+            <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT * FROM personas"</span><span class="p">);</span>
             <span class="k">echo</span> <span class="s2">"Autores: &lt;select name='autor[]' multiple='true'&gt;"</span><span class="p">;</span>
             <span class="k">while</span> <span class="p">(</span><span class="nv">$fila</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="nf">fetch_object</span><span class="p">())</span> <span class="p">{</span>
                 <span class="k">echo</span> <span class="s2">"&lt;option value='"</span> <span class="mf">.</span> <span class="nv">$fila</span><span class="o">-&gt;</span><span class="n">idPersona</span> <span class="mf">.</span> <span class="s2">"'&gt;"</span> <span class="mf">.</span> <span class="nv">$fila</span><span class="o">-&gt;</span><span class="n">nombre</span> <span class="mf">.</span> <span class="s2">" "</span> <span class="mf">.</span> <span class="nv">$fila</span><span class="o">-&gt;</span><span class="n">apellido</span> <span class="mf">.</span> <span class="s2">"&lt;/option&gt;"</span><span class="p">;</span>
@@ -280,11 +284,11 @@
 				&lt;/form&gt;"</span><span class="p">;</span>
             <span class="k">echo</span> <span class="s2">"&lt;p&gt;&lt;a href='index.php'&gt;Volver&lt;/a&gt;&lt;/p&gt;"</span><span class="p">;</span>
 
-            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
 
-            <span class="c1">// --------------------------------- INSERTAR LIBROS ----------------------------------------</span>
+        <span class="c1">// --------------------------------- INSERTAR LIBROS ----------------------------------------</span>
 
-        <span class="k">case</span> <span class="s2">"insertarLibro"</span><span class="o">:</span>
+        <span class="k">public</span> <span class="k">function</span> <span class="n">insertarLibro</span><span class="p">()</span> <span class="p">{</span>
             <span class="k">echo</span> <span class="s2">"&lt;h1&gt;Alta de libros&lt;/h1&gt;"</span><span class="p">;</span>
 
             <span class="c1">// Vamos a procesar el formulario de alta de libros</span>
@@ -298,15 +302,15 @@
 
             <span class="c1">// Lanzamos el INSERT contra la BD.</span>
             <span class="k">echo</span> <span class="s2">"INSERT INTO libros (titulo,genero,pais,ano,numPaginas) VALUES ('</span><span class="nv">$titulo</span><span class="s2">','</span><span class="nv">$genero</span><span class="s2">', '</span><span class="nv">$pais</span><span class="s2">', '</span><span class="nv">$ano</span><span class="s2">', '</span><span class="nv">$numPaginas</span><span class="s2">')"</span><span class="p">;</span>
-            <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"INSERT INTO libros (titulo,genero,pais,ano,numPaginas) VALUES ('</span><span class="nv">$titulo</span><span class="s2">','</span><span class="nv">$genero</span><span class="s2">', '</span><span class="nv">$pais</span><span class="s2">', '</span><span class="nv">$ano</span><span class="s2">', '</span><span class="nv">$numPaginas</span><span class="s2">')"</span><span class="p">);</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="n">affected_rows</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"INSERT INTO libros (titulo,genero,pais,ano,numPaginas) VALUES ('</span><span class="nv">$titulo</span><span class="s2">','</span><span class="nv">$genero</span><span class="s2">', '</span><span class="nv">$pais</span><span class="s2">', '</span><span class="nv">$ano</span><span class="s2">', '</span><span class="nv">$numPaginas</span><span class="s2">')"</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="n">affected_rows</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
                 <span class="c1">// Si la inserción del libro ha funcionado, continuamos insertando en la tabla "escriben"</span>
                 <span class="c1">// Tenemos que averiguar qué idLibro se ha asignado al libro que acabamos de insertar</span>
-                <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT MAX(idLibro) AS ultimoIdLibro FROM libros"</span><span class="p">);</span>
+                <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT MAX(idLibro) AS ultimoIdLibro FROM libros"</span><span class="p">);</span>
                 <span class="nv">$idLibro</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="nf">fetch_object</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">ultimoIdLibro</span><span class="p">;</span>
                 <span class="c1">// Ya podemos insertar todos los autores junto con el libro en "escriben"</span>
                 <span class="k">foreach</span> <span class="p">(</span><span class="nv">$autores</span> <span class="k">as</span> <span class="nv">$idAutor</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"INSERT INTO escriben(idLibro, idPersona) VALUES('</span><span class="nv">$idLibro</span><span class="s2">', '</span><span class="nv">$idAutor</span><span class="s2">')"</span><span class="p">);</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"INSERT INTO escriben(idLibro, idPersona) VALUES('</span><span class="nv">$idLibro</span><span class="s2">', '</span><span class="nv">$idAutor</span><span class="s2">')"</span><span class="p">);</span>
                 <span class="p">}</span>
                 <span class="k">echo</span> <span class="s2">"Libro insertado con éxito"</span><span class="p">;</span>
             <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -315,35 +319,35 @@
             <span class="p">}</span>
             <span class="k">echo</span> <span class="s2">"&lt;p&gt;&lt;a href='index.php'&gt;Volver&lt;/a&gt;&lt;/p&gt;"</span><span class="p">;</span>
 
-            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
 
-            <span class="c1">// --------------------------------- BORRAR LIBROS ----------------------------------------</span>
+        <span class="c1">// --------------------------------- BORRAR LIBROS ----------------------------------------</span>
 
-        <span class="k">case</span> <span class="s2">"borrarLibro"</span><span class="o">:</span>
+        <span class="k">public</span> <span class="k">function</span> <span class="n">borrarLibro</span><span class="p">()</span> <span class="p">{</span>
             <span class="k">echo</span> <span class="s2">"&lt;h1&gt;Borrar libros&lt;/h1&gt;"</span><span class="p">;</span>
 
             <span class="c1">// Recuperamos el id del libro y lanzamos el DELETE contra la BD</span>
             <span class="nv">$idLibro</span> <span class="o">=</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s2">"idLibro"</span><span class="p">];</span>
-            <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"DELETE FROM libros WHERE idLibro = '</span><span class="nv">$idLibro</span><span class="s2">'"</span><span class="p">);</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"DELETE FROM libros WHERE idLibro = '</span><span class="nv">$idLibro</span><span class="s2">'"</span><span class="p">);</span>
 
             <span class="c1">// Mostramos mensaje con el resultado de la operación</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="n">affected_rows</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="n">affected_rows</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
                 <span class="k">echo</span> <span class="s2">"Ha ocurrido un error al borrar el libro. Por favor, inténtelo de nuevo"</span><span class="p">;</span>
             <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
                 <span class="k">echo</span> <span class="s2">"Libro borrado con éxito"</span><span class="p">;</span>
             <span class="p">}</span>
             <span class="k">echo</span> <span class="s2">"&lt;p&gt;&lt;a href='index.php'&gt;Volver&lt;/a&gt;&lt;/p&gt;"</span><span class="p">;</span>
 
-            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
 
-            <span class="c1">// --------------------------------- FORMULARIO MODIFICAR LIBROS ----------------------------------------</span>
+        <span class="c1">// --------------------------------- FORMULARIO MODIFICAR LIBROS ----------------------------------------</span>
 
-        <span class="k">case</span> <span class="s2">"formularioModificarLibro"</span><span class="o">:</span>
+        <span class="k">public</span> <span class="k">function</span> <span class="n">formularioModificarLibro</span><span class="p">()</span> <span class="p">{</span>
             <span class="k">echo</span> <span class="s2">"&lt;h1&gt;Modificación de libros&lt;/h1&gt;"</span><span class="p">;</span>
 
             <span class="c1">// Recuperamos el id del libro que vamos a modificar y sacamos el resto de sus datos de la BD</span>
             <span class="nv">$idLibro</span> <span class="o">=</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s2">"idLibro"</span><span class="p">];</span>
-            <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT * FROM libros WHERE libros.idLibro = '</span><span class="nv">$idLibro</span><span class="s2">'"</span><span class="p">);</span>
+            <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT * FROM libros WHERE libros.idLibro = '</span><span class="nv">$idLibro</span><span class="s2">'"</span><span class="p">);</span>
             <span class="nv">$libro</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="nf">fetch_object</span><span class="p">();</span>
 
             <span class="c1">// Creamos el formulario con los campos del libro</span>
@@ -359,8 +363,8 @@
             <span class="c1">// Vamos a añadir un selector para el id del autor o autores.</span>
             <span class="c1">// Para que salgan preseleccionados los autores del libro que estamos modificando, vamos a buscar</span>
             <span class="c1">// también a esos autores.</span>
-            <span class="nv">$todosLosAutores</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT * FROM personas"</span><span class="p">);</span>  <span class="c1">// Obtener todos los autores</span>
-            <span class="nv">$autoresLibro</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT idPersona FROM escriben WHERE idLibro = '</span><span class="nv">$idLibro</span><span class="s2">'"</span><span class="p">);</span>             <span class="c1">// Obtener solo los autores del libro que estamos buscando</span>
+            <span class="nv">$todosLosAutores</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT * FROM personas"</span><span class="p">);</span>  <span class="c1">// Obtener todos los autores</span>
+            <span class="nv">$autoresLibro</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT idPersona FROM escriben WHERE idLibro = '</span><span class="nv">$idLibro</span><span class="s2">'"</span><span class="p">);</span>             <span class="c1">// Obtener solo los autores del libro que estamos buscando</span>
             <span class="c1">// Vamos a convertir esa lista de autores del libro en un array de ids de personas</span>
             <span class="nv">$listaAutoresLibro</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
             <span class="k">while</span> <span class="p">(</span><span class="nv">$autor</span> <span class="o">=</span> <span class="nv">$autoresLibro</span><span class="o">-&gt;</span><span class="nf">fetch_object</span><span class="p">())</span> <span class="p">{</span>
@@ -386,11 +390,11 @@
                   &lt;/form&gt;"</span><span class="p">;</span>
             <span class="k">echo</span> <span class="s2">"&lt;p&gt;&lt;a href='index.php'&gt;Volver&lt;/a&gt;&lt;/p&gt;"</span><span class="p">;</span>
 
-            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
 
-            <span class="c1">// --------------------------------- MODIFICAR LIBROS ----------------------------------------</span>
+        <span class="c1">// --------------------------------- MODIFICAR LIBROS ----------------------------------------</span>
 
-        <span class="k">case</span> <span class="s2">"modificarLibro"</span><span class="o">:</span>
+        <span class="k">public</span> <span class="k">function</span> <span class="n">modificarLibro</span><span class="p">()</span> <span class="p">{</span>
             <span class="k">echo</span> <span class="s2">"&lt;h1&gt;Modificación de libros&lt;/h1&gt;"</span><span class="p">;</span>
 
             <span class="c1">// Vamos a procesar el formulario de modificación de libros</span>
@@ -404,7 +408,7 @@
             <span class="nv">$autores</span> <span class="o">=</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s2">"autor"</span><span class="p">];</span>
 
             <span class="c1">// Lanzamos el UPDATE contra la base de datos.</span>
-            <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"UPDATE libros SET
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"UPDATE libros SET
 							titulo = '</span><span class="nv">$titulo</span><span class="s2">',
 							genero = '</span><span class="nv">$genero</span><span class="s2">',
 							pais = '</span><span class="nv">$pais</span><span class="s2">',
@@ -412,13 +416,13 @@
 							numPaginas = '</span><span class="nv">$numPaginas</span><span class="s2">'
 							WHERE idLibro = '</span><span class="nv">$idLibro</span><span class="s2">'"</span><span class="p">);</span>
 
-            <span class="k">if</span> <span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="n">affected_rows</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="n">affected_rows</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
                 <span class="c1">// Si la modificación del libro ha funcionado, continuamos actualizando la tabla "escriben".</span>
                 <span class="c1">// Primero borraremos todos los registros del libro actual y luego los insertaremos de nuevo</span>
-                <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"DELETE FROM escriben WHERE idLibro = '</span><span class="nv">$idLibro</span><span class="s2">'"</span><span class="p">);</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"DELETE FROM escriben WHERE idLibro = '</span><span class="nv">$idLibro</span><span class="s2">'"</span><span class="p">);</span>
                 <span class="c1">// Ya podemos insertar todos los autores junto con el libro en "escriben"</span>
                 <span class="k">foreach</span> <span class="p">(</span><span class="nv">$autores</span> <span class="k">as</span> <span class="nv">$idAutor</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"INSERT INTO escriben(idLibro, idPersona) VALUES('</span><span class="nv">$idLibro</span><span class="s2">', '</span><span class="nv">$idAutor</span><span class="s2">')"</span><span class="p">);</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"INSERT INTO escriben(idLibro, idPersona) VALUES('</span><span class="nv">$idLibro</span><span class="s2">', '</span><span class="nv">$idAutor</span><span class="s2">')"</span><span class="p">);</span>
                 <span class="p">}</span>
                 <span class="k">echo</span> <span class="s2">"Libro actualizado con éxito"</span><span class="p">;</span>
             <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -426,17 +430,17 @@
                 <span class="k">echo</span> <span class="s2">"Ha ocurrido un error al modificar el libro. Por favor, inténtelo más tarde."</span><span class="p">;</span>
             <span class="p">}</span>
             <span class="k">echo</span> <span class="s2">"&lt;p&gt;&lt;a href='index.php'&gt;Volver&lt;/a&gt;&lt;/p&gt;"</span><span class="p">;</span>
-            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
 
-            <span class="c1">// --------------------------------- BUSCAR LIBROS ----------------------------------------</span>
+        <span class="c1">// --------------------------------- BUSCAR LIBROS ----------------------------------------</span>
 
-        <span class="k">case</span> <span class="s2">"buscarLibros"</span><span class="o">:</span>
+        <span class="k">public</span> <span class="k">function</span> <span class="n">buscarLibros</span><span class="p">()</span> <span class="p">{</span>
             <span class="c1">// Recuperamos el texto de búsqueda de la variable de formulario</span>
             <span class="nv">$textoBusqueda</span> <span class="o">=</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s2">"textoBusqueda"</span><span class="p">];</span>
             <span class="k">echo</span> <span class="s2">"&lt;h1&gt;Resultados de la búsqueda: </span><span class="se">\"</span><span class="nv">$textoBusqueda</span><span class="se">\"</span><span class="s2">&lt;/h1&gt;"</span><span class="p">;</span>
 
             <span class="c1">// Buscamos los libros de la biblioteca que coincidan con el texto de búsqueda</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT * FROM libros
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT * FROM libros
 					INNER JOIN escriben ON libros.idLibro = escriben.idLibro
 					INNER JOIN personas ON escriben.idPersona = personas.idPersona
 					WHERE libros.titulo LIKE '%</span><span class="nv">$textoBusqueda</span><span class="s2">%'
@@ -478,16 +482,9 @@
             <span class="p">}</span>
             <span class="k">echo</span> <span class="s2">"&lt;p&gt;&lt;a href='index.php?action=formularioInsertarLibros'&gt;Nuevo&lt;/a&gt;&lt;/p&gt;"</span><span class="p">;</span>
             <span class="k">echo</span> <span class="s2">"&lt;p&gt;&lt;a href='index.php'&gt;Volver&lt;/a&gt;&lt;/p&gt;"</span><span class="p">;</span>
-            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
 
-            <span class="c1">// --------------------------------- ACTION NO ENCONTRADA ----------------------------------------</span>
-
-        <span class="k">default</span><span class="o">:</span>
-            <span class="k">echo</span> <span class="s2">"&lt;h1&gt;Error 404: página no encontrada&lt;/h1&gt;"</span><span class="p">;</span>
-            <span class="k">echo</span> <span class="s2">"&lt;a href='index.php'&gt;Volver&lt;/a&gt;"</span><span class="p">;</span>
-            <span class="k">break</span><span class="p">;</span>
-    <span class="p">}</span> <span class="c1">// switch</span>
-
+    <span class="p">}</span> <span class="c1">// class</span>
     <span class="cp">?&gt;</span>
 
 <span class="nt">&lt;/body&gt;</span>
