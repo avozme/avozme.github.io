@@ -446,11 +446,11 @@ class Articles {
 
 El **controlador** y la **vista** son exactamente los mismos que en la solución anterior, así que no vamos a escribir el código de nuevo. Esto es lógico: solo hemos modificado la forma en la que trabaja el modelo, pero gracias al encapsulamiento de los objetos, el resto de la aplicación no se ha enterado de ello.
 
-#### Cuarta (y última) mejora: transformación en clases y objetos reutilizables. Código fuente definitivo
+#### Cuarta mejora: transformación en clases y objetos reutilizables.
 
-Para terminar, vamos a dejar el **código bien organizado** y a mostrarlo completo.
+Ahora vamos a dejar el **código bien organizado** y a mostrarlo (casi) completo.
 
-Lo que haremos en esta última etapa es **empaquetarlo todo en clases reutilizables**. Observa que sigue siendo el mismo código fuente, solo que empaquetado en clases y métodos. Lo único que queda fuera de una clase es la instanciación inicial del objeto controlador.
+Lo que haremos es **empaquetarlo todo en clases reutilizables**. Observa que sigue siendo el mismo código fuente, solo que empaquetado en clases y métodos. Lo único que queda fuera de una clase es la instanciación inicial del objeto controlador.
 
 Fíjate bien en cómo hemos convertido las vistas en una clase con un método *show()* que nos servirá para mostrar cualquier vista y reutilizar el mismo *header* y el mismo *footer*. Cada vista se programará en un archivo independiente que deberemos organizar en directorios y subdirectorios. De momento, nuestra aplicación solo tiene una vista llamada *showAllArticles*, pero se podrían visualizar todas las necesarias usando el método *show()*.
 
@@ -623,6 +623,95 @@ class Db {
   }
 }
 ```
+
+#### Quinta (y última) mejora: añadiendo un modelo genérico
+
+En todos los modelos nos solemos encontrar una serie de operaciones que se repiten una y otra vez, como:
+
+* Obtener todos los registros de una tabla.
+* Obtener un registro de una tabla buscando por id.
+* Borrar un registro a partir de su id.
+* Insertar un registro.
+* Modificar un registro.
+
+Podemos programar un modelo genérico que haga estas cosas *sea cual sea la tabla de la que se trate*. Así no tendremos que escribir una y otr avez las mismas operaciones para cada uno de los modelos: bastará con que nuestros modelos **hereden** de este modelo genérico, y todas esas operaciones ya estarán disponibles sin escribir ni una línea de código.
+
+Vamos a llamar ***Model*** a ese modelo genérico. Observa bien el siguiente código:
+
+**Modelo genérico** (model.php)
+
+```php
+class Model {
+
+  protected $table;  // Aquí guardaremos el nombre de la tabla a la que estamos accediendo
+  private $db;       // Y aquí la capa de abstracción de datos
+
+  public function __construct($tableName)  {
+    $this->table = $tableName;
+    $this->db = new Db();
+    $this->db->createConnection('mi-host', 'mi-usuario', 'mi-clave', 'mi-base-de-datos');
+  }
+
+  public function getAll() {
+    $list = $this->db->dataQuery('SELECT * FROM '.$this->table);
+    $db->closeConnection();
+    return $list;
+  }
+}
+```
+
+¡Acabamos de crear un método *getAll()* genérico que funcionará con cualquier tabla!
+
+Mira ahora en qué poquita cosa se queda nuestro **modelo *Articles***:
+
+```php
+include "db.php";
+
+class Articles extends Model {
+
+  public __construct() {
+    $this->table = "articles";
+  }
+
+}
+```
+
+Como el modelo *Articles* hereda ahora del modelo genérico, *Model*, resulta que ya posee un método llamado *getAll()* que, por lo tanto, no tenemos que programar. A cambio, todo lo que tenemos que hacer es asignar el valor correcto al atributo *$this->table*, para que el modelo genérico *Model* sepa el nombre de la tabla con la que tiene que trabajar.
+
+Si ampliásemos nuestro modelo genérico, *Model*, con más funciones genéricas, todas ellas se heredarían en *Articles* (y en cualquier otro modelo de la aplicación). Las únicas funciones que tendríamos que escribir en *Articles* serían las específicas de ese modelo, si es que tiene alguna. Por experiencia, te puedo decir que la mayoría de los modelos no necesitarán ninguna función específica adicional, quedando así su código reducido a la mínima expresión.
+
+Vamos a añadir algunas funciones más a nuestro modelo genérico:
+
+```php
+class Model {
+
+  protected $table;  // Aquí guardaremos el nombre de la tabla a la que estamos accediendo
+  private $db;       // Y aquí la capa de abstracción de datos
+
+  public function __construct($tableName)  {
+    $this->table = $tableName;
+    $this->db = new Db();
+    $this->db->createConnection('mi-host', 'mi-usuario', 'mi-clave', 'mi-base-de-datos');
+  }
+
+  public function getAll() {
+    $list = $this->db->dataQuery("SELECT * FROM ".$this->table);
+    return $list;
+  }
+
+  public function get($id) {
+    $record = $this->db->dataQuery("SELECT * FROM ".$this->table." WHERE id = ".$id);
+    return $record;
+  } 
+
+  public function delete($id) {
+    $result = $this->db->dataQuery("DELETE FROM ".$this->table." WHERE id = ".$id);
+    return $result;
+  }
+}
+```
+
+Solo faltaría crear una función *insert()* y otra *update()* para tener un CRUD completo en nuestro modelo genérico. ¿Te atreves a hacerlo? (Advertencia: generalizar estas dos funciones es bastante más difícil que todas las demás).
 
 ## 4.4. El patrón MVC en la teoría
 

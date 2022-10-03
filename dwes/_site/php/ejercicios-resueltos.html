@@ -203,7 +203,7 @@
     <span class="nv">$biblio</span><span class="o">-&gt;</span><span class="nv">$action</span><span class="p">();</span>
 
     <span class="kd">class</span> <span class="nc">Biblioteca</span> <span class="p">{</span>
-        <span class="nv">$db</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>     <span class="c1">// Conexión con la base de datos</span>
+        <span class="k">private</span> <span class="nv">$db</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>     <span class="c1">// Conexión con la base de datos</span>
 
         <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">()</span> <span class="p">{</span>
             <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">mysqli</span><span class="p">(</span><span class="s2">"servidor-de-base-de-datos"</span><span class="p">,</span> <span class="s2">"usuario"</span><span class="p">,</span> <span class="s2">"password"</span><span class="p">,</span> <span class="s2">"nombre-base-de-datos"</span><span class="p">);</span>

@@ -314,7 +314,7 @@ Al leer el código, observa cómo utilizamos una variable muy especial llamada *
     $biblio->$action();
 
     class Biblioteca {
-        $db = null;     // Conexión con la base de datos
+        private $db = null;     // Conexión con la base de datos
 
         public function __construct() {
             $this->db = new mysqli("servidor-de-base-de-datos", "usuario", "password", "nombre-base-de-datos");
