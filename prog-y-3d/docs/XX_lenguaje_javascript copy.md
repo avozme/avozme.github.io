@@ -1,10 +1,10 @@
 ---
 layout: page
-title: 7. Lenguaje Javascript
+title: X. Lenguaje Javascript
 permalink: /javascript/
-nav_order: 7
+nav_order: X
 has_children: true
-parent: Introd. a la prog. y al diseño 3D
+parent: None
 ---
 
 # 7. El lenguaje Javascript
