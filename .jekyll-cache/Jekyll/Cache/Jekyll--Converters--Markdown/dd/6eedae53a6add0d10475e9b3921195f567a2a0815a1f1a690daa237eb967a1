@@ -1,0 +1,119 @@
+I"�%<h2 class="no_toc" id="27-ejercicios-propuestos">2.7. Ejercicios propuestos</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#271-ejercicios-sin-acceso-a-bases-de-datos" id="markdown-toc-271-ejercicios-sin-acceso-a-bases-de-datos">2.7.1. Ejercicios sin acceso a bases de datos</a>    <ul>
+      <li><a href="#ejercicio-0-hola-mundo" id="markdown-toc-ejercicio-0-hola-mundo">Ejercicio 0: hola, mundo</a></li>
+      <li><a href="#ejercicio-1-positivo-negativo" id="markdown-toc-ejercicio-1-positivo-negativo">Ejercicio 1: positivo, negativo</a></li>
+      <li><a href="#ejercicio-2-anagramas" id="markdown-toc-ejercicio-2-anagramas">Ejercicio 2: anagramas</a></li>
+      <li><a href="#ejercicio-3-función-potencia" id="markdown-toc-ejercicio-3-función-potencia">Ejercicio 3: función potencia</a></li>
+      <li><a href="#ejercicio-4-devolución-de-arrays" id="markdown-toc-ejercicio-4-devolución-de-arrays">Ejercicio 4: devolución de arrays</a></li>
+      <li><a href="#ejercicio-5-simon-dice" id="markdown-toc-ejercicio-5-simon-dice">Ejercicio 5: Simon dice</a></li>
+    </ul>
+  </li>
+  <li><a href="#272-ejercicios-con-acceso-a-bases-de-datos" id="markdown-toc-272-ejercicios-con-acceso-a-bases-de-datos">2.7.2. Ejercicios con acceso a bases de datos</a>    <ul>
+      <li><a href="#ejercicio-6-videoclub-simplificado" id="markdown-toc-ejercicio-6-videoclub-simplificado">Ejercicio 6: videoclub simplificado</a></li>
+      <li><a href="#ejercicio-7-ampliación-indefinida-del-videoclub" id="markdown-toc-ejercicio-7-ampliación-indefinida-del-videoclub">Ejercicio 7: ampliación indefinida del videoclub</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>Los siguientes son una colección de ejercicios de programación que funcionan exactamente igual que los ejercicios en el gimnasio: para fortalecer tu musculatura como programador o programadora.</p>
+
+<p>Está ordenados por orden creciente de complejidad, y no es necesario que los hagas todos. Por ejemplo, si los primeros te resultan demasiado fáciles, salta hasta alguno que suponga algún reto para ti.</p>
+
+<p>Por el contrario, si hasta los primeros te cuestan trabajo, deberías ir intentándolos todos o casi todos en orden.</p>
+
+<p>También puedes escribir tus propios programas si los que aparecen aquí no te interesan demasiado: siempre es bueno que el programa que estás desarrollando, aunque sea sencillo, te resulte motivador. No te asustes si el programa que intentas escribir parece muy complejo, no llegas a terminarlo o incluso no te funciona en absoluto: todo el tiempo dedicado a programar es tiempo bien aprovechado para un aprendiz de programación.</p>
+
+<p>Estos ejercicios requerirán de ti dedicación, esfuerzo y constancia. Como ir al gimnasio, vamos. Pero por eso estás aquí, ¿no es cierto? Y recuerda lo que ya hemos dicho varias veces antes: <strong><em>a programar solo se aprende programando</em></strong>.</p>
+
+<h3 id="271-ejercicios-sin-acceso-a-bases-de-datos">2.7.1. Ejercicios sin acceso a bases de datos</h3>
+
+<h4 id="ejercicio-0-hola-mundo">Ejercicio 0: hola, mundo</h4>
+
+<p>Este ejercicio lo usaremos para probar la correcta puesta en marcha de nuestro servidor web.</p>
+
+<p>Lo ideal es que trates de hacerlo con un servidor nativo y con un servidor virtualizado mediante Docker.</p>
+
+<ol>
+  <li><strong>Con un servidor nativo</strong>: instala un paquete como Xampp o instala manualmente Apache y MariaDB en tu sistema operativo. Luego ve al directorio <em>htdocs</em> de tu Apache y escribe un programa “holamundo.php”</li>
+  <li><strong>Con un servidor virtualizado con Docker</strong>: baja y configura las imágenes de Bitnami para Apache, MariaDB y PHP. Lánzalas y pruébalas con un programa “holamundo.php”. Tienes toda la información sobre cómo hacerlo en el <a href="/docs/dwes/_site/docker/">Apéndice II</a>.</li>
+</ol>
+
+<p>Para hacer el resto de ejercicios y prácticas, puedes usar cualquiera de esos dos servidores.</p>
+
+<h4 id="ejercicio-1-positivo-negativo">Ejercicio 1: positivo, negativo</h4>
+
+<p>Diseña un formulario con un campo de texto en el que puedas escribir números. Al pulsar el botón de enviar, debe llamar a un script escrito en PHP que debe decirnos si el número enviado fue positivo, cero o negativo.</p>
+
+<h4 id="ejercicio-2-anagramas">Ejercicio 2: anagramas</h4>
+
+<p>Una palabra es un anagrama de otra si contiene las mismas letras colocadas en orden diferente. Por ejemplo, “CAVA” es un anagrama de “VACA”, y viceversa.</p>
+
+<p>El ejercicio consiste en escribir un programa en PHP que pida dos palabras y compruebe si la primera es un anagrama de la segunda.</p>
+
+<h4 id="ejercicio-3-función-potencia">Ejercicio 3: función potencia</h4>
+
+<p>Escribe una función PHP que reciba dos parámetros (A y B) y devuelva el valor de la potencia de A elevado a B (AB).</p>
+
+<p>Escribe también un programa PHP que haga uso de esa función para calcular potencias.</p>
+
+<h4 id="ejercicio-4-devolución-de-arrays">Ejercicio 4: devolución de arrays</h4>
+
+<p>Escribe un programa PHP que pida cinco números al usuario y los guarde en un array.</p>
+
+<p>Luego debe llamar a una función pasándole el array como parámetro, y la función calculará cuál de los cinco números es el mayor, cuál el menor y cuánto vale la media, devolviendo esos tres valores en otro array.</p>
+
+<p>Por último, se mostrarán en la pantalla el mayor, el menor y la media.</p>
+
+<h4 id="ejercicio-5-simon-dice">Ejercicio 5: Simon dice</h4>
+
+<p>“Simon dice” es un clásico juego de memoria que consiste en componer secuencias de cuatro colores cada vez más largas, y el jugador tiene que recordarlas y reproducirlas. Puedes encontrar muchas versiones de Simon en internet.</p>
+
+<p>Nosotros vamos a construir una versión simplificada que muestre secuencias de números (aunque podríamos hacerlo con colores sólo complicándolo un poco).</p>
+
+<p>El programa mostrará un número entre 1 y 4 durante un instante, y luego borrará la pantalla y pedirá al usuario que lo repita. Después mostrará dos números aleatorios entre 1 y 4 (por ejemplo, 3 – 1), y luego el usuario los tendrá que repetir, y así hasta que el usuario falle al introducir los números.</p>
+
+<h3 id="272-ejercicios-con-acceso-a-bases-de-datos">2.7.2. Ejercicios con acceso a bases de datos</h3>
+
+<h4 id="ejercicio-6-videoclub-simplificado">Ejercicio 6: videoclub simplificado</h4>
+
+<p>En esta sección, en lugar de ejercicios independientes, vamos a plantear una aplicación más larga que iremos montando paso a paso. Al final, tendrás una aplicación web simple pero plenamente funcional: <em>tu primera aplicación web</em>.</p>
+
+<p><strong>Importante</strong>: puedes (y te aconsejo que así lo hagas) utilizar como base para esta aplicación la Biblioteca que aparecía en la sección de “Ejercicios resueltos”.</p>
+
+<p>Conéctate a tu servidor de MySQL con el cliente que prefieras (te recomiendo <em>PhpMyAdmin</em>, que viene de serie con XAMPP) y crea una base de datos vacía a la que debes añadir estas tablas:</p>
+
+<ul>
+  <li>Películas (id#, titulo, genero, pais, anyo, cartel)</li>
+  <li>Personas (id#, nombre, apellidos, fotografia)</li>
+  <li>Actúan (idPelicula#, idPersona#)</li>
+</ul>
+
+<p>Inserta algunos datos en las tablas para que no estén vacías. Las imágenes deben ser cadenas de caracteres con la ruta del archivo que realmente contiene la imagen. Este archivo debe estar almacenado en una subcarpeta de la aplicación (por ejemplo, “images”).</p>
+
+<p>A continuación, y utilizando como base el código fuente de la Biblioteca, haz que tu aplicación web sea capaz de:</p>
+
+<ol>
+  <li><strong>Mostrar una lista de las películas</strong> que hay en la base de datos (con su reparto). Junto a cada película, debe aparecer dos enlaces con el texto “Modificar” y “Borrar”. Y, antes o después de la lista, debe aparecer un enlace para “Añadir” una película y otro para “Buscar”.</li>
+  <li><strong>Borrar una película</strong>. Se accede a esta funcionalidad desde la lista de películas.</li>
+  <li><strong>Buscar una película</strong>. Se accede a esta funcionalidad desde la lista de películas.</li>
+  <li><strong>Insertar una película nueva</strong>. Se accede a esta funcionalidad desde la lista de películas. No trates de insertar, de momento, el reparto de la película: solo los datos de la tabla “Películas”.</li>
+  <li><strong>Modificar una película existente</strong>. Se accede a esta funcionalidad desde la lista de películas. No modifiques el reparto, solo los datos de la película.</li>
+</ol>
+
+<p>Programa esas operaciones en ese orden, porque van de la más sencilla a la más complicada de desarrollar, y básate en el caso resuelto “Biblioteca” que vimos en la sección anterior.</p>
+
+<h4 id="ejercicio-7-ampliación-indefinida-del-videoclub">Ejercicio 7: ampliación indefinida del videoclub</h4>
+
+<p>Si terminas antes de tiempo, puedes ir ampliando esta aplicación indefinidamente en varias direcciones:</p>
+
+<ul>
+  <li>Añadir el mantenimiento de la tabla de Personas: búsquedas, inserciones, modificaciones y borrados.</li>
+  <li>Asignar el reparto a cada película, es decir, hacer inserciones y borrados en la tabla Actuan, tanto al crear una película como al modificarla.</li>
+  <li>Crear nuevas tablas para relacionar Personas y Películas, de manera que la base de datos pueda contener también las personas que dirigen, escriben o producen las películas, y añadir todo esto a la aplicación.</li>
+  <li>Incluir enlaces a trailers de cada película en Youtube.</li>
+  <li>Añadir un sistema de votaciones de los visitantes para cada película.</li>
+  <li>¡Y todo lo que se te ocurra!</li>
+</ul>
+:ET

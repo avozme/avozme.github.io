@@ -1,0 +1,568 @@
+I"�u<h1 class="no_toc" id="4-representación-de-la-información">4. Representación de la información</h1>
+
+<p>El ordenador es una máquina digital, es decir, binaria. Cualquier aprendiz de programador/a debe conocer esa forma de codificación, y otras primas suyas (como la octal y la hexadecimal) antes de aventurarse en los vericuetos de la programación. Dedicaremos todo este tema a hacerlo.</p>
+
+<ul id="markdown-toc">
+  <li><a href="#41-los-códigos" id="markdown-toc-41-los-códigos">4.1. Los códigos</a>    <ul>
+      <li><a href="#411-el-código-binario" id="markdown-toc-411-el-código-binario">4.1.1. El código binario</a>        <ul>
+          <li><a href="#convertir-números-binarios-a-decimales" id="markdown-toc-convertir-números-binarios-a-decimales">Convertir números binarios a decimales</a></li>
+          <li><a href="#convertir-números-decimales-a-binarios" id="markdown-toc-convertir-números-decimales-a-binarios">Convertir números decimales a binarios</a></li>
+          <li><a href="#operaciones-aritméticas-binarias" id="markdown-toc-operaciones-aritméticas-binarias">Operaciones aritméticas binarias</a></li>
+        </ul>
+      </li>
+      <li><a href="#412-el-código-ascii" id="markdown-toc-412-el-código-ascii">4.1.2. El código ASCII</a></li>
+      <li><a href="#413-el-código-utf-8-de-unicode" id="markdown-toc-413-el-código-utf-8-de-unicode">4.1.3. El código UTF-8 de Unicode</a></li>
+      <li><a href="#414-el-código-hexadecimal" id="markdown-toc-414-el-código-hexadecimal">4.1.4. El código hexadecimal</a>        <ul>
+          <li><a href="#convertir-números-hexadecimales-a-decimales" id="markdown-toc-convertir-números-hexadecimales-a-decimales">Convertir números hexadecimales a decimales</a></li>
+          <li><a href="#convertir-números-decimales-a-hexadecimales" id="markdown-toc-convertir-números-decimales-a-hexadecimales">Convertir números decimales a hexadecimales</a></li>
+          <li><a href="#relación-entre-números-hexadecimales-y-binarios" id="markdown-toc-relación-entre-números-hexadecimales-y-binarios">Relación entre números hexadecimales y binarios</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#42-unidades-de-medida-de-información" id="markdown-toc-42-unidades-de-medida-de-información">4.2. Unidades de medida de información</a></li>
+  <li><a href="#43-ejercicios-propuestos" id="markdown-toc-43-ejercicios-propuestos">4.3. Ejercicios propuestos</a></li>
+</ul>
+
+<h2 id="41-los-códigos">4.1. Los códigos</h2>
+
+<p>Un <strong>código</strong> es un <em>método de representación de la información</em>. Se compone de un conjunto de símbolos, llamado <strong>alfabeto</strong>, y de un conjunto de <strong>reglas</strong> para combinar esos símbolos de forma correcta.</p>
+
+<p>Estos son algunos ejemplos de códigos que utilizas todos los días o que, al menos, conoces:</p>
+
+<ul>
+  <li><strong>Ejemplo 1</strong>: la lengua castellana es un código. Su alfabeto es el abecedario (a, b, c, d, e … z), pero los símbolos del alfabeto no se pueden combinar a lo loco, sino que existen unas reglas, y sólo siguiendo esas reglas se codifica correctamente la información, dando lugar a mensajes con sentido. Esas reglas las habéis estudiado en la asignatura de lengua castellana desde la enseñanza primaria.</li>
+  <li><strong>Ejemplo 2</strong>: el código morse también es un código. Su alfabeto es muy reducido: sólo el punto (.) y la raya (–), pero combinando los dos símbolos correctamente, se puede transmitir cualquier información.</li>
+  <li><strong>Ejemplo 3</strong>: el sistema de numeración decimal es un código. Tiene un alfabeto de 10 símbolos (0, 1, 2, 3, 4, 5, 6, 7, 8 y 9). Combinándolos según ciertas reglas, puede usarse para transmitir información. Pero ojo, no cualquier información, solamente información numérica. Hemos dicho que los códigos sirven para representar información, pero no que tengan que servir para representar toda la información posible. Aunque sólo sirva para los números, el sistema de numeración también es un código.</li>
+</ul>
+
+<h3 id="411-el-código-binario">4.1.1. El código binario</h3>
+
+<p>Pues bien, <strong>el sistema de numeración binario también es un código</strong>.</p>
+
+<p>Es muy parecido al sistema de numeración decimal, con la única diferencia de la cantidad de símbolos del alfabeto. Si el decimal tiene diez, el binario sólo tiene dos: el 0 y el 1.</p>
+
+<p>En todo lo demás son iguales, así que el sistema binario también sirve para representar información numérica.</p>
+
+<p>Pero, ¿puede representarse cualquier número con sólo dos símbolos?</p>
+
+<p>La respuesta es sí. El modo de hacerlo consiste en combinar los símbolos 0 y 1 adecuadamente, igual que hacemos con los números decimales. En el sistema decimal contamos así: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. Cuando queremos pasar a la siguiente cantidad, empezamos a agrupar los dígitos de dos en dos: 10, 11, 12, 13, 14, 15, 16, 17, 18, 19. Al volver a terminar las unidades, vamos incrementando las decenas: 20, 21, 22, etc.</p>
+
+<p>(Esto se debe a que, en los sistemas de numeración, cada dígito tiene un valor posicional, es decir, tiene un valor diferente dependiendo del lugar que ocupe en el número general. Por ejemplo, en el número 283, el 3 tiene valor de tres, pero el 8 no tiene valor de ocho, sino de ochenta, y el 2 no tiene valor de dos, sino de doscientos)</p>
+
+<p>En binario, el razonamiento es el mismo. Empezamos a contar por 0 y 1, pero entonces ya hemos agotado los símbolos, así que empezamos a agruparlos: 10, 11. Como hemos vuelto a agotarlos, seguimos combinándolos: 100, 101, 110, 111, 1000, 1001, 1010, y así sucesivamente.</p>
+
+<p>Así, los 16 primeros números binarios comparados con sus equivalentes decimales son:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Decimal</th>
+      <th>Binario</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0000</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0001</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0010</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>0011</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0100</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>0101</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>0110</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>0111</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>1000</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>1001</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>1010</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>1011</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>1100</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>1101</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>1110</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>1111</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Los números escritos en código binario tienen el mismo valor que en decimal, y sólo cambia la representación. Es decir, “15” en decimal y “1111” en binario representan exactamente a la misma idea: quince.</p>
+
+<h4 id="convertir-números-binarios-a-decimales">Convertir números binarios a decimales</h4>
+
+<p>Para obtener la representación decimal de un número binario hay que proceder según el Teorema Fundamental de la Normalización, del siguiente modo:</p>
+
+<ol>
+  <li>
+    <p>Numeramos la posición que ocupa cada dígito binario de derecha a izquierda, empezando por 0. Por ejemplo, en el número binario 1010011, numeraremos las posiciones así:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      Posiciones --&gt; 6 5 4 3 2 1 0
+         Dígitos --&gt; 1 0 1 0 0 1 1
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Multiplicamos cada dígito binario por 2 elevado a la posición del dígito y sumamos todos los resultados. Con el número del ejemplo anterior:</p>
+
+    <p align="center">1 x 2<sup>6</sup> + 0 x 2<sup>5</sup> + 1 x 2<sup>4</sup> + 0 x 2<sup>3</sup> + 0 x 2<sup>2</sup> + 1 x 2<sup>1</sup> + 1 x 2<sup>0</sup></p>
+  </li>
+  <li>
+    <p>Ahora sólo nos quedaría sumar los resultados de todas las multiplicaciones:</p>
+
+    <p align="center">64 + 0 + 16 + 0 + 0 + 2 + 1 = 83</p>
+  </li>
+</ol>
+
+<p>Por lo tanto, el número binario 1010011 es equivalente al número decimal 83.</p>
+
+<p>Es habitual indicar con un subíndice el sistema de numeración al que pertenece cada número, así:</p>
+
+<p align="center">1010011<sub>2</sub> = 83<sub>10</sub></p>
+
+<h4 id="convertir-números-decimales-a-binarios">Convertir números decimales a binarios</h4>
+
+<p>El proceso contrario se realiza dividiendo sucesivamente el número decimal entre dos, y cogiendo el último cociente y todos los restos en el orden inverso al que los obtuvimos.</p>
+
+<p>Por ejemplo, vamos hallar la representación binaria del número 83<sub>10</sub>:</p>
+
+<p align="center"><img alt="División binaria" src="/docs/prog-y-3d/_site/assets/images/02-division-binaria.png" /></p>
+
+<p>Tomando el último cociente (que siempre es 1) y todos los restos desde el último hacia el primero (es decir, 010011, siguiendo la dirección de la flecha), obtenemos el número binario 1010011. Por lo tanto, podemos decir que:</p>
+
+<p align="center">83<sub>10</sub> = 1010011<sub>2</sub></p>
+
+<h4 id="operaciones-aritméticas-binarias">Operaciones aritméticas binarias</h4>
+
+<p>La operaciones aritméticas binarias se realizan exactamente igual que las decimales, aunque teniendo la precaución de usar sólo los dos símbolos permitidos (0 y 1), lo que puede parecernos un poco extraño al principio.</p>
+
+<p>Por ejemplo, para realizar una suma de dos números binarios, escribiremos ambos números uno encima de otro, alineados a la derecha, como hacíamos cuando estábamos aprendiendo a sumar. Luego, iremos sumando los dígitos de derecha a izquierda, como haríamos con dos números decimales, con la precaución de sumar también el acarreo cuando se produzca.</p>
+
+<p>Vamos a sumar los números 11001<sub>2</sub> y 1011<sub>2</sub>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     1  1     1       &lt;-- acarreos
+     1  1  0  0  1
++       1  0  1  1
+  ----------------
+  1  0  0  1  0  0
+</code></pre></div></div>
+
+<p>Del mismo modo, pueden realizarse otras operaciones aritméticas como restas, productos o divisiones.</p>
+
+<h3 id="412-el-código-ascii">4.1.2. El código ASCII</h3>
+
+<p>Hasta ahora hemos visto que mediante el código binario se pueden representar números, pero no sabemos cómo se las apaña un ordenador para <strong>representar las letras</strong>, o, dicho en terminología informática, los <strong>caracteres alfanuméricos</strong> (que incluyen números, letras y otros símbolos, como los signos de puntuación).</p>
+
+<p><strong>El código ASCII consiste en una correspondencia entre números binarios de 8 dígitos y caracteres alfanuméricos</strong>.</p>
+
+<p>(Bueno, en realidad el código ASCII original usaba números binarios de 7 dígitos, pero eso es otra historia. El ASCII que ha llegado hasta nuestros días es el ASCII extendido de 8 bits).</p>
+
+<p>Así, por ejemplo, al número 65<sub>10</sub> (expresado en binario, 01000001<sub>2</sub>) se le hace corresponder la letra “A”, al 66<sub>10</sub> la “B”, al 67<sub>10</sub> la “C”, etc.</p>
+
+<p>De este modo, el ordenador puede también manejar letras, y lo hace del mismo modo en que maneja números: mediante combinaciones de ceros y unos.</p>
+
+<p>La siguiente tabla muestra los 127 primeros caracteres del código ASCII junto con el número al que corresponden en decimal, binario, octal y hexadecimal (estos dos últimos son sistemas de numeración que veremos enseguida):</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/02-tabla-ascii.png" alt="Tabla ASCII simplificada" />
+(Fuente: Wikimedia Commons - Dominio público)</p>
+
+<p>Es importante resaltar que los códigos ASCII siempre tienen 8 dígitos binarios, rellenándose con ceros a la izquierda si fuera necesario. Así ocurre en el caso de la letra A, que, como hemos dicho, se representa con el código 01000001.</p>
+
+<p>Si te tomas la molestia de calcular cuántos caracteres diferentes pueden representarse con el código ASCII, verás que son exactamente 256. Suficientes para todos los caracteres habituales, ¿verdad? Aunque, un momento… ¿Y qué hay de los caracteres griegos? ¿O los caracteres cirílicos del ruso? Eso por no hablar del chino y o el japonés.</p>
+
+<p>Si queremos dar cabida a cualquier idioma del mundo, el código ASCII se nos queda rápidamente pequeño. Por eso se ideó otra forma de codificación de caracteres que es la que más se usa en la actualidad: Unicode.</p>
+
+<h3 id="413-el-código-utf-8-de-unicode">4.1.3. El código UTF-8 de Unicode</h3>
+
+<p>El código ASCII no es, desde luego, el único que existe para representar letras en binario, pero sí el más popular por motivos históricos.</p>
+
+<p>A finales de la década de 1980, se empezó a desarrollar un proyecto para codificar de forma unívoca todos los caracteres de todas las lenguas del mundo (¡incluidas lenguas muertas!). A ese proyecto se lo denominó <strong>Unicode</strong>.</p>
+
+<p>Unicode se ha impuesto con fuerza en la actualidad. Por ejemplo, este documento que estás leyendo ahora mismo está codificado con Unicode, en su versión UTF-8.</p>
+
+<p>Y es que Unicode tiene varias implementaciones:</p>
+
+<ul>
+  <li><strong>UTF-8</strong>: los caracteres se codifican en grupos de 8 bits. Algunos solo necesitan 8 bits, pero otros necesitan 16, 24 o incluso 32 bits. Por ejemplo, la “N” se codifica con 8 bits (los mismos que en el viejo ASCII), pero la “Ñ” se codifica con 16: los 8 correspondientes a la “N” más los 8 correspondientes al símbolo “~”</li>
+  <li><strong>UTF-16</strong>: los caracteres se codifican en grupos de 16 bits. Algunos solo necesitan 16 bits, pero otros necesitan el doble, es decir, 32.</li>
+  <li><strong>UTF-32</strong>: los caracteres se codifican en grupos de 32 bits. Eso da un total de 2<sup>32</sup> caracteres posibles, más que suficientes para codificar todas las lenguas existentes en el mundo. Es la forma de Unicode más simple que existe.</li>
+</ul>
+
+<p>La codificación más popular es la <strong>UTF-8 de Unicode</strong>. Aunque es algo más compleja que la UTF-32, los textos codificados de este modo ocupan mucho menos espacio.</p>
+
+<p>Los primeros 127 caracteres del UTF-8 se corresponden con el viejo código ASCII. Por eso mismo, y para propósitos prácticos, las tablas clásicas de código ASCII siguen siendo vigentes, al menos hasta el carácter número 127.</p>
+
+<h3 id="414-el-código-hexadecimal">4.1.4. El código hexadecimal</h3>
+
+<p>Es importante conocer y saber manejar el código binario al ser el método de codificación que emplean los ordenadores digitales, pero este código tiene dos serios inconvenientes:</p>
+
+<ol>
+  <li>
+    <p><strong>Resulta difícil de manipular para nuestros cerebros</strong>, que destán habituados a pensar en decimal (o habituados a no pensar en absoluto, que también se da el caso).</p>
+  </li>
+  <li>
+    <p><strong>Los números binarios pueden llegar a tener cantidades enormes de dígitos</strong>. Es habitual trabajar con números de 16, 32 o 64 dígitos binarios, lo cual los convierte en inmanejables.</p>
+  </li>
+</ol>
+
+<p>Por este motivo, suelen usarse, en programación, otros dos sistemas de numeración llamados <strong>octal</strong> y <strong>hexadecimal</strong>.</p>
+
+<ul>
+  <li>El <strong>sistema octal</strong> maneja 8 símbolos distintos: 0, 1, 2, 3, 4, 5, 6 y 7.</li>
+  <li>El <strong>sistema hexadecimal</strong>, por su parte, tiene 16 símbolos: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E y F.</li>
+</ul>
+
+<p>Sin duda, el más utilizado de los dos es el hexadecimal y por este motivo nos vamos a detener en él, aunque haciendo notar que el octal funciona de la misma manera.</p>
+
+<p>En hexadecimal, por tanto, es normal ver números cuyos dígitos son letras del alfabeto. Por ejemplo: 2AF5 es un número válido escrito en hexadecimal (exactamente, 10997 en decimal).</p>
+
+<p>La forma de contar, por supuesto, es la misma: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F, y después empezamos a agrupar los símbolos: 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 1A, 1B, 1C, 1D, 1E, 1F. Seguiríamos con 20, 21, 22, etc.</p>
+
+<p>Podemos construir una tabla para comparar los primeros números en los tres sistemas de numeración que conocemos. Hemos rellenado los primeros números binarios con ceros a la izquierda por razones que pronto se verán, pero en realidad los números no cambian (recuerda que un cero a la izquierda no tiene ningún valor, ni en binario ni en el resto de sistemas)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Decimal</th>
+      <th>Binario</th>
+      <th>Hexadecimal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0000</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0001</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0010</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>0011</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0100</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>0101</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>0110</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>0111</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>1000</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>1001</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>1010</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>1011</td>
+      <td>B</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>1100</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>1101</td>
+      <td>D</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>1110</td>
+      <td>E</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>1111</td>
+      <td>F</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Si te fijas, cada dígito hexadecimal se corresponde exactamente con una combinación de 4 dígitos binarios. Así, por ejemplo, el número binario 1001 1101 se puede escribir más resumidamente como 9D en hexadecimal (porque 1001<sub>2</sub> equivale a 9<sub>16</sub> y 1101<sub>2</sub> equivale a D<sub>16</sub>).</p>
+
+<p>Y <strong>esa es la gran utilidad del sistema hexadecimal</strong>: permite manipular números binarios de forma más escueta y resumida, de manera que nos sean más fáciles de manejar a nosotros, los humanos, que somos muy propensos a cometer errores.</p>
+
+<h4 id="convertir-números-hexadecimales-a-decimales">Convertir números hexadecimales a decimales</h4>
+
+<p>El mecanismo es el mismo que ya utilizamos para convertir números binarios, sólo que cambiando la base del sistema de numeración de 2 a 16, ya que ahora vamos a manejar números hexadecimales.</p>
+
+<p>Por lo tanto, los pasos a seguir son:</p>
+
+<ol>
+  <li>
+    <p>Numeramos las posiciones que ocupa cada dígito hexadecimal de derecha a izquierda, empezando por 0. Por ejemplo, en el número hexadecimal 2AF, numeraremos las posiciones así:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Posiciones --&gt;  2  1  0
+                    2  A  F
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Multiplicamos cada dígito hexadecimal por 16 elevado a la posición del dígito y sumamos todos los resultados. Con el número 2AF lo haríamos así:</p>
+  </li>
+</ol>
+
+<p align="center">2 x 16<sup>2</sup> + A x 16<sup>1</sup> + F x 16<sup>0</sup></p>
+
+<p>Según la tabla de anterior, tenemos que el dígito hexadecimal A equivale a 10 en decimal, y que F equivale a 15. Por lo tanto la operación quedaría así:</p>
+
+<p align="center">2 x 16<sup>2</sup> + 10 x 16<sup>1</sup> + 15 x 16<sup>0</sup></p>
+
+<p>Ahora sólo nos falta resolver la operaciones y sumar:</p>
+
+<p align="center">2 x 256 + 10 x 16 + 15 x 1 = 687</p>
+
+<p>Por lo tanto, el número hexadecimal 2AF es equivalente al número decimal 687. Indicándolo con subíndices, lo expresaríamos así:</p>
+
+<p align="center">2AF<sub>16</sub> = 687<sub>10</sub></p>
+
+<h4 id="convertir-números-decimales-a-hexadecimales">Convertir números decimales a hexadecimales</h4>
+
+<p>El proceso también es idéntico al realizado con números binarios, pero sustituyendo la división entre 2 por divisiones entre 16, que es la base del sistema hexadecimal.</p>
+
+<h4 id="relación-entre-números-hexadecimales-y-binarios">Relación entre números hexadecimales y binarios</h4>
+
+<p>La verdadera utilidad del sistema hexadecimal es que <strong>se puede utilizar en lugar del binario</strong>, siendo más fácil de manejar. Para que ello sea posible, el paso de hexadecimal a binario y viceversa debe poder hacerse con mucha rapidez.</p>
+
+<p>Para convertir un número hexadecimal a binario, basta con <strong>sustituir cada dígito hexadecimal por sus cuatro cifras binarias</strong> correspondientes, según la tabla de correspondencias que hemos visto más arriba. Por ejemplo:</p>
+
+<p align="center">2AF<sub>16</sub> = 0010 1010 1111<sub>2</sub></p>
+
+<p>Del mismo modo, para convertir un número binario a hexadecimal, lo agruparemos en bloques de 4 cifras binarias (empezando por la derecha) y buscaremos la correspondencia en la tabla. Por ejemplo, el número binario 100100 se convierte así:</p>
+
+<p align="center">0010 0100<sub>2</sub> = 24<sub>16</sub></p>
+
+<p>Observa que hemos rellenado con ceros a la izquierda para obtener bloques de 4 dígitos binarios sin alterar la esencia del número.</p>
+
+<p>Por supuesto, no es obligatorio usar este truco de rellenar con ceros a la izquierda, pero las primeras veces puede facilitar las cosas. Con un poco de práctica conseguirás convertir binarios a hexadecimales y viceversa de un sólo vistazo y sin necesidad de consultar la tabla.</p>
+
+<h2 id="42-unidades-de-medida-de-información">4.2. Unidades de medida de información</h2>
+
+<p>Como hemos visto, el código binario es el fundamento del funcionamiento de los ordenadores: toda la información que el ordenador maneja, ya sea numérica o alfanumérica, se encuentra codificada en binario.</p>
+
+<p>Del mismo modo que para medir distancias se utiliza el metro, o para medir masas se utiliza el gramo, <strong>para medir la cantidad de información almacenada o procesada en un ordenador existe una unidad de medida</strong>.</p>
+
+<p>Como el ordenador representa toda la información en binario, <strong>la unidad fudamental de medida de la cantidad de información es el dígito binario</strong> (es decir, 0 ó 1), también llamado <strong>BIT</strong> (de BInary digiT)</p>
+
+<p>Un bit es realmente muy poca cantidad de información. Recuerda que, por ejemplo, para almacenar un sólo carácter en código ASCII son necesarios 7 u 8 bits. ¡Para un único carácter!</p>
+
+<p>Del mismo modo que el metro dispone de <strong>múltiplos</strong> (el decámetro, el hectómetro, el kilómetro, etc), también los tiene el bit, y son los siguientes:</p>
+
+<ul>
+  <li><strong>Bit</strong>: Unidad fundamental de medida de la cantidad de información.</li>
+  <li><strong>Byte</strong>: 1 byte equivale a 8 bits (un carácter). Esto no siempre ha sido así, pero, en la actualidad, se acepta la cifra de 8 como estándar. Cuidado con el nombre, porque se parecen y es un error común confundir el bit con el byte.</li>
+  <li><strong>Kibibyte (KiB)</strong>: 1 kilobyte son 1024 bytes. Fïjate que es parecido al kilómetro (1000 metros), pero no exactamente igual.</li>
+  <li><strong>Mebibyte (MiB)</strong>: 1 megabyte equivale a 1024 kilobytes.</li>
+  <li><strong>Gibibyte (GiB)</strong>: 1 gigabyte equivale a 1024 megabytes.</li>
+  <li><strong>Tebibyte (TiB)</strong>: 1 terabyte equivale a 1024 gigabytes</li>
+  <li><strong>Pebibyte (PiB)</strong>: 1 pebibyte equivale a 1024 tebibytes.</li>
+  <li><strong>Exbibyte (EiB)</strong>: 1 exbibyte equivale a 1024 pebibytes.</li>
+</ul>
+
+<p>Podemos resumir las unidades de medida de información en la siguiente tabla:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 Byte  =    8 bits
+1 KiB   = 1024 Bytes
+1 MiB   = 1024 KiB
+1 GiB   = 1024 MiB
+1 TiB   = 1024 GiB
+1 PiB   = 1024 TiB
+1 EiB   = 1024 PiB
+</code></pre></div></div>
+
+<p>Existe otra colección de múltiplos del Byte que se incrementan en potencias de 10, como sucede con los múltiplos de otras magnitudes físicas (tales como el kilómetro, el kilogramo, etc). Se introdujeron hace unos años para acabar con la confusión que provocaba el hecho de que algunos fabricantes consideraban que 1 KB eran 1024 Bytes, mientras que otros decían que eran 1000 Bytes.</p>
+
+<p>Estas otras unidades son:</p>
+
+<ul>
+  <li><strong>Kilobyte (KB)</strong>: 1 kilobyte son 1000 bytes.</li>
+  <li><strong>Megabyte (MB)</strong>: 1 megabyte equivale a 1000 kilobytes.</li>
+  <li><strong>Gigabyte (GB)</strong>: 1 gigabyte equivale a 1000 megabytes.</li>
+  <li><strong>Terabyte (TB)</strong>: 1 terabyte equivale a 1000 gigabytes</li>
+  <li><strong>Petabyte (PB)</strong>: 1 petabyte equivale a 1000 terabytes.</li>
+  <li><strong>Exabyte (EB)</strong>: 1 exabyte equivale a 1000 petabytes.</li>
+</ul>
+
+<p>Podemos resumir las unidades de medida de información en la siguiente tabla:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 Byte =    8 bits
+1 KB   = 1000 Bytes
+1 MB   = 1000 KB
+1 GB   = 1000 MB
+1 TB   = 1000 GB
+1 PB   = 1000 TB
+1 EB   = 1000 EB
+</code></pre></div></div>
+
+<p><strong>Las unidades decimales son más pequeñas que las correspondientes binarias</strong>. Es decir, 1 GB, por ejemplo, son menos Bytes que 1 GiB. La diferencia es tanto mayor cuanto más grande es la unidad.</p>
+
+<p>Por ejemplo, 1 KB es un 2,35% más pequeño que 1 KiB, pero 1 EB es un 13,3% más pequeño que 1 EiB. ¡Entre 1 EB y 1 EiB hay 150 millones de GB de diferencia! Por lo tanto, no es de extrañar que las compañías de telefonía o los fabricantes de dispositivos de almacenamiento publiciten sus capacidades en las unidades más pequeñas posible, para que lo que te ofertan parezca más de lo que es.</p>
+
+<p>Por último, hacemos notar que, en ocasiones, también se usan los mismos múltiplos para el bit, no para el Byte. Así, puedes encontrarte con megabits (Mb) o mebibits (Mib), que son, respectivamente, un millón (1.000.000) de bits y 220 bits (1.048.576). O con gigabits (Gb) o gigibits (Gib). La conversión entre los múltiplos del bit los del Byte se realiza multiplicando o dividiendo entre 8, como es lógico. Observa como <strong>se usa la “b” minúscula para distinguir los bits de los Bytes</strong>.</p>
+
+<h2 id="43-ejercicios-propuestos">4.3. Ejercicios propuestos</h2>
+
+<p><strong>Ejercicio 1</strong>. Investiga y responde a las siguientes cuestiones:</p>
+
+<blockquote>
+  <p>a) ¿Por qué los ordenadores digitales sólo utilizan ceros y unos, es decir, códigos binarios, en lugar de manejar internamente códigos decimales, como hacemos los humanos?</p>
+</blockquote>
+
+<blockquote>
+  <p>b)  ¿Por qué los humanos estamos habituados a un sistema de numeración basado en 10 símbolos y no a cualquier otro, por ejemplo, uno con 8 símbolos, o con 5, o con 12?</p>
+</blockquote>
+
+<p><strong>Ejercicio 2</strong>. Tenemos un viejo ordenador con una capacidad de almacenamiento en la memoria principal de 2 GB. Suponiendo que un nombre ocupe 30 caracteres y un apellido ocupe 25, ¿cuántos nombres y apellidos puede almacenar este ordenador?</p>
+
+<p><strong>Ejercicio 3</strong>. Convierte las siguientes cantidades de información:</p>
+
+<blockquote>
+  <p>a) 30 GB a MB</p>
+</blockquote>
+
+<blockquote>
+  <p>b) 128 KB a bits</p>
+</blockquote>
+
+<blockquote>
+  <p>c) 2 MB a bits</p>
+</blockquote>
+
+<blockquote>
+  <p>d) 64512 KiB a MiB</p>
+</blockquote>
+
+<p><strong>Ejercicio 4</strong>. Convierte los siguientes números al sistema de numeración indicado:</p>
+
+<blockquote>
+  <p>a) 100101<sub>2</sub> a decimal</p>
+</blockquote>
+
+<blockquote>
+  <p>b) 254<sub>10</sub> a binario</p>
+</blockquote>
+
+<blockquote>
+  <p>c) 1111111<sub>2</sub> a decimal</p>
+</blockquote>
+
+<blockquote>
+  <p>d) 191<sub>10</sub> a binario</p>
+</blockquote>
+
+<p><strong>Ejercicio 5</strong>. Convierte los siguientes números entre los sistemas hexadecimal y binario, utilizando la tabla de conversión que hemos visto en este tema. Si puedes hacerlo sin mirar la tabla, mucho mejor.</p>
+
+<blockquote>
+  <p>a) 100111012 a hexadecimal</p>
+</blockquote>
+
+<blockquote>
+  <p>b) 1101001110110011012 a hexadecimal</p>
+</blockquote>
+
+<blockquote>
+  <p>c) 38C16 a binario</p>
+</blockquote>
+
+<blockquote>
+  <p>d) FDCA16 a binario</p>
+</blockquote>
+
+<p><strong>Ejercicio 6</strong>. Escribe las palabras “CELIA VIÑAS” en código ASCII (en decimal y en hexadecimal).</p>
+
+<p><strong>Ejercicio 7</strong>. La cantidad de memoria RAM de un ordenador personal medio ha ido creciendo imparablemente desde que los ordenadores personales se popularizaron en los años 80. Estas son algunas de esas cantidades:</p>
+
+<ul>
+  <li>Año 1982: 256 KiB</li>
+  <li>Año 1992: 4 MiB</li>
+  <li>Año 2002: 512 MiB</li>
+  <li>Año 2012: 4 GiB</li>
+  <li>Año 2022: 8 GiB</li>
+</ul>
+
+<p>Dibuja en un gráfico la evolución de estas cantidades y haz una proyección aproximada hasta el año 2032. ¿Cuánta memoria RAM usarán los ordenadores dentro de 10 años? Puedes usar un programa de hoja de cálculo para ayudarte.</p>
+
+<p><strong>Ejercicio 8</strong>. El tamaño de los discos duros promedios de los ordenadores también ha ido creciendo desde hace cuarenta años. Haz una proyección parecida a la anterior para averiguar qué capacidad de almacenamiento en disco tendrán los ordenadores personales, previsiblemente, dentro de 10 años.</p>
+
+<ul>
+  <li>Año 1982: 10 MiB (los pocos ordenadores que tenían disco duro)</li>
+  <li>Año 1992: 1 GiB</li>
+  <li>Año 2002: 40 GiB</li>
+  <li>Año 2012: 240 GiB</li>
+  <li>Año 2022: 2 TiB</li>
+</ul>
+:ET

@@ -1,0 +1,1827 @@
+I"�<h1 class="no_toc" id="7-el-lenguaje-javascript">7. El lenguaje Javascript</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#71-orientándose-en-la-jungla-de-los-lenguajes-de-programación" id="markdown-toc-71-orientándose-en-la-jungla-de-los-lenguajes-de-programación">7.1. Orientándose en la jungla de los lenguajes de programación</a>    <ul>
+      <li><a href="#711-tipos-de-lenguaje-según-el-nivel-de-abstracción-alto-y-bajo-nivel" id="markdown-toc-711-tipos-de-lenguaje-según-el-nivel-de-abstracción-alto-y-bajo-nivel">7.1.1. Tipos de lenguaje según el nivel de abstracción: alto y bajo nivel</a>        <ul>
+          <li><a href="#lenguajes-de-bajo-nivel" id="markdown-toc-lenguajes-de-bajo-nivel">Lenguajes de bajo nivel</a></li>
+          <li><a href="#lenguajes-de-alto-nivel" id="markdown-toc-lenguajes-de-alto-nivel">Lenguajes de alto nivel</a></li>
+          <li><a href="#ventajas-e-inconvenientes-de-los-lenguajes-de-alto-y-bajo-nivel" id="markdown-toc-ventajas-e-inconvenientes-de-los-lenguajes-de-alto-y-bajo-nivel">Ventajas e inconvenientes de los lenguajes de alto y bajo nivel</a></li>
+        </ul>
+      </li>
+      <li><a href="#712-tipos-de-lenguaje-según-su-generación" id="markdown-toc-712-tipos-de-lenguaje-según-su-generación">7.1.2. Tipos de lenguaje según su generación</a></li>
+      <li><a href="#713-tipos-de-lenguaje-según-su-forma-de-traducción" id="markdown-toc-713-tipos-de-lenguaje-según-su-forma-de-traducción">7.1.3. Tipos de lenguaje según su forma de traducción</a>        <ul>
+          <li><a href="#ensambladores" id="markdown-toc-ensambladores">Ensambladores</a></li>
+          <li><a href="#compiladores" id="markdown-toc-compiladores">Compiladores</a></li>
+          <li><a href="#intérpretes" id="markdown-toc-intérpretes">Intérpretes</a></li>
+          <li><a href="#compiladores-frente-a-intérpretes" id="markdown-toc-compiladores-frente-a-intérpretes">Compiladores frente a intérpretes</a></li>
+        </ul>
+      </li>
+      <li><a href="#714-tipos-de-lenguaje-según-su-tipado" id="markdown-toc-714-tipos-de-lenguaje-según-su-tipado">7.1.4. Tipos de lenguaje según su tipado</a></li>
+      <li><a href="#715-el-top-ten-de-los-lenguajes-de-programación" id="markdown-toc-715-el-top-ten-de-los-lenguajes-de-programación">7.1.5. El <em>top ten</em> de los lenguajes de programación</a></li>
+    </ul>
+  </li>
+  <li><a href="#72-bienvenidos-a-javascript" id="markdown-toc-72-bienvenidos-a-javascript">7.2. ¡Bienvenidos a Javascript!</a>    <ul>
+      <li><a href="#721--características-básicas-de-javascript" id="markdown-toc-721--características-básicas-de-javascript">7.2.1.  Características básicas de Javascript</a></li>
+      <li><a href="#722-breve-historia-de-javascript" id="markdown-toc-722-breve-historia-de-javascript">7.2.2. Breve historia de Javascript</a></li>
+      <li><a href="#723-sintaxis-básica-de-javascript" id="markdown-toc-723-sintaxis-básica-de-javascript">7.2.3. Sintaxis básica de Javascript</a>        <ul>
+          <li><a href="#generalidades-sintácticas" id="markdown-toc-generalidades-sintácticas">Generalidades sintácticas</a></li>
+          <li><a href="#tipos-de-datos-primitivos" id="markdown-toc-tipos-de-datos-primitivos">Tipos de datos primitivos</a></li>
+        </ul>
+      </li>
+      <li><a href="#724-conversiones-de-tipo" id="markdown-toc-724-conversiones-de-tipo">7.2.4. Conversiones de tipo</a></li>
+      <li><a href="#725-asignación-y-ámbito-de-las-variables" id="markdown-toc-725-asignación-y-ámbito-de-las-variables">7.2.5. Asignación y ámbito de las variables</a>        <ul>
+          <li><a href="#declarar-variables-con-var" id="markdown-toc-declarar-variables-con-var">Declarar variables con <em>var</em></a></li>
+          <li><a href="#declarar-variables-con-let" id="markdown-toc-declarar-variables-con-let">Declarar variables con <em>let</em></a></li>
+          <li><a href="#no-declarar-las-variables" id="markdown-toc-no-declarar-las-variables">No declarar las variables</a></li>
+        </ul>
+      </li>
+      <li><a href="#726-operadores-y-expresiones" id="markdown-toc-726-operadores-y-expresiones">7.2.6. Operadores y expresiones</a></li>
+      <li><a href="#727-estructuras-de-control" id="markdown-toc-727-estructuras-de-control">7.2.7. Estructuras de control</a></li>
+      <li><a href="#728-subalgoritmos" id="markdown-toc-728-subalgoritmos">7.2.8. Subalgoritmos</a>        <ul>
+          <li><a href="#las-funciones-de-javascript" id="markdown-toc-las-funciones-de-javascript">Las funciones de Javascript</a></li>
+          <li><a href="#paso-de-parámetros-por-valor-o-por-referencia" id="markdown-toc-paso-de-parámetros-por-valor-o-por-referencia">Paso de parámetros: ¿por valor o por referencia?</a></li>
+        </ul>
+      </li>
+      <li><a href="#729-entrada-y-salida" id="markdown-toc-729-entrada-y-salida">7.2.9. Entrada y salida</a>        <ul>
+          <li><a href="#entrada-de-datos-con-prompt" id="markdown-toc-entrada-de-datos-con-prompt">Entrada de datos con prompt()</a></li>
+          <li><a href="#salida-de-datos-con-innerhtml-documentwrite-y-alert" id="markdown-toc-salida-de-datos-con-innerhtml-documentwrite-y-alert">Salida de datos con innerHTML, document.write() y alert()</a></li>
+        </ul>
+      </li>
+      <li><a href="#7210-arrays" id="markdown-toc-7210-arrays">7.2.10. Arrays</a>        <ul>
+          <li><a href="#declaración-de-arrays" id="markdown-toc-declaración-de-arrays">Declaración de arrays</a></li>
+          <li><a href="#características-de-los-arrays-en-javascript" id="markdown-toc-características-de-los-arrays-en-javascript">Características de los arrays en Javascript</a></li>
+          <li><a href="#propiedades-y-métodos" id="markdown-toc-propiedades-y-métodos">Propiedades y métodos</a></li>
+          <li><a href="#recorrido-de-un-array" id="markdown-toc-recorrido-de-un-array">Recorrido de un array</a></li>
+        </ul>
+      </li>
+      <li><a href="#7211-los-objetos-predefinidos-de-javascript" id="markdown-toc-7211-los-objetos-predefinidos-de-javascript">7.2.11. Los objetos predefinidos de Javascript</a></li>
+    </ul>
+  </li>
+  <li><a href="#73-escribiendo-programas-con-javascript" id="markdown-toc-73-escribiendo-programas-con-javascript">7.3. Escribiendo programas con Javascript</a>    <ul>
+      <li><a href="#731-caja-de-herramientas" id="markdown-toc-731-caja-de-herramientas">7.3.1. Caja de herramientas</a></li>
+      <li><a href="#732-flujo-de-trabajo" id="markdown-toc-732-flujo-de-trabajo">7.3.2. Flujo de trabajo</a></li>
+      <li><a href="#733-dónde-y-cómo-escribir-el-código-fuente" id="markdown-toc-733-dónde-y-cómo-escribir-el-código-fuente">7.3.3. Dónde y cómo escribir el código fuente</a></li>
+    </ul>
+  </li>
+  <li><a href="#74-eventos-y-temporizadores" id="markdown-toc-74-eventos-y-temporizadores">7.4. Eventos y temporizadores</a>    <ul>
+      <li><a href="#741-eventos-de-javascript" id="markdown-toc-741-eventos-de-javascript">7.4.1. Eventos de Javascript</a></li>
+      <li><a href="#742-temporizadores-de-javascript" id="markdown-toc-742-temporizadores-de-javascript">7.4.2. Temporizadores de Javascript</a></li>
+    </ul>
+  </li>
+  <li><a href="#75-un-ejemplo-completo-las-tres-en-raya" id="markdown-toc-75-un-ejemplo-completo-las-tres-en-raya">7.5. Un ejemplo completo: las tres en raya</a>    <ul>
+      <li><a href="#751-el-código-fuente" id="markdown-toc-751-el-código-fuente">7.5.1. El código fuente</a></li>
+      <li><a href="#752-cómo-ejecutar-y-depurar-este-programa" id="markdown-toc-752-cómo-ejecutar-y-depurar-este-programa">7.5.2. ¿Cómo ejecutar y depurar este programa?</a>        <ul>
+          <li><a href="#socorro-el-programa-no-funciona" id="markdown-toc-socorro-el-programa-no-funciona">¡Socorro! El programa no funciona</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#76-ejercicios-propuestos" id="markdown-toc-76-ejercicios-propuestos">7.6. Ejercicios propuestos</a>    <ul>
+      <li><a href="#ejercicio-1-tabla-de-multiplicar" id="markdown-toc-ejercicio-1-tabla-de-multiplicar">Ejercicio 1. Tabla de multiplicar</a></li>
+      <li><a href="#ejercicio-2-juego-del-número-secreto" id="markdown-toc-ejercicio-2-juego-del-número-secreto">Ejercicio 2. Juego del número secreto</a></li>
+      <li><a href="#ejercicio-3-botón-saltarín" id="markdown-toc-ejercicio-3-botón-saltarín">Ejercicio 3. Botón saltarín</a></li>
+      <li><a href="#ejercicio-4-ventana-nerviosa-y-botones-evanescentes" id="markdown-toc-ejercicio-4-ventana-nerviosa-y-botones-evanescentes">Ejercicio 4. Ventana nerviosa y botones evanescentes</a></li>
+      <li><a href="#ejercicio-5-colorines" id="markdown-toc-ejercicio-5-colorines">Ejercicio 5. Colorines</a></li>
+      <li><a href="#ejercicio-6-pelota-de-goma" id="markdown-toc-ejercicio-6-pelota-de-goma">Ejercicio 6. Pelota de goma</a></li>
+      <li><a href="#ejercicio-7-tres-en-raya-improved" id="markdown-toc-ejercicio-7-tres-en-raya-improved">Ejercicio 7. Tres en raya improved</a></li>
+      <li><a href="#ejercicio-8-tenis" id="markdown-toc-ejercicio-8-tenis">Ejercicio 8. Tenis</a></li>
+      <li><a href="#ejercicio-9-carretera-al-infierno" id="markdown-toc-ejercicio-9-carretera-al-infierno">Ejercicio 9. Carretera al infierno</a></li>
+    </ul>
+  </li>
+  <li><a href="#77-ejercicios-resueltos" id="markdown-toc-77-ejercicios-resueltos">7.7. Ejercicios resueltos</a>    <ul>
+      <li><a href="#ejercicio-1-tabla-de-multiplicar-1" id="markdown-toc-ejercicio-1-tabla-de-multiplicar-1">Ejercicio 1. Tabla de multiplicar</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>El ordenador, como ya sabes, solo puede manejar ceros y unos, es decir, código o <strong>lenguaje binario</strong>. Los seres humanos, por el contrario, utilizamos un lenguaje mucho más complejo, con montones de símbolos y reglas sintácticas y semánticas, que denominamos <strong>lenguaje natural</strong> (aunque de “natural” tiene poco).</p>
+
+<p>Entre estos dos extremos (lenguaje binario y lenguaje natural) se encuentran los <strong>lenguajes de programación</strong>. Tienen cierto parecido con el lenguaje natural, pero son mucho más reducidos y estrictos en su sintaxis y semántica, para acercarse a las limitaciones del lenguaje binario.</p>
+
+<p>En este capítulo vamos a aprender a escribir algoritmos con un lenguaje de alto nivel llamado <strong>Javascript</strong>. Se trata de un lenguaje que ha alcanzado una popularidad enorme gracias a que se encuentra incrustado en todas las páginas web que visitas a diario. Javascript es la piedra angular de cualquier web, pero también puede usarse como un lenguaje de programación convencional para escribir algoritmos de forma rápida, que es lo que vamos a hacer en este tema.</p>
+
+<p>Lenguajes de programación hay muchos, así que también hablaremos de otros lenguajes y conoceremos los tipos y características de algunos de ellos.</p>
+
+<h2 id="71-orientándose-en-la-jungla-de-los-lenguajes-de-programación">7.1. Orientándose en la jungla de los lenguajes de programación</h2>
+
+<p>Los lenguajes de programación constituyen un ecosistema muy extenso y en constante evolución. Para orientarse un poco en esa jungla, nada mejor que clasificar los lenguajes igual que los biólogos clasifican a las criaturas vivas.</p>
+
+<h3 id="711-tipos-de-lenguaje-según-el-nivel-de-abstracción-alto-y-bajo-nivel">7.1.1. Tipos de lenguaje según el nivel de abstracción: alto y bajo nivel</h3>
+
+<p>Hay lenguajes de programación muy próximos al lenguaje binario: a éstos los llamamos <strong>lenguajes de bajo nivel</strong> de abstracción. Y los hay más próximos al lenguaje natural: son los <strong>lenguajes de alto nivel</strong> de abstracción.</p>
+
+<h4 id="lenguajes-de-bajo-nivel">Lenguajes de bajo nivel</h4>
+
+<p>Son los lenguajes más cercanos a la máquina. Los programas directamente escritos en código binario se dice que están en <strong>lenguaje máquina</strong> que, por lo tanto, es el lenguaje de más bajo nivel que existe.</p>
+
+<p>Las instrucciones del lenguaje máquina realizan tareas muy sencillas, como, por ejemplo, sumar dos números, detectar qué tecla se ha pulsado en el teclado o escribir algo en la pantalla del ordenador. Cuando se combinan adecuadamente muchas de estas instrucciones sencillas se obtiene un programa de ordenador que puede realizar tareas muy complejas.</p>
+
+<p>Por ejemplo, este puede ser el aspecto de una instrucción en lenguaje máquina para sumar dos números:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0001 000100000101 110100110101
+</code></pre></div></div>
+
+<p>Incomprensible, ¿verdad?</p>
+
+<p>A pesar de la simplicidad de las instrucciones del lenguaje máquina, la forma de escribirlas es muy complicada, ya que hay que hacerlo en binario. En los primeros años de la informática los ordenadores se programaban directamente en lenguaje máquina, lo cual convertía la tarea de programar en una verdadera pesadilla. Hoy en día nadie lo hace.</p>
+
+<p>Cuando los ordenadores fueron haciéndose más potentes, surgió la idea de utilizar el propio ordenador como <strong>traductor</strong>: ¿por qué no escribir instrucciones en un lenguaje más parecido al natural y que un programa de ordenador se encargue de traducir esa instrucción a su correspondiente instrucción en lenguaje máquina?</p>
+
+<p>Así apareció el <strong>lenguaje ensamblador</strong>, cuyas instrucciones son equivalentes a las del lenguaje máquina, pero se escriben con palabras similares a las del lenguaje humano. Por ejemplo, para sumar dos números, la instrucción en ensamblador puede tener un aspecto como este:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ADD D1 D2
+</code></pre></div></div>
+
+<h4 id="lenguajes-de-alto-nivel">Lenguajes de alto nivel</h4>
+
+<p>Siguiendo el razonamiento anterior (utilizar el propio ordenador como traductor), en la década de 1960 y, sobre todo, de 1970, se empezaron a desarrollar lenguajes cada vez más complejos, en los que cada instrucción ya no se correspondía exactamente con una instrucción del lenguaje máquina, sino con varias. Estos son los <strong>lenguajes de alto nivel</strong>.</p>
+
+<p>Lógicamente, la traducción desde un lenguaje de alto nivel a lenguaje máquina es mucho más compleja que desde lenguaje ensamblador, por lo que <em>los traductores se han hecho cada vez más complicados</em>.</p>
+
+<p>Una característica muy importante de los lenguajes de alto nivel es que <strong>son independientes del hardware</strong>, lo que implica que los programas desarrollados con estos lenguajes pueden ser ejecutados en ordenadores con hardware totalmente distinto. A esto se le llama <strong>portabilidad</strong>.</p>
+
+<p>Los programas encargados de traducir el código de alto nivel a código máquina se llaman <strong>compiladores</strong> e <strong>intérpretes</strong>. Son programas muy complejos que generan el código binario equivalente al código de alto nivel para una máquina concreta. Por lo tanto, el programa de alto nivel, que es portable de un hardware a otro, debe ser traducido a código máquina en cada tipo de máquina en la que se pretenda ejecutar.</p>
+
+<p>Los ejemplos de lenguajes de alto nivel son innumerables, y la lista incluye casi todos de los que has oído hablar alguna vez: Basic, Cobol, Fortran, Ada, C/C++, PHP, Python, Java, Perl, Ruby, Javascript, etc.</p>
+
+<h4 id="ventajas-e-inconvenientes-de-los-lenguajes-de-alto-y-bajo-nivel">Ventajas e inconvenientes de los lenguajes de alto y bajo nivel</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>LENGUAJES DE BAJO NIVEL</strong></th>
+      <th><strong>LENGUAJES DE ALTO NIVEL</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Ventajas</strong></td>
+      <td><strong>Inconvenientes</strong></td>
+    </tr>
+    <tr>
+      <td>Son comprensibles directamente por la máquina (aunque el ensamblador necesita una pequeña traducción)</td>
+      <td>Necesitan ser traducidos por medio de complicados programas (compiladores e intérpretes)</td>
+    </tr>
+    <tr>
+      <td>Los programas se ejecutan muy rápidamente (si están bien escritos, claro)</td>
+      <td>La traducción automática del código de alto nivel al código máquina siempre genera programas menos eficientes que si se escribieran directamente en binario</td>
+    </tr>
+    <tr>
+      <td>Ocupan menos espacio en memoria</td>
+      <td>Ocupan más espacio en memoria</td>
+    </tr>
+    <tr>
+      <td>Permiten controlar directamente el hardware, por lo que son apropiados para la programación de sistemas</td>
+      <td>En general, solo pueden acceder al hardware utilizando al sistema operativo como intermediario. Pero, entonces, ¿cómo programar el sistema operativo, que necesita controlar directamente el hardware?</td>
+    </tr>
+    <tr>
+      <td><strong>Inconvenientes</strong></td>
+      <td><strong>Ventajas</strong></td>
+    </tr>
+    <tr>
+      <td>Son completamente dependientes del hardware. Un programa escrito para determinado tipo de máquina no funcionará en un ordenador con diferente arquitectura.</td>
+      <td>Son portables, es decir, independientes del hardware. Un programa escrito en una máquina puede funcionar en otra con hardware distinto, siempre que se vuelva a traducir a binario en la máquina nueva.</td>
+    </tr>
+    <tr>
+      <td>Incluso los programas más sencillos son largos y farragosos</td>
+      <td>Los programas son más sencillos, ya que una sola instrucción puede equivaler a varias instrucciones binarias.</td>
+    </tr>
+    <tr>
+      <td>Los programas son difíciles de escribir, depurar y mantener</td>
+      <td>Los programas son más fáciles de escribir, depurar y mantener</td>
+    </tr>
+    <tr>
+      <td>Es imposible resolver problemas muy complejos</td>
+      <td>Es posible, aunque difícil, enfrentarse a problemas muy complejos</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Si echas un vistazo a la tabla anterior comprenderás que, en general, <strong>es preferible usar lenguajes de alto nivel</strong> la gran mayoría de las veces, reservando los de bajo nivel para casos muy concretos, como el desarrollo de ciertas partes de los sistemas operativos.</p>
+
+<p>También hay que destacar que no todos los lenguajes de alto nivel son iguales. Los hay de más alto nivel que otros. El lenguaje C, por ejemplo, tiene menor nivel de abstracción que, por ejemplo, Java. Esto hace que los programas escritos en C sean más rápidos y eficientes que los escritos en Java, aunque también pueden llegar a ser más difíciles de escribir y depurar.</p>
+
+<h3 id="712-tipos-de-lenguaje-según-su-generación">7.1.2. Tipos de lenguaje según su generación</h3>
+
+<p>Los lenguajes de programación también se clasifican según la generación a la que pertenecen.</p>
+
+<p>El lenguaje máquina fue el lenguaje de primera generación. Los ensambladores fueron los lenguajes de segunda generación. A partir de ahí, surgió una explosión de lenguajes diferentes que podemos clasificar como:</p>
+
+<ul>
+  <li><strong>Lenguajes de tercera generación</strong> (o <strong>imperativos</strong>), en los que el programador escribe una secuencia de instrucciones que el ordenador debe ejecutar en un orden preestablecido. Son los lenguajes más “clásicos”: C, Basic, Cobol, Fortran, Pascal, etc.</li>
+  <li><strong>Lenguajes de cuarta generación</strong> (o <strong>4GL</strong>), dirigidos a facilitar la creación de interfaces con el usuario y con otras aplicaciones, como las bases de datos. Un ejemplo de estos lenguajes es SQL, universalmente utilizado para manipular bases de datos y omnipresente en muchas aplicaciones web actuales.</li>
+  <li><strong>Lenguajes orientados a objetos</strong>, que son una evolucuión de los lenguajes de tercera generación y que permiten construir con mayor facilidad y robustez programas modulares complejos. Ejemplos de lenguajes orientados a objetos son C++, C#, Java, Javascript, Python, PHP o Ruby. Algunos de ellos son multiparadigma, es decir, permiten programar con orientación a objetos pero también permiten hacer programación estructurada clásica, sin objetos.</li>
+  <li><strong>Lenguajes declarativos</strong> y <strong>lenguajes funcionales</strong>, propios de la inteligencia artificial, como Prolog o Lisp.</li>
+  <li><strong>Otros</strong> tipos aún más específicos: lenguajes concurrentes, paralelos, distribuidos, etc.</li>
+</ul>
+
+<p>En general, podemos decir que un programador acostumbrado a trabajar con un lenguaje de tercera generación puede aprender con poco esfuerzo cualquier otro lenguaje de tercera generación y, con algo más de trabajo, un lenguaje orientado a objetos. Sin embargo, el “salto” a otros tipos de lenguajes, como los declarativos, cuesta más porque las fundamentos de estos lenguajes son muy diferentes.</p>
+
+<h3 id="713-tipos-de-lenguaje-según-su-forma-de-traducción">7.1.3. Tipos de lenguaje según su forma de traducción</h3>
+
+<p>Cuando programamos en un lenguaje distinto del lenguaje máquina, <strong>nuestro código debe ser traducido a binario</strong> para que el ordenador pueda entenderlo y ejecutarlo. Existe un programa específico encargado de hacer esa traducción y que, dependiendo del lenguaje en el que hayamos escrito nuestro programa, puede ser un <em>ensamblador</em>, un <em>compilador</em> o un <em>intérprete</em>.</p>
+
+<h4 id="ensambladores">Ensambladores</h4>
+
+<p>Se llaman <strong>ensambladores</strong> los programas encargados de <strong>traducir los programas escritos en ensamblador a código binario</strong>.</p>
+
+<p>Sí, ya lo sé: se usa el mismo nombre para referirse al <em>lenguaje</em> de programación y al <em>traductor</em> de ese lenguaje a código máquina. Es un lío.</p>
+
+<p>Como el lenguaje ensamblador es muy próximo al binario, estos traductores son programas relativamente sencillos.</p>
+
+<h4 id="compiladores">Compiladores</h4>
+
+<p>El <strong>compilador</strong> es un programa que traduce el <strong>código de alto nivel a código binario</strong>.</p>
+
+<p>Es, por tanto, parecido al ensamblador, pero mucho más complejo, ya que las diferencias entre los lenguajes de alto nivel y el código binario son muy grandes.</p>
+
+<p>El programa escrito en lenguaje de alto nivel se denomina programa fuente o <strong>código fuente</strong>. El programa traducido a código binario se llama programa objeto o <strong>código objeto</strong>. Por lo tanto, el compilador se encarga de convertir el programa fuente en un programa objeto.</p>
+
+<p>Una vez que se ha obtenido el código objeto ya no es necesario volver a realizar la traducción (o compilación), a menos que se haga alguna modificación en el programa fuente, en cuyo caso habría que volver a compilarlo.</p>
+
+<p>El código objeto, una vez generado, puede ejecutarse en la máquina en la que fue compilado, o en otra de similares características (procesador, sistema operativo, etc.). Cuando se usa programación modular, puede ser necesario un proceso previo de enlace de los diferentes módulos antes de poder construir el programa ejecutable.</p>
+
+<h4 id="intérpretes">Intérpretes</h4>
+
+<p>El <strong>intérprete</strong> es un programa que <strong>traduce el código de alto nivel a código binario</strong> pero, a diferencia del compilador, lo hace <strong>en tiempo de ejecución</strong>.</p>
+
+<p>Es decir, no existe un proceso previo de traducción de todo el código fuente a código binario, sino que se va traduciendo y ejecutando instrucción por instrucción.</p>
+
+<h4 id="compiladores-frente-a-intérpretes">Compiladores frente a intérpretes</h4>
+
+<p>El <strong>intérprete</strong> es notablemente <strong>más lento</strong> que el compilador, ya que realiza la traducción al mismo tiempo que la ejecución.</p>
+
+<p>Además, esa traducción se lleva a cabo siempre que se ejecuta el programa, mientras que el compilador sólo la hace una vez. Hay un evidente malgasto de recursos.</p>
+
+<p>Sin embargo, muchos lenguajes muy populares en la actualidad, como Javascript, PHP o Python, suelen ser interpretados y no compilados. Alguna ventaja tendrá la interpretación frente a la compilación, ¿no crees?</p>
+
+<p>Pues sí: la <strong>gran ventaja de los intérpretes</strong> es que hacen que <strong>los programas sean más portables</strong>.</p>
+
+<p>Así, un programa compilado en una máquina PC bajo Windows no funcionará en un Mac o en un PC bajo Linux, a menos que se vuelva a compilar el programa fuente en el nuevo sistema. En cambio, un programa interpretado funcionará en todas las plataformas, siempre que dispongamos del intérprete en cada una de ellas.</p>
+
+<p><strong>JavaScript</strong> es un ejemplo de lenguaje interpretado tremendamente popular gracias al crecimiento de Internet. Los programas escritos con JavaScript (llamados comúnmente <em>scripts</em>) pueden funcionar en cualquier máquina que disponga de un intérperte Javascript, y resulta que todos los navegadores web tienen uno.</p>
+
+<p>Por eso, <strong>cualquier programa escrito en Javascript puede ejecutarse prácticamente en cualquier ordenador del mundo</strong> sin tocarle ni una coma.</p>
+
+<p>En cambio, <strong>C++</strong>, por ejemplo, es un lenguaje compilado, lo que hace que los programas desarrollados con estos lenguajes se ejecuten más rápido (¡pero mucho más rápido!) que sus equivalentes en JavaScript. Sin embargo, tendrás que volver a compilarlos si deseas ejecutarlos en una máquina con diferente hardware o diferente sistema operativo.</p>
+
+<h3 id="714-tipos-de-lenguaje-según-su-tipado">7.1.4. Tipos de lenguaje según su tipado</h3>
+
+<p>Por <em>tipado</em> nos referimos a la forma en la que los lenguajes de programación usan los tipos de datos. Ya sabes: entero, carácter, lógico, etc. Es decir, las categorías a las que puede pertenecer una variable.</p>
+
+<p>Pues bien, según su tipado, los lenguajes pueden ser:</p>
+
+<ul>
+  <li><strong>De tipado fuerte</strong>: los tipos de datos no pueden mezclarse. Por ejemplo, no puedes sumar un entero y un real, porque son números de distinto tipo. Y mucho menos sumar un entero con un carácter.</li>
+  <li><strong>De tipado débil</strong>: los tipos de datos pueden mezclarse y el lenguaje hace las conversiones de tipos implícitas que le parezca oportunas. Así, en estos lenguajes podrías sumar un entero con un real, o incluso un entero con un carácter. ¿Que cuál sería el resultado? Buena pregunta. Tendrás que probarlo, porque eso depende de las conversiones de tipo que haga el lenguaje.</li>
+  <li><strong>De tipado estático</strong>: los tipos de datos se asignan al escribir el código y no pueden cambiarse durante la ejecución. Esto es típico de los compiladores (aunque no de todos).</li>
+  <li><strong>De tipado dinámico</strong>: los tipos de datos pueden cambiarse alegremente durante la ejecución. Esto es típico de los intérpretes.</li>
+</ul>
+
+<p>Las dos primeras categorías y las dos segundas no son excluyentes. Por ejemplo, pueden existir lenguajes de tipado débil y dinámico, o bien fuerte y estático. Las otras combinaciones (fuerte y dinámico, débil y estático) pueden darse pero son menos habituales.</p>
+
+<h3 id="715-el-top-ten-de-los-lenguajes-de-programación">7.1.5. El <em>top ten</em> de los lenguajes de programación</h3>
+
+<p>Es difícil saber cuales son los lenguajes más populares en un determinado momento porque no existen estadísticas fiables a nivel mundial. Además, las cosas pueden cambiar mucho de un territorio a otro.</p>
+
+<p>Sin embargo, ciertos sitios de internet, como <strong>GitHub</strong>, almacenan enormes cantidades de proyectos de software. GitHub, de hecho, es el mayor almacén de código fuente conocido, de modo que sus estadísticas nos pueden dar una idea bastante exacta de cuál es el grado de uso de cada lenguaje.</p>
+
+<p>Según <a href="https://madnight.github.io/githut">Madnight</a>, un proyecto que recopila y publica estadísticas de uso de lenguajes en GitHub, el <em>top ten</em> de lenguajes de programación más usados en GitHub es:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Puesto</th>
+      <th>Lenguaje</th>
+      <th>Porcentaje de uso</th>
+      <th>Variación de uso en 12 meses</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>JavaScript</td>
+      <td>17.955%</td>
+      <td>-2.192%</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Python</td>
+      <td>15.943%</td>
+      <td>+0.071%</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Java</td>
+      <td>12.977%</td>
+      <td>+1.573%</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Go</td>
+      <td>8.203%</td>
+      <td>-0.612%</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>TypeScript</td>
+      <td>7.212%</td>
+      <td>-0.276%</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>C++</td>
+      <td>6.683%</td>
+      <td>-0.251%</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Ruby</td>
+      <td>6.488%</td>
+      <td>+0.303%</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>PHP</td>
+      <td>4.937%</td>
+      <td>-0.093%</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>C#</td>
+      <td>3.366%</td>
+      <td>-0.350%</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>C</td>
+      <td>2.958%</td>
+      <td>+0.068%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>El porcentaje de uso indica la proporción de proyectos en GitHub que usan ese lenguaje de programación sobre el total de proyectos. La última cifra señala la variación interanual del porcentaje de uso.</p>
+
+<p>Estos datos son de tercer cuatrimestre de 2021. Para obtener datos de otras fechas, puedes visitar la web <a href="https://madnight.github.io/">https://madnight.github.io/</a></p>
+
+<p>Ten en cuenta de nuevo que esto no son cifras de uso absoluto de los lenguajes a nivel mundial. Solo se trata de una pista de cuál es la situación. De hecho, si consultas otras estadísticas como el <a href="https://tiobe.com/tiobe-index/">TIOBE index</a>, encontrarás datos diferentes.</p>
+
+<p>Según las cifras de Madnight, Javascript continúa siendo el lenguaje preferido por la mayoría de los programadores (aunque está lejos de sus tiempos memorables, donde llegó a utilizarse en casi el 30% de los proyectos activos en Github). Viejas glorias como Java, C++, PHP y C aguantan muy bien el tipo, con unos números muy estables, porque tienen una base de programadores muy fieles a sus espaldas, mientras que algunos lenguajes recientes como Go y Typescript se han hecho un hueco en el ránking de los 10 más usados.</p>
+
+<h2 id="72-bienvenidos-a-javascript">7.2. ¡Bienvenidos a Javascript!</h2>
+
+<h3 id="721--características-básicas-de-javascript">7.2.1.  Características básicas de Javascript</h3>
+
+<ul>
+  <li>Javascript es un lenguaje de <strong>alto nivel</strong>.</li>
+  <li>Es <strong>imperativo y estructurado</strong>. Admite <strong>orientación a objetos basada en prototipos</strong>, no en clases (puede que no entiendas lo que significa esto, pero de momento no importa).</li>
+  <li>Su <strong>tipado es débil y dinámico</strong>.</li>
+  <li>La <strong>sintaxis</strong> de sus estructuras de control está <strong>heredada del lenguaje C</strong>, como la de Java, PHP o Python, por lo que guarda bastantes semejanzas con estos otros lenguajes.</li>
+  <li>Es un <strong>lenguaje interpretado</strong>, pensado para ser ejecutado dentro de un navegador web. Por lo tanto, no es particularmente eficiente, pero sí muy portable. Sin embargo, también existen <strong>compiladores y precompiladores</strong> que permiten construir con Javascript cualquier tipo de programa, no solo aplicaciones web.</li>
+  <li>Es <strong>altamente portable</strong>. Cualquier programa en Javascript debería poder ejecutarse sin ninguna adaptación particular en cualquier navegador web reciente.</li>
+  <li>Su integración con los navegadores web hace que pueda manipular cualquier página web, incluso después de estar cargada en el navegador.</li>
+  <li>Es uno de los lenguajes de programación <strong>más populares</strong> del mundo en la actualidad. Aunque se ha intentado reemplazar muchas veces, ningún otro lenguaje lo ha conseguido (de momento).</li>
+</ul>
+
+<h3 id="722-breve-historia-de-javascript">7.2.2. Breve historia de Javascript</h3>
+
+<p>Javascript fue un lenguaje creado en la década de 1990 para el ya desaparecido navegador web <strong>Netscape Navigator</strong>. En aquellos primeros tiempos de internet, las páginas web eran sitios muy poco vistosos, con mucho texto y unas pocas imágenes, y Javascript pretendía introducir un poco de movimiento y dinamismo en esas páginas tan aburridas.</p>
+
+<p><strong>Internet Explorer</strong>, el principal competidor de Netscape, respondió creando el <strong>VB Script</strong> y, posteriormente, un lenguaje muy similar a Javascript (pero no igual) llamado <strong>JScript</strong>. Esos lenguajes no tuvieron éxito e Internet Explorer terminó por aceptar la existencia de Javascript.</p>
+
+<p>Aquella competición entre Netscape e Internet Explorer se llamó <em>guerra de los navegadores</em> y, aunque Netscape la perdió y acabó desapareciendo, Javascript ha permanecido hasta hoy como el heredero directo aquella época convulsa.</p>
+
+<p>Desde entonces, Javascript ha tenido una evolución enorme, y ha pasado de ser apenas un lenguaje de juguete con el que se podían conseguir un puñado de efectos dinámicos en los sitios web a ser un lenguaje muy potente y bien definido, capaz de sustentar la estructura de aplicaciones web complejas.</p>
+
+<p>Hoy en día, Javascript suele utilizarse con librerías y <em>frameworks</em> que mejoran su estructura y aumentan su potencia. El estándar del lenguaje está publicado por la <strong>ECMA</strong> (European Computer Manufacturers Association) y se denomina <strong>ECMAScript</strong>. Todos los navegadores web respetan ese estándar en gran medida.</p>
+
+<h3 id="723-sintaxis-básica-de-javascript">7.2.3. Sintaxis básica de Javascript</h3>
+
+<h4 id="generalidades-sintácticas">Generalidades sintácticas</h4>
+
+<p>Hay algunas normas básicas de la sintaxis de Javascript que tienes que conocer:</p>
+
+<ul>
+  <li>
+    <p><strong>Los bloques de código se marcan con las llaves</strong> ( <strong>{</strong> y <strong>}</strong> ). Por ejemplo, después de una sentencia <em>while</em> (equivalente al <em>mientras</em> de pseudocódigo) hay que abrir una llave. El cuerpo de bucle comprenderá desde esa llave de apertura hasta la siguiente llave de cierre, así:</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">while</span> <span class="p">(</span><span class="nx">condicion</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">Instrucción</span> <span class="mi">1</span> <span class="nx">del</span> <span class="nx">bucle</span>
+    <span class="nx">Instrucción</span> <span class="mi">2</span> <span class="nx">del</span> <span class="nx">bulce</span>
+    <span class="p">...</span>
+    <span class="nx">Instrucción</span> <span class="nx">N</span> <span class="nx">del</span> <span class="nx">bucle</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+
+    <p>La llave de cierre, por tanto, sería el equivalente al <em>FinMientras</em> de pseudocódigo.</p>
+  </li>
+  <li>
+    <p>Todas las instrucciones <strong>terminan con un punto y coma</strong> ( <strong>;</strong> ). Excepción: si una instrucción contiene un bloque marcado con llaves ( { … } ), se considera que esa instrucción termina al cerrar el bloque, y en ese caso no hace falta poner punto y coma.</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nx">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>                     <span class="c1">// La instrucción de asignación termina con ;</span>
+ <span class="k">while</span> <span class="p">(</span><span class="nx">condicion</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Cuerpo del bucle</span>
+ <span class="p">}</span>                           <span class="c1">// El bucle termina con }, así que no necesita ;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Los <strong>identificadores</strong> de variables, funciones, etc., no pueden empezar con un número ni contener espacios o símbolos especiales, salvo el de subrayado ( _ )</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nx">a5</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>     <span class="c1">// Identificador de variable válido</span>
+ <span class="mi">5</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>     <span class="c1">// Identificador de variable NO válido</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Las <strong>cadenas de caracteres</strong> pueden encerrarse entre <strong>comillas simples</strong> ( ‘…’ ) o <strong>comillas dobles</strong> ( “…” )</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nx">a</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Soy una cadena</span><span class="dl">"</span><span class="p">;</span>
+ <span class="nx">b</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Yo también soy una cadena</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>El lenguaje es <strong>sensitivo a las mayúsculas</strong>. Es decir, no es lo mismo que una variable se llame <em>edad</em> que <em>Edad</em> o <em>EDAD</em>.</p>
+  </li>
+</ul>
+
+<h4 id="tipos-de-datos-primitivos">Tipos de datos primitivos</h4>
+
+<p>Javascript utiliza varios tipos de datos simples llamados <strong>primitivos</strong>. Los más importantes son:</p>
+
+<ul>
+  <li><strong>number</strong>: números enteros y reales, indistintamente.</li>
+  <li><strong>string</strong>: cadenas de caracteres.</li>
+  <li><strong>boolean</strong>: datos de tipo lógico, es decir, de los que solo pueden valer <em>true</em> (verdadero) o <em>false</em> (falso).</li>
+</ul>
+
+<p>Como es un lenguaje de tipado dinámico, esos tipos <strong>pueden variar durante la ejecución</strong>, dependiendo de lo que hagas con las variables.</p>
+
+<p>De hecho, Javascript es tan flexible que <strong>ni siquiera es necesario declarar las variables</strong> (aunque es aconsejable). Es decir, que puedes usar una variable cuando la necesites sin tener que declararla antes.</p>
+
+<p>Las variables en Javascript se declaran con las palabras clave <strong>var</strong> o <strong>let</strong>. Las diferencias entre una y otra tienen que ver con el ámbito de la variable y las veremos enseguida.</p>
+
+<p>Por ejemplo:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Hola</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">c</span><span class="p">;</span>
+<span class="nx">d</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>En el código anterior hemos declarado tres variables, a, b y c. Observa que, <strong>al declarar una variable, no se especifica el tipo</strong>: Javascript decidirá su tipo en función del valor que se le asigne.</p>
+
+<p>Así pues, el tipo de la variable a será <em>string</em>, y el de la variable b será <em>number</em>. ¿Qué pasará con el tipo de la variable c? Hasta que no se le asigne algún valor, permanecerá <em>undefined</em>.</p>
+
+<p>Fíjate, por último, en que no hemos declarado la variable d, sino que la hemos usado directamente. Esto también es válido en Javascript, aunque, en general, poco recomendable por razones que comentaremos luego. El tipo de esta variable también será <em>number</em>.</p>
+
+<h3 id="724-conversiones-de-tipo">7.2.4. Conversiones de tipo</h3>
+
+<p>Javascript, como hemos dicho, es un lenguaje de <strong>tipado dinámico</strong>. Es decir, que las variables pueden variar de tipo a lo largo del programa:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>    <span class="c1">// Variable tipo number</span>
+<span class="c1">// Aquí pueden ir varias instrucciones más</span>
+<span class="nx">a</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Hola</span><span class="dl">"</span><span class="p">;</span>   <span class="c1">// Ahora la variable es de tipo string</span>
+</code></pre></div></div>
+
+<p>Además, Javascript también es un lenguaje <strong>débilmente tipado</strong>, lo que significa que no hace comprobaciones estrictas de tipos a la hora de asignar un valor a una variable o de comparar dos expresiones.</p>
+
+<p>Por ejemplo, estas instrucciones son correctas:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>      <span class="c1">// La variable a es de tipo number</span>
+<span class="nx">b</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">A</span><span class="dl">"</span><span class="p">;</span>    <span class="c1">// La variable b es de tipo string</span>
+<span class="nx">c</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>  <span class="c1">// ¿Qué ocurre si las mezclamos en una expresión?</span>
+</code></pre></div></div>
+
+<p>¿Qué resultado crees que obtendrás con una mezcla de tipos como esta? ¿Por qué no haces la prueba?</p>
+
+<p>Cuando mezclas tipos, estás dejando que el lenguaje de programación decida cuál será el resultado, por lo que puedes obtener resultados imprevisibles. Es mejor que tú controles qué conversiones de tipo se hacen. Para eso, Javacript dispone de varias herramientas:</p>
+
+<ul>
+  <li>
+    <p><strong>typeof</strong>: Nos dice de qué tipo es una variable.</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nx">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+ <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">a</span><span class="p">);</span>   <span class="c1">// En la pantalla, aparecerá escrito "number"</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>String</strong>: Convierte la variable a un <em>string</em> (cadena de caracteres).</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nx">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>          <span class="c1">// a es el número entero 5 </span>
+ <span class="nx">b</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>  <span class="c1">// b es la cadena "5"</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>parseInt</strong> y <strong>parseFloat</strong>: Convierte la variable a un <em>number</em> entero o real (es decir, a sin decimales o con decimales).</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nx">a</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">5 pollos</span><span class="dl">"</span><span class="p">;</span> <span class="c1">// a es una cadena</span>
+ <span class="nx">b</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>  <span class="c1">// Javascript tratará de convertir la cadena a un número entero</span>
+ <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">b</span><span class="p">);</span>  <span class="c1">// ¿Qué crees que aparecerá en la pantalla?</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="725-asignación-y-ámbito-de-las-variables">7.2.5. Asignación y ámbito de las variables</h3>
+
+<p>La <strong>asignación</strong> de valores a variables en Javascript es fácil de explicar: se hace con el <strong>símbolo igual (=)</strong>, no con el símbolo &lt;= que usábamos en pseudocódigo:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span><span class="p">;</span>      <span class="c1">// Declaración de la variable a</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>  <span class="c1">// Declaración y asignación de valor a la variable b</span>
+<span class="nx">a</span> <span class="o">=</span> <span class="nx">b</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>  <span class="c1">// Asignación de valor a la variable a</span>
+</code></pre></div></div>
+
+<p>El problema del <strong>ámbito de las variables</strong> es más complicado de explicar.</p>
+
+<p>El <strong>ámbito</strong> (o <strong><em>scope</em></strong>, en inglés) de una variable es <em>el lugar del programa donde esa variable está disponible</em>.</p>
+
+<p>Primero, la versión corta: las <strong>variables en Javascript son locales</strong>. Es decir, solo son accesibles desde el algoritmo o subalgoritmo donde se declaran.</p>
+
+<p>La versión larga es que Javascript ofrece una flexibilidad un poco mareante para manejar el ámbito de las variables.</p>
+
+<p>Vamos a tratar de explicarlo con unos cuantos ejemplos sencillos.</p>
+
+<p>Unas líneas más arriba dijimos que Javascript permite declarar las variables con <strong><em>var</em></strong> o con <strong><em>let</em></strong>, o bien no declararlas, ¿verdad?</p>
+
+<p>Pues bien: el ámbito de la variable dependerá de <em>dónde</em> declaremos la variable (si lo hacemos) y de cómo lo hagamos (con <em>var</em> o con <em>let</em>).</p>
+
+<h4 id="declarar-variables-con-var">Declarar variables con <em>var</em></h4>
+
+<p>Las variables declaradas con <strong><em>var</em></strong> son <strong>locales a la función</strong> donde se declaran, o <strong>globales</strong> si se declaran en el exterior de cualquier función.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>  <span class="c1">// Variable global</span>
+
+<span class="kd">function</span> <span class="nx">mostrarMensaje</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>    <span class="c1">// Variable local</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">La variable a vale </span><span class="dl">"</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="dl">"</span><span class="s2"> y la variable b vale </span><span class="dl">"</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>En este ejemplo, la variable a es <strong>global</strong>, lo que significa que será accesible desde cualquier parte de este programa (incluyendo el interior de la función <em>mostrarMensaje()</em>).</p>
+
+<p>La variable b, en cambio, es <strong>local a la función</strong> <em>mostrarMensaje()</em>. Si tratamos de acceder a ella desde el exterior de esa función, se producirá un error de ejecución.</p>
+
+<h4 id="declarar-variables-con-let">Declarar variables con <em>let</em></h4>
+
+<p>Las variables declaradas con <strong><em>let</em></strong> son <strong>locales al bloque</strong> donde se declaran, o <strong>globales</strong> si se declaran en el exterior de cualquier bloque.</p>
+
+<p>Un <strong>bloque</strong> es cualquier cosa encerrada entre dos llaves ({ y }). Observa el siguiente ejemplo:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>  <span class="c1">// Variable global</span>
+
+<span class="kd">function</span> <span class="nx">mostrarMensaje</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>    <span class="c1">// Variable local a la función</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">b</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>   <span class="c1">// Variable local al bloque if</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">La variable a vale </span><span class="dl">"</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="dl">"</span><span class="s2">, la variable b vale </span><span class="dl">"</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="dl">"</span><span class="s2"> y la variable c vale </span><span class="dl">"</span><span class="p">,</span> <span class="nx">c</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>En este ejemplo tenemos 3 variables:</p>
+
+<ul>
+  <li>La variable a vuelve a ser <strong>global</strong>, lo que significa que será accesible desde cualquier parte de este programa.</li>
+  <li>La variable b es <strong>local a la función</strong>. Está disponible desde su declaración hasta la llave de cierre de la función.</li>
+  <li>La variable c es <strong>local a su bloque</strong>. Es decir, está disponible desde su declaración hasta la llave de cierre del <em>if</em>.</li>
+</ul>
+
+<h4 id="no-declarar-las-variables">No declarar las variables</h4>
+
+<p>Con Javascript, como ya hemos visto, es perfectamente posible <strong>no declarar las variables</strong> y usarlas sin más.</p>
+
+<p>Sin embargo, cuando haces este tipo de cosas, dejas que sea el lenguaje de programación el que tome decisiones por ti. En este caso, que decida sobre el ámbito de la variable. Por eso mi consejo es que <em>siempre</em> declares las variables, aunque no les asignes ningún valor inicial.</p>
+
+<p>Si decides usar las variables sin declarar, tienes que saber que Javascript las considerará a todas <strong>globales</strong>, independientemente del punto del programa donde hayas usado la variable por primera vez.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>  <span class="c1">// Variable global</span>
+
+<span class="kd">function</span> <span class="nx">mostrarMensaje</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>    <span class="c1">// Variable global</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">b</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>   <span class="c1">// Variable global</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">La variable a vale </span><span class="dl">"</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="dl">"</span><span class="s2">, la variable b vale </span><span class="dl">"</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="dl">"</span><span class="s2"> y la variable c vale </span><span class="dl">"</span><span class="p">,</span> <span class="nx">c</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="726-operadores-y-expresiones">7.2.6. Operadores y expresiones</h3>
+
+<p>Los <strong>operadores y expresiones en Javascript</strong> son iguales que los que hemos empleado en pseudocódigo:</p>
+
+<ul>
+  <li>Operadores <strong>aritméticos</strong>: +, -, *, /, % (este último significa <em>módulo de la división</em>).</li>
+  <li>Operadores <strong>relacionales</strong>: &gt;, &lt;, &gt;=, &lt;=…</li>
+</ul>
+
+<p>Sin embargo, hay algunas <strong>diferencias</strong> importantes entre el pseudocódigo de PseInt y Javascript. Son estas:</p>
+
+<ul>
+  <li>
+    <p>La <strong>asignación</strong>, como ya hemos visto más arriba, se hace con el <strong>símbolo igual (=)</strong>, no con &lt;=.</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nx">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>        <span class="c1">// A la variable a se le asigna el valor 5</span>
+ <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>    <span class="c1">// A la variable b se le asigna el valor a + 1</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>La <strong>comparación de igualdad</strong> se hace con un <strong>doble igual (==)</strong>, no con un solo igual (=). Esto es así para distinguir la comparación de la asignación.</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">if</span> <span class="p">(</span><span class="nx">a</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span> <span class="p">{</span>    <span class="c1">// Comparación: ¿es a igual a 5?</span>
+     <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>   <span class="c1">// Asignación: b toma el valor a + 1</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Existe el <strong>operador incremento (++)</strong>. Se utiliza para sumar una unidad a una variable.</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">while</span> <span class="p">(</span><span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span>
+     <span class="nx">i</span><span class="o">++</span><span class="p">;</span>         <span class="c1">// Esto es equivalente a: i = i + 1</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>También existe el <strong>operador decremento (- -)</strong>, para restar una unidad a una variable.</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">while</span> <span class="p">(</span><span class="nx">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+     <span class="nx">i</span><span class="o">--</span><span class="p">;</span>     <span class="c1">// Equivalente a: i = i - 1</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Los <strong>operadores lógicos</strong> (Y, O, NO) se escriben de forma distinta:</p>
+    <ul>
+      <li><strong>Y</strong> se escribe <strong>&amp;&amp;</strong>.</li>
+      <li><strong>O</strong> se escribe <strong>||</strong>.</li>
+      <li><strong>NO</strong> se escribe <strong>!</strong> (sí, sí, es una admiración).</li>
+    </ul>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">if</span> <span class="p">(</span><span class="nx">a</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">b</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">// Operador Y: tienen que darse las dos condiciones a la vez</span>
+     <span class="p">...</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>Hay algunas otras diferencias, desde luego, pero con esto ya tienes para hacer un buen montón de programas.</p>
+
+<h3 id="727-estructuras-de-control">7.2.7. Estructuras de control</h3>
+
+<p>Las <strong>estructuras de control</strong> en Javascript son muy similares a las que hemos utilizado en pseudocódigo, cambiando ligeramente la notación empleada.</p>
+
+<p>A continuación te muestro una tabla con las más habituales y su equivalente en pseudocódigo, sin entrar en explicaciones, porque supondremos que ya sabes manejarlas. Si no recuerdas para qué servía alguna de ellas, quizá sería buena idea que le dieras un repaso al capítulo dedicado al pseudocódigo.</p>
+
+<table>
+    <tr>
+      <th>Instrucción</th>
+      <th>Pseudocódigo</th>
+      <th>Javascript</th>
+    </tr>
+    <tr>
+      <td>Condicional simple</td>
+      <td>
+         <code>
+         Si condición entonces<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         FinSi
+         </code>
+      </td>
+      <td>
+         <code>
+         if (condicion) {<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         }
+         </code>
+      </td>
+    </tr>
+    <tr>
+      <td>Condicional doble</td>
+      <td>
+         <code>
+         Si condicion entonces<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         SiNo<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         FinSi
+         </code>
+      </td>
+      <td>
+         <code>
+         if (condicion) {<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         }<br />
+         else {<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         }
+         </code>
+      </td>
+    </tr>
+    <tr>
+      <td>Bucle tipo mientras</td>
+      <td>
+         <code>
+         Mientras condicion hacer<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         FinMientras
+         </code>
+      </td>
+      <td>
+         <code>
+         while (condicion) {<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         }
+         </code>
+      </td>
+    </tr>
+    <tr>
+      <td>Bucle tipo repetir</td>
+      <td>
+         <code>
+         Repetir<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         Hasta Que condicion
+         </code>
+      </td>
+      <td>
+         <code>
+         do {<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         } while (condicion)
+         </code>
+      </td>
+    </tr>
+    <tr>
+      <td>Bucle tipo para</td>
+      <td>
+         <code>
+         Para variable &lt;- valor_inicial hasta valor_final con paso incremento hacer<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         FinPara
+         </code>
+      </td>
+      <td>
+         <code>
+         for (variable = valor_inicial; variable != valor_final; variable = variable + incremento) {<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         }
+         </code>
+      </td>
+    </tr>
+</table>
+
+<p>Fíjate en que casi todo se escribe del mismo modo que en pseudocódigo con un par de diferencias notables:</p>
+
+<ul>
+  <li>
+    <p><strong>DIFERENCIA 1: En el bucle tipo <em>repetir</em></strong>, la condición de salida se expresa al revés (“repetir mientras..” en lugar de “repetir hasta que…”. Lo verás mejor en este ejemplo que muestra los números del 1 al 100. Observa la condición del final del bucle:</p>
+
+    <p>En pseudocódigo:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> i &lt;- 1
+ Repetir
+    Escribir i
+    i &lt;- i + 1
+ Hasta que i &gt;= 100
+</code></pre></div>    </div>
+
+    <p>En Javascript:</p>
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="k">do</span> <span class="p">{</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+    <span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+ <span class="p">}</span>
+ <span class="k">while</span> <span class="p">(</span><span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>DIFERENCIA 2: En el bucle tipo <em>para</em></strong> hay que indicar la asignación a la variable que controla el bucle, la condición de salida y la forma en la que esa variable cambiará en cada iteración. Observa este ejemplo:</p>
+
+    <p>En pseudocódigo:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> Para i &lt;- 1 hasta 10 hacer
+    Escribir i
+ FinPara
+</code></pre></div>    </div>
+
+    <p>En Javascript:</p>
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+
+    <p>Si el <strong>paso</strong> del bucle no es +1 (es decir, si la variable que controla el bucle no incrementa su valor de 1 en 1 en cada iteración), hay que indicarlo de este modo:</p>
+
+    <p>En pseudocódigo:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> Para i &lt;- 1 hasta 10 con paso 2 hacer
+    Escribir i
+ FinPara
+</code></pre></div>    </div>
+
+    <p>En Javascript:</p>
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+
+    <p>Por último, recuerda que en Javascript existe una abreviatura para <code class="language-plaintext highlighter-rouge">i = i + 1</code>, que se escribe <code class="language-plaintext highlighter-rouge">i++</code>, por lo que lo más habitual es encontrar los bucles de tipo <em>para</em> escritos así:</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span><span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="728-subalgoritmos">7.2.8. Subalgoritmos</h3>
+
+<h4 id="las-funciones-de-javascript">Las funciones de Javascript</h4>
+
+<p>Javascript es un lenguaje <strong>modular</strong>, es decir, permite la escritura de subalgoritmos.</p>
+
+<p>Todos los subalgoritmos en Javascript se llaman <strong>funciones</strong>, independientemente de si devuelven algo o no.</p>
+
+<p>Esta es la forma de declarar una función:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">nombre_funcion</span><span class="p">(</span><span class="nx">parámetros</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">Instrucciones</span> <span class="nx">de</span> <span class="nx">la</span> <span class="nx">función</span><span class="p">;</span>
+   <span class="k">return</span> <span class="nx">expresión</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>El <strong>return</strong> es optativo. Una función de Javascript puede no tener <strong>return</strong> y, por lo tanto, ser en la práctica un procedimiento (aunque se siga declarando con la palabra <em>function</em>).</p>
+
+<p>Los <strong>parámetros</strong> también son optativos, claro: puede haber funciones sin ningún parámetro y funciones con decenas de ellos (aunque esto último no sea demasiado recomendable).</p>
+
+<p>La <strong>invocación</strong> de la función se hace como en pseudocódigo: poniendo el nombre de la función y su lista de parámetros (si los tiene).</p>
+
+<p>Por ejemplo:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Definición de la función</span>
+<span class="kd">function</span> <span class="nx">potencia</span><span class="p">(</span><span class="nx">base</span><span class="p">,</span> <span class="nx">exponente</span><span class="p">)</span> <span class="p">{</span>
+   <span class="kd">var</span> <span class="nx">i</span><span class="p">;</span>
+   <span class="kd">var</span> <span class="nx">resultado</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+   <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">exponente</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">resultado</span> <span class="o">=</span> <span class="nx">resultado</span> <span class="o">*</span> <span class="nx">base</span><span class="p">;</span>
+   <span class="p">}</span>
+   <span class="k">return</span> <span class="nx">resultado</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Invocación de la función</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="nx">potencia</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">9 elevado a 4 es </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">p</span><span class="p">);</span>
+</code></pre></div></div>
+<h4 id="paso-de-parámetros-por-valor-o-por-referencia">Paso de parámetros: ¿por valor o por referencia?</h4>
+
+<p>Recuerda que, cuando se invoca un subalgoritmo, hay dos modos de enviarle los parámetros y que es muy importante distinguirlos.</p>
+
+<p>Observa el ejemplo anterior de la función <em>potencia()</em>. Los <strong>parámetros formales</strong> son <em>base</em> y <em>exponente</em>. Los <strong>parámetros actuales</strong> son <em>b</em> y <em>e</em>.</p>
+
+<ul>
+  <li><strong>Paso de parámetros por valor</strong>: el <em>valor</em> de los parámetros actuales (<em>b</em> y <em>e</em>) se asigna a los parámetros formales del subalgoritmo. Así, <em>base</em> y <em>exponente</em> adquieren los mismos valores que tenían <em>b</em> y <em>e</em>, pero ahí termina toda su relación: a partir de entonces, se comportan como variables independientes de <em>base</em> y <em>exponente</em>.</li>
+  <li><strong>Paso de parámetros por referencia</strong>: los parámetros actuales (<em>b</em> y <em>e</em>) quedan <em>ligados</em> a los parámetros formales (<em>base</em> y <em>exponente</em>). Si el valor de <em>base</em> o de <em>exponente</em> cambia dentro de la función, también cambiarán <em>b</em> y <em>e</em> fuera de la función, porque en realidad son las mismas variables.</li>
+</ul>
+
+<p>Pues bien, en Javascript:</p>
+
+<ul>
+  <li>el paso de parámetros de <strong>tipos primitivos</strong> (ya sabes, <em>number</em>, <em>string</em>, <em>boolean</em>, etc) <strong>siempre se hace por valor</strong>.</li>
+  <li>el paso de parámetros de <strong>tipos complejos</strong> (llamados <em>objetos</em>), <strong>siempre se hace por referencia</strong>.</li>
+</ul>
+
+<p>¿Que qué son los famosos <em>objetos</em>, preguntas? Tal vez hayas oído hablar de la <em>programación orientada a objetos</em>. Le dedicaremos a ese tema un capítulo más adelante, pero, de momento, quédate con la idea de que un objeto es <em>cualquier variable que no sea de un tipo primitivo</em>. Por ejemplo, los <strong>arrays</strong> son objetos en Javascript.</p>
+
+<p>Así que la conclusión es que <strong>los arrays siempre se pasan por referencia</strong> en Javascript, mientras que <strong>las variables simples siempre se pasan por valor</strong>.</p>
+
+<h3 id="729-entrada-y-salida">7.2.9. Entrada y salida</h3>
+
+<p>Hay varias formas de hacer la entrada y salida de datos con Javascript, es decir, hay varios equivalentes a la instrucciones <strong>Leer</strong> y <strong>Escribir</strong> de pseudocódigo.</p>
+
+<p>Para nuestros primeros programas, usaremos la función <strong>prompt()</strong> para hacer la entrada y la propiedad <strong>innerHTML</strong> para hacer la salida. A veces, sustituiremos esta última por la función <strong>document.write()</strong> o por la función <strong>alert()</strong>.</p>
+
+<table>
+    <tr>
+      <th>Instrucción</th>
+      <th>Pseudocódigo</th>
+      <th>Javascript</th>
+    </tr>
+    <tr>
+      <td>Entrada</td>
+      <td>
+         <code>
+         Leer variable
+         </code>
+      </td>
+      <td>
+         <code>
+         variable = prompt();
+         </code>
+      </td>
+    </tr>
+    <tr>
+      <td>Salida</td>
+      <td>
+         <code>
+         Escribir expresión
+         </code>
+      </td>
+      <td>
+         <code>document.getElementById('selector').innerHTML = expresión;</code>
+         <br />O bien:<br />
+         <code>document.write(expresión);</code>
+         <br />O bien:<br />
+         <code>alert(expresión);</code>
+      </td>
+    </tr>
+</table>
+
+<p>Vamos a ver un poco más despacio cómo se usa cada una de estas funciones:</p>
+
+<h4 id="entrada-de-datos-con-prompt">Entrada de datos con prompt()</h4>
+
+<p>La <strong>entrada de datos</strong> en Javascript puede hacerse de diversas maneras. En particular, usando <strong>formularios HTML</strong>, pero de momento no vamos a pelearnos con eso.</p>
+
+<p>En esta primera toma de contacto con el lenguaje, vamos a conformarnos con la función <strong>prompt()</strong>. Esta función muestra un mensaje en forma de ventana emergente y permite escribir un texto, asignándolo a una variable.</p>
+
+<p>Observa cómo se usa <em>prompt()</em> con este ejemplo escrito primero en pseudocódigo y luego en Javascript:</p>
+
+<p>Pseudocódigo:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Escribir("Dime un número")
+Leer n
+</code></pre></div></div>
+
+<p>Javascript:</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">Dime un número</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">n</span> <span class="o">=</span> <span class="nx">prompt</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Si pruebas este código, verás que sucede algo raro: el mensaje “Dime un número” sale escrito en la ventana del navegador web, pero el número nos lo pide en una ventana emergente que se sitúa <em>por encima</em> del mensaje. ¡Y, en algunos navegadores, el mensaje “Dime un número” ni siquiera llega a verse!</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/05-prompt-sin-texto.png" alt="Prompt sin texto" /></p>
+
+<p>Esto hace un efecto muy raro. ¿verdad? Para evitarlo, puedes <strong>unir las dos instrucciones</strong> en una sola, puesto que <em>prompt()</em> te permite incluir un mensaje en la caja de texto. Así:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">n</span> <span class="o">=</span> <span class="nx">prompt</span><span class="p">(</span><span class="dl">"</span><span class="s2">Dime un número</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Al ejecutar este código, verás que el resultado es mucho más natural:</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/05-prompt-con-texto.png" alt="Prompt con texto" /></p>
+
+<p>(Nota: la forma exacta en la que veas estas pantallas dependerá de tu navegador web, puesto que cada uno hace el <em>prompt</em> de manera ligeramente distinta)</p>
+
+<h4 id="salida-de-datos-con-innerhtml-documentwrite-y-alert">Salida de datos con innerHTML, document.write() y alert()</h4>
+
+<p>La forma más sencilla de hacer la salida de datos con Javascript es usar <strong>document.write()</strong> o su hermana melliza, <strong>document.writeln()</strong>.</p>
+
+<p>Mira cómo se usa en este ejemplo y el resultado que produce en la ventana del navegador:</p>
+
+<p>Código:</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hola, mundo</span><span class="dl">"</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span></code></pre></div></div>
+
+<p>Resultado:
+<img src="/docs/prog-y-3d/_site/assets/images/05-salida-de-datos-con-document-write.png" alt="Salida de datos con document.write()" /></p>
+
+<p>La diferencia entre <em>write()</em> y <em>writeln()</em> es que la segunda insertará automáticamente un salto de línea tras la salida, y la primera no.</p>
+
+<p>Sin embargo, estas funciones tiene un grave problema: puede que el texto de salida <em>no se muestre inmediatamente</em>. La decisión de cuándo se muestra la salida la toma el navegador y hay poco que puedas hacer al respecto. Por eso, la usaremos en contadas ocasiones.</p>
+
+<p>Otra manera muy sencilla de hacer salida de datos es con <strong>alert()</strong>. Esta función muestra un texto en forma de ventana emergente. Parecido a <em>prompt()</em>, pero sin caja de texto para escribir. Observa a <em>alert()</em> en acción en el siguiente ejemplo:</p>
+
+<p>Código:</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hola, mundo</span><span class="dl">"</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span></code></pre></div></div>
+
+<p>Resultado:
+<img src="/docs/prog-y-3d/_site/assets/images/05-salida-de-datos-con-alert.png" alt="Salida de datos con alert()" /></p>
+
+<p>La salida con <em>alert()</em> es simple y efectiva, pero resulta muy invasiva. Si haces todo tu programa con <em>alert()</em>, el usuario se sentirá enseguida apabullado por esa cantidad de ventanas emergentes que le saltan a la cara.</p>
+
+<p>De modo que nos queda la tercera vía. Es la más enrevesada, pero también la mejor. Y, en fin, tampoco es tan complicado.</p>
+
+<p>Consiste en preparar una zona de la pantalla del navegador para hacer en ella la salida de datos, y luego acceder a la misma con <strong>document.getElementById().innerHTML</strong>.</p>
+
+<p>Si sabes un poco de <strong>HTML</strong>, el lenguaje de marcado con el que se codifican las páginas web, enseguida comprenderás lo que estamos haciendo. Si no tienes ni idea de HTML, no te preocupes. Basta con que sigas los pasos que proponemos aquí para que puedas ejecutar tus programas Javascript. Ya tendrás tiempo de aprender HTML más adelante.</p>
+
+<p><strong>Paso 1. Prepara la caja donde se hará la salida</strong>. La caja se crea un la etiqueta <strong>&lt;div&gt;</strong> de HTML, a la que puedes asignar un estilo de visualización. La primeras veces, puedes limitarte copiar y pegar este código en todos los programas Javascript que vayas a hacer:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">'salida'</span> <span class="na">style=</span><span class="s">'text-align: center; border-style: solid; border-color: black'</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+   <span class="c1">// Escribe aquí tu programa Javascript</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Paso 2. Dentro de tu programa Javascript, utiliza <em>document.getElementById(‘salida’).innerHTML = expresión</em> para hacer la salida</strong>. Sí, lo sé, es un poco largo, pero Javascript es así. Por ejemplo, este código:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">'salida'</span> <span class="na">style=</span><span class="s">'text-align: center; border-style: solid; border-color: black'</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+   <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">salida</span><span class="dl">'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Hola, mundo</span><span class="dl">"</span><span class="p">;</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>…producirá este resultado:</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/05-salida-de-datos-con-innerhtml.png" alt="Salida de datos con innerHTML" /></p>
+
+<p><strong>Paso 3. Utiliza <em>document.getElementById(‘salida’).innerHTML += expresión</em> si no quieres perder la salida anterior</strong>. Es decir, si usas un <strong>igual</strong> (=), cada salida de datos borrará la pantalla. Si usas <strong>más igual</strong> (+=), la salida de datos se añadirá a la anterior, sin borrarla:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">'salida'</span> <span class="na">style=</span><span class="s">'text-align: center; border-style: solid; border-color: black'</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+   <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">salida</span><span class="dl">'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">Hola, mundo</span><span class="dl">"</span><span class="p">;</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Paso 4 (OPTATIVO). Cambia las propiedades de tu caja de salida</strong>. Intenta juguetear con las propiedades <strong><em>text-align</em></strong>, <strong><em>border-style</em></strong> o <strong><em>border-color</em></strong> del <em>div</em> de salida. Además, hay muchas otras propiedades que puedes asignarle a esa caja. Si te atreves, investiga un poco cómo cambiar el color del texto o la tipografía.</p>
+
+<h3 id="7210-arrays">7.2.10. Arrays</h3>
+
+<p>Los <strong>arrays en Javascript</strong> son mucho más que simples arrays: se trata de elementos muy complejos y flexibles que se adaptan a multitud de soluciones.</p>
+
+<p>Aquí solo vamos a ver una introducción a los mismos. Conforme vayas profundizando en tu conocimiento de Javascript, descubrirás cosas nuevas sobre estas asombrosas estructuras y les sacarás más y más partido.</p>
+
+<h4 id="declaración-de-arrays">Declaración de arrays</h4>
+
+<p>Los arrays en Javascript se pueden <strong>declarar</strong> de diversas formas:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Una forma de declarar un array:</span>
+<span class="kd">var</span> <span class="nx">ciudades</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">Almería</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Granada</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Málaga</span><span class="dl">'</span><span class="p">];</span>
+<span class="c1">// Otra forma de declarar un array:</span>
+<span class="kd">var</span> <span class="nx">ciudades</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="dl">'</span><span class="s1">Almería</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Granada</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Málaga</span><span class="dl">'</span><span class="p">);</span>
+<span class="c1">// Esta es otra forma:</span>
+<span class="kd">var</span> <span class="nx">ciudades</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+<span class="nx">ciudades</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Almería</span><span class="dl">'</span><span class="p">;</span>
+<span class="nx">ciudades</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Granada</span><span class="dl">'</span><span class="p">;</span>
+<span class="nx">ciudades</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Málaga</span><span class="dl">'</span><span class="p">;</span>
+<span class="c1">// Y otra forma más:</span>
+<span class="kd">var</span> <span class="nx">ciudades</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="nx">ciudades</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Almería</span><span class="dl">'</span><span class="p">;</span>
+<span class="nx">ciudades</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Granada</span><span class="dl">'</span><span class="p">;</span>
+<span class="nx">ciudades</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Málaga</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Realmente, no todas estas formas son equivalentes, porque Javascript a veces tratará a la variable <em>ciudades</em> como un <strong>Array</strong> y a veces como un <strong>objeto</strong>. La diferencia entre una y otra cosa es tan sutil que, de momento, puedes desentenderte de ello. Si algún día te vuelves un experto en Javascript, ya entenderás esa diferencia.</p>
+
+<p>Por ahora, quédate con la idea de que todas estas formas son válidas para declarar un array.</p>
+
+<h4 id="características-de-los-arrays-en-javascript">Características de los arrays en Javascript</h4>
+
+<p>Como puedes observar por los ejemplos anteriores, los arrays de Javascript tienen dos características importantes:</p>
+
+<ul>
+  <li><strong>No es necesario indicar su tamaño al declararlos</strong>, aunque se puede hacer. Esto se debe a que los arrays en Javascript son dinámicos: pueden crecer o decrecer durante la ejecución del programa.</li>
+  <li><strong>El índice empieza en 0</strong>. Es decir, el primer elemento es el 0, el segundo es el 1, etc.</li>
+  <li>El <strong>acceso a los elementos</strong> del array se hace como en pseudocódigo: indicando el índice del elemento entre corchetes.</li>
+</ul>
+
+<p>Los arrays NO son variables primitivas (simples). Recuerda que esto significa que <strong>siempre se pasan por referencia</strong> a las funciones, mientras que las variables primitivas se pasan por valor. Repasa el paso de parámetros a funciones del que hablamos un poco más arriba si no recuerdas bien todo esto.</p>
+
+<p>Una cosa muy peculiar de los arrays de Javascript es que <strong>sus elementos pueden ser de diferente tipo</strong>. Por ejemplo:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Este array tiene elementos del mismo tipo (strings):</span>
+<span class="kd">var</span> <span class="nx">ciudades</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">Almería</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Granada</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Málaga</span><span class="dl">'</span><span class="p">];</span>
+<span class="c1">// Este array tiene elementos de diferente tipo:</span>
+<span class="kd">var</span> <span class="nx">miArray</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">Lunes</span><span class="dl">'</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="nx">ciudades</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>En el ejemplo anterior, el array <em>ciudades</em> solo contiene elementos de tipo <em>string</em>, mientras que el array <em>miArray</em> contiene elementos de tipo dispares: un <em>string</em>, un <em>number</em> y un <em>array</em>.</p>
+
+<p>Como ves, nada impide que un elemento de un array sea otro array. De hecho, un elemento de un array puede ser cualquier cosa.</p>
+
+<h4 id="propiedades-y-métodos">Propiedades y métodos</h4>
+
+<p>Los arrays de Javascript, como cualquier objeto, tienen una serie de <strong>propiedades y métodos</strong>. Ya veremos exactamente qué son las propiedades y los métodos, pero de momento te basta saber que se trata de funciones y variables que <em>están dentro</em> del objeto de tipo array y que permiten usarlo.</p>
+
+<p>Algunas propiedades y métodos útiles de los arrays son:</p>
+
+<ul>
+  <li><strong>nombreArray.length</strong>: devuelve el número de elementos del array.</li>
+  <li><strong>nombreArray.sort()</strong>: ordena el array.</li>
+  <li><strong>nombreArray.push(valor)</strong>: añade un elemento al array (a continuación de la última posición usada). Como consecuencia, el tamaño del array crecerá.</li>
+  <li><strong>nombreArray.pop()</strong>: elimina el último elemento del array. Como consecuencia, el tamaño del array decrecerá.</li>
+  <li><strong>nombreArray.indexOf(valor)</strong>: busca el elemento <em>valor</em> en el array y devuelve su posición (si lo encuentra) o -1 (si no lo encuentra).</li>
+</ul>
+
+<p>Hay muchas otras propiedades y métodos que puedes consultar en la <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/Arrays">referencia oficial del lenguaje</a>.</p>
+
+<h4 id="recorrido-de-un-array">Recorrido de un array</h4>
+
+<p>El <strong>recorrido</strong> de un array puede hacerse igual que en pseudocódigo, con la salvedad de que tendremos que averiguar la longitud del array antes de recorrerlo, puesto que el tamaño del array puede variar a lo largo del programa:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">ciudades</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">Almería</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Granada</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Málaga</span><span class="dl">'</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">longArray</span> <span class="o">=</span> <span class="nx">ciudades</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">longArray</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">ciudades</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Existen formas alternativas de hacer esto mismo sin necesidad de averiguar la longitud del array ni usar variables índice. Por ejemplo, así:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">ciudades</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">Almería</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Granada</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Málaga</span><span class="dl">'</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">ciudad</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="nx">ciudad</span> <span class="k">of</span> <span class="nx">ciudades</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">ciudad</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="7211-los-objetos-predefinidos-de-javascript">7.2.11. Los objetos predefinidos de Javascript</h3>
+
+<p>Los <strong>objetos</strong>, como hemos dicho varias veces ya, los estudiaremos en el próximo capítulo. Por ahora te basta saber que son construcciones de Javascript que encierran dentro de sí una serie de funciones y variables para manipular diferentes elementos y facilitar la vida al programador.</p>
+
+<p>Por ejemplo, los arrays son objetos.</p>
+
+<p>Pues bien, existen muchos otros objetos predefinidos en Javascript. Te voy a presentar a unos cuantos particularmente útiles, aunque debes saber que hay muchos más. Cuando vayas profundizando en tu conocimiento de este lenguaje los irás conociendo.</p>
+
+<ul>
+  <li>
+    <p><strong>Date</strong>. Permite obtener la fecha y hora actual del reloj del ordenador. Por ejemplo:</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span> <span class="c1">// Fecha y hora actual</span>
+ <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">'</span><span class="s1">Día de la semana</span><span class="dl">'</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nx">getDay</span><span class="p">());</span>
+ <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">'</span><span class="s1">Día del mes</span><span class="dl">'</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nx">getDate</span><span class="p">());</span>
+ <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">'</span><span class="s1">Mes</span><span class="dl">'</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">());</span>
+ <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">'</span><span class="s1">Año</span><span class="dl">'</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">());</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Math</strong>. Este objeto contiene una enorme colección de funciones matemáticas. Algunas son:
+    <ul>
+      <li><em>sin(x), cos(x), tan(x)</em>: calcula el seno, el coseno y la tangente de x.</li>
+      <li><em>max(valor1, valor2, …, valorN), min(valor1, valor2, …, valorN)</em>: calcula el máximo o el mínimo de una lista de valores.</li>
+      <li><em>round(x)</em>: redondea el número x al entero más próximo. Si ya era entero, lo deja como estaba.</li>
+      <li><em>trunc(x)</em>: trunca el número x. Es decir, elimina los decimales, sin redondear.</li>
+      <li><em>pow(b, e)</em>: calcula la potencia de b elevado a e.</li>
+      <li>
+        <p><em>random()</em>: devuelve un número real aleatorio entre 0 y 1. Si quieres que sea un aleatorio entero entre dos valores cualesquiera, tendrás que hacer algo así:</p>
+
+        <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">Aleatorio de 0 a 1:  </span><span class="dl">"</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">());</span>
+ <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">Aleatorio de 0 a 99: </span><span class="dl">"</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">trunc</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">));</span>
+ <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">Aleatorio de 1 a 100:</span><span class="dl">"</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">trunc</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+ <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">Aleatorio de 0 a 100:</span><span class="dl">"</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">trunc</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="o">*</span><span class="mi">101</span><span class="p">));</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li><strong>window</strong>. Proporciona acceso a una ventana del navegador web. Te ofrece métodos muy interesantes como:
+    <ul>
+      <li><em>open()</em>: abre una ventana del navegador nueva.</li>
+      <li><em>close()</em>: cierra una ventana del navegador.</li>
+      <li><em>moveTo(x, y)</em>: mueve la ventana actual a la posición x, y.</li>
+      <li><em>resizeTo(tamañoX, tamañoY)</em>: cambia el tamaño de la ventana actual.</li>
+      <li><em>screenX</em> y <em>screenY</em>: nos da las coordenadas X e Y donde se encuentra la ventana ubicada en este momento.</li>
+      <li><em>innerWidth</em> y <em>innerHeight</em>: nos devuelve el espacio disponible dentro de la ventana del navegador (en píxeles).</li>
+    </ul>
+  </li>
+  <li><strong>document</strong>. Proporciona acceso al texto escrito dentro de la ventana del navegador. Lo hemos estado usando para generar la salida de nuestros programas. Estos son algunos métodos:
+    <ul>
+      <li><em>write()</em>: añade texto a la ventana del navegador.</li>
+      <li><em>writeln()</em>: añade texto a la ventana del navegador, y termina con una salto de línea.</li>
+      <li><em>open()</em>: elimina todo el contenido que haya en la ventana del navegador e inicia una nueva salida.</li>
+      <li><em>close()</em>: finaliza el envío de datos a la ventana del navegador.</li>
+      <li><em>getElementById()</em>: recupera un elemento del navegador a partir de su id.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="73-escribiendo-programas-con-javascript">7.3. Escribiendo programas con Javascript</h2>
+
+<p>Ya conocemos cómo se manejan los principales componentes de un programa con Javascript: variables, instrucciones de control, asignaciones, funciones, etc.</p>
+
+<p>Ahora nos queda saber cómo juntamos todo eso para escribir nuestros programas, ¿no te parece?</p>
+
+<p>Por fortuna, en esto Javascript también se parece mucho a pseudocódigo.</p>
+
+<h3 id="731-caja-de-herramientas">7.3.1. Caja de herramientas</h3>
+
+<p>¿Qué necesitamos para comenzar a escribir programas en Javascript? ¿Tendrás que instalar un montón de programas de desarrollo en tu ordenador?</p>
+
+<p>La verdad es que no. Para desarrollar con Javascript basta con que tengas instalado:</p>
+
+<ul>
+  <li>
+    <p><strong>Un editor de texto</strong>. No te sirve Microsoft Word ni Libreoffice Writer. Tiene que ser un editor de texto <em>plano</em>, es decir, que no introduzca información de formato en el archivo. Solo el texto.</p>
+
+    <p>Existen muchísimos editores de estas características, porque son programas muy simples y livianos. El <strong>bloc de notas</strong> de Windows es uno de ellos, aunque resulta poco recomendable porque no colorea el código fuente ni te ayuda a corregir errores.</p>
+
+    <p>Un editor de texto para programación que ha tenido un crecimiento espectacular en los últimos años a nivel aficionado y profesional es <strong><a href="https://code.visualstudio.com/">Visual Studio Code</a></strong>. Es multiplataforma (tiene versiones para Windows, Linux y Mac) y de código abierto. Y es una auténtica maravilla, así que te recomiendo que lo descargues (¡siempre de la web oficial, por favor!) y lo instales.</p>
+
+    <p>Si trabajas con Linux, seguramente lo encuentres en los repositorios oficiales de tu distribución. Esa, por supuesto, también es una fuente confiable desde donde instalarlo.</p>
+  </li>
+  <li>
+    <p><strong>Un navegador web</strong>. Todos los navegadores web llevan en sus tripas un intérprete de Javascript, puesto que todas las páginas web actuales utilizan Javascript para funcionar. Puedes usar el navegador web que más te guste: Google Chrome, Mozilla Firefox, Microsoft Edge, el Safari de Apple, Opera, etc.</p>
+  </li>
+</ul>
+
+<h3 id="732-flujo-de-trabajo">7.3.2. Flujo de trabajo</h3>
+
+<p>Lo habitual cuando estés escribiendo y depurando programas en Javascript es que <strong>tengas abiertos a la vez</strong> los dos programas:</p>
+
+<ul>
+  <li>El editor de texto, para ir escribiendo y modificando tu código.</li>
+  <li>El navegador web, para ir probando tu código.</li>
+</ul>
+
+<p>El flujo de trabajo, al menos al principio, será este:</p>
+
+<ol>
+  <li>Comprender bien el problema que se pretende resolver.</li>
+  <li>Pensar un rato en el algoritmo que vas a escribir. Si es necesario, hacer un boceto en papel y/o en pseudocódigo.</li>
+  <li>Abrir el editor de texto y escribir una primera versión del programa. Si es muy largo, dividirlo en trozos más pequeños y escribir solo el primero de ellos.</li>
+  <li>Comprobar que el programa o fragmento de programa funciona en el navegador web. No pasar al siguiente fragmento hasta que este no funcione correctamente.</li>
+  <li>Repetir los pasos 3 y 4 hasta que el programa esté completo.</li>
+</ol>
+
+<p>Ten en cuenta que, cuando los programas empiecen a volverse complejos, no podrás resolverlos de una sentada. Escribir un programa muy complejo puede llevarte días, semanas o meses.</p>
+
+<h3 id="733-dónde-y-cómo-escribir-el-código-fuente">7.3.3. Dónde y cómo escribir el código fuente</h3>
+
+<p>Los programas en Javascript pueden guardarse en dos tipos de archivo:</p>
+
+<ul>
+  <li><strong>Archivos con extensión .js</strong>. Estos archivos suelen contener bibliotecas de funciones Javascript usadas por otros programas. No se ejecutan directamente.</li>
+  <li><strong>Archivos con extensión .html o .htm</strong>. El navegador web los interpretará como páginas web y, por lo tanto, los ejecutará. <em>Aquí es donde colocaremos nuestro código</em>, al menos al principio.</li>
+</ul>
+
+<p>Dentro del archivo .html, el código Javascript debe ir incrustado entre las etiquetas <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> y <code class="language-plaintext highlighter-rouge">&lt;/script&gt;</code>, que marcan el comienzo y el fin del programa:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script&gt;</span>
+   <span class="nx">Aquí</span> <span class="nx">va</span> <span class="nx">el</span> <span class="nx">código</span> <span class="nx">Javascript</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>Escribiremos el <strong>algoritmo principal</strong> de un programa en Javascript sin ninguna palabra especial que lo identifique como tal. Es decir, el código estará sin más en el archivo fuente, entre las etiquetas <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> y <code class="language-plaintext highlighter-rouge">&lt;/script&gt;</code>.</p>
+
+<p>(Insisto: hay otras formas de hacer esto, pero, de momento, esta es más que suficiente para nosotros).</p>
+
+<p>Los subalgoritmos sí que deben identificarse con la palabra <strong>function</strong> seguida del nombre del subalgoritmo, como hemos visto más arriba.</p>
+
+<p><strong>El orden en el que escribas los algoritmos es indiferente</strong>. En el archivo, puede aparecer primero el algoritmo principal y luego los subalgoritmos, o al revés. Utiliza el orden que te parezca más lógico y con el que te sientas cómodo.</p>
+
+<h2 id="74-eventos-y-temporizadores">7.4. Eventos y temporizadores</h2>
+
+<h3 id="741-eventos-de-javascript">7.4.1. Eventos de Javascript</h3>
+
+<p>Javascript puede responder a los <strong>eventos</strong> que sucedan en la página web.</p>
+
+<p>¿Qué es un evento? Esto es fácil de responder: un evento es cualquier cosa que suceda dentro del navegador a lo que el navegador pueda responder.</p>
+
+<p>Por ejemplo, un evento es “hacer clic con el ratón sobre un enlace”. Otro evento es “escribir un carácter en un cuadro de texto”. Y otro evento es: “cerrar la ventana del navegador”.</p>
+
+<p>Hay muchos eventos distintos, y cada uno puede ocurrir asociado a cualquier elemento de la página web. Pero el evento estrella es, sin duda, “hacer clic”.</p>
+
+<p>Observa el siguiente fragmento de código HTML. No hace falta que sepas HTML. Tú solo míralo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;button&gt;</span>Púlsame<span class="nt">&lt;/button&gt;</span>
+</code></pre></div></div>
+
+<p>¿Te imaginas lo que se verá en el navegador si cargas esa página? Pues sí: un botón cuyo texto será “Púlsame”.</p>
+
+<p>Ahora mira el mismo código, ligeramente modificado:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;button</span> <span class="na">onclick=</span><span class="s">'procesar_boton()'</span><span class="nt">&gt;</span>Púlsame<span class="nt">&lt;/button&gt;</span>
+</code></pre></div></div>
+
+<p>Ese “onclick” a continuación del botón significa que <strong>vamos a capturar el evento clic de ratón</strong> asociado al botón. Al hacer clic sobre él, se ejecutará la función <em>procesar_boton()</em> de Javascript.</p>
+
+<p>Usaremos algún evento <em>onclick()</em> como este en los ejercicios para conseguir resultados curiosos.</p>
+
+<p>Sobre los eventos, se podría hablar muchísimo más, pero como introducción a Javascript es suficiente por ahora…</p>
+
+<h3 id="742-temporizadores-de-javascript">7.4.2. Temporizadores de Javascript</h3>
+
+<p>Lo que te voy a contar ahora puede considerarse Javascript avanzado (o, al menos, no es Javascript básico). Pero lo vas a necesitar para hacer juegos y otras diversiones con Javascript y, en fin, tampoco es tan complicado…</p>
+
+<p>Se trata de los <strong>temporizadores</strong>.</p>
+
+<p>Un temporizador es como el cronómetro de una bomba de relojería de las que salen en las películas. Ya sabes, esas bombas que siempre tienen una pantalla LCD donde se ve una cuenta atrás que indica cuánto falta para que explote.</p>
+
+<p>(El temporizador es el cronómetro, no la bomba, que conste…)</p>
+
+<p>Un temporizador se pone en marcha así:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="dl">'</span><span class="s1">nombre-de-función</span><span class="dl">'</span><span class="p">,</span> <span class="nx">intervalo</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>El <em>nombre-de-función</em> es exactamente eso: el nombre de alguna función Javascript que ya exista. El <em>intervalo</em> es un número entero.</p>
+
+<p>Lo que hace el temporizador es <strong>iniciar una cuenta atrás de <em>intervalo</em> milisegundos y, cuando el cronómetro llega a cero, se ejecuta la función indicada</strong>.</p>
+
+<p>Por ejemplo:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="dl">'</span><span class="s1">saludar</span><span class="dl">'</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">saludar</span><span class="p">()</span> <span class="p">{</span>
+   <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hola, mundo</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Si ejecutas este código, verás que el saludo (¡Hola, mundo!) tarda exactamente un segundo en aparecer. El temporizador se ha encargado de ello. Nada más ejecutar el código, se ha puesto en marcha un temporizador cuyo encargo es ejecutar la función <em>saludar()</em> al cabo de 1000 milisegundos (es decir, un segundo).</p>
+
+<p>Programar acciones para que se realicen en el futuro abre muchísimas posibilidades. En particular, piensa en qué ocurriría si hacemos que la propia función <em>saludar()</em> vuelva a reestablecer el temporizador:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="dl">'</span><span class="s1">saludar</span><span class="dl">'</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">saludar</span><span class="p">()</span> <span class="p">{</span>
+   <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hola, mundo</span><span class="dl">"</span><span class="p">);</span>
+   <span class="nx">setTimeout</span><span class="p">(</span><span class="dl">'</span><span class="s1">saludar</span><span class="dl">'</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Detente un momento a tratar de averiguar qué ocurriría al ejecutar este programa y por qué podríamos decir sin dudarlo que se trata de uno de los programas más plastas que hemos escrito hasta ahora. Si no te lo crees, pruébalo y lo comprobarás.</p>
+
+<p>Por último, si, por lo que sea, necesitas <strong>detener un temporizador</strong> que ya está en marcha, solo tienes que usar la función <strong><em>clearTimeout()</em></strong>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Lógicamente, la variable <em>timer</em> debe ser la misma que usaste al crear el temporizador.</p>
+
+<h2 id="75-un-ejemplo-completo-las-tres-en-raya">7.5. Un ejemplo completo: las tres en raya</h2>
+
+<p>Llegó la hora de poner manos a la obra.</p>
+
+<p>Si hay una sección de este capítulo que tienes que leer con atención, es esta. Así que es un mal momento para tener prisa.</p>
+
+<p>Vamos a escribir un <strong>programa completo en Javascript</strong>. Te puede servir de plantilla para desarrollar tus propios programas a partir de aquí.</p>
+
+<p>El programa en cuestión será una versión del juego de <strong>las tres en raya</strong> que resolvimos en el tema de introducción a la programación. No dudes en repasar aquel ejercicio resuelto para ver el pseudocódigo, puesto que nuestro programa será una traducción literal de ese pseudocódigo a Javascript.</p>
+
+<p>Aquí tienes el código fuente completo. Estúdialo con atención y asegúrate de entenderlo todo (o un gran porcentaje) antes de continuar. Ah, y no dejes de compararlo línea a línea con el mismo código en pseudocódigo.</p>
+
+<h3 id="751-el-código-fuente">7.5.1. El código fuente</h3>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">'salida'</span> <span class="na">style=</span><span class="s">'text-align: center; border-style: solid; border-color: black; font-family: mono'</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+<span class="c1">//-------------------------</span>
+<span class="c1">//   ALGORITMO PRINCIPAL</span>
+<span class="c1">//-------------------------</span>
+<span class="kd">var</span> <span class="nx">tablero</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ganador</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">tablas</span><span class="p">;</span>
+
+<span class="nx">inicializar</span><span class="p">(</span><span class="nx">tablero</span><span class="p">)</span>   <span class="c1">// Esto es un subalgoritmo. Está escrito más abajo</span>
+<span class="k">do</span> <span class="p">{</span>
+   <span class="nx">mostrar</span><span class="p">(</span><span class="nx">tablero</span><span class="p">);</span>
+   <span class="nx">colocar_pieza_humano</span><span class="p">(</span><span class="nx">tablero</span><span class="p">);</span>
+   <span class="nx">ganador</span> <span class="o">=</span> <span class="nx">comprobar_ganador</span><span class="p">(</span><span class="nx">tablero</span><span class="p">);</span>
+   <span class="nx">tablas</span> <span class="o">=</span> <span class="nx">comprobar_tablas</span><span class="p">(</span><span class="nx">tablero</span><span class="p">);</span>
+   <span class="k">if</span> <span class="p">((</span><span class="nx">ganador</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">Ninguno</span><span class="dl">"</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">tablas</span> <span class="o">==</span> <span class="kc">false</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">colocar_pieza_ordenador</span><span class="p">(</span><span class="nx">tablero</span><span class="p">);</span>
+      <span class="nx">ganador</span> <span class="o">=</span> <span class="nx">comprobar_ganador</span><span class="p">(</span><span class="nx">tablero</span><span class="p">);</span>
+      <span class="nx">tablas</span> <span class="o">=</span> <span class="nx">comprobar_tablas</span><span class="p">(</span><span class="nx">tablero</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">while</span> <span class="p">((</span><span class="nx">ganador</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">Ninguno</span><span class="dl">"</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">tablas</span> <span class="o">==</span> <span class="kc">false</span><span class="p">));</span>
+	
+<span class="nx">mostrar</span><span class="p">(</span><span class="nx">tablero</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">ganador</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">Ninguno</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">salida</span><span class="dl">'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">EL JUEGO HA TERMINADO EN TABLAS</span><span class="dl">"</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+   <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">salida</span><span class="dl">'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">EL JUEGO HA TERMINADO. EL GANADOR ES: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">ganador</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// --------------------------------------------</span>
+<span class="c1">// Inicializa el tablero con espacios en blanco</span>
+<span class="c1">// --------------------------------------------</span>
+<span class="kd">function</span> <span class="nx">inicializar</span><span class="p">(</span><span class="nx">tablero</span><span class="p">)</span> <span class="p">{</span>
+   <span class="c1">//let i;</span>
+   <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Como tablero es un array, se pasa por referencia y los cambios que</span>
+      <span class="c1">// hagamos aquí se reflejarán en el algoritmo principal</span>
+      <span class="nx">tablero</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span><span class="p">;</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// --------------------------------------------</span>
+<span class="c1">// Muestra el estado actual del tablero</span>
+<span class="c1">// --------------------------------------------</span>
+<span class="kd">function</span> <span class="nx">mostrar</span><span class="p">(</span><span class="nx">tablero</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">salida</span><span class="dl">'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">ESTADO ACTUAL DEL TABLERO&lt;br&gt;</span><span class="dl">"</span><span class="p">;</span>
+   <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">salida</span><span class="dl">'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">+-+-+-+&lt;br&gt;</span><span class="dl">"</span><span class="p">;</span>
+   <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">salida</span><span class="dl">'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">|</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">|</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">|</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">|&lt;br&gt;</span><span class="dl">"</span><span class="p">;</span>
+   <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">salida</span><span class="dl">'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">+-+-+-+&lt;br&gt;</span><span class="dl">"</span><span class="p">;</span>
+   <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">salida</span><span class="dl">'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">|</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">|</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">|</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">|&lt;br&gt;</span><span class="dl">"</span><span class="p">;</span>
+   <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">salida</span><span class="dl">'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">+-+-+-+&lt;br&gt;</span><span class="dl">"</span><span class="p">;</span>
+   <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">salida</span><span class="dl">'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">|</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">|</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">|</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">|&lt;br&gt;</span><span class="dl">"</span><span class="p">;</span>
+   <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">salida</span><span class="dl">'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">+-+-+-+&lt;br&gt;</span><span class="dl">"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// ---------------------------------------------------</span>
+<span class="c1">// Coloca una pieza del jugador humano en el tablero</span>
+<span class="c1">// ---------------------------------------------------</span>
+<span class="kd">function</span> <span class="nx">colocar_pieza_humano</span><span class="p">(</span><span class="nx">tablero</span><span class="p">)</span> <span class="p">{</span>
+   <span class="kd">var</span> <span class="nx">casilla</span><span class="p">,</span> <span class="nx">casilla_correcta</span><span class="p">;</span>
+   <span class="k">do</span> <span class="p">{</span>
+      <span class="nx">casilla</span> <span class="o">=</span> <span class="nx">prompt</span><span class="p">(</span><span class="dl">"</span><span class="s2">¿En qué casilla quieres poner una pieza? (1-9)</span><span class="dl">"</span><span class="p">);</span>
+      <span class="nx">casilla_correcta</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="nx">casilla</span><span class="p">]</span> <span class="o">==</span> <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">tablero</span><span class="p">[</span><span class="nx">casilla</span><span class="p">]</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">X</span><span class="dl">"</span><span class="p">;</span>
+         <span class="nx">casilla_correcta</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">else</span> <span class="p">{</span>
+         <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">salida</span><span class="dl">'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">Error: Esa casilla ya está ocupada&lt;br&gt;</span><span class="dl">"</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="k">while</span> <span class="p">(</span><span class="nx">casilla_correcta</span> <span class="o">==</span> <span class="kc">false</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// ---------------------------------------------------</span>
+<span class="c1">// Coloca una pieza del ordenador en el tablero</span>
+<span class="c1">// ---------------------------------------------------</span>
+<span class="kd">function</span> <span class="nx">colocar_pieza_ordenador</span><span class="p">(</span><span class="nx">tablero</span><span class="p">)</span> <span class="p">{</span>
+   <span class="kd">var</span> <span class="nx">casilla</span><span class="p">,</span> <span class="nx">casilla_correcta</span><span class="p">;</span>
+   <span class="nx">casilla_correcta</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+   <span class="k">do</span> <span class="p">{</span>
+      <span class="nx">casilla</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="o">*</span><span class="mi">9</span><span class="p">);</span>
+      <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Voy a colocar mi pieza en la casilla </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">casilla</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="nx">casilla</span><span class="p">]</span> <span class="o">==</span> <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">tablero</span><span class="p">[</span><span class="nx">casilla</span><span class="p">]</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">O</span><span class="dl">"</span><span class="p">;</span>
+         <span class="nx">casilla_correcta</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">else</span> <span class="p">{</span>
+         <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">¡Está ocupada! Voy a elegir otra</span><span class="dl">"</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="k">while</span> <span class="p">(</span><span class="nx">casilla_correcta</span> <span class="o">==</span> <span class="kc">false</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// ---------------------------------------------------</span>
+<span class="c1">// Comprueba si hay un ganador según el estado del </span>
+<span class="c1">// tablero. Devuelve "Ninguno", "Humano" u "Ordenador"</span>
+<span class="c1">// ---------------------------------------------------</span>
+<span class="kd">function</span> <span class="nx">comprobar_ganador</span><span class="p">(</span><span class="nx">tablero</span><span class="p">)</span> <span class="p">{</span>
+   <span class="kd">var</span> <span class="nx">ganador</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Ninguno</span><span class="dl">"</span><span class="p">;</span>
+   <span class="c1">// Comprobamos primera fila</span>
+   <span class="k">if</span> <span class="p">((</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">X</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">ganador</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Humano</span><span class="dl">"</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">O</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">ganador</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Ordenador</span><span class="dl">"</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="c1">// Comprobamos segunda fila</span>
+   <span class="k">if</span> <span class="p">((</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">6</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">X</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">ganador</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Humano</span><span class="dl">"</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">O</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">ganador</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Ordenador</span><span class="dl">"</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="c1">// Comprobamos tercera fila</span>
+   <span class="k">if</span> <span class="p">((</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">==</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">==</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">9</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">X</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">ganador</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Humano</span><span class="dl">"</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">O</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">ganador</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Ordenador</span><span class="dl">"</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="c1">// Comprobamos primera columna</span>
+   <span class="k">if</span> <span class="p">((</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">7</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">X</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">ganador</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Humano</span><span class="dl">"</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">O</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">ganador</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Ordenador</span><span class="dl">"</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="c1">// Comprobamos segunda columna</span>
+   <span class="k">if</span> <span class="p">((</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">8</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">X</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">ganador</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Humano</span><span class="dl">"</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">O</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">ganador</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Ordenador</span><span class="dl">"</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="c1">// Comprobamos tercera columna</span>
+   <span class="k">if</span> <span class="p">((</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">9</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">X</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">ganador</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Humano</span><span class="dl">"</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">O</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">ganador</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Ordenador</span><span class="dl">"</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="c1">// Comprobamos una diagonal</span>
+   <span class="k">if</span> <span class="p">((</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">9</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">X</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">ganador</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Humano</span><span class="dl">"</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">O</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">ganador</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Ordenador</span><span class="dl">"</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="c1">// Comprobamos la otra diagonal</span>
+   <span class="k">if</span> <span class="p">((</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="nx">tablero</span><span class="p">[</span><span class="mi">7</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">X</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">ganador</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Humano</span><span class="dl">"</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">O</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">ganador</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Ordenador</span><span class="dl">"</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="k">return</span> <span class="nx">ganador</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// -------------------------------------------</span>
+<span class="c1">// Comprueba si hay una situación de tablas</span>
+<span class="c1">// según el estado actual del tablero. Devuelve</span>
+<span class="c1">// verdadero si hay tablas o falso en otro caso.</span>
+<span class="c1">// -------------------------------------------</span>
+<span class="kd">function</span> <span class="nx">comprobar_tablas</span><span class="p">(</span><span class="nx">tablero</span><span class="p">)</span> <span class="p">{</span>
+   <span class="kd">var</span> <span class="nx">tablas</span><span class="p">;</span>
+   <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">contador</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tablero</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">!=</span> <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">contador</span><span class="o">++</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+	
+	<span class="c1">// Si todas las casillas están ya ocupadas y no hay ganador,</span>
+	<span class="c1">// entonces estamos en tablas.</span>
+   <span class="k">if</span> <span class="p">(</span><span class="nx">contador</span> <span class="o">==</span> <span class="mi">9</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">tablas</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+   <span class="p">}</span>
+   <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">tablas</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+   <span class="p">}</span>
+   <span class="k">return</span> <span class="nx">tablas</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<h3 id="752-cómo-ejecutar-y-depurar-este-programa">7.5.2. ¿Cómo ejecutar y depurar este programa?</h3>
+
+<p>Guarda el programa anterior en un archivo de texto con extensión .html (por ejemplo, <em>3-en-raya.html</em>).</p>
+
+<p>Luego, sencillamente, haz doble clic sobre él para abrirlo. El sistema operativo usará el navegador web predeterminado de tu sistema para abrir el archivo y la ejecución comenzará.</p>
+
+<h4 id="socorro-el-programa-no-funciona">¡Socorro! El programa no funciona</h4>
+
+<p>¿El resultado no es el esperado? Es lo habitual. Habrá algún error en el código y te tocará depurarlo.</p>
+
+<p>Las páginas web (con Javascript incluido) son extraordinariamente resistentes a los errores. No te mostrarán mensajes de error cada vez que haya algo mal escrito.</p>
+
+<p>Al contrario, permanecerán en silencio para no asustar al usuario de la web y provocar que salga corriendo de allí.</p>
+
+<p>Por ese motivo, los errores de Javascript solo se dejan ver en la “sala de máquinas” del navegador. Por supuesto, los programadores/as tienen una manera de acceder a esa “sala de máquinas”.</p>
+
+<p>Pulsa <strong>F12</strong> en tu navegador para abrir la <strong>consola de errores</strong> de Javascript. Asegúrate de seleccionar la pestaña etiquetada como <strong><em>Console</em></strong>. Verás algo como esto:</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/05-consola-errores-javascript.png" alt="Consola de errores de Javascript" /></p>
+
+<p>En la consola de errores aparecen, en rojo, los mensajes de error que haya lanzado el intérprete de Javascript, indicándote el tipo de error y la línea en la que se ha detectado. Los mensajes estarán en inglés, por supuesto, pero ¿qué esperabas? Si quieres aprender a programar, tienes que acostumbrarte a manejar el inglés técnico.</p>
+
+<p>¡Atención! Dependiendo del navegador que uses, puede que esa consola de errores se abra con otra combinación de teclas. Tendrás que bichear un poco por internet para averiguarlo. Lo habitual, sin embargo, es F12.</p>
+
+<p>Cuando hayas localizado el error, <strong>regresa a tu editor de texto, haz los cambios necesarios, guarda las modificaciones y recarga la página</strong> (pulsando <strong>F5</strong> en la mayoría de los navegadores).</p>
+
+<p>Si el navegador se había quedado colgado, tendrás que cerrarlo, esperar unos segundos y volver a abrirlo.</p>
+
+<p>Y así hasta que funcione.</p>
+
+<p>¡Mucha paciencia y sangre fría! Recuerda siempre que la mayor parte del tiempo de programación se va en depurar programas, no en escribirlos.</p>
+
+<h2 id="76-ejercicios-propuestos">7.6. Ejercicios propuestos</h2>
+
+<h4 id="ejercicio-1-tabla-de-multiplicar">Ejercicio 1. Tabla de multiplicar</h4>
+
+<p>Vamos a empezar por algo sencillito.</p>
+
+<p>Escribe un programa en Javascript que pida un número y muestre la tabla de multiplicar de ese número.</p>
+
+<p>Puedes utilizar esta plantilla para tu primer programa:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">'salida'</span> <span class="na">style=</span><span class="s">'text-align: center; border-style: solid; border-color: black'</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+   <span class="c1">// Escribe aquí el programa de la tabla de multiplicar</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>Recuerda que la salida la puedes enviar al &lt;div&gt; ‘salida’ con la expresión: <em>document.getElementById(‘salida’).innerHTML</em></p>
+
+<h4 id="ejercicio-2-juego-del-número-secreto">Ejercicio 2. Juego del número secreto</h4>
+
+<p>Ahora algo solo un poquito más complicado: una versión en Javascript del juego del número secreto.</p>
+
+<p>(Puedes encontrarlo resuelto en el capítulo “Introducción a la programación”)</p>
+
+<h4 id="ejercicio-3-botón-saltarín">Ejercicio 3. Botón saltarín</h4>
+
+<p>Aquí empezamos a divertirnos.</p>
+
+<p><strong>Vamos a hacer una página web con un botón. Al pulsar ese botón, Javascript hará que ¡el botón cambie de sitio!</strong></p>
+
+<p>Para eso, capturaremos el <strong>evento <em>click</em></strong> del botón.</p>
+
+<p>El botón lo tienes que crear antes mediante HTML. No importa que no sepas HTML. Solo echa un vistazo a este código:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+   <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">'boton'</span> <span class="na">onclick=</span><span class="s">'mover_boton()'</span> <span class="na">style=</span><span class="s">'position: absolute; top: 100px; left: 200px'</span><span class="nt">&gt;</span>Púlsame<span class="nt">&lt;/button&gt;</span>
+   <span class="nt">&lt;script&gt;</span>
+      <span class="kd">function</span> <span class="nx">mover_boton</span><span class="p">()</span> <span class="p">{</span>
+          <span class="c1">// Escribe aquí tu código javascript</span>
+      <span class="p">}</span>
+   <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+
+<p>Ahora solo te queda programar la función <em>mover_boton()</em>.</p>
+
+<p>Para lograr que el botón se mueva, tendrás que fijarte primero en cómo está el botón creado: tiene un <strong>id</strong>, un evento <strong>onclick</strong> y un <strong>style</strong>. Dentro del este último se definen dos propiedades:</p>
+
+<ul>
+  <li><strong>top</strong> es la distancia desde la parte superior de la ventana del navegador hasta el botón. Lo hemos establecido en 100 píxeles (100px).</li>
+  <li><strong>left</strong> es la distancia desde la parte izquierda de la ventana del navegador hasta el botón. Le hemos dado 200 píxeles.</li>
+</ul>
+
+<p>Pues bien, debes hacer que Javascript modifique esas dos propiedades. Por ejemplo, así:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">mover_boton</span><span class="p">()</span> <span class="p">{</span>
+   <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">boton</span><span class="dl">'</span><span class="p">).</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">150px</span><span class="dl">'</span><span class="p">;</span>
+   <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">boton</span><span class="dl">'</span><span class="p">).</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">250px</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Con eso, el botón se moverá al hacer clic sobre él, pero solo la primera vez. Quedará emplazado en la posición top = 150px y left = 250px y ya no se desplazará más.</p>
+
+<p><strong>¿Y si quisiéramos que se moviera <em>siempre</em> que hagamos clic sobre él?</strong> Es es lo que tienes que conseguir en este ejercicio.</p>
+
+<h4 id="ejercicio-4-ventana-nerviosa-y-botones-evanescentes">Ejercicio 4. Ventana nerviosa y botones evanescentes</h4>
+
+<p><strong>Ahora vamos a conseguir que una ventana entera del navegador se mueva al pulsar un botón. Y a hacer aparecer y desaparecer botones.</strong></p>
+
+<p>De hecho, vamos a crear cuatro botones:</p>
+
+<ul>
+  <li><strong>Botón “Saltar”</strong>: al pulsarlo, la ventana dará un salto. Es decir, cambiará de posición..</li>
+  <li><strong>Botón “Temblar”</strong>: al pulsarlo, la ventana se pondrá a “temblar”, como si tuviera frío o se hubiera puesto nerviosa, durante un rato.</li>
+  <li><strong>Botón “Ocultar”</strong>: al pulsarlo, los dos botones anteriores desaparecerán de la vista.</li>
+  <li><strong>Botón “Mostrar”</strong>: al pulsarlo, los botones desaparecidos volverán a aparecer.</li>
+</ul>
+
+<p>Esos cuatro botones puedes crearlos con este código HTML. También crearemos una segunda ventana del navegador, que será la que cambiará de posición:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+   <span class="nt">&lt;h1&gt;</span>Ventana nerviosa<span class="nt">&lt;/h1&gt;</span>
+   <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">'btn_saltar'</span> <span class="na">onclick=</span><span class="s">'btn_saltar()'</span><span class="nt">&gt;</span>Saltar<span class="nt">&lt;/button&gt;</span>
+   <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">'btn_temblar'</span> <span class="na">onclick=</span><span class="s">'btn_temblar()'</span><span class="nt">&gt;</span>Temblar<span class="nt">&lt;/button&gt;</span>
+   <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">'btn_ocultar'</span> <span class="na">onclick=</span><span class="s">'btn_ocultar()'</span><span class="nt">&gt;</span>Ocultar<span class="nt">&lt;/button&gt;</span>
+   <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">'btn_mostrar'</span> <span class="na">onclick=</span><span class="s">'btn_mostrar()'</span><span class="nt">&gt;</span>Mostrar<span class="nt">&lt;/button&gt;</span>
+   <span class="nt">&lt;script&gt;</span>
+      <span class="nx">myWindow</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">''</span><span class="p">,</span> <span class="dl">''</span><span class="p">,</span> <span class="dl">'</span><span class="s1">width=300, height=200</span><span class="dl">'</span><span class="p">);</span> 
+      <span class="kd">function</span> <span class="nx">btn_saltar</span><span class="p">()</span> <span class="p">{</span>
+          <span class="c1">// Escribe aquí tu código javascript para cuando se pulse el botón "Saltar"</span>
+      <span class="p">}</span>
+      <span class="kd">function</span> <span class="nx">btn_temblar</span><span class="p">()</span> <span class="p">{</span>
+          <span class="c1">// Escribe aquí tu código javascript para cuando se pulse el botón "Temblar"</span>
+      <span class="p">}</span>
+      <span class="kd">function</span> <span class="nx">btn_ocultar</span><span class="p">()</span> <span class="p">{</span>
+          <span class="c1">// Escribe aquí tu código javascript para cuando se pulse el botón "Ocultar"</span>
+      <span class="p">}</span>
+      <span class="kd">function</span> <span class="nx">btn_mostrar</span><span class="p">()</span> <span class="p">{</span>
+          <span class="c1">// Escribe aquí tu código javascript para cuando se pulse el botón "Mostrar"</span>
+      <span class="p">}</span>
+   <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+
+<p>Lo siguiente es programar el código de cada una de las cuatro funciones Javascript, que se ejecutarán al pulsar cada botón.</p>
+
+<p>No te voy a decir lo que tienes que escribir en ellas, pero sí te voy a dar un par de pistas:</p>
+
+<ul>
+  <li>
+    <p><strong>Pista nº 1</strong>. Hay un objeto en Javascript llamado <strong><em>window</em></strong>, que nos permite alterar las propiedades de la ventana del navegador. Por ejemplo, nos permite cambiar su posición y su tamaño. En el apartado 5.2.11, sobre <em>Objetos predefinidos de Javascript</em>, hablamos de qué modo se puede cambiar eso.</p>
+
+    <p>Observa que, en el fragmento de código anterior, hemos creado un objeto <em>window</em> llamado <strong><em>myWindow</em></strong>. Es sobre ese objeto sobre el que tienes que actuar.</p>
+  </li>
+  <li>
+    <p><strong>Pista nº 2</strong>. En el ejercicio anterior cambiábamos las propiedades <em>top</em> y <em>left</em> de un botón, pero los botones (y cualquier cosa que haya en una página web) tienen muchas otras propiedades (¡pero MUCHAS!). Una de ellas se llama <strong><em>visibility</em></strong>, y puede tomar dos valores: <em>visible</em> o <em>hidden</em>.</p>
+  </li>
+</ul>
+
+<h4 id="ejercicio-5-colorines">Ejercicio 5. Colorines</h4>
+
+<p>Vamos a juguetear más con las propiedades de la página web cargada desde Javascript.</p>
+
+<p>En esta ocasión, construiremos una página con un cuadro de texto, un botón y un recuadro de color negro.</p>
+
+<p>Si escribimos en la caja de texto otro color (por ejemplo, “orange”) y hacemos click en el botón, <strong>el recuadro negro tiene que cambiar de color</strong> y volverse naranja.</p>
+
+<p>El código HTML que puedes usar como base es este:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+   <span class="nt">&lt;title&gt;</span>Colorines<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+   <span class="nt">&lt;h1&gt;</span>Colorines<span class="nt">&lt;/h1&gt;</span>
+   <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">'caja_color'</span> <span class="na">style=</span><span class="s">'position: absolute; top: 5%; left: 70%; width: 25%; height: 20%; background-color: black'</span><span class="nt">&gt;&lt;/div&gt;</span>
+   <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">'text'</span> <span class="na">id=</span><span class="s">'color'</span> <span class="na">value=</span><span class="s">'yellow'</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">'boton'</span> <span class="na">onclick=</span><span class="s">'cambiar_color()'</span><span class="nt">&gt;</span>Cambiar color<span class="nt">&lt;/button&gt;</span>
+   <span class="nt">&lt;script&gt;</span>
+      <span class="kd">function</span> <span class="nx">cambiar_color</span><span class="p">()</span> <span class="p">{</span>
+         <span class="c1">// Escribe aquí el código Javascript</span>
+      <span class="p">}</span>
+   <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Observa que, además de preparar los tres elementos que necesitamos (el recuadro de color negro, la caja de texto y el botón), hemos añadido más elementos HTML como <em>head</em> o <em>title</em>. Esos elementos son necesarios para que la página web se considere bien formada. Si no sabes lo que significan (aunque es bastante evidente), puedes repasarlos en el capítulo dedicado a HTML.</p>
+
+<p>(El navegador se tragará la página web aunque no esté bien formada, pero lo correcto es hacerla bien dentro de lo posible).</p>
+
+<p>Ahora solo te falta escribir el código de la función Javascript para cambiar el color del recuadro.</p>
+
+<h4 id="ejercicio-6-pelota-de-goma">Ejercicio 6. Pelota de goma</h4>
+
+<p>Busca en internet una imagen de una pelota que te guste y descárgala. En esa imagen no debe aparecer nada más, excepto la pelota.</p>
+
+<p>Luego insértala en una página web, así:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+   <span class="nt">&lt;img</span>  <span class="na">id=</span><span class="s">'pelota'</span> <span class="na">src=</span><span class="s">'nombre-del-archivo-de-la-imagen'</span> <span class="na">style=</span><span class="s">'position: absolute; width: 100px; height: 100px'</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/body&gt;</span>  
+</code></pre></div></div>
+
+<p>En <em>‘nombre-del-archivo-de-la-imagen’</em>, como es lógico, tendrás que escribir el nombre del archivo que contiene tu pelota. Le hemos asignado 100 píxeles de ancho y 100 de alto, pero si es demasiado pequeña o demasiado grande, siéntete libre de cambiar esas cantidades.</p>
+
+<p><strong>Ahora escribe en Javascript un programa para que la pelota rebote por la pantalla como si fuera una pelota de verdad.</strong></p>
+
+<p>Para conseguirlo, tendrás que:</p>
+
+<ul>
+  <li>Alterar de nuevo las propiedades <em>top</em> y <em>left</em> de la pelota</li>
+  <li>Usar las propiedades el objeto <strong><em>window</em></strong> para evitar que la pelota se salga de los márgenes de la pantalla.</li>
+  <li>Utilizar un <strong>temporizador</strong> para mover la pelota cada x milisegundos. Según el valor de x, la pelota se moverá más deprisa o más despacio.</li>
+</ul>
+
+<p><strong>Mejora para los más valientes</strong>: trata de añadir un botón a este programa. Al pulsarlo, la pelota se detendrá. Al volver a pulsarlo, la pelota se pondrá en marcha de nuevo.</p>
+
+<h4 id="ejercicio-7-tres-en-raya-improved">Ejercicio 7. Tres en raya improved</h4>
+
+<p><strong>Modifica el juego de las tres en raya para que sea más atractivo al usuario y más cómodo de jugar.</strong> Encontrarás el código fuente del juego más arriba, en este mismo capítulo.</p>
+
+<p>Tienes que eliminar todas las entradas de datos mediante <em>prompt()</em> y sustituirlas por cajas de texto HTML, como esta:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>¿En qué casilla quieres poner tu pieza? (1-9)
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">'text'</span> <span class="na">id=</span><span class="s">'casilla'</span><span class="nt">&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">onclick=</span><span class="s">'colocar_pieza()'</span><span class="nt">&gt;</span>Aceptar<span class="nt">&lt;/button&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+   <span class="kd">function</span> <span class="nx">colocar_pieza</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">casilla</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">casilla</span><span class="dl">'</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+      <span class="c1">// A partir de aquí, iría el código para colocar la pieza del jugador en esa casilla</span>
+   <span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>Al hacer clic en el botón, se ejecutará la función <em>colocar_pieza()</em>. Observa cómo se extrae el texto escrito en el cuadro de texto para llevárnoslo a una variable de Javascript (llamada <em>casilla</em>).</p>
+
+<p>También puedes mejorar la apariencia del juego alterando sus colores, tipografías, etc. Tendrás que investigar un poco en internet sobre cómo puede hacerse eso.</p>
+
+<h4 id="ejercicio-8-tenis">Ejercicio 8. Tenis</h4>
+
+<p>(Aviso: este ejercicio es de dificultad elevada)</p>
+
+<p>Ya sabes hacer que una pelota rebote (ejercicio 5). <strong>Vamos a mejorar ese programa haciendo una versión del clásico juego de tenis <em>“Pong”</em></strong>, el primer videojuego comercial de la historia.</p>
+
+<p>Si no conoces el <em>Pong</em>, bichea un poco por Internet para averiguar cómo es.</p>
+
+<p>¡Y ahora trata de programar una versión actualizada en Javascript!</p>
+
+<h4 id="ejercicio-9-carretera-al-infierno">Ejercicio 9. Carretera al infierno</h4>
+
+<p>(Aviso: este ejercicio es de dificultad elevada)</p>
+
+<p>En esta ocasión, vamos a programar <strong>un juego que llamaremos “Carretera al infierno”</strong>.</p>
+
+<p>En el juego, manejaremos un coche (busca en internet la imagen de un coche visto desde arriba). El coche aparecerá en la parte inferior de la pantalla, centrado y mirando hacia arriba.</p>
+
+<p>Una carretera irá desplazándose de arriba a abajo. La carretera no será recta, sino que tendrá irregularidades aleatorias hacia la izquierda y hacia la derecha. Nuestro objetivo es mover el coche hacia la izquierda y hacia la derecha para evitar que se salga de la carretera.</p>
+
+<p>La carreterá se moverá cada vez más deprisa. <strong>El objetivo del juego es aguantar la mayor cantidad posible de tiempo sin salirnos.</strong></p>
+
+<h2 id="77-ejercicios-resueltos">7.7. Ejercicios resueltos</h2>
+
+<p>Aquí iremos poniendo los ejercicios que resolvamos en clase.</p>
+
+<h4 id="ejercicio-1-tabla-de-multiplicar-1">Ejercicio 1. Tabla de multiplicar</h4>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;h1&gt;</span>Tabla de multiplicar<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">'salida'</span> <span class="na">style=</span><span class="s">'text-align: center; border-style: solid; border-color: black'</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+   <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nx">prompt</span><span class="p">(</span><span class="dl">"</span><span class="s2">Dime un número</span><span class="dl">"</span><span class="p">);</span>
+   <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">salida</span><span class="dl">'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="nx">n</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> x </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">i</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> = </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">n</span><span class="o">*</span><span class="nx">i</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">&lt;br&gt;</span><span class="dl">"</span><span class="p">;</span>
+   <span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+:ET

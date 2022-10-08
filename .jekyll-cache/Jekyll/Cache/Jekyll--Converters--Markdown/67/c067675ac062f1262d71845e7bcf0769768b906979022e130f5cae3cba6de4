@@ -1,0 +1,620 @@
+I"��<h1 class="no_toc" id="1-bases-de-datos">1. Bases de datos</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#11-almacenamiento-de-la-información" id="markdown-toc-11-almacenamiento-de-la-información">1.1. Almacenamiento de la información</a>    <ul>
+      <li><a href="#111-sistemas-lógicos-de-almacenamiento" id="markdown-toc-111-sistemas-lógicos-de-almacenamiento">1.1.1. Sistemas lógicos de almacenamiento</a></li>
+      <li><a href="#112-sistemas-de-ficheros" id="markdown-toc-112-sistemas-de-ficheros">1.1.2. Sistemas de ficheros</a></li>
+      <li><a href="#113-bases-de-datos" id="markdown-toc-113-bases-de-datos">1.1.3. Bases de datos</a>        <ul>
+          <li><a href="#sistemas-gestores-de-bases-de-datos" id="markdown-toc-sistemas-gestores-de-bases-de-datos">Sistemas gestores de bases de datos</a></li>
+          <li><a href="#conceptos-clave-en-bases-de-datos-relacionales" id="markdown-toc-conceptos-clave-en-bases-de-datos-relacionales">Conceptos clave en bases de datos relacionales</a></li>
+          <li><a href="#componentes-de-una-base-de-datos-relacional" id="markdown-toc-componentes-de-una-base-de-datos-relacional">Componentes de una base de datos relacional</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#12-el-modelo-de-datos" id="markdown-toc-12-el-modelo-de-datos">1.2. El modelo de datos</a>    <ul>
+      <li><a href="#121-diagramas-e-r" id="markdown-toc-121-diagramas-e-r">1.2.1. Diagramas E-R</a></li>
+      <li><a href="#122-elementos-de-los-diagramas-e-r" id="markdown-toc-122-elementos-de-los-diagramas-e-r">1.2.2. Elementos de los diagramas E-R</a></li>
+    </ul>
+  </li>
+  <li><a href="#13-paso-del-diagrama-e-r-al-modelo-relacional" id="markdown-toc-13-paso-del-diagrama-e-r-al-modelo-relacional">1.3. Paso del diagrama E-R al modelo relacional</a>    <ul>
+      <li><a href="#131-qué-es-el-modelo-relacional" id="markdown-toc-131-qué-es-el-modelo-relacional">1.3.1. Qué es el modelo relacional</a></li>
+      <li><a href="#132-pasos-para-convertir-un-diagrama-e-r-en-un-modelo-relacional" id="markdown-toc-132-pasos-para-convertir-un-diagrama-e-r-en-un-modelo-relacional">1.3.2. Pasos para convertir un diagrama E-R en un modelo relacional</a></li>
+      <li><a href="#133-conceptos-clave-del-modelo-relacional" id="markdown-toc-133-conceptos-clave-del-modelo-relacional">1.3.3. Conceptos clave del modelo relacional</a></li>
+      <li><a href="#136-paso-a-tablas-y-normalización" id="markdown-toc-136-paso-a-tablas-y-normalización">1.3.6. Paso a tablas y normalización</a>        <ul>
+          <li><a href="#concepto-intuitivo-de-forma-normal-mediante-un-ejemplo" id="markdown-toc-concepto-intuitivo-de-forma-normal-mediante-un-ejemplo">Concepto intuitivo de forma normal (mediante un ejemplo)</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#14-ejercicios" id="markdown-toc-14-ejercicios">1.4. Ejercicios</a>    <ul>
+      <li><a href="#ejercicio-1-biblioteca" id="markdown-toc-ejercicio-1-biblioteca">Ejercicio 1: Biblioteca</a></li>
+      <li><a href="#ejercicio-2-cajero-automático" id="markdown-toc-ejercicio-2-cajero-automático">Ejercicio 2: Cajero automático</a></li>
+      <li><a href="#ejercicio-obligatorio-series-de-tv" id="markdown-toc-ejercicio-obligatorio-series-de-tv">Ejercicio obligatorio: Series de TV</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="11-almacenamiento-de-la-información">1.1. Almacenamiento de la información</h2>
+
+<h3 id="111-sistemas-lógicos-de-almacenamiento">1.1.1. Sistemas lógicos de almacenamiento</h3>
+
+<p>Desde los primeros tiempos de la informática ha sido necesario <strong>almacenar grandes cantidades de información</strong> en soportes fisicos utilizando mecanismos que fueran independientes del propio soporte.</p>
+
+<p>Esos métodos de almacenamiento se denominan <strong>sistemas de almacenamiento lógico</strong>.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/07-01-dispositivo-almacenamiento-fisico.jpg" alt="Sistema de almacenamiento físico del IBM 360" />
+<span style="font-size: 70%; font-color: grey"><i>Sistema de almacenamiento físico del IBM 360, un ordenador de la década de 1960. Este ordenador utilizaba principalmente cintas magnéticas en lugar de discos duros para almacenar la información. En teoría, los usuarios no deberían ser conscientes de ello. Los sistemas de almacenamiento lógico nos permiten olvidarnos de cuál es el dispositivo físico donde se almacena realmente la información.</i></span></p>
+
+<p>El sistema lógico de almacenamiento más habitual es el <strong>sistema de ficheros</strong>. En él, la información se organiza en <strong>directorios</strong> (o carpetas) y <strong>ficheros</strong>, y luego un componente software del sistema operativo se encarga de traducir las operaciones lógicas sobre la información (por ejemplo, añadir un dato al final de un fichero) en operaciones físicas (por ejemplo, escribir un byte en determinado sector del disco duro).</p>
+
+<p>Las bases de datos que estudiaremos en este capítulo también son sistemas lógicos de almacenamiento, solo que más complejos que los sistemas de ficheros. El componente software encargado de traducir operaciones lógicas en físicas se denomia <strong>sistema gestor de bases de datos</strong>, y en este capítulo y el siguiente vamos a aprender a familiarizarnos con él.</p>
+
+<h3 id="112-sistemas-de-ficheros">1.1.2. Sistemas de ficheros</h3>
+
+<p>Antes de comenzar a pelearnos con las bases de datos, conviene conocer por encima a su hermano pobre: el sistema de ficheros.</p>
+
+<p>Los <strong>archivos o ficheros</strong> son almacenes de información con una estructura determinada que se organizan en directorios (o carpetas) con organización jerárquica.</p>
+
+<p>Existen muchos sistemas de ficheros, dependiendo del sistema operativo:</p>
+
+<ul>
+  <li><strong>FAT16</strong>: del antiguo MS-DOS y Windows 95.</li>
+  <li><strong>FAT32</strong>: se introdujo en Windows 95 OSR2 y aún se usa masivamente a pesar de sus limitaciones. ¿Qué limitaciones son esas? Por ejemplo, no puede menejar archivos de más de 4 GB.</li>
+  <li><strong>exFAT</strong>: un sistema FAT extendido, sin las limitaciones de FAT32, usado por Windows de forma nativa desde Windows 7. Generalmente se utiliza en memorias USB.</li>
+  <li><strong>NTFS</strong>: usado por los sistemas Windows desde Windows NT.</li>
+  <li><strong>ext2</strong>, <strong>ext3</strong> y <strong>ext4</strong>: sistemas por defecto en la mayoría de las distribuciones Linux.</li>
+  <li><strong>ReiserFS</strong>: otro sistema de ficheros soportado por las distribuciones Linux.</li>
+  <li><strong>CDFS</strong> o <strong>ISO 9660</strong>: Es el sistema de ficheros nativo de los CD-ROM.</li>
+  <li><strong>UDF</strong> o <strong>ISO 13346</strong>: Es un sistema de ficheros estandarizado usado en CDs, DVDs y Blu-Rays.</li>
+  <li><strong>HFS+</strong>: sistema de ficheros nativo de MacOS.</li>
+</ul>
+
+<p>Los ficheros, a su vez, pueden ser de diferente tipo, según cómo se codifique la información en su interior:</p>
+
+<ul>
+  <li><strong>Ficheros de texto</strong>: almacenan la información como texto, generalmente codificado como UTF-8. Estos ficheros pueden contener información de configuración de aplicaciones (ficheros .ini, .inf, .conf, etc), de código fuente (.html, .sql, .java, .php, etc), de texto plano o enriquecido (.txt, .rtf, .ps, etc) o información compleja codificada como XML o JSON (.xml, .json).</li>
+  <li><strong>Ficheros binarios</strong>: son colecciones de bits con un formato específico que sólo pueden ser interpretadas por el programa adecuado. Hay incontables tipos de fichero binario: de imagen (.jpg, .gif, .png, etc), de vídeo (.avi, .mpg, .mp4, etc), comprimidos o empaquetados (.zip, .rar, .tar, .gz, etc), ejecutables y compilados (.exe, .com, .o, etc) y muchísimos más.</li>
+</ul>
+
+<p>Cada programa suele tener su propio formato de fichero nativo. Y los gestores de bases de datos no son una excepción. Por ejemplo</p>
+
+<ul>
+  <li>Access guarda las bases de datos en un fichero con extensión .mdb o .accdb</li>
+  <li>MySQL guarda las bases de datos en tres ficheros de extensión .frm, .myd y .myi</li>
+</ul>
+
+<h3 id="113-bases-de-datos">1.1.3. Bases de datos</h3>
+
+<p>Una <strong>base de datos</strong> es una colección de ficheros relacionados entre sí que almacenan tanto la representación abstracta de un fragmento de información del mundo real como los datos correspondientes a ese fragmento del mundo.</p>
+
+<p>Las bases de datos, por lo tanto, son sistemas de almacenamiento de información más complejos y elaborados que los ficheros, puesto que no solo guardan la información en sí, sino también la forma en la que unos datos se relacionan con otros, y además proporcionan mecanismos para manipular esos datos.</p>
+
+<p>No se debe confundir la <em>base de datos</em> (los ficheros que guardan la información) con el <em>sistema gestor de base de datos</em> (el software que manipula esos ficheros).</p>
+
+<p>Existen varios tipos de bases de datos, pero las más extendidas desde hace décadas son las <strong>bases de datos relacionales</strong>. Durante este capítulo y el siguiente, nos referiremos exclusivamente a este tipo de bases de datos.</p>
+
+<h4 id="sistemas-gestores-de-bases-de-datos">Sistemas gestores de bases de datos</h4>
+
+<p>Un <strong>Sistema Gestor de Bases de Datos</strong> (<strong>SGBD</strong> o <strong>DBMS</strong> en inglés) es el programa (o conjunto de programas) encargados de almacenar y manipular la información de una base de datos.</p>
+
+<p>Las <strong>funciones</strong> de un SGBD son:</p>
+
+<ul>
+  <li>Permitir el acceso sencillo y eficiente a los datos</li>
+  <li>Garantizar la integridad de los datos</li>
+  <li>Garantizar la seguridad de los datos</li>
+  <li>Almacenar no solo los datos, sino la estructura de los mismos y la forma en la que se relacionan unos con otros</li>
+  <li>Mantener estadísticas de uso</li>
+  <li>Permitir la concurrencia de usuarios (accesos múltiples simultáneos)</li>
+  <li>Independizar los datos físicos de las aplicaciones de usuario</li>
+  <li>Ofercer conectividad con el exterior</li>
+  <li>Incorporar herramientas de copia de seguridad</li>
+</ul>
+
+<p>Existen muchos sistemas gestores de bases de datos relacionales, algunos creados para manejar de forma sencilla bases de datos pequeñas y con pocos accesos, como <strong>Microsoft Access</strong> o <strong>Libreoffice Base</strong>, y otros pensados para soportar grandes volúmenes de información y muchos accesos simultáneos, como <strong>MySQL</strong>, <strong>MariaDB</strong>, <strong>Oracle</strong>, <strong>SQL Server</strong> o <strong>PostgreSQL</strong>.</p>
+
+<h4 id="conceptos-clave-en-bases-de-datos-relacionales">Conceptos clave en bases de datos relacionales</h4>
+
+<p>Si hablamos exclusivamente de <strong>bases de datos relacionales</strong> (recuerda: existen otros tipos, pero las mayoritarias son las relacionales), hay ciertos conceptos que van a aparecer de forma recurrente a partir de ahora.</p>
+
+<p>Vamos a definirlos, pero no trates de retenerlos todos: te familiarizarás con ellos poco a poco a lo largo del capítulo.</p>
+
+<ul>
+  <li><strong>Tabla (o relación)</strong>: la información en las bases de datos relacionales se organiza en tablas compuestas por filas y columnas.</li>
+  <li><strong>Registro</strong>: un registro es cada una de las filas de cada tabla. Por ejemplo, en la base de datos de los clientes de una empresa, la tabla de clientes contendrá un cliente en cada fila. Pues bien, cada fila es un <em>registro</em>.</li>
+  <li><strong>Campo</strong>: cada registro puede descomponerse casi siempre en fragmentos más pequeños. Por ejemplo, en la tabla de clientes, para cada cliente podemos almacenar su DNI, su nombre, sus apellidos, su domicilio, email, teléfono, etc. Cada uno de estos fragmentos de información se denomina <em>campo</em>.</li>
+  <li><strong>Tipo de dato</strong>: es el dominio al que pertenece cada dato almacenado en cada campo, es decir, el tipo de dato (número entero, número real, cadena de caracteres, fecha, hora, etc)</li>
+  <li><strong>Campo clave</strong>: es un campo que permite diferenciar unívocamente cada registro. Por ejemplo, el DNI es un posible campo clave de la tabla de clientes.</li>
+  <li><strong>Consulta</strong>: las consultas sirven para buscar y extraer información de la base de datos. Son un mecanismo muy sencillo para hacer algo muy complicado: bucear entre toneladas de información para localizar justo lo que buscamos.</li>
+  <li><strong>Índice</strong>: la base de datos construirá índices para acelerar el acceso a las tablas más voluminosas. Es un mecanismo interno de la base de datos que casi nunca necesitaremos manipular.</li>
+</ul>
+
+<h4 id="componentes-de-una-base-de-datos-relacional">Componentes de una base de datos relacional</h4>
+
+<p>Los SGBD relacionales son programas muy complejos. Tanto que, independientemente de su desarrollador, suelen tener varios componentes:</p>
+
+<ul>
+  <li><strong>Lenguaje de definición de datos (DDL)</strong>: nos permite crear la representación lógica de los datos y sus relaciones.</li>
+  <li><strong>Lenguaje de control de datos (DCL)</strong>: sirve para gestionar los permisos de acceso.</li>
+  <li><strong>Lenguaje de control de transacciones (TCL)</strong>: se utiliza para asegurar la integridad de los datos.</li>
+  <li><strong>Lenguaje de manipulación de datos (DML)</strong>: nos permite insertar datos, borrarlos, modificarlos, etc. Pueden ser lenguajes procedimentales (el programador indica cómo se van a manipular los datos) o no procedimentales (el programador indica qué manipulación desea, y el SGBD se encarga de determinar los procedimientos más apropiados).</li>
+  <li><strong>Diccionario de datos</strong>: es una base de datos especial, porque contiene información sobre el resto de bases de datos existentes en el sistema.</li>
+  <li><strong>Motor o monitor de la base de datos</strong>: es el interfaz entre los datos y los programas de usuario. Se encarga del acceso seguro, íntegro y eficiente a los datos físicos.</li>
+  <li><strong>Administrador de la base de datos (DBA)</strong>: es la persona encargada de controlar la privacidad y seguridad de los datos y realizar el mantenimiento de la base de datos.</li>
+</ul>
+
+<p>En el resto del capítulo aprenderemos a usar algunos de estos componentes y, en particular, nos centraremos en el lenguaje DML (de manipulación de datos), que es el que se utiliza la gran parte del tiempo que estamos trabajando con una base de datos. La implementación más popular de DML es, sin duda, el <strong>lenguaje SQL</strong>, al que dedicaremos bastante tiempo.</p>
+
+<h2 id="12-el-modelo-de-datos">1.2. El modelo de datos</h2>
+
+<p>Antes de aprender el lenguaje SQL, tenemos que hacer otra cosa que muchos programadores detestan: <strong>diseñar la base de datos</strong> con la que vamos a trabajar.</p>
+
+<p>O, al menos, conocer un par de reglas básicas de diseño de bases de datos para poder afrontar con éxito la creación de bases de datos sencillas y para poder interpretar los diseños de otros programadores.</p>
+
+<p>Un <strong>modelo de datos</strong> es una simplificación (o <em>modelización</em>) de la parte del mundo que queremos convertir en una base de datos.</p>
+
+<p>Dicho de otra manera, los modelos de datos se parecen a los planos de una casa que traza un arquitecto: no son la casa en sí, sino una representación de la misma, y su objetivo es poder construir la casa conforme a unas especificaciones dadas.</p>
+
+<h3 id="121-diagramas-e-r">1.2.1. Diagramas E-R</h3>
+
+<p>Los <strong>diagramas E-R</strong> o <strong>diagramas entidad-relación</strong> son una representación gráfica de los datos del mundo real que pretendemos modelar.</p>
+
+<p>¿Has visto alguna vez los planos de un arquitecto para una casa? El arquitecto no se limita a dibujar la planta de la casa, sino que elabora multitud de planos diferentes de la misma casa: instalaciones, cimentación, evacuación de agua, etc.</p>
+
+<p>Pues bien, para crear una aplicación informática, los “arquitectos” (que, en informática, se denominan <strong>ingenieros</strong>) también elaboran multitud de “planos” diferentes de la misma aplicación. <strong>El diagrama E-R es uno de esos “planos”</strong>.</p>
+
+<p>No es labor del programador elaborar esos planos. Siguiendo con la analogía anterior, si el ingeniero informático es como el arquitecto, en programador es como el albañil. Es decir, el programador se limita a seguir los planos que le facilita el arquitecto y, en todo caso, a realizar alguna pequeña corrección o sugerencia sobre el terreno.</p>
+
+<p>Entonces, si el diagrama E-R pertenece al dominio de la ingeniería informática, ¿por qué tenemos que aprender a hacerlos?</p>
+
+<p>Por una razón muy sencilla: si la aplicación es pequeña, no suele existir un proceso de ingeniería previa (igual que no contratamos a un arquitecto para construir la caseta del perro). Y es el programador/a quien debe hacer todo el trabajo.</p>
+
+<p>De entre todos los “planos” de la aplicación, el diagrama E-R es uno de los más importantes, sobre todo si hablamos de aplicaciones web. Así que es muy conveniente que aprendas a elaborarlos y a interpretarlos. Además, son muy sencillos de hacer.</p>
+
+<h3 id="122-elementos-de-los-diagramas-e-r">1.2.2. Elementos de los diagramas E-R</h3>
+
+<p>Los símbolos concretos de los diagramas E-R puede diferir ligeramente entre metodologías, pero en realidad significan lo mismo. Aquí veremos los llamados <strong>diagramas de Chen</strong>, por el taiwanés Peter P. Chen, que fue quién los creó en 1976 cuando trabajaba en la Universidad de Harvard (EEUU) y que son de los más extendidos en la industria.</p>
+
+<p>Son diagramas tan, tan sencillos, que se elaboran con solo tres elementos:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Elemento</th>
+      <th>Significado</th>
+      <th>Símbolo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Entidades</td>
+      <td>Son los datos de interés para el sistema: categorías de objetos reales o abstractos de los que se necesita mantener información</td>
+      <td><img src="/docs/prog-y-3d/_site/assets/images/07-02-diagramas-er-entidades.png" alt="Diagramas ER - Entidades" /></td>
+    </tr>
+    <tr>
+      <td>Atributos</td>
+      <td>Son las características propias de las entidades. Cada entidad puede tener varios atributos asociados</td>
+      <td><img src="/docs/prog-y-3d/_site/assets/images/07-02-diagramas-er-atributos.png" alt="Diagramas ER - Atributos" /></td>
+    </tr>
+    <tr>
+      <td>Relaciones</td>
+      <td>Son las conexiones lógicas entre las entidades. Representan relaciones que existen en el mundo real y que son relevantes para nuestra aplicación</td>
+      <td><img src="/docs/prog-y-3d/_site/assets/images/07-02-diagramas-er-relaciones.png" alt="Diagramas ER - Relaciones" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Aquí te dejo un ejemplo de diagrama E-R. ¡No te asustes! No vas a tener que hacerlos, solo comprenderlos.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/07-02-diagramas-er-ejemplo.png" alt="Ejemplo de diagrama ER" /></p>
+
+<p>En este diagrama:</p>
+
+<ul>
+  <li><em>LIBROS, BIBLIOTECAS</em> o <em>SOCIOS</em> son <strong>entidades</strong>. Representan los datos que queremos almacenar.</li>
+  <li><em>entán en</em>, <em>tienen</em> o <em>préstamos</em> son <strong>relaciones</strong>. Representan cómo los datos del mundo real se relacionan entre sí.</li>
+  <li>Cada entidad (y algunas relaciones) tienen su propios <strong>atributos</strong>. Por ejemplo, la entidad <em>LIBROS</em> tiene como atributos <em>cod_libro</em>, <em>titulo</em> o <em>sinpsis</em>. Son fragmentos de información que pertenecen a esa entidad o relación.</li>
+  <li>En las relaciones puedes ver unos números. Esos números se refieren a la <strong>cardinalidad</strong> o cantidad de elementos de cada entidad que participan en una relación. Por ejemplo, entre <em>LIBROS</em> y <em>BIBLIOTECAS</em> puedes ver la cardinalidad (1,N) en el lado <em>LIBROS</em>. Eso significa que <em>cada biblioteca tiene entre 1 y muchos (N) libros</em>. En el otro lado puedes ver (0,N), lo que significa que <em>cada libro puede estar en 0 o muchas (N) bibliotecas</em>. La cardinalidad global de esta relación se obtiene con el máximo de cada uno de los lados. Por eso se dice que la relación <em>está en</em> tiene una cardinalidad N:N o de “muchos a muchos”.</li>
+</ul>
+
+<h2 id="13-paso-del-diagrama-e-r-al-modelo-relacional">1.3. Paso del diagrama E-R al modelo relacional</h2>
+
+<p>Los diagramas E-R son una herramienta para representar gráficamente el <strong>modelo conceptual</strong> de una base de datos. Es decir, para crear un modelo abstracto y no ambiguo de la realidad.</p>
+
+<p>Pero un diagrama E-R no se puede implementar directamente en un ordenador. Antes hay que convertirlo a un <strong>modelo lógico</strong>, es decir, a un modelo implementable en un ordenador.</p>
+
+<p>El modelo lógico más popular desde hace décadas es el <strong>modelo relacional</strong>. En esta sección vamos a ver en qué consiste y cómo convertir nuestros diagramas E-R en tablas relacionales que podamos transformar en bases de datos reales.</p>
+
+<h3 id="131-qué-es-el-modelo-relacional">1.3.1. Qué es el modelo relacional</h3>
+
+<p>El <strong>modelo relacional</strong> es una de las posibles maneras de convertir un diagrama E-R en una base de datos real que pueda funcionar en un ordenador. Además, es la más extendida desde hace décadas.</p>
+
+<p>Consiste en convertir las entidades y relaciones a <strong>tablas bidimensionales</strong>. Esas tablas también se llaman <strong>relaciones</strong>, lo cual puede inducir a errores, porque en los diagramas E-R llamábamos relaciones a la conexiones entre entidades.</p>
+
+<p>Para evitar confusiones, nosotros llamaremos <strong>tablas</strong> a las relaciones del modelo relacional.</p>
+
+<p>Por lo tanto, <strong>en el modelo relacional <em>toda la información se almacena en tablas</em></strong>:</p>
+
+<ul>
+  <li>Cada tabla está compuesta por <strong>filas</strong>, que se llaman <strong>registros</strong> o <strong>tuplas</strong>.</li>
+  <li>Cada tabla tiene <strong>columnas</strong>, denominadas <strong>campos</strong>.</li>
+  <li>Cada <strong>campo</strong> tiene asignado un <strong>dominio</strong> o tipo de datos (número entero, número real, cadena de caracteres, etc).</li>
+  <li>Cada registro contiene la información correspondiente a una ocurrencia de una entidad o de una relación del diagrama E-R. Por ejemplo, la entidad CLIENTES puede convertirse en una tabla como esta:</li>
+</ul>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/07-11-ejemplo-de-tabla-relacional.png" alt="Ejemplo de relación jerárquica inclusiva parcial" /></p>
+
+<p>El paso de los diagramas E-R a tablas se hace mediante unas <strong>reglas</strong> que nosotros no vamos a ver porque es una materia demasiado avanzada.</p>
+
+<h3 id="132-pasos-para-convertir-un-diagrama-e-r-en-un-modelo-relacional">1.3.2. Pasos para convertir un diagrama E-R en un modelo relacional</h3>
+
+<p>La <strong>conversión de un diagrama E-R a un modelo relacional</strong>, es decir, a un <strong>conjunto de tablas</strong>, debe ser un proceso en el que <em>no se pierda información</em> y en el que obtengamos como resultado <em>una base de datos lo más optimizada posible</em>.</p>
+
+<p>Para lograr esos dos objetivos, <strong>seguiremos siempre estos dos pasos</strong>:</p>
+
+<ol>
+  <li>
+    <p><strong>Convertir el diagrama E-R (modelo conceptual) en un conjunto de tablas (modelo lógico) con las <em>reglas de paso a tablas</em>.</strong></p>
+
+    <p>En esta transformación no se debe perder ninguna información, es decir, el modelo resultante debe ser semánticamente equivalente al modelo original.</p>
+
+    <p>Este proceso se suele denominar <strong>paso a tablas</strong> y existen unas reglas muy sencillas para hacerlo bien. Las veremos enseguida. Solo tienes que seguirlas y obtendrás una base de datos relacional bien diseñada (siempre que tu diagrama E-R también estuviera bien diseñado, claro).</p>
+  </li>
+  <li>
+    <p><strong>Normalizar la base de datos.</strong></p>
+
+    <p>Este proceso sirve para asegurar que la redundancia se mantiene a un nivel mínimo y que no se van a producir problemas durante la utilización de la base de datos.</p>
+  </li>
+</ol>
+
+<p>A continuación, vamos a ver cómo dar estos dos pasos. Pero antes necesitamos familiarizarnos con la terminología del modelo relacional.</p>
+
+<h3 id="133-conceptos-clave-del-modelo-relacional">1.3.3. Conceptos clave del modelo relacional</h3>
+
+<p>Antes de comenzar a ver las reglas de paso a tablas, tienes que tener muy clara la <strong>terminología del modelo relacional</strong>. Si ya conoces estos términos, puedes saltar sin ningún problema al siguiente apartado.</p>
+
+<p>Muchos de estos conceptos ya han aparecido antes en diferentes momentos. Aquí vamos a organizarlos y a definirlos claramente antes de continuar.</p>
+
+<ol>
+  <li>
+    <p><strong>Tabla o relación</strong></p>
+
+    <p>Es un conjunto de celdas dispuesto en <em>filas (registros)</em> y <em>columnas (campos)</em>.</p>
+
+    <ul>
+      <li>Cada tabla guarda la información correspondiente a <em>una entidad</em> o <em>una relación</em> del modelo ER.</li>
+      <li>Cada <em>registro</em> guarda <em>una ocurrencia</em> de la entidad o relación. Por ejemplo, en una tabla de CLIENTES, cada registro guarda la información de <em>un cliente</em>.</li>
+      <li>Cada <em>campo</em> guarda <em>un atributo</em> de la entidad o relación. Por ejemplo, en una tabla de CLIENTES, cada campo guarda una parte de la información de los clientes. Así, existirá un campo <em>DNI</em>, un campo <em>nombre</em>, un campo <em>apellido1</em>, un campo <em>apellido2</em>, etc.</li>
+    </ul>
+
+    <p>Las celdas de la tabla deben contener <em>valores atómicos</em>.</p>
+  </li>
+  <li>
+    <p><strong>Dominio</strong></p>
+
+    <p>Es el conjunto de valores que puede tomar un campo. Es decir, es el <em>tipo de datos</em> al que pertenece un campo.</p>
+  </li>
+  <li>
+    <p><strong>Clave primaria</strong></p>
+
+    <p>Es un <em>campo o conjunto de campos</em> cuyos valores determinan unívocamente el valor del resto de campos del registro.</p>
+
+    <p>Dicho de otra manera: el resto de campos del registro dependen funcionalmente de la clave primaria (véase “Normalización”).</p>
+
+    <p>Por ejemplo, en una tabla CLIENTES, la clave primaria puede ser el DNI de los clientes, porque cada cliente tendrá un DNI diferente y es imposible que se repita.</p>
+
+    <p>Suele crearse un campo específico para la clave primaria, al que casi siempre se le llama, por convenio, <strong>ID</strong> (de “identificador”). A veces se le agrega el nombre de la tabla: <em>idCliente</em> o <em>id_cliente</em>.</p>
+  </li>
+  <li>
+    <p><strong>Clave candidata</strong></p>
+
+    <p>Es un campo o conjunto de campos que <em>podrían ser clave primaria</em>, pero no lo son.</p>
+
+    <p>En algunas tablas encontraremos varias claves candidatas, pero solo una puede ser elegida como clave primaria.</p>
+  </li>
+  <li>
+    <p><strong>Clave ajena, externa o foránea</strong></p>
+
+    <p>Es un campo o conjunto de campos de una tabla que, sin ser clave en dicha tabla, sí que <em>forman la clave primaria en alguna otra tabla</em> de la base de datos.</p>
+  </li>
+</ol>
+
+<p>En el siguiente ejemplo puedes ver todos esos elementos señalados en una tabla de ALUMNOS que puede pertenecer a la base de datos de un instituto, una universidad, una escuela de educación primaria, una academia de idiomas, etc.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/07-11-partes-de-una-tabla-relacional.png" alt="Partes de una tabla relacional" /></p>
+
+<h3 id="136-paso-a-tablas-y-normalización">1.3.6. Paso a tablas y normalización</h3>
+
+<p>Cualquier diagrama E-R puede convertirse en un conjunto de tablas mediante una serie de reglas que a nosotros, de momento, no nos interesan (para verlas tendrás que estudiar un ciclo formativo de informática o un grado universitario).</p>
+
+<p>Una vez obtenidas esas tablas, hay que revisarlas para evitar duplicidades y posibles errores. Una de las revisiones más importantes es la <strong>normalización</strong>, un proceso que <strong>previene ciertos problemas habituales</strong> en las bases de datos mal diseñadas.</p>
+
+<p>Esos problemas suelen tener que ver con la <strong>redundancia en los datos</strong> y las anomalías en modificaciones, inserciones y borrados.</p>
+
+<p><strong><em>La normalización consiste en un conjunto de técnicas que transforman un conjunto de tablas en otro equivalente donde las redundancias de información están minimizadas.</em></strong></p>
+
+<p>Para lograrlo, el nuevo conjunto de tablas debe cumplir determinadas restricciones conocidas como <strong>formas normales</strong>.</p>
+
+<h4 id="concepto-intuitivo-de-forma-normal-mediante-un-ejemplo">Concepto intuitivo de forma normal (mediante un ejemplo)</h4>
+
+<p>La normalización es un asunto bastante avanzado. Aquí solo vamos a entender lo que significan las formas normales (y la normalización) de manera intuitiva mediante un ejemplo</p>
+
+<p>La <em>primera forma normal</em> (abreviada 1NF), por ejemplo, establece la siguiente restricción: “no puede haber grupos de datos compuestos en un campo”.</p>
+
+<p>He aquí un ejemplo de una tabla de ALUMNOS que <strong>no está en 1FN</strong>:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>id_alumno</th>
+      <th>nombre</th>
+      <th>asignaturas</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1028</td>
+      <td>Susana Martínez López</td>
+      <td>Matemáticas, Lengua</td>
+    </tr>
+    <tr>
+      <td>1029</td>
+      <td>Raquel Molinero Sánchez</td>
+      <td>Matemáticas, Física, Química</td>
+    </tr>
+    <tr>
+      <td>1030</td>
+      <td>Antonio Suárez Bermúdez</td>
+      <td>Latín, Griego</td>
+    </tr>
+    <tr>
+      <td>1031</td>
+      <td>Juan Miguel Rubio Castro</td>
+      <td>Economía, Latín, Matemáticas</td>
+    </tr>
+    <tr>
+      <td>etc</td>
+      <td>etc</td>
+      <td>etc</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Esta tabla <strong>no está en 1FN porque el campo <em>asignaturas</em> contiene valores múltiples</strong>: no es atómico e indivisible.</p>
+
+<p>¿Cómo se puede modificar para que esté en 1FN? Tenemos dos posibilidades.</p>
+
+<p><strong>POSIBILIDAD 1</strong>. Esta solución resuelve el problema de la 1NF, pero introduce <strong>redundancia</strong> en la tabla (en este caso, los nombres de los alumnos/as repetidos varias veces), que es uno de los mayores pecados que puede cometer un diseñador de bases de datos.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>id_alumno</th>
+      <th>nombre</th>
+      <th>asignaturas</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1028</td>
+      <td>Susana Martínez López</td>
+      <td>Matemáticas</td>
+    </tr>
+    <tr>
+      <td>1028</td>
+      <td>Susana Martínez López</td>
+      <td>Lengua</td>
+    </tr>
+    <tr>
+      <td>1029</td>
+      <td>Raquel Molinero Sánchez</td>
+      <td>Matemáticas</td>
+    </tr>
+    <tr>
+      <td>1029</td>
+      <td>Raquel Molinero Sánchez</td>
+      <td>Física</td>
+    </tr>
+    <tr>
+      <td>1029</td>
+      <td>Raquel Molinero Sánchez</td>
+      <td>Química</td>
+    </tr>
+    <tr>
+      <td>1030</td>
+      <td>Antonio Suárez Bermúdez</td>
+      <td>Latín</td>
+    </tr>
+    <tr>
+      <td>1030</td>
+      <td>Antonio Suárez Bermúdez</td>
+      <td>Griego</td>
+    </tr>
+    <tr>
+      <td>1031</td>
+      <td>Juan Miguel Rubio Castro</td>
+      <td>Economía</td>
+    </tr>
+    <tr>
+      <td>1031</td>
+      <td>Juan Miguel Rubio Castro</td>
+      <td>Latín</td>
+    </tr>
+    <tr>
+      <td>1031</td>
+      <td>Juan Miguel Rubio Castro</td>
+      <td>Matemáticas</td>
+    </tr>
+    <tr>
+      <td>etc</td>
+      <td>etc</td>
+      <td>etc</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>POSIBILIDAD 2</strong>: Esta solución también consigue alcanzar la 1FN sin perder información. Pero tampoco es gratis: ha aumentado el número de tablas y, por tanto, la complejidad de nuestra base de datos.</p>
+
+<p>TABLA DE ALUMNOS</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>id_alumno</th>
+      <th>nombre</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1028</td>
+      <td>Susana Martínez López</td>
+    </tr>
+    <tr>
+      <td>1029</td>
+      <td>Raquel Molinero Sánchez</td>
+    </tr>
+    <tr>
+      <td>1030</td>
+      <td>Antonio Suárez Bermúdez</td>
+    </tr>
+    <tr>
+      <td>1031</td>
+      <td>Juan Miguel Rubio Castro</td>
+    </tr>
+    <tr>
+      <td>etc</td>
+      <td>etc</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>TABLA DE MATRÍCULAS</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>id_alumno</th>
+      <th>asignatura</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1028</td>
+      <td>Matemáticas</td>
+    </tr>
+    <tr>
+      <td>1028</td>
+      <td>Lengua</td>
+    </tr>
+    <tr>
+      <td>1029</td>
+      <td>Matemáticas</td>
+    </tr>
+    <tr>
+      <td>1029</td>
+      <td>Física</td>
+    </tr>
+    <tr>
+      <td>1029</td>
+      <td>Química</td>
+    </tr>
+    <tr>
+      <td>1030</td>
+      <td>Latín</td>
+    </tr>
+    <tr>
+      <td>1030</td>
+      <td>Griego</td>
+    </tr>
+    <tr>
+      <td>1031</td>
+      <td>Economía</td>
+    </tr>
+    <tr>
+      <td>1031</td>
+      <td>Latín</td>
+    </tr>
+    <tr>
+      <td>1031</td>
+      <td>Matemáticas</td>
+    </tr>
+    <tr>
+      <td>etc</td>
+      <td>etc</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>CONCLUSIÓN</strong>: ninguna solución es perfecta. Así que la pregunta que hay que hacerse siempre es: <strong>¿Cuál de las soluciones es mejor?</strong></p>
+
+<p>Afortunadamente, esa pregunta siempre tiene una respuesta clara: siempre será preferible la solución que esté en una forma normal superior. Y existen hasta 6 formas normales (1NF, 2NF, 3NF, 4NF y 5NF; entre la tercera y la cuarta, hay una forma intermedia llamada <em>forma normal de Boyce-Codd</em> o BCNF).</p>
+
+<p>En el ejemplo anterior, la segunda solución es mejor porque está en BCNF, mientras que la primera solo está en 2NF.</p>
+
+<p>¿Quieres saber más sobre todo esto? Nuevamente te animo a estudiar un ciclo formativo de informática (de grado superior) o un grado universitario, donde se profundiza en todos estos asuntos.</p>
+
+<h2 id="14-ejercicios">1.4. Ejercicios</h2>
+
+<h4 id="ejercicio-1-biblioteca">Ejercicio 1: Biblioteca</h4>
+
+<p>Echa un vistazo a este diagrama E-R e intenta obtener las tablas relacionales correspondientes para crear una base de datos:</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/07-01-diagrama-er.png" alt="Diagrama ER del ejercicio 1" /></p>
+
+<p><strong>Solución:</strong></p>
+
+<p>Las tablas que resultan de la aplicación de las reglas de paso a tablas son estas:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CLIENTES(nif#, nombre, apellidos, dirección, teléfono)
+SOLICITAN(nif_cliente#, cod_libro#, fecha)
+LIBROS(codigo#, titulo, autor, editorial, pvp, num_ejemplares)
+SON_PEDIDOS(cod_libro#, cod_distribuidor)
+DISTRIBUIDORES(codigo#, nombre, dirección, teléfono)
+</code></pre></div></div>
+
+<p>Observa un par de cosas:</p>
+
+<ul>
+  <li>
+    <p>La tabla SOLICITAN surge de una relación N:N. Estas relaciones <strong>siempre generan una tabla</strong>.</p>
+  </li>
+  <li>
+    <p>La tabla SON_PEDIDOS surge de una relación 1:N. Estas relaciones no suelen generar una tabla, pero en este caso la hemos creado para evitar posibles valores nulos en la tabla LIBROS.</p>
+  </li>
+</ul>
+
+<h4 id="ejercicio-2-cajero-automático">Ejercicio 2: Cajero automático</h4>
+
+<p>Mira este diagrama E-R e intenta obtener las tablas que se derivan de él:</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/07-02-diagrama-er.png" alt="Diagrama ER del ejercicio 2" /></p>
+
+<p><strong>Solución:</strong></p>
+
+<p>Las tablas que resultan de la aplicación de las reglas de paso a tablas son estas:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CLIENTES_PROPIOS(dni#, nombre, apellido1, apellido2, dirección, teléfono)
+CUENTAS(num_cuenta#, saldo, maximo_diario, num_tarjeta, contraseña, dni_cliente)
+OPERACIONES(num_operacion#, id_cajero, tipo_operación, fecha, hora, num_cuenta)
+</code></pre></div></div>
+
+<p>Observa como, en esta ocasión, las dos relaciones son de tipo 1:N. En esos casos <em>no se suele crear una tabla para la relación</em>, si no que se resuelve llevando la clave de la entidad que participa con 1 a la tabla de la entidad que participa con N.</p>
+
+<p>Por ejemplo, entre CLIENTES y CUENTAS (relación “tiene”) hay una relación 1:N. Eso significa que:</p>
+
+<ul>
+  <li>Cada CLIENTE puede tener entre 1 y muchas cuentas (1:N)</li>
+  <li>Cada CUENTA pertenece a 1 y solo 1 cliente (1:1)</li>
+</ul>
+
+<p>En estas relaciones, la clave de la parte 1 (CLIENTE) se lleva a la tabla de la parte N (CUENTA). Por eso el dni del cliente aparece en la tabla CUENTAS.</p>
+
+<h4 id="ejercicio-obligatorio-series-de-tv">Ejercicio obligatorio: Series de TV</h4>
+
+<p>Ahora te toca a ti. Vamos a hacer una pequeña base de datos para almacenar información sobre nuestras series de televisión preferidas.</p>
+
+<p>Teniendo en cuenta lo que acabamos de ver, <strong>intenta convertir este diagrama E-R en un conjunto de tablas relacionales</strong>:</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/07-ejercicio-series-tv.png" alt="Diagrama ER del ejercicio obligatorio" /></p>
+:ET

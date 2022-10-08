@@ -1,0 +1,180 @@
+I"�7<h1 class="no_toc" id="apéndice-2-virtualización-con-docker">Apéndice 2. Virtualización con Docker</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#a21-qué-es-docker" id="markdown-toc-a21-qué-es-docker">A2.1. ¿Qué es Docker?</a></li>
+  <li><a href="#a22-comandos-usuales-de-docker" id="markdown-toc-a22-comandos-usuales-de-docker">A2.2. Comandos usuales de Docker</a></li>
+  <li><a href="#a23-persistencia-de-datos" id="markdown-toc-a23-persistencia-de-datos">A2.3. Persistencia de datos</a></li>
+  <li><a href="#a24-un-ejemplo-montando-un-servidor-web-con-persistencia-de-datos" id="markdown-toc-a24-un-ejemplo-montando-un-servidor-web-con-persistencia-de-datos">A2.4. Un ejemplo: montando un servidor web con persistencia de datos</a>    <ul>
+      <li><a href="#cómo-editar-el-archivo-phpini-de-un-contenedor-docker" id="markdown-toc-cómo-editar-el-archivo-phpini-de-un-contenedor-docker">Cómo editar el archivo php.ini de un contenedor Docker</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="a21-qué-es-docker">A2.1. ¿Qué es Docker?</h2>
+
+<p><strong>Docker</strong> es una herramienta de virtualización basada en <em>contenedores</em>.</p>
+
+<p>Un <strong>contenedor</strong> es un paquete de software completamente independiente del sistema donde se ejecuta. Recibe ese nombre por los contenedores que se utilizan en el transporte marítimo, que tienen unas medidas y una forma estandarizada y que aislan por completo la carga que llevan dentro del exterior.</p>
+
+<p>Un contenedor Docker hace lo mismo, pero con un conjunto de software: lo aisla por completo del exterior. El software que hay dentro del contenedor se puede ejecutar en cualquier máquina gracias al <em>runtime</em> de Docker, que se comporta como un mini-sistema operativo virtualizado que corre sobre la máquina anfitrión.</p>
+
+<p>Un contenedor puede contener cualquier cosa. Por ejemplo, Apache. De ese modo, podemos ejecutar Apache en cualquier máquina (siempre que tenga previamente instalado Docker) sin necesidad de instalarlo realmente, con todo lo que ello conlleva de configuración de la máquina, consumo de recursos, etc. El contenedor Docker puede ponerse en marcha cuando queramos y detenerse en cualquier momento, sin dejar ningún rastro en la máquina anfitriona.</p>
+
+<p>En definitiva, puedes usar y/o testear <em>cualquier</em> programa sin tener que instalarlo realmente en tu máquina.</p>
+
+<p>Los contenedores Docker vienen empaquetados en <strong>imágenes</strong>, a partir de los cuales pueden lanzarse todos los contenedores que necesitemos. Es decir, las imágenes con como las <em>clases</em> en programación orientada a objetos, y los contenedores son como los objetos que se instancian a partir de esas clases.</p>
+
+<p>Cada cual puede construir las imágenes que necesite o usar imágenes ya hechas, con todo lo necesario en su interior para ejecutar cualquier software sin necesidad de instalarlo ni configurarlo. Hay repositorios públicos de imágenes, como <strong>DockerHub</strong>, donde uno puede encontrar imágenes de prácticamente cualquier cosa.</p>
+
+<h2 id="a22-comandos-usuales-de-docker">A2.2. Comandos usuales de Docker</h2>
+
+<p>Aunque Docker puede usarse desde un interfaz gráfico (como <strong>Docker Desktop</strong>), lo habitual es hacerlo desde la línea de comandos.</p>
+
+<p>Esto no es un manual de Docker, pero sí vamos a enumerar aquí los comandos principales que nos serán útiles como desarrolladores web para que puedas usarlos como referencia rápida cuando tengas que trabajar con Docker.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">docker run [nombre-imagen]</code> - Lanza un contenedor a partir de la imagen especificada. Si la imagen no está descargada en el ordenador, la buscará en el repositorio configurado (por defecto, <em>DockerHub</em>).</li>
+  <li><code class="language-plaintext highlighter-rouge">docker ps</code> - Muestra un listado con los contenedores que hay actualmente en el sistema. Un contenedor no tiene por qué estar necesariamente corriendo, sino que existen otros estados (detenido, preparado, finalizado, etc). Con <code class="language-plaintext highlighter-rouge">docker ps -a</code> podemos ver todos los contenedores, también los detenidos.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker stop [id-del-contenedor]</code> - Detiene un contenedor. Su id puede obtenerse con <code class="language-plaintext highlighter-rouge">docker ps</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker start [id-del-contenedor]</code> - Reanuda un contenedor.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker exec -it [id-del-contenedor] bash</code> - Abrir un terminal en el contenedor.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker-compose up -d</code> - Inicia todos los contenedores especificados en el archivo <em>docker-compose.yml</em> del directorio actual. Necesitas tener instalado, además de Docker, el programa <em>docker-compose</em>.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker-compose down</code> - Detiene todos los contenedores especificados en el archivo <em>docker-compose.yml</em> del directorio actual.</li>
+</ul>
+
+<h2 id="a23-persistencia-de-datos">A2.3. Persistencia de datos</h2>
+
+<p>Cualquier cosa que guardes en un contenedor de Docker se perderá cuando el contenedor se detenga. Por ejemplo, si estás haciendo una aplicación web que usa una base de datos MySQL, y tu servidor MySQL está en un contenedor Docker, toda la información de esa base de datos se perderá cada vez que destruyas el contenedor.</p>
+
+<p>Es posible evitar eso usando la persistencia de datos.</p>
+
+<p>XXX completar esta sección XXX</p>
+
+<h2 id="a24-un-ejemplo-montando-un-servidor-web-con-persistencia-de-datos">A2.4. Un ejemplo: montando un servidor web con persistencia de datos</h2>
+
+<p>En esta sección vamos a mostrar cómo montar un servidor web con imágenes Docker y levantarlo o apagarlo con docker-compose.</p>
+
+<p>Usaremos las imágenes de Bitnami, un desarrollador español recientemente adquirido por VMWare. Sus imágenes son fáciles de configurar (dentro de lo que cabe) y bastante confiables.</p>
+
+<p>Vamos a poner en marcha <strong>cuatro contenedores</strong> simultáneamente:</p>
+
+<ol>
+  <li><strong>Servidor Apache</strong> (imagen bitnami/apache)</li>
+  <li><strong>Intérprete PHP</strong> (image bitnami/phpfpm)</li>
+  <li><strong>Servidor MariaDB</strong> (imagen bitnami/mariadb)</li>
+  <li><strong>PHPMyAdmin</strong> (imagen bitnami/phpmyadmin)</li>
+</ol>
+
+<p>Además, necesitamos que los datos de MariaDB sean persistentes, es decir, que no se pierdan cuando detengamos los contenedores.</p>
+
+<p>Si buscamos en DockerHub cada una de esas imágenes, encontraremos un archivo de configuración <em>docker-compose.yml</em> para cada una de ellas.</p>
+
+<p>Tenemos que construir un <strong><em>docker-compose.yml</em></strong> único combinando todos los archivos de configuración de todas las imágenes y ubicarlo en el directorio raíz de nuestro proyecto. Nos debe quedar algo así:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">2'</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">php</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">bitnami/php-fpm:latest</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">9000:9000</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">.:/app</span>
+  <span class="na">apache</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">bitnami/apache:latest</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">80:8080</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./apache-vhost/myapp.conf:/vhosts/myapp.conf:ro</span>
+      <span class="pi">-</span> <span class="s">.:/app</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">php</span>
+  <span class="na">mariadb</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">docker.io/bitnami/mariadb:10.6</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">MARIADB_ROOT_PASSWORD=bitnami</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s1">'</span><span class="s">mariadb_data:/bitnami'</span>
+  <span class="na">phpmyadmin</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">docker.io/bitnami/phpmyadmin:5</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s1">'</span><span class="s">8000:8080'</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">mariadb</span>
+
+<span class="na">volumes</span><span class="pi">:</span>
+  <span class="na">mariadb_data</span><span class="pi">:</span>
+    <span class="na">driver</span><span class="pi">:</span> <span class="s">local</span>
+</code></pre></div></div>
+
+<p>Además, necesitamos crear un subdirectorio llamado <strong><em>apache-vhost</em></strong> y, dentro de él, colocar un archivo <em>myapp.conf</em> con este contenido:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so
+&lt;VirtualHost *:8080&gt;
+  DocumentRoot "/app"
+  ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://php:9000/app/$1
+  &lt;Directory "/app"&gt;
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Require all granted
+    DirectoryIndex index.php
+  &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+</code></pre></div></div>
+
+<p>Esto hace que todas las peticiones de scripts PHP que lleguen al servidor se pasen automáticamente al contenedor de PHP para que las interprete.</p>
+
+<p>Ya podemos <strong>poner en marcha los cuatro contenedores</strong> tecleando (en el directorio de trabajo):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker-compose up -d
+</code></pre></div></div>
+
+<p>Para <strong>detener los contenedores</strong>, teclearemos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose down
+</code></pre></div></div>
+
+<p>El servidor estará respondiendo en la dirección http://localhost. Es muy importante que no tengas otro proceso usando el puerto 80 (el típico de http), o de lo contrario el contenedor de Apache no arrancará. Esto puede suceder si tienes un Apache nativo corriendo en tu máquina.</p>
+
+<p>En cuanto a PHPMyAdmin, lo encontrarás eh http://localhost:8000.</p>
+
+<p>Esos puertos (el 80 y el 8000) se pueden cambiar trasteando un poco con el archivo docker-compose.yml. Recuerda detener y volver a lanzar los contenedores cada vez que cambies la configuración.</p>
+
+<p>Por último, si necesitas instalar dependencias de PHP con <strong>composer</strong>, puedes hacerlo creando un archivo <em>composer.json</em> en el directorio raíz del proyecto y ejecutando <em>composer install</em> dentro del contenedor de PHP:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker exec php composer install
+</code></pre></div></div>
+
+<h3 id="cómo-editar-el-archivo-phpini-de-un-contenedor-docker">Cómo editar el archivo php.ini de un contenedor Docker</h3>
+
+<p>Si necesitamos <strong>editar el archivo php.ini</strong> del servidor virtualizado, tendremos que conectarnos al contenedor de PHP.</p>
+
+<p><strong>PASO 1</strong>. Sacamos la lista de contenedores activos. Así averiguaremos el ID del contenedor de PHP.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker ps
+</code></pre></div></div>
+
+<p><strong>PASO 2</strong>. Copiamos el archivo php.ini del contenedir de PHP. En el caso de los contenedores de Bitnami, ese archivo está ubicado en /opt/bitnami/php/etc:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker cp [id-del-contenedor]:/opt/bitnami/php/etc/php.ini .
+</code></pre></div></div>
+
+<p><strong>PASO 3</strong>. Ya tenemos el archivo php.ini en nuestra carpeta de trabajo. Lo abrimos y lo editamos.</p>
+
+<p><strong>PASO 4</strong>. Enviamos el php.ini modificado de nuevo al contenedor:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker cp php.ini [id-del-contenedor]:/opt/bitnami/php/etc
+</code></pre></div></div>
+
+<p>No te olvides de detener el contenedor y volver a ponerlo en marcha para que los cambios surtan efecto.</p>
+
+<p><strong>ALGUNAS COSAS QUE TAL VEZ TENDRÁS QUE TOCAR EN PHP.INI</strong></p>
+
+<ul>
+  <li>Habilitar la depuración de errores: directivas <em>display_errors</em> (poner a “On”) y <em>error_reporting</em> (poner a “E_ALL”)</li>
+  <li>Deshabilitar la caché del servidor para que los cambios en tu código se reflejen de inmediato: directiva <em>opcache.enable</em> (poner a 0)</li>
+  <li>Incrementar el tamaño de los archivos de subida y el tiempo de procesamiento de los <em>requests</em>: directivas <em>upload_max_filesize</em> y <em>max_input_time</em>.</li>
+  <li>Incrementar el tiempo de ejecución de los scripts y la memoria que pueden consumir: directivas <em>max_execution_time</em> y <em>memory_limit</em>.</li>
+</ul>
+
+<p>Ten en cuenta que los valores que pongas en estas u otras directivas en un entorno de desarrollo no tienen por qué ser (ni <em>deben</em> ser) los mismos que te encuentres en el entorno de producción.</p>
+:ET

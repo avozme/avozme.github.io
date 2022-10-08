@@ -751,7 +751,482 @@ El patrón MVC consiste, pues, en dividir la aplicación en tres capas:
 
    Y el enrutador se encargará trocear esa URL y extraer de ella la información para instanciar el controlador adecuado y llamar al método correcto.
 
-# 4.5. Ejercicios propuestos
+## 4.5. Ejercicios resueltos
+
+### 4.5.1. Biblioteca v2
+
+En la versión 2 de la biblioteca (ver [ejercicios resueltos del Tema 2](/docs/dwes/_site/php/ejercicios-resueltos.html#283-biblioteca)) hemos convertido el código monolítico en **una arquitectura MVC**, aunque aún no hemos introducido la capa de abstracción de datos ni la de seguridad.
+
+Además, solo mostraremos hecha toda la parte correspondiente a la tabla *libros*. Con esto es suficiente para comprender cómo funciona esta arquitectura sin necesidad de alargar innecesariamente el código. En cualquier caso, el mantenimiento de la tabla *personas* se resolvería de forma muy parecida. 
+
+#### Controlador (index.php)
+
+En aplicaciones grandes suele haber varios controladores. Aquí, de momento, vamos a apañarnos solo con uno.
+
+```php
+<!-- BIBLIOTECA VERSIÓN 2
+     Características de esta versión:
+       - Código con arquitectura MVC
+       - Sin capa de abstracción de datos
+       - Sin seguridad, sesiones ni control de acceso
+-->
+<?php
+    include_once("models/libro.php");  // Modelos
+    include_once("models/persona.php");
+    include_once("view.php");   // Plantilla de vista
+
+    // Miramos el valor de la variable "action", si existe. Si no, le asignamos una acción por defecto
+    if (isset($_REQUEST["action"])) {
+        $action = $_REQUEST["action"];
+    } else {
+        $action = "mostrarListaLibros";  // Acción por defecto
+    }
+
+    // Creamos un objeto de tipo Biblioteca y llamamos al método $action()
+    $biblio = new Biblioteca();
+    $biblio->$action();
+
+    class Biblioteca {
+        private $db;     // Conexión con la base de datos
+        private $libro, $persona; // Modelos
+
+        public function __construct() {
+            $this->libro = new Libro();
+            $this->persona = new Persona();
+        }
+
+        // --------------------------------- MOSTRAR LISTA DE LIBROS ----------------------------------------
+        public function mostrarListaLibros() {
+            $data["listaLibros"] = $this->libro->getAll();
+            View::render("libro/all", $data);
+        }
+
+        // --------------------------------- FORMULARIO ALTA DE LIBROS ----------------------------------------
+
+        public function formularioInsertarLibros() {
+            $data["todosLosAutores"] = $this->persona->getAll();
+            $data["autoresLibro"] = array();  // Array vacío (el libro aún no tiene autores asignados)
+            View::render("libro/form", $data);
+        }
+
+        // --------------------------------- INSERTAR LIBROS ----------------------------------------
+
+        public function insertarLibro() {
+            // Primero, recuperamos todos los datos del formulario
+            $titulo = $_REQUEST["titulo"];
+            $genero = $_REQUEST["genero"];
+            $pais = $_REQUEST["pais"];
+            $ano = $_REQUEST["ano"];
+            $numPaginas = $_REQUEST["numPaginas"];
+            $autores = $_REQUEST["autor"];            
+
+            // Le pedimos al modelo que guarde el libro en la BD
+            $result = $this->libro->insert($titulo, $genero, $pais, $ano, $numPaginas);
+            if ($result == 1) {
+                // Si la inserción del libro ha funcionado, continuamos insertando los autores, pero
+                // necesitamos conocer el id del libro que acabamos de insertar
+                $idLibro = $this->libro->getMaxId();
+                // Ya podemos insertar todos los autores junto con el libro en "escriben"
+                $result = $this->libro->insertAutores($idLibro, $autores);
+                if ($result > 0) {
+                    $data["info"] = "Libro insertado con éxito";
+                } else {
+                    $data["error"] = "Error al insertar los autores del libro";
+                }
+            } else {
+                // Si la inserción del libro ha fallado, mostramos mensaje de error
+                $data["error"] = "Error al insertar el libro";
+            }
+            $data["listaLibros"] = $this->libro->getAll();
+            View::render("libro/all", $data);
+
+        }
+
+        // --------------------------------- BORRAR LIBROS ----------------------------------------
+
+        public function borrarLibro() {
+            // Recuperamos el id del libro que hay que borrar
+            $idLibro = $_REQUEST["idLibro"];
+            // Pedimos al modelo que intente borrar el libro
+            $result = $this->libro->delete($idLibro);
+            // Comprobamos si el borrado ha tenido éxito
+            if ($result == 0) {
+                $data["error"] = "Ha ocurrido un error al borrar el libro. Por favor, inténtelo de nuevo";
+            } else {
+                $data["info"] = "Libro borrado con éxito";
+            }
+            $data["listaLibros"] = $this->libro->getAll();
+            View::render("libro/all", $data);
+
+        }
+
+        // --------------------------------- FORMULARIO MODIFICAR LIBROS ----------------------------------------
+
+        public function formularioModificarLibro() {
+            // Recuperamos los datos del libro a modificar
+            $data["libro"] = $this->libro->get($_REQUEST["idLibro"]);
+            // Renderizamos la vista de inserción de libros, pero enviándole los datos del libro recuperado.
+            // Esa vista necesitará la lista de todos los autores y, además, la lista
+            // de los autores de este libro en concreto.
+            $data["todosLosAutores"] = $this->persona->getAll();
+            $data["autoresLibro"] = $this->persona->getAutores($_REQUEST["idLibro"]);
+            View::render("libro/form", $data);
+        }
+
+        // --------------------------------- MODIFICAR LIBROS ----------------------------------------
+
+        public function modificarLibro() {
+            // Primero, recuperamos todos los datos del formulario
+            $idLibro = $_REQUEST["idLibro"];
+            $titulo = $_REQUEST["titulo"];
+            $genero = $_REQUEST["genero"];
+            $pais = $_REQUEST["pais"];
+            $ano = $_REQUEST["ano"];
+            $numPaginas = $_REQUEST["numPaginas"];
+            $autores = $_REQUEST["autor"];
+
+            // Pedimos al modelo que haga el update
+            $result = $this->libro->update($idLibro, $titulo, $genero, $pais, $ano, $numPaginas);
+            if ($result == 1) {
+                $data["info"] = "Libro actualizado con éxito";
+            } else {
+                // Si la modificación del libro ha fallado, mostramos mensaje de error
+                $data["error"] = "Ha ocurrido un error al modificar el libro. Por favor, inténtelo más tarde";
+            }
+            $data["listaLibros"] = $this->libro->getAll();
+            View::render("libro/all", $data);
+        }
+
+        // --------------------------------- BUSCAR LIBROS ----------------------------------------
+
+        public function buscarLibros() {
+            // Recuperamos el texto de búsqueda de la variable de formulario
+            $textoBusqueda = $_REQUEST["textoBusqueda"];
+            // Buscamos los libros que coinciden con la búsqueda
+            $data["listaLibros"] = $this->libro->search($textoBusqueda);
+            $data["info"] = "Resultados de la búsqueda: <i>$textoBusqueda</i>";
+            // Mostramos el resultado en la misma vista que la lista completa de libros
+            View::render("libro/all", $data);
+        }
+
+        // --------------------------------- MOSTRAR LISTA DE AUTORES ----------------------------------------
+        public function mostrarListaAutores() {
+            // Esto está en construcción. Llamaremos a una vista inexistente.
+            View::render("autor/all");
+        }        
+
+    } // class
+```
+
+#### Modelo de libros (models/libro.php)
+
+```php
+<?php
+
+// MODELO DE LIBROS
+
+class Libro
+{
+
+    private $db;
+
+    // Constructor. Habilita la conexión con la base de datos.
+    public function __construct()
+    {
+        $this->db = new mysqli("mariadb", "root", "bitnami", "biblioteca");
+    }
+
+    // Obtiene todos los libros de la base de datos y los devuelve como un array de objetos
+    public function getAll()
+    {
+        $resultado = $this->db->query("SELECT * FROM libros
+                                        INNER JOIN escriben ON libros.idLibro = escriben.idLibro
+                                        INNER JOIN personas ON escriben.idPersona = personas.idPersona
+                                        ORDER BY libros.titulo");
+        $listaLibros = array();
+        while ($fila = $resultado->fetch_object()) {
+            $listaLibros[] = $fila;
+        }
+        return $listaLibros;
+    }
+
+    // Obtiene un libro de la base de datos y lo devuelve como un objeto
+    public function get($id)
+    {
+        $result = $this->db->query("SELECT * FROM libros WHERE libros.idLibro = '$id'");
+        $libro = $result->fetch_object();
+        return $libro;
+    }
+
+    // Devuelve el último id asignado en la tabla de libros
+    public function getMaxId()
+    {
+        $result = $this->db->query("SELECT MAX(idLibro) AS ultimoIdLibro FROM libros");
+        $idLibro = $result->fetch_object()->ultimoIdLibro;
+        return $idLibro;
+    }
+
+    // Inserta un libro. Devuelve 1 si tiene éxito o 0 si falla.
+    public function insert($titulo, $genero, $pais, $ano, $numPaginas)
+    {
+        $this->db->query("INSERT INTO libros (titulo,genero,pais,ano,numPaginas) VALUES ('$titulo','$genero', '$pais', '$ano', '$numPaginas')");
+        return $this->db->affected_rows;
+    }
+
+    // Inserta los autores de un libro. Recibe el id del libro y la lista de ids de los autores en forma de array.
+    // Devuelve el número de autores insertados con éxito (0 en caso de fallo).
+    public function insertAutores($idLibro, $autores)
+    {
+        $correctos = 0;
+        foreach ($autores as $idAutor) {
+            $this->db->query("INSERT INTO escriben(idLibro, idPersona) VALUES('$idLibro', '$idAutor')");
+            if ($this->db->affected_rows == 1) $correctos++;
+        }
+        return $correctos;
+    }
+
+    // Actualiza un libro (todo menos sus autores). Devuelve 1 si tiene éxito y 0 en caso de fallo.
+    public function update($idLibro, $titulo, $genero, $pais, $ano, $numPaginas)
+    {
+        $this->db->query("UPDATE libros SET
+            titulo = '$titulo',
+            genero = '$genero',
+            pais = '$pais',
+            ano = '$ano',
+            numPaginas = '$numPaginas'
+            WHERE idLibro = '$idLibro'");
+        return $this->db->affected_rows;
+    }
+
+    // Elimina un libro. Devuelve 1 si tiene éxito y 0 en caso de fallo.
+    public function delete($idLibro)
+    {
+        $this->db->query("DELETE FROM libros WHERE idLibro = '$idLibro'");
+        return $this->db->affected_rows;
+    }
+
+    // Busca un texto en las tablas de libros y autores. Devuelve un array de objetos con todos los libros
+    // que cumplen el criterio de búsqueda.
+    public function search($textoBusqueda)
+    {
+        // Buscamos los libros de la biblioteca que coincidan con el texto de búsqueda
+        $result = $this->db->query("SELECT * FROM libros
+					INNER JOIN escriben ON libros.idLibro = escriben.idLibro
+					INNER JOIN personas ON escriben.idPersona = personas.idPersona
+					WHERE libros.titulo LIKE '%$textoBusqueda%'
+					OR libros.genero LIKE '%$textoBusqueda%'
+					OR personas.nombre LIKE '%$textoBusqueda%'
+					OR personas.apellido LIKE '%$textoBusqueda%'
+					ORDER BY libros.titulo");
+        $listaLibros = array();
+        while ($fila = $result->fetch_object()) {
+            $listaLibros[] = $fila;
+        }
+        return $listaLibros;
+    }
+}
+```
+
+#### Modelo de personas (models/persona.php)
+
+Como dijimos antes, la parte del mantenimiento de la tabla *personas* no se ha resuelto para no alargar innecesarimente el código, así que aquí se incluyen solo las funciones imprescindibles para el mantenimiento de la tabla *libros*.
+
+Añadir el mantenimiento de *personas* sería muy sencillo, ya que es, en esencia, igual que el de *libros*, aunque algo más sencillo en algunas vistas.
+
+```php
+<?php
+// MODELO DE PERSONAS
+
+class Persona {
+
+    private $db;
+
+    // Constructor. Conecta con la base de datos.
+    public function __construct() {
+        $this->db = new mysqli("mariadb", "root", "bitnami", "biblioteca");
+    }
+
+    // Devuelve todas las personas de la base de datos en forma de array de objetos
+    public function getAll() {
+        $result = $this->db->query("SELECT * FROM personas");
+        $listaPers = array();
+        while ($fila = $result->fetch_object()) {
+            $listaPers[] = $fila;
+        }
+        return $listaPers;
+    }
+
+    // Devuelve un array con los ids de los autores de un libro
+    public function getAutores($idLibro) {
+        // Obtenemos solo los autores del libro que estamos buscando
+        $autoresLibro = $this->db->query("SELECT idPersona FROM escriben WHERE idLibro = '$idLibro'");
+        // Vamos a convertir esa lista de autores del libro en un array de ids de personas
+        $listaAutoresLibro = array();
+        while ($autor = $autoresLibro->fetch_object()) {
+            $listaAutoresLibro[] = $autor->idPersona;
+        }
+        return $listaAutoresLibro;
+    }
+}
+```
+
+#### Plantilla de las vistas (view.php)
+
+```php
+<?php
+
+// PLANTILLA DE LAS VISTAS
+
+class View {
+    public static function render($nombreVista, $data = null) {
+        include("views/header.php");
+        include("views/nav.php");
+        include("views/$nombreVista.php");
+        include("views/footer.php");
+    }
+}
+```
+
+#### Vista "lista de libros" (views/libro/all.php)
+
+```php
+<?php
+// VISTA PARA LA LISTA DE LIBROS
+
+// Recuperamos la lista de libros
+$listaLibros = $data["listaLibros"];
+
+// Si hay algún mensaje de feedback, lo mostramos
+if (isset($data["info"])) {
+  echo "<div style='color:blue'>".$data["info"]."</div>";
+}
+
+if (isset($data["error"])) {
+  echo "<div style='color:red'>".$data["error"]."</div>";
+}
+
+echo "<form action='index.php'>
+        <input type='hidden' name='action' value='buscarLibros'>
+        <input type='text' name='textoBusqueda'>
+        <input type='submit' value='Buscar'>
+      </form><br>";
+
+// Ahora, la tabla con los datos de los libros
+if (count($listaLibros) == 0) {
+  echo "No hay datos";
+} else {
+  echo "<table border ='1'>";
+  foreach ($listaLibros as $fila) {
+    echo "<tr>";
+    echo "<td>" . $fila->titulo . "</td>";
+    echo "<td>" . $fila->genero . "</td>";
+    echo "<td>" . $fila->numPaginas . "</td>";
+    echo "<td>" . $fila->nombre . "</td>";
+    echo "<td>" . $fila->apellido . "</td>";
+    echo "<td><a href='index.php?action=formularioModificarLibro&idLibro=" . $fila->idLibro . "'>Modificar</a></td>";
+    echo "<td><a href='index.php?action=borrarLibro&idLibro=" . $fila->idLibro . "'>Borrar</a></td>";
+    echo "</tr>";
+  }
+  echo "</table>";
+}
+echo "<p><a href='index.php?action=formularioInsertarLibros'>Nuevo</a></p>";
+```
+
+#### Plantilla para inserción/modificación de libros (views/libro/form.php)
+
+```php
+<?php
+// VISTA PARA INSERCIÓN/EDICIÓN DE LIBROS
+
+extract($data);   // Extrae el contenido de $data y lo convierte en variables individuales ($libro, $todosLosAutores y $autoresLibro)
+
+// Vamos a usar la misma vista para insertar y modificar. Para saber si hacemos una cosa u otra,
+// usaremos la variable $libro: si existe, es porque estamos modificando un libro. Si no, estamos insertando uno nuevo.
+if (isset($libro)) {   
+    echo "<h1>Modificación de libros</h1>";
+} else {
+    echo "<h1>Inserción de libros</h1>";
+}
+
+// Sacamos los datos del libro (si existe) a variables individuales para mostrarlo en los inputs del formulario.
+// (Si no hay libro, dejamos los campos en blanco y el formulario servirá para inserción).
+$idLibro = $libro->idLibro ?? ""; 
+$titulo = $libro->titulo ?? "";
+$genero = $libro->genero ?? "";
+$pais = $libro->pais ?? "";
+$ano = $libro->ano ?? "";
+$numPags = $libro->numPaginas ?? "";
+
+// Creamos el formulario con los campos del libro
+echo "<form action = 'index.php' method = 'get'>
+        <input type='hidden' name='idLibro' value='".$idLibro."'>
+        Título:<input type='text' name='titulo' value='".$titulo."'><br>
+        Género:<input type='text' name='genero' value='".$genero."'><br>
+        País:<input type='text' name='pais' value='".$pais."'><br>
+        Año:<input type='text' name='ano' value='".$ano."'><br>
+        Número de páginas:<input type='text' name='numPaginas' value='".$numPags."'><br>";
+
+echo "Autores: <select name='autor[]' multiple size='3'>";
+foreach ($todosLosAutores as $fila) {
+    if (in_array($fila->idPersona, $autoresLibro))
+        echo "<option value='$fila->idPersona' selected>$fila->nombre $fila->apellido</option>";
+    else
+        echo "<option value='$fila->idPersona'>$fila->nombre $fila->apellido</option>";
+}
+echo "</select>";
+
+// Finalizamos el formulario
+if (isset($libro)) {
+    echo "  <input type='hidden' name='action' value='modificarLibro'>";
+} else {
+    echo "  <input type='hidden' name='action' value='insertarLibro'>";
+}
+echo "	<input type='submit'></form>";
+echo "<p><a href='index.php'>Volver</a></p>";
+```
+
+#### Componentes de la plantilla: cabecera, menú de navegación y pie
+
+Aquí te ofrezco unas versiones mínimas de estos componentes que aparecerán en todas las vistas. Obviamente, puedes mejorar el aspecto de tu aplicación retocándolos a tu gusto.
+
+**views/header.php**
+
+```php
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <h1>BIBLIOTECA</h1>
+```
+
+**views/nav.php**
+
+```php
+<hr/>
+<nav>
+    Menú de navegación: 
+    <a href='index.php'>Home</a>
+    <a href='index.php?action=mostrarListaLibros'>Libros</a>
+    <a href='index.php?action=mostrarListaAutores'>Autores</a>
+</nav>
+<hr/>
+```
+
+**views/footer.php**
+
+```php
+<h5>Este es el pie de página</h5>
+<h5>&copy; 2022 Yo mismo</h5>
+</body>
+</html>
+```
+
+
+
+## 4.6. Ejercicios propuestos
 
 Para terminar, como siempre, vamos a proponer algunos casos prácticos para que pongas manos a la obra.
 
