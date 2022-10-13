@@ -1,20 +1,20 @@
 ---
 layout: page
-title: 3. Pensamiento computacional
+title: 5. Pensamiento computacional
 permalink: /pensamiento-computacional/
-nav_order: 3
+nav_order: 5
 has_children: true
 parent: Introd. a la prog. y al diseño 3D
 ---
 
-# 3. Pensamiento computacional
+# 5. Pensamiento computacional
 {: .no_toc }
 
 - TOC
 {:toc}
 
 
-## 3.1. ¿Qué es eso del pensamiento computacional?
+## 5.1. ¿Qué es eso del pensamiento computacional?
 
 El pensamiento computacional es un proceso de **formulación y resolución de problemas que utiliza los conceptos de la ingeniería informática**. 
 
@@ -30,7 +30,7 @@ Aquí tienes un vídeo que desarrolla esta interesante idea en tres minutos:
 
 
 
-## 3.2. Características del pensamiento computacional
+## 5.2. Características del pensamiento computacional
 
 Según las definiciones que hemos visto en el apartado anterior, el pensamiento computacional es un proceso de resolución de problemas que incluye las siguientes características:
 
@@ -67,7 +67,7 @@ De hecho, podemos "escribirla" en un lenguaje de programación por bloques gráf
 
 ![Ejemplo de receta escrita con Scratch](/docs/prog-y-3d/_site/assets/images/01-scratch.jpg)
 
-## 3.3. El pensamiento computacional vs la programación
+## 5.3. El pensamiento computacional vs la programación
 
 Los términos "pensamiento computacional" y "programación" no son sinónimos. Esta es una confusión muy habitual.
 
@@ -88,7 +88,7 @@ Puedes pedir a un ordenador que haga muchas cosas, pero no que prepare un *risot
 
 Así que, si quieres orientar tu vida académica hacia las ciencias o la ingeniería, aprender a programar puede ser una herramienta muy útil para ti. Pero incluso si tus preferencias académicas van por otro camino, las rutinas de pensamiento computacional que adquirirás programando te reportarán muchos beneficios que quizá no sospechabas. 
 
-## 3.4. Algoritmos y descomposición de problemas
+## 5.4. Algoritmos y descomposición de problemas
 
 Tanto el pensamiento computacional como la programación utilizan procesos cognitivos idénticos, como hemos dicho.
 
@@ -132,7 +132,7 @@ Los algoritmos se usan para cualquier cosa: predecir resultados electorales, cal
 
 **Las únicas tareas no computables, por el momento, son las relacionadas con la creatividad y las emociones**. ¡Así que ya sabes dónde seguirá existiendo trabajo en las próximas décadas!
 
-## 3.5. Algunos algoritmos famosos en tiempos de internet
+## 5.5. Algunos algoritmos famosos en tiempos de internet
 
 La palabra algoritmo se ha puesto de moda en los últimos años. Los ordenadores pueden hacer cálculo mucho más deprisa, y con mucha más fiabilidad, que un cerebro humano. Desde la aparición de Internet, se ha producido un salto cualitativo y estamos llegando a computar cosas que antes parecían imposibles. 
 
@@ -178,7 +178,7 @@ Por otro lado, Amazon ha sido acusado en repetidas ocasiones de manipular sus al
 
 La cuestión es esta: *un pequeño cambio en un algoritmo puede afectar a una gran parte del comercio electrónico mundial y a miles de fabricantes y vendedores*.
 
-## 3.6. Actividades
+## 5.6. Actividades
 
 #### Ejercicio 1
 

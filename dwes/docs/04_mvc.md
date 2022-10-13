@@ -755,8 +755,6 @@ El patrón MVC consiste, pues, en dividir la aplicación en tres capas:
 
 ### 4.5.1. Biblioteca v2
 
-### 4.5.1. Biblioteca v2
-
 En la versión 2 de la biblioteca (ver [ejercicios resueltos del Tema 2](/docs/dwes/_site/php/ejercicios-resueltos.html#283-biblioteca)) hemos convertido el código monolítico en **una arquitectura MVC**, aunque aún no hemos introducido la capa de abstracción de datos ni la de seguridad.
 
 Además, solo mostraremos hecha toda la parte correspondiente a la tabla *libros*. Con esto es suficiente para comprender cómo funciona esta arquitectura sin necesidad de alargar innecesariamente el código. En cualquier caso, el mantenimiento de la tabla *personas* se resolvería de forma muy parecida. 

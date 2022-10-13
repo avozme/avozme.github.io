@@ -1,13 +1,13 @@
 ---
 layout: page
-title: 10. Modelado e impresión 3D
+title: 4. Modelado e impresión 3D
 permalink: /modelado-e-impresion-3d/
-nav_order: 10
+nav_order: 4
 has_children: true
 parent: Introd. a la prog. y al diseño 3D
 ---
 
-# 10. Modelado e impresión 3D
+# 4. Modelado e impresión 3D
 {: .no_toc }
 
 - TOC
@@ -17,7 +17,7 @@ En este capítulo vamos a aprender a usar una herramienta de **modelado 3D** lla
 
 También veremos cómo los modelos 3D creados con TinkerCAD pueden **laminarse en capas** (*slicing*) para su tratamiento con una impresora 3D y qué tenemos que hacer para **obtener ese modelo finalmente impreso**.
 
-## 10.1. Software para diseño 3D: TinkerCAD
+## 4.1. Software para diseño 3D: TinkerCAD
 
 *(Este apartado está adaptado del artículo "Mega Tutorial TinkerCAD, cómo utilizarlo Paso a Paso", publicado por Jorge Lorenzo en https://of3lia.com/tinkercad-tutorial-completo/)*
 
@@ -27,7 +27,7 @@ TinkerCAD es versátil, no hace falta instalarlo, es muy potente, es muy estable
 
 Es verdad que resulta algo más limitado que sus hermanos mayores, ya que no tiene tantas opciones como otros programa de modelado 3D, pero, para la gran mayoría de nosotros, lo que ofrece TinkerCAD es más que suficiente.
 
-### 10.1.1. Qué es TinkerCAD y cómo funciona
+### 4.1.1. Qué es TinkerCAD y cómo funciona
 
 **TinkerCAD** es un **programa de modelado 3D** que crea las piezas con el método *lowpoly*, que consiste en la **unión de polígonos** en un número relativamente bajo (comparado con otros programas) para crear los modelos. 
 
@@ -55,7 +55,7 @@ Homepage de TinkerCAD
 Al registrarte, puedes indicar qué tipo de usuario eres<br>
 </div>
 
-### 10.1.2. Moviéndose por TinkerCAD
+### 4.1.2. Moviéndose por TinkerCAD
 
 Los controles de TinkerCAD son muy sencillos. Eso sí, necesitarás un ratón con ruleta central. Estos son los principales:
 
@@ -68,7 +68,7 @@ Cuando seleccionas un objeto, aparecen unos controles muy intuitivos a su alrede
 
 ![Controles de TinkerCAD](/docs/prog-y-3d/_site/assets/images/10-tinkercad-02.jpg)
 
-### 10.1.3. El panel de control
+### 4.1.3. El panel de control
 
 En esta imagen puedes ver el aspecto del **panel de control** de TinkerCAD con sus áreas principales numeradas:
 
@@ -90,7 +90,7 @@ Las áreas del panel de control son estas:
 
 6. **Herramientas de edición del documento**: copiar, pegar, duplicar, eliminar, rehacer, deshacer... Si hacemos click justo al lado del nombre del documento, podremos cambiar su visibilidad y su tipo de licencia.
 
-### 10.1.4. Cómo modelar objetos 3D con TinkerCAD
+### 4.1.4. Cómo modelar objetos 3D con TinkerCAD
 
 **Modelar objetos 3D** con TinkerCAD es muy fácil, al menos en comparación con otros programas de diseño 3D.
 
@@ -180,7 +180,7 @@ Esto te ayudará a saber la posición relativa entre los objetos, por si necesit
 
 Si interiorizas todo esto bien (a base de practicar un buen rato), ya puedes considerarte un usuario/a avanzado/a en TinkerCAD. Pero aún vamos a aprender un par de cosas más...
 
-### 10.1.5. Edición de objetos externos a TinkerCAD
+### 4.1.5. Edición de objetos externos a TinkerCAD
 
 TinkerCAD también puede manipular modelos 3D hechos por otras personas, aunque hayan usado otros programas.
 
@@ -206,7 +206,7 @@ Más o menos así debería quedarte el resultado: ¡una taza de Ironman para lat
 
 ![Taza de Ironman](/docs/prog-y-3d/_site/assets/images/10-tinkercad-18.jpg)
 
-### 10.1.6. El generador de formas
+### 4.1.6. El generador de formas
 
 Si has usado las formas básicas un tiempo, te habrás dado cuenta de que cada objeto tiene sus propiedades: longitud, altura, anchura. Pero ¿y si hubiera objetos con otras propiedades diferentes? ¿Y si los pudiéramos crear nosotros y asignarles las propiedades que queramos?
 
@@ -236,7 +236,7 @@ Entre los objetos que puedes encontrar en el generador de formas encontrarás co
 
 ¡Y así hasta 17 páginas completas!
 
-### 10.1.7. Algunos aspectos avanzados de TinkerCAD
+### 4.1.7. Algunos aspectos avanzados de TinkerCAD
 
 Aunque es un software mucho más sencillo que otros como *Blender* o *Maya*, TinkerCAD también esconde sus características avanzadas. Aquí te resumo algunas que pueden resultarte útiles.
 
@@ -298,7 +298,7 @@ Por ejemplo, en el programa de la imagen anterior, la secuencia de pasos es esta
 
 Puedes encajar y desencajar bloques de la secuencia para cambiar la manera en la que se genera el objeto. De este modo, y con un poco de práctica, lograrás crear objetos muy complejos en menos tiempo que si los hicieras con el editor 3D.
 
-### 10.1.8. Exportando nuestros modelos para impresión 3D
+### 4.1.8. Exportando nuestros modelos para impresión 3D
 
 Desde TinkerCAD, es muy sencillo **exportar un modelo para imprimirlo con una impresora 3D**.
 
@@ -308,7 +308,7 @@ También podemos abrir la pantalla de edición de un modelo y seleccionar un sol
 
 Al exportar un modelo 3D, la aplicación te preguntará qué **formato de archivo** quieres utilizar. Para impresión 3D, TinkerCAD soporta archivos STL y OBJ, así que ha llegado el momento de que conozcas qué tipos de archivos para modelos 3D existen.
 
-## 10.2. Formatos de archivo para impresión 3D
+## 4.2. Formatos de archivo para impresión 3D
 
 Como ocurre con las imágenes planas o los archivos de vídeo, hay un montón de formatos diferentes para los modelos 3D. En este apartado vamos a conocer los principales y qué características tienen.
 
@@ -369,7 +369,7 @@ Existen varios formatos más que también son interesantes:
 
 * **Formato FBX**. Muy usado en la industria del cine, incluye información sobre el «esqueleto» de las figuras, lo cual es importante para su animación.
 
-## 10.2. Software para *slicing* (corte o laminado)
+## 4.2. Software para *slicing* (corte o laminado)
 
 Para la impresión 3D, no solo necesitamos disponer de un modelo 3D convenientemente diseñado con una herramienta como *TinkerCAD*, *Maya* o *Blender*, sino que debemos preparar nuestro modelo para la impresión en capas.
 
@@ -407,7 +407,7 @@ Para **preparar un modelo 3D con Cura** y **dejarlo listo para imprimir**, simpl
 Aspecto de Cura justo después de preparar un modelo 3D para su impresión. Arriba puedes observar los botones para seleccionar la impresora (etiquetado como "1") y para los ajustes de impresión (etiquetado como "2"). El botón "Preview" ya está disponible porque el <i>slicing</i> ya ha finalizado.
 </div>
 
-## 10.4. Pruebas de impresión
+## 4.4. Pruebas de impresión
 
 La impresión 3D ha avanzado mucho en los últimos años, pero aún se encuentra dando sus primeros pasos.
 
@@ -427,7 +427,7 @@ Aprender a calibrar bien una impresora 3D es importante para:
 * Que tus piezas salgan perfectas.
 * Evitar dolores de cabeza y filamento malgastado.
 
-### 10.4.1. Diez pasos para calibrar una impresora 3D
+### 4.4.1. Diez pasos para calibrar una impresora 3D
 
 **1. Limpia bien la impresora 3D**: Muchas veces no nos damos cuenta la cantidad de roña que hay en nuestras impresoras y de lo que afecta a su funcionamiento. Límpiala a conciencia antes de imprimir nada.
 
@@ -449,7 +449,7 @@ Aprender a calibrar bien una impresora 3D es importante para:
 
 **10. Imprímete algo bonito**: Así comprobarás si realmente todo se ha calibrado correctaemente.
 
-### 10.4.2. Modelos de prueba
+### 4.4.2. Modelos de prueba
 
 Hablando de imprimir "algo bonito", existen **modelos de prueba** usados para **probar específicamente ciertas capacidades de tu impresora 3D** y ayudarte a calibrarla. Por ejemplo, unos modelos pueden probar la habilidad de tu impresora para imprimir puentes o voladizos; otros pueden probar la precisión o el acabado de la superficie, y otros ponen a prueba determinados ajustes del programa de corte o slicer, como la velocidad, la temperatura o la extrusión de las capas.
 
@@ -491,7 +491,7 @@ La nivelación de la cama suele ser el paso más complejo de la calibración de 
 
 ![Calibración de cama](/docs/prog-y-3d/_site/assets/images/10-modelos-de-prueba-calibracion-cama.jpg)
 
-## 10.5. Imprimir el modelo
+## 4.5. Imprimir el modelo
 
 Hemos diseñado nuestro modelo 3D, lo hemos exportado a un archivo STL, OBJ o 3MF, lo hemos laminado y tenemos nuestra impresora razonablemente bien calibrada. ¡Por fin llega el momento de ponernos a imprimir!
 
@@ -513,7 +513,7 @@ La electrónica del panel de control revisará el contenido de la memoria USB y 
 
 Por último, la impresora te preguntará por algunos parámetros de configuración (como la temperatura) y te pedirá confirmación para iniciar la impresión. Además, cuando el proceso de impresión comience, te irá informando en la pantalla de cómo se está desarrollando o de posibles errores.
 
-### 10.5.1. Consejos antes de imprimir
+### 4.5.1. Consejos antes de imprimir
 
 Además de hacer un adecuado mantenimiento de la impresora (limpieza, calibración, etc), antes de imprimir cualquier modelo es necesario **preparar la cama y cargar el filamento**.
 
@@ -559,7 +559,7 @@ Cómo desmontar el extrusor en caso de atasco persistente
 </div>
 
 
-### 10.5.2. Consejos durante la impresión
+### 4.5.2. Consejos durante la impresión
 
 Mientras la impresora trabaja podemos hacer una **inspección visual periódica** de cómo se está imprimiendo nuestra pieza. Esto es particularmente importante en las primeras capas, que es donde suelen darse la mayor parte de los problemas. Por ejemplo, porque la pieza se deslice sobre la cama.
 
@@ -569,7 +569,7 @@ El proceso de impresión puede durar bastante tiempo: desde unos minutos hasta v
 
 Asegúrate de que en el entorno de la impresora no se producen **corrientes de aire** durante la impresión. El filamento es muy ligero y la corriente de aire puede desviarlo, dando lugar a un inoportuno error de impresión. Para el correcto enfriamento del filamento, la **temperatura ambiente** debe ser moderada (menos de 30º C). El **exceso de polvo** en el ambiente y la **luz solar directa** también pueden afectar a la calidad de la impresión.
 
-### 10.5.3. Consejos para después de imprimir
+### 4.5.3. Consejos para después de imprimir
 
 **Corta el filamento** sobrante. Para ello, necesitarás disponer de unos alicates apropiados.
 
@@ -586,7 +586,7 @@ Asegúrate de que en el entorno de la impresora no se producen **corrientes de a
 Una pieza antes y después de la aplicación de una resina XTC.
 </div>
 
-### 10.5.4. Algunos *tips* para usar la impresora de CR10-mini con éxito
+### 4.5.4. Algunos *tips* para usar la impresora de CR10-mini con éxito
 
 En el momento de escribir esto, en el IES Celia Viñas contamos con una impresora **Crealty CR10-mini**. Se trata de una impresora de filamento capaz de imprimir en plástico ABS y PLA.
 
@@ -604,7 +604,7 @@ Después de varios meses de experiencia trabajando con ella, podemos proporciona
    * Añadir a la pieza una base de apoyo de tamaño generoso.
 
 
-## 10.6. Actividades propuestas
+## 4.6. Actividades propuestas
 
 **Ejercicio 1**.  Regístrate en TinkerCAD y trata de crear la cabaña mediante unión y vaciado de objetos como se describe [aquí](/docs/prog-y-3d/_site/modelado-e-impresion-3d/#1014-c%C3%B3mo-modelar-objetos-3d-con-tinkercad). 
 

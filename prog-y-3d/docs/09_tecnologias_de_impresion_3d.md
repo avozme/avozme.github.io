@@ -1,13 +1,13 @@
 ---
 layout: page
-title: 9. Tecnologías de impresión 3D
+title: 3. Tecnologías de impresión 3D
 permalink: /tecnologias-de-impresion-3d/
-nav_order: 9
+nav_order: 3
 has_children: true
 parent: Introd. a la prog. y al diseño 3D
 ---
 
-# 9. Tecnologías de impresión 3D
+# 3. Tecnologías de impresión 3D
 {: .no_toc }
 
 - TOC
@@ -19,13 +19,13 @@ En la segunda década del siglo XXI, **la impresión 3D asequible también se co
 
 En este capítulo vamos a recorrer la historia de las impresoras 3D, en qué consiste este tipo de impresión y cómo funciona, los tipos de impresoras que existen y cómo podemos iniciarnos en este mundillo.
 
-## 9.1. Tecnologías de impresión 3D
+## 3.1. Tecnologías de impresión 3D
 
 La **impresión 3D** se refiere a un un grupo de *tecnologías de fabricación capaces de crear objeto tridimensionales mediante la superposición de capas sucesivas* de un determinado material. 
 
 Por lo tanto, con estas técnicas se pueden **crear objetos físicos a partir de un modelo digital**. 
 
-### 9.1.1. Un poco de historia
+### 3.1.1. Un poco de historia
 
 Aunque nos puede parecer una tecnología moderna, en el año 1976 ya se desarrollaron los primeros equipos y materiales de construcción para la impresión en 3D. Unos años después, en 1981, Hideo Kodama, uno de los precursores de la impresión 3D, inventó dos métodos de fabricación de un modelo tridimensional con un polímero plástico que se endurecía al darle la luz.
 
@@ -51,7 +51,7 @@ En el año 2011, los ingenieros de la Universidad de Shouthampton diseñaron un 
 
 En los últimos años hemos visto aplicaciones múltiples de la impresión 3D: implantes dentales, prótesis de huesos, material sanitario, piezas industriales, joyas... Y también hemos asistido a un abataramiento progresivo de las impresoras y sus consumibles.
 
-### 9.1.2. Cómo funciona la impresión 3D
+### 3.1.2. Cómo funciona la impresión 3D
 
 El proceso de impresión 3D consiste en **crear objetos en tres dimensiones a partir de la superposición de capas de abajo hacia arriba**.
 
@@ -74,7 +74,7 @@ Y, por último, está **la propia impresora**. Casi todas se parecen entre sí y
 Ejemplo de impresión 3D por SLA o estereolitografía
 </div>
 
-### 9.1.3. Métodos de impresión 3D
+### 3.1.3. Métodos de impresión 3D
 
 Aunque la mayoría de las impresoras actuales actúan fundiendo un material para ir creando las capas, hay algunas que depositan materiales líquidos que son solidificados con diferentes tecnologías, como la luz ultravioleta. 
 
@@ -95,7 +95,7 @@ Entre los métodos más utilizados en la impresión 3D tenemos:
 Algunos tipos de impresora 3D
 </div>
 
-### 9.1.4. Materiales
+### 3.1.4. Materiales
 
 Como hemos visto, se utilizan diferentes materiales según la tecnología de impresión. Cada material satisface una serie de propiedades (resistencia, precisión, conductividad, etc) y las piezas que se crean a partir de ellos tendrán diferentes usos.
 
@@ -124,7 +124,7 @@ Los **materiales más utilizados** en la actualidad son:
 Algunos de los materiales disponibles en la actualidad para impresión 3D
 </div>
 
-### 9.1.5. Aplicaciones de la impresión en 3D
+### 3.1.5. Aplicaciones de la impresión en 3D
 
 Las **aplicaciones** de la impresión 3D son múltiples y muy variadas gracias a las diferentes técnicas y materiales que se pueden utilizar en función del tipo de objeto, precisión de detalles y resistencia.
 
@@ -149,7 +149,7 @@ Algunos de los ámbitos de aplicación de la impresión de objetos en tres dimen
 La realización rápida, barata y precisa de maquetas es un ejemplo de aplicación práctica de de las impresoras 3D
 </div>
 
-### 9.1.6. El futuro de la impresión 3D
+### 3.1.6. El futuro de la impresión 3D
 
 La impresión 3D ha evolucionado mucho en los últimos años y ya ha quedado clara la infinidad de posibilidades que ofrece. Se espera que en el futuro cercano cobre aún mayor protagonismo.
 
@@ -164,7 +164,7 @@ Las **aplicaciones futuras** de las impresoras 3D que probablemente más van a *
 Objetos 3D comestibles creados con una impresora
 </div>
 
-## 9.2. Modelado y diseño diseño 3D
+## 3.2. Modelado y diseño diseño 3D
 
 Para imprimir cualquier cosa en 3D, primero hay que diseñarla y modelarla con el software adecuado.
 
@@ -172,7 +172,7 @@ El **modelado y diseño 3D** se ha convertido en unas de las tendencias con más
 
 En este apartado vamos a conocer algo más sobre el diseño y modelado 3D.
 
-### 9.2.1. En qué consiste el diseño 3D
+### 3.2.1. En qué consiste el diseño 3D
 
 El diseño y modelado 3D es una manera de **recrear objetos trimensionales en la pantalla plana del ordenador**.
 
@@ -192,7 +192,7 @@ El modelo anterior, texturizado
 
 Los modelos se pueden rotar, escalar y, en general, manipular muy fácilmente con el software adecuado. También se pueden animar (para la industria del cine, de la publicidad o de los videojuegos), renderizar (para crear imágenes fotorrealistas) o exportar a diferentes formatos (para, por ejemplo, imprimirlos en una impresora 3D).
 
-### 9.2.2. Breve historia del diseño 3D
+### 3.2.2. Breve historia del diseño 3D
 
 Ya en la década de 1960 se crearon los primeros sistemas de Diseño Asistido por Computadora (CAD). Patrick Hanratty, conocido mundialmente conocido como "el Padre del CAD", ideó el primer sistema CAD, llamado **PRONTO**, ni más ni menos que en 1957.
 
@@ -217,7 +217,7 @@ En la actualidad, existe una enorme variedad de herramientas de diseño 2D y 3D,
 Blender es el software libre para modelado y animación 3D más popular y más completo del mercado
 </div>
 
-### 9.2.3. Programas de diseño 3D
+### 3.2.3. Programas de diseño 3D
 
 Aunque, como hemos dicho, hay muchos programas de modelado y diseño 3D, estos son algunos de los más importantes:
 
@@ -235,13 +235,13 @@ Aunque, como hemos dicho, hay muchos programas de modelado y diseño 3D, estos s
 
 Pero modelo creado con estos programas no puede imprimirse directamente: antes hay que **dividirlo en capas** (*slices*) con un software específico, como **Makerware**, **Cura** o **Repetier**. Estos programas nos dejarán especificar ciertos parámetros de la impresión, como la altura de cada capa. A menor altura, más precisa (aunque más lenta) resultará la impresión.
 
-### 9.2.4. Formatos de archivo
+### 3.2.4. Formatos de archivo
 
 Los modelos 3D creados con cualquiera de estos programas (o muchos otros que existen en el mercado) pueden manejar muchos formatos, pero en impresión 3D suele usarse el **formato STL**. La mayoría de las impresoras admitirán modelos 3D almacenados con este formato.
 
 Cuando el modelo 3D está fragmentado en capas, ya lo tenemos listo para pasarlo a nuestra impresora. La mayoría de ellas cuentan con un puerto USB para poder insertar una memoria Flash o un disco duro externo donde debemos llevar guardado el modelo que queremos imprimir. Algunos modelos más avanzados también disponen de una conexión de red.
 
-## 9.3. Impresión 3D por FDM
+## 3.3. Impresión 3D por FDM
 
 Las **impresoras 3D por FDM** son sin duda **las impresoras de 3D más extendidas en la actualidad**, ya que son relativamente sencillas de construir y baratas de adquirir.
 
@@ -278,7 +278,7 @@ Algunas impresoras 3D domésticas de gama alta están equipadas con varios extru
 Una impresora 3D por FDM trabajando
 </div>
 
-## 9.4. Actividades propuestas
+## 3.4. Actividades propuestas
 
 **Ejercicio 1**. Busca tres aplicaciones de las impresoras 3D (presentes o futuras) que te parezcan sorprendentes y que no se hayan mencionado en este tema.
 

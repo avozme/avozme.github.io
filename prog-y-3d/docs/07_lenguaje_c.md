@@ -1,13 +1,13 @@
 ---
 layout: page
-title: 7. El lenguaje C\/C++
+title: 9. El lenguaje C\/C++
 permalink: /lenguaje-c/
-nav_order: 7
+nav_order: 9
 has_children: true
 parent: Introd. a la prog. y al diseño 3D
 ---
 
-# 7. El lenguaje C/C++
+# 9. El lenguaje C/C++
 {: .no_toc }
 
 - TOC
@@ -23,11 +23,11 @@ Se trata de dos lenguajes muy veteranos pero que siguen gozando de una gran popu
 
 Lenguajes de programación hay muchos, así que también hablaremos de otros lenguajes y conoceremos los tipos y características de algunos de ellos.
 
-## 7.1. Orientándose en la jungla de los lenguajes de programación
+## 9.1. Orientándose en la jungla de los lenguajes de programación
 
 Los lenguajes de programación constituyen un ecosistema muy extenso y en constante evolución. Para orientarse un poco en esa jungla, nada mejor que clasificar los lenguajes igual que los biólogos clasifican a las criaturas vivas.
 
-### 7.1.1. Tipos de lenguaje según el nivel de abstracción: alto y bajo nivel
+### 9.1.1. Tipos de lenguaje según el nivel de abstracción: alto y bajo nivel
 
 Hay lenguajes de programación muy próximos al lenguaje binario: a éstos los llamamos **lenguajes de bajo nivel** de abstracción. Y los hay más próximos al lenguaje natural: son los **lenguajes de alto nivel** de abstracción.
 
@@ -86,7 +86,7 @@ Si echas un vistazo a la tabla anterior comprenderás que, en general, **es pref
 
 También hay que destacar que no todos los lenguajes de alto nivel son iguales. Los hay de más alto nivel que otros. El lenguaje C, por ejemplo, tiene menor nivel de abstracción que, por ejemplo, Java. Esto hace que los programas escritos en C sean más rápidos y eficientes que los escritos en Java, aunque también pueden llegar a ser más difíciles de escribir y depurar.
 
-### 7.1.2. Tipos de lenguaje según su generación
+### 9.1.2. Tipos de lenguaje según su generación
 
 Los lenguajes de programación también se clasifican según la generación a la que pertenecen.
 
@@ -100,7 +100,7 @@ El lenguaje máquina fue el lenguaje de primera generación. Los ensambladores f
 
 En general, podemos decir que un programador acostumbrado a trabajar con un lenguaje de tercera generación puede aprender con poco esfuerzo cualquier otro lenguaje de tercera generación y, con algo más de trabajo, un lenguaje orientado a objetos. Sin embargo, el "salto" a otros tipos de lenguajes, como los declarativos, cuesta más porque las fundamentos de estos lenguajes son muy diferentes.
 
-### 7.1.3. Tipos de lenguaje según su forma de traducción 
+### 9.1.3. Tipos de lenguaje según su forma de traducción 
  
 Cuando programamos en un lenguaje distinto del lenguaje máquina, **nuestro código debe ser traducido a binario** para que el ordenador pueda entenderlo y ejecutarlo. Existe un programa específico encargado de hacer esa traducción y que, dependiendo del lenguaje en el que hayamos escrito nuestro programa, puede ser un *ensamblador*, un *compilador* o un *intérprete*.
 
@@ -144,7 +144,7 @@ Eso significa que un programa escrito, por ejemplo, con **Python**, puede funcio
 
 En cambio, los programas desarrollados con C/C++ se ejecuten **más rápido** (¡pero mucho más rápido!) que sus equivalentes en Python. Sin embargo, **tendrás que volver a compilarlos** si deseas ejecutarlos en una máquina con diferente hardware o diferente sistema operativo.
 
-### 7.1.4. Tipos de lenguaje según su tipado
+### 9.1.4. Tipos de lenguaje según su tipado
 
 Por *tipado* nos referimos a la forma en la que los lenguajes de programación usan los tipos de datos. Ya sabes: entero, carácter, lógico, etc. Es decir, las categorías a las que puede pertenecer una variable.
 
@@ -157,7 +157,7 @@ Pues bien, según su tipado, los lenguajes pueden ser:
 
 Las dos primeras categorías y las dos segundas no son excluyentes. Por ejemplo, pueden existir lenguajes de tipado débil y dinámico, o bien fuerte y estático. Las otras combinaciones (fuerte y dinámico, débil y estático) pueden darse pero son menos habituales. 
 
-### 7.1.5. El *top ten* de los lenguajes de programación
+### 9.1.5. El *top ten* de los lenguajes de programación
 
 Es difícil saber cuales son los lenguajes más populares en un determinado momento porque no existen estadísticas fiables a nivel mundial. Además, las cosas pueden cambiar mucho de un territorio a otro.
 
@@ -186,9 +186,9 @@ Ten en cuenta de nuevo que esto no son cifras de uso absoluto de los lenguajes a
 
 Según estas cifras, el conjunto de proyectos que usan lenguaje C o cualquiera de sus variantes (C++ o C#) es muy significativo, sobre todo teniendo en cuenta que C es un lenguaje de la década de 1970, lo cual constituye una eternidad en informática. Que un lenguaje mantenga su vigencia durante tanto tiempo indica lo robusto y confiable que es. Seguramente seguirá con nosotros dentro de muchos años, cuando otros competidores de esta lista ya hayan caído en el olvido.
 
-## 7.2. ¡Bienvenidos a C!
+## 9.2. ¡Bienvenidos a C!
 
-### 7.2.1.  Características básicas de C
+### 9.2.1.  Características básicas de C
 
 * C es un lenguaje de **alto nivel**, aunque a veces se le considera de **nivel intermedio**, porque permite manipular detalles del hardware que para otros lenguajes resultan innacesibles.
 * Es **imperativo y estructurado**. Admite **orientación a objetos** (aunque entonces se llama C++).
@@ -198,7 +198,7 @@ Según estas cifras, el conjunto de proyectos que usan lenguaje C o cualquiera d
 * Es **altamente portable** (para ser un lenguaje compilado). Existen compiladores de C para todos los sistemas y arquitecturas. Si respetas el estándar de C, no tendrás dificultad para migrar las aplicaciones a cualquier sistema.
 * Es un lenguaje de programación **muy  popular** y **muy veterano**. Aunque se ha intentado reemplazar muchas veces, ningún lenguaje lo ha conseguido y tiene una base de programadores muy fieles.
 
-### 7.2.2. Breve historia de C
+### 9.2.2. Breve historia de C
 
 A principios de la década de 1970, los laboratorios Bell necesitaban un nuevo sistema operativo. Hasta ese momento, la mayoría de los sistemas operativos estaban escritos en lenguaje ensamblador (muy parecido al lenguaje máquina) para que el resultado fuera un programa lo suficientemente rápido. 
 
@@ -220,7 +220,7 @@ Si a esto unimos que el código objeto generado por C es casi tan eficiente como
 
 Ahora bien, C también tiene sus detractores que lo acusan de ser confuso, críptico y demasiado flexible. En efecto, con C se pueden desarrollar las técnicas de programación estructurada, pero también se puede programar "código espagueti". Esto, sin embargo, ocurre con todos los lenguajes: incluso los que tienen una sintaxis más estilizada y elegante, como Python o Ruby, pueden generar código absolutamente ininteligible en manos de un programador manazas.
 
-### 7.2.3. Sintaxis básica de C
+### 9.2.3. Sintaxis básica de C
 
 En este apartado vamos a aprender cómo se escriben en C las estructuras de control y el resto de instrucciones básicas.
  
@@ -292,7 +292,7 @@ Observa que, al declarar una variable, hay que especificar su tipo.
 
 Todas las variables son **locales** a la función o bloque de código donde estén definidas, salvo que se indique otra cosa, dejando de existir al finalizar el bloque actual. Aunque pueden crearse variables globales, su uso está tan desaconsejado que ni siquiera te voy a explicar cómo se hace.
 
-### 7.2.4. Conversiones de tipo
+### 9.2.4. Conversiones de tipo
 
 C es un lenguaje **débilmente tipado**, es decir, no hace comprobaciones estrictas de tipos a la hora de asignar un valor a una variable o de comparar dos expresiones.
 
@@ -328,7 +328,7 @@ b = (float)a/2;
 
 Sin el molde ```(float)```, la división ```a/2``` sería entera, ya que a es una variable de tipo *int*, y se perdería la parte decimal. Al aplicar el molde, se convierte momentáneamente el valor entero 5 al valor real 5.0 y se evalúa la expresión, que ahora sí se realiza como división real, conservando sus decimales.
 
-### 7.2.5. Asignación
+### 9.2.5. Asignación
 
 La **asignación** de valores a variables en C es fácil de explicar: se hace con el **símbolo igual (=)**, no con el símbolo <= que usábamos en pseudocódigo:
 
@@ -340,7 +340,7 @@ a = b + 5;  /* Asignación de valor a la variable a */
 
 Observa cómo, en la segunda instrucción, hemos declarado y asignado valor a una variable en la misma línea.
 
-### 7.2.6. Operadores y expresiones
+### 9.2.6. Operadores y expresiones
 
 Los **operadores y expresiones en C** son iguales que los que hemos empleado en pseudocódigo:
 
@@ -393,7 +393,7 @@ Sin embargo, hay algunas **diferencias** importantes entre el pseudocódigo de P
    
 Hay algunas otras diferencias, desde luego, pero con esto ya tienes para hacer un buen montón de programas.
 
-### 7.2.7. Estructuras de control
+### 9.2.7. Estructuras de control
 
 Las **estructuras de control** en C son muy similares a las que hemos utilizado en pseudocódigo, cambiando ligeramente la notación empleada. 
 
@@ -562,7 +562,7 @@ Fíjate en que casi todo se escribe del mismo modo que en pseudocódigo con un p
    }
    ```   
 
-### 7.2.8. Algoritmo principal y Subalgoritmos
+### 9.2.8. Algoritmo principal y Subalgoritmos
 
 XXX hablar aquí de main()
 
@@ -624,7 +624,7 @@ Pues bien, en Javascript:
 
 Así que la conclusión es que **los arrays siempre se pasan por referencia** en Javascript, mientras que **las variables simples siempre se pasan por valor**.
 
-### 7.2.9. Entrada y salida
+### 9.2.9. Entrada y salida
 
 Hay varias formas de hacer la entrada y salida de datos con Javascript, es decir, hay varios equivalentes a la instrucciones **Leer** y **Escribir** de pseudocódigo.
 
@@ -777,11 +777,11 @@ Si sabes un poco de **HTML**, el lenguaje de marcado con el que se codifican las
 
 **Paso 4 (OPTATIVO). Cambia las propiedades de tu caja de salida**. Intenta juguetear con las propiedades ***text-align***, ***border-style*** o ***border-color*** del *div* de salida. Además, hay muchas otras propiedades que puedes asignarle a esa caja. Si te atreves, investiga un poco cómo cambiar el color del texto o la tipografía.
 
-### 7.2.10. Cadenas de caracteres
+### 9.2.10. Cadenas de caracteres
 
 XXX
 
-### 7.2.11. Arrays
+### 9.2.11. Arrays
 
 Los **arrays en Javascript** son mucho más que simples arrays: se trata de elementos muy complejos y flexibles que se adaptan a multitud de soluciones.
 
@@ -871,11 +871,11 @@ for (ciudad of ciudades) {
 }
 ```
 
-### 7.2.12. Funciones de la librería estándar
+### 9.2.12. Funciones de la librería estándar
 
 XXX
 
-## 7.3. Escribiendo programas con Javascript
+## 9.3. Escribiendo programas con Javascript
 
 Ya conocemos cómo se manejan los principales componentes de un programa con Javascript: variables, instrucciones de control, asignaciones, funciones, etc.
 
@@ -883,7 +883,7 @@ Ahora nos queda saber cómo juntamos todo eso para escribir nuestros programas, 
 
 Por fortuna, en esto Javascript también se parece mucho a pseudocódigo. 
 
-### 7.3.1. Caja de herramientas
+### 9.3.1. Caja de herramientas
 
 ¿Qué necesitamos para comenzar a escribir programas en Javascript? ¿Tendrás que instalar un montón de programas de desarrollo en tu ordenador?
 
@@ -899,7 +899,7 @@ La verdad es que no. Para desarrollar con Javascript basta con que tengas instal
 
 * **Un navegador web**. Todos los navegadores web llevan en sus tripas un intérprete de Javascript, puesto que todas las páginas web actuales utilizan Javascript para funcionar. Puedes usar el navegador web que más te guste: Google Chrome, Mozilla Firefox, Microsoft Edge, el Safari de Apple, Opera, etc.
 
-### 7.3.2. Flujo de trabajo
+### 9.3.2. Flujo de trabajo
 
 Lo habitual cuando estés escribiendo y depurando programas en Javascript es que **tengas abiertos a la vez** los dos programas:
 
@@ -916,7 +916,7 @@ El flujo de trabajo, al menos al principio, será este:
 
 Ten en cuenta que, cuando los programas empiecen a volverse complejos, no podrás resolverlos de una sentada. Escribir un programa muy complejo puede llevarte días, semanas o meses.
 
-### 7.3.3. Dónde y cómo escribir el código fuente
+### 9.3.3. Dónde y cómo escribir el código fuente
 
 Los programas en Javascript pueden guardarse en dos tipos de archivo:
 
@@ -939,11 +939,11 @@ Los subalgoritmos sí que deben identificarse con la palabra **function** seguid
 
 **El orden en el que escribas los algoritmos es indiferente**. En el archivo, puede aparecer primero el algoritmo principal y luego los subalgoritmos, o al revés. Utiliza el orden que te parezca más lógico y con el que te sientas cómodo.
 
-## 7.4. Punteros y estructuras de datos
+## 9.4. Punteros y estructuras de datos
 
 XXX
 
-## 7.5. Un ejemplo completo: las tres en raya
+## 9.5. Un ejemplo completo: las tres en raya
 
 Llegó la hora de poner manos a la obra.
 
@@ -955,7 +955,7 @@ El programa en cuestión será una versión del juego de **las tres en raya** qu
 
 Aquí tienes el código fuente completo. Estúdialo con atención y asegúrate de entenderlo todo (o un gran porcentaje) antes de continuar. Ah, y no dejes de compararlo línea a línea con el mismo código en pseudocódigo.
 
-### 7.5.1. El código fuente
+### 9.5.1. El código fuente
 
 ```html
 <div id='salida' style='text-align: center; border-style: solid; border-color: black; font-family: mono'></div>
@@ -1162,7 +1162,7 @@ function comprobar_tablas(tablero) {
 </script>
 ```
 
-### 7.5.2. ¿Cómo ejecutar y depurar este programa?
+### 9.5.2. ¿Cómo ejecutar y depurar este programa?
 
 Guarda el programa anterior en un archivo de texto con extensión .html (por ejemplo, *3-en-raya.html*).
 
@@ -1194,7 +1194,7 @@ Y así hasta que funcione.
 
 ¡Mucha paciencia y sangre fría! Recuerda siempre que la mayor parte del tiempo de programación se va en depurar programas, no en escribirlos.
 
-## 7.6. Ejercicios propuestos
+## 9.6. Ejercicios propuestos
 
 #### Ejercicio 1. Tabla de multiplicar
 
@@ -1412,7 +1412,7 @@ Una carretera irá desplazándose de arriba a abajo. La carretera no será recta
 
 La carreterá se moverá cada vez más deprisa. **El objetivo del juego es aguantar la mayor cantidad posible de tiempo sin salirnos.**
 
-## 7.7. Ejercicios resueltos
+## 9.7. Ejercicios resueltos
 
 Aquí iremos poniendo los ejercicios que resolvamos en clase.
 

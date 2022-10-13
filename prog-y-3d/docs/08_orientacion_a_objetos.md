@@ -1,13 +1,13 @@
 ---
 layout: page
-title: 8. Orientación a objetos
+title: 10. Orientación a objetos
 permalink: /orientacion-a-objetos/
-nav_order: 8
+nav_order: 10
 has_children: true
 parent: Introd. a la prog. y al diseño 3D
 ---
 
-# 8. Orientación a objetos
+# 10. Orientación a objetos
 {: .no_toc }
 
 - TOC
@@ -19,7 +19,7 @@ La programación orientada a objetos es una forma de programar (un *paradigma*, 
 
 Javascript es un lenguaje orientado a objetos, aunque hace una interpretación un poco peculiar de lo que significa este concepto. En este capítulo, veremos primero qué es la programación orientada a objetos y luego nos centraremos en cómo aplicar esas ideas a Javascript.
 
-## 8.1. Conceptos básicos de programación orientada a objetos
+## 10.1. Conceptos básicos de programación orientada a objetos
 
 Los párrafos que vienen a continuación se basan en un texto **Yukihiro Matsumoto**, el creador del lenguaje Ruby. La razón es sencilla: me parece una explicación insuperable (gracias a Matsumoto, claro, no a mí).
 
@@ -37,7 +37,7 @@ La mayoría del trabajo se delega a los propios datos, de modo que **los datos y
 
 Un dato en programación orientada a objetos (es decir, una caja con interruptores, botoncitos y diales) puede tener, en sus tripas, algo muy simple o muy complejo. No se puede saber desde el exterior y no se nos permite abrir la máquina (excepto cuando estamos completamente seguros de que algo está mal en su diseño), por lo que se nos obliga a utilizar los interruptores y leer los diales para interactuar con los datos. Una vez construida una de esas máquinas, no queremos tener que volver a pensar en cómo funciona internamente.
 
-### 8.1.1. Un ejemplo sencillo para entender el concepto de "objeto"
+### 10.1.1. Un ejemplo sencillo para entender el concepto de "objeto"
 
 Seguimos con Matsumoto para ilustrar con un ejemplo sencillo qué es eso de una “máquina con unos pocos interruptores y diales”.
 
@@ -69,7 +69,7 @@ Aclaremos, sin embargo, que la programación orientada a objetos no es una soluc
 
 A continuación hablaremos de los “interruptores y diales” del temporizador del microondas (métodos) y, un poco después, veremos como se construyen los moldes (clases).
 
-### 8.1.2. Métodos
+### 10.1.2. Métodos
 
 En la programación orientada a objetos, como acabamos de ver, no se piensa en manipular los datos directamente desde el exterior de un objeto, sino que son los propios objetos los que deciden cómo se debe operar sobre ellos. Se pasa un mensaje al objeto y este mensaje provoca algún tipo de acción o respuesta significativa por parte del objeto. Esto ocurre sin que nos importe cómo realiza el objeto, interiormente, el trabajo.
 
@@ -96,7 +96,7 @@ Otros objetos pueden hacer una interpretación un poco diferente de *toUpperCase
 
 Cuando un objeto recibe un mensaje que no conoce, se produce un error. Por lo tanto, hay que conocer qué métodos son aceptables para un objeto, aunque no se necesita saber como están programados por dentro. Los métodos, recuerda, son como los diales del horno microondas: como usuario, tienes que saber qué diales existen y cómo usarlos, pero no cómo están construidos.
 
-### 8.1.3. Atributos
+### 10.1.3. Atributos
 
 Los **atributos** de un objeto definen las **características** del mismo. Por ejemplo, un atributo del temporizador del microondas debería ser el número de segundos que éste debe permanecer activo, y un atributo de un objeto de tipo String debe de ser el número de caracteres de que consta la cadena.
 
@@ -104,7 +104,7 @@ Al programador que usa un objeto deberían importarle un bledo los atributos del
 
 Es decir, los atributos raramente son accesibles desde el exterior del objeto, salvo que, por razones de diseño, el programador del objeto haya decidido lo contrario.
 
-### 8.1.4. Herencia
+### 10.1.4. Herencia
 
 En programación orientada a objetos, unas clases pueden **heredar** de otras.
 
@@ -118,13 +118,13 @@ Pero algunas de las subclases pueden necesitar atributos o métodos adicionales 
 
 Sin embargo, todas las subclases siguen siendo vehículos, y el código fuente que hayamos escrito para la clase *Vehículo* sigue siendo válido en cada una de ellas, sin necesidad de reescribirlo.
 
-## 8.2. Los objetos en Javascript
+## 10.2. Los objetos en Javascript
 
 Una vez comprendidos los conceptos básicos de programación orientada a objetos, vamos a ver cómo se utilizan en Javascript.
 
 Javascript ha hecho, históricamente, una interpretación un poco peculiar del paradigma de orientación a objetos. De hecho, se decía de él que no era un lenguaje orientado a objetos, sino orientado a prototipos. No importa demasiado lo que esto significa, al menos de momento. Afortunadamente, desde la versión EC6 del año 2015, Javascript admite definiciones de clases y objetos mucho más convencionales y respetuosas con el paradigma.
 
-### 8.2.1. Creación de objetos con Javascript
+### 10.2.1. Creación de objetos con Javascript
 
 En JavaScript, **crear un objeto individual** es tan sencillo como declarar una variable con esta sintaxis:
 
@@ -169,7 +169,7 @@ alert(book.title);
 
 El primer *alert()* mostrará "The Lord of the Rings" (exactamente igual que el método *getTitle()*), mientras que el segundo *alert()* mostrará "Harry Potter and the Philosopher's Stone", porque hemos accedido y modificado el atributo *title* del objeto *book*.
 
-### 8.2.2. El objeto "this"
+### 10.2.2. El objeto "this"
 
 Es posible que te haya llamado la atención la presencia de la palabra ***this*** en el objeto *book*.
 
@@ -197,7 +197,7 @@ En el objeto *book1* podíamos haber utilizado el identificador *book1* en lugar
 
 ¿Cuál es la ventaja, entonces, de usar *this*? Muy pronto aprenderemos a crear múltiples objetos a partir *del mismo código fuente*. En ese caso, ¿qué tendríamos que poner en el código fuente? Si escribimos *book1*, el código ya no funcionaría para *book2*, y si escribimos *book2*, no funcionaría para *book1*. En cambio, escribiendo *this*, el método *getTitle()* funciona con *book1*, con *book2* y con cualquier otro objeto que creemos a partir del mismo molde.
 
-### 8.2.3. Las clases en Javascript
+### 10.2.3. Las clases en Javascript
 
 *(**Nota importante**: como hemos dicho al principio, vamos a utilizar la sintaxis de Javascript EC6 y posterior. Si no sabes de qué estamos hablando, no te preocupes: solo tienes que mantener tu navegador web actualizado para asegurarte que entiende el Javascript moderno).*
 
@@ -246,7 +246,7 @@ Este código provocará la ejecución de tres *alerts* consecutivos, que nos mos
 
 (Nota: por convenio, el nombre de la clase suele escribirse con mayúscula inicial, mientras que el nombre de los atributos, métodos y objetos individuales se escribe empezando en minúsculas).
 
-### 8.2.4. Herencia en Javascript
+### 10.2.4. Herencia en Javascript
 
 *(Nuevamente, nos referiremos a cómo se maneja la herencia en las versiones recientes de Javascript (EC6 o posterior). ¡Asegúrate de tener tu navegador web actualizado!)*
 
@@ -350,7 +350,7 @@ person2.getSpeciality();  // NO FUNCIONA. person2 no es un Teacher
 person3.getSpeciality();  // Funciona
 ```
 
-### 8.2.5. El objeto "super"
+### 10.2.5. El objeto "super"
 
 En los constructores de las clases *Student* y *Teacher* del apartado anterior hemos usado la palabra ***super***. ¿Qué significa exactamente?
 
@@ -360,7 +360,7 @@ Por lo tanto, al escribir ```super(firstname, lastname, age)```, estamos **invoc
 
 Del mismo modo, si escribiéramos algo como ```super.getName()```, estaríamos invocando al método getName() de la clase madre, no de la clase actual. Esto, por supuesto, no es obligatorio, y solo lo haremos si realmente nuestro código lo necesita.
 
-### 8.2.6. Algunos aspectos avanzados
+### 10.2.6. Algunos aspectos avanzados
 
 Como ves, la programación orientada a objetos no es más que una manera particular de organizar el código fuente en clases que se ha revelado muy útil a la hora de minimizar el tiempo y el esfuerzo para construir y mantener proyectos grandes.
 
@@ -400,7 +400,7 @@ Como de momento solo estamos aprendiendo, aún no necesitamos profundizar en ell
 
    Si has llegado hasta aquí en esta explicación, puedes volver a leer la definición de polimorfismo y seguramente sí la entenderás.
 
-### 8.2.7. Objetos predefinidos de Javascript
+### 10.2.7. Objetos predefinidos de Javascript
 
 Ahora que ya conoces un poco sobre la programación orientada a objetos y cómo trabajar con ella en Javascript, puedo confesarte un secreto: *has estado utilizando objetos desde el primer momento en el que empezaste a trabajar con Javascript*.
 
@@ -423,7 +423,7 @@ Y así hay otro buen puñado de objetos predefinidos cuya existencia te conviene
 * **JSON**: para trabajar con datos complejos codificados como JSON, un formato de intercambio de información muy utilizado con Javascript y otros lenguajes.
 * **Error**: para manipular los errores de ejecución y obtener información sobre ellos. 
 
-## 8.3. Un ejemplo completo
+## 10.3. Un ejemplo completo
 
 Vamos a terminar esta pequeña introducción a la programación orientada a objetos mostrando un ejemplo completo desarrollado con Javascript.
 
