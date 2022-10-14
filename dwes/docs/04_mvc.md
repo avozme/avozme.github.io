@@ -920,6 +920,8 @@ En aplicaciones grandes suele haber varios controladores. Aquí, de momento, vam
 
 #### Modelo de libros (models/libro.php)
 
+El modelo de libros conserva la función *getAll()* porque, en este caso, no nos sirve el *getAll()* de *Model*. Este último solo nos devolvería los datos existentes en la tabla *Libros*, y nosotros necesitamos que *getAll()* nos devuelva también los autores, es decir, que haga un JOIN entre las tablas *Libros* y *Autores*.
+
 ```php
 <?php
 
@@ -1132,7 +1134,7 @@ if (count($listaLibros) == 0) {
 echo "<p><a href='index.php?action=formularioInsertarLibros'>Nuevo</a></p>";
 ```
 
-#### Plantilla para inserción/modificación de libros (views/libro/form.php)
+#### Vista para inserción/modificación de libros (views/libro/form.php)
 
 ```php
 <?php
@@ -1795,10 +1797,829 @@ Esta última versión de la biblioteca tiene estas características:
 * Arquitectura MVC
 * Modelo genérico y capa de abstracción
 * Controladores múltiples
-* Control de acceso
+* Control de acceso (login)
 * Capa de seguridad
 
-*El código fuente estará disponible próximamente.*
+Algunos de estos componentes los vamos a desarrollar de forma muy simple (como la capa de seguridad), pero de tal manera que sea posible mejorarlos en el futuro sin que afecte al resto de la aplicación.
+
+#### Controlador principal (index.php)
+
+El archivo *index.php* ya no contendrá el controlador único, sino el punto de entrada a la aplicación, encargado de decidir qué controlador debe instanciarse y qué método de ese controlador debe ejecutarse.
+
+Para eso, *index.php* debe recibir siempre dos variables por GET o POST: *controller* y *action*. La primera indicará el nombre del controlador y la segunda el nombre del método.
+
+```php
+<!-- BIBLIOTECA VERSIÓN 4 (Y ÚLTIMA)
+     Características de esta versión:
+       - Arquitectura MVC.
+       - Modelo genérico y capa de abstracción de datos.
+       - Controladores múltiples.
+       - Control de acceso
+       - Capa de seguridad
+-->
+<?php
+
+session_start();
+
+include_once "models/seguridad.php";
+
+// Hacemos include de todos los controladores
+foreach (glob("controllers/*.php") as $file) {
+    include $file;
+}
+
+// Miramos el valor de la variable "controller", si existe. Si no, le asignamos un controlador por defecto
+if (isset($_REQUEST["controller"])) {
+    $controller = $_REQUEST["controller"];
+} else {
+    $controller = "UsuariosController";  // Controlador por defecto
+}
+
+// Miramos el valor de la variable "action", si existe. Si no, le asignamos una acción por defecto
+if (isset($_REQUEST["action"])) {
+    $action = $_REQUEST["action"];
+} else {
+    $action = "formLogin";  // Acción por defecto
+}
+
+// Creamos un objeto de tipo $controller y llamamos al método $action()
+$biblio = new $controller();
+$biblio->$action();
+```
+
+#### Controlador de libros (controllers/libros_controller.php)
+
+Este controlador contiene todas las funciones que trabajan con los libros y que, en la versión 3 de la biblioteca, estaban en el controlador único.
+
+Observa cómo TODOS los datos de entrada que se recuperan mediante *$_REQUEST[]* son ahora filtrados a través de la capa de Seguridad para evitar inyecciones de SQL, de Javascript o de cualquier otro código malicioso.
+
+```php
+<?php
+
+// CONTROLADOR DE LIBROS
+include_once("models/libro.php");  // Modelos
+include_once("models/autor.php");
+include_once("view.php");
+
+class LibrosController
+{
+    private $db;             // Conexión con la base de datos
+    private $libro, $autor;  // Modelos
+
+    public function __construct()
+    {
+        $this->libro = new Libro();
+        $this->autor = new Autor();
+    }
+
+    // --------------------------------- MOSTRAR LISTA DE LIBROS ----------------------------------------
+    public function mostrarListaLibros()
+    {
+        if (Seguridad::haySesion()) {
+            $data["listaLibros"] = $this->libro->getAll();
+            View::render("libro/all", $data);
+        } else {
+            $data["error"] = "No tienes permiso para eso";
+            View::render("usuario/login", $data);
+        }
+    }
+
+    // --------------------------------- FORMULARIO ALTA DE LIBROS ----------------------------------------
+
+    public function formularioInsertarLibros()
+    {
+        if (Seguridad::haySesion()) {
+            $data["todosLosAutores"] = $this->autor->getAll();
+            $data["autoresLibro"] = array();  // Array vacío (el libro aún no tiene autores asignados)
+            View::render("libro/form", $data);
+        } else {
+            $data["error"] = "No tienes permiso para eso";
+            View::render("usuario/login", $data);
+        }
+    }
+
+    // --------------------------------- INSERTAR LIBROS ----------------------------------------
+
+    public function insertarLibro()
+    {
+        if (Seguridad::haySesion()) {
+            // Primero, recuperamos todos los datos del formulario
+            $titulo = Seguridad::limpiar($_REQUEST["titulo"]);
+            $genero = Seguridad::limpiar($_REQUEST["genero"]);
+            $pais = Seguridad::limpiar($_REQUEST["pais"]);
+            $ano = Seguridad::limpiar($_REQUEST["ano"]);
+            $numPaginas = Seguridad::limpiar($_REQUEST["numPaginas"]);
+            $autores = Seguridad::limpiar($_REQUEST["autor"]);
+
+            $result = $this->libro->insert($titulo, $genero, $pais, $ano, $numPaginas);
+            if ($result == 1) {
+                // Si la inserción del libro ha funcionado, continuamos insertando los autores, pero
+                // necesitamos conocer el id del libro que acabamos de insertar
+                $idLibro = $this->libro->getMaxId();
+                // Ya podemos insertar todos los autores junto con el libro en "escriben"
+                $result = $this->libro->insertAutores($idLibro, $autores);
+                if ($result > 0) {
+                    $data["info"] = "Libro insertado con éxito";
+                } else {
+                    $data["error"] = "Error al insertar los autores del libro";
+                }
+            } else {
+                // Si la inserción del libro ha fallado, mostramos mensaje de error
+                $data["error"] = "Error al insertar el libro";
+            }
+            $data["listaLibros"] = $this->libro->getAll();
+            View::render("libro/all", $data);
+        } else {
+            $data["error"] = "No tienes permiso para eso";
+            View::render("usuario/login", $data);
+        }
+    }
+
+    // --------------------------------- BORRAR LIBROS ----------------------------------------
+
+    public function borrarLibro()
+    {
+        if (Seguridad::haySesion()) {
+            // Recuperamos el id del libro que hay que borrar
+            $idLibro = Seguridad::limpiar($_REQUEST["idLibro"]);
+            // Pedimos al modelo que intente borrar el libro
+            $result = $this->libro->delete($idLibro);
+            // Comprobamos si el borrado ha tenido éxito
+            if ($result == 0) {
+                $data["error"] = "Ha ocurrido un error al borrar el libro. Por favor, inténtelo de nuevo";
+            } else {
+                $data["info"] = "Libro borrado con éxito";
+            }
+            $data["listaLibros"] = $this->libro->getAll();
+            View::render("libro/all", $data);
+        } else {
+            $data["error"] = "No tienes permiso para eso";
+            View::render("usuario/login", $data);
+        }
+    }
+
+    // --------------------------------- FORMULARIO MODIFICAR LIBROS ----------------------------------------
+
+    public function formularioModificarLibro()
+    {
+        if (Seguridad::haySesion()) {
+            // Recuperamos los datos del libro a modificar
+            $data["libro"] = $this->libro->get(Seguridad::limpiar($_REQUEST["idLibro"])[0]);
+            // Renderizamos la vista de inserción de libros, pero enviándole los datos del libro recuperado.
+            // Esa vista necesitará la lista de todos los autores y, además, la lista
+            // de los autores de este libro en concreto.
+            $data["todosLosAutores"] = $this->autor->getAll();
+            $data["autoresLibro"] = $this->autor->getAutores(Seguridad::limpiar($_REQUEST["idLibro"]));
+            View::render("libro/form", $data);
+        } else {
+            $data["error"] = "No tienes permiso para eso";
+            View::render("usuario/login", $data);
+        }
+    }
+
+    // --------------------------------- MODIFICAR LIBROS ----------------------------------------
+
+    public function modificarLibro()
+    {
+        if (Seguridad::haySesion()) {
+            // Primero, recuperamos todos los datos del formulario
+            $idLibro = Seguridad::limpiar($_REQUEST["idLibro"]);
+            $titulo = Seguridad::limpiar($_REQUEST["titulo"]);
+            $genero = Seguridad::limpiar($_REQUEST["genero"]);
+            $pais = Seguridad::limpiar($_REQUEST["pais"]);
+            $ano = Seguridad::limpiar($_REQUEST["ano"]);
+            $numPaginas = Seguridad::limpiar($_REQUEST["numPaginas"]);
+            $autores = Seguridad::limpiar($_REQUEST["autor"]);
+
+            // Pedimos al modelo que haga el update
+            $result = $this->libro->update($idLibro, $titulo, $genero, $pais, $ano, $numPaginas);
+            if ($result == 1) {
+                $data["info"] = "Libro actualizado con éxito";
+            } else {
+                // Si la modificación del libro ha fallado, mostramos mensaje de error
+                $data["error"] = "Ha ocurrido un error al modificar el libro. Por favor, inténtelo más tarde";
+            }
+            $data["listaLibros"] = $this->libro->getAll();
+            View::render("libro/all", $data);
+        } else {
+            $data["error"] = "No tienes permiso para eso";
+            View::render("usuario/login", $data);
+        }
+    }
+
+    // --------------------------------- BUSCAR LIBROS ----------------------------------------
+
+    public function buscarLibros()
+    {
+        if (Seguridad::haySesion()) {
+            // Recuperamos el texto de búsqueda de la variable de formulario
+            $textoBusqueda = Seguridad::limpiar($_REQUEST["textoBusqueda"]);
+            // Buscamos los libros que coinciden con la búsqueda
+            $data["listaLibros"] = $this->libro->search($textoBusqueda);
+            $data["info"] = "Resultados de la búsqueda: <i>$textoBusqueda</i>";
+            // Mostramos el resultado en la misma vista que la lista completa de libros
+            View::render("libro/all", $data);
+        } else {
+            $data["error"] = "No tienes permiso para eso";
+            View::render("usuario/login", $data);
+        }
+    }
+
+
+    // -------- LA APLICACIÓN CONTINUARÍA DESARROLLÁNDOSE AÑADIENDO FUNCIONES AQUÍ ------------------------
+
+} // class
+```
+
+#### Controlador de autores (controllers/autores_controller.php)
+
+Este controlador está casi vacío porque, como en las versiones anteriores, no hemos implementado el CRUD de autores para mantener el código lo más pequeño posible. Sin embargo, hacerlo sería muy fácil, puesto que sus métodos son los mismos, o muy semejantes, que los de *LibrosController*.
+
+```php
+<?php
+
+include_once("models/autor.php");
+include_once("view.php");
+
+class AutoresController {
+        // --------------------------------- MOSTRAR LISTA DE AUTORES ----------------------------------------
+        public function mostrarListaAutores() {
+            // Esto está sin desarrollar aún. De momento, llamaremos a una vista inexistente.
+            View::render("autor/all");
+        }   
+}
+```
+
+#### Controlador de usuarios (controllers/usuarios_controller.php)
+
+Este controlador es nuevo. Se introduce para poder crear el control de acceso (pantalla de login). Paralelamente, hemos debido crear una tabla de usuarios y un modelo de usuarios (cuyo código verás más abajo).
+
+Para este controlador no hemos implementado las funciones típicas de un CRUD (tales como *mostrarListaUsuarios()*, *insertarUsuario()*, etc), puesto que nuestra aplicación no hace nada de eso (aunque sería fácil añadirlas). En cambio, tenemos un método *formLogin()*, que muestra el formulario de login, y otro llamado *procesarLogin()* para recoger los datos de ese formulario y comprobar si el usuario y la contraseña son correctos.
+
+```php
+<?php
+
+include_once "models/usuario.php";
+include_once "models/libro.php";
+
+class UsuariosController {
+
+    private $usuario;
+
+    public function __construct() {
+        $this->usuario = new Usuario();
+    }
+
+    // Muestra el formulario de login
+    public function formLogin() {
+        View::render("usuario/login");
+    }
+
+    // Comprueba los datos de login. Si son correctos, el modelo iniciará la sesión y
+    // desde aquí se redirige a otra vista. Si no, nos devuelve al formulario de login.
+    public function procesarFormLogin() {
+        $email = Seguridad::limpiar($_REQUEST["email"]);
+        $passwd = Seguridad::limpiar($_REQUEST["password"]);
+        $result = $this->usuario->login($email, $passwd);
+        if ($result) { 
+            header("Location: index.php?controller=LibrosController&action=mostrarListaLibros");
+        } else {
+            $data["error"] = "Usuario o contraseña incorrectos";
+            View::render("usuario/login", $data);
+        }
+    }
+
+    // Cierra la sesión y nos lleva a la vista de login
+    public function cerrarSesion() {
+        $this->usuario->cerrarSesion();
+        $data["info"] = "Sesión cerrada con éxito";
+        View::render("usuario/login", $data);
+    }
+ 
+}
+```
+
+#### Capa de seguridad (models/seguridad.php)
+
+Hemos incluido esta clase entre los modelos, aunque, estrictamente hablando, no es un modelo convencional.
+
+Aglutina todos los métodos relativos a la seguridad, como la creación y destrucción de sesiones o el filtrado de datos de entrada.
+
+Hemos utilizado variables de sesión de PHP, que es la forma más simple de implementar sesiones. Recuerda que este método es inseguro. Lo bueno de mantener todos los métodos en una sola clase es que, si en algún momento queremos incrementar la seguridad de nuestra aplicación, bastará con modificar solo esta clase para lograrlo, y el resto de la aplicación ni se enterará.
+
+```php
+<?php
+
+// CAPA DE SEGURIDAD
+
+// Esta clase puede mejorarse indefinidamente para construir
+// aplicaciones más seguras. El resto de la aplicación no sufrirá ningún cambio.
+
+// En esta implementación, usaremos variables de sesión para la autenticación de usuarios
+// y limpieza de variables sencilla basada en una lista de palabras y caracteres prohibidos. 
+
+class Seguridad {
+
+    // Abre una sesión y guarda el id del usuario
+    public static function iniciarSesion($id) {
+        $_SESSION["idUsuario"] = $id;
+    }
+
+    // Cierra una sesión y elimina el id del usuario
+    public static function cerrarSesion() {
+        session_destroy();
+    }
+
+    // Devuelve el id del usuario que inició la sesión
+    public static function getIdUsuario() {
+        if (isset($_SESSION["idUsuario"])) {
+            return $_SESSION["idUsuario"];
+        } else {
+            return false;
+        }
+    }
+
+    // Devuelve true si hay una sesión iniciada y false en caso contrario
+    public static function haySesion() {
+        if (isset($_SESSION["idUsuario"])) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    // Limpia un texto de caracteres o palabras sospechosas. Devuelve el texto limpio.
+    public static function limpiar($text) {
+        // Lista de palabras y caracteres prohibidos
+        $blackList = ["<", ">", "insert", "update", "delete", "select", "*", "from"];
+        foreach ($blackList as $blackWord) {
+            $text = str_replace($blackWord, "", $text);
+        }
+        return $text;
+    }
+}
+```
+
+#### Modelo de libros (models/libro.php)
+
+El modelo de libros no ha sufrido ninguna variación con respecto a la versión 3.
+
+```php
+<?php
+
+// MODELO DE LIBROS
+
+include_once "model.php";
+
+class Libro extends Model
+{
+
+    // Constructor. Especifica el nombre de la tabla de la base de datos
+    public function __construct()
+    {
+        $this->table = "libros";
+        $this->idColumn = "idLibro";
+        parent::__construct();
+    }
+
+    // Devuelve el último id asignado en la tabla de libros
+    public function getMaxId()
+    {
+        $result = $this->db->dataQuery("SELECT MAX(idLibro) AS ultimoIdLibro FROM libros");
+        return $result[0]->ultimoIdLibro;
+    }
+
+    // Inserta un libro. Devuelve 1 si tiene éxito o 0 si falla.
+    public function insert($titulo, $genero, $pais, $ano, $numPaginas)
+    {
+        return $this->db->dataManipulation("INSERT INTO libros (titulo,genero,pais,ano,numPaginas) VALUES ('$titulo','$genero', '$pais', '$ano', '$numPaginas')");
+    }
+
+    // Inserta los autores de un libro. Recibe el id del libro y la lista de ids de los autores en forma de array.
+    // Devuelve el número de autores insertados con éxito (0 en caso de fallo).
+    public function insertAutores($idLibro, $autores)
+    {
+        $correctos = 0;
+        foreach ($autores as $idAutor) {
+            $correctos += $this->db->dataManipulation("INSERT INTO escriben(idLibro, idPersona) VALUES('$idLibro', '$idAutor')");
+        }
+        return $correctos;
+    }
+
+    // Actualiza un libro (todo menos sus autores). Devuelve 1 si tiene éxito y 0 en caso de fallo.
+    public function update($idLibro, $titulo, $genero, $pais, $ano, $numPaginas)
+    {
+        $ok = $this->db->query("UPDATE libros SET
+                                titulo = '$titulo',
+                                genero = '$genero',
+                                pais = '$pais',
+                                ano = '$ano',
+                                numPaginas = '$numPaginas'
+                                WHERE idLibro = '$idLibro'");
+        return $ok;
+    }
+
+    // Busca un texto en las tablas de libros y autores. Devuelve un array de objetos con todos los libros
+    // que cumplen el criterio de búsqueda.
+    public function search($textoBusqueda)
+    {
+        // Buscamos los libros de la biblioteca que coincidan con el texto de búsqueda
+        $result = $this->db->dataQuery("SELECT * FROM libros
+					                    INNER JOIN escriben ON libros.idLibro = escriben.idLibro
+					                    INNER JOIN personas ON escriben.idPersona = personas.idPersona
+					                    WHERE libros.titulo LIKE '%$textoBusqueda%'
+					                    OR libros.genero LIKE '%$textoBusqueda%'
+					                    OR personas.nombre LIKE '%$textoBusqueda%'
+					                    OR personas.apellido LIKE '%$textoBusqueda%'
+					                    ORDER BY libros.titulo");
+        return $result;
+    }
+}
+```
+
+#### Modelo de personas (models/persona.php)
+
+El modelo de personas también es el mismo que en la versión 3. Recuerda que este modelo está incompleto porque no incluye el CRUD de la tabla de *personas*, que hemos preferido no implementar para mantener la aplicación razonablemente pequeña. Sería muy fácil añadir esas funciones porque son muy parecidas a las del modelo de libros.
+
+```php
+<?php
+
+// MODELO DE PERSONAS
+
+include_once "model.php";
+
+class Persona extends Model {
+
+    // Constructor. Conecta con la base de datos.
+    public function __construct() {
+        $this->table = "personas";
+        $this->idColumn = "idPersona";
+        parent::__construct();
+    }
+
+    // Devuelve un array con los ids de los autores de un libro
+    public function getAutores($idLibro) {
+        // Obtenemos solo los autores del libro que estamos buscando
+        $autoresLibro = $this->db->dataQuery("SELECT idPersona FROM escriben WHERE idLibro = '$idLibro'");
+        // Vamos a convertir esa lista de autores del libro en un array de ids de personas
+        return $autoresLibro;
+    }
+}
+```
+
+#### Modelo de usuarios (models/usuario.php)
+
+Este modelo es nuevo. Lo hemos introducido para manejar la tabla de usuarios. Recuerda que no hemos hecho un CRUD de *usuarios* (aunque sería fácil programarlo), sino que nos hemos limitado a usar esta tabla para hacer el login.
+
+Observa cómo el método *login* hace uso de la capa de seguridad para iniciar la sesión si la consulta a la base de datos tiene éxito. Ni el modelo ni ninguna otra parte de la aplicación saben cómo se inician realmente las sesiones: eso es tarea de la clase *Seguridad*.
+
+```php
+<?php
+
+// MODELO DE USUARIOS
+
+include_once "model.php";
+
+class Usuario extends Model
+{
+
+    // Constructor. Especifica el nombre de la tabla de la base de datos
+    public function __construct()
+    {
+        $this->table = "usuarios";
+        $this->idColumn = "id";
+        parent::__construct();
+    }
+
+    // Comprueba si $email y $passwd corresponden a un usuario registrado. Si es así, inicia usa sesión creando
+    // una variable de sesión y devuelve true. Si no, de vuelve false.
+    public function login($email, $passwd) {
+        $result = $this->db->dataQuery("SELECT * FROM usuarios WHERE email='$email' AND password='$passwd'");
+        if (count($result) == 1) {
+            Seguridad::iniciarSesion($result[0]->id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Cierra una sesión (destruye variables de sesión)
+    public function cerrarSesion() {
+        Seguridad::cerrarSesion();
+    }
+}
+```
+
+#### Modelo genérico (models/model.php)
+
+El modelo genérico del cual heredan los demás modelos (excepto *Seguridad*) no ha cambiado con respecto a la versión 3. Recuerda que podríamos intentar añadirle más métodos genéricos para insertar y modificar registros de cualquier tabla.
+
+```php
+<?php
+
+include_once "db.php";
+
+// MODELO GENÉRICO
+
+class Model {
+
+  protected $table;    // Aquí guardaremos el nombre de la tabla a la que estamos accediendo
+  protected $idColumn; // Aquí guardaremos el nombre de la columna que contiene el id (por defecto, "id")
+  protected $db;       // Y aquí la capa de abstracción de datos
+
+  public function __construct()  {
+    $this->db = new Db();
+  }
+
+  public function getAll() {
+    $list = $this->db->dataQuery("SELECT * FROM ".$this->table);
+    return $list;
+  }
+
+  public function get($id) {
+    $record = $this->db->dataQuery("SELECT * FROM ".$this->table." WHERE ".$this->idColumn."= $id");
+    return $record;
+  } 
+
+  public function delete($id) {
+    $result = $this->db->dataManipulation("DELETE FROM ".$this->table." WHERE ".$this->idColumn." = $id");
+    return $result;
+  }
+}
+```
+
+#### Capa de abstracción de datos (db.php)
+
+La capa de abstracción de datos, que independiza el resto de la aplicación de la base de datos, tampoco ha cambiado desde la versión 3.
+
+Esta capa de abstracción funciona con MySQL y MariaDB. Para otras bases de datos, habría que cambiar esta clase, pero el resto de la aplicación seguiría funcionando sin enterarse del cambio.
+
+```php
+<?php
+
+// CAPA DE ABSTRACCIÓN DE DATOS
+
+class Db
+{
+
+  private $db; // Aquí guardaremos la conexión con la base de datos
+
+  /**
+   * Abre la conexión con la base de datos
+   * @return 0 si la conexión se realiza con normalidad y -1 en caso de error
+   */
+  function __construct()
+  {
+    // Las constantes DBSERVER, DBUSER, DBPASS y DBNAME deben estar definidas en config.php
+    require_once("config.php");
+    $this->db = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
+    if ($this->db->connect_errno) return -1;
+    else return 0;
+  }
+
+  /**
+   * Cierra la conexión con la base de datos
+   */
+  function close()
+  {
+    if ($this->db) $this->db->close();
+  }
+
+  /**
+   * Lanza una consulta (SELECT) contra la base de datos.
+   * ¡Ojo! Este método solo funcionará con sentencias SELECT.
+   * @param $sql El código de la consulta que se quiere lanzar
+   * @return Un array bidimensional con los resultados de la consulta (estará vacío si la consulta no devolvió nada)
+   */
+  function dataQuery($sql)
+  {
+    $res = $this->db->query($sql);
+    // Ahora vamos a convertir el resultado en un array convencional de PHP antes de devolverlo
+    $resArray = array();
+    while ($fila = $res->fetch_object()) {
+      $resArray[] = $fila;
+    }
+    return $resArray;
+  }
+
+  /**
+   * Lanza una sentencia de manipulación de datos contra la base de datos.
+   * ¡Ojo! Este método solo funcionará con sentencias INSERT, UPDATE, DELETE y similares.
+   * @param $sql El código de la consulta que se quiere lanzar
+   * @return El número de filas insertadas, modificadas o borradas por la sentencia SQL (0 si no produjo ningún efecto).
+   */
+  function dataManipulation($sql)
+  {
+    $this->db->query($sql);
+    return $this->db->affected_rows;
+  }
+}
+```
+
+#### Archivo de configuración (config.php)
+
+Este archivo solo define las constantes DBHOST, DBUSER, DBPASS y DBNAME para la conexión con la base de datos. Así, cuando haya que cambiarlas, solo hay que tocar este archivo (esto debería especificarse en el manual de instalación de la aplicación).
+
+```php
+<?php
+define('DBHOST', 'mi-servidor');        // Nombre del servidor de bases de datos 
+define('DBUSER', 'mi-usuario');         // Usuario para ese servidor
+define('DBPASS', 'mi-contraseña');      // Contraseña para ese servidor
+define('DBNAME', 'mi-base-de-datos');   // Nombre de la base de datos
+```
+
+#### Plantilla de las vistas (view.php)
+
+La plantilla de vistas y las vistas no han cambiado con respecto a la versión anterior, excepto la vista *nav.php*, que ahora muestra la opción "Cerrar sesión" solo si hay una sesión abierta. Observa cómo se hace porque es una construcción bastante habitual en las vistas.
+
+También es nueva la vista *login.php* para el formulario de login que mostramos un poco más abajo.
+
+```php
+<?php
+
+// PLANTILLA DE LAS VISTAS
+
+class View {
+    public static function render($nombreVista, $data = null) {
+        include("views/header.php");
+        include("views/nav.php");
+        include("views/$nombreVista.php");
+        include("views/footer.php");
+    }
+}
+```
+
+#### Vista "lista de libros" (views/libro/all.php)
+
+```php
+<?php
+// VISTA PARA LA LISTA DE LIBROS
+
+// Recuperamos la lista de libros
+$listaLibros = $data["listaLibros"];
+
+// Si hay algún mensaje de feedback, lo mostramos
+if (isset($data["info"])) {
+  echo "<div style='color:blue'>".$data["info"]."</div>";
+}
+
+if (isset($data["error"])) {
+  echo "<div style='color:red'>".$data["error"]."</div>";
+}
+
+echo "<form action='index.php'>
+        <input type='hidden' name='action' value='buscarLibros'>
+        <input type='text' name='textoBusqueda'>
+        <input type='submit' value='Buscar'>
+      </form><br>";
+
+// Ahora, la tabla con los datos de los libros
+if (count($listaLibros) == 0) {
+  echo "No hay datos";
+} else {
+  echo "<table border ='1'>";
+  foreach ($listaLibros as $fila) {
+    echo "<tr>";
+    echo "<td>" . $fila->titulo . "</td>";
+    echo "<td>" . $fila->genero . "</td>";
+    echo "<td>" . $fila->numPaginas . "</td>";
+    echo "<td>" . $fila->nombre . "</td>";
+    echo "<td>" . $fila->apellido . "</td>";
+    echo "<td><a href='index.php?action=formularioModificarLibro&idLibro=" . $fila->idLibro . "'>Modificar</a></td>";
+    echo "<td><a href='index.php?action=borrarLibro&idLibro=" . $fila->idLibro . "'>Borrar</a></td>";
+    echo "</tr>";
+  }
+  echo "</table>";
+}
+echo "<p><a href='index.php?action=formularioInsertarLibros'>Nuevo</a></p>";
+```
+
+#### Vista para inserción/modificación de libros (views/libro/form.php)
+
+```php
+<?php
+// VISTA PARA INSERCIÓN/EDICIÓN DE LIBROS
+
+extract($data);   // Extrae el contenido de $data y lo convierte en variables individuales ($libro, $todosLosAutores y $autoresLibro)
+
+// Vamos a usar la misma vista para insertar y modificar. Para saber si hacemos una cosa u otra,
+// usaremos la variable $libro: si existe, es porque estamos modificando un libro. Si no, estamos insertando uno nuevo.
+if (isset($libro)) {   
+    echo "<h1>Modificación de libros</h1>";
+} else {
+    echo "<h1>Inserción de libros</h1>";
+}
+
+// Sacamos los datos del libro (si existe) a variables individuales para mostrarlo en los inputs del formulario.
+// (Si no hay libro, dejamos los campos en blanco y el formulario servirá para inserción).
+$idLibro = $libro->idLibro ?? ""; 
+$titulo = $libro->titulo ?? "";
+$genero = $libro->genero ?? "";
+$pais = $libro->pais ?? "";
+$ano = $libro->ano ?? "";
+$numPags = $libro->numPaginas ?? "";
+
+// Creamos el formulario con los campos del libro
+echo "<form action = 'index.php' method = 'get'>
+        <input type='hidden' name='idLibro' value='".$idLibro."'>
+        Título:<input type='text' name='titulo' value='".$titulo."'><br>
+        Género:<input type='text' name='genero' value='".$genero."'><br>
+        País:<input type='text' name='pais' value='".$pais."'><br>
+        Año:<input type='text' name='ano' value='".$ano."'><br>
+        Número de páginas:<input type='text' name='numPaginas' value='".$numPags."'><br>";
+
+echo "Autores: <select name='autor[]' multiple size='3'>";
+foreach ($todosLosAutores as $fila) {
+    if (in_array($fila->idPersona, $autoresLibro))
+        echo "<option value='$fila->idPersona' selected>$fila->nombre $fila->apellido</option>";
+    else
+        echo "<option value='$fila->idPersona'>$fila->nombre $fila->apellido</option>";
+}
+echo "</select>";
+
+// Finalizamos el formulario
+if (isset($libro)) {
+    echo "  <input type='hidden' name='action' value='modificarLibro'>";
+} else {
+    echo "  <input type='hidden' name='action' value='insertarLibro'>";
+}
+echo "	<input type='submit'></form>";
+echo "<p><a href='index.php'>Volver</a></p>";
+```
+
+#### Vista para el formulario de login (views/usuario/login.php)
+
+Esta vista es nueva. Se trata de un simple formulario con un par de mensajes optativos de información al usuario.
+
+```php
+<h1>Control de acceso</h1>
+
+<?php
+if (isset($data["error"])) {
+    echo "<div style='color: red'>".$data["error"]."</div>";
+}
+if (isset($data["info"])) {
+    echo "<div style='color: blue'>".$data["info"]."</div>";
+}
+?>
+
+<form action="index.php" method="get">
+    Email: <input type='text' name='email'><br/>
+    Password: <input type='password' name='password'><br/>
+    <input type='hidden' name='action' value='procesarFormLogin'>
+    <input type='hidden' name='controller' value='UsuariosController'>
+    <button type='submit'>Enviar</button>
+</form>
+```
+
+#### Componentes de la plantilla: cabecera, menú de navegación y pie
+
+Aquí te ofrezco unas versiones mínimas de estos componentes que aparecerán en todas las vistas. Obviamente, puedes mejorar el aspecto de tu aplicación retocándolos a tu gusto.
+
+**views/header.php**
+
+```php
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <h1>BIBLIOTECA</h1>
+```
+
+**views/nav.php**
+
+Esta plantilla la hemos modificado ligeramente con respecto a la versión 3, añadiendo un enlace para cerrar la sesión que solo se verá si hay una sesión iniciada. Para ello, la vista debe recurrir a la clase *Seguridad*.
+
+Fíjate en como se hace porque es una construcción habitual en ciertas vistas.
+
+```php
+<hr/>
+<nav>
+    Menú de navegación: 
+    <a href='index.php'>Home</a>
+    <a href='index.php?controller=LibrosController&action=mostrarListaLibros'>Libros</a>
+    <a href='index.php?controller=AutoresController&action=mostrarListaAutores'>Autores</a>
+    <?php
+        if (Seguridad::haySesion()) {
+            echo "<a href='index.php?controller=UsuariosController&action=cerrarSesion'>Cerrar sesión</a>";
+        }
+    ?>
+</nav>
+<hr/>
+```
+
+**views/footer.php**
+
+```php
+<h5>Este es el pie de página</h5>
+<h5>&copy; 2022 Yo mismo</h5>
+</body>
+</html>
+```
 
 ## 4.6. Ejercicios propuestos
 
