@@ -1,13 +1,13 @@
 ---
 layout: page
-title: 9. El lenguaje C\/C++
+title: 9. El lenguaje C
 permalink: /lenguaje-c/
 nav_order: 9
 has_children: true
 parent: Introd. a la prog. y al diseño 3D
 ---
 
-# 9. El lenguaje C/C++
+# 9. El lenguaje C
 {: .no_toc }
 
 - TOC
@@ -210,15 +210,13 @@ El tándem C - Unix ha sido una referencia fundamental en el mundo de la program
 
 El primer estándar de C (ANSI C) no apareció hasta 1990, por lo que es posible encontrar diferentes dialectos de C ligeramente incompatibles entre sí.
 
-XXX
-
 Una evolución de C fue el lenguaje C++ que, a parte de todas las características del ANSI C, incluye la posibilidad de orientación a objetos, una técnica de programación ligeramente diferente de la programación estructurada. Algo más tarde, en el año 2000, Microsoft patentó el lenguaje C#, otra evolución de C++ orientada al desarrollo de aplicaciones en red para la plataforma .NET de esta compañía.
 
 Otros lenguajes han sido diseñados para permitir que los no programadores puedan leer y comprender los programas y, presumiblemente, aprender a escribir los suyos propios para resolver problemas sencillos. Por el contrario, C fue creado, influenciado y probado en vivo por programadores profesionales. El resultado es que C da al programador lo que muchos programadores piden: unas pocas y bien escogidas palabras clave, una biblioteca poderosa y estandarizada, unas mínimas restricciones y un máximo control sobre lo que sucede en el interior de la máquina.
 
 Si a esto unimos que el código objeto generado por C es casi tan eficiente como el ensamblador, se entenderá por qué lleva medio siglo siendo uno de los lenguajes más populares entre los programadores profesionales.
 
-Ahora bien, C también tiene sus detractores que lo acusan de ser confuso, críptico y demasiado flexible. En efecto, con C se pueden desarrollar las técnicas de programación estructurada, pero también se puede programar "código espagueti". Esto, sin embargo, ocurre con todos los lenguajes: incluso los que tienen una sintaxis más estilizada y elegante, como Python o Ruby, pueden generar código absolutamente ininteligible en manos de un programador manazas.
+C también tiene sus detractores que lo acusan de ser confuso, críptico y demasiado flexible. En efecto, con C se pueden desarrollar las técnicas de programación estructurada, pero también se puede programar "código espagueti". Esto, sin embargo, ocurre con todos los lenguajes: incluso los que tienen una sintaxis más estilizada y elegante, como Python o Ruby, pueden generar código absolutamente ininteligible en manos de un programador manazas.
 
 ### 9.2.3. Sintaxis básica de C
 
@@ -230,16 +228,16 @@ Hay algunas normas básicas de la sintaxis de C que tienes que conocer:
 
 * **Los bloques de código se marcan con las llaves** ( **{** y **}** ). Por ejemplo, después de una sentencia *while* (equivalente al *mientras* de pseudocódigo) hay que abrir una llave. El cuerpo de bucle comprenderá desde esa llave de apertura hasta la siguiente llave de cierre, así:
 
-   ```c
+```c
    while (condicion) {
       Instrucción 1 del bucle
       Instrucción 2 del bulce
       ...
       Instrucción N del bucle
    }
-   ```
+```
 
-   La llave de cierre, por tanto, sería el equivalente al *FinMientras* de pseudocódigo.
+La llave de cierre, por tanto, sería el equivalente al *FinMientras* de pseudocódigo.
 
 * Todas las instrucciones **terminan con un punto y coma** ( **;** ). Excepción: si una instrucción contiene un bloque marcado con llaves ( { ... } ), se considera que esa instrucción termina al cerrar el bloque, y en ese caso no hace falta poner punto y coma.
 
@@ -397,15 +395,13 @@ Hay algunas otras diferencias, desde luego, pero con esto ya tienes para hacer u
 
 Las **estructuras de control** en C son muy similares a las que hemos utilizado en pseudocódigo, cambiando ligeramente la notación empleada. 
 
-XXX
-
 A continuación te muestro una tabla con las más habituales y su equivalente en pseudocódigo, sin entrar en explicaciones, porque supondremos que ya sabes manejarlas. Si no recuerdas para qué servía alguna de ellas, quizá sería buena idea que le dieras un repaso al capítulo dedicado al pseudocódigo.
 
 <table>
     <tr>
       <th>Instrucción</th>
       <th>Pseudocódigo</th>
-      <th>Javascript</th>
+      <th>Lenguaje C</th>
     </tr>
     <tr>
       <td>Condicional simple</td>
@@ -504,6 +500,7 @@ Fíjate en que casi todo se escribe del mismo modo que en pseudocódigo con un p
 * **DIFERENCIA 1: En el bucle tipo *repetir***, la condición de salida se expresa al revés ("repetir mientras.." en lugar de "repetir hasta que...". Lo verás mejor en este ejemplo que muestra los números del 1 al 100. Observa la condición del final del bucle:
 
    En pseudocódigo:
+
    ```
    i <- 1
    Repetir
@@ -512,11 +509,12 @@ Fíjate en que casi todo se escribe del mismo modo que en pseudocódigo con un p
    Hasta que i >= 100
    ```
 
-   En Javascript:
-   ```javascript
+   En C:
+
+   ```c
    i = 1;
    do {
-      document.write(i);
+      printf("%i", i);
       i++;
    }
    while (i < 100);
@@ -525,425 +523,1338 @@ Fíjate en que casi todo se escribe del mismo modo que en pseudocódigo con un p
 * **DIFERENCIA 2: En el bucle tipo *para*** hay que indicar la asignación a la variable que controla el bucle, la condición de salida y la forma en la que esa variable cambiará en cada iteración. Observa este ejemplo:
 
    En pseudocódigo:
+
    ```
    Para i <- 1 hasta 10 hacer
       Escribir i
    FinPara
    ```
 
-   En Javascript:
-   ```javascript
-   for (i = 1; i <= 10; i = i + 1)
-      document.write(i);
+   En C:
+
+   ```c
+   for (i = 1; i <= 10; i = i + 1) {
+      printf("%i", i);
    }
    ```
 
    Si el **paso** del bucle no es +1 (es decir, si la variable que controla el bucle no incrementa su valor de 1 en 1 en cada iteración), hay que indicarlo de este modo:
 
    En pseudocódigo:
+
    ```
    Para i <- 1 hasta 10 con paso 2 hacer
       Escribir i
    FinPara
    ```
 
-   En Javascript:
-   ```javascript
-   for (i = 1; i <= 10; i = i + 2)
-      document.write(i);
+   En C:
+
+   ```c
+   for (i = 1; i <= 10; i = i + 2) {
+      printf("%i", i);
    }
    ```
 
-   Por último, recuerda que en Javascript existe una abreviatura para ```i = i + 1```, que se escribe ```i++```, por lo que lo más habitual es encontrar los bucles de tipo *para* escritos así:
+   Por último, recuerda que en C existe una abreviatura para ```i = i + 1```, que se escribe ```i++```, por lo que lo más habitual es encontrar los bucles de tipo *para* escritos así:
 
-   ```javascript
-   for (i = 1; i <=10; i++)
-      document.write(i);
+   ```c
+   for (i = 1; i <=10; i++) {
+      printf("%i", i);
    }
    ```   
 
 ### 9.2.8. Algoritmo principal y Subalgoritmos
 
-XXX hablar aquí de main()
+C es un **lenguaje modular** hasta el extremo de que todas las líneas de código deben pertenecer a alguna función, incluyendo las instrucciones del algoritmo principal, que se escriben en una función llamada *principal* (***main*** en inglés)
 
-#### Las funciones de Javascript
+#### La función *main()*
 
-Javascript es un lenguaje **modular**, es decir, permite la escritura de subalgoritmos.
+La **función *main()*** contiene el algoritmo o módulo principal del programa. La ejecución de un programa siempre empieza por la primera línea de la función *main()*.
 
-Todos los subalgoritmos en Javascript se llaman **funciones**, independientemente de si devuelven algo o no.
+Esta función, como todas las funciones de C, puede devolver un valor. El valor devuelto por *main()* debe ser de tipo entero (*int*). Esto se utiliza para pasar algún valor al programa que haya llamado al nuestro, que suele ser el sistema operativo. Si *main()* no devuelve un número entero al sistema operativo mediante una sentencia return, entonces nuestro programa devolverá un número desconocido. 
 
-Esta es la forma de declarar una función:
+(Moraleja: es una buena idea incluir un *return* al final de la función *main()*. Generalmente, la devolución de un 0 indica al sistema operativo que el programa a finalizado sin problemas, mientras que cualquier otro valor señala que se ha producido algún error).
 
-```javascript
-function nombre_funcion(parámetros) {
-   Instrucciones de la función;
+Por lo tanto, la forma habitual de la función *main()* será:
+
+```c
+int main(void)
+{
+   ...instrucciones del algoritmo principal...
+   return 0;
+}
+```
+
+Observa que *main()* no tiene argumentos, por lo que aparece el identificador *void* entre paréntesis en la declaración. También se pueden utilizar argumentos en *main()*, pero eso es algo que no trataremos de momento.
+
+#### Las funciones en C
+
+La declaración de funciones se hace de forma similar a la empleada en pseudocódigo:
+
+```c
+tipo_devuelto nombre_función (parámetros_formales)
+{
+   ...instrucciones...
    return expresión;
 }
 ```
 
-El **return** es optativo. Una función de Javascript puede no tener **return** y, por lo tanto, ser en la práctica un procedimiento (aunque se siga declarando con la palabra *function*).
+Observa que las únicas diferencias con el pseudocódigo son que no se usa la palabra "función", que las llaves { y } sustituyen a *inicio* y *fin*, y que se emplea la palabra *return* en lugar de devolver.
 
-Los **parámetros** también son optativos, claro: puede haber funciones sin ningún parámetro y funciones con decenas de ellos (aunque esto último no sea demasiado recomendable).
+Si el tipo_devuelto es *void*, se considera que la función no devuelve ningún valor y que, por lo tanto, es un procedimiento. Entonces, un procedimiento en C se declara así:
 
-La **invocación** de la función se hace como en pseudocódigo: poniendo el nombre de la función y su lista de parámetros (si los tiene).
+```c
+void nombre_procedimiento (parámetros_formales)
+{
+   ...instrucciones...
+}
+```
+
+#### Paso de parámetros
+
+Los parámetros formales son, como en pseudocódigo, una lista de tipos e identificadores que se sustituirán por los parámetros actuales y se usarán como variables dentro de la función.
+
+Los parámetros se pasan normalmente **por valor**, pero también se pueden pasar por referencia. El paso de parámetros por referencia admite dos sitaxis ligeramente diferentes en C: anteponiendo el **operador \*** (asterisco) al nombre del parámetro (equivalente a usar la expresión *por referencia* en pseudocódigo) o anteponiendo el **operador &**. 
+
+**Paso de parámetros por valor**
+
+Por ejemplo, en esta función el paso de parámetros es por valor:
+
+```c
+int funcion1 (int x, int y)
+{
+   ...código de la función
+}
+```
+
+Esto quiere decir que *funcion1()* recibirá únicamente el valor de los dos parámetros, x e y. Podrá utilizar esos valores a lo largo de su código, e incluso podrá cambiarlos. Pero cualquier cambio en x e y no afectará a los parámetros actuales, es decir, a los parámetros del programa que llamó a *funcion1()*.
+
+**Paso de parámetros por referencia con el operador \***
+
+En la siguiente función, el paso del parámetro "x" es por valor y el del parámetro "y", por referencia:
+
+```c
+int funcion2 (int x, int *y)
+{
+   ...código de la función
+}
+```
+
+En este caso, cada vez que se vaya a usar el parámetro "y" dentro del código de la función, será necesario acompañarlo del asterisco. Por ejemplo:
+
+```c
+*y = 5;
+x = 17 + *y;
+```
+
+(Hay algunas excepciones a esta regla, pero ahora no vienen a cuento).
+
+En la llamada a la función hay que indicar explícitamente qué parámetro se está pasando por referencia utilizando el operador &. Por lo tanto, para llamar a *funcion2()* con los parámetros a y b habrá que escribir:
+
+```c
+resultado = funcion2 (a, &b);
+```
+
+Observa que el segundo parámetro (el que se pasa por referencia), lleva delante el operador &.
+
+Si dentro de la función se cambia el valor de y, también cambiará el valor de b fuera de la función, ya que ambas variables han quedado ligadas por el paso por referencia. En cambio, las variables x y a son independientes. (Si todo esto te suena a chino, repásate el apartado dedicado al paso de parámetros en el tema de introducción a la programación en pseudocódigo, donde se explicaba con más detalle).
+
+**Paso de parámetros por referencia con el operador &**
+
+Otra forma de pasar un parámetro por referencia es usar el operador & en los parámetros formales, así:
+
+```c
+int funcion3 (int x, int &y)
+{
+   ...código de la función
+}
+```
+
+En esta función, el parámetro x se pasa por valor y el parámetro y se pasa por referencia. Utilizando esta sintaxis no es necesario añadir asteriscos cada vez que se usa la y en el cuerpo de la función, ni tampoco usar “&” en la llamada a la función.
+
+Esta tercera forma de paso por referencia no es estándar en C, sino que es propia de C++, por lo que evitaremos utilizarla de momento.
+
+#### Juntándolo todo en un ejemplo
+
+En el siguiente ejemplo se ilustran los dos tipos de paso de parámetros y, en el paso por referencia, las dos sintaxis alternativas de que dispone C.
+
+El ejemplo muestra tres funciones muy similares que reciben dos parámetros, a y b. Las tres intentan intercambiar el valor de a y b mediante una tercera variable llamada tmp. Sin embargo, en la primera de ellas el intercambio no tiene ningún efecto en el programa *main()*, ya que los parámetros están pasados por valor. En las otras dos funciones sí que se consigue el intercambio, ya que los parámetros está pasados por referencia.
+
+No te preocupes si no entiendes toda la sintaxis de este ejemplo. Lo interesante ahora es que veas cuál es la forma correcta de escribir cada tipo de paso de parámetros.
+
+
+```c
+#include <stdio.h>
+
+// Paso de parámetros por valor.
+// En este ejemplo, esta función no tendrá el efecto deseado, porque las variables
+// del programa principal no se verán afectadas.
+void intercambiar1(int a, int b)
+{
+     int tmp = a;
+     a = b;
+     b = tmp;
+}
+
+// Paso de parámetros por referencia, sintaxis 1.
+// Esta función sí que consigue intercambiar los valores de las variables
+// del programa principal.
+void intercambiar2(int *a, int *b)
+{
+     int tmp = *a;
+     *a = *b;
+     *b = tmp;
+}
+
+// Paso de parámetros por referencia, sintaxis 2.
+// Esta función también consigue su objetivo. A todos los efectos,
+// es idéntica a la función anterior.
+void intercambiar3(int &a, int &b)
+{
+     int tmp = a;
+     a = b;
+     b = tmp;
+}
+
+
+// Programa principal
+int main()
+{
+    int dato1 = 30, dato2 = 90;
+    
+    printf("Antes de la llamada a las funcioens: dato1 = %i, dato2 = %i\n", dato1, dato2);
+    intercambiar1(dato1, dato2);
+    printf("Después de intercambiar1: dato1 = %i, dato2 = %i\n", dato1, dato2);
+    intercambiar2(&dato1, &dato2);
+    printf("Después de intercambiar2: dato1 = %i, dato2 = %i\n", dato1, dato2);
+    intercambiar3(dato1, dato2);
+    printf("Después de intercambiar3: dato1 = %i, dato2 = %i\n", dato1, dato2);
+    
+    return 0;
+}
+```
+
+#### Prototipos de funciones
+
+En C no es necesario escribir las funciones (subalgoritmos) antes de su primera invocación. El mecanismo de compilación y enlace de C permite, de hecho, que las funciones puedan estar físicamente en un archivo distinto del lugar desde el que se invocan.
+
+En la práctica, esto plantea un problema: C no tiene forma de saber si la llamada a una función se hace correctamente, es decir, si se le pasan los argumentos debidos y con el tipo correcto, ni si el resutado devuelto es asignado a una variable del tipo adecuado.
+
+Para conseguir que C realice esas comprobaciones durante la compilación se utilizan los **prototipos de función**. Un prototipo de función es, simplemente, *la declaración de una función*. Es decir, la primera línea del código la función.
+
+El prototipo debe aparecer antes de que la función se invoque por primera vez, aunque el código completo de la función esté en otra parte. Los prototipos permiten al compilador comprobar que los argumentos de la función coinciden en tipo y número con los de la invocación de la misma, y que el tipo devuelto es el correcto.
+
+Los prototipos suelen aparecer al principio del programa, antes de la función *main()*. Observa, en el siguiente ejemplo, que el prototipo de la función *calcular_area()* se coloca delante de *main()*. Sin embargo, el código concreto de esta función no aparece hasta después (incluso podría estar situado en otro archivo diferente):
+
+```c
+float calcular_area (float base, float altura);	// Prototipo de la función
+
+int main()				// Algoritmo principal
+{
+   ...instrucciones...
+   area = calcular_area (x,y);
+   ...más instrucciones...
+   return 0;
+}
+
+float calcular_area(float base, float altura)	// Código de la función (podría estar incluso en otro archivo)
+{
+   ... instrucciones...
+}
+```
+
+Cuando se vayan a usar funciones de librería, como *fabs()* (valor absoluto), *sqrt()* (raíz cuadrada) o cualquier otra, hay que escribir sus prototipos antes de la función *main()*. Sin embargo, como estas funciones no las hemos escrito nosotros, desconocemos cuales son sus prototipos.
+
+En C se soluciona este problema con los **archivos de cabecera**, que son archivos que incluyen en su interior los prototipos de las funciones, entre otras cosas. 
+
+Hay muchos archivos de cabecera en la librería estándar de C. Por ejemplo, el archivo **math.h** tiene los prototipos de todas las funciones matemáticas. Todos los archivos de cabecera tienen la **extensión .h** en su nombre (h de "header").
+
+Para incluir un archivo de cabecera en nuestro programa se utiliza **#include**, que no es exactamente una instrucción de C, sino una **directiva de compilación**. Ya hemos visto otra directiva de compilación: #define, que usábamos para definir constantes. Las directivas de compilación indican al compilador cómo se debe comportar y, aunque estrictamente hablando no son instrucciones de C, para nosotros es como si lo fueran.
+
+Por ejemplo, esta línea de código sirve para incluir todos los prototipos de las funciones de librería matemática en nuestro programa:
+
+```c
+#include <math.h>
+```
+
+### 9.2.9. Entrada y salida en C
+
+La entrada y salida de datos en C, es decir, la traducción de las instrucciones leer() y escribir() de pseudocódigo, es uno de los aspectos más difíciles de C para los principiantes.
+
+El estándar ANSI C dispone de muchas funciones para hacer las entradas y salidas de datos. En concreto, dispone de un subconjunto de ellas para hacer la entrada y salida por consola, es decir, por teclado y pantalla.
+
+Podemos clasificar estas funciones de E/S en dos grupos:
+
+* **Funciones de E/S simples**: *getchar(), putchar(), gets(), puts()*
+* **Funciones de E/S con formato**: *printf(), scanf()*
+
+Las más utilizadas y versátiles son sin duda las segundas, así que nos detendremos en ellas.
+
+#### Salida de datos con *printf()*
+
+La función *printf()* (de "print" = imprimir y "f" = formato) sirve para escribir datos en el dispositivo de salida estándar (generalmente la pantalla) con un formato determinado por el programador. La forma general de utilizarla es la siguiente:
+
+```c
+printf(cadena_de_formato, datos);
+```
+
+El prototipo de *printf()* se encuentra en el archivo de cabecera **\<stdio.h\>** (de "std" = standard e "io" = input/output, es decir, "stdio" es un acrónimo de "entrada/salida estándar").
+
+El primer argumento, la *cadena_de_formato*, especifica el modo en el que se deben mostrar los datos que aparecen a continuación. Esta cadena se compone de una serie de códigos de formato que indican a C qué tipo de datos son los que se desean imprimir. 
+
+Todos los códigos están precedidos del símbolo de porcentaje ("%"). Por ejemplo, el código "%i" indica a la función que se desea escribir un número de tipo *int*, y el código "%f", que se desea escribir un número real de tipo *float*.
+
+La forma más simple de utilizar *printf()* es:
+
+```c
+int a;
+a = 5;
+printf("%i", a);
+```
+
+Esto escribirá el valor de la variable entera a en la pantalla, es decir, 5. Fíjate que el primer argumento de printf() es una cadena (y, por lo tanto, se escribe entre comillas) cuyo contenido es el código del tipo de dato que se pretende escribir. El segundo argumento es el dato mismo.
+
+En una sola instrucción *printf()* pueden escribirse varios datos. Por ejemplo:
+
+```c
+int a;
+float x;
+a = 5;
+x = 10.33;
+printf("%i%f", a, x);
+```
+
+Observa detenidamente la cadena de formato: primero aparece "%i" y luego "%f". Esto indica que el primer dato que debe imprimirse es un entero, y el segundo, un real. Después, aparecen esos datos separados por comas y exactamente en el mismo orden que en la cadena de formato: primero la variable entera y luego la variable real. El resultado será que en la pantalla se escribirán los números 5 y 10.33.
+
+Algunos de los códigos de formato que se pueden utilizar en *printf()* son:
+
+* **%c**: para imprimir caracteres individuales.
+* **%i** o **%d**: para imprimir números enteros.
+* **%u**: para imprimir números enteros sin signo.
+* **%f**: para imprimir números reales.
+* **%e**: para imprimir números reales en notación científica.
+* **%s**: para imprimir cadenas de caracteres (strings).
+* **%o** y **%x**: para imprimir números en octal y en hexadecimal, respectivamente.
+
+Algunos de estos código admiten modificadores. Los más habituales son:
+
+* **Los códigos numéricos como "%i" o "%f"** permiten insertar modificadores de longitud como "l" (longitud doble) o "h" (longitud corta). Así, por ejemplo, "%ld" indica que se va a imprimir un entero de longitud doble (long int); "%hu" sirve para enteros cortos sin signo (unsigned short int); "%lf" indica que se imprimirá un número real de longitud doble (double), etc.
+* **El código "%f"** (números reales) se pueden usar con un modificador de posiciones decimales que se desean mostrar. Por ejemplo, con "%3.4f" obligamos a que se impriman tres dígitos a la izquierda de la coma decimal y cuatro a la derecha. La escritura se justifica a la derecha. Para justificarla a la izquierda se utiliza el modificador "-", de esta forma: "%-10.4f".
+* **El código "%s"** (cadenas de caracteres) se puede combinar con un especificador de longitud máxima y mínima de la cadena. Por ejemplo, "%4.8s" escribe una cadena de al menos cuatro caracteres y no más de ocho. Si la cadena tiene más, se pierden los que excedan de ocho. También se puede utilizar el modificador "-" para alinear el texto a la izquierda.
+
+Además de los códigos de formato, en la cadena de formato puede aparecer cualquier texto entremezclado con los códigos. A la hora de escribir en la pantalla, los códigos serán sustituidos por los datos correspondientes. Por ejemplo:
+
+```c
+int a;
+float x;
+a = 5;
+x = 10.33;
+printf("El número entero es %i y el real es %f", a, x);
+```
+
+Lo que aparecerá en la pantalla al ejecutar este fragmento de código será: 
+
+```
+El número entero es 5 y el real es 10.33
+```
+
+Una última observación sobre *printf()*: hay ciertos caracteres que no son directamente imprimibles desde el teclado. Uno de ellos es el **salto de línea**. Para poder ordenar a *printf()* que escriba un salto de línea (o cualquier otro carácter no imprimible) se utilizan los códigos de barra invertida, que con códigos especiales precedidos del carácter "\".
+
+En concreto, el carácter "salto de línea" se indica con el código "\n". Observa las diferencias entre estos dos bloques de instrucciones para intentar comprender la importancia del salto de línea:
+
+```c
+int a;
+a = 5;
+printf("La variable a vale %i", a);
+a = 14;
+printf("La variable a vale %i", a);
+```
+
+El resultado en la pantalla de la ejecución de estas instrucciones es: 
+
+```
+La variable a vale 5La variable a vale 14
+```
+
+Veamos el mismo ejemplo usando el código del salto de línea (\n):
+
+```c
+int a;
+a = 5;
+printf("La variable a vale %i\n", a);
+a = 14;
+printf("La variable a vale %i", a);
+```
+
+El resultado en la pantalla será:
+
+```
+La variable a vale 5
+La variable a vale 14
+
+```
+
+#### Entrada de datos con scanf()
+
+La función *scanf()* es, en muchos sentidos, la inversa de *printf()*. Puede leer desde el dispositivo de entrada estándar (normalmente el teclado) datos de cualquier tipo de los manejados por el compilador, convirtiéndolos al formato interno apropiado. Funciona de manera análoga a *printf()*, por lo que su sintaxis es:
+
+```c
+scanf(cadena_de_formato, datos);
+```
+
+El prototipo de *scanf()* se encuentra en el archivo de cabecera **\<stdio.h\>**, como *printf()*.
+
+La *cadena_de_formato* tiene la misma composición que la de printf(). Los datos son las variables donde se desea almacenar el dato o datos leidos desde el teclado. **¡Cuidado!** Con los tipos simples, es necesario utilizar el operador & delante del nombre de la variable, porque esa variable se pasa por referencia a *scanf()* para que ésta pueda modificarla.
 
 Por ejemplo:
 
-```javascript
-// Definición de la función
-function potencia(base, exponente) {
-   var i;
-   var resultado = 1;
-   for (i = 1; i <= exponente; i++) {
-      resultado = resultado * base;
-   }
-   return resultado;
+```c
+int a, b;
+float x;
+char s[100];
+printf("Escribe un número entero:");
+scanf("%d", &a);
+printf("Ahora escribe un número entero y un número real:");
+scanf("%d%f", &b, &x);
+printf("Escribe una cadena:");
+scanf("%s", s);
+```
+
+La función *scanf()* tiene alguna otra funcionalidad añadida para el manejo de cadenas de caracteres que ya veremos en su momento.
+
+#### Ejemplo de uso de scanf() y printf()
+
+Debido a la relativa complejidad de estas funciones de entrada y salida, vamos a presentar un pequeño ejemplo de traducción de pseudocódigo a C. Se trata de un algoritmo que lee dos números enteros, A y B. Si A es mayor que B los resta, y en otro caso los suma.
+
+Observa detenidamente la correspondencia entre cada pareja de instrucciones, especialmente las de entrada y salida.
+
+**Pseudocódigo:**
+
+```
+algoritmo suma_y_resta
+   definir a, b como entero
+   escribir "Introduzca dos números enteros";
+   leer a
+   leer b
+   si a < b entonces
+       escribir "La suma de a y b es:", a+b
+   sino
+       escribir "La resta de a menos b es:", a–b
+finAlgoritmo
+```
+
+**Lenguaje C:**
+
+```c
+/* Programa suma y resta */
+#include stdio.h
+int main()
+{   
+  int a, b;
+  printf ("Introduzca dos números enteros\n");
+  scanf("%d%d", &a, &b);
+  if (a < b) 
+     printf("La suma de %d y %d es: %d", a, b, a+b);
+  else
+     printf("La resta de %d menos %d es: %d", a, b, a–b);
+  return 0;
 }
-
-// Invocación de la función
-var b = 9;
-var e = 4;
-var p = potencia(9, 4);
-document.write("9 elevado a 4 es " + p);
-```
-#### Paso de parámetros: ¿por valor o por referencia?
-
-Recuerda que, cuando se invoca un subalgoritmo, hay dos modos de enviarle los parámetros y que es muy importante distinguirlos.
-
-Observa el ejemplo anterior de la función *potencia()*. Los **parámetros formales** son *base* y *exponente*. Los **parámetros actuales** son *b* y *e*.
-
-* **Paso de parámetros por valor**: el *valor* de los parámetros actuales (*b* y *e*) se asigna a los parámetros formales del subalgoritmo. Así, *base* y *exponente* adquieren los mismos valores que tenían *b* y *e*, pero ahí termina toda su relación: a partir de entonces, se comportan como variables independientes de *base* y *exponente*.
-* **Paso de parámetros por referencia**: los parámetros actuales (*b* y *e*) quedan *ligados* a los parámetros formales (*base* y *exponente*). Si el valor de *base* o de *exponente* cambia dentro de la función, también cambiarán *b* y *e* fuera de la función, porque en realidad son las mismas variables.
-
-Pues bien, en Javascript:
-
-* el paso de parámetros de **tipos primitivos** (ya sabes, *number*, *string*, *boolean*, etc) **siempre se hace por valor**.
-* el paso de parámetros de **tipos complejos** (llamados *objetos*), **siempre se hace por referencia**.
-
-¿Que qué son los famosos *objetos*, preguntas? Tal vez hayas oído hablar de la *programación orientada a objetos*. Le dedicaremos a ese tema un capítulo más adelante, pero, de momento, quédate con la idea de que un objeto es *cualquier variable que no sea de un tipo primitivo*. Por ejemplo, los **arrays** son objetos en Javascript.
-
-Así que la conclusión es que **los arrays siempre se pasan por referencia** en Javascript, mientras que **las variables simples siempre se pasan por valor**.
-
-### 9.2.9. Entrada y salida
-
-Hay varias formas de hacer la entrada y salida de datos con Javascript, es decir, hay varios equivalentes a la instrucciones **Leer** y **Escribir** de pseudocódigo.
-
-Para nuestros primeros programas, usaremos la función **prompt()** para hacer la entrada y la propiedad **innerHTML** para hacer la salida. A veces, sustituiremos esta última por la función **document.write()** o por la función **alert()**.
-
-<table>
-    <tr>
-      <th>Instrucción</th>
-      <th>Pseudocódigo</th>
-      <th>Javascript</th>
-    </tr>
-    <tr>
-      <td>Entrada</td>
-      <td>
-         <code>
-         Leer variable
-         </code>
-      </td>
-      <td>
-         <code>
-         variable = prompt();
-         </code>
-      </td>
-    </tr>
-    <tr>
-      <td>Salida</td>
-      <td>
-         <code>
-         Escribir expresión
-         </code>
-      </td>
-      <td>
-         <code>document.getElementById('selector').innerHTML = expresión;</code>
-         <br>O bien:<br>
-         <code>document.write(expresión);</code>
-         <br>O bien:<br>
-         <code>alert(expresión);</code>
-      </td>
-    </tr>
-</table>
-
-Vamos a ver un poco más despacio cómo se usa cada una de estas funciones:
-
-#### Entrada de datos con prompt()
-
-La **entrada de datos** en Javascript puede hacerse de diversas maneras. En particular, usando **formularios HTML**, pero de momento no vamos a pelearnos con eso.
-
-En esta primera toma de contacto con el lenguaje, vamos a conformarnos con la función **prompt()**. Esta función muestra un mensaje en forma de ventana emergente y permite escribir un texto, asignándolo a una variable.
-
-Observa cómo se usa *prompt()* con este ejemplo escrito primero en pseudocódigo y luego en Javascript:
-
-Pseudocódigo:
-```
-Escribir("Dime un número")
-Leer n
 ```
 
-Javascript:
-```javascript
-document.write("Dime un número");
-n = prompt();
+#### Funciones para E/S simple por consola
+
+Técnicamente, con *printf()* y *scanf()* es posible escribir y leer cualquier tipo de datos desde cualquier dispositivo de salida o entrada, no solo la pantalla y el teclado.
+
+En la práctica, aunque *printf()* resulta bastante efectiva y versátil, *scanf()* puede darte muchos dolores de cabeza. Para hacerte una idea, sólo tienes que probar a hacer un *scanf()* de un número entero e inmediatamente después otro *scanf()* de una cadena de caracteres. El segundo *scanf()* fallará. La razón es bastante rocambolesca: el flujo de entrada no consumirá el carácter de retorno de carro al leer el número entero, por lo que dicho carácter se adjudicará al segundo *scanf()* automáticamente.
+
+Por suerte, **existe otro grupo de funciones en ANSI C específicamente diseñadas para hacer la E/S por consola**, es decir, por teclado y pantalla, de manera más simple. Las resumimos en el siguiente cuadro.
+
+Los prototipos de estas funciones, como el de *scanf()*, se encuentran en el archivo de cabecera ***stdio.h***, así que tendrás que incluirlo en tu código para poder usarlas.
+
+* ***getchar()***: Espera a que se pulse una tecla seguida de INTRO y devuelve su valor. Muestra el eco en la pantalla, es decir, la tecla pulsada aparece en la pantalla.
+
+   ```c
+   char car;
+   car = getchar();
+   printf("Tecla pulsada:\n");
+   ```
+
+* ***putchar(c)***: Escribe el carácter *c* en la pantalla.
+* ***gets(cadena)***: Lee del teclado una cadena de caracteres seguida de INTRO.
+
+   ```c
+   char cadena[50];
+   gets(cadena);
+   printf("Cadena tecleada:\n");
+   puts(cadena);
+   ```
+
+* ***puts(cadena)***: Escribe una cadena de caracteres en la pantalla (ver ejemplo anterior).
+
+Por lo tanto, **para evitar los problemas que a menudo causa *scanf()*, podemos recurrir a *gets()*** para leer las cadenas de caracteres. Si necesitamos leer un número, podemos usar *gets()* y luego **convertir la cadena** a un tipo de dato numérico con las funciones de conversión *atoi()* y *atof()*, como se muestra en el siguiente ejemplo:
+
+```c
+char cadena[50];
+int a;
+float x;
+
+gets(cadena);      // Leemos una cadena de caracteres
+a = atoi(cadena);  // Convertimos la cadena en un número entero
+x = atof(cadena);  // Convertimos la cadena en un número real
 ```
 
-Si pruebas este código, verás que sucede algo raro: el mensaje "Dime un número" sale escrito en la ventana del navegador web, pero el número nos lo pide en una ventana emergente que se sitúa *por encima* del mensaje. ¡Y, en algunos navegadores, el mensaje "Dime un número" ni siquiera llega a verse!
+Las funciones de conversión *atoi()* y *atof()* tratarán de convertir la cadena en un número, si ello es posible (es decir, si la cadena realmente contiene números).
 
-![Prompt sin texto](/docs/prog-y-3d/_site/assets/images/05-prompt-sin-texto.png)
+Pero cuidado: si se teclean más caracteres de los que caben en la cadena, el resultado es imprevisible (a menudo el programa fallará durante la ejecución). Esto puede solucionarse utilizando *fgets()* en lugar de *gets()*, que es una función más compleja y no vamos a explicar aquí. Puedes buscar información en internet si te interesa el tema.
 
-Esto hace un efecto muy raro. ¿verdad? Para evitarlo, puedes **unir las dos instrucciones** en una sola, puesto que *prompt()* te permite incluir un mensaje en la caja de texto. Así:
-
-```javascript
-n = prompt("Dime un número");
-```
-
-Al ejecutar este código, verás que el resultado es mucho más natural:
-
-![Prompt con texto](/docs/prog-y-3d/_site/assets/images/05-prompt-con-texto.png)
-
-(Nota: la forma exacta en la que veas estas pantallas dependerá de tu navegador web, puesto que cada uno hace el *prompt* de manera ligeramente distinta)
-
-#### Salida de datos con innerHTML, document.write() y alert()
-
-La forma más sencilla de hacer la salida de datos con Javascript es usar **document.write()** o su hermana melliza, **document.writeln()**.
-
-Mira cómo se usa en este ejemplo y el resultado que produce en la ventana del navegador:
-
-Código:
-```javascript
-<script>
-document.write("Hola, mundo");
-</script>
-```
-
-Resultado:
-![Salida de datos con document.write()](/docs/prog-y-3d/_site/assets/images/05-salida-de-datos-con-document-write.png)
-
-La diferencia entre *write()* y *writeln()* es que la segunda insertará automáticamente un salto de línea tras la salida, y la primera no.
-
-Sin embargo, estas funciones tiene un grave problema: puede que el texto de salida *no se muestre inmediatamente*. La decisión de cuándo se muestra la salida la toma el navegador y hay poco que puedas hacer al respecto. Por eso, la usaremos en contadas ocasiones.
-
-Otra manera muy sencilla de hacer salida de datos es con **alert()**. Esta función muestra un texto en forma de ventana emergente. Parecido a *prompt()*, pero sin caja de texto para escribir. Observa a *alert()* en acción en el siguiente ejemplo:
-
-Código:
-```javascript
-<script>
-alert("Hola, mundo");
-</script>
-```
-
-Resultado:
-![Salida de datos con alert()](/docs/prog-y-3d/_site/assets/images/05-salida-de-datos-con-alert.png)
-
-La salida con *alert()* es simple y efectiva, pero resulta muy invasiva. Si haces todo tu programa con *alert()*, el usuario se sentirá enseguida apabullado por esa cantidad de ventanas emergentes que le saltan a la cara.
-
-De modo que nos queda la tercera vía. Es la más enrevesada, pero también la mejor. Y, en fin, tampoco es tan complicado.
-
-Consiste en preparar una zona de la pantalla del navegador para hacer en ella la salida de datos, y luego acceder a la misma con **document.getElementById().innerHTML**.
-
-Si sabes un poco de **HTML**, el lenguaje de marcado con el que se codifican las páginas web, enseguida comprenderás lo que estamos haciendo. Si no tienes ni idea de HTML, no te preocupes. Basta con que sigas los pasos que proponemos aquí para que puedas ejecutar tus programas Javascript. Ya tendrás tiempo de aprender HTML más adelante.
-
-**Paso 1. Prepara la caja donde se hará la salida**. La caja se crea un la etiqueta **<div>** de HTML, a la que puedes asignar un estilo de visualización. La primeras veces, puedes limitarte copiar y pegar este código en todos los programas Javascript que vayas a hacer:
-
-```html
-<div id='salida' style='text-align: center; border-style: solid; border-color: black'></div>
-<script>
-   // Escribe aquí tu programa Javascript
-</script>
-```
-
-**Paso 2. Dentro de tu programa Javascript, utiliza *document.getElementById('salida').innerHTML = expresión* para hacer la salida**. Sí, lo sé, es un poco largo, pero Javascript es así. Por ejemplo, este código:
-
-```html
-<div id='salida' style='text-align: center; border-style: solid; border-color: black'></div>
-<script>
-   document.getElementById('salida').innerHTML = "Hola, mundo";
-</script>
-```
-
-...producirá este resultado:
-
-![Salida de datos con innerHTML](/docs/prog-y-3d/_site/assets/images/05-salida-de-datos-con-innerhtml.png)
-
-**Paso 3. Utiliza *document.getElementById('salida').innerHTML += expresión* si no quieres perder la salida anterior**. Es decir, si usas un **igual** (=), cada salida de datos borrará la pantalla. Si usas **más igual** (+=), la salida de datos se añadirá a la anterior, sin borrarla:
-
-```html
-<div id='salida' style='text-align: center; border-style: solid; border-color: black'></div>
-<script>
-   document.getElementById('salida').innerHTML += "Hola, mundo";
-</script>
-```
-
-**Paso 4 (OPTATIVO). Cambia las propiedades de tu caja de salida**. Intenta juguetear con las propiedades ***text-align***, ***border-style*** o ***border-color*** del *div* de salida. Además, hay muchas otras propiedades que puedes asignarle a esa caja. Si te atreves, investiga un poco cómo cambiar el color del texto o la tipografía.
+Tal vez pienses que resulta demasiado complicado hacer algo muy simple como una entrada de datos por teclado. Tienes razón. Pero ten en cuenta dos cosas: las entradas de datos nunca son simples (son el punto donde el usuario interacciona con más libertad con el programa, y los usuarios humanos tendemos a hacer cosas impredecibles y complicadas), y C es un lenguaje de nivel intermedio más que de alto nivel, por lo que muchas tareas de alto nivel, simplemente, no las resolverá por nosotros. En ese sentido, C requiere del programador prestar atención a ciertos detalles que podría obviar en otros lenguajes.
 
 ### 9.2.10. Cadenas de caracteres
 
-XXX
+Las **cadenas** de caracteres en C son, en realidad, **arrays de caracteres**. 
+
+Aunque veremos los arrays en el próximo apartado, si ya sabes pseudocódigo quizá no te sorprenda saber que una cadena se declara así:
+
+```c
+char cadena[50];		/* Declaración de una cadena de 50 caracteres */
+```
+
+La cadenas tienen ciertas peculiaridades que comentaremos en este apartado, pero todo lo que digamos en el siguiente sobre arrays también será aplicable a las cadenas.
+
+#### Declaración y manipulación de cadenas
+
+Las cadenas pueden manipularse elemento por elemento, como cualquier array. Por ejemplo:
+
+```c
+char cadena[50];
+cadena[0] = 'H';
+cadena[1] = 'o';
+cadena[2] = 'l';
+cadena[3] = 'a';
+```
+
+Las cadenas deben tener, después de su último carácter válido, un carácter especial llamado **nulo**. Este carácter marca el final de la cadena. El carácter nulo se simboliza con **el código \0**. Por lo tanto, en el ejemplo anterior habría que agregar la siguiente línea para que la cadena estuviera completa:
+
+```c
+cadena[4] = '\0';
+```
+
+**Todas las cadenas deben terminar en un carácter nulo**. De lo contrario, podemos tener problemas al imprimirlas en la pantalla o al realizar con ellas cualquier otro proceso. En consecuencia, en una cadena definida como la anterior, de 50 caracteres, en realidad sólo tienen cabida 49, ya que siempre hay que reservar una posición para el carácter nulo.
+
+La declaración de una cadena puede ir acompañada de una inicialización mediante una constante. En este caso, la constante debe ir encerrada entre comillas dobles, al tratarse de una cadena y no de caracteres sueltos. Por ejemplo:
+
+```c
+char cadena[50] = "Hola";
+```
+
+En inicializaciones de este tipo, el compilador se encarga de añadir el carácter nulo.
+Por último, señalemos que no es necesario indicar el tamaño de la cadena si se inicializa al mismo tiempo que se declara. Por ejemplo, la declaración anterior puede sustituirse por esta otra:
+
+```c
+char cadena[] = "Hola";
+```
+
+Esto se denomina array de longitud indeterminada. El compilador, al encontrar una declaración así, crea una cadena del tamaño suficiente para contener todos los caracteres. Esto vale no sólo para las cadenas, sino que también es aplicable a cualquier otro tipo de array que se inicialice al mismo tiempo que se declare.
+
+#### Funciones para manejo de cadenas
+
+La mayor parte de las veces las cadenas son manipuladas mediante el uso de funciones de librería específicas. En este apartado comentaremos las más comunes.
+
+**Funciones de lectura y escritura**
+
+Para leer por teclado una cadena de caracteres se puede utilizar también la función *scanf()* con la cadena de formato "%s". Como las cadenas son arrays, no es preciso anteponer el símbolo & al nombre de la variable. Sin embargo, es preferible emplear la función ***gets()*** por estar específicamente diseñada para la lectura de cadenas. Por ejemplo:
+
+```c
+char cadena[50];
+printf("Introduzca su nombre ");
+gets(cadena);
+```
+
+Tanto *scanf()* como **gets()** insertan automáticamente el carácter "\0" al final de la cadena.
+
+De manera análoga podemos emplear la función *printf()* para escribir el contenido de una cadena en la pantalla, pero preferiremos la función ***puts()***, específica de las cadenas. Por ejemplo:
+
+```c
+char cadena[50] = "Hola, mundo";
+puts(cadena);
+```
+
+#### Funciones de tratamiento de cadenas
+
+Las funciones de librería ANSI C para manejar cadenas suelen empezar por las letras "str" (de "string", que significa "cadena" en inglés) y utilizan el archivo de cabecera ***string.h***. 
+
+Entre las funciones más habituales encontramos las siguientes:
+
+* ***strcpy()***: Copia el contenido de una cadena en otra, incluyendo el carácter nulo. Su sintaxis es:
+
+   El siguiente ejemplo es otra versión (artificialmente enrevesada) del "hola, mundo":
+   
+   ```c
+   char cad1[50];
+   char cad2[50] = "Hola";
+   strcpy(cad1, cad2);
+   strcpy(cad2, "mundo");
+   printf("%s, %s", cad1, cad2);
+   ```
+
+* ***strlen()***: Devuelve la longitud de una cadena, es decir, el número de caracteres de que consta, sin contar el carácter nulo.
+Por ejemplo, en este fragmento de código el resultado debe ser 11. Fíjate que la variable cadena tiene una longitud total de 50 caracteres, pero *strlen()* sólo cuenta los que efectivamente se están usando, es decir, los que hay hasta el carácter nulo:
+
+   ```c
+   char cadena[50] = "Hola, mundo";
+   int longitud;
+   longitud = strlen(cadena);
+   printf("La longitud es %i", longitud);
+   ```
+
+* ***strcmp()***: Compara dos cadenas. Devuelve el valor 0 si son iguales, un valor mayor que 0 si la primera es alfabéticamente mayor que la segunda, o un valor menor que 0 en caso contrario. Por ejemplo:
+
+   ```c
+   char cad1[50], cad2[50];
+   int comparacion;
+   printf("Introduzca dos cadenas");
+   scanf("%s %s", cad1, cad2);
+   comparacion = strcmp(cad1, cad2);
+   if (comparacion == 0)
+      printf("Las dos cadenas son iguales");
+   ```
+
+* ***strcat()***: Concatena dos cadenas. Esta función añade la *cadena2* al final de la *cadena1*, incluyendo el carácter nulo. El resultado del siguiente ejemplo debe ser, otra vez, "hola, mundo":
+
+   ```c
+   char cad1[50] = "Hola, ";
+   char cad2[50] = "mundo";
+   strcat(cad1, cad2);
+   prinft("%s", cad1);
+   ```
+
+#### Las cadenas y la validación de los datos de entrada
+
+Una de las principales fuentes de error de los programas son los datos de entrada incorrectos. Por ejemplo, si un programa está preparado para leer un número entero pero el usuario, por error o por mala fe, introduce un carácter, la función *scanf()* fallará y el programa se detendrá.
+
+En otros lenguajes de más alto nivel, el propio lenguaje tiene mecanismos para prevenir estos errores. Pero recuerda que C es un lenguaje de nivel intermedio, pensado para producir código máquina supereficiente y rápido. El precio a pagar por ello es que el lenguaje no hará ninguna comprobación de este tipo de errores: es responsabilidad del programador preverlos. 
+
+Hay un modo bastante sencillo de hacer esto: **leer todos los datos de entrada como cadenas y, luego, convertirlos al tipo de dato adecuado**.
+
+Observa el siguiente ejemplo. Sirve para leer un número entero por teclado, pero previniendo los errores provocados por el usuario que antes mencionábamos. Se utiliza la función *atoi()*, que convierte una cadena a un número entero:
+
+```c
+int n;		// El número entero que se pretende leer por teclado
+char cad[50];	// La cadena que se usará para prevenir errores de lectura
+printf("Introduzca un número entero");
+gets(cad);		// No se lee un número entero, sino una cadena
+n = atoi(cad);	// Se convierte la cadena a entero
+```
 
 ### 9.2.11. Arrays
 
-Los **arrays en Javascript** son mucho más que simples arrays: se trata de elementos muy complejos y flexibles que se adaptan a multitud de soluciones.
+Un **array**, como ya vimos en pseudocódigo, es una agrupación de muchos datos individuales del mismo tipo bajo el mismo nombre. Cada dato individual de un array es accesible mediante un **índice**.
 
-Aquí solo vamos a ver una introducción a los mismos. Conforme vayas profundizando en tu conocimiento de Javascript, descubrirás cosas nuevas sobre estas asombrosas estructuras y les sacarás más y más partido.
+El caso más simple de array es el **array unidimensional**. Por ejemplo, un array unidimensional de números enteros es una colección de muchos números enteros a los que les adjudicamos un único identificador.
 
 #### Declaración de arrays
 
-Los arrays en Javascript se pueden **declarar** de diversas formas:
+La declaración de un array en C se hace así:
 
-```javascript
-// Una forma de declarar un array:
-var ciudades = ['Almería', 'Granada', 'Málaga'];
-// Otra forma de declarar un array:
-var ciudades = new Array('Almería', 'Granada', 'Málaga');
-// Esta es otra forma:
-var ciudades = new Array(3);
-ciudades[0] = 'Almería';
-ciudades[1] = 'Granada';
-ciudades[2] = 'Málaga';
-// Y otra forma más:
-var ciudades = [];
-ciudades[0] = 'Almería';
-ciudades[1] = 'Granada';
-ciudades[2] = 'Málaga';
+```c
+tipo_de_datos nombre_array[número_de_elementos];
 ```
 
-Realmente, no todas estas formas son equivalentes, porque Javascript a veces tratará a la variable *ciudades* como un **Array** y a veces como un **objeto**. La diferencia entre una y otra cosa es tan sutil que, de momento, puedes desentenderte de ello. Si algún día te vuelves un experto en Javascript, ya entenderás esa diferencia.
+Por ejemplo:
 
-Por ahora, quédate con la idea de que todas estas formas son válidas para declarar un array.
-
-#### Características de los arrays en Javascript
-
-Como puedes observar por los ejemplos anteriores, los arrays de Javascript tienen dos características importantes:
-
-* **No es necesario indicar su tamaño al declararlos**, aunque se puede hacer. Esto se debe a que los arrays en Javascript son dinámicos: pueden crecer o decrecer durante la ejecución del programa.
-* **El índice empieza en 0**. Es decir, el primer elemento es el 0, el segundo es el 1, etc.
-* El **acceso a los elementos** del array se hace como en pseudocódigo: indicando el índice del elemento entre corchetes.
-
-Los arrays NO son variables primitivas (simples). Recuerda que esto significa que **siempre se pasan por referencia** a las funciones, mientras que las variables primitivas se pasan por valor. Repasa el paso de parámetros a funciones del que hablamos un poco más arriba si no recuerdas bien todo esto.
-
-Una cosa muy peculiar de los arrays de Javascript es que **sus elementos pueden ser de diferente tipo**. Por ejemplo:
-
-```javascript
-// Este array tiene elementos del mismo tipo (strings):
-var ciudades = ['Almería', 'Granada', 'Málaga'];
-// Este array tiene elementos de diferente tipo:
-var miArray = ['Lunes', 5, ciudades];
+```c
+int serie[10];
 ```
 
-En el ejemplo anterior, el array *ciudades* solo contiene elementos de tipo *string*, mientras que el array *miArray* contiene elementos de tipo dispares: un *string*, un *number* y un *array*.
+La variable *serie* será un array que contendrá 10 números enteros. Los 10 números reciben el mismo nombre, es decir, *serie*. 
+Se puede acceder a cada uno de los números que forman el array escribiendo a continuación del nombre un número entre corchetes. Ese número se denomina índice. Lo puedes ver en el siguiente ejemplo:
 
-Como ves, nada impide que un elemento de un array sea otro array. De hecho, un elemento de un array puede ser cualquier cosa.
+```c
+int serie[10];
+serie[2] = 20;
+serie[3] = 15;
+serie[4] = serie[2] + serie[3];
+printf("%i", serie[4]);
+```
 
-#### Propiedades y métodos
+El array *serie* puede almacenar hasta 10 números enteros. Las posiciones empiezan a numerarse en el 0, así que *serie[2]* se refiere, en realidad, a la tercera posición. En ella se almacena el número 20. En la cuarta posición (*serie[3]*) se almacena el número 15. Luego se suman ambos valores, y el resultado se almacena en la quinta posición (*serie[4]*). Finalmente, se imprime en la pantalla el resultado de la suma, es decir, 35.
 
-Los arrays de Javascript, como cualquier objeto, tienen una serie de **propiedades y métodos**. Ya veremos exactamente qué son las propiedades y los métodos, pero de momento te basta saber que se trata de funciones y variables que *están dentro* del objeto de tipo array y que permiten usarlo.
+<pre>
+            +------------+----+----+----+----+----+
+            | Posiciones |  0 |  1 |  2 |  3 |  4 |
+    serie = +------------+----+----+----+----+----+
+            | Valores    |  ? |  ? | 20 | 15 | 35 |
+            +------------+----+----+----+----+----+
+</pre>
 
-Algunas propiedades y métodos útiles de los arrays son:
+C no realiza comprobación de los índices de los arrays, por lo que es perfectamente posible utilizar un índice fuera del rango válido (por ejemplo, *serie[17]*). Es responsabilidad del programador evitar que esto ocurra, porque los efectos serán desastrosos para el programa.
 
-* **nombreArray.length**: devuelve el número de elementos del array.
-* **nombreArray.sort()**: ordena el array.
-* **nombreArray.push(valor)**: añade un elemento al array (a continuación de la última posición usada). Como consecuencia, el tamaño del array crecerá.
-* **nombreArray.pop()**: elimina el último elemento del array. Como consecuencia, el tamaño del array decrecerá.
-* **nombreArray.indexOf(valor)**: busca el elemento *valor* en el array y devuelve su posición (si lo encuentra) o -1 (si no lo encuentra).
+Como es lógico, se pueden construir arrays cuyos elementos sean de cualquier otro tipo simple, como *float* o *double*, con la única restricción de que todos los elementos sean del mismo tipo. Los arrays de caracteres se denominan **cadenas de caracteres**, y ya hablamos de ellos en el apartado anterior.
 
-Hay muchas otras propiedades y métodos que puedes consultar en la [referencia oficial del lenguaje](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/Arrays).
+También es posible construir arrays cuyos elementos sean de un tipo complejo. Así, podemos tener arrays de arrays o de otros tipos que no vamos a estudiar en este curso de introducción.
+
+#### Manipulación de los elementos individuales de un array
+
+Los arrays en C deben manipularse elemento a elemento. No se pueden modificar todos los elementos a la vez.
+
+Para asignar valores a los elementos de un array, por lo tanto, el mecanismo es este:
+
+```c
+int serie[5];
+serie[0] = 5;
+serie[1] = 3;
+serie[2] = 7;
+...etc...
+```
+
+La inicialización de los valores de un array también puede hacerse conjuntamente en el momento de declararlo, así:
+
+```c
+int serie[5] = {5, 3, 7, 9, 14};
+```
+
+El resultado de esta declaración será un array de 5 elementos de tipo entero a los que se les asigna los valores 5, 3, 7, 9 y 14.
+
+Cada elemento del array es, a todos los efectos, una variable que puede usarse independientemente de los demás elementos. Así, por ejemplo, un elemento del array serie puede usarse en una instrucción de salida igual que cualquier variable simple de tipo *int*:
+
+```c
+int serie[5];
+serie[0] = 21;
+printf("%i", serie[0]);
+```
+
+Del mismo modo, pueden usarse elementos de array en una instrucción de entrada. Por ejemplo:
+
+```c
+int serie[5];
+scanf("%i", &serie[0]);
+serie[1] = serie[0] + 15;
+printf("%i", serie[1]);
+```
 
 #### Recorrido de un array
 
-El **recorrido** de un array puede hacerse igual que en pseudocódigo, con la salvedad de que tendremos que averiguar la longitud del array antes de recorrerlo, puesto que el tamaño del array puede variar a lo largo del programa:
+Una forma habitual de manipular un array es **acceder secuencialmente** a todos sus elementos, uno tras otro. 
 
-```javascript
-var ciudades = ['Almería', 'Granada', 'Málaga'];
-var longArray = ciudades.length;
-for (i = 0; i < longArray; i++) {
-   document.write(ciudades[i]);
+Para ello, **se utiliza un bucle con contador**, de modo que la variable contador nos sirve como índice para acceder a cada uno de los elementos del array.
+
+Supongamos, por ejemplo, que tenemos un array de 10 números enteros declarado como ```int v[10]``` y una variable entera declarada como  ```int i```. Por medio de un bucle, con ligeras modificaciones, podemos realizar todas estas operaciones:
+
+**1) Inicializar todos los elementos a un valor cualquiera** (por ejemplo, 0):
+
+```c
+for (i = 0; i <= 9; i++)
+{
+   v[i] = 0;
 }
 ```
 
-Existen formas alternativas de hacer esto mismo sin necesidad de averiguar la longitud del array ni usar variables índice. Por ejemplo, así:
+**2) Inicializar todos los elementos con valores introducidos por teclado**:
 
-```javascript
-var ciudades = ['Almería', 'Granada', 'Málaga'];
-var ciudad;
-for (ciudad of ciudades) {
-   document.write(ciudad);
+```c
+for (i = 0; i <= 9; i++)
+{
+   printf("Escribe el valor del elemento nº %i: ", i);
+   scanf("%i", &v[i]);
+}
+```
+
+**3) Mostrar todos los elementos en la pantalla**:
+
+```c
+for (i = 0; i <= 9; i++)
+{
+   printf("El elemento nº %i vale %i\n", i, v[i]);
+}
+```
+
+**4) Realizar alguna operación que implique a todos los elementos**. Por ejemplo, sumarlos:
+
+```c
+suma = 0;
+for (i = 0; i <= 9; i++)
+{
+   suma = suma + v[i];
+}
+```
+
+#### Arrays y funciones
+
+Para **pasar un array como argumento** a una función, en la llamada a la función se escribe simplemente el nombre del array, sin índices.
+
+Los arrays en C **siempre se pasan por referencia**, nunca por valor. Por lo tanto, si algún elemento del array se modifica en una función, también será modificado en la función desde la que fue invocada.
+
+Como siempre se pasan por referencia, no es necesario utilizar el símbolo & delante del parámetro. 
+
+Por ejemplo, supongamos que *serie* es un array de 15 números enteros. Para pasarlo como parámetro a una función llamada *funcion1()* escribiríamos simplemente esto:
+
+```c
+int serie[15];
+funcion1(serie);
+```
+
+En cuanto a la declaración de la función, el parámetro de tipo array se especifica esta maneras:
+
+```c
+void funcion1 (int serie[15]) {
+   ...código de la función...
+}
+```
+
+Dentro de la función, el array *serie* puede usarse del mismo modo que en el programa que la llama, es decir, no es preciso utilizar el operador asterisco ni nada por el estilo.
+
+#### Un programa de ejemplo que usa arrays y funciones
+
+Para ilustrar todo esto, te muestro  programa que sirve para leer 50 números por teclado y calcular la suma, la media y la desviación típica de todos los valores.
+
+Lee el código detenidamente, prestando sobre todo atención al uso de los arrays y a cómo se pasan como parámetros.
+
+Los números de la serie se almacenarán en un array de tipo *float* de 50 posiciones llamado *valores*. La introducción de datos en el array se hace en la función *introducir_valores()*. Como los arrays siempre se pasan por referencia, al modificar el array *valores* dentro de la función, también se modificará en el algoritmo principal.
+
+Después, se llama a 3 funciones que calculan las tres magnitudes (suma, media y desviación). El array también se pasa por referencia a estas funciones, ya que en C no hay modo de pasar un array por valor.
+
+```c
+#include <stdio.h>
+#include <math.h>
+
+int main(void)
+{
+	float valores[50];
+	float suma, media, desviacion;
+	
+	introducir_valores(valores);
+	suma = calcular_suma(valores);	
+	media = calcular_media(valores, suma);
+	desviacion = calcular_desviacion(valores, media);
+	printf("La suma es %f, la media es %f y la desviación es %f", suma, media, desviacion);
+	return 0;
+}
+
+/* Lee 50 números y los almacena en el array N pasado por referencia */
+void introducir_valores(float n[50])
+{
+	int i;
+	for (i=1; i<=49; i++)
+	{
+		printf("Introduzca el valor nº %d: ", i);
+		scanf("%f", &n[i]);
+	}
+}
+
+/* Devuelve la suma todos los elementos del array n */
+float calcular_suma(float n[50])	
+{
+	int i;
+	float suma;
+	suma = 0;
+	for (i=1; i<=49; i++)
+		suma = suma + n[i];
+	return suma;
+}
+
+/* Devuelve el valor medio de los elementos del array n. Necesita conocer la suma de los elementos para calcular la media */
+float calcular_media(float n[50], float suma)	
+{
+	int i;
+	float media;
+	media = suma / 50;
+	return media;
+}
+
+/* Calcula la desviación típica de los elementos del array n. Necesita conocer la media para hacer los cálculos */
+float calcular_desviacion(float n[50], float media)
+{
+	int i;
+	float diferencias;
+	diferencias = 0;
+	for (i=1; i<=49; i++)
+		diferencias = diferencias + abs(n[i] – media) ;
+	diferencias = diferencias / 50;
+	return diferencias;
 }
 ```
 
 ### 9.2.12. Funciones de la librería estándar
 
-XXX
+La siguiente lista resume algunas funciones de uso frecuente de ANSI C. Para cada función se muestra su prototipo y se explica brevemente cuál es su cometido y cuáles sus datos de entrada y salida. También se indica el archivo de cabecera donde se encuentra el prototipo.
 
-## 9.3. Escribiendo programas con Javascript
+Debes tener en cuenta que ANSI C dispone de muchas otras funciones. Si en algún momento las necesitas, una búsqueda rápida por internet te proporcionará información de sobra. Eso sí, asegúrate que la función que vayas a usar pertenezca al estándar ANSI C. Solo así tendrás la garantía de que tu compilador la reconocerá y de que tu programa será portable a otros sistemas.
 
-Ya conocemos cómo se manejan los principales componentes de un programa con Javascript: variables, instrucciones de control, asignaciones, funciones, etc.
+**Funciones de entrada/salida**
+
+Función|Prototipo|Utilidad|Archivo de cabecera
+-|-|-|-
+***getchar()***|```int getchar(void)```|Devuelve un carácter leido por teclado mostrando el eco. Es necesario pulsar INTRO|stdio.h
+***gets()***|```char* gets(char* cadena)```|Lee una cadena de caracteres del dispositivo estándar de entrada y la sitúa en la posición apuntada por cadena|stdio.h
+***printf()***|```int printf(const char* formato, lista_argumentos)```|Salida estándar con formato. Véase el texto del capítulo para más detalles|stdio.h
+***putchar()***|```int putchar(int carácter)```|Escribe carácter en la pantalla|stdio.h
+***puts()***|```int puts(const char* cadena)```|Escribe cadena en el dispositivo estándar de salidastdio.h
+***scanf()***|```int scanf(const char* formato, lista_argumentos)```|Entrada estándar con formato. Véase el texto del capítulo para más detalles|stdio.h
+
+**Funciones de caracteres**
+
+Función|Prototipo|Utilidad|Archivo de cabecera
+-|-|-|-
+***isalnum()***|```int isalnum(int carácter)```|Devuelve 1 si el carácter es alfanumérico (letra o número), o 0 si no lo es|ctype.h
+***isalpha()***|```int isalpha(int carácter)```|Devuelve 1 si el carácter es alfabético (una letra mayúscula o minúscula), o 0 si no lo es|ctype.h
+***isdigit()***|```int isdigit(int carácter)```|Devuelve 1 si el carácter es numérico, o 0 si no lo es|ctype.h
+***isupper()*** e ***islower()***|```int isupper(int carácter);  int islower(int carácter);```|La primera devuelve 1 si el carácter es una letra mayúscula y 0 en otro caso. La segunda, al revés|ctype.h
+
+**Funciones matemáticas**
+
+Función|Prototipo|Utilidad|Archivo de cabecera
+-|-|-|-
+***abs()***|```int abs(int número)```|Devuelve el valor absoluto de número|stdlib.h
+***cos()***<br>***sin()***<br>***tan()***<br>***acos()***<br>***asin()***<br>***atan()***|```double acos(double argumento)```|Todas tienen un prototipo similar. Calculan y devuelven, respectivamente, el arcocoseno, el arcoseno, el arcotangente, el coseno, el seno y la tangente de argumento. Los ángulos se expresan en radianes|math.h
+***ceil()***|```double ceil(double número)```|Redondea número por exceso. P. ej: ceil(3.2) devuelve 4|math.h
+***exp()***|```double exp(double potencia)```|Calcula el exponencial epotencia|math.h
+***fabs()***|```double fabs(double número)```|Devuelve el valor absoluto de número|math.h
+***floor()***|```double floor(double número)```|Redondea número por defecto. P. ej: floor(3.8) devuelve 3|math.h
+***log()***|```double log(double número)```|Devuelve el logaritmo natural de número|math.h
+***log10()***|```double log10(double número)```|Devuelve el logaritmo decimal de número|math.h
+***pow()***|```double log(double base, double exp)```|Devuelve la potencia de base elevado a exp|math.h
+***sqrt()***|```double sqrt(double número)```|Devuelve la raiz cuadrada de número|math.h
+
+**Funciones variadas**
+
+Función|Prototipo|Utilidad|Archivo de cabecera
+-|-|-|-
+***atof()***|```double atof(char* cadena)```|Convierte la cadena en un número real. Si la cadena no contiene un número real válido, devuelve 0|stdlib.h
+***atoi()***|```int atoi(char* cadena)```|Convierte la cadena en un número entero. Si la cadena no contiene un número entero válido, devuelve 0|stdlib.h
+***atof()***|```double atof(char* cadena)```|Convierte la cadena en un número real. Si la cadena no contiene un número real válido, devuelve 0|stdlib.h
+***itoa()***|```char* itoa(int número, int base)```|Convierte el número en una cadena. La base de la cadena resultante se determina en base|stdlib.h
+***rand()***|```int rand(void)```|Devuelve un número entero al azar entre 0 y RAND_MAX (RAND_MAX es una constante definida en stdlib.h)|stdlib.h
+***randomize()***|```void randomize(void)```|Inicializa el generador de números aleatorio. Es necesario invocar esta función si después se va a usar random()|stdlib.h
+***random()***|```int random(int máximo)```|Devuelve un número al azar entre 0 y máximo – 1|stdlib.h
+
+### 9.2.13. Librerías no estándar que molan: ncurses
+
+XXX *Texto pendiente de revisar* XXX
+
+ 4.1  Qué es Ncurses
+Ncurses es una librería de funciones para el manejo de interfaces basadas en texto. Es decir, se trata de un conjunto de funciones, ya programadas, que podemos utilizar en nuestros programas para mejorar su presentación.
+Como Ncurses no es una librería estándar de C, es necesario ordenar al compilador que la enlace con nuestro programa. Esto se hace añadiendo la opción –lncurses al comando gcc. Por ejemplo:
+    • gcc holamundo.c: compila holamundo.c sin enlazarlo con la librería Ncurses
+    • gcc –lncurses holamundo.c: compila holamundo.c enlazándolo con Ncurses
+Además, debemos hacer un #include <ncurses.h> en el programa que vaya a utilizar estas funciones.
+Ncurses tiene muchísimas funciones, pero nosotros sólo nos referiremos aquí a las más básicas, que nos permitirán añadir color a nuestros textos y controlar libremente la posición del cursor de escritura. Pero Ncurses va mucho más allá, permitiendo la creación de capas de texto superpuestas, menús desplegables y muchas otras cosas en la consola de texto.
+ 4.2  Inicialización de Ncurses
+Para utilizar las funciones de Ncurses en nuestro programa, basta con que incluyamos la siguiente llamada:
+initscr();
+Esta función crea una ventana de texto. La ventana se llama stdscr (que significa "standard screen", es decir, "pantalla estándar"). A partir de aquí podremos utilizar cualquier función de Ncurses, pues todas actúan sobre esa ventana (se pueden crear varias ventanas sobre stdscr, pero nosotros no profundizaremos en esa posibilidad). Por ejemplo, una función que suele ir justo después es:
+keypad (stdscr, 1);
+Esto sirve para activar la recepción de teclas especiales (como F1, F2, ESC, etc). Si no llamamos a keypad(), no podremos utilizar ese tipo de teclas en nuestro programa. El segundo parámetro sirve para activar (1) o desactivar (0) la recepción de teclas especiales.
+A continuación se enumeran las principales funciones de inicialización de Ncurses:
+initscr()
+Inicializa Ncurses y crea la pantalla estándar. Debe ser invocada antes que cualquier otra función de la librería.
+initscr();
+
+keypad()
+Activa / desactiva la recepción de teclas especiales, como F1, ESC, Intro, etc. Si activar = 1, se activa la recepción. Si activar = 0, se desactiva.
+keypad(stdscr, activar);
+echo()
+noecho()
+Activa / desactiva el eco de caracteres. Si el eco está activo, lo que se escriba en el teclado aparece en la pantalla. Si está inactivo, no.
+echo();
+noecho();
+cbreak()
+nocbreak()
+Activa / desactiva el envío inmediato de teclas. Normalmente, cuando se teclea algo no es enviado al programa hasta que no se pulsa "intro". La función cbreak() hace que todo cuanto se teclee sea enviado al programa sin necesidad de "intro". La función nocbreak() desactiva este comportamiento
+cbreak();
+nocbreak();
+nodelay()
+Activa / desactiva la espera para lectura de teclado. Las funciones para leer un solo carácter, como getch(), detienen la ejecución del programa hasta que se pulsa alguna tecla. Llamando a esta función con el parámetro activar = 1, conseguiremos que el programa no se detenga en getch() aunque no se pulse tecla alguna. Para desactivarlo, llamaremos a la función con activar = 0.
+nodelay(stdscr, activar);
+endwin()
+Finaliza Ncurses. Hay que llamar a esta función antes de terminar el programa para liberar la memoria ocupada y restaurar la consola al estado inicial.
+ 4.3  Escribir y leer
+Cuando utilicemos Ncurses debemos olvidarnos de las funciones de entrada/salida estándar, como scanf(), printf(), gets() o puts(). En su lugar usaremos estas otras funciones:
+printw()
+putstr()
+Para escribir usaremos la función printw(), que funciona igual que printf() pero sobre una ventana de Ncurses. También podemos usar putstr(), que es como puts(), es decir, sirve para imprimir cadenas
+getstr()
+getch()
+Para leer disponemos de getstr(), que es como gets(), es decir, sirve para leer cadenas por teclado. De modo que, si queremos leer un número, debemos leerlo como cadena y luego convertirlo a número (con las funciones estándar atoi(), atof(), etc)
+También podemos usar getch(), que lee un único carácter.
+move()
+Para colocar el cursor usaremos move(y,x). Esto ubica el cursor en la columna x y la fila y de la pantalla. ¡Atención! Se indica primero la fila y luego la columna.
+refresh()
+Actualiza la pantalla. Es el único modo de asegurarnos de que los cambios realizados se muestren instantáneamente. 
+ 4.4  Colores
+Antes de utilizar los colores hay que inicializarlos llamando a la función start_color() sin argumentos, así:
+if (has_colors())
+  start_color();
+La llamada previa a has_colors() se realiza para asegurarnos de que nuestra consola soporta el uso de colores. Es raro encontrar una consola que no permita colores, pero existen, así que no está de más hacer la comprobación.
+Una vez hecho esto, podemos utilizar los colores básicos definidos en ncurses.h, cuyas constantes son:
+COLOR_BLACK, COLOR_WHITE, COLOR_YELLOW, etc.
+Para utilizar esos colores se deben agrupar en parejas: un color para el texto junto con un color para el fondo. A cada pareja se le asigna un número a través de la función init_pair(), así:
+init_pair(1, COLOR_YELLOW, COLOR_BLUE);
+Esto define a la pareja nº 1 como texto amarillo sobre fondo azul. De este modo podemos definir, por lo general, hasta 64 parejas.
+Después, para activar una pareja, haremos esta llamada:
+attron(COLOR_PAIR(1));
+Esto activa la pareja de colores nº 1, de manera que todo el texto que aparezca en la pantalla a partir de este momento se verá amarillo con el fondo azul.
+La función attron(), además de para activar parejas de colores, sirve para cambiar otros atributos del texto. Por ejemplo, lo siguiente se utiliza para escribir en negrita:
+attron(A_BOLD);
+Puedes obtener más información sobre attron() en las páginas de manual (escribiendo  man attron)
+ 4.5  Ejemplo de uso de Ncurses
+Para terminar esta breve introducción a la librería Ncurses mostraremos un ejemplo ilustrativo del uso de algunas de las funciones que aquí se han visto.
+El siguiente programa utiliza Ncurses para escribir el texto HOLA en color rojo sobre fondo azul y el texto MUNDO en color amarillo sobre fondo verde. El texto HOLA aparece en la línea 11, y MUNDO en la 12. Luego, el programa espera hasta que se pulsa la tecla "flecha arriba", y entonces termina.
+#include <ncurses.h>
+int main(void)
+{
+  char carácter;
+  initscr();         // Inicializa Ncurses
+  keypad(stdscr, 1); // Activa teclas especiales (como las flechas)
+  cbreak();          // Para no tener que pulsar Intro tras cada carácter 
+  if (has_colors()) start_color();         // Inicializa colores
+  init_pair(1, COLOR_RED, COLOR_BLUE);     // Pareja 1 = Texto rojo, fondo azul
+  init_pair(2, COLOR_YELLOW, COLOR_GREEN); // Pareja 2 = Texto amarillo, fondo verde
+  attron(COLOR_PAIR(1));    // Activa pareja 1
+  move(11, 1);
+  printw("HOLA");
+  attron(COLOR_PAIR(2));    // Activa pareja 2
+  move(12, 1);
+  printw("MUNDO");
+  do
+  {  
+       carácter = getch();  // Lee un carácter desde el teclado
+  }
+  while (carácter != KEY_UP);
+  endwin();  // Finaliza Ncurses
+  return 0;
+}
+
+### 9.2.14. Librerías no estándar que molan: SDL
+
+XXX *Texto pendiente de revisar* XXX
+
+aplicaciones gráficas con C
+El siguiente apartado está extraído de mi libro "Ajedrez en C: cómo programar un juego de ajedrez en lenguaje C y que funcione". Allí se hacía una introducción a la librería SDL para dotar de interfaz gráfico al juego que se pretendía desarrollar.
+He decidido incluir una adaptación de ese texto en este libro como un apéndice porque la librería SDL es lo suficientemente potente como para merecer la atención de cualquier interesado en el desarrollo en C. 
+SDL (iniciales de Single DirectMedia Layer) es una biblioteca libre, con licencia zlib, disponible para múltiples plataformas (entre ellas, Linux y Windows). Puedes bajarte la última versión de http://www.libsdl.org
+Esta biblioteca contiene un conjunto muy completo de funciones para manejar gráficos, además de sonidos y distintos dispositivos multimedia (ratón, CD-ROM, etc). Teniendo en cuenta la complejidad intrínseca a estos dispositivos, la librería es razonablemente sencilla de usar.
+Nosotros sólo nos vamos a centrar en la parte de SDL dedicada a los gráficos. Si quieres más información, en la página web reseñada antes encontrarás una completa documentación.
+ 5.1  Instalación de SDL
+SDL no es una librería C estándar, es decir, no viene "de serie" con el compilador de C. En realidad, tampoco ncurses lo es, pero su uso está tan extendido en entornos Unix que viene incorporada a las librerías del compilador gcc.
+En cambio, la librería SDL debe ser instalada antes de poder utilizarla. A continuación describimos el proceso de instalación en Linux y en Windows
+Instalación de SDL en Linux
+    • Bájate la última versión de la librería de la web de SDL. Necesitarás el paquete de la librería propiamente dicho (denominado runtime) y el paquete de desarrollo.  El paquete runtime tiene un nombre similar a este: SDL-x.x.x-1.i386.rpm, donde "x.x.x" es la versión de la libería e "i386" indica para qué tipo de procesador está compilado. El paquete de desarrollo debe llamarse SDL-devel-x.x.x-i386.rpm o algo similar.
+    • Instala ambos paquetes en tu sistema. Con el paquete runtime es suficiente para ejecutar programas que usen la librería SDL, pero si además quieres escribir programas nuevos que usen esta librería (y es nuestro caso), también necesitarás el paquete de desarrollo.
+Instalación de SDL en Windows
+    • Bájate la última versión de la librería de la web de SDL. Necesitarás la librería de vínculos dinámicos (denominada dll) y el paquete de desarrollo. La librería de vínculos dinámicos suele venir comprimida en un archivo cuyo nombre es similar a: SDL-x.x.x-win32.zip, donde "x.x.x" es la versión de la libería. Existirán varios paquetes de desarrollo para varios compiladores. Mi consejo es que bajes el que está preparado para el compilador de GNU, cuyo nombre es SDL-devel-x.x.x-mingw32.tar o algo similar. También encontrarás paquetes para Visual C++ y otros compiladores.
+    • Descomprime la librería de vínculos dinámicos. Debes obtener un archivo llamado sdl.dll. Copia este archivo al directorio /windows/system32, o bien ubícalo en la misma carpeta en la que vaya a estar el programa ejecutable del ajedrez. 
+    • Descomprime el paquete de desarrollo. Encontrarás varios directorios y, dentro de ellos, multitud de archivos. Copia los archivos en los directorios del mismo nombre de tu compilador. Por ejemplo, el copia el directorio "include" del paquete de desarrollo al directorio "include" de la carpeta donde esté instalado tu compilador. Repite la operación para todos los directorios cuyo nombre coincida.
+ 5.2  Compilación y enlace
+Al no ser SDL una librería estándar, el enlace entre nuestro programa y las funciones de SDL no se produce automáticamente. Hay que indicarle al enlazador (o linker) lo que debe hacer.
+Compilación y enlace en Linux
+Si, por ejemplo, nuestro programa ejecutable se llama "ajedrez" y se construye a partir de 3 programas objeto, llamados "ajedrez.o", "movs.o" e "interfaz.o", debemos modificar la primera parte de nuestro Makefile de este modo:
+ajedrez: ajedrez.o movs.o interfaz.o 
+	gcc -g `sdl-config –-cflags` -o ajedrez ajedrez.o movs.o interfaz.o `sdl-config –-libs`
+Fíjate bien en que las comillas son en realidad acentos graves, es decir, invertidos e inclinados hacia atrás. Debes respetar la sintaxis para que funcione.
+Eso es todo lo que tienes que hacer para compilar son SDL. Si te interesa saber POR QUÉ, sigue leyendo. Si no, puedes pasar al siguiente apartado.
+En realidad, lo que hay escrito entre esas comillas invertidas son comandos de SDL que indican la configuración de la librería. Estos comandos los puedes ejecutar desde la consola, obteniendo más o menos esto:
+$ sdl-config --cflags
+-I/usr/local/include -I/usr/local/include/SDL -D_REENTRANT
+$ sdl-config –libs
+-L/usr/local/lib -lSDL -lpthread
+Al añadir estos comandos dentro del Makefile, enmarcados entre esas comillas invertidas, obligamos a la herramienta make a ejecutar los comandos y a sustituir el texto entrecomillado por el resultado del comando. Es decir, sería como si hubiéramos puesto esto en el Makefile:
+ajedrez: ajedrez.o movs.o interfaz.o 
+	gcc -g -I/usr/local/include -I/usr/local/include/SDL -D_REENTRANT -o ajedrez ajedrez.o movs.o interfaz.o -L/usr/local/lib -lSDL -lpthread
+Pero preferiremos la primera forma porque es más corta y, además, funcionará en todas las situaciones, mientras que esta segunda depende de dónde y cómo se haya instalado la librería SDL (fíjate que hace referencia a directorios concretos de nuestro sistema)
+Compilación y enlace en Windows
+Lo siguiente sirve para compilar y enlazar con SDL desde el compilador Dev-C++, que tiene licencia GNU y es gratuito. Con otros compiladores el proceso debe ser similar, aunque es posible que necesites bajar otro paquete de desarrollo adaptado al compilador concreto.
+Para poder compilar y enlazar la libería SDL tienes que abrir las opciones del proyecto (menú "Proyecto") y activar la pestaña "Parámetros". En el cuadro con el título "Linker" escribe lo siguiente:
+-lmingw32 -lSDLmain –lSDL
+Si has instalado correctamente la librería SDL, con esto debería bastar. Recuerda que el archivo sdl.dll debe estar en la misma carpeta que el programa ejecutable (o, si no, instalado con las liberías del sistema de Windows)
+ 5.3  Inicialización y terminación de la pantalla gráfica
+Una vez instalada la libería y preparado el compilador, podemos usar las funciones de SDL como cualquier otra función estándar de C. Su uso es exactamente igual en Windows y en Linux, por lo que el programa que obtendremos debería compilar sin necesidad de hacerle ningún cambio en ambos sistemas.
+Para usar los gráficos, hay que hacer un #include <SDL/SDL.h> en el archivo fuente, como es natural. Aparece dos veces el nombre "SDL" porque el archivo SDL.h está dentro de una carpeta llamada SDL.
+Lo siguiente que hay que hacer es inicializar la pantalla gráfica. Para eso disponemos de dos funciones: SDL_Init() y SDL_SetVideoMode():
+SDL_Init(). Debe ser la primera función en invocarse. No se puede usar ninguna otra función de SDL si antes no se ha llamado a esta. Hay que pasarle un parámetro que indica qué tipo de sistema multimedia queremos manejar (la tarjeta de vídeo, la de sonido, el CD-ROM, etc). En nuestro caso será la tarjeta de vídeo, ya que sólo nos interesa manipular gráficos. La constante para ello es SDL_INIT_VIDEO:
+SDL_Init(SDL_INIT_VIDEO);
+La fución SDL_Init() devuelve –1 si ocurre algún error al iniciar el sistema de gráficos. En ese caso, el programa no podrá continuar, de modo que debemos comprobar el valor devuelto por SDL_Init().
+SDL_SetVideoMode(). Esta debe ser la segunda función en invocarse, justo a continuación de SDL_Init(). Sirve para establecer el tipo de pantalla gráfica que queremos. Hay que indicarle el tamaño en píxels, el número de bits de color y los atributos de la pantalla. Por ejemplo:
+SDL_SetVideoMode(800, 600, 16, SDL_ANYFORMAT | SDL_DOUBLEBUFFER);
+Esto crea una ventana gráfica de 800x600 píxels, con 16 bits de profundidad de color. El último parámetro, SDL_ANYFORMAT, es una constante que indica a SDL que puede seleccionar otra profundidad de color si la elegida no está disponible. Este cuarto parámetro puede tomar otros muchos valores que no vamos a ver, pero sí señalaremos que es conveniente añadir la constante SDL_DOUBLEBUFFER por motivos de rendimiento (ver ejemplo más abajo).
+SDL_SetVideoMode() devuelve un puntero a una estructura llamada SDL_Surface, definida en SDL.h, o NULL si ocurre algún error. Este puntero nos será imprescidible para manejar la pantalla gráfica, así que debes guardarlo en una variable. Esta variable, además, debe ser global si se va a usar en otras partes del programa, contraviniendo una de las buenas prácticas de programación más universales que existen. Sin embargo, si no lo haces así, la variable no funcionará correctamente.
+Puedes imaginar que el puntero a SDL_Surface es como el puntero a FILE que devuelve la función fopen(). Sin ese puntero a FILE no se puede manejar el archivo. Pues bien, sin el puntero a SDL_Surface no podemos manejar la pantalla gráfica. Visto así, la función SDL_SetVideoMode() es parecida a fopen(), solo que aplicada a los gráficos en lugar de a los archivos.
+Aquí tienes un ejemplo de inicialización de la pantalla gráfica:
+  #include <SDL/SDL.h>  
+  ...
+  SDL_Surface *pantalla;	// Esta variable debe ser GLOBAL
+  ...
+  if (SDL_Init(SDL_INIT_VIDEO) == -1) {
+    puts("Error en la inicialización del sistema de vídeo\n");
+    SDL_Quit();
+    exit(-1);
+  }
+
+  pantalla = SDL_SetVideoMode(800, 600, 16, SDL_ANYFORMAT|SDL_DOUBLEBUF);
+  if (pantalla == NULL) {
+    puts("Fallo al establecer el modo de vídeo\n");
+    SDL_Quit();
+    exit(-1);
+  }
+  ...
+  SDL_Quit();		// Esto se hace al final del programa
+Tan importante como inicializar la pantalla gráfica es finalizarla. Ten en cuenta que la pantalla gráfica consume muchos recursos, y éstos deben ser liberados antes de que el programa termine su ejecución. Para eso tenemos la función SDL_Quit(), que se invoca sin argumentos (observa el ejemplo)
+ 5.4  Dibujar gráficos en la pantalla
+Ya tenemos nuestra pantalla gráfica inicializada y lista para empezar a dibujar en ella. Pero, ¿qué tipo de objetos se pueden dibujar?
+Aunque las librerías gráficas permiten al programador pintar píxels individuales en cualquier punto de la pantalla, lo habitual es trabajar con imágenes previamente existentes llamadas sprites. Un sprite es una imagen guardada en un archivo que puede ser cargada por el programa y mostrada en cualquier parte de la pantalla gráfica y tantas veces como sea necesario.
+Por lo tanto, lo primero que necesitas es hacerte con una colección de sprites para tu programa. Si, por ejemplo, suponemos que estamos desarrollando un de ajedrez, necesitaríamos los siguientes:
+    • Una imagen del tablero.
+    • Una imagen de cada una de las piezas. 
+    • Opcionalmente, una imagen de fondo para decorar la pantalla.
+Los archivos con las imágenes deben estar en formato BMP. SDL admite otros formatos, pero el BMP es con diferencia el más fácil de manipular, así que es una muy buena idea empezar por las imágenes BMP y luego, cuando ya las manejes bien, dar el salto a otros formatos con compresión.
+Para dibujar una imagen en cualquier punto de la pantalla, hay que hacer dos cosas que pasamos a describir con detalle:
+    • Cargar la imagen en la memoria (procedente de un archivo BMP)
+    • Mostrar la imagen en la pantalla
+Cargar imágenes en la memoria
+Sólo es necesario cargar las imágenes una vez. Normalmente, se hará al principio del programa, justo después de la inicialización de SDL. Una vez cargadas en la memoria, podremos utilizarlas tantas veces como las necesitemos, a menos que liberemos el espacio de memoria que ocupan. La liberación de espacio, por tanto, debería hacerse al final del programa, justo antes de terminar.
+Para cargar una imagen BMP se usa la función SDL_LoadBMP(), de esta forma:
+  SDL_Surface *tablero;
+
+  tablero = SDL_LoadBMP("tablero.bmp");
+  if (fondo == NULL) {
+     printf("Error al cargar el archivo tablero.bmp");
+     SDL_Quit();
+     exit(-1);
+  }
+Observa que SDL_LoadBMP() devuelve un puntero a SDL_Surface. Este puntero será necesario para luego mostrar la imagen en cualquier lugar de la pantalla. La variable "fondo" debe ser global si se va a usar en más de una función (si es local y la pasamos como parámetro a otra función, SDL fallará).
+Las imágenes son rectangulares. En muchas ocasiones, necesitamos mostrar una imagen encima de otra. Es el caso de las piezas, que se mostrarán encima del tablero. Cuando esto ocurre, el color de fondo de la pieza (que decidimos que fuera negro) aparecerá encima del tablero como un desagradable recuadro de color negro. En estas situaciones, hay que avisar a SDL de que, para este sprite en concreto, el color negro va a ser transparente, es decir, no debe ser mostrado. Esto se hace así:
+  SDL_Surface *peon_blanco;
+  Uint32 color;	// Para definir el color de transparencia (donde proceda)
+
+  // Cargamos la imagen del peón blanco
+  peon_blanco = SDL_LoadBMP("peon_bl.bmp");
+  if (peon_blanco == NULL) {
+     printf("Error al cargar el archivo peon_bl.bmp");
+     SDL_Quit();
+     exit(-1);
+  }
+ 
+  // Definimos la transparencia (color negro = (0,0,0) )
+  color = SDL_MapRGB(peon_blanco->format, 0, 0, 0);
+  SDL_SetColorKey(cuadro1, SDL_SRCCOLORKEY | SDL_RLEACCEL, color);
+Las imágenes cargadas en memoria deben ser liberadas antes de finalizar el programa con una llamada a SDL_FreeSurface(). Por ejemplo, para liberar la memoria ocupada por la imagen "tablero.bmp" que hemos cargado antes usaremos el puntero que obtuvimos al cargarla, así:
+SDL_FreeSurface(tablero);
+Mostrar imágenes en la pantalla
+Una vez cargada una imagen BMP en la memoria, podemos mostrarla en la pantalla a través del puntero SDL_Surface que obtuvimos al cargarla. Una imagen cargada puede ser mostrada todas las veces que queramos en cualquier posición de la pantalla.
+Por ejemplo, para mostrar la imagen del tablero (que cargamos en un ejemplo del apartado anterior) haríamos lo siguiente (luego comentamos el código)
+  SDL_Rect rect;
+  rect = (SDL_Rect) {10, 10, 400, 400};
+  SDL_BlitSurface(tablero, NULL, pantalla, &rect);
+  SDL_Flip(pantalla);
+La variable "rect" es de tipo SDL_Rect, y define un área rectangular de la pantalla. El área rectangular empieza en las coordenadas (10, 10) (esquina superior izquierda de la pantalla) y mide 400 píxels de ancho y 400 de alto, es decir, termina en (410, 410)
+SDL_BlitSurface() es la función que se encarga de mostrar en la pantalla un sprite. La variable "tablero" es de tipo SDL_Surface*, y debe ser la que nos devolvió SDL_LoadBMP() al cargar la imagen del tablero. La variable "pantalla" también es una SDL_Surface*, y debe ser la que nos devolvió SDL_SetVideoMode() al inicializar la pantalla gráfica. Ya dijimos que los punteros que nos devuelven estas funciones son imprescidibles y que debíamos definirlos como variables globales. La variable "rect" es el área rectangular que acabamos de definir.
+Fíjate que "rect" es la que indica en qué lugar de la pantalla va a aparecer el sprite. En este ejemplo, aparecerá en (10,10). Se le han reservado 400x400 píxels para dibujarse, es decir, hasta la posición (410, 410). Si el sprite en más pequeño, no pasará nada (ocupará lo que mida realmente). Si es más grande, se truncará.
+Por último, SDL_Flip() hace que lo que acabamos de dibujar se muestre realmente en la pantalla. Su efecto es parecido al de la función refresh() de ncurses. En realidad, todo lo que dibujamos se escribe en una zona de memoria específica y, al hacer SDL_Flip(), esa zona de memoria se vuelca sobre la memoria de vídeo, apareciendo todo en la pantalla. Esto representa el movimiento de gran cantidad de información entre distintas zonas de memoria, lo cual es un proceso relativamente lento. Por eso, si vamos a dibujar varios sprites consecutivos, es mejor hacer una sola vez SDL_Flip(), al final, cuando los hayamos dibujado todos. Llamar a SDL_Flip() después de dibujar cada sprite ralentizará notablemente el funcionamiento de nuestro programa.
+ 5.5  Control del teclado
+Para leer el teclado en una ventana gráfica creada con SDL no se pueden usar las funciones estándar (como getchar() o gets()), ni mucho menos las de ncurses (como getstr()). SDL solo permite leer los caracteres de uno en uno, y no muestra eco por la pantalla (si queremos eco, tenemos que mostrar los caracteres nosotros mismos después de leerlos)
+Por lo demás, la forma de capturar un carácter tecleado es similar a la de ncurses, solo que un poco más complicada. A continuación se muestra un código de ejemplo:
+SDL_Event evento;	  	      // Para leer el teclado
+
+// Leer teclado
+if (SDL_PollEvent(&evento))            // Comprobar si se ha pulsado una tecla
+{
+   if (evento.type == SDL_KEYDOWN)     // Efectivamente, se ha pulsado una tecla
+   {
+       switch (evento.key.keysym.sym)  // Vamos a mirar qué ecla es
+       {
+           case SDLK_UP:     ...acciones...; break;	// Flecha arriba
+           case SDLK_DOWN:   ...acciones...; break;	// Flecha abajo
+           case SDLK_LEFT:   ...acciones...; break;	// Felcha izquierda
+           case SDLK_RIGHT:  ...acciones...; break;	// Flecha derecha
+           case SDLK_RETURN: ...acciones...; break;	// Intro 
+           case SDLK_ESCAPE: ...acciones...; break;	// ESC
+           case SDLK_m:      ...acciones...; break;	// Tecla "m" (menú)
+        }
+    }
+}
+Existen constantes para cualquiera de las otras teclas del teclado. Todas empiezan por "SDLK_". Por ejemplo, la tecla "a" tendrá el código "SDLK_a".
+ 5.6  Definición de colores
+Aunque en general trataremos con imágenes ya creadas (como la del tablero o las de las piezas), es posible que necesites definir algún color para usarlo directamente sobre la pantalla gráfica (por ejemplo, para usar transparencias o para escribir un texto)
+En SDL no hay colores predefinidos, como en ncurses. Los colores debemos definirlos nosotros mezclando los colores básicos RGB (rojo, verde y azul)
+Hay dos formas de definir un color: con una variable de tipo “SDL_Color” o con una variable de tipo “Uint32”. El uso de una u otra dependerá de para qué queramos usar ese color:
+a) Con una variable de tipo SDL_Color. Se usaría así:
+SDL_Color color;    
+color = (SDL_Color) {50, 150, 200, 255};
+Los cuatro números definen el color. Deben ser números comprendidos entre 0 y 255. El primero es el nivel de rojo (R), el segundo el nivel de verde (G) y el tercero, el nivel de azul (B). El cuarto número es el brillo. El color definido en este ejemplo tiene mucho azul, bastante verde y poco rojo. El resultado debe ser un azul amarillento.
+b) Con una variable de tipo Uint32, que se usaría así:
+Uint32 color;
+color = SDL_MapRGB(pantalla->format, 50, 150, 200);  
+En esta ocasión, "pantalla" debe ser un puntero a una imagen SDL_Surface que hayamos cargado previamente. Los tres valores siguientes son los niveles RGB. No hay nivel de brillo, porque éste se toma de la imagen apuntada por "pantalla".
+De las dos maneras se pueden definir colores para usarlos posteriormente. Si el color lo necesitamos para una transparencia, recurriremos al segundo método (de hecho, ya vimos un ejemplo de ello al estudiar cómo se cargaban y mostaban las imágenes en SDL; allí usamos el color negro como transparencia). Si el color lo necesitamos para escribir un texto en la pantalla gráfica, usaremos el primer método (como se podrá ver en el siguiente apartado)
+ 5.7  Mostrar texto en la pantalla gráfica: la librería SDL_TTF
+La librería SDL no permite directamente la escritura de texto en la pantalla gráfica. Esto se debe a que la pantalla gráfica, por definición, no admite caracteres, sino únicamente imágenes.
+Por fortuna, a la sombra de SDL se han creado multitud de librerías adicionales que, partiendo de SDL, complementan y mejoran sus prestaciones. Una de ellas es SDL_TTF.
+La libería SDL_TTF permite cargar fuentes true type que estén guardadas en archivos ".ttf" y manejarlas como si fueran imágenes BMP en la pantalla gráfica generada por SDL. Necesitamos SDL_TTF, por lo tanto, para escribir los mensajes de usuario y las opciones del menú.
+Instalación, compilación y enlace de SDL_TTF
+La instalación de la librería SDL_TTF es similar a la de SDL, tanto en Linux como en Windows, de modo que puedes remitirte al apartado correspondiente para recordar cómo se hacía.
+En cuanto a la compilación y enlace, sólo tienes que añadir la opción "-lSDL_ttf" a la línea de compilación del Makefile:
+gcc -g `opciones de SDL` -o ajedrez ajedrez.o movs.o... `más opciones de SDL` -lSDL_ttf 
+Si estamos compilando en Windows con Dev-C++, agregaremos "-lSDL_ttf" a Opciones del Proyecto / Parámetros / Linker.
+Inicialización de SDL_TTF
+Igual que SDL, la librería SDL_TTF necesita ser inicializada antes de usarla, y finalizada antes de terminar el programa para liberar los recursos adquiridos.
+Como SDL_TTF corre por debajo de SDL, debe ser inicializada después de SDL, y debe ser terminada antes que SDL.
+La inicialización de SDL_TTF se hace simplemente así:
+  if(TTF_Init() == -1) {
+    printf("Fallo al inicializar SDL_TTF");
+    exit(-1);
+  }  
+Inmediatamente después podemos cargar una fuente true type de un archivo TTF, así:
+  TTF_Font* fuente;
+  ....
+  fuente = TTF_OpenFont("arial.ttf", 14);
+  if(fuente == NULL) {
+    printf("Fallo al abrir la fuente");
+    exit(-1);
+  }
+  TTF_SetFontStyle(fuente, TTF_STYLE_BOLD);
+La variable "fuente" es un puntero a TTF_Font. Debe ser una variable global por el mismo motivo que las variables SDL_Surface*. La función TTF_OpenFont() abre el archivo "arial.ttf" y carga el tipo de letra Arial en tamaño 14 para su uso en el programa. Después es conveniente comprobar que el puntero "fuente" contenga un valor válido y no NULL.
+Por último, la función TTF_SetFontStyle() puede usarse para determinar el estilo de la fuente. Tenemos varias posibilidades: TTF_STYLE_BOLD (negrita), TTF_STYLE_ITALIC (cursiva), TTF_STYLE_UNDERLINE (subrayado) y TTF_STYLE_NORMAL. Si queremos combinar varios estilos, podemos separarlos por el operador "|". Por ejemplo, para poner la fuente en negrita y cursiva escribiríamos esto:
+  TTF_SetFontStyle(fuente, TTF_STYLE_BOLD | TTF_STYLE_ITALIC);
+Finalización de SDL_TTF
+El proceso de finalización es inverso y complementario al de inicialización. Primero habrá que liberar todas las fuentes cargadas durante la inicialización, y luego hay que terminar el subsistema SDL_TTF.
+Para liberar una fuente escribiremos sencillamente:
+  TTF_CloseFont(fuente); 
+La variable "fuente" será de tipo TTF_Font*, y debe coincidir con la que nos devolvió la función TTF_OpenFont(). Esta operación la repetiremos con cada una de las fuentes que hayamos cargado.
+Después finalizaremos SDL_TTF escribiendo:
+  TTF_Quit();
+Recuerda que esto debe hacerse ANTES de SDL_Quit(), ya que SDL_TTF depende de SDL.
+Escribir texto con SDL_TTF
+Todo esto lo hacemos con un objetivo: poder escribir texto en la pantalla gráfica y sustituir así todas las funciones printw() y similares.
+Para escribir un texto hay que hacer dos cosas: primero, convertirlo en una imagen; segundo, mostrar la imagen en la pantalla.
+La conversión de un texto en una imagen se hace con la función TTF_Render():
+  SDL_Color color;
+  SDL_Surface* txt_img;
+
+  color = (SDL_Color) {255,100,100,255};
+  txt_img = TTF_RenderText_Blended(fuente, "Hola mundo", color);
+  if(txt_img == NULL) {
+	printf("Fallo al renderizar el texto");
+	exit(-1);
+  }
+Como ves, hay que hacer bastantes cosas para mostrar un texto en la pantalla gráfica, pero todo es acostumbrarse. Primero, hay que definir un color para el texto (cómo se definen los colores es algo que vimos en el epígrafe anterior). En este caso, hemos escogido un rojo brillante. 
+Después se invoca a TTF_RenderText(), pasándole como parámetros el puntero a la fuente que obtuvimos con TTF_OpenFont(), el texto que queremos mostrar y el color. La función nos devuelve un puntero de tipo SDL_Surface* que, si recuerdas, es exactamente el mismo que usábamos con las imágenes cargadas desde un archivo BMP.
+En realidad, la función TTF_RenderText() tiene tres formas:
+    • TTF_RenderText_Solid(): realiza una conversión del texto en imagen rápida pero de poca calidad.
+    • TTF_RenderText_Shaded(): la imagen resultante es de gran calidad pero tiene un recuadro negro alrededor
+    • TTF_RenderText_Blended(): la imagen resultante es de gran calidad y sin recuadro negro
+En general preferiremos el modo "Blended", que es el que proporciona mejores resultados. El modo "Shaded" se puede usar en determinados lugares (si no hay otra imagen debajo del texto). El modo "Solid" sólo debe usarse si hay que mostrar mucho texto y el modo "Blended" se revela demasiado lento.
+Hasta aquí, sólo hemos convertido el texto "Hola mundo" en una imagen, pero aún no la hemos mostrado en la pantalla. Para hacerlo procederemos como con cualquier otra imagen:
+  // Mostramos el texto como si fuera una imagen
+  rect = (SDL_Rect) { 500, 280, 100, 30 };
+  SDL_BlitSurface(txt_img, NULL, pantalla, &rect);	
+  SDL_Flip(scr);
+Se supone que "rect" es de tipo SDL_Rect y que pantalla es el puntero a SDL_Surface* que nos devolvió SDL_SetVideoMode() al inicializar SDL. Así, el texto "Hola mundo" se mostrará en la posición (500, 280) de la pantalla gráfica, reservándose para él 100 píxels de ancho y 30 de alto.
+
+
+## 9.3. Escribiendo programas en C
+
+Ya conocemos cómo se manejan los principales elementos de un programa con C: variables, instrucciones de control, asignaciones, funciones, etc.
 
 Ahora nos queda saber cómo juntamos todo eso para escribir nuestros programas, ¿no te parece?
 
-Por fortuna, en esto Javascript también se parece mucho a pseudocódigo. 
+### 9.3.1. Estructura de un programa en C
 
-### 9.3.1. Caja de herramientas
+Ya estamos en condiciones de echar un vistazo a cual será el aspecto de (casi) todos los programas que escribamos en C.
 
-¿Qué necesitamos para comenzar a escribir programas en Javascript? ¿Tendrás que instalar un montón de programas de desarrollo en tu ordenador?
+Todo programa C, desde el más pequeño hasta el más complejo, tiene un **programa principal** ubicado en la función ***main()***. 
+
+Además, por encima de *main()* deben aparecer los **prototipos de funciones** (y esto implica a los archivos de cabecera, si se utilizan funciones de librería) y las variables y constantes globales, si las hay. Por debajo de *main()* encontraremos el código de las funciones de usuario.
+
+Por lo tanto, la **estructura habitual de nuestros programas en C** debería ser esta: 
+
+```c
+/* Comentario inicial: nombre del programa, del programador, fecha, etc */
+
+/* Archivos de cabecera (prototipos de funciones de librería) */
+#include <archivo_cabecera.h>
+#include <archivo_cabecera.h>
+
+/* Prototipos de funciones escritas por nosotros */
+float función1 (argumentos);
+float función2 (argumentos);
+
+/* Variables globales */
+int variable_global1;
+char variable_global2;
+
+/* Algoritmo principal */
+int main(void)
+{
+   /* Variables locales del algoritmo principal */
+   int a, b;
+   float x, y;
+   ...
+   ...
+   /* Instrucciones del algoritmo principal */
+   ...
+   función1(argumentos);
+   ...
+   función2(argumentos);
+   ...
+   return 0;
+}
+
+/* Código completo de las funciones escritas por nosotros */
+float función1 (argumentos)
+{
+   /* Variables locales e instrucciones de este subalgoritmo */
+}
+float función2 (argumentos)
+{
+   /* Variables locales e instrucciones de este subalgoritmo */
+}
+```
+
+### 9.3.2. Caja de herramientas
+
+¿Qué necesitamos para comenzar a escribir programas en C? ¿Tendrás que instalar un montón de programas de desarrollo en tu ordenador?
 
 La verdad es que no. Para desarrollar con Javascript basta con que tengas instalado:
 
 * **Un editor de texto**. No te sirve Microsoft Word ni Libreoffice Writer. Tiene que ser un editor de texto *plano*, es decir, que no introduzca información de formato en el archivo. Solo el texto.
 
-   Existen muchísimos editores de estas características, porque son programas muy simples y livianos. El **bloc de notas** de Windows es uno de ellos, aunque resulta poco recomendable porque no colorea el código fuente ni te ayuda a corregir errores.
+   Existen muchísimos editores de estas características, porque son programas muy simples y livianos. El **bloc de notas** de Windows o el editor **gedit** de los sistemas Linux con escritorio Gnome (como Educandos) son dos de ellos.
 
-   Un editor de texto para programación que ha tenido un crecimiento espectacular en los últimos años a nivel aficionado y profesional es **[Visual Studio Code](https://code.visualstudio.com/)**. Es multiplataforma (tiene versiones para Windows, Linux y Mac) y de código abierto. Y es una auténtica maravilla, así que te recomiendo que lo descargues (¡siempre de la web oficial, por favor!) y lo instales.
+   Un editor de texto para programación que ha tenido un crecimiento espectacular en los últimos años a nivel aficionado y profesional es **[Visual Studio Code](https://code.visualstudio.com/)**. Es multiplataforma (tiene versiones para Windows, Linux y Mac) y de código abierto. Y es una auténtica maravilla, así que te recomiendo lo instales (¡siempre desde los repositorios de tu distribución Linux o desde la web oficial si trabajas con Windows, por favor!) y lo instales.
 
-   Si trabajas con Linux, seguramente lo encuentres en los repositorios oficiales de tu distribución. Esa, por supuesto, también es una fuente confiable desde donde instalarlo.
+   Para programar en C con Visual Studio Code, tendrás que instalar las extensiones para C/C++, pero no te preocupes porque es muy fácil y no tardarás más de un minuto. En los ejercicios propuestos lo haremos.
 
-* **Un navegador web**. Todos los navegadores web llevan en sus tripas un intérprete de Javascript, puesto que todas las páginas web actuales utilizan Javascript para funcionar. Puedes usar el navegador web que más te guste: Google Chrome, Mozilla Firefox, Microsoft Edge, el Safari de Apple, Opera, etc.
+* **Un compilador de C/C++**. Todos los sistemas Linux llevan instalador un compilador de C muy popular llamado **gcc**. Si trabajas en Windows, lo más recomendable es que instales **MinGW**, una versión de gcc para Windows. Descárgala de la [web del fabricante](https://www.mingw-w64.org/) y sigue las instrucciones de instalación. 
 
-### 9.3.2. Flujo de trabajo
+   Nota: en Windows tendrás agregar la ruta hasta el ejecutable de Mingw en el PATH del sistema. La forma exacta de conseguir esto puede diferir según tu versión de Windows, y deberías buscar ayuda si no sabes cómo hacerlo (obviamente, este no es libro sobre Windows). En los sistemas Linux, esto no será necesario.
 
-Lo habitual cuando estés escribiendo y depurando programas en Javascript es que **tengas abiertos a la vez** los dos programas:
+### 9.3.3. Flujo de trabajo
 
-* El editor de texto, para ir escribiendo y modificando tu código.
-* El navegador web, para ir probando tu código.
+Cuando se trabaja con C, la implementación de un programa suele dividirse en varias subfases: edición, compilación, enlace y depuración. Te las describo brevemente:
 
-El flujo de trabajo, al menos al principio, será este:
+1. **Edición del código fuente**. Editar consiste en escribir el código fuente del programa en el lenguaje seleccionado, en nuestro caso C, con un editor de texto plano como **Visual Studio Code**.
+2. **Compilación**. Una vez escrito el programa, debe traducirse a binario en un proceso llamado *compilación*. Esto puede hacerse desde la línea de comandos, aunque algunos editores de texto permiten hacerlo desde el propio editor. Es el caso de *Visual Studio Code*. Si has instalado las extensiones para C/C++, bastará con que vayas al menú **Run** o que pulses el **botón "Play"** que aparece arriba y a la derecha del editor.
+3. **Enlace**. Si tu programa es muy complejo, tu código fuente ocupará varios archivos. En tal caso, hay que compilarlos de uno en uno y después *enlazarlos* entre sí para generar un único programa ejecutable. No te preocupes de momento por esto, porque tus primeros programas estarán en un solo archivo y, además, cuando llegue el momento, *Visual Studio Code* se encargará de hacer el enlace automáticamente por nosotros.de librerías entre diferentes aplicaciones.
+4. **Depuración**. Ningún programa está bien escrito a la primera. Nunca. Lo normal es que el compilador te informe de que hay multitud de errores en tu código fuente. Tendrás que leer cuidadosamente los mensajes de error para corregirlos. Por fortuna, el compilador te informará de la línea exacta donde localizó el error, e incluso te dirá de qué tipo de error se trata.
 
-1. Comprender bien el problema que se pretende resolver.
-2. Pensar un rato en el algoritmo que vas a escribir. Si es necesario, hacer un boceto en papel y/o en pseudocódigo.
-3. Abrir el editor de texto y escribir una primera versión del programa. Si es muy largo, dividirlo en trozos más pequeños y escribir solo el primero de ellos.
-4. Comprobar que el programa o fragmento de programa funciona en el navegador web. No pasar al siguiente fragmento hasta que este no funcione correctamente.
-5. Repetir los pasos 3 y 4 hasta que el programa esté completo.
+   Una vez corregidos los errores de escritura, cuando el programa empiece a funcionar, es posible que no haga exactamente lo que tú pretendías que hiciera. También tendrás que corregir estos errores de ejecución.
 
-Ten en cuenta que, cuando los programas empiecen a volverse complejos, no podrás resolverlos de una sentada. Escribir un programa muy complejo puede llevarte días, semanas o meses.
+   XXX *captura de pantalla de extensión C++ y botón "Play"* XXX
 
-### 9.3.3. Dónde y cómo escribir el código fuente
+### 9.3.4. Dónde y cómo escribir el código fuente
 
-Los programas en Javascript pueden guardarse en dos tipos de archivo:
+Los programas escritos en C suelen guardarse en dos tipos de archivo:
 
-* **Archivos con extensión .js**. Estos archivos suelen contener bibliotecas de funciones Javascript usadas por otros programas. No se ejecutan directamente.
-* **Archivos con extensión .html o .htm**. El navegador web los interpretará como páginas web y, por lo tanto, los ejecutará. *Aquí es donde colocaremos nuestro código*, al menos al principio.
+* **Archivos con extensión .c**. Estos archivos contienen el grueso del código fuente. En particular, la función *main()*, que es necesaria en cualquier programa en C.
+* **Archivos con extensión .h**. Estos archivos contienen los prototipos de funciones y otras definiciones necesarias para que el programa funcione bien. Al principio, no escribirás ningún archivo de este tipo, pero sí que tendrás que incluir (con *#include*) muchos de ellos.
 
-Dentro del archivo .html, el código Javascript debe ir incrustado entre las etiquetas ```<script>``` y ```</script>```, que marcan el comienzo y el fin del programa:
+## 9.4. C avanzado: punteros y estructuras de datos
 
-```html
-<script>
-   Aquí va el código Javascript
-</script>
-```
-
-Escribiremos el **algoritmo principal** de un programa en Javascript sin ninguna palabra especial que lo identifique como tal. Es decir, el código estará sin más en el archivo fuente, entre las etiquetas ```<script>``` y ```</script>```.
-
-(Insisto: hay otras formas de hacer esto, pero, de momento, esta es más que suficiente para nosotros).
-
-Los subalgoritmos sí que deben identificarse con la palabra **function** seguida del nombre del subalgoritmo, como hemos visto más arriba.
-
-**El orden en el que escribas los algoritmos es indiferente**. En el archivo, puede aparecer primero el algoritmo principal y luego los subalgoritmos, o al revés. Utiliza el orden que te parezca más lógico y con el que te sientas cómodo.
-
-## 9.4. Punteros y estructuras de datos
-
-XXX
+XXX *Texto pendiente de redactar* XXX
 
 ## 9.5. Un ejemplo completo: las tres en raya
+
+XXX *Texto pendiente de revisar a partir de aquí* XXX
 
 Llegó la hora de poner manos a la obra.
 
@@ -1195,6 +2106,8 @@ Y así hasta que funcione.
 ¡Mucha paciencia y sangre fría! Recuerda siempre que la mayor parte del tiempo de programación se va en depurar programas, no en escribirlos.
 
 ## 9.6. Ejercicios propuestos
+
+XXX añadir un primer ejercicio que sea HOLA MUNDO e instalar Visual Studio Code + Extensión C/C++ de Microsoft.
 
 #### Ejercicio 1. Tabla de multiplicar
 

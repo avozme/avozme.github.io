@@ -1,13 +1,13 @@
 ---
 layout: page
-title: 10. Orientación a objetos
-permalink: /orientacion-a-objetos/
+title: 10. Orientación a objetos con C++
+permalink: /orientacion-a-objetos-c++/
 nav_order: 10
 has_children: true
 parent: Introd. a la prog. y al diseño 3D
 ---
 
-# 10. Orientación a objetos
+# 10. Orientación a objetos con C++
 {: .no_toc }
 
 - TOC
