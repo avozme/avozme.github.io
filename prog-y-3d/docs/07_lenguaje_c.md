@@ -188,9 +188,28 @@ Según estas cifras, el conjunto de proyectos que usan lenguaje C o cualquiera d
 
 ## 9.2. ¡Bienvenidos a C!
 
+C es un lenguaje muy antiguo pero plenamente vigente en muchos ámbitos de la **informática y diversas ingenierías**.
+
+¡C tiene más de 50 años, lo que es una auténtica burrada en informática! 
+
+Sin embargo, sigue usándose en la actualidad. **Por algo será.**
+
+Por un lado, C genera código máquina tan eficiente que ningún otro lenguaje puede igualarlo. Y puedes acceder directamente al hardware de tu máquina desde C, o incluso incrustar código ensamblador.
+
+Por si esto fuera poco, C (o su hermano mayor, C++, que veremos en el siguiente tema) se utiliza mucho en la actualidad en diversos ámbitos donde se necesita acceder al hardware o que los programas se ejecuten muy, muy rápido:
+
+* Desarrollo de sistemas. Gran parte de Windows, Linux, iOS o Android están programados en C.
+* Desarrollo de drivers para los sistemas operativos.
+* Robótica y automática.
+* Sistemas integrados en electrodomésticos: televisores, microondas, frigoríficos, routers, etc.
+* Sistemas integrados en los automóviles: ABS, ESP, climatización, visualización de información en tiempo real, control de los sensores...
+* Aprendizaje. Con C aprenderás a programar de verdad, sin que librerías enormes o *frameworks* te oculten lo que pasa en las entrañas de la máquina.
+
+Por todas estas razones, C es un lenguaje estupendo para iniciarse en la programación, así que ¡vamos a ello!
+
 ### 9.2.1.  Características básicas de C
 
-* C es un lenguaje de **alto nivel**, aunque a veces se le considera de **nivel intermedio**, porque permite manipular detalles del hardware que para otros lenguajes resultan innacesibles.
+* C es un lenguaje de **nivel intermedio**. Tiene características de los lenguajes de alto nivel pero, al mismo tiempo, permite manipular detalles del hardware que para otros lenguajes resultan innacesibles y genera código máquina ultrarrápido.
 * Es **imperativo y estructurado**. Admite **orientación a objetos** (aunque entonces se llama C++).
 * Su **tipado es estático y débil**. Eso significa que hay que indicar el tipo de datos de las variables antes de usarlas y que se pueden hacer mezclas de tipos.
 * La **sintaxis** de sus estructuras de control se parece a las de Java, Javascript, PHP o Python, porque todos estos lenguajes son herederos naturales de C.
@@ -1430,76 +1449,105 @@ Función|Prototipo|Utilidad|Archivo de cabecera
 
 ### 9.2.13. Librerías no estándar que molan: ncurses
 
-XXX *Texto pendiente de revisar* XXX
+Además de las librerías estándar ANSI, existen muchas (¡muchísimas!) librerías de terceros que se pueden usar en nuestros programas. Las que vamos a ver a continuación nos permitirán introducir colores, sonidos y movimientos en nuestros programas, pero debes tener presente una cosa: al no ser librerías estándar, los programas creados con estas librerías serán más difícilmente portables a otros sistemas.
 
- 4.1  Qué es Ncurses
-Ncurses es una librería de funciones para el manejo de interfaces basadas en texto. Es decir, se trata de un conjunto de funciones, ya programadas, que podemos utilizar en nuestros programas para mejorar su presentación.
-Como Ncurses no es una librería estándar de C, es necesario ordenar al compilador que la enlace con nuestro programa. Esto se hace añadiendo la opción –lncurses al comando gcc. Por ejemplo:
-    • gcc holamundo.c: compila holamundo.c sin enlazarlo con la librería Ncurses
-    • gcc –lncurses holamundo.c: compila holamundo.c enlazándolo con Ncurses
-Además, debemos hacer un #include <ncurses.h> en el programa que vaya a utilizar estas funciones.
+#### Qué es Ncurses
+
+**Ncurses** es una **librería para el manejo de interfaces basadas en texto**. 
+
+Es decir, se trata de un conjunto de funciones ya programadas que podemos utilizar en nuestros programas de texto para mejorar su aspecto.
+
+Como Ncurses no es una librería estándar de C, es necesario ordenar al compilador que la enlace con nuestro programa. 
+
+Si compilas desde la consola, esto se hace añadiendo la opción –lncurses al comando *gcc*. Por ejemplo:
+
+* ```gcc holamundo.c```: compila holamundo.c sin enlazarlo con la librería Ncurses
+* ```gcc -lncurses holamundo.c```: compila holamundo.c enlazándolo con Ncurses
+
+Si trabajas desde desde Visual Studio Code y tienes la librería Ncurses instalada en tu sistema, no es necesario que hagas nada en especial. Un simple ```#include <ncurses.h>``` bastará para poder usar la librería.
+
 Ncurses tiene muchísimas funciones, pero nosotros sólo nos referiremos aquí a las más básicas, que nos permitirán añadir color a nuestros textos y controlar libremente la posición del cursor de escritura. Pero Ncurses va mucho más allá, permitiendo la creación de capas de texto superpuestas, menús desplegables y muchas otras cosas en la consola de texto.
- 4.2  Inicialización de Ncurses
-Para utilizar las funciones de Ncurses en nuestro programa, basta con que incluyamos la siguiente llamada:
-initscr();
-Esta función crea una ventana de texto. La ventana se llama stdscr (que significa "standard screen", es decir, "pantalla estándar"). A partir de aquí podremos utilizar cualquier función de Ncurses, pues todas actúan sobre esa ventana (se pueden crear varias ventanas sobre stdscr, pero nosotros no profundizaremos en esa posibilidad). Por ejemplo, una función que suele ir justo después es:
-keypad (stdscr, 1);
-Esto sirve para activar la recepción de teclas especiales (como F1, F2, ESC, etc). Si no llamamos a keypad(), no podremos utilizar ese tipo de teclas en nuestro programa. El segundo parámetro sirve para activar (1) o desactivar (0) la recepción de teclas especiales.
-A continuación se enumeran las principales funciones de inicialización de Ncurses:
-initscr()
-Inicializa Ncurses y crea la pantalla estándar. Debe ser invocada antes que cualquier otra función de la librería.
-initscr();
 
-keypad()
-Activa / desactiva la recepción de teclas especiales, como F1, ESC, Intro, etc. Si activar = 1, se activa la recepción. Si activar = 0, se desactiva.
-keypad(stdscr, activar);
-echo()
-noecho()
-Activa / desactiva el eco de caracteres. Si el eco está activo, lo que se escriba en el teclado aparece en la pantalla. Si está inactivo, no.
-echo();
-noecho();
-cbreak()
-nocbreak()
-Activa / desactiva el envío inmediato de teclas. Normalmente, cuando se teclea algo no es enviado al programa hasta que no se pulsa "intro". La función cbreak() hace que todo cuanto se teclee sea enviado al programa sin necesidad de "intro". La función nocbreak() desactiva este comportamiento
-cbreak();
-nocbreak();
-nodelay()
-Activa / desactiva la espera para lectura de teclado. Las funciones para leer un solo carácter, como getch(), detienen la ejecución del programa hasta que se pulsa alguna tecla. Llamando a esta función con el parámetro activar = 1, conseguiremos que el programa no se detenga en getch() aunque no se pulse tecla alguna. Para desactivarlo, llamaremos a la función con activar = 0.
-nodelay(stdscr, activar);
-endwin()
-Finaliza Ncurses. Hay que llamar a esta función antes de terminar el programa para liberar la memoria ocupada y restaurar la consola al estado inicial.
- 4.3  Escribir y leer
-Cuando utilicemos Ncurses debemos olvidarnos de las funciones de entrada/salida estándar, como scanf(), printf(), gets() o puts(). En su lugar usaremos estas otras funciones:
-printw()
-putstr()
-Para escribir usaremos la función printw(), que funciona igual que printf() pero sobre una ventana de Ncurses. También podemos usar putstr(), que es como puts(), es decir, sirve para imprimir cadenas
-getstr()
-getch()
-Para leer disponemos de getstr(), que es como gets(), es decir, sirve para leer cadenas por teclado. De modo que, si queremos leer un número, debemos leerlo como cadena y luego convertirlo a número (con las funciones estándar atoi(), atof(), etc)
-También podemos usar getch(), que lee un único carácter.
-move()
-Para colocar el cursor usaremos move(y,x). Esto ubica el cursor en la columna x y la fila y de la pantalla. ¡Atención! Se indica primero la fila y luego la columna.
-refresh()
-Actualiza la pantalla. Es el único modo de asegurarnos de que los cambios realizados se muestren instantáneamente. 
- 4.4  Colores
-Antes de utilizar los colores hay que inicializarlos llamando a la función start_color() sin argumentos, así:
+#### Inicialización de Ncurses
+
+Para utilizar las funciones de Ncurses en nuestro programa, basta con que incluyamos la siguiente llamada:
+
+```c
+initscr();
+```
+
+Esta función crea una ventana de texto. La ventana se llama *stdscr* (que significa "standard screen", es decir, "pantalla estándar"). A partir de aquí podremos utilizar cualquier función de Ncurses, pues todas actúan sobre esa ventana (se pueden crear varias ventanas sobre stdscr, pero nosotros no profundizaremos en esa posibilidad). Por ejemplo, una función que suele ir justo después es:
+
+```c
+keypad (stdscr, 1);
+```
+
+Esto sirve para activar la recepción de teclas especiales (como F1, F2, ESC, etc). Si no llamamos a keypad(), no podremos utilizar ese tipo de teclas en nuestro programa. El segundo parámetro sirve para activar (1) o desactivar (0) la recepción de teclas especiales.
+
+A continuación te dejo una lista con las principales funciones de inicialización de Ncurses:
+
+* **initscr()**. Inicializa Ncurses y crea la pantalla estándar. Debe ser invocada antes que cualquier otra función de la librería.
+* **keypad()**. Activa / desactiva la recepción de teclas especiales, como F1, ESC, Intro, etc. Si activar = 1, se activa la recepción. Si activar = 0, se desactiva.
+* **echo()** y **noecho()**. Activa / desactiva el eco de caracteres. Si el eco está activo, lo que se escriba en el teclado aparece en la pantalla. Si está inactivo, no.
+* **cbreak()** y **nocbreak()**. Activa / desactiva el envío inmediato de teclas. Normalmente, cuando se teclea algo no es enviado al programa hasta que no se pulsa "intro". La función cbreak() hace que todo cuanto se teclee sea enviado al programa sin necesidad de "intro". La función nocbreak() desactiva este comportamiento
+* **nodelay(stdscr)**. Activa / desactiva la espera para lectura de teclado. Las funciones para leer un solo carácter, como getch(), detienen la ejecución del programa hasta que se pulsa alguna tecla. Llamando a esta función con el parámetro activar = 1, conseguiremos que el programa no se detenga en getch() aunque no se pulse tecla alguna. Para desactivarlo, llamaremos a la función con activar = 0.
+
+* **endwin()**. Finaliza Ncurses. Hay que llamar a esta función antes de terminar el programa para liberar la memoria ocupada y restaurar la consola al estado inicial.
+
+#### Escribir y leer con ncurses
+
+Cuando utilicemos Ncurses debemos olvidarnos de las funciones de entrada/salida estándar, como *scanf()*, *printf()*, *gets()* o *puts()*. En su lugar usaremos estas otras funciones:
+
+* **printw()** y **putstr()**. Para escribir usaremos la función *printw()*, que funciona igual que *printf()* pero sobre una ventana de Ncurses. También podemos usar *putstr()*, que es como *puts()*, es decir, sirve para imprimir cadenas
+* **getstr()** y **getch()**. Para leer disponemos de *getstr()*, que es como *gets()*, es decir, sirve para leer cadenas por teclado. De modo que, si queremos leer un número, debemos leerlo como cadena y luego convertirlo a número (con las funciones estándar *atoi()*, *atof()*, etc). También podemos usar *getch()*, que lee un único carácter.
+* **move()**. Posiciona el cursor de texto en la columna x y la fila y de la pantalla. ¡Atención! Se indica primero la fila y luego la columna.
+* **refresh()**. Actualiza la pantalla. Es el único modo de asegurarnos de que los cambios realizados se muestren instantáneamente. Si no, Ncurses decidirá cuándo actualizar la pantalla por su cuenta, y te aseguro que no lo hace continuamente.
+
+#### Dar color a nuestro texto
+
+Antes de utilizar los colores en la terminal de texto hay que inicializarlos llamando a la función *start_color()* sin argumentos, así:
+
+```c
 if (has_colors())
   start_color();
-La llamada previa a has_colors() se realiza para asegurarnos de que nuestra consola soporta el uso de colores. Es raro encontrar una consola que no permita colores, pero existen, así que no está de más hacer la comprobación.
-Una vez hecho esto, podemos utilizar los colores básicos definidos en ncurses.h, cuyas constantes son:
-COLOR_BLACK, COLOR_WHITE, COLOR_YELLOW, etc.
-Para utilizar esos colores se deben agrupar en parejas: un color para el texto junto con un color para el fondo. A cada pareja se le asigna un número a través de la función init_pair(), así:
+```
+
+La llamada previa a *has_colors()* se realiza para asegurarnos de que nuestra consola soporta el uso de colores. Es raro encontrar una consola que no permita colores, pero existen, así que no está de más hacer la comprobación.
+
+Una vez hecho esto, podemos utilizar los colores básicos definidos en *ncurses.h*, cuyas constantes son COLOR_BLACK, COLOR_WHITE, COLOR_YELLOW, etc.
+
+Para utilizar esos colores se deben agrupar en parejas: un color para el texto junto con un color para el fondo. A cada pareja se le asigna un número a través de la función *init_pair()*. Por ejemplo:
+
+```c
 init_pair(1, COLOR_YELLOW, COLOR_BLUE);
-Esto define a la pareja nº 1 como texto amarillo sobre fondo azul. De este modo podemos definir, por lo general, hasta 64 parejas.
-Después, para activar una pareja, haremos esta llamada:
+```
+
+Esto define a la *pareja de colores nº 1* como *texto amarillo sobre fondo azul*. De este modo podemos definir, por lo general, hasta 64 parejas.
+
+Después, para **activar una pareja de color**, haremos esta llamada:
+
+```c
 attron(COLOR_PAIR(1));
+```
+
 Esto activa la pareja de colores nº 1, de manera que todo el texto que aparezca en la pantalla a partir de este momento se verá amarillo con el fondo azul.
-La función attron(), además de para activar parejas de colores, sirve para cambiar otros atributos del texto. Por ejemplo, lo siguiente se utiliza para escribir en negrita:
+
+La función *attron()*, además de para activar parejas de colores, sirve para cambiar otros atributos del texto. Por ejemplo, lo siguiente se utiliza para escribir en **negrita**:
+
+```c
 attron(A_BOLD);
-Puedes obtener más información sobre attron() en las páginas de manual (escribiendo  man attron)
- 4.5  Ejemplo de uso de Ncurses
+```
+
+Puedes obtener más información sobre attron() en las páginas de manual (escribiendo ```$ man attron``` en la consola) o en internet (por ejemplo, [aquí](https://linux.die.net/man/3/attron)).
+
+
+#### Ejemplo de uso de Ncurses
+
 Para terminar esta breve introducción a la librería Ncurses mostraremos un ejemplo ilustrativo del uso de algunas de las funciones que aquí se han visto.
+
 El siguiente programa utiliza Ncurses para escribir el texto HOLA en color rojo sobre fondo azul y el texto MUNDO en color amarillo sobre fondo verde. El texto HOLA aparece en la línea 11, y MUNDO en la 12. Luego, el programa espera hasta que se pulsa la tecla "flecha arriba", y entonces termina.
+
+```c
 #include <ncurses.h>
 int main(void)
 {
@@ -1524,62 +1572,72 @@ int main(void)
   endwin();  // Finaliza Ncurses
   return 0;
 }
+```
 
 ### 9.2.14. Librerías no estándar que molan: SDL
 
-XXX *Texto pendiente de revisar* XXX
+**SDL** (iniciales de *Single DirectMedia Layer*) es una biblioteca de C libre y disponible para múltiples plataformas (entre ellas, Linux y Windows). Puedes bajarte la última versión de [http://www.libsdl.org](http://www.libsdl.org).
 
-aplicaciones gráficas con C
-El siguiente apartado está extraído de mi libro "Ajedrez en C: cómo programar un juego de ajedrez en lenguaje C y que funcione". Allí se hacía una introducción a la librería SDL para dotar de interfaz gráfico al juego que se pretendía desarrollar.
-He decidido incluir una adaptación de ese texto en este libro como un apéndice porque la librería SDL es lo suficientemente potente como para merecer la atención de cualquier interesado en el desarrollo en C. 
-SDL (iniciales de Single DirectMedia Layer) es una biblioteca libre, con licencia zlib, disponible para múltiples plataformas (entre ellas, Linux y Windows). Puedes bajarte la última versión de http://www.libsdl.org
-Esta biblioteca contiene un conjunto muy completo de funciones para manejar gráficos, además de sonidos y distintos dispositivos multimedia (ratón, CD-ROM, etc). Teniendo en cuenta la complejidad intrínseca a estos dispositivos, la librería es razonablemente sencilla de usar.
+Esta biblioteca contiene un conjunto muy completo de funciones para manejar gráficos, además de sonidos y distintos dispositivos multimedia (ratón, CD-ROM, etc). Muchos programas escritos en C (en particular, videojuegos) se han desarrollado con SDL. Además, la librería es razonablemente sencilla de usar.
+
 Nosotros sólo nos vamos a centrar en la parte de SDL dedicada a los gráficos. Si quieres más información, en la página web reseñada antes encontrarás una completa documentación.
- 5.1  Instalación de SDL
-SDL no es una librería C estándar, es decir, no viene "de serie" con el compilador de C. En realidad, tampoco ncurses lo es, pero su uso está tan extendido en entornos Unix que viene incorporada a las librerías del compilador gcc.
+
+#### Instalación de SDL
+
+SDL no es una librería C estándar, es decir, no viene "de serie" con el compilador de C. En realidad, tampoco *ncurses* lo es, pero su uso está tan extendido en entornos Unix que viene incorporada a las librerías del compilador gcc.
+
 En cambio, la librería SDL debe ser instalada antes de poder utilizarla. A continuación describimos el proceso de instalación en Linux y en Windows
-Instalación de SDL en Linux
-    • Bájate la última versión de la librería de la web de SDL. Necesitarás el paquete de la librería propiamente dicho (denominado runtime) y el paquete de desarrollo.  El paquete runtime tiene un nombre similar a este: SDL-x.x.x-1.i386.rpm, donde "x.x.x" es la versión de la libería e "i386" indica para qué tipo de procesador está compilado. El paquete de desarrollo debe llamarse SDL-devel-x.x.x-i386.rpm o algo similar.
-    • Instala ambos paquetes en tu sistema. Con el paquete runtime es suficiente para ejecutar programas que usen la librería SDL, pero si además quieres escribir programas nuevos que usen esta librería (y es nuestro caso), también necesitarás el paquete de desarrollo.
-Instalación de SDL en Windows
-    • Bájate la última versión de la librería de la web de SDL. Necesitarás la librería de vínculos dinámicos (denominada dll) y el paquete de desarrollo. La librería de vínculos dinámicos suele venir comprimida en un archivo cuyo nombre es similar a: SDL-x.x.x-win32.zip, donde "x.x.x" es la versión de la libería. Existirán varios paquetes de desarrollo para varios compiladores. Mi consejo es que bajes el que está preparado para el compilador de GNU, cuyo nombre es SDL-devel-x.x.x-mingw32.tar o algo similar. También encontrarás paquetes para Visual C++ y otros compiladores.
-    • Descomprime la librería de vínculos dinámicos. Debes obtener un archivo llamado sdl.dll. Copia este archivo al directorio /windows/system32, o bien ubícalo en la misma carpeta en la que vaya a estar el programa ejecutable del ajedrez. 
-    • Descomprime el paquete de desarrollo. Encontrarás varios directorios y, dentro de ellos, multitud de archivos. Copia los archivos en los directorios del mismo nombre de tu compilador. Por ejemplo, el copia el directorio "include" del paquete de desarrollo al directorio "include" de la carpeta donde esté instalado tu compilador. Repite la operación para todos los directorios cuyo nombre coincida.
- 5.2  Compilación y enlace
+
+**Instalación de SDL en Linux**
+
+* Bájate la última versión de la librería de la web de SDL. Necesitarás el paquete de la librería propiamente dicho (denominado runtime) y el paquete de desarrollo.  El paquete runtime tiene un nombre similar a este: SDL-x.x.x-1.i386.rpm, donde "x.x.x" es la versión de la libería e "i386" indica para qué tipo de procesador está compilado. El paquete de desarrollo debe llamarse SDL-devel-x.x.x-i386.rpm o algo similar.
+* Instala ambos paquetes en tu sistema. Con el paquete runtime es suficiente para ejecutar programas que usen la librería SDL, pero si además quieres escribir programas nuevos que usen esta librería (y es nuestro caso), también necesitarás el paquete de desarrollo.
+
+**Instalación de SDL en Windows**
+
+* Bájate la última versión de la librería de la web de SDL. Necesitarás la librería de vínculos dinámicos (denominada dll) y el paquete de desarrollo. La librería de vínculos dinámicos suele venir comprimida en un archivo cuyo nombre es similar a: SDL-x.x.x-win32.zip, donde "x.x.x" es la versión de la libería. Existirán varios paquetes de desarrollo para varios compiladores. Mi consejo es que bajes el que está preparado para el compilador de GNU, cuyo nombre es SDL-devel-x.x.x-mingw32.tar o algo similar. También encontrarás paquetes para Visual C++ y otros compiladores.
+* Descomprime la librería de vínculos dinámicos. Debes obtener un archivo llamado sdl.dll. Copia este archivo al directorio /windows/system32, o bien ubícalo en la misma carpeta en la que vaya a estar el programa ejecutable del ajedrez. 
+* Descomprime el paquete de desarrollo. Encontrarás varios directorios y, dentro de ellos, multitud de archivos. Copia los archivos en los directorios del mismo nombre de tu compilador. Por ejemplo, el copia el directorio "include" del paquete de desarrollo al directorio "include" de la carpeta donde esté instalado tu compilador. Repite la operación para todos los directorios cuyo nombre coincida.
+
+#### Compilación y enlace
+
 Al no ser SDL una librería estándar, el enlace entre nuestro programa y las funciones de SDL no se produce automáticamente. Hay que indicarle al enlazador (o linker) lo que debe hacer.
-Compilación y enlace en Linux
-Si, por ejemplo, nuestro programa ejecutable se llama "ajedrez" y se construye a partir de 3 programas objeto, llamados "ajedrez.o", "movs.o" e "interfaz.o", debemos modificar la primera parte de nuestro Makefile de este modo:
-ajedrez: ajedrez.o movs.o interfaz.o 
-	gcc -g `sdl-config –-cflags` -o ajedrez ajedrez.o movs.o interfaz.o `sdl-config –-libs`
-Fíjate bien en que las comillas son en realidad acentos graves, es decir, invertidos e inclinados hacia atrás. Debes respetar la sintaxis para que funcione.
-Eso es todo lo que tienes que hacer para compilar son SDL. Si te interesa saber POR QUÉ, sigue leyendo. Si no, puedes pasar al siguiente apartado.
-En realidad, lo que hay escrito entre esas comillas invertidas son comandos de SDL que indican la configuración de la librería. Estos comandos los puedes ejecutar desde la consola, obteniendo más o menos esto:
-$ sdl-config --cflags
--I/usr/local/include -I/usr/local/include/SDL -D_REENTRANT
-$ sdl-config –libs
--L/usr/local/lib -lSDL -lpthread
-Al añadir estos comandos dentro del Makefile, enmarcados entre esas comillas invertidas, obligamos a la herramienta make a ejecutar los comandos y a sustituir el texto entrecomillado por el resultado del comando. Es decir, sería como si hubiéramos puesto esto en el Makefile:
-ajedrez: ajedrez.o movs.o interfaz.o 
-	gcc -g -I/usr/local/include -I/usr/local/include/SDL -D_REENTRANT -o ajedrez ajedrez.o movs.o interfaz.o -L/usr/local/lib -lSDL -lpthread
-Pero preferiremos la primera forma porque es más corta y, además, funcionará en todas las situaciones, mientras que esta segunda depende de dónde y cómo se haya instalado la librería SDL (fíjate que hace referencia a directorios concretos de nuestro sistema)
-Compilación y enlace en Windows
-Lo siguiente sirve para compilar y enlazar con SDL desde el compilador Dev-C++, que tiene licencia GNU y es gratuito. Con otros compiladores el proceso debe ser similar, aunque es posible que necesites bajar otro paquete de desarrollo adaptado al compilador concreto.
-Para poder compilar y enlazar la libería SDL tienes que abrir las opciones del proyecto (menú "Proyecto") y activar la pestaña "Parámetros". En el cuadro con el título "Linker" escribe lo siguiente:
--lmingw32 -lSDLmain –lSDL
-Si has instalado correctamente la librería SDL, con esto debería bastar. Recuerda que el archivo sdl.dll debe estar en la misma carpeta que el programa ejecutable (o, si no, instalado con las liberías del sistema de Windows)
- 5.3  Inicialización y terminación de la pantalla gráfica
+
+Si estás utilizando Visual Studio Code, la forma de hacer que SDL se enlace con tu programa es XXX.
+
+Si utilizas otro entorno de desarrollo distinto de Visual Studio Code, el proceso debe ser muy parecido, pero tendrás que mirar la documentación de ese entorno de desarrollo para ver los detalles.
+
+#### Inicialización y terminación de la pantalla gráfica
+
 Una vez instalada la libería y preparado el compilador, podemos usar las funciones de SDL como cualquier otra función estándar de C. Su uso es exactamente igual en Windows y en Linux, por lo que el programa que obtendremos debería compilar sin necesidad de hacerle ningún cambio en ambos sistemas.
-Para usar los gráficos, hay que hacer un #include <SDL/SDL.h> en el archivo fuente, como es natural. Aparece dos veces el nombre "SDL" porque el archivo SDL.h está dentro de una carpeta llamada SDL.
-Lo siguiente que hay que hacer es inicializar la pantalla gráfica. Para eso disponemos de dos funciones: SDL_Init() y SDL_SetVideoMode():
-SDL_Init(). Debe ser la primera función en invocarse. No se puede usar ninguna otra función de SDL si antes no se ha llamado a esta. Hay que pasarle un parámetro que indica qué tipo de sistema multimedia queremos manejar (la tarjeta de vídeo, la de sonido, el CD-ROM, etc). En nuestro caso será la tarjeta de vídeo, ya que sólo nos interesa manipular gráficos. La constante para ello es SDL_INIT_VIDEO:
-SDL_Init(SDL_INIT_VIDEO);
-La fución SDL_Init() devuelve –1 si ocurre algún error al iniciar el sistema de gráficos. En ese caso, el programa no podrá continuar, de modo que debemos comprobar el valor devuelto por SDL_Init().
-SDL_SetVideoMode(). Esta debe ser la segunda función en invocarse, justo a continuación de SDL_Init(). Sirve para establecer el tipo de pantalla gráfica que queremos. Hay que indicarle el tamaño en píxels, el número de bits de color y los atributos de la pantalla. Por ejemplo:
-SDL_SetVideoMode(800, 600, 16, SDL_ANYFORMAT | SDL_DOUBLEBUFFER);
-Esto crea una ventana gráfica de 800x600 píxels, con 16 bits de profundidad de color. El último parámetro, SDL_ANYFORMAT, es una constante que indica a SDL que puede seleccionar otra profundidad de color si la elegida no está disponible. Este cuarto parámetro puede tomar otros muchos valores que no vamos a ver, pero sí señalaremos que es conveniente añadir la constante SDL_DOUBLEBUFFER por motivos de rendimiento (ver ejemplo más abajo).
-SDL_SetVideoMode() devuelve un puntero a una estructura llamada SDL_Surface, definida en SDL.h, o NULL si ocurre algún error. Este puntero nos será imprescidible para manejar la pantalla gráfica, así que debes guardarlo en una variable. Esta variable, además, debe ser global si se va a usar en otras partes del programa, contraviniendo una de las buenas prácticas de programación más universales que existen. Sin embargo, si no lo haces así, la variable no funcionará correctamente.
-Puedes imaginar que el puntero a SDL_Surface es como el puntero a FILE que devuelve la función fopen(). Sin ese puntero a FILE no se puede manejar el archivo. Pues bien, sin el puntero a SDL_Surface no podemos manejar la pantalla gráfica. Visto así, la función SDL_SetVideoMode() es parecida a fopen(), solo que aplicada a los gráficos en lugar de a los archivos.
-Aquí tienes un ejemplo de inicialización de la pantalla gráfica:
+
+Para usar los gráficos, hay que hacer un ```#include <SDL/SDL.h>``` en el archivo fuente, como es natural. Aparece dos veces el nombre "SDL" porque el archivo SDL.h está dentro de una carpeta llamada SDL.
+
+Lo siguiente que hay que hacer es **inicializar la pantalla gráfica**. Para eso disponemos de dos funciones: *SDL_Init()* y *SDL_SetVideoMode()*:
+
+* ***SDL_Init()***. Debe ser la primera función en invocarse. No se puede usar ninguna otra función de SDL si antes no se ha llamado a esta. Hay que pasarle un parámetro que indica qué tipo de sistema multimedia queremos manejar (la tarjeta de vídeo, la de sonido, el CD-ROM, etc). En nuestro caso será la tarjeta de vídeo, ya que sólo nos interesa manipular gráficos. La constante para ello es SDL_INIT_VIDEO:
+
+   ```c
+   SDL_Init(SDL_INIT_VIDEO);
+   ```
+
+   La fución SDL_Init() devuelve –1 si ocurre algún error al iniciar el sistema de gráficos. En ese caso, el programa no podrá continuar, de modo que debemos comprobar el valor devuelto por SDL_Init().
+
+* ***SDL_SetVideoMode()***. Esta debe ser la segunda función en invocarse, justo a continuación de SDL_Init(). Sirve para establecer el tipo de pantalla gráfica que queremos. Hay que indicarle el tamaño en píxels, el número de bits de color y los atributos de la pantalla. Por ejemplo:
+
+   ```c
+   SDL_SetVideoMode(1200, 960, 24, SDL_ANYFORMAT | SDL_DOUBLEBUFFER);
+   ```
+   
+   Esto crea una ventana gráfica de 1200x960 píxeles, con 24 bits de profundidad de color. El último parámetro, *SDL_ANYFORMAT*, es una constante que indica a SDL que puede seleccionar otra profundidad de color si la elegida no está disponible. Este cuarto parámetro puede tomar otros muchos valores que no vamos a ver, pero sí señalaremos que es conveniente añadir la constante *SDL_DOUBLEBUFFER* por motivos de rendimiento (ver ejemplo más abajo).
+   
+   *SDL_SetVideoMode()* devuelve un puntero a una estructura llamada *SDL_Surface*, definida en *SDL.h*, o NULL si ocurre algún error. Este puntero nos será imprescidible para manejar la pantalla gráfica, así que **debes guardarlo en una variable**. 
+   
+   Esta variable, además, debe ser **global** si se va a usar en otras partes del programa, contraviniendo una de las buenas prácticas de programación más universales que existen. Sin embargo, si no lo haces así, la variable no funcionará correctamente.
+   
+   Aquí tienes un ejemplo de inicialización de la pantalla gráfica:
+  
+```c
   #include <SDL/SDL.h>  
   ...
   SDL_Surface *pantalla;	// Esta variable debe ser GLOBAL
@@ -1590,7 +1648,7 @@ Aquí tienes un ejemplo de inicialización de la pantalla gráfica:
     exit(-1);
   }
 
-  pantalla = SDL_SetVideoMode(800, 600, 16, SDL_ANYFORMAT|SDL_DOUBLEBUF);
+  pantalla = SDL_SetVideoMode(1280, 960, 16, SDL_ANYFORMAT|SDL_DOUBLEBUF);
   if (pantalla == NULL) {
     puts("Fallo al establecer el modo de vídeo\n");
     SDL_Quit();
@@ -1598,38 +1656,62 @@ Aquí tienes un ejemplo de inicialización de la pantalla gráfica:
   }
   ...
   SDL_Quit();		// Esto se hace al final del programa
-Tan importante como inicializar la pantalla gráfica es finalizarla. Ten en cuenta que la pantalla gráfica consume muchos recursos, y éstos deben ser liberados antes de que el programa termine su ejecución. Para eso tenemos la función SDL_Quit(), que se invoca sin argumentos (observa el ejemplo)
- 5.4  Dibujar gráficos en la pantalla
+```
+
+Tan importante como inicializar la pantalla gráfica es **finalizarla**. Ten en cuenta que la pantalla gráfica consume muchos recursos, y éstos deben ser liberados antes de que el programa termine su ejecución. Para eso tenemos la función *SDL_Quit()*, que se invoca sin argumentos (observa el ejemplo)
+
+#### Dibujar gráficos en la pantalla
+
 Ya tenemos nuestra pantalla gráfica inicializada y lista para empezar a dibujar en ella. Pero, ¿qué tipo de objetos se pueden dibujar?
-Aunque las librerías gráficas permiten al programador pintar píxels individuales en cualquier punto de la pantalla, lo habitual es trabajar con imágenes previamente existentes llamadas sprites. Un sprite es una imagen guardada en un archivo que puede ser cargada por el programa y mostrada en cualquier parte de la pantalla gráfica y tantas veces como sea necesario.
+
+Aunque las librerías gráficas permiten al programador **pintar píxels individuales** en cualquier punto de la pantalla, lo habitual es **trabajar con imágenes** previamente existentes llamadas ***sprites***. 
+
+Un *sprite* es una imagen guardada en un archivo que puede ser cargada por el programa y mostrada en cualquier parte de la pantalla gráfica y tantas veces como sea necesario.
+
 Por lo tanto, lo primero que necesitas es hacerte con una colección de sprites para tu programa. Si, por ejemplo, suponemos que estamos desarrollando un de ajedrez, necesitaríamos los siguientes:
-    • Una imagen del tablero.
-    • Una imagen de cada una de las piezas. 
-    • Opcionalmente, una imagen de fondo para decorar la pantalla.
-Los archivos con las imágenes deben estar en formato BMP. SDL admite otros formatos, pero el BMP es con diferencia el más fácil de manipular, así que es una muy buena idea empezar por las imágenes BMP y luego, cuando ya las manejes bien, dar el salto a otros formatos con compresión.
+
+* Una imagen del tablero.
+* Una imagen de cada una de las piezas. 
+* Opcionalmente, una imagen de fondo para decorar la pantalla.
+
+Los archivos con las imágenes deben estar en formato BMP. SDL admite otros formatos, pero el BMP es fácil de manipular, así que es buena idea empezar por las imágenes BMP y luego, cuando ya las manejes bien, dar el salto a otros formatos con compresión, como JPG o PNG. Cualquier editor de imágenes te permitirá convertir tus *sprites* a BMP.
+
 Para dibujar una imagen en cualquier punto de la pantalla, hay que hacer dos cosas que pasamos a describir con detalle:
-    • Cargar la imagen en la memoria (procedente de un archivo BMP)
-    • Mostrar la imagen en la pantalla
-Cargar imágenes en la memoria
-Sólo es necesario cargar las imágenes una vez. Normalmente, se hará al principio del programa, justo después de la inicialización de SDL. Una vez cargadas en la memoria, podremos utilizarlas tantas veces como las necesitemos, a menos que liberemos el espacio de memoria que ocupan. La liberación de espacio, por tanto, debería hacerse al final del programa, justo antes de terminar.
-Para cargar una imagen BMP se usa la función SDL_LoadBMP(), de esta forma:
+
+* Cargar la imagen en la memoria (procedente de un archivo BMP)
+* Mostrar la imagen en la pantalla
+
+**1. Cargar imágenes en la memoria**
+
+Sólo es necesario cargar las imágenes **una vez**. Normalmente, se hará **al principio del programa**, justo después de la inicialización de SDL. 
+
+Una vez cargadas en la memoria, podremos utilizarlas tantas veces como las necesitemos, a menos que liberemos el espacio de memoria que ocupan. La liberación de espacio, por tanto, debería hacerse al final del programa, justo antes de terminar.
+
+Para cargar una imagen BMP se usa la función *SDL_LoadBMP()*, de esta forma:
+
+```c
   SDL_Surface *tablero;
 
   tablero = SDL_LoadBMP("tablero.bmp");
-  if (fondo == NULL) {
+  if (tablero == NULL) {
      printf("Error al cargar el archivo tablero.bmp");
      SDL_Quit();
      exit(-1);
   }
-Observa que SDL_LoadBMP() devuelve un puntero a SDL_Surface. Este puntero será necesario para luego mostrar la imagen en cualquier lugar de la pantalla. La variable "fondo" debe ser global si se va a usar en más de una función (si es local y la pasamos como parámetro a otra función, SDL fallará).
-Las imágenes son rectangulares. En muchas ocasiones, necesitamos mostrar una imagen encima de otra. Es el caso de las piezas, que se mostrarán encima del tablero. Cuando esto ocurre, el color de fondo de la pieza (que decidimos que fuera negro) aparecerá encima del tablero como un desagradable recuadro de color negro. En estas situaciones, hay que avisar a SDL de que, para este sprite en concreto, el color negro va a ser transparente, es decir, no debe ser mostrado. Esto se hace así:
+```
+
+Observa que *SDL_LoadBMP()* devuelve un puntero a *SDL_Surface*. Este puntero será necesario para luego mostrar la imagen en cualquier lugar de la pantalla. La variable "tablero" debe ser global si se va a usar en más de una función (si es local y la pasamos como parámetro a otra función, SDL fallará).
+
+Las imágenes son rectangulares. En muchas ocasiones, necesitamos mostrar una imagen encima de otra. Es el caso de las piezas, que se mostrarán encima del tablero. Cuando esto ocurre, el color de fondo de la pieza (que decidimos que fuera negro) aparecerá encima del tablero como un desagradable recuadro de color negro. En estas situaciones, hay que avisar a SDL de que, para este *sprite* en concreto, el color negro (o el que decidamos) va a ser transparente, es decir, no debe ser mostrado. Esto se hace así:
+
+```c
   SDL_Surface *peon_blanco;
   Uint32 color;	// Para definir el color de transparencia (donde proceda)
 
   // Cargamos la imagen del peón blanco
-  peon_blanco = SDL_LoadBMP("peon_bl.bmp");
+  peon_blanco = SDL_LoadBMP("peon_blanco.bmp");
   if (peon_blanco == NULL) {
-     printf("Error al cargar el archivo peon_bl.bmp");
+     printf("Error al cargar el archivo peon_blanco.bmp");
      SDL_Quit();
      exit(-1);
   }
@@ -1637,22 +1719,44 @@ Las imágenes son rectangulares. En muchas ocasiones, necesitamos mostrar una im
   // Definimos la transparencia (color negro = (0,0,0) )
   color = SDL_MapRGB(peon_blanco->format, 0, 0, 0);
   SDL_SetColorKey(cuadro1, SDL_SRCCOLORKEY | SDL_RLEACCEL, color);
+```
+
 Las imágenes cargadas en memoria deben ser liberadas antes de finalizar el programa con una llamada a SDL_FreeSurface(). Por ejemplo, para liberar la memoria ocupada por la imagen "tablero.bmp" que hemos cargado antes usaremos el puntero que obtuvimos al cargarla, así:
+
+```c
 SDL_FreeSurface(tablero);
-Mostrar imágenes en la pantalla
-Una vez cargada una imagen BMP en la memoria, podemos mostrarla en la pantalla a través del puntero SDL_Surface que obtuvimos al cargarla. Una imagen cargada puede ser mostrada todas las veces que queramos en cualquier posición de la pantalla.
-Por ejemplo, para mostrar la imagen del tablero (que cargamos en un ejemplo del apartado anterior) haríamos lo siguiente (luego comentamos el código)
+```
+
+**2. Mostrar imágenes en la pantalla**
+
+Una vez cargada una imagen BMP en la memoria, podemos mostrarla en la pantalla a través del puntero *SDL_Surface* que obtuvimos al cargarla. Una imagen cargada puede ser mostrada todas las veces que queramos en cualquier posición de la pantalla.
+
+Por ejemplo, para mostrar la imagen del tablero (que cargamos en un ejemplo del apartado anterior) haríamos lo siguiente (luego comentamos el código):
+
+```c
   SDL_Rect rect;
   rect = (SDL_Rect) {10, 10, 400, 400};
   SDL_BlitSurface(tablero, NULL, pantalla, &rect);
   SDL_Flip(pantalla);
-La variable "rect" es de tipo SDL_Rect, y define un área rectangular de la pantalla. El área rectangular empieza en las coordenadas (10, 10) (esquina superior izquierda de la pantalla) y mide 400 píxels de ancho y 400 de alto, es decir, termina en (410, 410)
-SDL_BlitSurface() es la función que se encarga de mostrar en la pantalla un sprite. La variable "tablero" es de tipo SDL_Surface*, y debe ser la que nos devolvió SDL_LoadBMP() al cargar la imagen del tablero. La variable "pantalla" también es una SDL_Surface*, y debe ser la que nos devolvió SDL_SetVideoMode() al inicializar la pantalla gráfica. Ya dijimos que los punteros que nos devuelven estas funciones son imprescidibles y que debíamos definirlos como variables globales. La variable "rect" es el área rectangular que acabamos de definir.
-Fíjate que "rect" es la que indica en qué lugar de la pantalla va a aparecer el sprite. En este ejemplo, aparecerá en (10,10). Se le han reservado 400x400 píxels para dibujarse, es decir, hasta la posición (410, 410). Si el sprite en más pequeño, no pasará nada (ocupará lo que mida realmente). Si es más grande, se truncará.
-Por último, SDL_Flip() hace que lo que acabamos de dibujar se muestre realmente en la pantalla. Su efecto es parecido al de la función refresh() de ncurses. En realidad, todo lo que dibujamos se escribe en una zona de memoria específica y, al hacer SDL_Flip(), esa zona de memoria se vuelca sobre la memoria de vídeo, apareciendo todo en la pantalla. Esto representa el movimiento de gran cantidad de información entre distintas zonas de memoria, lo cual es un proceso relativamente lento. Por eso, si vamos a dibujar varios sprites consecutivos, es mejor hacer una sola vez SDL_Flip(), al final, cuando los hayamos dibujado todos. Llamar a SDL_Flip() después de dibujar cada sprite ralentizará notablemente el funcionamiento de nuestro programa.
- 5.5  Control del teclado
-Para leer el teclado en una ventana gráfica creada con SDL no se pueden usar las funciones estándar (como getchar() o gets()), ni mucho menos las de ncurses (como getstr()). SDL solo permite leer los caracteres de uno en uno, y no muestra eco por la pantalla (si queremos eco, tenemos que mostrar los caracteres nosotros mismos después de leerlos)
-Por lo demás, la forma de capturar un carácter tecleado es similar a la de ncurses, solo que un poco más complicada. A continuación se muestra un código de ejemplo:
+```
+
+La variable *rect* es de tipo *SDL_Rect*, y define un área rectangular de la pantalla. El área rectangular empieza en las coordenadas (10, 10) (esquina superior izquierda de la pantalla) y mide 400 píxels de ancho y 400 de alto, es decir, termina en (410, 410).
+
+*SDL_BlitSurface()* es la función que se encarga de mostrar en la pantalla un *sprite*. La variable *tablero* es de tipo *SDL_Surface*, y debe ser la que nos devolvió *SDL_LoadBMP()* al cargar la imagen del tablero. La variable *pantalla* también es una *SDL_Surface*, y debe ser la que nos devolvió *SDL_SetVideoMode()* al inicializar la pantalla gráfica. Ya dijimos que los punteros que nos devuelven estas funciones son imprescidibles y que debíamos definirlos como variables globales. La variable *rect* es el área rectangular que acabamos de definir.
+
+Fíjate que *rect* es la que indica en qué lugar de la pantalla va a aparecer el *sprite*. En este ejemplo, aparecerá en (10,10). Se le han reservado 400x400 píxels para dibujarse, es decir, hasta la posición (410, 410). Si el *sprite* es más pequeño, no pasará nada (ocupará lo que mida realmente). Si es más grande, se truncará.
+
+Por último, *SDL_Flip()* hace que lo que acabamos de dibujar se muestre realmente en la pantalla. Su efecto es parecido al de la función refresh() de ncurses. En realidad, todo lo que dibujamos se escribe en una zona de memoria específica y, al hacer *SDL_Flip()*, esa zona de memoria se vuelca sobre la memoria de vídeo, apareciendo todo en la pantalla. Esto representa el movimiento de gran cantidad de información entre distintas zonas de memoria, lo cual es un proceso relativamente lento. Por eso, si vamos a dibujar varios sprites consecutivos, es mejor hacer una sola vez *SDL_Flip()*, al final, cuando los hayamos dibujado todos. Llamar a *SDL_Flip()* después de dibujar cada sprite ralentizará notablemente el funcionamiento de nuestro programa.
+
+#### Control del teclado
+
+Para leer el teclado en una ventana gráfica creada con SDL *no* se pueden usar las funciones estándar (como *getchar()* o *gets()*), ni mucho menos las de *ncurses* (como *getstr()*). 
+
+SDL solo permite **leer los caracteres de uno en uno**, y **no muestra eco** por la pantalla (si queremos eco, tenemos que mostrar los caracteres nosotros mismos después de leerlos).
+
+Por lo demás, la forma de capturar un carácter tecleado es similar a la de *ncurses*, solo que un poco más complicada. A continuación se muestra un código de ejemplo:
+
+```c
 SDL_Event evento;	  	      // Para leer el teclado
 
 // Leer teclado
@@ -1672,38 +1776,62 @@ if (SDL_PollEvent(&evento))            // Comprobar si se ha pulsado una tecla
         }
     }
 }
-Existen constantes para cualquiera de las otras teclas del teclado. Todas empiezan por "SDLK_". Por ejemplo, la tecla "a" tendrá el código "SDLK_a".
- 5.6  Definición de colores
-Aunque en general trataremos con imágenes ya creadas (como la del tablero o las de las piezas), es posible que necesites definir algún color para usarlo directamente sobre la pantalla gráfica (por ejemplo, para usar transparencias o para escribir un texto)
-En SDL no hay colores predefinidos, como en ncurses. Los colores debemos definirlos nosotros mezclando los colores básicos RGB (rojo, verde y azul)
-Hay dos formas de definir un color: con una variable de tipo “SDL_Color” o con una variable de tipo “Uint32”. El uso de una u otra dependerá de para qué queramos usar ese color:
-a) Con una variable de tipo SDL_Color. Se usaría así:
-SDL_Color color;    
-color = (SDL_Color) {50, 150, 200, 255};
-Los cuatro números definen el color. Deben ser números comprendidos entre 0 y 255. El primero es el nivel de rojo (R), el segundo el nivel de verde (G) y el tercero, el nivel de azul (B). El cuarto número es el brillo. El color definido en este ejemplo tiene mucho azul, bastante verde y poco rojo. El resultado debe ser un azul amarillento.
-b) Con una variable de tipo Uint32, que se usaría así:
-Uint32 color;
-color = SDL_MapRGB(pantalla->format, 50, 150, 200);  
-En esta ocasión, "pantalla" debe ser un puntero a una imagen SDL_Surface que hayamos cargado previamente. Los tres valores siguientes son los niveles RGB. No hay nivel de brillo, porque éste se toma de la imagen apuntada por "pantalla".
+```
+
+Existen constantes para cualquiera de las otras teclas del teclado. Todas empiezan por *SDLK_*. Por ejemplo, la tecla "a" tendrá el código *SDLK_a*.
+
+#### Definición de colores
+
+Aunque a menudo trabajes con *sprites* basados en imágenes preexistentes, es posible que también necesites definir algún color para usarlo directamente sobre la pantalla gráfica (por ejemplo, para usar transparencias o para escribir un texto).
+
+En SDL no hay colores predefinidos, como en *ncurses*. Los colores debemos definirlos nosotros mezclando los colores básicos RGB (rojo, verde y azul).
+
+Hay dos formas de definir un color: con una variable de tipo *SDL_Color* o con una variable de tipo *Uint32*. El uso de una u otra dependerá de para qué queramos usar ese color:
+
+**a) Con una variable de tipo SDL_Color**:
+
+   ```c
+   SDL_Color color;
+   color = (SDL_Color) {50, 150, 200, 255};
+   ```
+
+   Los cuatro números definen el color. Deben ser números comprendidos entre 0 y 255. El primero es el nivel de rojo (R), el segundo el nivel de verde (G) y el tercero, el nivel de azul (B). El cuarto número es el brillo. El color definido en este ejemplo tiene mucho azul, bastante verde y poco rojo. El resultado debe ser un azul amarillento.
+
+**b) Con una variable de tipo Uint32**:
+
+   ```c
+   Uint32 color;
+   color = SDL_MapRGB(pantalla->format, 50, 150, 200);  
+   ```
+   
+   En esta ocasión, *pantalla* debe ser un puntero a una imagen *SDL_Surface* que hayamos cargado previamente. Los tres valores siguientes son los niveles RGB. No hay nivel de brillo, porque éste se toma de la imagen apuntada por *pantalla*.
+
 De las dos maneras se pueden definir colores para usarlos posteriormente. Si el color lo necesitamos para una transparencia, recurriremos al segundo método (de hecho, ya vimos un ejemplo de ello al estudiar cómo se cargaban y mostaban las imágenes en SDL; allí usamos el color negro como transparencia). Si el color lo necesitamos para escribir un texto en la pantalla gráfica, usaremos el primer método (como se podrá ver en el siguiente apartado)
- 5.7  Mostrar texto en la pantalla gráfica: la librería SDL_TTF
+
+#### Mostrar texto en la pantalla gráfica: instalación y uso de la librería SDL_TTF
+
 La librería SDL no permite directamente la escritura de texto en la pantalla gráfica. Esto se debe a que la pantalla gráfica, por definición, no admite caracteres, sino únicamente imágenes.
+
 Por fortuna, a la sombra de SDL se han creado multitud de librerías adicionales que, partiendo de SDL, complementan y mejoran sus prestaciones. Una de ellas es SDL_TTF.
-La libería SDL_TTF permite cargar fuentes true type que estén guardadas en archivos ".ttf" y manejarlas como si fueran imágenes BMP en la pantalla gráfica generada por SDL. Necesitamos SDL_TTF, por lo tanto, para escribir los mensajes de usuario y las opciones del menú.
-Instalación, compilación y enlace de SDL_TTF
-La instalación de la librería SDL_TTF es similar a la de SDL, tanto en Linux como en Windows, de modo que puedes remitirte al apartado correspondiente para recordar cómo se hacía.
-En cuanto a la compilación y enlace, sólo tienes que añadir la opción "-lSDL_ttf" a la línea de compilación del Makefile:
-gcc -g `opciones de SDL` -o ajedrez ajedrez.o movs.o... `más opciones de SDL` -lSDL_ttf 
-Si estamos compilando en Windows con Dev-C++, agregaremos "-lSDL_ttf" a Opciones del Proyecto / Parámetros / Linker.
-Inicialización de SDL_TTF
-Igual que SDL, la librería SDL_TTF necesita ser inicializada antes de usarla, y finalizada antes de terminar el programa para liberar los recursos adquiridos.
-Como SDL_TTF corre por debajo de SDL, debe ser inicializada después de SDL, y debe ser terminada antes que SDL.
-La inicialización de SDL_TTF se hace simplemente así:
+
+La libería SDL_TTF permite cargar fuentes *true type* que estén guardadas en archivos .ttf y manejarlas como si fueran imágenes BMP en la pantalla gráfica generada por SDL. Necesitamos SDL_TTF, por lo tanto, para escribir los mensajes de usuario y las opciones del menú.
+
+La **instalación** de la librería SDL_TTF es similar a la de SDL, tanto en Linux como en Windows, de modo que puedes remitirte al apartado correspondiente para recordar cómo se hacía. Lo mismo puede decirse en cuanto a la compilación y el enlace.
+
+Igual que SDL, la librería SDL_TTF necesita ser **inicializada** antes de usarla, y **finalizada** antes de terminar el programa para liberar los recursos adquiridos.
+
+Como SDL_TTF corre por debajo de SDL, debe ser inicializada después de SDL, y debe ser terminada antes que SDL. Observa cómo se hace en este ejemplo:
+
+```c
   if(TTF_Init() == -1) {
     printf("Fallo al inicializar SDL_TTF");
     exit(-1);
   }  
-Inmediatamente después podemos cargar una fuente true type de un archivo TTF, así:
+```
+
+Inmediatamente después, ya podemos cargar una fuente true type de un archivo TTF, así:
+
+```c
   TTF_Font* fuente;
   ....
   fuente = TTF_OpenFont("arial.ttf", 14);
@@ -1712,21 +1840,36 @@ Inmediatamente después podemos cargar una fuente true type de un archivo TTF, a
     exit(-1);
   }
   TTF_SetFontStyle(fuente, TTF_STYLE_BOLD);
-La variable "fuente" es un puntero a TTF_Font. Debe ser una variable global por el mismo motivo que las variables SDL_Surface*. La función TTF_OpenFont() abre el archivo "arial.ttf" y carga el tipo de letra Arial en tamaño 14 para su uso en el programa. Después es conveniente comprobar que el puntero "fuente" contenga un valor válido y no NULL.
-Por último, la función TTF_SetFontStyle() puede usarse para determinar el estilo de la fuente. Tenemos varias posibilidades: TTF_STYLE_BOLD (negrita), TTF_STYLE_ITALIC (cursiva), TTF_STYLE_UNDERLINE (subrayado) y TTF_STYLE_NORMAL. Si queremos combinar varios estilos, podemos separarlos por el operador "|". Por ejemplo, para poner la fuente en negrita y cursiva escribiríamos esto:
+```
+
+La variable *fuente* es un puntero a *TTF_Font*. Debe ser una variable global por el mismo motivo que las variables *SDL_Surface*. La función *TTF_OpenFont()* abre el archivo "arial.ttf" y carga el tipo de letra Arial en tamaño 14 para su uso en el programa. Después es conveniente comprobar que el puntero *fuente* contenga un valor válido y no NULL.
+
+Por último, la función *TTF_SetFontStyle()* puede usarse para determinar el estilo de la fuente. Tenemos varias posibilidades: *TTF_STYLE_BOLD* (negrita), *TTF_STYLE_ITALIC* (cursiva), *TTF_STYLE_UNDERLINE* (subrayado) y *TTF_STYLE_NORMAL*. Si queremos combinar varios estilos, podemos separarlos por el operador "|". Por ejemplo, para poner la fuente en negrita y cursiva escribiríamos esto:
+
+```c
   TTF_SetFontStyle(fuente, TTF_STYLE_BOLD | TTF_STYLE_ITALIC);
-Finalización de SDL_TTF
-El proceso de finalización es inverso y complementario al de inicialización. Primero habrá que liberar todas las fuentes cargadas durante la inicialización, y luego hay que terminar el subsistema SDL_TTF.
-Para liberar una fuente escribiremos sencillamente:
+```
+
+El proceso de **finalización** del SDL_TTF es inverso y complementario al de inicialización. Primero habrá que liberar todas las fuentes cargadas durante la inicialización, y luego hay que terminar el subsistema SDL_TTF:
+
+```c
   TTF_CloseFont(fuente); 
-La variable "fuente" será de tipo TTF_Font*, y debe coincidir con la que nos devolvió la función TTF_OpenFont(). Esta operación la repetiremos con cada una de las fuentes que hayamos cargado.
-Después finalizaremos SDL_TTF escribiendo:
   TTF_Quit();
-Recuerda que esto debe hacerse ANTES de SDL_Quit(), ya que SDL_TTF depende de SDL.
-Escribir texto con SDL_TTF
-Todo esto lo hacemos con un objetivo: poder escribir texto en la pantalla gráfica y sustituir así todas las funciones printw() y similares.
-Para escribir un texto hay que hacer dos cosas: primero, convertirlo en una imagen; segundo, mostrar la imagen en la pantalla.
-La conversión de un texto en una imagen se hace con la función TTF_Render():
+```
+
+La variable *fuente* será de tipo *TTF_Font*, y debe coincidir con la que nos devolvió la función *TTF_OpenFont()*. Esta operación la repetiremos con cada una de las fuentes que hayamos cargado.
+
+Recuerda que todo esto debe hacerse ANTES de *SDL_Quit()*, ya que SDL_TTF depende de SDL.
+
+#### Escribir texto con SDL_TTF
+
+Todo esto lo hacemos con un objetivo: poder escribir texto en la pantalla gráfica y sustituir así todas las funciones *printw()* y similares.
+
+Para escribir un texto hay que hacer dos cosas: **primero, convertirlo en una imagen; segundo, mostrar la imagen en la pantalla**.
+
+La conversión de un texto en una imagen se hace con la función *TTF_Render()*:
+
+```c
   SDL_Color color;
   SDL_Surface* txt_img;
 
@@ -1736,20 +1879,30 @@ La conversión de un texto en una imagen se hace con la función TTF_Render():
 	printf("Fallo al renderizar el texto");
 	exit(-1);
   }
-Como ves, hay que hacer bastantes cosas para mostrar un texto en la pantalla gráfica, pero todo es acostumbrarse. Primero, hay que definir un color para el texto (cómo se definen los colores es algo que vimos en el epígrafe anterior). En este caso, hemos escogido un rojo brillante. 
-Después se invoca a TTF_RenderText(), pasándole como parámetros el puntero a la fuente que obtuvimos con TTF_OpenFont(), el texto que queremos mostrar y el color. La función nos devuelve un puntero de tipo SDL_Surface* que, si recuerdas, es exactamente el mismo que usábamos con las imágenes cargadas desde un archivo BMP.
-En realidad, la función TTF_RenderText() tiene tres formas:
-    • TTF_RenderText_Solid(): realiza una conversión del texto en imagen rápida pero de poca calidad.
-    • TTF_RenderText_Shaded(): la imagen resultante es de gran calidad pero tiene un recuadro negro alrededor
-    • TTF_RenderText_Blended(): la imagen resultante es de gran calidad y sin recuadro negro
-En general preferiremos el modo "Blended", que es el que proporciona mejores resultados. El modo "Shaded" se puede usar en determinados lugares (si no hay otra imagen debajo del texto). El modo "Solid" sólo debe usarse si hay que mostrar mucho texto y el modo "Blended" se revela demasiado lento.
+```
+
+Como ves, hay que hacer bastantes cosas para mostrar un texto en la pantalla gráfica, pero todo es acostumbrarse. Primero, hay que definir un color para el texto (cómo se definen los colores es algo que vimos en el epígrafe anterior). En este caso, hemos escogido un rojo brillante.
+
+Después se invoca a *TTF_RenderText()*, pasándole como parámetros el puntero a la fuente que obtuvimos con *TTF_OpenFont()*, el texto que queremos mostrar y el color. La función nos devuelve un puntero de tipo *SDL_Surface* que, si recuerdas, es exactamente el mismo que usábamos con las imágenes cargadas desde un archivo BMP.
+
+En realidad, la función *TTF_RenderText()* tiene tres formas:
+
+* *TTF_RenderText_Solid()* - realiza una conversión del texto en imagen rápida pero de poca calidad.
+* *TTF_RenderText_Shaded()* - la imagen resultante es de gran calidad pero tiene un recuadro negro alrededor
+* *TTF_RenderText_Blended()* - la imagen resultante es de gran calidad y sin recuadro negro
+
+En general preferiremos el modo *Blended*, que es el que proporciona mejores resultados. El modo *Shaded* se puede usar en determinados lugares (si no hay otra imagen debajo del texto). El modo *Solid* sólo debe usarse si hay que mostrar mucho texto y el modo *Blended* se revela demasiado lento.
+
 Hasta aquí, sólo hemos convertido el texto "Hola mundo" en una imagen, pero aún no la hemos mostrado en la pantalla. Para hacerlo procederemos como con cualquier otra imagen:
+
+```c
   // Mostramos el texto como si fuera una imagen
   rect = (SDL_Rect) { 500, 280, 100, 30 };
   SDL_BlitSurface(txt_img, NULL, pantalla, &rect);	
   SDL_Flip(scr);
-Se supone que "rect" es de tipo SDL_Rect y que pantalla es el puntero a SDL_Surface* que nos devolvió SDL_SetVideoMode() al inicializar SDL. Así, el texto "Hola mundo" se mostrará en la posición (500, 280) de la pantalla gráfica, reservándose para él 100 píxels de ancho y 30 de alto.
+```
 
+Se supone que *rect* es de tipo *SDL_Rect* y que pantalla es el puntero a *SDL_Surface* que nos devolvió *SDL_SetVideoMode()* al inicializar SDL. Así, el texto "Hola mundo" se mostrará en la posición (500, 280) de la pantalla gráfica, reservándose para él 100 píxels de ancho y 30 de alto.
 
 ## 9.3. Escribiendo programas en C
 
@@ -1850,197 +2003,509 @@ Los programas escritos en C suelen guardarse en dos tipos de archivo:
 
 ## 9.4. C avanzado: punteros y estructuras de datos
 
-XXX *Texto pendiente de redactar* XXX
+XXX *Texto pendiente de revisar* XXX
+
+ 1  Punteros
+Comprender y usar correctamente los punteros es con seguridad lo más complicado del lenguaje C, pero también se trata de un mecanismo muy poderoso. Tan poderoso que un simple puntero descontrolado (hay quien acertadamente los llama "punteros locos") puede provocar que el programa se cuelgue irremediablemente o incluso que falle todo el sistema.
+Todos los programadores con cierta experiencia en C reconocerán que, a veces, programar con punteros es como quedarse atrapado en un ascensor con un montón de serpientes pitón enloquecidas. Pero, cuando se les coge el tranquillo y se les ata en corto, permiten hacer auténticas virguerías.
+ 1.1  Comprendiendo los punteros
+Dentro de la memoria del ordenador, cada dato almacenado ocupa una o más celdas contiguas de memoria. El número de celdas de memoria requeridas para almacenar un dato depende de su tipo. Por ejemplo, un dato de tipo entero puede ocupar 16 bits (es decir, 2 bytes), mientras que un dato de tipo carácter ocupa 8 bits (es decir, 1 byte).
+Un puntero no es más que una variable cuyo contenido no es un dato, sino la dirección de memoria donde está almacenado un dato.
+Veámoslo a través de un ejemplo. Imaginemos que v es una variable de tipo carácter y que, por tanto, necesita 1 byte para ser almacenada. La declaración e inicialización de la variable será como la siguiente:
+char v;
+v = 'A';
+Al ejecutar este código, el sistema operativo asigna automáticamente una celda de memoria para el dato. Supongamos que la celda asignada tiene la dirección 1200. Al hacer la asignación v = 'A', el sistema almacena en la celda 1200 el valor 65, que es el código ASCII de la letra 'A':
+Dirección de memoria
+Contenido
+1198
+
+1199
+
+1200
+65
+1201
+
+...
+...
+Cuando usamos la variable v a lo largo del programa, el sistema consulta el dato contenido en la celda de memoria asignada a la variable. Esa celda será siempre la misma a lo largo de la ejecución: la 1200. Por ejemplo, al encontrar esta instrucción:
+printf("%c", v);
+.. el compilador acude a la celda 1200 de la memoria, consulta el dato almacenado en ella en ese momento y sustituye la variable v por ese dato.
+El programador no tiene modo de saber en qué posición de memoria se almacena cada dato, a menos que utilice punteros. Los punteros sirven, entonces, para conocer la dirección de memoria donde se almacena el dato, y no el dato en sí. 
+La dirección ocupada por una variable v se determina escribiendo &v. Por lo tanto, & es un operador unario, llamado operador dirección, que proporciona la dirección de una variable. 
+La dirección de v se le puede asignar a otra variable mediante esta instrucción:
+char* p;
+p = &v; 
+Resultará que esta nueva variable es un puntero a v, es decir, una variable cuyo contenido es la dirección de memoria ocupada por la variable v. Representa la dirección de v y no su valor. Por lo tanto, el contenido de p será 1200, mientras que el contenido de v será 65.
+El dato almacenado en la celda apuntada por la variable puntero puede ser accedido mediante el operador asterisco aplicado al puntero. Así pues, la expresión *p devuelve el valor 65, que es el contenido de la celda apuntada por p. El operador * es un operador unario, llamado operador indirección, que opera sólo sobre una variable puntero.
+Los operadores monarios & y * son miembros del mismo grupo de precedencia que los otros operadores monarios: -,++,--,!,etc. Hay que recordar que este grupo de operadores tiene mayor precedencia que el de los operadores aritméticos y la asociatividad de los operadores monarios es de derecha a izquierda.
+Resumiendo: podemos tener variables "normales" y utilizar el operador & para conocer su dirección de memoria. O podemos tener variables puntero, que ya son en sí mismas direcciones de memoria, y utilizar el operador * para acceder al dato que contienen. Así pues:
+    • El operador dirección (&) sólo puede actuar sobre variables que no sean punteros. En el ejemplo anterior, la variable v vale 65 y la expresión &v vale 1200.
+    • El operador indirección (*) sólo puede actuar sobre variables que sean punteros. En el ejemplo anterior, la expresión *p vale 65 y la variable p vale 1200.
+Las variables puntero pueden apuntar a direcciones donde se almacene cualquier tipo de dato: enteros, flotantes, caracteres, cadenas, arrays, estructuras, etc. Esto es tremendamente útil y proporciona una enorme potencia al lenguaje C, pero también es una fuente inagotable de errores de programación difíciles de detectar y corregir, como iremos viendo en los siguientes temas  
+ 1.2  Declaración e inicialización de punteros
+Las variables de tipo puntero, como cualquier otra variable, deben ser declaradas antes de ser usadas. Cuando una variable puntero es definida, el nombre de la variable debe ir precedido por un *. El tipo de dato que aparece en la declaración se refiere al tipo de dato que se almacena en la dirección representada por el puntero, en vez del puntero mismo. Así, una declaración de puntero general es:
+tipo_dato *puntero;
+donde puntero es la variable puntero y tipo_dato el tipo de dato apuntado por el puntero.
+Por ejemplo:
+int *numero;
+char *letra;
+La variable numero no contiene un número entero, sino la dirección de memoria donde se almacenará un número entero. La variable letra tampoco contiene un carácter, sino una dirección de memoria donde se almacenará un carácter.
+Cuando un puntero ha sido declarado pero no inicializado, apunta a una dirección de memoria indeterminada. Si tratamos de usarlo en esas condiciones obtendremos resultados impredecibles (y casi siempre desagradables). Antes de usar cualquier puntero hay que asegurarse de que está apuntando a una dirección válida, es decir, a la dirección de alguna variable del tipo adecuado. Por ejemplo, así:
+int *numero;
+int a;
+numero = &a;
+El puntero numero ahora sí está en condiciones de ser usado, porque está apuntado a la dirección de la variable a, que es de tipo int, como el puntero.
+Otra posibilidad es hacer que un puntero apunte a NULL. El identificador NULL es una constante definida en el lenguaje que indica que un puntero no está apuntando a ninguna dirección válida y que, por lo tanto, no se debe utilizar.
+ 1.3  Asignación de punteros
+Se puede asignar una variable puntero a otra siempre que ambas apunten al mismo tipo de dato. Al realizar la asignación, ambos punteros quedarán apuntando a la misma dirección de memoria.
+Observa este ejemplo y trata de determinar qué resultado se obtiene en la pantalla (antes de leer la solución que aparece más abajo):
+int a, b, c;
+int *p1, *p2;
+a = 5;
+p1 = &a;	/* p1 apunta a la dirección de memoria de la variable a */
+p2 = p1;	/* a p2 se le asigna la misma dirección que tenga p1 */
+b = *p1;
+c = *p1 + 5;	/* Suma 5 a lo que contenga la dirección apuntada por p1 */
+printf("%i %i %i %p %p", a, b, c, p1, p2);
+En la pantalla se imprimirá “5 5 10”, que es el contenido de las variables a, b y c al terminar la ejecución de este bloque de instrucciones, y la dirección a la que apuntan p1 y p2, que debe ser la misma. Observa que con printf y la cadena de formato "%p" se puede mostrar la dirección de memoria de cualquier variable.
+ 1.4  Aritmética de punteros
+Con las variables de tipo puntero sólo se pueden hacer dos operaciones aritméticas: sumar o restar a un puntero un número entero, y restar dos punteros. Pero el resultado de esas operaciones no es tan trivial como puede parecer. Por ejemplo, si sumamos un 1 a un puntero cuyo valor sea 1200, el resultado puede ser 1201… ¡pero también puede ser 1202 ó 1204! Esto se debe a que el resultado depende del tipo de dato al que apunte el puntero.
+Sumar o restar un valor entero a un puntero
+Al sumar un número entero a un puntero se incrementa la dirección de memoria a la que apunta. Ese incremento depende del tamaño del tipo de dato apuntado.
+Si tenemos un puntero p y lo incrementamos en una cantidad entera N, la dirección a la que apuntará será: 
+dirección_original + N * tamaño_del_tipo_de_dato
+Por ejemplo, imaginemos un puntero p a carácter que se incrementa en 5 unidades, así:
+char* p;
+p = p + 5;
+Supongamos que p apunta a la dirección de memoria 800. Como cada carácter ocupa 1 byte, al incrementarlo en 5 unidades, p apuntará a la dirección 805.
+Veamos ahora que pasa si, por ejemplo, el puntero p apunta a un número entero:
+int* p;
+p = p + 5;
+Si la dirección inicial de p es también la 800, al incrementarlo en 5 unidades pasará a apuntar a la dirección 810 (suponiendo que cada entero ocupe 2 bytes).
+Todo esto también explica qué ocurre cuando se resta un número entero de un puntero, sólo que entonces las direcciones se decrementan en lugar de incrementarse.
+A los punteros también se les puede aplicar las operaciones de incremento (++) y decremento (--) de C, debiendo tener el programador en cuenta que, según lo dicho hasta ahora, la dirección apuntada por el puntero se incrementará o decrementará más o menos dependiendo del tipo de dato apuntado.
+Por ejemplo, si los datos de tipo int ocupan 2 bytes y el puntero p apunta a la dirección 800, tras la ejecución de este fragmento de código, el puntero p quedará apuntado a la dirección 802:
+int *p;
+p++;
+Resta de dos punteros
+La resta de punteros se usa para saber cuantos elementos del tipo de dato apuntado caben entre dos direcciones diferentes.
+Por ejemplo, si tenemos un vector de números reales llamado serie podemos hacer algo así:
+float serie[15];
+int d;
+float *p1, *p2;
+p1 = &tabla[4];
+p2 = &tabla[12];
+d = p1 – p2;
+El puntero p1 apunta al quinto elemento del vector, y el puntero p2, al decimotercero. La restar los dos punteros obtendremos el valor 8, que es el número de elementos de tipo float que pueden almacenarse entre las direcciones p1 y p2.
+ 1.5  Punteros y arrays
+Punteros y arrays de una dimensión
+Los punteros y los arrays tienen una relación muy estrecha, ya que el nombre de un array es en realidad un puntero al primer elemento de ese array. Si x es un array undimensional, la dirección del primer elemento puede ser expresada como &x[0] o simplemente como x. La dirección del elemento i-ésimo se puede expresar como &x[i] o como (x+i).
+(En este caso, la expresión (x+i) no es una operación aritmética convencional, sino una operación con punteros, de cuyas peculiaridades ya hemos hablado en un epígrafe anterior)
+Si &x[i] y (x+i) representan la dirección del i-ésimo elemento de x, podemos decir que x[i] y *(x+i) representan el contenido de esa dirección, es decir, el valor del i-ésimo elemento de x. Observa que la forma x[i] es la que hemos estado utilizando hasta ahora para acceder a los elementos de un vector.
+Los arrays, por lo tanto, pueden utilizarse con índices o con punteros. Al programador suele resultarle mucho más cómodo utilizar la forma x[i] para acceder al elemento i-ésimo de un array. Sin embargo, hay que tener en cuenta que la forma *(x+i) es mucho más eficiente que x[i], por lo que suele preferirse cuando la velocidad del ejecución es un factor determinante.
+Punteros y arrays multidimensionales
+Un array multidimensional es en realidad una colección de varios arrays unidimensionales (vectores). Por tanto, se puede definir un array multidimensional como un puntero a un grupo contiguo de arrays unidimensionales. 
+El caso más simple de array de varias dimensiones es el bidimiensional. La declaración de un array bidimensional la hemos escrito hasta ahora como:
+tipo_dato variable [expresión1][expresión2]
+Pero también puede expresarse así:
+tipo_dato (*variable) [expresión2]
+Los paréntesis que rodean al puntero deben estar presentes para que la sintaxis sea correcta.
+Por ejemplo, supongamos que x es un array bidimensional de enteros con 10 filas y 20 columnas. Podemos declarar x como:
+int x[10][20];
+Y también como:
+int (*x)[20];
+En la segunda declaración, x se define como un puntero a un grupo de array unidimensionales de 20 elementos enteros. Así x apunta al primero de los arrays de 20 elementos, que es en realidad la primera fila (fila 0) del array bidimensional original. Del mismo modo (x+1) apunta al segundo array de 20 elementos, y así sucesivamente.
+Por ejemplo, el elemento de la columna 2 y la fila 5 puede ser accedido así:
+x[2][5];
+Pero también así:
+*(*(x+2)+5);
+Esta instrucción parece muy complicada pero es fácil de desentrañar:
+    • (x+2) es un puntero a la columna 2
+    • *(x+2) es el objeto de ese puntero y refiere a toda la columna. Como la columna 2 es un array unidimensional,  *(x+2) es realmente un puntero al primer elemento de la columna 2.
+    • (*(x+2)+5) es un puntero al elemento 5 de la columna 2.
+    • El objeto de este puntero *(*(x+2)+5) refiere al elemento 5 de la columna 2.
+ 1.6  Arrays de punteros
+Un array multidimensional puede ser expresado como un array de punteros en vez de como un puntero a un grupo contiguo de arrays. En términos generales un array bidimensional puede ser definido como un array unidimensional de punteros escribiendo
+tipo_dato *variable[expresión1]
+...en lugar de la definición habitual, que sería:
+tipo_dato variable[expresión1][expresión2]
+Observa que el nombre del array precedido por un asterisco no está cerrado entre paréntesis. Ese asterisco que precede al nombre de la variable establece que el array contendrá punteros.
+Por ejemplo, supongamos que x es un array bidimensional de 10 columnas y 25 filas. Se puede definir x como un array unidimensional de punteros escribiendo:
+int *x[25];
+Aquí x[0] apunta al primer elemento de la primera columna, x[1] al primer elemento de la segunda columna, y así sucesivamente. Observa que el número de elementos dentro de cada fila no está especificado explícitamente. Un elemento individual del array, tal com x[2][5] puede ser accedido escribiendo:
+*(x[2]+5)
+En esta expresión, x[2] es un puntero al primer elemento en la columna 2, de modo que (x[2]+5) apunta al elemento 5 de la columna 2. El objeto de este puntero, *(x[2]+5), refiere, por tanto, a x[2][5].
+Los arrays de punteros ofrecen un método conveniente para almacenar cadenas. En esta situación cada elemento del array es un puntero que indica dónde empieza cada cadena.
+ 1.7  Paso de punteros como parámetros
+A menudo los punteros son pasados a las funciones como argumentos. Esto permite que datos de la porción de programa desde el que se llama a la función sean accedidos por la función, alterados dentro de ella y devueltos de forma alterada. Este uso de los punteros se conoce como paso de parámetros por variable o referencia y lo hemos estado utilizando hasta ahora sin saber muy bien lo que hacíamos.
+Cuando los punteros son usados como argumento de una función, es necesario tener cuidado con la declaración y uso de los parámetros dentro de la función. Los argumentos formales que sean punteros deben ir precedidos por un asterisco. Observa detenidamente el siguiente ejemplo:
+#include <stdio.h>
+void funcion1(int, int);
+void funcion2(int*, int*);
+
+int main(void)
+{
+  int u, v;
+  u = 1;
+  v = 3;
+  funcion1(u,v);
+  printf("Después de la llamada a funcion1:  u=%d v=%d\n", u, v);
+  funcion2(&u,&v);
+  printf("Después de la llamada a funcion2:  u=%d v=%d\n", u, v);
+}
+
+void funcion1(int u, int v)	
+{
+   u=0;
+   v=0;
+}
+
+void funcion2(int *pu, int *pv)
+{
+   *pu=0;
+   *pv=0;
+}
+La función de nombre funcion1 utiliza paso de parámetros por valor. Cuando es invocada, los valores de las variables u y v del programa principal son copiados en los parámetros u y v de la función. Al modificar estos parámetros dentro de la función, el valor de u y v en el programa principal no cambia. 
+En cambio, funcion2 utiliza paso de parámetros por variable (también llamado paso de parámetros por referencia o por dirección). Lo que se pasa a la función no es el valor de las variables u y v, sino su dirección de memoria, es decir, un puntero a las celdas de memoria donde u y v están almacenadas. Dentro de la función, se utiliza el operador asterisco para acceder al contenido de pu y pv y, en consecuencia, se altera el contenido de las posiciones de memoria apuntadas por pu y pv. El resultado es que las variables u y v del programa principal quedan modificadas. 
+Por lo tanto, la salida del programa debe ser:
+Después de la llamada a funcion1:  u=1 v=3
+Después de la llamada a funcion2:  u=0 v=0
+Recuerda que la función scanf() requiere que sus argumentos vayan precedidos por &, mientras que printf() no lo necesitaba. Hasta ahora no podíamos comprender por qué, pero ahora podemos dar una razón: scanf() necesita que sus argumentos vayan precedidos del símbolo & porque necesita las direcciones de los datos que van a ser leídos, para poder colocar en esas posiciones de memoria los datos introducidos por teclado. En cambio, printf() no necesita las direcciones, sino únicamente los valores de los datos para poder mostrarlos en la pantalla.
+Al estudiar los arrays y las estructuras ya vimos en detalle cómo se deben pasar como parámetros a las funciones. Recuerda que los arrays siempre se pasan por variable y no es necesario usar el símbolo & en la llamada, ya que el propio nombre del array se refiere, en realidad, a la dirección del primer elemento.
+ 1.8  Devolución de punteros
+Una función también puede devolver un puntero. Para hacer esto, la declaración de la función debe indicar que devolverá un puntero. Esto se realiza precediendo el nombre de la función con un asterisco. Por ejemplo:
+double *funcion(argumentos);
+Cuando esta función sea invocada, devolverá un puntero a un dato de tipo double, y por lo tanto debe ser asignada a una variable de ese tipo. Por ejemplo, así:
+double *pf;
+pf = funcion(argumentos);
+printf("%lf", *pf);
+ 1.9  Punteros a funciones
+Las funciones de C, como todo el código de todos los programas que se ejecutan en el ordenador, también ocupan unas posiciones concretas de la memoria principal. Por lo tanto, es posible disponer de un puntero a una función, es decir, de una variable que contenga la dirección de memoria en la que comienza el código de una función.
+Aunque no vamos a usar esta avanzada posibilidad de C, se menciona aquí como información para el lector que desee ampliar sus conocimientos. La declaración de un puntero a función se realiza así:
+tipo_de_dato (*nombre_puntero) (lista_de_parámetros);
+No debe confundirse con la declaración de una función que devuelve un puntero:
+tipo_de_dato* nombre_función (lista_de_parámetros);
+Posteriormente, la dirección de la función puede asignarse al puntero para luego ser invocada a través del puntero, en lugar de usar una llamada convencional:
+nombre_puntero = nombre_función;	/* Asignación al puntero de la dirección de la función */
+(*nombre_puntero)(lista_de_parámetros);	/* Invocación de la función */
+ 1.10  Punteros a punteros
+Un último aspecto (a la vez confuso y potente) de los punteros es la posibilidad de definir punteros que, a su vez, apunten a otros punteros. Esto no es un trabalenguas, sino que, técnicamente, se denomina indirección múltiple. La definición de un puntero a puntero se hace así:
+tipo_de_dato **nombre_puntero;
+Por ejemplo, el resultado del siguiente fragmento de código en C debe ser que se imprima el número 15 en la pantalla:
+int n;
+int* p1;
+int** p2;
+p1 = &n;	/* p1 contiene la dirección de n */
+p2 = &p1;	/* p2 contiene la dirección de p1 */
+**p2 = 15;
+printf("%i", n);
+ 2  Gestión dinámica de la memoria
+Según hemos visto hasta ahora, la memoria reservada para cada variable se define en el momento de escribir el código del programa. Por ejemplo, si declaramos una variable de tipo int, ésta tendrá asignados 2 bytes de memoria (aunque esa cantidad puede variar dependiendo del compilador y del sistema operativo). Entonces, si declaramos un array de 100 números enteros, el array tendrá reservados 200 bytes de memoria.
+¿Pero qué ocurre si no sabemos de antemano cuántos elementos puede llegar a tener el array?
+Por ejemplo, imaginemos un problema consistente en leer por teclado (u otro dispositivo de entrada) una cantidad indefinida de números para almacenarlos en un array y luego hacer ciertas operaciones con ellos. ¿De qué tamaño podemos definir el array? ¿De 100 elementos? ¿Y si el usuario introduce 101 elementos?
+Podemos pensar, entonces, que será suficiente con definir el array muy grande: de 1000 elementos, o de 5000, o de 10000… pero siempre existe la posibilidad de que el programa no funcione correctamente por desbordamiento del espacio reservado a las variables. Y, por otra parte, si definimos un array de enormes dimensiones y luego la mayoría de sus posiciones no se utilizan, estaremos desperdiciando los recursos de la máquina.
+Para evitar esto existe la asignación dinámica de memoria, que consiste en reservar memoria para las variables en tiempo de ejecución, es decir, mientras el programa está funcionando. Así, es posible "estirar" o "encoger" sobre la marcha el espacio reservado para el array, dependiendo de las necesidades de cada momento, y no limitarse a los 100, 1000 ó 10000 elementos que definió el programador al escribir el código.
+Veremos enseguida que, para manejar la memoria dinámicamente, es imprescindible el uso de punteros. De hecho, este es el mejor fruto que vamos a obtener de ellos.
+ 2.1  Reserva dinámica de memoria. Arrays dinámicos.
+Utilizaremos el ejemplo de los arrays por ser la estructura de datos más simple y fácil de entender, pero lo dicho aquí es extensible a otras estructuras de datos diferentes. De hecho, dedicaremos el resto del tema a estudiar otras estructuras de datos dinámicas más complejas.
+Ya que un nombre de array es en realidad un puntero a su primer elemento, es posible definir un array como una variable puntero en vez de como un array convencional. Así, estas dos definiciones sirven para un vector de números enteros:
+int vector1[100];
+int* vector2;
+El vector1 se define del modo convencional de un array. Esto produce la reserva de un bloque fijo de memoria al empezar la ejecución del programa lo suficientemente grande como para almacenar 100 números enteros.
+El vector2 se define como puntero a entero. En este caso, no se reserva ninguna cantidad de memoria para almacenar los números enteros. 
+Si intentamos acceder a los elementos de los vectores obtendremos resultados diferentes:
+vector1[5] = 83;
+vector2[5] = 27;	/* Esto es un error */
+La primera asignación funcionará correctamente, ya que el quinto elemento del vector1 tiene un espacio de memoria asignado. La segunda asignación producirá un efecto impredecible, ya que vector2 no tiene ningún espacio de memoria asignado y, por lo tanto, el dato 27 se escribirá en una posición de memoria correspondiente a otro dato u otro programa. La consecuencia puede llegar a ser bastante desagradable.
+Se necesita, pues, reservar un fragmento de memoria antes de que los elementos del array sean procesados. Tales tipos de reserva se realizan mediante la función malloc() o alguna de sus variedades. Observa bien su uso en este ejemplo:
+int *x;
+x = (int *) malloc (100 * sizeof(int));
+La función malloc() reserva un especio de memoria consistente en 100 veces el tamaño de un número entero. Fíjate bien en el uso del sizeof(int): se trata de un operador unario que devuelve el tamaño de un tipo de dato cualquiera, tanto simple como complejo.
+Suponiendo que sizeof(int) fuera 2 (es decir, que cada número de tipo int ocupase 2 bytes), lo que se le está pidiendo a malloc() es que reserve 100 * 2 bytes, es decir, 200 bytes de memoria.
+Además, es necesario usar el molde (int *), ya que malloc() devuelve un puntero sin tipo (es decir, un puntero a void), así que hay que convertirlo a puntero a entero antes de asignarlo a la variable x, que efectivamente es un puntero a entero.
+De esta manera, la variable vector2 pasa a ser lo que podemos denominar un array dinámico, en el sentido de que se comporta como un array y puede usarse como tal, pero su tamaño ha sido definido durante la ejecución del programa (más adelante, en el mismo programa, podemos redefinir el tamaño del array para acortarlo o alargarlo)
+Si la función malloc() falla devolverá un puntero a NULL. Utilizar un puntero a NULL es la forma más segura de estrellar el programa, así que siempre debemos comprobar que el puntero devuelto es correcto. Una vez hecho esto, podemos utilizar x con toda tranquilidad como si fuera un array de 100 números enteros. Por ejemplo:
+int *x, i;
+x = (int *) malloc (100 * sizeof(int));
+if (x == NULL)
+  printf("Error en la asignación de memoria");
+else
+{
+  printf("Se ha reservado con éxito espacio para 100 números");
+  for (i=0; i<100; i++)
+  {
+	printf("Introduzca un número:");
+	scanf("%i", &x[i]);
+  }
+}
+ 2.2  Liberación de memoria
+El programador debe tener dos precauciones básicas a la hora de manejar la memoria dinámicamente:
+    • Asignar memoria a un puntero antes de usarlo con malloc() u otra función similar
+    • Liberar la memoria asignada, cuando ya no va a usarse más, con free() u otra función similar.
+Si no se libera la memoria asignada a un puntero, teóricamente no ocurre nada grave, salvo que podemos terminar por agotar la memoria disponible si reservamos continuamente y nunca liberamos. Es, en cualquier caso, una costumbre muy saludable.
+Para liberar la memoria reservada previamente con malloc() u otra función de su misma familia, se utiliza la función free(). Observa su uso en este ejemplo:
+int *x, i;
+x = (int *) malloc (100 * sizeof(int));
+... instrucciones de manipulación de x ...
+free(x);
+Toda la memoria reservada con malloc() quedará liberada después de hacer free() y se podrá utilizar para guardar otros datos o programas. El puntero x quedará apuntado a NULL y no debe ser utilizado hasta que se le asigne alguna otra dirección válida.
+ 2.3  Funciones básicas para la gestión dinámica de la memoria
+Además de malloc() y free() existen otras funciones similares pero con pequeñas diferencias. A continuación resumimos las más usuales y mostramos un ejemplo de su uso. 
+Pero antes haremos una advertencia: todas las funciones de reserva de memoria devuelven un puntero a NULL si no tienen éxito. Por lo tanto, deben ir seguidas de un condicional que compruebe si el puntero apunta a NULL antes de utilizarlo: no nos cansaremos de repetir que utilizar un puntero a NULL es una manera segura de estrellar el programa.
+
+calloc()
+Reserva un bloque de memoria para almacenar num elementos de tam bytes y devuelve un puntero void al comienzo del bloque. La sintaxis es:
+void* calloc(num, tam);
+El siguiente ejemplo reserva espacio para 35 números enteros:
+int* p;
+p = (int*) calloc(35, sizeof(int));
+free()
+Libera el bloque de memoria apuntado por un puntero y que previamente había sido reservado.
+free(puntero);
+malloc()
+Reserva un bloque de memoria de tam bytes y devuelve un puntero void al comienzo del mismo, según esta sintaxis:
+void* malloc(tam);
+Por ejemplo, para reservar espacio para una cadena de 100 caracteres:
+char* texto;
+texto = (char*) malloc(100 * sizeof(char));
+realloc()
+Cambia el tamaño de un bloque de memoria apuntado por puntero. Dicho bloque ha debido ser previamente asignado con malloc() u otra función similar. El nuevo tamaño será de tam bytes. Devuelve un puntero void al comienzo del bloque, y la sintaxis es:
+void* realloc(puntero, tam);
+En el siguiente ejemplo, se reserva espacio para 100 caracteres, pero luego se modifica el tamaño del bloque para dar cabida hasta 500 caracteres:
+char* texto;
+texto = (char*) malloc(100 * sizeof(char));
+/* Aquí irían las instrucciones que utilicen el puntero texto
+   con un tamaño de 100 caracteres */
+texto = (char*) realloc(texto, 500 * sizeof(char));
+/* A partir de aquí, el mismo puntero texto puede usarse para
+   manejar hasta 500 caracteres */
+ 3  Introducción a las estructuras dinámicas
+Las estructuras estáticas tienen una importante limitación: no pueden cambiar de tamaño durante la ejecución. Por ejemplo, los arrays están compuestos por un determinado número de elementos y ese número se decide durante la codificación del programa, no pudiendo cambiarse en tiempo de ejecución.
+En muchas ocasiones se necesitan estructuras que puedan cambiar de tamaño durante la ejecución del programa. Esas son las estructuras dinámicas. 
+C no dispone de estructuras dinámicas predefinidas, por lo que es tarea del programador construirlas basándose en estructuras estáticas y gestión dinámica de memoria. Además, habrá que programar una colección de funciones que manipulen esas estructuras.
+Ya que el programador se toma la molestia de implementar las estructuras y sus funciones, lo más habitual es que se asegure de que todo sea reutilizable, de manera que pueda usarlo en otros programas. A lo largo del tema seguiremos este principio.
+Como veremos, para desarrollar las estructuras dinámicas es imprescindible usar punteros y asignación dinámica de memoria, así que deberías tener bastante claros los dos primeros epígrafes de este tema antes de continuar. 
+Nodos
+El fundamento de las estructuras de datos dinámicas es una estructura estática a la que llamaremos nodo o elemento. Éste incluye los datos con los que trabajará nuestro programa y uno o más punteros al mismo tipo nodo.
+Por ejemplo, si la estructura dinámica va a guardar números enteros, el nodo puede tener esta forma:
+struct s_nodo {
+   int dato;
+   struct nodo *otro_nodo;
+};
+El campo otro_nodo apuntará a otro objeto del tipo nodo. De este modo, cada nodo puede usarse como un ladrillo para construir estructuras más complejas, y cada uno mantendrá una relación con otro u otros nodos (esto dependerá del tipo de estructura dinámica, como veremos). 
+A lo largo del tema usaremos una representación gráfica para mostrar las estructuras de datos dinámicas. El nodo anterior se representará así:
+
+En el rectángulo de la izquierda se representa el dato contenido en el nodo (en nuestro ejemplo, un número entero). En el rectángulo de la derecha se representa el puntero, que apuntará a otro nodo.
+Tipos de estructuras dinámicas
+Dependiendo del número de punteros que haya en cada nodo y de las relaciones entre ellos, podemos distinguir varios tipos de estructuras dinámicas. A lo largo del tema veremos sólo las estructuras básicas, pero aquí las vamos a enumerar todas:
+    • Listas abiertas: cada elemento sólo dispone de un puntero, que apuntará al siguiente elemento de la lista. 
+    • Pilas: son un tipo especial de lista, conocidas como listas LIFO (Last In, First Out: el último en entrar es el primero en salir). Los elementos se "amontonan" o apilan, de modo que sólo el elemento que está encima de la pila puede ser leído, y sólo pueden añadirse elementos encima de la pila. 
+    • Colas: otro tipo de listas, conocidas como listas FIFO (First In, First Out: El primero en entrar es el primero en salir). Los elementos se almacenan en una lista, pero sólo pueden añadirse por un extremo y leerse por el otro. 
+    • Listas circulares: o listas cerradas, son parecidas a las listas abiertas, pero el último elemento apunta al primero. De hecho, en las listas circulares no puede hablarse de "primero" ni de "último". 
+    • Listas doblemente enlazadas: cada elemento dispone de dos punteros, uno apunta al siguiente elemento y el otro al elemento anterior. Al contrario que las listas abiertas, estas listas pueden recorrerse en los dos sentidos. 
+    • Árboles: cada elemento dispone de dos o más punteros, pero las referencias nunca son a elementos anteriores, de modo que la estructura se ramifica y crece de modo jerárquico. 
+    • Árboles binarios: son árboles donde cada nodo sólo puede apuntar a dos nodos. 
+    • Árboles binarios de búsqueda (ABB): son árboles binarios ordenados, por lo que la búsqueda de información en ellos es menos costosa. Desde cada nodo todos los nodos de una rama serán mayores, según la norma que se haya seguido para ordenar el árbol, y los de la otra rama serán menores. 
+    • Árboles AVL: son también árboles de búsqueda, pero su estructura está más optimizada para reducir los tiempos de búsqueda. 
+    • Árboles B: son otro tipo de árboles de búsqueda más complejos y optimizados que los anteriores. 
+    • Tablas HASH: son estructuras auxiliares para ordenar listas de gran tamaño. 
+    • Grafos: son árboles no jerarquizados, es decir, en los que cada nodo puede apuntar a nodos de nivel inferior o de nivel superior. De hecho, no se puede hablar de nivel “superior” e “inferior”. Son las estructuras dinámicas más complejas.
+Para terminar con esta introducción, señalar que pueden existir estructuras dinámicas en las que haya nodos de distinto tipo, aunque nosotros no las vamos a estudiar.
 
 ## 9.5. Un ejemplo completo: las tres en raya
-
-XXX *Texto pendiente de revisar a partir de aquí* XXX
 
 Llegó la hora de poner manos a la obra.
 
 Si hay una sección de este capítulo que tienes que leer con atención, es esta. Así que es un mal momento para tener prisa.
 
-Vamos a escribir un **programa completo en Javascript**. Te puede servir de plantilla para desarrollar tus propios programas a partir de aquí.
+Vamos a escribir un **programa completo en C**. Te puede servir de plantilla para desarrollar tus propios programas a partir de este código fuente.
 
-El programa en cuestión será una versión del juego de **las tres en raya** que resolvimos en el tema de introducción a la programación. No dudes en repasar aquel ejercicio resuelto para ver el pseudocódigo, puesto que nuestro programa será una traducción literal de ese pseudocódigo a Javascript.
+El programa en cuestión será una versión del juego de **las tres en raya** que encontrarás resuelta en pseudocódigo el tema de introducción a la programación. No dudes en repasar aquel ejercicio resuelto para ver el pseudocódigo, puesto que nuestro programa será una traducción literal de ese pseudocódigo a C.
 
 Aquí tienes el código fuente completo. Estúdialo con atención y asegúrate de entenderlo todo (o un gran porcentaje) antes de continuar. Ah, y no dejes de compararlo línea a línea con el mismo código en pseudocódigo.
 
 ### 9.5.1. El código fuente
 
-```html
-<div id='salida' style='text-align: center; border-style: solid; border-color: black; font-family: mono'></div>
-<script>
+```c
+#include <stdio.h>
+
 //-------------------------
 //   ALGORITMO PRINCIPAL
 //-------------------------
-var tablero = new Array(10);
-var ganador;
-var tablas;
+int main(void) {
+   char tablero[10];
+   int ganador = 0;        // 0 = ninguno, 1 = humano, 2 = ordenador
+   int tablas;             // 0 = no hay tablas, 1 = sí hay tablas
 
-inicializar(tablero)   // Esto es un subalgoritmo. Está escrito más abajo
-do {
-   mostrar(tablero);
-   colocar_pieza_humano(tablero);
-   ganador = comprobar_ganador(tablero);
-   tablas = comprobar_tablas(tablero);
-   if ((ganador == "Ninguno") && (tablas == false)) {
-      colocar_pieza_ordenador(tablero);
+   inicializar(tablero);   // Esto es un subalgoritmo. Está escrito más abajo
+   do {
+      mostrar(tablero);
+      colocar_pieza_humano(tablero);
       ganador = comprobar_ganador(tablero);
       tablas = comprobar_tablas(tablero);
+      if ((ganador == 0) && (tablas == 0)) {
+         colocar_pieza_ordenador(tablero);
+         ganador = comprobar_ganador(tablero);
+         tablas = comprobar_tablas(tablero);
+      }
    }
-}
-while ((ganador == "Ninguno") && (tablas == false));
+   while ((ganador == 0) && (tablas == 0));
 	
-mostrar(tablero);
-if (ganador == "Ninguno") {
-   document.getElementById('salida').innerHTML += "EL JUEGO HA TERMINADO EN TABLAS";
-}
-else {
-   document.getElementById('salida').innerHTML += "EL JUEGO HA TERMINADO. EL GANADOR ES: " + ganador;
+   mostrar(tablero);
+   if (ganador == 0) {
+      printf("EL JUEGO HA TERMINADO EN TABLAS\n");
+   }
+   else if (ganador == 1) {
+      printf("EL JUEGO HA TERMINADO Y HAS GANADO TÚ\n");
+   }
+   else {
+      printf("EL JUEGO HA TERMINADO Y HE GANADO YO\n");
+   }
 }
 
 // --------------------------------------------
 // Inicializa el tablero con espacios en blanco
 // --------------------------------------------
-function inicializar(tablero) {
-   //let i;
+void inicializar(char tablero[10]) {
+   int i;
    for (i = 1; i <= 9; i++) {
       // Como tablero es un array, se pasa por referencia y los cambios que
       // hagamos aquí se reflejarán en el algoritmo principal
-      tablero[i] = " ";
+      tablero[i] = ' ';
    }
 }
 
 // --------------------------------------------
 // Muestra el estado actual del tablero
 // --------------------------------------------
-function mostrar(tablero) {
-   document.getElementById('salida').innerHTML = "ESTADO ACTUAL DEL TABLERO<br>";
-   document.getElementById('salida').innerHTML += "+-+-+-+<br>";
-   document.getElementById('salida').innerHTML += "|" + tablero[1] + "|" + tablero[2] + "|" + tablero[3] + "|<br>";
-   document.getElementById('salida').innerHTML += "+-+-+-+<br>";
-   document.getElementById('salida').innerHTML += "|" + tablero[4] + "|" + tablero[5] + "|" + tablero[6] + "|<br>";
-   document.getElementById('salida').innerHTML += "+-+-+-+<br>";
-   document.getElementById('salida').innerHTML += "|" + tablero[7] + "|" + tablero[8] + "|" + tablero[9] + "|<br>";
-   document.getElementById('salida').innerHTML += "+-+-+-+<br>";
+void mostrar(char tablero[10]) {
+   printf("ESTADO ACTUAL DEL TABLERO\n");
+   printf("+-+-+-+\n");
+   printf("|%c|%c|%c|\n", tablero[1], tablero[2], tablero[3]);
+   printf("+-+-+-+\n");
+   printf("|%c|%c|%c|\n", tablero[4], tablero[5], tablero[6]);
+   printf("+-+-+-+\n");
+   printf("|%c|%c|%c|\n", tablero[7], tablero[8], tablero[9]);
+   printf("+-+-+-+\n");
 }
 
 // ---------------------------------------------------
 // Coloca una pieza del jugador humano en el tablero
 // ---------------------------------------------------
-function colocar_pieza_humano(tablero) {
-   var casilla, casilla_correcta;
+void colocar_pieza_humano(char tablero[10]) {
+   int casilla;
+   int casilla_correcta = 0;
    do {
-      casilla = prompt("¿En qué casilla quieres poner una pieza? (1-9)");
-      casilla_correcta = false;
-      if (tablero[casilla] == " ") {
-         tablero[casilla] = "X";
-         casilla_correcta = true;
+      printf("¿En qué casilla quieres poner una pieza? (1-9)");
+      scanf("%d", &casilla);
+      if (tablero[casilla] == ' ') {
+         tablero[casilla] = 'X';
+         casilla_correcta = 1;
       }
       else {
-         document.getElementById('salida').innerHTML += "Error: Esa casilla ya está ocupada<br>";
+         printf("Error: Esa casilla ya está ocupada\n");
       }
    }
-   while (casilla_correcta == false);
+   while (casilla_correcta == 0);
 }
 
 // ---------------------------------------------------
 // Coloca una pieza del ordenador en el tablero
 // ---------------------------------------------------
-function colocar_pieza_ordenador(tablero) {
-   var casilla, casilla_correcta;
-   casilla_correcta = false;
+void colocar_pieza_ordenador(char tablero[10]) {
+   int casilla;
+   int casilla_correcta = 0;
+   srand(time(NULL));
    do {
-      casilla = Math.round(Math.random()*9);
-      alert("Voy a colocar mi pieza en la casilla " + casilla);
-      if (tablero[casilla] == " ") {
-         tablero[casilla] = "O";
-         casilla_correcta = true;
+      casilla = rand() % 10;
+      printf("Voy a colocar mi pieza en la casilla ", casilla);
+      if (tablero[casilla] == ' ') {
+         tablero[casilla] = 'O';
+         casilla_correcta = 1;
       }
       else {
-         alert("¡Está ocupada! Voy a elegir otra");
+         printf("¡Está ocupada! Voy a elegir otra");
       }
    }
-   while (casilla_correcta == false);
+   while (casilla_correcta == 0);
 }
 
 // ---------------------------------------------------
 // Comprueba si hay un ganador según el estado del 
 // tablero. Devuelve "Ninguno", "Humano" u "Ordenador"
 // ---------------------------------------------------
-function comprobar_ganador(tablero) {
-   var ganador = "Ninguno";
+int comprobar_ganador(char tablero[10]) {
+   int ganador = 0;
    // Comprobamos primera fila
    if ((tablero[1] == tablero[2]) && (tablero[1] == tablero[3])) {
-      if (tablero[1] == "X") {
-         ganador = "Humano";
+      if (tablero[1] == 'X') {
+         ganador = 1;
       }
-      if (tablero[1] == "O") {
-         ganador = "Ordenador";
+      if (tablero[1] == 'O') {
+         ganador = 2;
       }
    }
    // Comprobamos segunda fila
    if ((tablero[4] == tablero[5]) && (tablero[4] == tablero[6])) {
-      if (tablero[4] == "X") {
-         ganador = "Humano";
+      if (tablero[4] == 'X') {
+         ganador = 1;
       }
-      if (tablero[4] == "O") {
-         ganador = "Ordenador";
+      if (tablero[4] == 'O') {
+         ganador = 2;
       }
    }
    // Comprobamos tercera fila
    if ((tablero[7] == tablero[8]) && (tablero[7] == tablero[9])) {
-      if (tablero[7] == "X") {
-         ganador = "Humano";
+      if (tablero[7] == 'X') {
+         ganador = 1;
       }
-      if (tablero[7] == "O") {
-         ganador = "Ordenador";
+      if (tablero[7] == 'O') {
+         ganador = 2;
       }
    }
    // Comprobamos primera columna
    if ((tablero[1] == tablero[4]) && (tablero[1] == tablero[7])) {
-      if (tablero[1] == "X") {
-         ganador = "Humano";
+      if (tablero[1] == 'X') {
+         ganador = 1;
       }
-      if (tablero[1] == "O") {
-         ganador = "Ordenador";
+      if (tablero[1] == 'O') {
+         ganador = 2;
       }
    }
    // Comprobamos segunda columna
    if ((tablero[2] == tablero[2]) && (tablero[2] == tablero[8])) {
-      if (tablero[2] == "X") {
-         ganador = "Humano";
+      if (tablero[2] == 'X') {
+         ganador = 1;
       }
-      if (tablero[2] == "O") {
-         ganador = "Ordenador";
+      if (tablero[2] == 'O') {
+         ganador = 2;
       }
    }
    // Comprobamos tercera columna
    if ((tablero[3] == tablero[6]) && (tablero[3] == tablero[9])) {
-      if (tablero[3] == "X") {
-         ganador = "Humano";
+      if (tablero[3] == 'X') {
+         ganador = 1;
       }
-      if (tablero[3] == "O") {
-         ganador = "Ordenador";
+      if (tablero[3] == 'O') {
+         ganador = 2;
       }
    }
    // Comprobamos una diagonal
    if ((tablero[1] == tablero[5]) && (tablero[1] == tablero[9])) {
-      if (tablero[1] == "X") {
-         ganador = "Humano";
+      if (tablero[1] == 'X') {
+         ganador = 1;
       }
-      if (tablero[1] == "O") {
-         ganador = "Ordenador";
+      if (tablero[1] == 'O') {
+         ganador = 2;
       }
    }
    // Comprobamos la otra diagonal
    if ((tablero[3] == tablero[5]) && (tablero[3] == tablero[7])) {
-      if (tablero[3] == "X") {
-         ganador = "Humano";
+      if (tablero[3] == 'X') {
+         ganador = 1;
       }
-      if (tablero[3] == "O") {
-         ganador = "Ordenador";
+      if (tablero[3] == 'O') {
+         ganador = 2;
       }
    }
    return ganador;
@@ -2051,11 +2516,11 @@ function comprobar_ganador(tablero) {
 // según el estado actual del tablero. Devuelve
 // verdadero si hay tablas o falso en otro caso.
 // -------------------------------------------
-function comprobar_tablas(tablero) {
-   var tablas;
-   var i, contador = 0;
+int comprobar_tablas(char tablero[10]) {
+   int tablas = 0;
+   int i, contador = 0;
    for (i = 1; i <= 9; i++) {
-      if (tablero[i] != " ") {
+      if (tablero[i] !=  ' ') {
          contador++;
       }
    }
@@ -2063,43 +2528,39 @@ function comprobar_tablas(tablero) {
 	// Si todas las casillas están ya ocupadas y no hay ganador,
 	// entonces estamos en tablas.
    if (contador == 9) {
-      tablas = true;
+      tablas = 1;
    }
    else {
-      tablas = false;
+      tablas = 0;
    }
    return tablas;
 }
-</script>
 ```
 
 ### 9.5.2. ¿Cómo ejecutar y depurar este programa?
 
-Guarda el programa anterior en un archivo de texto con extensión .html (por ejemplo, *3-en-raya.html*).
+Guarda el programa anterior en un archivo de texto con extensión .c (por ejemplo, *3enraya.c*).
 
-Luego, sencillamente, haz doble clic sobre él para abrirlo. El sistema operativo usará el navegador web predeterminado de tu sistema para abrir el archivo y la ejecución comenzará.
+Si estás trabajando con Visual Studio Code con las extensiones recomendadas para C/C++, puedes ejecutar tu programa directamente desde ahí. Basta con que pulses el botón "Play" de la esquina superior derecha. Se abrirá una consola en la parte de abajo donde tu programa se ejecutará.
+
+XXX captura imagen Play
+
+XXX captura imagen de 3 en raya ejecutándose
 
 #### ¡Socorro! El programa no funciona
 
 ¿El resultado no es el esperado? Es lo habitual. Habrá algún error en el código y te tocará depurarlo.
 
-Las páginas web (con Javascript incluido) son extraordinariamente resistentes a los errores. No te mostrarán mensajes de error cada vez que haya algo mal escrito.
+En la ventana inferior de Visual Studio Code verás varias pestañas. 
 
-Al contrario, permanecerán en silencio para no asustar al usuario de la web y provocar que salga corriendo de allí.
+* En la pestaña **Terminal** verás el resultado de la ejecución de tu programa.
+* En la pestaña **Problems** verás la lista de errores que el compilador ha encontrado en tu programa. En tal caso, en el *Terminal* solo verás un lenguaje de tipo "La compilación ha terminado con errores".
 
-Por ese motivo, los errores de Javascript solo se dejan ver en la "sala de máquinas" del navegador. Por supuesto, los programadores/as tienen una manera de acceder a esa "sala de máquinas".
+Los mensajes pueden estar en español o en inglés, dependiendo del compilador, pero ¿qué esperabas? Si quieres aprender a programar, tienes que acostumbrarte a manejar el inglés técnico.
 
-Pulsa **F12** en tu navegador para abrir la **consola de errores** de Javascript. Asegúrate de seleccionar la pestaña etiquetada como ***Console***. Verás algo como esto:
+El mensaje de error te dará información sobre lo que hay de malo en tu código y te dirá en qué línea, aproximadamente, está el error.
 
-![Consola de errores de Javascript](/docs/prog-y-3d/_site/assets/images/05-consola-errores-javascript.png)
-
-En la consola de errores aparecen, en rojo, los mensajes de error que haya lanzado el intérprete de Javascript, indicándote el tipo de error y la línea en la que se ha detectado. Los mensajes estarán en inglés, por supuesto, pero ¿qué esperabas? Si quieres aprender a programar, tienes que acostumbrarte a manejar el inglés técnico.
-
-¡Atención! Dependiendo del navegador que uses, puede que esa consola de errores se abra con otra combinación de teclas. Tendrás que bichear un poco por internet para averiguarlo. Lo habitual, sin embargo, es F12.
-
-Cuando hayas localizado el error, **regresa a tu editor de texto, haz los cambios necesarios, guarda las modificaciones y recarga la página** (pulsando **F5** en la mayoría de los navegadores).
-
-Si el navegador se había quedado colgado, tendrás que cerrarlo, esperar unos segundos y volver a abrirlo.
+Cuando lo hayas localizado, **regresa a tu editor de texto, haz los cambios necesarios, guarda las modificaciones y vuelve a compilar y ejecutar el programa** (pulsando de nuevo el botón "Play").
 
 Y así hasta que funcione.
 
@@ -2107,237 +2568,146 @@ Y así hasta que funcione.
 
 ## 9.6. Ejercicios propuestos
 
-XXX añadir un primer ejercicio que sea HOLA MUNDO e instalar Visual Studio Code + Extensión C/C++ de Microsoft.
+#### Ejercicio 1. Hola mundo
 
-#### Ejercicio 1. Tabla de multiplicar
+En este ejercicio, vamos a preparar nuestro entorno de trabajo.
 
-Vamos a empezar por algo sencillito.
+1. Instala Visual Studio Code. Puedes descargarlo de [https://code.visualstudio.com/download](https://code.visualstudio.com/download) o bien instalarlo desde la tienda de aplicaciones de tu sistema operativo.
 
-Escribe un programa en Javascript que pida un número y muestre la tabla de multiplicar de ese número.
+2. Abre Visual Studio Code y haz clic en el botón de extensiones (en el panel izquierdo). Busca una extensión llamada "C/C++ IntelliSense" e instálala.
 
-Puedes utilizar esta plantilla para tu primer programa:
+3. Escribe un programa que salude con un "Hola, mundo". Encontrarás el código más abajo. Este programa es un clásico en el mundillo de la programación; siempre se usa para comprobar si un nuevo entorno de desarrollo está funcionando bien.
 
-```html
-<div id='salida' style='text-align: center; border-style: solid; border-color: black'></div>
-<script>
-   // Escribe aquí el programa de la tabla de multiplicar
-</script>
-```
+4. Ejecútalo y asegúrate de que el resultado es el esperado. Si algo falla, llama al profesor y no pases al siguiente ejercicio hasta dejar tu Visual Studio Code en perfecto estado de funcionamiento.
 
-Recuerda que la salida la puedes enviar al <div> 'salida' con la expresión: *document.getElementById('salida').innerHTML*
-
-#### Ejercicio 2. Juego del número secreto
-
-Ahora algo solo un poquito más complicado: una versión en Javascript del juego del número secreto.
-
-(Puedes encontrarlo resuelto en el capítulo "Introducción a la programación")
-
-#### Ejercicio 3. Botón saltarín
-
-Aquí empezamos a divertirnos.
-
-**Vamos a hacer una página web con un botón. Al pulsar ese botón, Javascript hará que ¡el botón cambie de sitio!**
-
-Para eso, capturaremos el **evento *click*** del botón.
-
-El botón lo tienes que crear antes mediante HTML. No importa que no sepas HTML. Solo echa un vistazo a este código:
-
-```html
-<body>
-   <button id='boton' onclick='mover_boton()' style='position: absolute; top: 100px; left: 200px'>Púlsame</button>
-   <script>
-      function mover_boton() {
-          // Escribe aquí tu código javascript
-      }
-   </script>
-</body>
-```
-
-Ahora solo te queda programar la función *mover_boton()*.
-
-Para lograr que el botón se mueva, tendrás que fijarte primero en cómo está el botón creado: tiene un **id**, un evento **onclick** y un **style**. Dentro del este último se definen dos propiedades:
-
-* **top** es la distancia desde la parte superior de la ventana del navegador hasta el botón. Lo hemos establecido en 100 píxeles (100px).
-* **left** es la distancia desde la parte izquierda de la ventana del navegador hasta el botón. Le hemos dado 200 píxeles.
-
-Pues bien, debes hacer que Javascript modifique esas dos propiedades. Por ejemplo, así:
-
-```javascript
-function mover_boton() {
-   document.getElementById('boton').style.top = '150px';
-   document.getElementById('boton').style.left = '250px';
+```c
+#include <stdio.h>
+int main()
+{
+   printf("Hola, mundo\n");
+   return 0;
 }
 ```
 
-Con eso, el botón se moverá al hacer clic sobre él, pero solo la primera vez. Quedará emplazado en la posición top = 150px y left = 250px y ya no se desplazará más.
+#### Ejercicio 2. Convertir de euros a dólares
 
-**¿Y si quisiéramos que se moviera *siempre* que hagamos clic sobre él?** Es es lo que tienes que conseguir en este ejercicio.
+Vamos a empezar por algo sencillito.
 
-#### Ejercicio 4. Ventana nerviosa y botones evanescentes
+Escribe un programa en C capaz de leer un número real y un tipo de moneda, que puede ser "euro" o "dólar", y que convierta al tipo de moneda indicado, suponiendo que está expresada en la otra. 
 
-**Ahora vamos a conseguir que una ventana entera del navegador se mueva al pulsar un botón. Y a hacer aparecer y desaparecer botones.**
+Por ejemplo, si la cantidad es 15 y la moneda es "dólar", se supondrá que se trata de 15 € y que hay que convertirlos a dólares.
 
-De hecho, vamos a crear cuatro botones:
+Utiliza el tipo de cambio que esté vigente el día en el que escribas el programa.</div>
 
-* **Botón "Saltar"**: al pulsarlo, la ventana dará un salto. Es decir, cambiará de posición..
-* **Botón "Temblar"**: al pulsarlo, la ventana se pondrá a "temblar", como si tuviera frío o se hubiera puesto nerviosa, durante un rato.
-* **Botón "Ocultar"**: al pulsarlo, los dos botones anteriores desaparecerán de la vista.
-* **Botón "Mostrar"**: al pulsarlo, los botones desaparecidos volverán a aparecer.
+#### Ejercicio 3. Tabla de multiplicar
 
-Esos cuatro botones puedes crearlos con este código HTML. También crearemos una segunda ventana del navegador, que será la que cambiará de posición:
+Escribe un programa en C que pida un número y muestre la tabla de multiplicar de ese número.
 
-```html
-<body>
-   <h1>Ventana nerviosa</h1>
-   <button id='btn_saltar' onclick='btn_saltar()'>Saltar</button>
-   <button id='btn_temblar' onclick='btn_temblar()'>Temblar</button>
-   <button id='btn_ocultar' onclick='btn_ocultar()'>Ocultar</button>
-   <button id='btn_mostrar' onclick='btn_mostrar()'>Mostrar</button>
-   <script>
-      myWindow = window.open('', '', 'width=300, height=200'); 
-      function btn_saltar() {
-          // Escribe aquí tu código javascript para cuando se pulse el botón "Saltar"
-      }
-      function btn_temblar() {
-          // Escribe aquí tu código javascript para cuando se pulse el botón "Temblar"
-      }
-      function btn_ocultar() {
-          // Escribe aquí tu código javascript para cuando se pulse el botón "Ocultar"
-      }
-      function btn_mostrar() {
-          // Escribe aquí tu código javascript para cuando se pulse el botón "Mostrar"
-      }
-   </script>
-</body>
+Por ejemplo, si el usuario del programa escribe el número 3, la salida del programa debe ser:
+
+```
+3 x 1 = 3
+3 x 2 = 6
+3 x 3 = 9
+3 x 4 = 12
+3 x 5 = 15
+3 x 6 = 18
+3 x 7 = 21
+3 x 8 = 24
+3 x 9 = 27
+3 x 10 = 30
 ```
 
-Lo siguiente es programar el código de cada una de las cuatro funciones Javascript, que se ejecutarán al pulsar cada botón.
 
-No te voy a decir lo que tienes que escribir en ellas, pero sí te voy a dar un par de pistas:
+#### Ejercicio 4. Juego del número secreto
 
-* **Pista nº 1**. Hay un objeto en Javascript llamado ***window***, que nos permite alterar las propiedades de la ventana del navegador. Por ejemplo, nos permite cambiar su posición y su tamaño. En el apartado 5.2.11, sobre *Objetos predefinidos de Javascript*, hablamos de qué modo se puede cambiar eso.
+Ahora algo solo un poquito más complicado: una versión en C del clásico juego del número secreto.
 
-   Observa que, en el fragmento de código anterior, hemos creado un objeto *window* llamado ***myWindow***. Es sobre ese objeto sobre el que tienes que actuar.
+Se trata de un juego en el que el ordenador "piensa" un número al azar entre 1 y 100 y el jugador tiene que adivinarlo.
 
-* **Pista nº 2**. En el ejercicio anterior cambiábamos las propiedades *top* y *left* de un botón, pero los botones (y cualquier cosa que haya en una página web) tienen muchas otras propiedades (¡pero MUCHAS!). Una de ellas se llama ***visibility***, y puede tomar dos valores: *visible* o *hidden*.
+Cada vez que el jugador escribe un número, el programa le dice: "Mi número secreto es mayor" o "Mi número secreto es menor".
 
-#### Ejercicio 5. Colorines
+Cuando el jugador por fin acierta, el ordenador le dice: "Enhorabuena, has acertado", y añade el número de intentos que ha necesitado para acertar el número secreto.
 
-Vamos a juguetear más con las propiedades de la página web cargada desde Javascript.
+#### Ejercicio 5. Juego de memoria
 
-En esta ocasión, construiremos una página con un cuadro de texto, un botón y un recuadro de color negro.
+Ahora empieza la diversión.
 
-Si escribimos en la caja de texto otro color (por ejemplo, "orange") y hacemos click en el botón, **el recuadro negro tiene que cambiar de color** y volverse naranja.
+Vamos a escribir en C un juego que podemos bautizar como "Juego de memoria". Será un juego en modo texto (bastante feo, por lo tanto), pero totalmente jugable y que nos servirá para afianzar todos los conocimientos adquiridos hasta ahora.
 
-El código HTML que puedes usar como base es este:
+Reglas del juego:
 
-```html
-<html>
-<head>
-   <title>Colorines</title>
-</head>
-<body>
-   <h1>Colorines</h1>
-   <div id='caja_color' style='position: absolute; top: 5%; left: 70%; width: 25%; height: 20%; background-color: black'></div>
-   <input type='text' id='color' value='yellow'>
-   <button id='boton' onclick='cambiar_color()'>Cambiar color</button>
-   <script>
-      function cambiar_color() {
-         // Escribe aquí el código Javascript
-      }
-   </script>
-</body>
-</html>
+* El juego comenzará preguntando el nivel de dificultad, que puede ser fácil, medio o difícil.
+* El ordenador elegirá al azar una serie de números. La serie consistirá al principio en un solo número. Luego serán dos números, luego tres, luego cuatro... y así hasta diez. Los números de la serie solo pueden ser tres: 1, 2 y 3. 
+* El ordenador mostrará su serie de números durante un tiempo en la pantalla. Ese tiempo será tanto menor cuanto más alto sea el nivel de dificultad.
+* Después, la serie se borrará y el jugador debe demostrar su memoria y sus reflejos repitiéndola. 
+* Si el jugador acierta en todos los números de la serie, el ordenador pasará a su siguiente serie (que tendrá un número más). Si el jugador falla, el juego termina.
+* Si el jugador es capaz de repetir con éxito todas las series (desde la que solo tiene un número hasta la que tiene 10), el jugador gana.
+
+#### Ejercicio 6. Pelota que rebota
+
+Escribe un programa en C que muestre una pelota moviéndose por la pantalla y rebotando en sus bordes. La pelota se puede simular con el carácter “O”, escribiéndolo en diferentes celdas de la pantalla cada vez.
+
+(Para este ejercicio necesitarás usar la librería *ncurses*)
+
+Puedes realizar el programa en tres fases sucesivas. Para aprobar la actividad debes completar al menos la primera fase. Para sacar un 10 tienes que terminar la tercera fase.
+
+* FASE 1: la “pelota” se mueve y rebota por la pantalla, pero va dejando un “rastro” de Oes.
+
+```
+O           O
+ O         O O
+  O       O   O
+   O     O
+    O   O
+     O O
+      O
 ```
 
-Observa que, además de preparar los tres elementos que necesitamos (el recuadro de color negro, la caja de texto y el botón), hemos añadido más elementos HTML como *head* o *title*. Esos elementos son necesarios para que la página web se considere bien formada. Si no sabes lo que significan (aunque es bastante evidente), puedes repasarlos en el capítulo dedicado a HTML.
+* FASE 2: la “pelota” se mueve por la pantalla sin dejar rastro. Es decir, cada vez que se escribe la “O” en una nueva posición, se borra de la posición que ocupaba anteriormente. El resultado debe dar sensación de movimiento sin parpadeos.
 
-(El navegador se tragará la página web aunque no esté bien formada, pero lo correcto es hacerla bien dentro de lo posible).
+```
+           O
 
-Ahora solo te falta escribir el código de la función Javascript para cambiar el color del recuadro.
 
-#### Ejercicio 6. Pelota de goma
-
-Busca en internet una imagen de una pelota que te guste y descárgala. En esa imagen no debe aparecer nada más, excepto la pelota. 
-
-Luego insértala en una página web, así:
-
-```html
-<body>
-   <img  id='pelota' src='nombre-del-archivo-de-la-imagen' style='position: absolute; width: 100px; height: 100px'>
-</body>  
 ```
 
-En *'nombre-del-archivo-de-la-imagen'*, como es lógico, tendrás que escribir el nombre del archivo que contiene tu pelota. Le hemos asignado 100 píxeles de ancho y 100 de alto, pero si es demasiado pequeña o demasiado grande, siéntete libre de cambiar esas cantidades.
+FASE 3: la “pelota” se mueve por la pantalla dejando una “estela” de cuatro o cinco “Oes” (u otros caracteres, como en la figura) a su paso.
+    
+```
+      .
+       .
+        o
+         o
+          O
 
-**Ahora escribe en Javascript un programa para que la pelota rebote por la pantalla como si fuera una pelota de verdad.**
 
-Para conseguirlo, tendrás que:
-
-* Alterar de nuevo las propiedades *top* y *left* de la pelota
-* Usar las propiedades el objeto ***window*** para evitar que la pelota se salga de los márgenes de la pantalla.
-* Utilizar un **temporizador** para mover la pelota cada x milisegundos. Según el valor de x, la pelota se moverá más deprisa o más despacio.
-
-**Mejora para los más valientes**: trata de añadir un botón a este programa. Al pulsarlo, la pelota se detendrá. Al volver a pulsarlo, la pelota se pondrá en marcha de nuevo.
-
-#### Ejercicio 7. Tres en raya improved
-
-**Modifica el juego de las tres en raya para que sea más atractivo al usuario y más cómodo de jugar.** Encontrarás el código fuente del juego más arriba, en este mismo capítulo.
-
-Tienes que eliminar todas las entradas de datos mediante *prompt()* y sustituirlas por cajas de texto HTML, como esta:
-
-```html
-¿En qué casilla quieres poner tu pieza? (1-9)
-<input type='text' id='casilla'>
-<button onclick='colocar_pieza()'>Aceptar</button>
-
-<script>
-   function colocar_pieza() {
-      var casilla = document.getElementById('casilla').value;
-      // A partir de aquí, iría el código para colocar la pieza del jugador en esa casilla
-   }
-</script>
 ```
 
-Al hacer clic en el botón, se ejecutará la función *colocar_pieza()*. Observa cómo se extrae el texto escrito en el cuadro de texto para llevárnoslo a una variable de Javascript (llamada *casilla*).
+#### Ejercicio 7. Juego de automovilismo
 
-También puedes mejorar la apariencia del juego alterando sus colores, tipografías, etc. Tendrás que investigar un poco en internet sobre cómo puede hacerse eso.
+Escribe un programa que simule un sencillo juego de automovilismo. La pantalla del juego debe tener un aspecto parecido a este:
 
-#### Ejercicio 8. Tenis
+```
+                              |         |
+                              |         |
+                              |         |
+                              |         |
+                               |         |
+                               |         |
+                                |         |
+                                 |         |
+                                 |         |
+                                 |         |
+                                |         |
+                                |    H    |
+```
 
-(Aviso: este ejercicio es de dificultad elevada)
+El jugador (cuyo vehículo representaremos con una H) puede mover su coche hacia la izquierda y hacia la derecha. Su objetivo es no salirse de la carretera, que tiene los límites marcados por un carácter "\|" a cada lado. Si se sale, pierde una vida. Si pierde tres vidas, la partida termina y el programa debe mostrar el tiempo que el conductor ha conseguido aguantar sin perder sus vidas.
 
-Ya sabes hacer que una pelota rebote (ejercicio 5). **Vamos a mejorar ese programa haciendo una versión del clásico juego de tenis *"Pong"***, el primer videojuego comercial de la historia.
-
-Si no conoces el *Pong*, bichea un poco por Internet para averiguar cómo es.
-
-¡Y ahora trata de programar una versión actualizada en Javascript!
-
-#### Ejercicio 9. Carretera al infierno
-
-(Aviso: este ejercicio es de dificultad elevada)
-
-En esta ocasión, vamos a programar **un juego que llamaremos "Carretera al infierno"**.
-
-En el juego, manejaremos un coche (busca en internet la imagen de un coche visto desde arriba). El coche aparecerá en la parte inferior de la pantalla, centrado y mirando hacia arriba.
-
-Una carretera irá desplazándose de arriba a abajo. La carretera no será recta, sino que tendrá irregularidades aleatorias hacia la izquierda y hacia la derecha. Nuestro objetivo es mover el coche hacia la izquierda y hacia la derecha para evitar que se salga de la carretera.
-
-La carreterá se moverá cada vez más deprisa. **El objetivo del juego es aguantar la mayor cantidad posible de tiempo sin salirnos.**
+La carretera se va desplazando de abajo a arriba, aprovechándose del scroll propio de la pantalla de texto. La carretera no debe ser recta, sino que tendrá irregularidades, como las mostradas en la figura, generadas al azar.
 
 ## 9.7. Ejercicios resueltos
 
 Aquí iremos poniendo los ejercicios que resolvamos en clase.
 
-#### Ejercicio 1. Tabla de multiplicar
-
-```html
-<h1>Tabla de multiplicar</h1>
-<div id='salida' style='text-align: center; border-style: solid; border-color: black'></div>
-<script>
-   var n = prompt("Dime un número");
-   for (i = 1; i <= 10; i++) {
-      document.getElementById('salida').innerHTML += n + " x " + i + " = " + n*i + "<br>";
-   }
-</script>
-```

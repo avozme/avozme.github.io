@@ -2625,7 +2625,11 @@ Fíjate en como se hace porque es una construcción habitual en ciertas vistas.
 
 Para terminar, como siempre, vamos a proponer algunos casos prácticos para que pongas manos a la obra.
 
-Se trata de crear, paso a paso, una aplicación web de corte realista que puede ser muy útil en un lugar como un instituto, una empresa, una oficina o cualquier otra organización medianamente compleja.
+Se trata de crear, paso a paso, una aplicación web de corte realista que puede ser muy útil en un lugar como un instituto, una empresa, una oficina o cualquier otra organización medianamente compleja. **Puedes utilizar el siguiente esqueleto de aplicación** basado en la Biblioteca v4 para no empezar de cero:
+
+* [Descargar el esqueleto de la aplicación](/docs/dwes/_site/assets/code/mvc_app_scaffolding.zip)
+
+#### Especificación de requisitos
 
 Un problema que se presenta a menudo en estas organizaciones es la necesidad de compartir ciertos recursos, como proyectores, ordenadores portátiles, salas de conferencias o de exposiciones, etc.
 
@@ -2652,9 +2656,11 @@ Además, habrá **usuarios de dos tipos**:
 
 * *Type admin*: es un usuario administrador. Puede hacer reservas y puede ver, modificar o borrar cualquier reserva de cualquier otro usuario. Además, puede hacer reservas "en bloque", es decir, puede reservar un recurso en un tramo horario durante un periodo de tiempo. Por ejemplo, puede reservar el recurso "Aula de informática" de 8:05 a 9:05 todos los lunes del primer trimestre sin necesidad de ir reservándolo día por día.
 
-* * *
+#### Orientaciones para la implementación
 
 Para conseguir implementar la aplicación completa, vamos a hacerlo por pasos, de modo incremental. ¡Que cada persona llegue hasta donde buenamente pueda!
+
+Recuerda que puedes empezar usando [el esqueleto de la aplicación](/docs/dwes/_site/assets/code/mvc_app_scaffolding.zip) basado en la Biblioteca v4 para no programar desde cero.
 
 **Paso 1. Mantenimiento de la tabla Resources**
 
