@@ -620,7 +620,10 @@ Después de varios meses de experiencia trabajando con ella, podemos proporciona
 
 **Ejercicio 7**. Utiliza los bloques de código para crear con TinkerCAD 10 mesas de cuatro patas, siguiendo las pistas que se dan en [este apartado](/docs/prog-y-3d/_site/modelado-e-impresion-3d/#bloques-de-código). Las mesas deben estar lo bastante separadas unas de otras como para que se puedan ver con facilidad. A ver si consigues que cada una tenga un color diferente.
 
-**Ejercicio 8**. Ya conoces los fundamentos del modelado e impresión 3D. Ahora prepara el modelo que tú quieras, a tu elección, con TinkerCAD, expórtalo a STL, lamínalo con *Cura* e imprímelo.
+**Ejercicio OBLIGATORIO**. Ya conoces los fundamentos del modelado e impresión 3D. Ahora, para evaluar este bloque de la asignatura, te voy a pedir que  prepares dos modelos distintos:
 
-   *Importante: el modelo debe ser tuyo, no descargado de Internet (aunque puedes descargar alguna parte para reutilizarla, como hicimos con la taza de Ironman). Intenta que el modelo no sea demasiado complejo ni tenga muchos huecos o voladizos para evitar en lo posible problemas de impresión.*
+   * **Un modelo para imprimir**. Debe ser algo sencillito (un llavero con tu nombre, por ejemplo). Expórtalo a STL, lamínalo con *Cura* e imprímelo. Haremos turnos de impresión para que todos/as tengáis ocasión de usar la impresora 3D.
+   * **Un modelo para lucirte**. Este puede (y debe) ser todo lo complejo que quieras. Deja volar tu imaginación o, mejor todavía, deja que se te vaya un poco la olla para crear algo que solo tú puedas hacer. Este modelo tendrás que subirlo a Moodle Centros.
+
+   *Importante: los dos modelos deben ser tuyos, no descargados de Internet (aunque puedes descargar alguna parte para reutilizarla, como hicimos con la taza de Ironman)*
 
