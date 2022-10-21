@@ -604,23 +604,23 @@ Después de varios meses de experiencia trabajando con ella, podemos proporciona
    * Añadir a la pieza una base de apoyo de tamaño generoso.
 
 
-## 4.6. Actividades propuestas
+## 4.6. Ejercicios
 
-**Ejercicio 1**.  Regístrate en TinkerCAD y trata de crear la cabaña mediante unión y vaciado de objetos como se describe [aquí](/docs/prog-y-3d/_site/modelado-e-impresion-3d/#1014-c%C3%B3mo-modelar-objetos-3d-con-tinkercad). 
+**Ejercicio 1**.  Regístrate en TinkerCAD y familiarízate con el entorno de trabajo. Tienes que aprender, como mínimo, a rotar, trasladar y hacer zoom de la vista, así como a insertar objetos, escalarlos y moverlos. 
 
 **Ejercicio 2**. Trata de crear con TinkerCAD [este sencillo perro salchicha](/docs/prog-y-3d/_site/modelado-e-impresion-3d/#1011-qu%C3%A9-es-tinkercad-y-c%C3%B3mo-funciona).
 
-**Ejercicio 3**. Sigue los pasos de los apuntes para crear con TinkerCAD la estructura con cuatro esferas alineadas que aparece [aquí](/docs/prog-y-3d/_site/modelado-e-impresion-3d/#transformar-alinear-y-medir)
+**Ejercicio 3**. Sigue los pasos de los apuntes para crear con TinkerCAD la cabaña que aparece [aquí](/docs/prog-y-3d/_site/modelado-e-impresion-3d/#414-cómo-modelar-objetos-3d-con-tinkercad)
 
-**Ejercicio 4**. Intenta crear con TinkerCAD la taza con el busto de Ironman que se describe [aquí](/docs/prog-y-3d/_site/modelado-e-impresion-3d/#1015-edici%C3%B3n-de-objetos-externos-a-tinkercad). Puedes usar otro busto que localices en Thingverse (o en algún otro sitio de modelos 3D de libre uso) si lo tuyo no son Los Vengadores.
+**Ejercicio 4**. Sigue los pasos de los apuntes para crear con TinkerCAD la estructura con cuatro esferas alineadas que aparece [aquí](/docs/prog-y-3d/_site/modelado-e-impresion-3d/#transformar-alinear-y-medir)
 
-**Ejercicio 5**. Instala el programa *Ultimaker Cura* en tu ordenador. Exporta la taza de Ironman (o del busto que hayas empleado) a formato STL y ábrela con *Cura*. Haz el *slicing* (laminado) para dejarla lista para su impresión. Guarda el resultado para más adelante.
+**Ejercicio 5**. Intenta crear con TinkerCAD la taza con el busto de Ironman que se describe [aquí](/docs/prog-y-3d/_site/modelado-e-impresion-3d/#1015-edici%C3%B3n-de-objetos-externos-a-tinkercad). Puedes usar otro busto que localices en Thingverse (o en algún otro sitio de modelos 3D de libre uso) si lo tuyo no son Los Vengadores.
 
-**Ejercicio 6**. Haz lo mismo con cualquiera de los modelos de prueba que se describen en [este apartado](/docs/prog-y-3d/_site/modelado-e-impresion-3d/#1042-modelos-de-prueba). Puedes usar el modelo que más te guste: búscalo en internet, descárgalo en formato STL y pásalo por *Cura*. Guarda el resultado para más adelante.
+**Ejercicio 6**. Instala el programa *Ultimaker Cura* en tu ordenador. Exporta la taza de Ironman (o del busto que hayas empleado) a formato STL y ábrela con *Cura*. Haz el *slicing* (laminado) para dejarla lista para su impresión. Guarda el archivo con el resultado.
 
-**Ejercicio 7**. Imprime los modelos que has preparado con *Cura* en alguna de las impresoras 3D del instituto.
+**Ejercicio 7**. Utiliza los bloques de código para crear con TinkerCAD 10 mesas de cuatro patas, siguiendo las pistas que se dan en [este apartado](/docs/prog-y-3d/_site/modelado-e-impresion-3d/#bloques-de-código). Las mesas deben estar lo bastante separadas unas de otras como para que se puedan ver con facilidad. A ver si consigues que cada una tenga un color diferente.
 
-**PROYECTO FINAL**. Ya conoces los fundamentos del modelado e impresión 3D. Ahora prepara el modelo que tú quieras, a tu elección, con TinkerCAD, expórtalo a STL, lamínalo con *Cura* e imprímelo. Sube algunas capturas de pantalla del proceso y algunas fotos del resultado final a Moodle Centros, en el enlace que se habilitará para ello.
-   
+**Ejercicio 8**. Ya conoces los fundamentos del modelado e impresión 3D. Ahora prepara el modelo que tú quieras, a tu elección, con TinkerCAD, expórtalo a STL, lamínalo con *Cura* e imprímelo.
+
    *Importante: el modelo debe ser tuyo, no descargado de Internet (aunque puedes descargar alguna parte para reutilizarla, como hicimos con la taza de Ironman). Intenta que el modelo no sea demasiado complejo ni tenga muchos huecos o voladizos para evitar en lo posible problemas de impresión.*
 
