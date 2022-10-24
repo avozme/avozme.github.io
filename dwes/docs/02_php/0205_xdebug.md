@@ -90,13 +90,24 @@ Una vez instalada la extensión *xdebug*, llega el momento de usarla.
 *xdebug* puede integrarse prácticamente con cualquier IDE medianamente decente. Nosotros vamos a ver cómo integrarla con ***Visual Studio Code***, que es probablemente el IDE más utilizado en la actualidad. Si utilizas otro entorno de desarrollo, tendrás que buscar por ahí cómo habilitar *xdebug* en tu IDE, pero los pasos serán bastante similares a estos:
 
 1. **Instalar una *extensión*** adecuada para la integración de *xdebug* con VS Code. La más utilizada es una llamada ***PHP Debug***.
-2. **Editar el archivo *.vscode/launch.json***. Este archivo contiene la configuración de *debugging*, es decir, la conexión con el componente *xdebug* de nuestro servidor. El archivo se crea automáticamente al instalar la extensión *PHP Debug* en VS Code, pero puede que tengas que cambiar algunas cosas. En concreto, tendrás que revisar:
-   * El puerto en el que está escuchando el servidor. La depuración de PHP se hace a través de un protocolo diferente de http/https, así que usa unos puertos diferentes. Un puerto habitual es el 9003, pero debes revisar la configuración de tu servidor por si está usando un puerto diferente, y en tal caso indicarlo en el archivo *launch.json* (sección *port*).
+2. **Editar el archivo *.vscode/launch.json***. Este archivo contiene la configuración de *debugging*, es decir, la conexión con el componente *xdebug* de nuestro servidor. 
+
+El archivo *launch.json* se crea automáticamente al lanzar la extensión *PHP Debug* en VS Code. Simplemente, haz clic en el botón "Run and Debug" de tu barra izquierda:
+
+![Crear lauch.json](/docs/dwes/_site/assets/images/02-run-and-debug-create-launch.png)
+
+Haz clic en "Create a launch.json file". VSCode te sugerirá algunas plantillas para *lauch.json*. Por ejemplo, si el navegador con el que programas es *Chrome*, usa la plantilla para *Chrome*. Así no tendrás que tocar casi nada del archivo de configuración.
+
+A partir de ahí, podrás depurar tu programa desde el menú "Run", aunque es conveniente que te aprendas los atajos de teclado para ir más rápido.   
+
+Puede que tengas que cambiar algunas cosas de *lauch.json*. En concreto, tendrás que revisar:
+
+   * El puerto en el que está escuchando el servidor.
    * El directorio del servidor donde está tu aplicación web instalada. Los archivos del servidor se mapearán con archivos locales de VS Code. En la sección *pathMappings* del archivo *launch.json* debes indicar dónde están los archivos dentro del servidor.
 
 ### 2.5.5. Cómo usar xdebug
 
-Si ya tenemos instalado *xdebug* en el servidor y lo hemos activado correctamente en nuestro IDE o en nuestro editor de texto preferido, el proceso de depuración es bastante parecido al de cualquier otro lenguaje de programación.
+Si ya tenemos instalado *xdebug* en el servidor y lo hemos activado correctamente en nuestro IDE preferido, el proceso de depuración es bastante parecido al de cualquier otro lenguaje de programación.
 
 Nuevamente, nos referiremos a VS Code, pero el funcionamiento de *xdebug* será muy semejante en otros entornos de desarrollo.
 
@@ -104,6 +115,7 @@ Nuevamente, nos referiremos a VS Code, pero el funcionamiento de *xdebug* será 
 * Podemos crear **puntos de ruptura** o ***breakpoints*** haciendo click a la izquierda de la línea de código donde queremos detener la ejecución de la aplicación.
 * Podemos visualizar el valor de cualquier variable en ese instante poniendo el ratón encima de la variable en el propio código fuente.
 * En el panel izquierdo, podemos acceder a las variables del programa (tanto locales como globales y superglobales) y definir cualquier expresión que queramos que se vaya evaluando en tiempo real (*watches*).
+* Desde el mismo panel también se ve cuántas instancias de la aplicación que se está depurando están en marcha. Podemos pararlas, reiniciarlas o continuar la depuración de cada una de ellas de manera independiente.
 
 Además de estas funciones comunes de depuración, *xdebug* ofrece muchas funciones avanzadas que nosotros no vamos a ver, pero que puede que te interese usar en el futuro. Por ejemplo, puedes crear diferentes configuraciones de la sesión de *debugging* en el archivo *launch.json* para depurar diferentes aplicaciones (no es lo mismo depurar una aplicación web que una aplicación de línea de comandos). Otra función muy interesante de *xdebug* es la posibilidad de hacer *profiling*, es decir, un análisis del rendimiento de la aplicación web para detectar posibles problemas de rendimiento o cuellos de botella.
 
