@@ -287,3 +287,5 @@ Una impresora 3D por FDM trabajando
 **Ejercicio 3**. No todo lo que rodea a las impresoras 3D son buenas noticias. Cada vez que los seres humanos inventamos una nueva tecnología, a alguien se le ocurre utilizarla de manera poco recomendable. Lee [este artículo](https://www.vozpopuli.com/internacional/armas-impresoras-3d-europa.html) y trata de imaginar otros peligros que pueden suponer, en el presente y en el futuro, las impresoras 3D.
 
 **Ejercicio 4**. En el tema hemos mencionado los paquetes de software de modelado 3D más importantes, como *Maya*, *Blender* o *3DS Max*. Busca en internet información acerca de qué software utiliza la industria del entretenimiento (cine, televisión, publicidad, videojuegos...) para hacer los modelos y animaciones 3D que vemos a diario.
+
+**Ejercicio OBLIGATORIO**. En Moodle encontrarás un [Wiki colaborativo](https://educacionadistancia.juntadeandalucia.es/centros/almeria/mod/wiki/view.php?id=322303) sobre los distintos tipos de impresora que existen. Agrupados en parejas, tenéis que investigar uno de los tipos de impresora siguiendo las pautas que se indican en el propio Wiki.
