@@ -44,13 +44,13 @@ Además, usar funciones como *print_r()* o *var_dump()* implica introducir líne
 
 Por todo ello, sería estupendo poder depurar el código PHP como si se estuviera ejecutando en nuestra máquina, igual que con cualquier otro lenguaje de programación. Eso es posible gracias a ***xdebug***.
 
-#### ¿Qué es xdebug?
-
 ***xdebug*** es una extensión de PHP que permite al cliente y al servidor comunicarse mediante un protocolo especial para depurar el código que se ejecuta en el servidor.
 
 Es decir: nuestro código seguirá ejecutándose en el servidor, pero nuestro cliente (normalmente, nuestro editor de texto o nuestro IDE) podrá pedirle al servidor que lo ejecute paso a paso o que le comunique el valor de cualquier variable en ese momento.
 
-#### Cómo instalar xdebug
+### 2.5.3. Instalación de xdebug en el servidor
+
+#### Cómo instalar xdebug en un servidor nativo
 
 Como es una extensión, ***xdebug*** no viene de serie y necesita ser instalada en el servidor.
 
@@ -58,7 +58,7 @@ La configuración más habitual del servidor web, es decir, un **Apache bajo Lin
 
 1. Instalar ***php-dev***, un paquete de herramientas de desarrollo para PHP: ```$ sudo apt install php-dev```
 2. Instalar ***xdebug*** a través de *composer*: ```$ composer install xdebug```
-3. Habilitar el módulo xdebug en nuestro servidor: ```$ sudo phpenmod xdebug```
+3. Habilitar el módulo *xdebug* en nuestro servidor: ```$ sudo phpenmod xdebug```
 4. Reiniciar el servidor: ```$ sudo service apache2 restart```
 
 Obviamente, estos pasos son diferentes en otros servidores y otros sistemas operativos, incluso en otros sistemas Linux. Es imposible mostrar aquí todas las configuraciones posibles de todos los sistemas, por lo que, nuevamente, tendrás que buscar cuál es la manera de instalar *xdebug* en tu servidor dependiendo de cuál sea tu configuración exacta.
@@ -67,7 +67,23 @@ Obviamente, estos pasos son diferentes en otros servidores y otros sistemas oper
 
 Después de habilitar *xdebug* en tu servidor, puedes comprobar que está funcionando ejecutando *phpinfo()* en cualquier script o escribiendo ```$php -i``` en tu servidor. En ambos casos debería aparecer una sección dedicada a *xdebug* con información sobre la configuración de esta extensión.
 
-#### Cómo activar xdebug en mi IDE
+#### Cómo instalar xdebug en el servidor Docker de bitnami
+
+Si estás usando las imágenes Docker de bitnami ([ver Apéndice 2](/docs/dwes/_site/docker/)), la instalación de la extensión *xdebug* es aún más simple.
+
+Solo tienes que añadir estas líneas a tu archivo *custom.ini*:
+
+```
+[xdebug]
+zend_extension="/opt/bitnami/php/lib/php/extensions/xdebug.so"
+xdebug.remote_enable=1
+xdebug.remote_host=127.0.0.1
+xdebug.remote_port=9000
+```
+
+Reinicia los contenedores y listo. No dejes de comprobar que *xdebug* está funcionando haciendo una llamada a *phpinfo()*. 
+
+### 2.5.4. Instalación de xdebug en el IDE
 
 Una vez instalada la extensión *xdebug*, llega el momento de usarla.
 
@@ -78,7 +94,7 @@ Una vez instalada la extensión *xdebug*, llega el momento de usarla.
    * El puerto en el que está escuchando el servidor. La depuración de PHP se hace a través de un protocolo diferente de http/https, así que usa unos puertos diferentes. Un puerto habitual es el 9003, pero debes revisar la configuración de tu servidor por si está usando un puerto diferente, y en tal caso indicarlo en el archivo *launch.json* (sección *port*).
    * El directorio del servidor donde está tu aplicación web instalada. Los archivos del servidor se mapearán con archivos locales de VS Code. En la sección *pathMappings* del archivo *launch.json* debes indicar dónde están los archivos dentro del servidor.
 
-#### Cómo usar xdebug
+### 2.5.5. Cómo usar xdebug
 
 Si ya tenemos instalado *xdebug* en el servidor y lo hemos activado correctamente en nuestro IDE o en nuestro editor de texto preferido, el proceso de depuración es bastante parecido al de cualquier otro lenguaje de programación.
 

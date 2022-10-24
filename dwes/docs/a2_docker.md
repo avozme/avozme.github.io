@@ -164,6 +164,7 @@ Cada aplicación tiene sus propias necesidades, pero, en general, las directivas
 * Deshabilitar la caché del servidor para que los cambios en tu código se reflejen de inmediato: directiva *opcache.enable* (poner a 0)
 * Incrementar el tamaño de los archivos de subida y el tiempo de procesamiento de los *requests*: directivas *upload_max_filesize* y *max_input_time*.
 * Incrementar el tiempo de ejecución de los scripts y la memoria que pueden consumir: directivas *max_execution_time* y *memory_limit*.
+* Habilitar el complemento *xdebug* para poder depurar tu código PHP. Esto necesita varias directivas que te muestro más abajo, en el ejemplo del archivo de configuración de la siguiente sección.
 
 Ten en cuenta que los valores que pongas en estas u otras directivas en un entorno de desarrollo no tienen por qué ser (ni *deben* ser) los mismos que establezcas en el entorno de producción. Por ejemplo, en producción te interesará volver a poner *diplay_errors* a *Off*.
 
@@ -179,7 +180,15 @@ Por ejemplo, podemos crear en nuestra carpeta de trabajo un archivo llamado ***c
 display_errors = On
 error_reporting = E_ALL
 opcache.enable = 0
+
+[xdebug]
+zend_extension="/opt/bitnami/php/lib/php/extensions/xdebug.so"
+xdebug.remote_enable=1
+xdebug.remote_host=127.0.0.1
+xdebug.remote_port=9000
 ```
+
+Este archivo hará que nuestro PHP funcione en modo de desarrollo, mostrando los mensajes de error, deshabilitando el caché y activando el depurador.
 
 Ahora bastará con añadir esto a la sección "php" de nuestro ***docker-compose.yml***:
 
@@ -192,4 +201,5 @@ Ahora bastará con añadir esto a la sección "php" de nuestro ***docker-compose
 
 Por supuesto, debes sustituir "/ruta/hasta" por la ruta que dirija a tu archivo *custom.ini*. Esto colocará nuestro *custom.ini* en un directorio concreto de la imagen (*opt/bitnami/php/etc/conf.d/*), que es donde el PHP de Bitnami mirará en busca de configuraciones adicionales para su servidor.
 
-La próxima vez que iniciemos nuestro contenedor, la nueva configuración de *php.ini* ya estará disponible.
+La próxima vez que iniciemos nuestro contenedor, la nueva configuración de *php.ini* ya estará disponible. No dejes de comprobarlo haciendo una llamada a ***phpinfo()*** y revisando la información que te mostrará esa función.
+
