@@ -76,12 +76,18 @@ Solo tienes que añadir estas líneas a tu archivo *custom.ini*:
 ```
 [xdebug]
 zend_extension="/opt/bitnami/php/lib/php/extensions/xdebug.so"
-xdebug.remote_enable=1
-xdebug.remote_host=127.0.0.1
-xdebug.remote_port=9000
+xdebug.mode=debug
+xdebug.idekey=docker
+xdebug.start_with_request=yes
+xdebug.log=/dev/stdout
+xdebug.log_level=0
+xdebug.client_port=9003
+xdebug.client_host=<pon-aquí-la-IP-de-tu-ordenador>
 ```
 
-Reinicia los contenedores y listo. No dejes de comprobar que *xdebug* está funcionando haciendo una llamada a *phpinfo()*. 
+Esto lanzará la extensión xdebug dentro del contenedor y la conectará con tu cliente (tu Visual Studio Code o el IDE que estés usando) en el puerto 9003, que es el estándar de Xdebug.
+
+Reinicia los contenedores y listo. No dejes de comprobar que *xdebug* está funcionando haciendo un  ```echo phpinfo()``` o ```echo xdebug_info()```. 
 
 ### 2.5.4. Instalación de xdebug en el IDE
 
@@ -96,14 +102,36 @@ El archivo *launch.json* se crea automáticamente al lanzar la extensión *PHP D
 
 ![Crear lauch.json](/docs/dwes/_site/assets/images/02-run-and-debug-create-launch.png)
 
-Haz clic en "Create a launch.json file". VSCode te sugerirá algunas plantillas para *lauch.json*. Por ejemplo, si el navegador con el que programas es *Chrome*, usa la plantilla para *Chrome*. Así no tendrás que tocar casi nada del archivo de configuración.
+Haz clic en "Create a launch.json file". VSCode te sugerirá algunas plantillas para *launch.json*. 
 
-A partir de ahí, podrás depurar tu programa desde el menú "Run", aunque es conveniente que te aprendas los atajos de teclado para ir más rápido.   
+Yo te recomiendo que no utilices ninguna de ellas y que, en su lugar, pongas esto en *launch.json*:
 
-Puede que tengas que cambiar algunas cosas de *lauch.json*. En concreto, tendrás que revisar:
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for XDebug on Docker",
+            "type": "php",
+            "request": "launch",
+            "port": 9003,
+            "pathMappings": {
+                "/app": "${workspaceFolder}"
+            }
+        }
+    ]
+}
+```
 
-   * El puerto en el que está escuchando el servidor.
-   * El directorio del servidor donde está tu aplicación web instalada. Los archivos del servidor se mapearán con archivos locales de VS Code. En la sección *pathMappings* del archivo *launch.json* debes indicar dónde están los archivos dentro del servidor.
+Esto le indica a VS Code en qué puerto debe comunicarse con Xdebug (el 9003) y en qué directorio del servidor está la aplicación (*/app* si usas las imágenes de Bitnami, pero tendrás que cambiarlo si usas otras imágenes).
+
+*${workspaceFolder}* se refiere al directorio local donde está la aplicación. Tendrás que tener abierto VS Code en el directorio raíz de la misma para que funcione. Si algo falla, prueba a poner aquí una ruta absoluta al directorio de tu aplicación.
+
+A partir de ahí, podrás depurar tu programa desde el menú "Run", aunque es conveniente que te aprendas los atajos de teclado para ir más rápido (por ejemplo, **F5** lanza el depurador de forma automática).
+
+Coloca un *breakpoint* en algún lugar de tu código. Luego, lanza tu aplicación desde tu navegador web preferido y haz que ejecute ese código. Verás que la ejecución se detiene justo en el *breakpoint* y VS Code pasa a primer plano, marcándote la línea en la que el programa se ha detenido. Eso significará que el depurador está funcionando perfectamente.
+
+![El debugger en acción](/docs/dwes/_site/assets/images/02-running-debugger.png)
 
 ### 2.5.5. Cómo usar xdebug
 
