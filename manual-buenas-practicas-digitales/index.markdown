@@ -9,9 +9,11 @@ nav_exclude: false
 nav_order: 1
 ---
 
-Este es el ***Manual de buenas prácticas digitales*** del IES Celia Viñas de Almería.
+![Reserva de carritos de portátiles](assets/manual-practicas-digitales-front.jpg)
 
-Aquí encontrarás información diversa sobre los medios tecnológicos con los que cuenta el instituto (cuáles son, dónde encontrarlos, cómo reservarlos y usarlos, gestión de incidencias, etc), así como otra información de relevancia acerca de las pŕacticas digitales 
+Estás leyendo  el **Manual de buenas prácticas digitales** del [IES Celia Viñas](https://iescelia.org) de Almería.
+
+Aquí encontrarás información diversa sobre los medios tecnológicos con los que cuenta el instituto (cuáles son, cómo se reservan, qué plataformas digitales existen, etc), así como otra información de relevancia sobre sostenibilidad y protección de datos.
 
 
 1. TOC
