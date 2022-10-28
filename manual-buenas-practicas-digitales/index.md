@@ -16,7 +16,7 @@ En esta sección presentamos un resumen de las características de los medios in
 
 ## 1.1. Carritos de portátiles
 
-**¿Qué son los carritos de portátiles?**
+### ¿Qué son los carritos de portátiles?
 
 Son carritos móviles con capacidad para 10 ordenadores portátiles cada uno, aunque, más a menudo de lo que nos gustaría, son menos de 10 los que están operativos. 
 
@@ -73,15 +73,15 @@ PLANTA SEGUNDA
 
 ![Uno de los carritos de portátiles](medios-tic/carrito.jpg)
 
-**¿A quién están destinados?**
+### ¿A quién están destinados?
 
 Los ordenadores portátiles de los carritos están destinados al alumnado para su uso durante el horario de clases y siempre bajo la supervisión y responsabilidad de un miembro del profesorado.
 
-**¿Cómo puedo utilizarlos?**
+### ¿Cómo puedo utilizarlos?
 
 Para usar un carrito de portátiles, el procedimiento general es el siguiente:
 
-* Reservarlo en el cuadrante horario correspondiente dispuesto en el tablón de anuncios TIC (en la Sala de Profesores)
+* Reservarlo en Moodle Centros (el procedimiento se describe en el siguiente apartado).
 * Conseguir la llave de la dependencia donde se ubiquen los carritos que se han reservado (las llaves están en Conserjería). Los carritos ubicados en aulas pueden conseguirse sin llave, puesto que el aula, normalmente, estará en uso.
 * Acceder a la dependencia y desenchufar los carritos de la toma de corriente.
 * Llevar los carritos hasta el aula. Aunque son pesados, se transportan con facilidad porque disponen de ruedas.
@@ -90,6 +90,49 @@ Para usar un carrito de portátiles, el procedimiento general es el siguiente:
 * Devolver el carrito a la dependencia en la que se encontraba, enchufarlo de nuevo a la corriente y devolver la llave.
 
 ***MUY IMPORTANTE: si se detecta una incidencia en cualquier ordenador, es imprescindible hacerla llegar al coordinador TIC a la mayor brevedad posible. Más información en el apartado “Gestión de incidencias”***
+
+### Procedimiento para reservar un carrito de portátiles
+
+La reserva de carritos de portátiles **ya no se realiza en papel**, sino a través de Moodle Centros.
+
+El procedimiento es el siguiente:
+
+1. **Entrar en *Moodle Centros -> Sala del profesorado***
+2. **Pulsar en la flecha para *Mostrar Bloques* de la parte derecha**
+
+![Reserva de carritos de portátiles](medios-tic/reserva-carritos-portatiles-1.png)
+
+3. **Nos aparecerá el bloque *Reservar locales* y un enlace donde tenemos que pulsar:**
+
+![Reserva de carritos de portátiles](medios-tic/reserva-carritos-portatiles-2.png)
+
+4. **En la página del *Gestor de Reserva de Salas* aparecen, en la parte izquierda, las distintas plantas del centro y un calendario. Seleccionamos la planta donde damos necesitamos el carro de portátiles y el día que queremos realizar la reserva.**
+
+![Reserva de carritos de portátiles](medios-tic/reserva-carritos-portatiles-3.png)
+
+
+5. **Nos aparecen las reservas actuales, para ese día y la planta seleccionada.** 
+
+![Reserva de carritos de portátiles](medios-tic/reserva-carritos-portatiles-4.png)
+
+6. **En la parte inferior de la pantalla, podemos seleccionar por días, por semanas o por meses.**
+
+![Reserva de carritos de portátiles](medios-tic/reserva-carritos-portatiles-5.png)
+
+7. **Si seleccionamos por semanas, podemos seleccionar cada uno de los carros de esa planta. Para hacer la reserva, pulsar en la hora libres deseada sobre el signo +**
+
+![Reserva de carritos de portátiles](medios-tic/reserva-carritos-portatiles-6.png)
+
+8. **Nos aparece una ventana donde tendremos que rellenar la siguiente información:** 
+
+   * Reserva para: Persona o departamento que realiza la reserva
+   * Descripción completa: Indicar la materia y curso con el que se va a utilizar
+
+9. **Pulsamos en el botón de *Guardar cambios*.**
+
+![Reserva de carritos de portátiles](medios-tic/reserva-carritos-portatiles-7.png)
+
+En caso de dudas con este procemiento, no dudes en contactar con nosotros a través de Séneca, de email (buzontic@iescelia.org) o personalmente.
 
 ## 1.2. Equipos del profesorado en aulas generales
 
