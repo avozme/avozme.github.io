@@ -608,13 +608,13 @@ Después de varios meses de experiencia trabajando con ella, podemos proporciona
 
 **Ejercicio 1**.  Regístrate en TinkerCAD y familiarízate con el entorno de trabajo. Tienes que aprender, como mínimo, a rotar, trasladar y hacer zoom de la vista, así como a insertar objetos, escalarlos y moverlos. 
 
-**Ejercicio 2**. Trata de crear con TinkerCAD [este sencillo perro salchicha](/docs/prog-y-3d/_site/modelado-e-impresion-3d/#1011-qu%C3%A9-es-tinkercad-y-c%C3%B3mo-funciona).
+**Ejercicio 2**. Trata de crear con TinkerCAD [este sencillo perro salchicha](/docs/prog-y-3d/_site/modelado-e-impresion-3d/#411-qu%C3%A9-es-tinkercad-y-c%C3%B3mo-funciona).
 
 **Ejercicio 3**. Sigue los pasos de los apuntes para crear con TinkerCAD la cabaña que aparece [aquí](/docs/prog-y-3d/_site/modelado-e-impresion-3d/#414-cómo-modelar-objetos-3d-con-tinkercad)
 
 **Ejercicio 4**. Sigue los pasos de los apuntes para crear con TinkerCAD la estructura con cuatro esferas alineadas que aparece [aquí](/docs/prog-y-3d/_site/modelado-e-impresion-3d/#transformar-alinear-y-medir)
 
-**Ejercicio 5**. Intenta crear con TinkerCAD la taza con el busto de Ironman que se describe [aquí](/docs/prog-y-3d/_site/modelado-e-impresion-3d/#1015-edici%C3%B3n-de-objetos-externos-a-tinkercad). Puedes usar otro busto que localices en Thingverse (o en algún otro sitio de modelos 3D de libre uso) si lo tuyo no son Los Vengadores.
+**Ejercicio 5**. Intenta crear con TinkerCAD la taza con el busto de Ironman que se describe [aquí](/docs/prog-y-3d/_site/modelado-e-impresion-3d/#415-edici%C3%B3n-de-objetos-externos-a-tinkercad). Puedes usar otro busto que localices en Thingverse (o en algún otro sitio de modelos 3D de libre uso) si lo tuyo no son Los Vengadores.
 
 **Ejercicio 6**. Instala el programa *Ultimaker Cura* en tu ordenador. Exporta la taza de Ironman (o del busto que hayas empleado) a formato STL y ábrela con *Cura*. Haz el *slicing* (laminado) para dejarla lista para su impresión. Guarda el archivo con el resultado.
 
