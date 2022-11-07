@@ -369,7 +369,7 @@ Así que, lo dicho: aunque en teoría el protocolo UDDI forma parte de la pila S
 
 **REST (Representational State Transfer)** es un mecanismo de intercambio de información entre clientes y servidores de una red.
 
-A diferencia de SOAP, está orientado a los datos, esto eso, proporciona siempre los mismos tipos de acceso a los recursos, sin posibilidad de definir nuevas operaciones.
+A diferencia de SOAP, está orientado a los datos, esto es, proporciona siempre los mismos tipos de acceso a los recursos, sin posibilidad de definir nuevas operaciones.
 
 Por esa razón se dice que **REST está orientado a los datos** mientras que **SOAP está orientado a los procesos**.
 
@@ -507,7 +507,7 @@ $ php artisan make:controller --resource <controlador>
 
 * En lugar de mostrar los recursos en una vista, los devolveremos al cliente mediante JSON con un sencillo *echo* (recuerda que esa salida la recibirá el cliente, no un ser humano)
 
-   Si estamos trabajando con Laravel, en lugar de *echo* usaremos *return* al final de cada método del controlador. Laravel se encargará de enviar ese valor devuelto al cliente.
+   Si estamos trabajando con Laravel, en lugar de ```return view()``` usaremos ```return response()->json(<datos>)``` al final de cada método del controlador. Laravel se encargará de enviar ese valor devuelto al cliente.
 
 * Es importante respetar los nombres de las peticiones HTTP (create, store, edit, update, etc), así como los verbos (GET, POST, PUT, PATCH o DELETE), puesto que serán los que el cliente utilice.
 

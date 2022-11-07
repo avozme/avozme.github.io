@@ -452,7 +452,7 @@ El API Fetch puede usarse de otras maneras, pero esto es más que suficiente par
 
 Al trabajar con **Laravel**, estamos acostumbrados a que cada método del controlador termine devolviendo una vista completa (*return view...*). ¿Pero qué pasa si hacemos una petición Ajax a una aplicación web escrita con Laravel en el lado del servidor?
 
-Laravel puede continuar devolviendo una vista completa, pero es no suele ser lo que Ajax espera recibir como respuesta. Ajax espera respuestas cortas y concisas: algo como 'true' o 'false', o un número, o un String o, como mucho, una estructura de datos más compleja formateada en XML o JSON. Pero no una página web completa con su cabecera, su cuerpo y toda la parafernalia.
+Laravel puede continuar devolviendo una vista completa, pero eso no suele ser lo que Ajax espera recibir como respuesta. Ajax espera respuestas cortas y concisas: algo como 'true' o 'false', o un número, o un String o, como mucho, una estructura de datos más compleja formateada en XML o JSON. Pero no una página web completa con su cabecera, su cuerpo y toda la parafernalia.
 
 Y eso es precisamente lo que devuelve Laravel al rederizar cualquier vista. Así que, ¿cómo lo hacemos?
 
@@ -543,6 +543,6 @@ Como esto puede ser un poco engorroso, hay una forma de agregar automáticamente
 
 A partir de ahora, podremos hacer las peticiones Ajax normalmente, porque el token CSRF se añadirá él solito a cada petición Ajax.
 
-### Ajax, Laravel y Vue.js
+## 7.7. Creando una OVA con React y Laravel
 
-Esta parte la veremos más adelante... ¡si nos da tiempo!
+Esta parte del manual está pendiente de elaboración.
