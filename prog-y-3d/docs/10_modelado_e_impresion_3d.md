@@ -620,6 +620,8 @@ Después de varios meses de experiencia trabajando con ella, podemos proporciona
 
 **Ejercicio 7**. Utiliza los bloques de código para crear con TinkerCAD 10 mesas de cuatro patas, siguiendo las pistas que se dan en [este apartado](/docs/prog-y-3d/_site/modelado-e-impresion-3d/#bloques-de-código). Las mesas deben estar lo bastante separadas unas de otras como para que se puedan ver con facilidad. A ver si consigues que cada una tenga un color diferente.
 
+**Ejercicio 8**. Modifica el ejercicio anterior para generar 28 mesas en lugar de 10. Colócalas como si fueran las mesas de un aula para 28 personas (por ejemplo, haciendo 4 filas de 7 mesas). Crea 28 sillas y colócalas junto a las mesas. Por último, crea una mesa (un poco más grande) junto con su silla para el profesor y colócala en un extremo de la clase. 
+
 **Ejercicio OBLIGATORIO**. Ya conoces los fundamentos del modelado e impresión 3D. Ahora, para evaluar este bloque de la asignatura, te voy a pedir que  prepares dos modelos distintos:
 
    * **Un modelo para imprimir**. Debe ser algo sencillito (un llavero con tu nombre, por ejemplo). Expórtalo a STL, lamínalo con *Cura* e imprímelo. Haremos turnos de impresión para que todos/as tengáis ocasión de usar la impresora 3D.
