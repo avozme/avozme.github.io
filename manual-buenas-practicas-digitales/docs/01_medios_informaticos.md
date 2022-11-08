@@ -54,7 +54,7 @@ PLANTA PRIMERA
 <tbody>
 <tr><td>A</td><td>10 portátiles</td><td>Dpto. de Física y Química</td></tr>
 <tr><td>B</td><td>10 portátiles</td><td>Dpto. de Física y Química</td></tr>
-<tr><td>C</td><td>10 portátiles</td><td>Biblioteca</td></tr>
+<tr><td>C</td><td>10 portátiles</td><td>Aula 8</td></tr>
 <tr><td>I</td><td>30 portátiles</td><td>Biblioteca</td></tr>
 </tbody>
 </table>
@@ -82,15 +82,18 @@ Los ordenadores portátiles de los carritos están destinados al alumnado para s
 
 Para usar un carrito de portátiles, el procedimiento general es el siguiente:
 
-* Reservarlo en Moodle Centros (el procedimiento se describe en el siguiente apartado).
+* [Reservarlo en Moodle Centros](https://iescelia.org/reservas) (el procedimiento se describe en el siguiente apartado).
 * Conseguir la llave de la dependencia donde se ubiquen los carritos que se han reservado (las llaves están en Conserjería). Los carritos ubicados en aulas pueden conseguirse sin llave, puesto que el aula, normalmente, estará en uso.
 * Acceder a la dependencia y desenchufar los carritos de la toma de corriente.
 * Llevar los carritos hasta el aula. Aunque son pesados, se transportan con facilidad porque disponen de ruedas.
-* Repartir los ordenadores entre el alumnado y velar por que se usen adecuadamente (de vez en cuando sufrimos epidemias de extracción de teclas o de decoración de los portátiles con pegatinas de diverso pelaje y condición)
+* Repartir los ordenadores entre el alumnado y velar por que se usen adecuadamente (de vez en cuando sufrimos epidemias de extracción de teclas o de decoración de los portátiles con pegatinas de diverso pelaje).
+* Se ruega encarecidamente anotar qué persona usa cada portátil para poder localizar al culpable en caso de que se produzca algún acto vandálico.
 * Al final de la clase, vigilar la reposición de los ordenadores a sus lugares originales. Para que los siguientes compañeros no los encuentren descargados, hay que dejarlos conectados a sus respectivos cargadores.
 * Devolver el carrito a la dependencia en la que se encontraba, enchufarlo de nuevo a la corriente y devolver la llave.
 
 ***MUY IMPORTANTE: si se detecta una incidencia en cualquier ordenador, es imprescindible hacerla llegar al coordinador TIC a la mayor brevedad posible. Más información en el apartado “Gestión de incidencias”***
+
+Si no se sigue este protocolo, los actos vandálicos quedarán sistemáticamente impunes, porque no solo resultará imposible saber qué persona usó el portátil vandalizado, sino que ni siquiera sabremos cuándo ocurrió el acto vandálico ni qué grupo estaba usando los ordenadores.
 
 ### Procedimiento para reservar un carrito de portátiles
 
@@ -98,7 +101,8 @@ La reserva de carritos de portátiles **ya no se realiza en papel**, sino a trav
 
 El procedimiento es el siguiente:
 
-* **Entrar en *Moodle Centros -> Sala del profesorado***
+* **Entrar en [https://iescelia.org/reservas](https://iescelia.org/reservas)**. Se te pedirá tu usuario y contraseña de Moodle Centros.
+
 * **Pulsar en la flecha para *Mostrar Bloques* de la parte derecha**
 
    ![Reserva de carritos de portátiles](../assets/medios-tic/reserva-carritos-portatiles-1.png)
@@ -137,11 +141,11 @@ En caso de dudas con este procemiento, no dudes en contactar con nosotros a trav
 
 ## 1.2. Equipos del profesorado en aulas generales
 
-Todas las aulas del centro están equipadas con, al menos, un ordenador de sobremesa y un cañón/proyector con pizarra interactiva (PDI). Algunas tienen otra equipación adicional que se describe más abajo.
+Todas las aulas del centro están equipadas con, al menos, un ordenador de sobremesa y un cañón/proyector con pizarra interactiva (PDI) o una TV de gran formato. Algunas tienen otra equipación adicional que se describe más abajo.
 
 Estos ordenadores están destinados al uso del profesorado durante el ejercicio de su docencia.
 
-Actualmente, hay cuatro modalidades de aula con pizarra interactiva (PDI) diferentes en el centro. Aunque todos tienen la misma funcionalidad, varían ligeramente en su forma de uso.
+Actualmente, hay cuatro modalidades de aula con pizarra interactiva (PDI) diferentes en el centro. Aunque todos tienen la misma funcionalidad, varían ligeramente en su forma de uso. Además, los proyectores que se van averiando están siendo sustituidos por televisores de gran formato.
 
 **Aulas 1, 2, 4, 5, 9 y 11: pizarras Promethean**
 
@@ -158,7 +162,7 @@ El procedimiento de puesta en marcha de estas prizarras es el siguiente:
 
 ![PDI Promethean](../assets/medios-tic/pdi-promethean.jpg)
 
-**Aulas 7, 10, 12, 15, 18, 25, 26, 27 y 28: pizarras blancas con cañones Optoma**
+**Aulas 12, 15, 18, 25, 27 y 28: pizarras blancas con cañones Optoma**
 
 Todos estos ordenadores se encienden pulsando el interruptor del mismo. Puede ser necesario conectar la electricidad encendiendo una regleta que suele estar acoplada a la mesa o situada en el suelo.
 
@@ -202,9 +206,9 @@ Fíjate que la botonera de la pizarra y las funciones táctiles no están contec
 
 ![PDI Smartboard con PC sobremesa](../assets/medios-tic/pdi-smartboard-2.jpg)
 
-**Aulas con TV de gran formato**
+**Aulas 7, 10, 26, emprendimiento y antigua cantina: TV de gran formato**
 
-Los proyectores que se averían se están sustituyendo, cuando es posible, por televisores de gran formato (65 y 75 pulgadas).
+Los proyectores que se averían se están sustituyendo, cuando es posible, por televisores de gran formato (65 y 75 pulgadas). Esto también se está haciendo en los departamentos que se usan ocasionalmente para impartir clases.
 
 Estos televisores se usan para proyectar la imagen y el sonido del ordenador del profesorado. Para usarlos, el procedimiento es:
 
@@ -213,7 +217,7 @@ Estos televisores se usan para proyectar la imagen y el sonido del ordenador del
 
 Es importante que recordemos apagar el televisor al finalizar la clase con el fin de prolongar su vida útil.
 
-**Aulas específicas de ciclos formativos**
+**Aulas de los ciclos formativos**
 
 Las aulas de los ciclos formativos tienen su propio equipamiento derivado de la actividad lectiva que se lleva a cabo en ellas y no se describe en este documento.
 
@@ -266,11 +270,17 @@ Existen **dos maneras de comunicar una incidencia de forma eficaz**. Cada cual p
 
 Forma número 1:
 
-* Enviar un mensaje por Séneca a coordinador TDE, intentando ser explícito/a con el problema y el equipo al que afecta.
+* **Enviar un mensaje por Séneca a coordinador TDE**, intentando ser explícito/a con el problema y el equipo al que afecta.
 
 Forma número 2:
 
-* Enviar un email al coordinador TDE, a la dirección buzontic@iescelia.org, intentando ser explícito/a con el problema y el equipo al que afecta.
+* **Enviar un email a la dirección buzontic@iescelia.org**, intentando ser explícito/a con el problema y el equipo al que afecta.
+
+¿Qué significa "ser explícito/a con el problema y el equipo al que afecta"?
+
+* Ejemplo de mensaje poco explícito que no sirve para nada: *"Ordenador no funciona"*.
+* Ejemplo de mensaje explícito que facilita la resolución rápida del problema: *"El ordenador del aula X se enciende pero no emite ninguna imagen en el monitor. Ha ocurrido esta mañana a las 12:30"*.
+
 
 **El peliagudo caso de los carritos de portátiles**
 
@@ -278,7 +288,7 @@ Los carritos de portátiles son una fuente inagotable de incidencias porque son 
 
 En estos ordenadores hemos encontrado de todo: teclas arrancadas, chicles pegados, pantallas partidas y otras cosas de las que preferimos no dejar constancia por escrito.
 
-Por ello rogamos la máxima colaboración en el uso de esta equipación. Es la única manera de mantenerla en un estado razonable de funcionamiento. Basta con recordar una pauta muy sencilla:
+Por ello rogamos la máxima colaboración en el uso de esta equipación. Es la única manera de mantenerla en un estado razonable de funcionamiento. Basta con seguir [el protocolo de actuación que hemos sugerido más arriba](/docs/manual-buenas-practicas-digitales/_site/medios-informaticos/#cómo-puedo-utilizarlos).
 
 * Pedir al alumnado que avise de cualquier anomalía detectada en los portátiles antes o durante su uso.
 * Informar lo antes posible de la incidencia al coordinador TDE.
