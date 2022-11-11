@@ -32,7 +32,7 @@
         <span class="nc">Schema</span><span class="o">::</span><span class="nf">dropIfExists</span><span class="p">(</span><span class="s1">'products'</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div></div> <h3 id="seeders"> <a href="#seeders" class="anchor-heading" aria-labelledby="seeders"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Seeders </h3> <p>En este <em>seeder</em> vamos a cargar unos cuantos datos de prueba. Obviamente, puedes cambiarlos por los que tú quieras.</p> <p>El seeder se crea con el comando <code class="language-plaintext highlighter-rouge">php artisan make:seeder ProductTableSeeder</code>, eque generará el archivo <strong><em>/database/seeders/ProductTableSeeder.php</em></strong>.</p> <p>Recuerda que, para poder lanzar el seeder automáticamente con <code class="language-plaintext highlighter-rouge">php artisan migrate:fresh --seed</code> u otro comando similar, tienes que editar el archivo <em>DatabaseSeeder.php</em> y añadir el <em>seeder</em> de productos. Si no recuerdas cómo hacerlo, consulta la sección de este tema dedicada a las migraciones.</p> <p>En cualquier caso, siempre puedes lanzar el <em>seeder</em> manualmente en cualquier momento con <code class="language-plaintext highlighter-rouge">php artisan db:seed --class=ProductTableSeeder</code>.</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+</code></pre></div></div> <h3 id="seeders"> <a href="#seeders" class="anchor-heading" aria-labelledby="seeders"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Seeders </h3> <p>En este <em>seeder</em> vamos a cargar unos cuantos datos de prueba. Obviamente, puedes cambiarlos por los que tú quieras.</p> <p>El seeder se crea con el comando <code class="language-plaintext highlighter-rouge">php artisan make:seeder ProductTableSeeder</code>, que generará el archivo <strong><em>/database/seeders/ProductTableSeeder.php</em></strong>.</p> <p>Recuerda que, para poder lanzar el seeder automáticamente con <code class="language-plaintext highlighter-rouge">php artisan migrate:fresh --seed</code> u otro comando similar, tienes que editar el archivo <em>DatabaseSeeder.php</em> y añadir la línea <code class="language-plaintext highlighter-rouge">$this-&gt;call(ProductTableSeeder::class);</code> al método <em>run()</em>.</p> <p>En cualquier caso, siempre puedes lanzar el <em>seeder</em> manualmente en cualquier momento con <code class="language-plaintext highlighter-rouge">php artisan db:seed --class=ProductTableSeeder</code>.</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
 
 <span class="kn">namespace</span> <span class="nn">Database\Seeders</span><span class="p">;</span>
 
@@ -154,24 +154,25 @@
         <span class="nt">&lt;/div&gt;</span>
      <span class="nt">&lt;/body&gt;</span>
   <span class="nt">&lt;/html&gt;</span>
-</code></pre></div></div> <h3 id="vista-todos-los-productos"> <a href="#vista-todos-los-productos" class="anchor-heading" aria-labelledby="vista-todos-los-productos"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Vista: todos los productos </h3> <p>La vista con todos los productos la llamaremos <strong><em>views/products/all.blade.php</em></strong> y puede tener un aspecto como este:</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@extends("layouts.master")
+</code></pre></div></div> <h3 id="vista-todos-los-productos"> <a href="#vista-todos-los-productos" class="anchor-heading" aria-labelledby="vista-todos-los-productos"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Vista: todos los productos </h3> <p>La vista con todos los productos la llamaremos <strong><em>views/products/all.blade.php</em></strong> y puede tener un aspecto como este:</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+@extends("layouts.master")
 
 @section("title", "Administración de productos")
 
 @section("header", "Administración de productos")
 
 @section("content")
-    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">""</span><span class="err">{{</span> <span class="na">route</span><span class="err">('</span><span class="na">product.create</span><span class="err">')</span> <span class="err">}}""</span><span class="nt">&gt;</span>Nuevo<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"{{ route('product.create') }}"</span><span class="nt">&gt;</span>Nuevo<span class="nt">&lt;/a&gt;</span>
     <span class="nt">&lt;table</span> <span class="na">border=</span><span class="s">'1'</span><span class="nt">&gt;</span>
     @foreach ($productList as $product)
         <span class="nt">&lt;tr&gt;</span>
-            <span class="nt">&lt;td&gt;</span>"{{$product-&gt;name}}"<span class="nt">&lt;/td&gt;</span>
-            <span class="nt">&lt;td&gt;</span>"{{$product-&gt;description}}"<span class="nt">&lt;/td&gt;</span>
-            <span class="nt">&lt;td&gt;</span>"{{$product-&gt;price}}"<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>{{$product-&gt;name}}<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>{{$product-&gt;description}}<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>{{$product-&gt;price}}<span class="nt">&lt;/td&gt;</span>
             <span class="nt">&lt;td&gt;</span>
-                <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">""</span><span class="err">{{</span><span class="na">route</span><span class="err">('</span><span class="na">product.edit</span><span class="err">',</span> <span class="err">$</span><span class="na">product-</span><span class="nt">&gt;</span>id)}"}"&gt;Modificar<span class="nt">&lt;/a&gt;&lt;/td&gt;</span>
+                <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"{{route('product.edit', $product-&gt;id)}}"</span><span class="nt">&gt;</span>Modificar<span class="nt">&lt;/a&gt;&lt;/td&gt;</span>
             <span class="nt">&lt;td&gt;</span>
-                <span class="nt">&lt;form</span> <span class="na">action = </span><span class="s">""</span><span class="err">{{</span><span class="na">route</span><span class="err">('</span><span class="na">product.destroy</span><span class="err">',</span> <span class="err">$</span><span class="na">product-</span><span class="nt">&gt;</span>id)}"}" method="POST"&gt;
+                <span class="nt">&lt;form</span> <span class="na">action = </span><span class="s">"{{route('product.destroy', $product-&gt;id)}}"</span> <span class="na">method=</span><span class="s">"POST"</span><span class="nt">&gt;</span>
                     @csrf
                     @method("DELETE")
                     <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Borrar"</span><span class="nt">&gt;</span>
@@ -179,8 +180,11 @@
             <span class="nt">&lt;/td&gt;</span>
         <span class="nt">&lt;br&gt;</span>
     @endforeach
+    <span class="nt">&lt;/table&gt;</span>
 @endsection
-</code></pre></div></div> <h3 id="vista-creaciónmodificación-de-productos"> <a href="#vista-creaciónmodificación-de-productos" class="anchor-heading" aria-labelledby="vista-creaciónmodificación-de-productos"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Vista: creación/modificación de productos </h3> <p>Reutilizaremos la vista para crear y modificar productos, puesto que son prácticamente iguales.</p> <p>El archivo de la vista será <strong><em>views/products/form.blade.php</em></strong>, y su contenido puede ser algo así:</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@extends("layouts.master")
+
+</code></pre></div></div> <h3 id="vista-creaciónmodificación-de-productos"> <a href="#vista-creaciónmodificación-de-productos" class="anchor-heading" aria-labelledby="vista-creaciónmodificación-de-productos"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Vista: creación/modificación de productos </h3> <p>Reutilizaremos la vista para crear y modificar productos, puesto que son prácticamente iguales.</p> <p>El archivo de la vista será <strong><em>views/products/form.blade.php</em></strong>, y su contenido puede ser algo así:</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+@extends("layouts.master")
 
 @section("title", "Inserción de productos")
 
@@ -188,16 +192,17 @@
 
 @section("content")
     @isset($product)
-        <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">""</span><span class="err">{{</span> <span class="na">route</span><span class="err">('</span><span class="na">product.update</span><span class="err">',</span> <span class="err">['</span><span class="na">product</span><span class="err">'</span> <span class="err">=</span><span class="nt">&gt;</span> $product-&gt;id]) }}"" method="POST"&gt;
+        <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"{{ route('product.update', ['product' =&gt; $product-&gt;id]) }}"</span> <span class="na">method=</span><span class="s">"POST"</span><span class="nt">&gt;</span>
         @method("PUT")
     @else
-        <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">""</span><span class="err">{{</span> <span class="na">route</span><span class="err">('</span><span class="na">product.store</span><span class="err">')</span> <span class="err">}}""</span> <span class="na">method=</span><span class="s">"POST"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"{{ route('product.store') }}"</span> <span class="na">method=</span><span class="s">"POST"</span><span class="nt">&gt;</span>
     @endisset
         @csrf
-        Nombre del producto:<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"name"</span> <span class="na">value=</span><span class="s">""</span><span class="err">{{$</span><span class="na">product-</span><span class="nt">&gt;</span>name ?? '' }}""&gt;<span class="nt">&lt;br&gt;</span>
-        Descripción:<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"description"</span> <span class="na">value=</span><span class="s">""</span><span class="err">{{$</span><span class="na">product-</span><span class="nt">&gt;</span>description ?? '' }}""&gt;<span class="nt">&lt;br&gt;</span>
-        Precio:<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"price"</span> <span class="na">value=</span><span class="s">""</span><span class="err">{{$</span><span class="na">product-</span><span class="nt">&gt;</span>price ?? '' }}""&gt;<span class="nt">&lt;br&gt;</span>
+        Nombre del producto:<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"name"</span> <span class="na">value=</span><span class="s">"{{$product-&gt;name ?? '' }}"</span><span class="nt">&gt;&lt;br&gt;</span>
+        Descripción:<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"description"</span> <span class="na">value=</span><span class="s">"{{$product-&gt;description ?? '' }}"</span><span class="nt">&gt;&lt;br&gt;</span>
+        Precio:<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"price"</span> <span class="na">value=</span><span class="s">"{{$product-&gt;price ?? '' }}"</span><span class="nt">&gt;&lt;br&gt;</span>
         <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span><span class="nt">&gt;</span>
         <span class="nt">&lt;/form&gt;</span>
 @endsection
+
 </code></pre></div></div> <p>Observa cómo se genera una cabecera de formulario distinta según se vaya a usar el formulario para crear o para modificar un producto. Asímismo, fíjate en cómo se rellenan los atributos <em>value</em> de los campos del formulario con los datos actuales del producto (en caso de que existan).</p> <h3 id="y-ahora-qué"> <a href="#y-ahora-qué" class="anchor-heading" aria-labelledby="y-ahora-qué"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> ¿Y ahora qué? </h3> <p>Ahora ha llegado el momento de comprobar si tu aplicación funciona.</p> <p>Primero, lanza las migraciones y los seeders con <code class="language-plaintext highlighter-rouge">php artisan migrate:fresh --seed</code>. Asegúrate de haber añadido tu seeder de productos a <em>DatabaseSeeder.php</em> para que se lance automáticamente tras las migraciones. Si todo va bien, la aplicación estará lista para responder en <strong>https://tu-servidor-local/product</strong></p> <p>El código que hemos mostrado hasta aquí solo es un pequeño ejemplo y se puede mejorar de muchísimas maneras, por supuesto. Estas son algunas mejoras evidentes:</p> <ul> <li>Programar la vista <strong>product/show.blade.php</strong>, que está ausente en el código anterior. Esa es la vista que mostrará un producto individual. Si intentas lanzarla ahora pidiendo la ruta <em>https://tu-servidor/product/1</em> (sustituye 1 por el ID de cualquier producto), verás que Laravel te da un error de “View not found”.</li> <li>Se puede simplificar el método <em>store()</em> del controlador haciendo una asignación masiva. Bastaría con indicar en el modelo que todos los campos de la tabla son <em>fillables</em> para poder hacer en el método <em>store()</em> del controlador algo como esto: <code class="language-plaintext highlighter-rouge">$p = new Product($r-&gt;all())</code></li> <li>Se puede alterar el aspecto visual de la aplicación trabajando el <em>master layout</em> y añadiendo ahí algo de CSS y/o Javascript, sin que haya que tocar el resto de vistas.</li> <li>A partir de ahí, habría que seguir construyendo la aplicación, añadiendo más tablas con su correspondientes controladores, modelos y vistas. Llegará un momento en el que tendremos que crear las relaciones entre las tablas en los modelos, como explicamos en el apartado dedicado a Eloquent.</li> <li>Otro paso lógico, común a muchas aplicaciones web, sería añadir un sistema de autenticación con <strong>Laravel Breeze</strong>.</li> </ul> <p>Utiliza este código fuente como punto de partida para tus propios desarrollos con Laravel. Cuando hayas cogido un poco de práctica, verás que resulta mucho más rápido montar una aplicación web convencional con Laravel que hacerlo con PHP clásico.</p> </div> </div> <div class="search-overlay"></div> </div> </body> </html>
