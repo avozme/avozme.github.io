@@ -52,13 +52,13 @@ void inicializar(char tablero[10]) {
 // --------------------------------------------
 void mostrar(char tablero[10]) {
    printf("ESTADO ACTUAL DEL TABLERO\n");
-   printf("+-+-+-+\n");
-   printf("|%c|%c|%c|\n", tablero[1], tablero[2], tablero[3]);
-   printf("+-+-+-+\n");
-   printf("|%c|%c|%c|\n", tablero[4], tablero[5], tablero[6]);
-   printf("+-+-+-+\n");
-   printf("|%c|%c|%c|\n", tablero[7], tablero[8], tablero[9]);
-   printf("+-+-+-+\n");
+   printf("+---+---+---+\n");
+   printf("| %c | %c | %c |\n", tablero[1], tablero[2], tablero[3]);
+   printf("+---+---+---+\n");
+   printf("| %c | %c | %c |\n", tablero[4], tablero[5], tablero[6]);
+   printf("+---+---+---+\n");
+   printf("| %c | %c | %c |\n", tablero[7], tablero[8], tablero[9]);
+   printf("+---+---+---+\n");
 }
 
 // ---------------------------------------------------
@@ -193,7 +193,7 @@ int comprobar_tablas(char tablero[10]) {
    int i, contador = 0;
    for (i = 1; i <= 9; i++) {
       if (tablero[i] !=  ' ') {
-         contador++
+         contador++;
       }
    }
 	

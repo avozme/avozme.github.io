@@ -389,6 +389,10 @@ Las promesas, de hecho, pueden estar en **3 estados**:
 * **Resueltas**. La promesa pasa a este estado si se resuelve correctamente.
 * **Rechazadas**. La promesa pasa a este estado si se produce un error y no puede atenderse la petición.
 
+Con Javascript no vas a pedir una pizza, como es lógico, pero sí que puedes pedir datos al servidor de forma asíncrona, que es justo lo que hace Ajax. El Javascript moderno maneja estas peticiones al servidor mediante promesas, de forma que, cuando se pide una URL al servidor, se crea una promesa en estado "pendiente" y, cuando el servidor responde, la promesa pasa a estar "resuelta" o "rechazada", dependiendo de la respuesta.
+
+Vas a ver como, con el nuevo estilo funcional de Javascript, es muy fácil lanzar la petición Ajax con *fetch()* y atender las respuestas del servidor.
+
 ### 7.5.2. Lanzando peticiones asíncronas con *Fetch*
 
 La sintaxis básica de una petición asíncrona con *fetch()* es esta:
@@ -397,19 +401,20 @@ La sintaxis básica de una petición asíncrona con *fetch()* es esta:
 fetch(url)
   .then(function() {
     // Este código se ejecuta cuando el estado pasa a "Promesa Resuelta"
+  })
   .catch(function() {
     // Este código se ejecuta cuando el estado pasa a "Promesa Rechazada"
-});
+  });
 ```
  
-Con el método *fetch()* se obtiene una **promesa**. Si la promesa se resuelve con éxito, es decir, si el servidor responde correctamente, se ejecuta la función dentro del método *then()*. Y, si falla, se ejecuta la función que hay dentro de *catch()*.
+Con el método *fetch()* se obtiene una **promesa**. La *url* es, lógicamente, la dirección del servidor a la que se lanza la petición. Si la promesa se resuelve con éxito, es decir, si el servidor responde correctamente, se ejecuta la función dentro del método *then()*. Y, si falla, se ejecuta la función que hay dentro de *catch()*.
 
 Lo habitual, por supuesto, es que **el servidor responda a nuestras peticiones con datos**. Puede ser algo tan simple como un valor booleano o algo tan complejo como una tabla llena de objetos formateada en JSON.
 
 Si la llamada al servidor va a devolver datos, estos se recogen en un parámetro de la función del *then()*. Del mismo modo, si se ha producido un error, este se recoge como parámetro en la función del *catch()*:
 
 ```javascript
-fetch(url)
+fetch('https://mi-servidor/mi-ruta')
   .then(function(data) {
     // Procesar la respuesta. Los datos están en "data"
   })
@@ -420,7 +425,19 @@ fetch(url)
 
 ### 7.5.3. Lanzar peticiones por POST
 
-Fetch supondrá que todas las peticiones al servidor se envían por GET, salvo que se le indique lo contrario. Para lanzar **una petición por POST** se debe utlizar un segundo argumento de la función *fetch()* y pasarle el encabezado http con los datos que se van a enviar.
+Fetch supondrá que todas las peticiones al servidor se envían por GET, salvo que se le indique lo contrario. De hecho, la petición anterior también puede escribirse así:
+
+```javascript
+fetch('https://mi-servidor/mi-ruta', {method: "GET"})
+  .then(function(data) {
+    // Procesar la respuesta. Los datos están en "data"
+  })
+  .catch(function(error) {
+    // Procesar el error. El error está en "error"
+  });
+```
+
+Para lanzar **una petición por POST** se debe utlizar el segundo argumento de la función *fetch()*, indicando que le método de envío será POST y cuál es el contenido del encabezado http, donde se empaquetan los datos de todas las peticiones POST.
 
 Por ejemplo:
 
@@ -438,15 +455,19 @@ let httpData = {
   headers: new Headers()
 }
 
-fetch(url, httpData)
+fetch('https://mi-servidor/mi-ruta', {
+  method: 'POST',
+  body: {name: 'Fulgencio', age: 42},
+  headers: {"Content-type": "application/json; charset=UTF-8"}
+})
 .then(function() {
     // Procesar la respuesta del servidor
 });
 ```
 
-***Headers*** es parte de la API Fetch. Permite manipular los encabezados de las solicitudes y respuestas http, que es donde se empaquetan los datos enviados por POST. La variable *fetchData*, por tanto, llevará todos los datos que se van a enviar por POST.
+Esta petición *fetch()* está enviando por POST al servidor dos datos, "name" (con el valor "Fulgencio") y "age" (con el valor "42").
 
-El API Fetch puede usarse de otras maneras, pero esto es más que suficiente para empezar a trabajar con el servidor en modo asíncrono en una gran variedad de situaciones diferentes.
+El API Fetch puede usarse de otras maneras y, además, aún está en desarrollo, por lo que sufrirá cambios continuos en los próximos años. Pero con esto tienesf más que suficiente para empezar a trabajar con el servidor en modo asíncrono en una gran variedad de situaciones diferentes.
 
 ## 7.6. Ajax y Laravel
 

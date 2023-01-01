@@ -1,5 +1,33 @@
+---
+layout: page
+title: 9.5. Un ejemplo completo. Las tres en raya
+permalink: /ejemplo-completo-3-en-raya/
+nav_order: 5
+has_children: true
+parent: 9. El lenguaje C
+grand_parent: Introd. a la prog. y al diseño 3D
+---
+
+## 9.5. Un ejemplo completo: las tres en raya
+{: .no_toc }
+
+- TOC
+{:toc}
+
+Llegó la hora de poner manos a la obra.
+
+Si hay una sección de este capítulo que tienes que leer con atención, es esta. Así que es un mal momento para tener prisa.
+
+Vamos a escribir un **programa completo en C**. Te puede servir de plantilla para desarrollar tus propios programas a partir de este código fuente.
+
+El programa en cuestión será una versión del juego de **las tres en raya** que encontrarás resuelta en pseudocódigo el tema de introducción a la programación. No dudes en repasar aquel ejercicio resuelto para ver el pseudocódigo, puesto que nuestro programa será una traducción literal de ese pseudocódigo a C.
+
+Aquí tienes el código fuente completo. Estúdialo con atención y asegúrate de entenderlo todo (o un gran porcentaje) antes de continuar. Ah, y no dejes de compararlo línea a línea con el mismo código en pseudocódigo.
+
+### 9.6.1. El código fuente
+
+```c
 #include <stdio.h>
-#include <SDL/SDL.h>
 
 //-------------------------
 //   ALGORITMO PRINCIPAL
@@ -52,13 +80,13 @@ void inicializar(char tablero[10]) {
 // --------------------------------------------
 void mostrar(char tablero[10]) {
    printf("ESTADO ACTUAL DEL TABLERO\n");
-   printf("+---+---+---+\n");
-   printf("| %c | %c | %c |\n", tablero[1], tablero[2], tablero[3]);
-   printf("+---+---+---+\n");
-   printf("| %c | %c | %c |\n", tablero[4], tablero[5], tablero[6]);
-   printf("+---+---+---+\n");
-   printf("| %c | %c | %c |\n", tablero[7], tablero[8], tablero[9]);
-   printf("+---+---+---+\n");
+   printf("+-+-+-+\n");
+   printf("|%c|%c|%c|\n", tablero[1], tablero[2], tablero[3]);
+   printf("+-+-+-+\n");
+   printf("|%c|%c|%c|\n", tablero[4], tablero[5], tablero[6]);
+   printf("+-+-+-+\n");
+   printf("|%c|%c|%c|\n", tablero[7], tablero[8], tablero[9]);
+   printf("+-+-+-+\n");
 }
 
 // ---------------------------------------------------
@@ -207,3 +235,30 @@ int comprobar_tablas(char tablero[10]) {
    }
    return tablas;
 }
+```
+
+### 9.6.2. ¿Cómo ejecutar y depurar este programa?
+
+Guarda el programa anterior en un archivo de texto con extensión .c (por ejemplo, *3enraya.c*).
+
+Si estás trabajando con Visual Studio Code con la extensión Code Runner, como hemos recomendado, puedes ejecutar tu programa directamente desde ahí. Basta con que pulses el botón "Play" de la esquina superior derecha. Se abrirá una consola en la parte de abajo donde tu programa se ejecutará.
+
+#### ¡Socorro! El programa no funciona
+
+¿El resultado no es el esperado? Es lo habitual. Habrá algún error en el código y te tocará depurarlo.
+
+En la ventana inferior de Visual Studio Code verás varias pestañas. 
+
+* En la pestaña **Terminal** verás el resultado de la ejecución de tu programa.
+* En la pestaña **Problems** verás la lista de errores que el compilador ha encontrado en tu programa. En tal caso, en el *Terminal* solo verás un lenguaje de tipo "La compilación ha terminado con errores".
+
+Los mensajes pueden estar en español o en inglés, dependiendo del compilador, pero ¿qué esperabas? Si quieres aprender a programar, tienes que acostumbrarte a manejar el inglés técnico.
+
+El mensaje de error te dará información sobre lo que hay de malo en tu código y te dirá en qué línea, aproximadamente, está el error.
+
+Cuando lo hayas localizado, **regresa a tu editor de texto, haz los cambios necesarios, guarda las modificaciones y vuelve a compilar y ejecutar el programa** (pulsando de nuevo el botón "Play").
+
+Y así hasta que funcione.
+
+¡Mucha paciencia y sangre fría! Recuerda siempre que la mayor parte del tiempo de programación se va en depurar programas, no en escribirlos.
+
