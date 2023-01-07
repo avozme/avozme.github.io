@@ -529,6 +529,8 @@ La siguiente captura pertenece a un juego llamado *Unknown Horizons*, desarrolla
 
 Nosotros sólo nos vamos a centrar en la parte de SDL dedicada a los gráficos. Si quieres más información, en la página web reseñada antes encontrarás una completa documentación.
 
+*NOTA IMPORTANTE: todo lo que sigue se refiere a la versión 1.2 de la librería SDL. La versión más reciente podría tener algunas pequeñas diferencias que debes consultar en la documentación.*
+
 #### Instalación de SDL
 
 SDL no es una librería C estándar, es decir, no viene "de serie" con el compilador de C. En realidad, tampoco *ncurses* lo es, pero su uso está tan extendido en entornos Unix que viene incorporada a las librerías del compilador gcc.
@@ -540,15 +542,32 @@ Existen dos paquetes de SDL: el *runtime*, necesario para ejecutar aplicaciones 
 
 **Instalación de SDL en Linux**
 
-* Instala el paquete libSDL-dev desde la tienda de aplicaciones de tu distribución Linux. Eso será suficiente para que se instalen los paquetes de desarrollo y de *runtime*.
+* Instala el paquete **libSDL-dev** desde la tienda de aplicaciones de tu distribución Linux. Eso será suficiente para que se instalen los paquetes de desarrollo y de *runtime*.
+
 * Si estos paquetes no estuvieran en tu repositorio (algo muy raro), puedes bajártelos de [libsdl.org](https://libsdl.org) e instalarlos manualmente. Consulta el manual de tu Linux para aprender a hacer esto último.
+
+* Además, puedes necesitar paquetes adicionales. Los más habituales son **libSDL-image-dev** (para manipular imágenes), **libSDL-ttf-dev** (para manejar fuentes y renderizar textos) y **libSDL-mixer-dev** (para utilizar sonidos). Ten en cuenta que los nombres de los paquetes pueden variar ligeramente dependiendo de tu distribución de Linux.
+
+* Para instalar todos estos paquetes en una distribución como Ubuntu, puedes usar este comando:
+
+  ```
+  $ sudo apt update
+  $ sudo apt install libsdl-dev libsdl-image-dev libsdl-ttf-dev libsdl-mixer-dev
+  ```
+
+  Si tu distribución no usa apt como gestor de paquetes, tendrás que buscar en la documentación de la misma cómo instalar paquetes de los respositorios.
 
 **Instalación de SDL en Windows**
 
 * Bájate la última versión de la librería de la web de SDL. Necesitarás la librería de vínculos dinámicos (denominada dll), que es el *runtime* para Windows, y el paquete de desarrollo. 
-* La librería de vínculos dinámicos suele venir comprimida en un archivo cuyo nombre es similar a: SDL-x.x.x.zip, donde "x.x.x" es la versión de la libería. Existirán varios paquetes de desarrollo para varios compiladores. Mi consejo es que bajes el que está preparado para el compilador de GNU, cuyo nombre es SDL-devel-x.x.x-mingw32.tar o algo similar. También encontrarás paquetes para otros compiladores.
-* Descomprime la librería de vínculos dinámicos. Debes obtener un archivo llamado sdl.dll. Copia este archivo al directorio /windows/system32, o bien ubícalo en la misma carpeta en la que se encuentre el programa que estás escribiendo. 
+
+* La librería de vínculos dinámicos suele venir comprimida en un archivo cuyo nombre es similar a: SDL-x.x.x.zip, donde "x.x.x" es la versión de la libería. Existirán varios paquetes de desarrollo para varios compiladores. Mi consejo es que bajes el que está preparado para el compilador de GNU, cuyo nombre es SDL-devel-x.x.x-mingw32.tar o algo similar.
+
+* Descomprime la librería de vínculos dinámicos. Debes obtener un archivo llamado sdl.dll. Copia este archivo al directorio /windows/system32, o bien ubícalo en la misma carpeta en la que se encuentre el programa que estás escribiendo.
+
 * Descomprime el paquete de desarrollo. Encontrarás varios directorios y, dentro de ellos, multitud de archivos. Copia los archivos en los directorios del mismo nombre de tu compilador. Por ejemplo, el copia el directorio "include" del paquete de desarrollo al directorio "include" de la carpeta donde esté instalado tu compilador. Repite la operación para todos los directorios cuyo nombre coincida.
+
+* Si vas a usar otras librerías auxiliares, como *image*, *ttf* o *mixer* (para manipular imágenes, fuentes y sonidos con SDL), repite el proceso con cada una de ellas.
 
 #### Compilación y enlace de SDL
 
@@ -557,35 +576,41 @@ Al no ser SDL una librería estándar, el enlace entre nuestro programa y las fu
 Si estás utilizando **Visual Studio Code** con la extensión **Code Runner**, la forma de hacer que SDL se enlace con tu programa es, simplemente, incluir la libería SDL en tu código fuente:
 
 ```c
-#include <SDL2/SDL.h>
+#include <SDL/SDL.h>
 ```
 
-Si ese include falla, tienes que segurarte de que Code Runner enlazará tu código con la librería SDL. Para ello, hay que agregar "-lSDL2" a la lista de argumentos de la tarea de compilación. Abre el archivo **tasks.json** que encontrarás en el directorio **.vscode** de tu proyecto. Encontrarás algo como esto:
+Si usas otras librerías auxiliares de SDL, como SDL-mixer, también tendrás que incluir el archivo de cabecera. Por ejemplo:
+
+```c
+#include <SDL/SDL_mixer.h>
+```
+
+Si estos *includes* fallan, tienes que segurarte de que Visual Studio está encontrando el código con la librería SDL. Para ello, hay que agregar "-lSDL" a la lista de argumentos de la tarea de compilación. Abre el archivo ***.json*** que encontrarás en el directorio ***.vscode*** de tu proyecto. Encontrarás algo como esto:
 
 ```json
 {
-    "version": "2.0.0",
-    "tasks": [
+    "configurations": [
         {
-            "label": "Compile C program with SDL",
-            "type": "shell",
-            "command": "gcc",
-            "args": [
-                "-o",
-                "program",
-                "main.c",
-                "-lSDL2"
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "linux-gcc-x64",
+            "compilerArgs": [
+                "-lSDL",
+                "-lSDL_mixer"
+            ]
         }
-    ]
+    ],
+    "version": 4
 }
 ```
 
-Mira en la sección "args". Si no aparece la línea "-lSDL2", añádela. Guarda el archivo y listo.
+Mira en la sección "compilerArgs". Si esa sección no existe o existe pero no contiene la línea "-lSDL", añádela. Si necesitas otras librerías, como SDL-mixer, añádela también. Guarda el archivo y reinicia Visual Studio Code.
 
 Si utilizas otro entorno de desarrollo distinto de Visual Studio Code, u otra extensión distinta de Code Runner dentro de Visual Studio Code, el proceso debe ser muy parecido, pero tendrás que mirar la documentación de ese entorno o de esa extensión para ver los detalles.
 

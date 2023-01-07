@@ -1,0 +1,943 @@
+/*
+PROGRAMA:  Ajedrez 1.0
+ARCHIVO:   movs.c
+CONTENIDO: Funciones de movimientos de las piezas
+AUTOR:     Alfredo Moreno
+*/
+
+#include "movs.h"
+#include "io.h"
+#include "ia.h"
+
+
+// ---------------------------------------------------------------------------------------
+// Funci�: realizar_movimiento()
+// Determina a qu�jugador le toca mover y realiza el movimiento alterando el tablero
+// y el estado del juego (si procede)
+// ---------------------------------------------------------------------------------------
+void realizar_movimiento(Tcasilla tablero[9][9], Testado* estado)
+{
+  estado->t_turno = time(NULL);    // Anotar tiempos de comienzo del turno
+  estado->t_anterior = time(NULL);
+
+  // Mostramos estado de la partida
+  borrar(0);		// Borrar �ea de mensajes
+  if (estado->turno == BLANCAS) escribir("Turno: BLANCAS",1,TXT_NORMAL); // mostramos de quien es el turno
+  else escribir("Turno: NEGRAS",1,TXT_NORMAL);
+
+  mostrar_movimientos(estado);		// Mostramos ltimos movimientos
+  if (comprobar_jaque(tablero, estado) == VERDADERO) 
+  {
+     if (comprobar_jaque_mate(tablero, estado) == VERDADERO)		// Hay jaque mate
+     {
+        escribir("JAQUE MATE", 6, TXT_RESALTADO);
+	pausa(2000);
+	estado->terminar = VERDADERO;
+     }
+     else								// Hay jaque
+     {
+        escribir("JAQUE", 6, TXT_RESALTADO);
+        pausa(2000);
+     }
+  }
+
+  // Realizamos el movimiento
+  if (estado->turno == BLANCAS)
+  {
+    if (estado->jug_blanco == HUMANO)
+      movimiento_humano(tablero, estado);
+    else
+      movimiento_maquina(tablero, estado);
+  }
+  else	// turno == NEGRAS
+  {
+    if (estado->jug_negro == HUMANO)
+      movimiento_humano(tablero, estado);
+    else
+      movimiento_maquina(tablero, estado);
+  }
+}
+
+
+// ---------------------------------------------------------------------------------------
+// Funci�: movimiento_humano()
+// Gestiona el movimiento de una pieza por parte de un jugador humano
+// ---------------------------------------------------------------------------------------
+void movimiento_humano(Tcasilla tablero[9][9], Testado* estado)
+{
+  int fila_orig, col_orig, fila_dest, col_dest;
+  int result_orig, result_dest;
+  int movimiento_realizado;
+
+  movimiento_realizado = FALSO;
+  do
+  {
+     do
+       result_orig = elegir_origen(&col_orig, &fila_orig, tablero, estado);
+     while ((result_orig == -1) && (estado->terminar == FALSO));
+     if (result_orig == 0)
+     {
+        do
+          result_dest = elegir_destino(&col_dest, &fila_dest, col_orig, fila_orig, tablero, estado);
+        while  ((result_dest == -1) && (estado->terminar == FALSO));
+        if (result_dest == 0) {
+           anotar_movimiento(col_orig, fila_orig, col_dest, fila_dest, tablero, estado);
+           actualizar_tablero(col_orig, fila_orig, col_dest, fila_dest, tablero, estado);
+           escribir("Comprobando...", 4, TXT_RESALTADO);
+           pausa(1000);
+           movimiento_realizado = VERDADERO;
+        }
+     }
+  }
+  while ((movimiento_realizado == FALSO) && (estado->terminar == FALSO));
+}
+
+
+// ---------------------------------------------------------------------------------------
+// Funci�: movimiento_maquina()
+// Gestiona el movimiento de una pieza por parte de un jugador m�uina
+// ---------------------------------------------------------------------------------------
+void movimiento_maquina(Tcasilla tablero[9][9], Testado* estado)
+{
+   Tmovimiento mov;
+   
+   escribir("Pensando...", 4, TXT_RESALTADO);
+   mov = buscar_mejor_movimiento(tablero, estado, estado->turno);
+   anotar_movimiento(mov.x_orig, mov.y_orig, mov.x_dest, mov.y_dest, tablero, estado);
+   actualizar_tablero(mov.x_orig, mov.y_orig, mov.x_dest, mov.y_dest, tablero, estado);
+   actualizar_tiempo(estado);
+}
+
+
+// ---------------------------------------------------------------------------------------
+// Funci�: elegir_origen()
+// Elegir la casilla de origen de la pieza que se va a mover.
+// Devuelve las coordenadas de la casilla en (x,y)
+// Devuelve 0 si todo va bien, -1 si las coordenadas son ilegales y -2 si se pulsa ESC
+// ---------------------------------------------------------------------------------------
+int elegir_origen(int* x, int* y, Tcasilla tablero[9][9], Testado* estado)
+{
+  int correcto;
+  char txt[100];
+  char col;
+  int result;
+
+    escribir("Seleccione origen", 2,TXT_NORMAL);
+    seleccionar_casilla(x,y,0,0,tablero,estado);  // Devuelve origen en (x,y)
+    switch (*x) {
+      case 1: col = 'a'; break;
+      case 2: col = 'b'; break;
+      case 3: col = 'c'; break;
+      case 4: col = 'd'; break;
+      case 5: col = 'e'; break;
+      case 6: col = 'f'; break;
+      case 7: col = 'g'; break;
+      case 8: col = 'h'; break;
+      default:col = '0'; break;
+    }
+
+    if ((*x == 0) && (*y == 0))		// Se ha pulsado ESC al elegir la casilla
+       result = -2;
+    else
+    {
+      correcto = comprobar_origen(*x, *y, tablero, estado);
+      if (correcto == FALSO)
+      {
+         result = -1;
+         escribir("Movimiento ilegal", 2, TXT_RESALTADO);
+         pausa(2000);
+      }
+      else {
+         result = 0;
+         sprintf(txt, "Origen: %c%i", col, *y);
+         escribir(txt, 2, TXT_NORMAL);
+      }
+    }
+    return result;
+}
+
+
+// ---------------------------------------------------------------------------------------
+// Funci�: elegir_destino()
+// Selecciona la casilla de destino de un movimiento. Devuelve la casilla en (x,y)
+// Devuelve 0 si todo va bien, -1 si las coordenadas son ilegales y -2 si se pulsa ESC
+// ---------------------------------------------------------------------------------------
+int elegir_destino(int* x, int* y, int x_orig, int y_orig, Tcasilla tablero[9][9], Testado* estado)
+{
+  int correcto;
+  char txt[100];
+  char col;
+  int result;
+
+    escribir("Seleccione destino", 3, TXT_NORMAL);
+    seleccionar_casilla(x,y,x_orig,y_orig,tablero,estado);  // Devuelve destino en (x,y)
+    switch (*x) {
+      case 1: col = 'a'; break;
+      case 2: col = 'b'; break;
+      case 3: col = 'c'; break;
+      case 4: col = 'd'; break;
+      case 5: col = 'e'; break;
+      case 6: col = 'f'; break;
+      case 7: col = 'g'; break;
+      case 8: col = 'h'; break;
+      default:col = '-'; break;
+    }
+
+    if ((*x == 0) && (*y == 0))	{	// Se ha pulsado ESC al elegir la casilla
+       result = -2;
+       borrar(3);
+    }
+    else
+    {
+      correcto = comprobar_destino(*x, *y, x_orig, y_orig, tablero, estado);
+      if (correcto != VERDADERO)
+      {
+         result = -1;
+         escribir("Movimiento ilegal", 3, TXT_RESALTADO);
+         pausa(2000);
+      }
+      else {
+         sprintf(txt, "Destino: %c%i", col, *y);
+         escribir(txt, 3, TXT_NORMAL);
+         result = 0;
+      }
+    }
+    return result;
+}
+
+
+// ---------------------------------------------------------------------------------------
+// Funci�: comprobar_origen()
+// Comprueba que la pieza que se pretende mover efectivamente SE PUEDE mover. Devuelve
+// VERDADERO o FALSO, segn pueda o no pueda moverse.
+// ---------------------------------------------------------------------------------------
+int comprobar_origen(int x, int y, Tcasilla tablero[9][9], Testado* estado)
+{
+  int respuesta;
+
+  respuesta = FALSO;		// Por defecto, el movimiento es ilegal
+  // Comprobemos si en (x,y) hay una pieza del jugador que est�moviendo
+  if ((estado->turno == BLANCAS) && (tablero[x][y].color_pieza == BLANCO))
+     respuesta = VERDADERO;
+  if ((estado->turno == NEGRAS) && (tablero[x][y].color_pieza == NEGRO))
+     respuesta = VERDADERO;
+     
+  return respuesta;
+
+}
+
+
+// ---------------------------------------------------------------------------------------
+// Funci�: comprobar_destino()
+// Comprueba que el lugar de destino de la pieza que se pretende mover es correcto. Devuelve
+// VERDADERO o FALSO, segn pueda o no pueda moverse.
+// ---------------------------------------------------------------------------------------
+int comprobar_destino(int x, int y, int x_orig, int y_orig, Tcasilla tablero[9][9], Testado* estado)
+{
+  int correcto;
+  
+  correcto = FALSO;
+  switch (tablero[x_orig][y_orig].pieza) {
+     case PEON:    correcto = comprobar_mov_peon(x, y, x_orig, y_orig, tablero, estado); break;
+     case CABALLO: correcto = comprobar_mov_caballo(x, y, x_orig, y_orig, tablero, estado); break;
+     case ALFIL:   correcto = comprobar_mov_alfil(x, y, x_orig, y_orig, tablero, estado); break;
+     case TORRE:   correcto = comprobar_mov_torre(x, y, x_orig, y_orig, tablero, estado); break;
+     case REY:     correcto = comprobar_mov_rey(x, y, x_orig, y_orig, tablero, estado); break;
+     case DAMA:    correcto = comprobar_mov_dama(x, y, x_orig, y_orig, tablero, estado); break;
+  }
+  return correcto;
+}
+
+// ---------------------------------------------------------------------------------------
+// Funci�: actualizar_tablero()
+// Hace efectivo un movimiento de piezas actualizando las casillas del tablero.
+// Tambi� modifica el estado (si procede)
+// ---------------------------------------------------------------------------------------
+void actualizar_tablero(int x_orig, int y_orig, int x_dest, int y_dest, Tcasilla tablero[9][9], Testado* estado)
+{
+  // Coloca la pieza en su nueva casilla
+  tablero[x_dest][y_dest].pieza = tablero[x_orig][y_orig].pieza;
+  tablero[x_dest][y_dest].color_pieza = tablero[x_orig][y_orig].color_pieza;
+
+  // Elimina la pieza de su ubicaci� original
+  tablero[x_orig][y_orig].pieza = NINGUNA;
+  tablero[x_orig][y_orig].color_pieza = NINGUNO;
+}
+
+
+// ---------------------------------------------------------------------------------------
+// Funci�: anotar_movimiento()
+// Traduce el movimiento a notaci� algebraica y lo guarda en la lista din�ica
+// de movimientos realizados
+// ---------------------------------------------------------------------------------------
+void anotar_movimiento(int col_orig, int fila_orig, int col_dest, int fila_dest, Tcasilla tablero[9][9], Testado *estado)
+{
+   char mov[7];     // Movimiento en notaci� algebraica
+   int i=0;
+
+   // Construimos la notaci� algebraica
+   // Primero se pone el tipo de pieza, a menos que sea un pe�, en cuyo caso no se pone nada
+   if (tablero[col_orig][fila_orig].pieza != PEON) {
+       mov[i] = tablero[col_orig][fila_orig].pieza;
+       i++;
+   }
+   // Despu� se inserta la columna (con letra) y la fila (con nmero) de origen
+   mov[i] = convertir_a_letra(col_orig); i++;
+   mov[i] = fila_orig + 48; i++;   // Convierte fila a c�igo ASCII
+   // Despu� se inserta un gui� (si no hay captura) o una "x" (si hay captura)
+   if (tablero[col_dest][fila_dest].pieza != NINGUNA) 
+        mov[i] = 'x';
+   else
+        mov[i] = '-';
+   i++;
+   // Por ltimo, se insertan la columna y la fila de destino
+   mov[i] = convertir_a_letra(col_dest); i++;
+   mov[i] = fila_dest + 48; i++;
+   // A�dimos el nulo
+   mov[i] = '\0';
+   // Si el movimiento es un ENROQUE, deshacemos todo lo anterior y anotamos el s�bolo del enroque
+   if ((col_orig == 5) && (fila_orig == 1) && (col_dest == 7) && (fila_dest == 1) && (tablero[col_orig][fila_orig].pieza == REY))
+      strcpy(mov, "O-O");   // Enroque blanco corto
+   if ((col_orig == 5) && (fila_orig == 1) && (col_dest == 3) && (fila_dest == 1) && (tablero[col_orig][fila_orig].pieza == REY))
+      strcpy(mov, "O-O-O"); // Enroque blanco largo
+   if ((col_orig == 5) && (fila_orig == 8) && (col_dest == 7) && (fila_dest == 8) && (tablero[col_orig][fila_orig].pieza == REY))
+      strcpy(mov, "O-O");   // Enroque negro corto
+   if ((col_orig == 5) && (fila_orig == 8) && (col_dest == 3) && (fila_dest == 8) && (tablero[col_orig][fila_orig].pieza == REY))
+      strcpy(mov, "O-O-O"); // Enroque negro largo
+
+
+   // Guardamos el movimiento en la lista de movimientos
+   lst_insertar(mov, estado->turno);
+}
+
+// ---------------------------------------------------------------------------------------
+// Funci�: convertir_a_letra()
+// Convierte un nmero de columna en su letra equivalente
+// ---------------------------------------------------------------------------------------
+char convertir_a_letra(int num)
+{
+   char letra;
+   switch (num)
+   {
+      case 1: letra = 'a'; break;
+      case 2: letra = 'b'; break;
+      case 3: letra = 'c'; break;
+      case 4: letra = 'd'; break;
+      case 5: letra = 'e'; break;
+      case 6: letra = 'f'; break;
+      case 7: letra = 'g'; break;
+      case 8: letra = 'h'; break;
+      default: letra = '?';
+   }
+   return letra;
+}
+
+
+// ---------------------------------------------------------------------------------------
+// Funci�: convertir_a_numero()
+// Convierte un identificador de columna en su nmero equivalente
+// ---------------------------------------------------------------------------------------
+int convertir_a_numero(char letra)
+{
+   int num;
+   switch (letra)
+   {
+      case 'a': num = 1; break;
+      case 'b': num = 2; break;
+      case 'c': num = 3; break;
+      case 'd': num = 4; break;
+      case 'e': num = 5; break;
+      case 'f': num = 6; break;
+      case 'g': num = 7; break;
+      case 'h': num = 8; break;
+      default: num = 0;
+   }
+   return num;
+}
+
+
+// ---------------------------------------------------------------------------------------
+// Funci�: mostrar_movimientos()
+// Muestra la lista de los ltimos movimientos realizados
+// ---------------------------------------------------------------------------------------
+void mostrar_movimientos(Testado *estado)
+{
+   int i, n_movs, limite, fila;
+   char txt[20];
+
+   sprintf(txt,"___________________");
+   escribir(txt, 6, TXT_NORMAL);
+
+   n_movs = lst_num_elementos();
+   if (estado->turno == BLANCAS)
+       limite = n_movs - 17;			// Mostraremos los 9 ltimos turnos (18 movimientos)
+   else
+       limite = n_movs - 16;			// Si el turno es del negro, el ltimo turno est�an por completar
+   if (limite < 1) limite = 1;
+   fila = 7;
+   for (i = limite; i<=n_movs; i=i+2)
+   {
+      if ((i+1)<=n_movs)
+         sprintf(txt, "%i. %s  %s", i/2+1, lst_buscar(i), lst_buscar(i+1));
+      else
+         sprintf(txt, "%i. %s", i/2+1, lst_buscar(i));	// �timo turno incompleto
+      escribir(txt, fila, TXT_NORMAL);
+      fila++;
+   }
+}
+
+
+// ---------------------------------------------------------------------------------------
+// Funci�: comprobar_mov_peon()
+// Comprueba si el movimiento del peon es legal. Devuelve VERDADERO si lo es, o FALSO si es ilegal
+// ---------------------------------------------------------------------------------------
+int comprobar_mov_peon(int x, int y, int x_orig, int y_orig, Tcasilla tablero[9][9], Testado* estado)
+{
+   int correcto = FALSO;	// Por defecto el movimiento es ILEGAL
+   int y_dest;			// Fila a la que deber� haber ido a parar el pe�
+   char color;
+
+   // PARTE 1: COMPROBAR MOVIMIENTO DE UN ESCAQUE
+   if (estado->turno == BLANCAS)  // Establecemos el color del jugador que est�moviendo
+   {
+     color = BLANCO;
+     y_dest = y_orig+1;		// El blanco solo puede mover su pe� hacia delante en el tablero
+   }
+   else
+   {
+     color = NEGRO;
+     y_dest = y_orig-1;		// El negro s�o puede mover su pe� hacia detr� en el tablero
+   }
+
+   if (y == y_dest) 		// MOVIMIENTO DE UN ESCAQUE. Puede ser correcto. Vamos a comprobarlo
+   {
+     if  (x == x_orig) 		// Se ha movido de frente. Es v�ido si no hay nadie en esa casilla
+     {
+       if (tablero[x][y].pieza == NINGUNA)
+          correcto = VERDADERO;
+     }
+     if ((x == x_orig-1) || (x == x_orig+1))
+     {				// Se ha movido en diagonal. Es v�ido si toma una pieza enemiga
+       if ((tablero[x][y].color_pieza != color) && (tablero[x][y].pieza != NINGUNA))
+          correcto = VERDADERO;
+     }
+   }
+
+   // PARTE 2: COMPROBAR MOVIMIENTO DE DOS ESCAQUES (solo en la salida)
+   if ((estado->turno == BLANCAS) && (y == y_orig+2) && (y_orig == 2) && (x == x_orig))
+      correcto = VERDADERO;
+   if ((estado->turno == NEGRAS) && (y == y_orig-2) && (y_orig == 7) && (x == x_orig))
+      correcto = VERDADERO;
+
+   // El resultado ser�FALSO a menos que haya entrado por alguno de los condicionales
+   return correcto;
+}
+
+// ---------------------------------------------------------------------------------------
+// Funci�: comprobar_mov_caballo()
+// Comprueba si el movimiento del caballo es legal. Devuelve VERDADERO si lo es, o FALSO si es ilegal
+// Devuelve FALSO2 si es incorrecto porque en la casilla destino hay una pieza del
+// jugador actual (este valor se usa en las rutinas de I.A.)
+// ---------------------------------------------------------------------------------------
+int comprobar_mov_caballo(int x, int y, int x_orig, int y_orig, Tcasilla tablero[9][9], Testado* estado)
+{
+   int correcto;
+
+   // Supondremos que el movimiento es ILEGAL
+   correcto = FALSO;
+
+   // El caballo solo puede mover a 8 casillas. Vamos a ver si el destino es una de ellas
+   if ( ((x == x_orig + 1) && (y == y_orig + 2)) ||
+        ((x == x_orig + 2) && (y == y_orig + 1)) ||
+        ((x == x_orig - 1) && (y == y_orig + 2)) ||
+        ((x == x_orig - 2) && (y == y_orig + 1)) ||
+        ((x == x_orig + 1) && (y == y_orig - 2)) ||
+        ((x == x_orig + 2) && (y == y_orig - 1)) ||
+        ((x == x_orig - 1) && (y == y_orig - 2)) ||
+        ((x == x_orig - 2) && (y == y_orig + 1)) )
+    {
+    	// La casilla de destino es correcta. Comprobemos que en ella no haya otra pieza de nuestro color
+	if ((tablero[x][y].color_pieza != BLANCO) && (estado->turno == BLANCAS)) correcto = VERDADERO;
+	if ((tablero[x][y].color_pieza != NEGRO) && (estado->turno == NEGRAS)) correcto = VERDADERO;    }
+
+  return correcto;
+}
+// ---------------------------------------------------------------------------------------
+// Funci�: comprobar_mov_alfil()
+// Comprueba si el movimiento del alfil es legal. Devuelve VERDADERO si lo es, o FALSO si es ilegal
+// ---------------------------------------------------------------------------------------
+int comprobar_mov_alfil(int x, int y, int x_orig, int y_orig, Tcasilla tablero[9][9], Testado* estado)
+{
+   int correcto, inc_x, inc_y, cx, cy;
+
+   // Supondremos que el movimiento es LEGAL y vamos a buscar causas por las que no lo sea
+   correcto = VERDADERO;
+
+   // Comprobamos que el origen y el destino son distintos
+   if ((x_orig == x) && (y_orig == y))
+      correcto = FALSO;
+   else
+   {
+      // Miramos en qu�direcciones X e Y intenta mover el alfil
+      if (x_orig < x) inc_x = 1; else inc_x = -1;
+      if (y_orig < y) inc_y = 1; else inc_y = -1;
+      cx = x_orig + inc_x;
+      cy = y_orig + inc_y;
+
+      // Recorremos el tablero siguiendo la diagonal en esa direcci�, a ver si hay piezas en la trayectoria
+      while ((cx != x) && (cy != y))
+      {
+         if (tablero[cx][cy].pieza != NINGUNA) correcto = FALSO;
+	 cx += inc_x; cy += inc_y;
+      }
+
+      // Comprobamos que el destino est�efectivamente en la diagonal trazada
+      if ((x != cx) || (y != cy)) correcto = FALSO;
+
+      // Comprobamos que el color de la pieza de la casilla de destino sea distinto del nuestro
+      if ((tablero[x][y].color_pieza == BLANCO) && (estado->turno == BLANCAS))
+         correcto = FALSO;
+      if ((tablero[x][y].color_pieza == NEGRO) && (estado->turno == NEGRAS))
+         correcto = FALSO;
+   }
+   
+   return correcto;
+}
+// ---------------------------------------------------------------------------------------
+// Funci�: comprobar_mov_torre()
+// Comprueba si un movimiento de la torre es legal. Devuelve VERDADERO si lo es, o FALSO si es ilegal
+// ---------------------------------------------------------------------------------------
+int comprobar_mov_torre(int x, int y, int x_orig, int y_orig, Tcasilla tablero[9][9], Testado* estado)
+{
+   int correcto;
+   int i;
+
+   // Suponemos por defecto que el movimiento es LEGAL y vamos a buscar alguna causa por la que no lo sea
+   correcto = VERDADERO;
+
+   // PRIMERO: comprobar si el destino est�en la misma fila o columna que el origen
+   if ((x != x_orig) && (y != y_orig))
+     correcto = FALSO;
+
+   // SEGUNDO: comprobar que el origen y el destino sean distintos
+   if ((x == x_orig) && (y == y_orig))
+     correcto = FALSO;
+
+   // TERCERO: comprobar que no hay obst�ulos en la trayectoria
+   // Hay cuatro posibles movimientos (derecha, izquierda, arriba y abajo)
+   // Vamos a seguir la trayectoria del que corresponda al nuestro
+   if ((x_orig == x) && (y_orig < y))		// Movimiento hacia la derecha
+   {
+      for (i = y_orig+1; i < y; i++)
+         if (tablero[x_orig][i].pieza != NINGUNA) correcto = FALSO;
+   }
+   if ((x_orig == x) && (y_orig > y))		// Movimiento hacia la izquierda
+   {
+      for (i = y_orig-1; i > y; i--)
+         if (tablero[x_orig][i].pieza != NINGUNA) correcto = FALSO;
+   }
+   if ((x_orig < x) && (y_orig == y))		// Movimiento hacia arriba
+   {
+      for (i = x_orig+1; i < x; i++)
+         if (tablero[i][y_orig].pieza != NINGUNA) correcto = FALSO;
+   }
+   if ((x_orig > x) && (y_orig == y))		// Movimiento hacia abajo
+   {
+      for (i = x_orig-1; i > x; i--)
+         if (tablero[i][y_orig].pieza != NINGUNA) correcto = FALSO;
+   }
+   
+   // CUARTO: comprobar que en la casilla de destino no haya una pieza de nuestro color
+   if ((tablero[x][y].color_pieza == BLANCO) && (estado->turno == BLANCAS))
+      correcto = FALSO;
+   if ((tablero[x][y].color_pieza == NEGRO) && (estado->turno == NEGRAS))
+      correcto = FALSO;
+      
+   // Antes de terminar, si el movimiento se va a realizar ponemos a 1 el flag de movimiento
+   // para impedir el enroque si m� adelante se intenta realizar
+   if (correcto == VERDADERO)
+   {
+      if ((estado->turno == BLANCAS) && (x_orig == 1) && (y_orig == 8))
+         estado->torre_blanca_a_movida = VERDADERO;
+      if ((estado->turno == BLANCAS) && (x_orig == 8) && (y_orig == 8))
+         estado->torre_blanca_h_movida = VERDADERO;
+      if ((estado->turno == NEGRAS) && (x_orig = 1) && (y_orig == 1))
+         estado->torre_negra_a_movida = VERDADERO;
+      if ((estado->turno == NEGRAS) && (x_orig = 8) && (y_orig == 1))
+         estado->torre_negra_h_movida = VERDADERO;
+   }
+
+   return correcto;
+}
+// ---------------------------------------------------------------------------------------
+// Funci�: comprobar_mov_rey()
+// Comprueba si el movimiento del rey es legal. Devuelve VERDADERO si lo es, o FALSO si es ilegal
+// ---------------------------------------------------------------------------------------
+int comprobar_mov_rey(int x, int y, int x_orig, int y_orig, Tcasilla tablero[9][9], Testado* estado)
+{
+   int correcto;
+
+   // Supondremos que el movimiento es ILEGAL
+   correcto = FALSO;
+
+   // El rey puede mover a 9 casillas. Vamos a ver si el destino es una de ellas
+   if ( ((x == x_orig + 1) && (y == y_orig + 1)) ||
+        ((x == x_orig + 1) && (y == y_orig)    ) ||
+        ((x == x_orig + 1) && (y == y_orig - 1)) ||
+        ((x == x_orig)     && (y == y_orig + 1)) ||
+        ((x == x_orig)     && (y == y_orig)    ) ||
+        ((x == x_orig)     && (y == y_orig - 1)) ||
+        ((x == x_orig - 1) && (y == y_orig + 1)) ||
+        ((x == x_orig - 1) && (y == y_orig)    ) ||
+        ((x == x_orig - 1) && (y == y_orig - 1)) )
+    {
+    	// La casilla de destino es correcta. Comprobemos que en ella no haya otra pieza de nuestro color
+	if ((tablero[x][y].color_pieza != BLANCO) && (estado->turno == BLANCAS)) correcto = VERDADERO;
+	if ((tablero[x][y].color_pieza != NEGRO) && (estado->turno == NEGRAS)) correcto = VERDADERO;
+    }
+
+  // Comprobar si es un ENROQUE del jugador BLANCO
+  if (estado->turno == BLANCAS)
+  {  // Comprobaremos que se cumplen todas las condiciones para realizar el ENROQUE CORTO, que son:
+     //   - que el rey haga el movimiento e1-g1 (enroque corto)
+     //   - que an no se hayan movido ni el rey ni la torre de ese lado
+     //   - que no haya ninguna pieza en la trayectoria
+     if ((x_orig == 5) && (y_orig == 1) && (x == 7) && (y == 1) &&
+         (estado->rey_blanco_movido == FALSO) && (estado->torre_blanca_h_movida == FALSO) &&
+	 (tablero[6][1].pieza == NINGUNA) && (tablero[7][1].pieza == NINGUNA))
+     {
+         correcto = VERDADERO;
+	 actualizar_tablero(8, 1, 6, 1, tablero, estado);  // Movemos la torre (el rey ya va impl�ito en el movimiento actual)
+	 estado->torre_blanca_h_movida = VERDADERO;
+	 estado->enroque_blanco_realizado = VERDADERO;
+     }
+
+     // Repetimos lo mismo con el ENROQUE LARGO
+     if ((x_orig == 5) && (y_orig == 1) && (x == 3) && (y == 1) &&
+         (estado->rey_blanco_movido == FALSO) && (estado->torre_blanca_a_movida == FALSO) &&
+	 (tablero[2][1].pieza == NINGUNA) && (tablero[3][1].pieza == NINGUNA) && (tablero[4][1].pieza == NINGUNA))
+     {
+         correcto = VERDADERO;
+	 actualizar_tablero(1, 1, 4, 1, tablero, estado);  // Movemos la torre (el rey ya va impl�ito en el movimiento actual)
+	 estado->torre_blanca_a_movida = VERDADERO;
+	 estado->enroque_blanco_realizado = VERDADERO;
+     }
+  }
+
+  // Comprobar si es un ENROQUE del jugador NEGRO
+  if (estado->turno == NEGRAS)
+  {  // Comprobaremos que se cumplen todas las condiciones para realizar el ENROQUE CORTO, que son:
+     //   - que el rey haga el movimiento e8-g8 (enroque corto)
+     //   - que an no se hayan movido ni el rey ni la torre de ese lado
+     //   - que no haya ninguna pieza en la trayectoria
+     if ((x_orig == 5) && (y_orig == 8) && (x == 7) && (y == 8) &&
+         (estado->rey_negro_movido == FALSO) && (estado->torre_negra_h_movida == FALSO) &&
+	 (tablero[6][8].pieza == NINGUNA) && (tablero[7][8].pieza == NINGUNA))
+     {
+         correcto = VERDADERO;
+	 actualizar_tablero(8, 8, 6, 8, tablero, estado);  // Movemos la torre (el rey ya va impl�ito en el movimiento actual)
+	 estado->torre_negra_h_movida = VERDADERO;
+	 estado->enroque_negro_realizado = VERDADERO;
+     }
+
+     // Repetimos lo mismo con el ENROQUE LARGO
+     if ((x_orig == 5) && (y_orig == 8) && (x == 3) && (y == 8) &&
+         (estado->rey_negro_movido == FALSO) && (estado->torre_negra_a_movida == FALSO) &&
+	 (tablero[2][8].pieza == NINGUNA) && (tablero[3][8].pieza == NINGUNA) && (tablero[4][8].pieza == NINGUNA))
+     {
+         correcto = VERDADERO;
+	 actualizar_tablero(1, 8, 4, 8, tablero, estado);  // Movemos la torre (el rey ya va impl�ito en el movimiento actual)
+	 estado->torre_negra_a_movida = VERDADERO;
+	 estado->enroque_negro_realizado = VERDADERO;
+     }
+  }
+
+  // Antes de terminar, si el movimiento se va a realizar ponemos a 1 el flag de movimiento
+  // para impedir el enroque si m� adelante se intenta realizar
+  if (correcto == VERDADERO)
+  {
+      if (estado->turno == BLANCAS) estado->rey_blanco_movido = VERDADERO;
+      if (estado->turno == NEGRAS) estado->rey_negro_movido = VERDADERO;
+  }
+
+  return correcto;
+}
+// ---------------------------------------------------------------------------------------
+// Funci�: comprobar_mov_dama()
+// Comprueba si el movimiento de la dama es legal. Devuelve VERDADERO si lo es, o FALSO si es ilegal
+// ---------------------------------------------------------------------------------------
+int comprobar_mov_dama(int x, int y, int x_orig, int y_orig, Tcasilla tablero[9][9], Testado* estado)
+{
+   int correcto, correcto_torre, correcto_alfil;
+
+   // La dama puede mover como la torre y el alfil juntos, as�que usamos el mismo c�igo
+   // que en aqu�los
+   correcto_torre = comprobar_mov_torre(x,y,x_orig,y_orig,tablero,estado);
+   correcto_alfil = comprobar_mov_alfil(x,y,x_orig,y_orig,tablero,estado);
+   
+   // Si cualquiera de los dos es correcto, el movimiento de la dama tambi� lo ser�   correcto = FALSO;
+   if ((correcto_torre == VERDADERO) || (correcto_alfil == VERDADERO))
+      correcto = VERDADERO;
+      
+   return correcto;
+}
+
+
+// ---------------------------------------------------------------------------------------
+// Funci�: comprobar_jaque()
+// Comprueba si el rey del jugador que tiene el turno est�en situaci� de jaque
+// Devuelve VERDADERO si lo est�y FALSO si no lo est�// ---------------------------------------------------------------------------------------
+int comprobar_jaque(Tcasilla tablero[9][9], Testado* estado)
+{
+    int x, y, rx, ry;
+    int jaque = FALSO;
+    Testado copia_est;	// Estado auxiliar para comprobar el movimiento del contrario
+    
+    // Ponemos el jaque a falso en principio (hasta que no se demuestre lo contrario)
+    copia_est = *estado;
+    if (estado->turno == BLANCAS) {
+       estado->jaque_al_rey_blanco = FALSO;
+       copia_est.turno = NEGRAS;
+    }
+    else {
+       estado->jaque_al_rey_negro = FALSO;
+       copia_est.turno = BLANCAS;
+    }
+    
+    
+    // Primero averiguaremos d�de est�situado el rey del jugador que tiene el turno
+    for (x=1; x<=8; x++)
+      for (y=1; y<=8; y++)
+      {
+         if ((tablero[x][y].pieza == REY) && (tablero[x][y].color_pieza == estado->turno)) {
+            rx = x; ry = y;
+            break;
+         }
+      }
+printf("Rey: (%i,%i). Turno: %c\n", rx,ry,estado->turno);    
+    // Ahora recorremos el tablero buscando piezas contrarias. Para cada pieza, comprobaremos
+    // si tiene al rey a su alcance. Basta con que s�o haya un caso as�para que exista jaque
+    for (x=1; x<=8; x++)
+    {
+      for (y=1; y<=8; y++)
+      {
+         if ((tablero[x][y].pieza != NINGUNA) && (tablero[x][y].color_pieza != estado->turno)) 
+	 {
+            // Comprobamos si esta pieza se puede mover cuando llegue su turno hasta la casilla que ocupa el rey
+	    jaque = comprobar_destino(rx, ry, x, y, tablero, &copia_est);
+printf("comprobando %c(%i,%i) -> (%i,%i) = %i\n", tablero[x][y].pieza, x, y, rx, ry,jaque);
+            if (jaque == VERDADERO) break;
+         }
+       } // for j
+       if (jaque == VERDADERO) break;
+    } // for i
+    
+    if (estado->turno == BLANCAS)
+       estado->jaque_al_rey_blanco = jaque;
+    else
+       estado->jaque_al_rey_negro = jaque;
+       
+    return jaque;
+}
+
+
+// ---------------------------------------------------------------------------------------
+// Funci�: comprobar_jaque_mate()
+// Comprueba si el rey del jugador que tiene el turno está�en situación de JAQUE MATE
+// Devuelve VERDADERO si lo está y FALSO si no lo está ---------------------------------------------------------------------------------------
+int comprobar_jaque_mate(Tcasilla tablero[9][9], Testado* estado)
+{
+    Tcasilla copia_tab[9][9];
+    Testado copia_estad;
+    int ox, oy, dx, dy, mov_ok;
+    int jaque_mate = VERDADERO;
+    int jaque = VERDADERO;
+    
+    // Primero comprobamos si el rey está en jaque. Si no lo está, es imposible que haya jaque mate
+    if ((estado->turno == BLANCAS) && (estado->jaque_al_rey_blanco != VERDADERO)) {
+       jaque_mate = FALSO;
+       jaque = FALSO;
+    }
+    if ((estado->turno == NEGRAS) && (estado->jaque_al_rey_negro != VERDADERO)) {
+       jaque_mate = FALSO;
+       jaque = FALSO;
+    }
+    
+    // Si el rey está en jaque, comprobamos si hay jaque mate
+    if (jaque == VERDADERO)
+    {
+        // Hay que mover el rey a todas las posiciones posibles. Si en todas ellas sigue habiendo jaque, estaremos
+	// en situación de JAQUE MATE
+	
+	// Hacemos todos los posibles movimientos de este jugador
+	for (ox=1; ox<=8; ox++)
+        {
+	  for (oy=1; oy<=8; oy++)
+	  {
+	    if (tablero[ox][oy].color_pieza == estado->turno)
+	    {
+	       for (dx=1; dx<=8; dx++)
+	       {
+	         for (dy=1; dy<=8; dy++)
+		 {
+	   	    // Utilizaremos una copia del tablero y del estado para hacer con ellos cada movimiento posible
+		    copiar_tablero(tablero, copia_tab);
+		    copiar_estado(estado, &copia_estad);
+	            mov_ok = comprobar_destino(dx,dy,ox,oy,tablero,estado);
+		    if (mov_ok == VERDADERO)
+		    {
+		       actualizar_tablero(ox,oy,dx,dy,copia_tab,&copia_estad);
+		       if (comprobar_jaque(copia_tab, &copia_estad) == FALSO) 
+		       {
+		          // Al menos un movimiento puede salvar al rey
+		          jaque_mate = FALSO;
+		          break;
+		       }
+		    }
+	         } // for dy
+                 if (jaque_mate == FALSO) break;
+	      } // for dx
+              if (jaque_mate == FALSO) break;
+	    } // if
+          } // for oy
+          if (jaque_mate == FALSO) break;
+	} // for ox
+    } // if
+	
+    return jaque_mate;
+}
+
+// ---------------------------------------------------------------------------------------
+// Funciones: actualizar_tiempo()
+// Controla el funcionamiento de los relojes
+// ---------------------------------------------------------------------------------------
+void actualizar_tiempo(Testado* estado)
+{
+   char txt[50];
+   time_t t_actual;
+   
+   if (estado->turno == BLANCAS)
+   {
+      t_actual = time(NULL);
+      if (t_actual > estado->t_anterior)       // Ha pasado al menos un segundo
+      {                                        // desde la ltima medici�
+          estado->t_blancas += t_actual - estado->t_anterior;      // Actualizar tiempo blancas
+          estado->t_anterior = t_actual;
+          // Mostramos en la pantalla los tiempos actuales de cada jugador
+          sprintf(txt,"___________________");
+	  escribir(txt, 16, TXT_NORMAL);
+	  sprintf(txt, "Blancas: %02ld:%02ld:%02ld", (estado->t_blancas/60/60)%24, (estado->t_blancas/60)%60, estado->t_blancas%60);
+          escribir(txt, 17, TXT_NORMAL);
+          sprintf(txt, "Negras: %02ld:%02ld:%02ld", (estado->t_negras/60/60)%24, (estado->t_negras/60)%60, estado->t_negras%60);
+          escribir(txt, 18, TXT_NORMAL);
+      }
+   }
+
+   if (estado->turno == NEGRAS)
+   {
+      t_actual = time(NULL);
+      if (t_actual > estado->t_anterior)     // Ha pasado al menos un segundo
+      {                                      // desde la ltima medici�
+          estado->t_negras += t_actual - estado->t_anterior;	   // Actualizar tiempo negras
+          estado->t_anterior = t_actual;
+          // Mostramos en la pantalla los tiempos actuales de cada jugador
+          sprintf(txt,"___________________");
+	  escribir(txt, 16, TXT_NORMAL);
+          sprintf(txt, "Blancas: %02ld:%02ld:%02ld", (estado->t_blancas/60/60)%24, (estado->t_blancas/60)%60, estado->t_blancas%60);
+          escribir(txt, 17, TXT_NORMAL);
+          sprintf(txt, "Negras: %02ld:%02ld:%02ld", (estado->t_negras/60/60)%24, (estado->t_negras/60)%60, estado->t_negras%60);
+          escribir(txt, 18, TXT_NORMAL);
+      }
+   }
+}
+
+
+// ---------------------------------------------------------------------------------------
+// Reproduce la partida desde el principio. El tablero deber� estar en su posici� inicial.
+// Se recorre la lista de movimientos, reproduci�dolos en el tablero con una pausa entre ellos.
+// ---------------------------------------------------------------------------------------
+void reproducir_partida(Tcasilla tablero[9][9], Testado* estado, int t_pausa)
+{
+   int i, j, n_movs, figura;
+   char mov[10];
+   int x_orig, y_orig, x_dest, y_dest;
+   char columna;
+
+   n_movs = lst_num_elementos();
+   for (i=1; i<= n_movs; i++)
+   {
+      strcpy(mov, lst_buscar(i));     // Recuperamos el movimiento de la lista de movimientos
+
+      // El primer car�ter del movimiento puede ser el identificador de una pieza o bien el identificador
+      // de una columna. Tambi� puede ser una "O" (si es un enroque). Vamos a ver si es una pieza.
+      if ((mov[0] == PEON) || (mov[0] == TORRE) || (mov[0] == CABALLO) || (mov[0] == ALFIL) || (mov[0] == DAMA) || (mov[0] == REY))
+      {
+         j = 1;
+	 figura = mov[0];
+      }
+      else    // No es una pieza. Puede ser la "O" de enroque o un nmero de columna
+      {
+         j = 0;
+	 if (mov[0] == 'O')	// Enroque
+	    figura = REY;
+	 else
+	    figura = PEON;
+      }
+
+      // Interpretamos la notaci� algebraica. Hay que sacar las coordenadas (x,y) de origen y de destino.
+      // Se har�de forma diferente si el movimiento es un enroque que si no lo es
+      if (mov[0] != 'O')   // EL MOVIMIENTO NO ES UN ENROQUE
+      {
+          x_orig = convertir_a_numero(mov[j]);
+          j++;
+          y_orig = mov[j] - 48;   // Convierte c�igo ASCII en nmero
+          j++; j++;
+          x_dest = convertir_a_numero(mov[j]);
+          j++;
+          y_dest = mov[j] - 48;
+      }
+      else                // EL MOVIMIENTO ES UN ENROQUE
+      {
+          if (strcmp(mov, "O-O") == 0)    // Enroque corto
+	  {
+	     if (estado->turno == BLANCAS)    // Enroque corto blanco
+	     {
+	         x_orig = 5; y_orig = 1;
+		 x_dest = 7; y_dest = 1;
+	     }
+	     else			      // Enroque corto negro
+	     {
+	         x_orig = 5; y_orig = 8;
+		 x_dest = 7; y_dest = 8;
+             }
+	  }
+          if (strcmp(mov, "O-O-O") == 0)    // Enroque corto
+	  {
+	     if (estado->turno == BLANCAS)    // Enroque corto blanco
+	     {
+	         x_orig = 5; y_orig = 1;
+		 x_dest = 3; y_dest = 1;
+	     }
+	     else			      // Enroque corto negro
+	     {
+	         x_orig = 5; y_orig = 8;
+		 x_dest = 3; y_dest = 8;
+             }
+	  }
+      }
+
+      // Actualizamos el tablero. Tambi� comprobamos correcci� del movimiento. Todos deben ser correctos puesto
+      // que la partida ha sido grabada anteriormente, pero llamamos a la funci� de comprobaci� porque en ella se puede
+      // modificar el estado del juego
+      comprobar_destino(x_dest, y_dest, x_orig, y_orig, tablero, estado);
+      actualizar_tablero(x_orig, y_orig, x_dest, y_dest, tablero, estado);
+      refrescar_pantalla(tablero);
+      pausa(t_pausa);
+      estado->movimientos++;
+      if (estado->turno == BLANCAS) estado->turno = NEGRAS; else estado->turno = BLANCAS;
+   } // for
+   
+   estado->t_turno = time(NULL);      // Prepara los tiempos de comienzo del siguiente turno
+   estado->t_anterior = time(NULL);
+}
+

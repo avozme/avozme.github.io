@@ -1,0 +1,29 @@
+# Project: Proyecto2
+# Makefile created by Dev-C++ 4.9.8.0
+
+CPP  = g++.exe -D__DEBUG__
+CC   = gcc.exe -D__DEBUG__
+WINDRES = windres.exe
+RES  = 
+OBJ  = 8reinas.o $(RES)
+LINKOBJ  = 8reinas.o $(RES)
+LIBS =  -L"C:/Dev-Cpp/lib" 
+INCS =  -I"C:/Dev-Cpp/include" 
+CXXINCS =  -I"C:/Dev-Cpp/include/c++"  -I"C:/Dev-Cpp/include/c++/mingw32"  -I"C:/Dev-Cpp/include/c++/backward"  -I"C:/Dev-Cpp/include" 
+BIN  = 8reinas_prj2.exe
+CXXFLAGS = $(CXXINCS)  -g3
+CFLAGS = $(INCS)-g   -g3
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before 8reinas_prj2.exe all-after
+
+
+clean: clean-custom
+	rm -f $(OBJ) $(BIN)
+
+$(BIN): $(LINKOBJ)
+	$(CC) $(LINKOBJ) -o "8reinas_prj2.exe" $(LIBS)
+
+8reinas.o: 8reinas.c
+	$(CC) -c 8reinas.c -o 8reinas.o $(CFLAGS)

@@ -1,0 +1,408 @@
+#include <stdio.h>
+#include <ncurses.h>
+#include "ajedrez6.h"
+#include "movs.h"
+
+int main (void)
+{	int con=0;
+	
+	
+	initscr();
+	start_color();
+	init_pair(1,COLOR_BLACK,COLOR_BLACK);
+	init_pair(2,COLOR_RED,COLOR_RED);
+	init_pair(3,COLOR_BLACK,COLOR_RED);
+	init_pair(4,COLOR_RED,COLOR_BLACK);
+	init_pair(5,COLOR_WHITE,COLOR_WHITE);		//INICIALIZ COLORES
+	init_pair(6,COLOR_BLACK,COLOR_WHITE);
+	init_pair(7,COLOR_BLACK,COLOR_GREEN);
+	init_pair(8,COLOR_GREEN,COLOR_GREEN);
+	init_pair(9,COLOR_BLACK,COLOR_CYAN);
+	bkgd(COLOR_PAIR(5));
+	attron(A_BOLD);
+	struct s_casilla tablero[9][9];
+	struct s_estado estado;
+	
+	con=1;		//si es la primera vez q se abre menu(inicio) no podra guardar
+	menu(tablero,con,&estado);
+	
+	
+	
+	return 0;
+}
+	
+void principal(struct s_casilla tablero[9][9],struct s_estado *estado)	
+{	
+	int i,j,n,txt,cont;
+	
+	char color='B';
+
+	attron(COLOR_PAIR(6));
+	
+	do
+	{
+		
+		for(i=1;i<9;i++)
+		{
+			for(j=1;j<9;j++)
+			{
+			   if(color=='B')
+			  {
+				tablero[i][j].color_casilla='B';
+				color='N';
+			  }
+			  else
+			  {
+				tablero[i][j].color_casilla='N';
+				color='B';
+			  }
+			}
+	       		if (color=='B') color='N'; 
+	       		else color = 'B';
+		}
+		
+		dibujar_tablero(tablero);
+		mover(tablero,estado);
+			
+		cont=0;
+		for(i=1;i<9;i++)
+		{
+			for(j=1;j<9;j++)
+			{
+				if(tablero[i][j].pieza=='R')
+				{	cont++;}			//cuenta el numero de R (reyes)
+			}
+		}
+	}
+	while(cont==2);			//si es distinto de 2 sale
+	for(i=10;i<30;i++)
+		{
+		attron(COLOR_PAIR(9));
+		move(i,25);
+		printw("                                                                  ");
+		attron(COLOR_PAIR(1));
+		move(i+1,26);
+		printw("                                                                  ");
+		}refresh();
+		attron(COLOR_PAIR(9));
+		move(12,25);
+		printw("                      JUEGO TERMINADO ");
+		if (estado->turno =='N')
+		{	move(18,25);
+			printw("            HAN GANADO LAS BLANCAS");
+		}
+		else
+		{	
+			move(20,25);
+			printw("              HAN GANADO LAS NEGRAS");
+		}refresh();
+	getchar();
+	endwin();
+	
+	
+}
+
+void inicializar_tablero(struct s_casilla tablero[9][9], struct s_estado *estado)
+{
+int i,j;
+
+	attron(COLOR_PAIR(1));
+	estado->turno='B';
+	
+	tablero[1][1].pieza='T';
+	tablero[1][2].pieza='C';
+	tablero[1][3].pieza='A';
+	tablero[1][4].pieza='R';
+	tablero[1][5].pieza='D';
+	tablero[1][6].pieza='A';
+	tablero[1][7].pieza='C';
+	tablero[1][8].pieza='T';
+	for(i=1;i<9;i++)
+		{tablero[2][i].pieza='P';}
+		
+	
+	tablero[8][1].pieza='T';
+	tablero[8][2].pieza='C';
+	tablero[8][3].pieza='A';
+	tablero[8][4].pieza='R';
+	tablero[8][5].pieza='D';
+	tablero[8][6].pieza='A';
+	tablero[8][7].pieza='C';
+	tablero[8][8].pieza='T';
+	for(i=1;i<9;i++)
+		tablero[7][i].pieza='P';
+	for(i=3;i<=6;i++)
+	{	for(j=1;j<9;j++)
+		{
+		tablero[i][j].pieza=' ';
+		}
+	}
+	for(i=1;i<9;i++)
+	{	
+		tablero[1][i].color_pieza='B';
+		tablero[2][i].color_pieza='B';
+		tablero[3][i].color_pieza='V';
+		tablero[4][i].color_pieza='V';
+		tablero[5][i].color_pieza='V';
+		tablero[6][i].color_pieza='V';
+		tablero[7][i].color_pieza='N';
+		tablero[8][i].color_pieza='N';
+	}
+	
+}
+
+
+
+void dibujar_tablero(struct s_casilla tablero[9][9])
+{
+	int px,py,x,y; int i,j,k;
+	
+	attron(COLOR_PAIR(6));
+	move(1,1);
+	printw("    A      B      C      D      E      F      G      H");
+	for(i=1;i<9;i++)
+	{
+		move(i*3,1);
+		printw("%i",i);
+	}
+	for(i=1;i<9;i++)
+	{	
+		for(j=1;j<9;j++)
+		{
+			if((tablero[i][j].color_casilla=='N')&&(tablero[i][j].color_pieza=='N'))
+			{
+				attron(COLOR_PAIR(1));
+				for (k=0; k<3; k++) {
+				  px=2+((j-1)*7);
+				  py=(2+((i-1)*3))+k;
+				  move(py,px);
+				  printw("       ");
+				}
+				
+			}
+			if((tablero[i][j].color_casilla=='N')&&(tablero[i][j].color_pieza=='B'))
+			{
+				attron(COLOR_PAIR(4));
+				for (k=0; k<3; k++) {
+				  px=2+((j-1)*7);
+				  py=(2+((i-1)*3))+k;
+				  move(py,px);
+				  printw("       ");
+				 
+				}
+				
+			}
+			if((tablero[i][j].color_casilla=='B')&&(tablero[i][j].color_pieza=='B'))
+			{	
+				attron(COLOR_PAIR(2));
+				for (k=0; k<3; k++) {
+				  px=2+((j-1)*7);
+				  py=(2+((i-1)*3))+k;
+				  move(py,px);
+				  printw("       ");
+				 
+				}
+				
+			}
+			if((tablero[i][j].color_casilla=='B')&&(tablero[i][j].color_pieza=='N'))
+			{
+				attron(COLOR_PAIR(3));
+				for (k=0; k<3; k++) {
+				  px=2+((j-1)*7);
+				  py=(2+((i-1)*3))+k;
+				  move(py,px);
+				  printw("       ");
+				   
+				}
+				
+			}
+			
+			if((tablero[i][j].color_casilla=='N')&&(tablero[i][j].color_pieza=='N'))
+			{
+				attron(COLOR_PAIR(1));
+				for (k=0; k<3; k++) {
+				  px=2+((j-1)*7);
+				  py=(2+((i-1)*3))+k;
+				  move(py,px);
+				  printw("       ");
+				}
+				
+			} 
+			if((tablero[i][j].color_casilla=='B')&&(tablero[i][j].color_pieza=='V'))
+			{	
+				attron(COLOR_PAIR(2));
+				for (k=0; k<3; k++) {
+				  px=2+((j-1)*7);
+				  py=(2+((i-1)*3))+k;
+				  move(py,px);
+				  printw("       ");
+				  
+				}
+				
+			}
+			if((tablero[i][j].color_casilla=='N')&&(tablero[i][j].color_pieza=='V'))
+			{
+				attron(COLOR_PAIR(1));
+				for (k=0; k<3; k++) {
+				  px=2+((j-1)*7);
+				  py=(2+((i-1)*3))+k;
+				  move(py,px);
+				  printw("       ");
+				}
+				
+			}
+			px=2+((j-1)*7)+3;
+			py=(2+((i-1)*3))+1;
+		        move(py,px);
+			printw("%c",tablero[i][j].pieza);
+		}
+	}
+		
+	for(i=3;i<20;i++)
+	{	
+		attron(COLOR_PAIR(8));
+		move(i,70);
+		printw("                                                 ");
+		attron(COLOR_PAIR(1));
+		move(i+1,119);
+		printw("  ");	
+		move(20,72);
+		printw("                                                 ");	
+	}
+	for(i=28;i<37;i++)
+	{
+		attron(COLOR_PAIR(2));
+		move(i,50);
+		printw("                                                           ");
+		
+	}
+	refresh();
+}
+
+
+/*void retardo(int r)
+{
+   long int i,j;
+   for (i=1; i<100000L; i++)
+      for (j=1; j<r*1000; j++);   // retardo(1);refresh();
+}
+*/
+void guardar_partida(struct s_casilla tablero[9][9], struct s_estado *estado)
+{
+	struct s_casilla nuevo;
+	FILE*f;
+	int x,y;
+	char c;
+	
+	int i,j;
+	
+
+	c = estado->turno;
+
+	
+	f=fopen("archivo.txt","wb");
+	if(f==NULL)
+	{
+		attron(COLOR_PAIR(2));
+		move(1,1);
+		printw("error....");
+	
+	}
+	else
+	{
+		
+		fwrite(tablero,sizeof(struct s_casilla),81,f);		//guarda la estructura tablero en f
+		fwrite(estado,sizeof(struct s_estado),1,f);		// "      "    "         estadi " "
+		attron(COLOR_PAIR(2));
+		move(49,50);
+		
+		
+		
+	}
+	refresh();
+	fclose(f);
+}
+
+
+void menu(struct s_casilla tablero[9][9],int con,struct s_estado *estado)
+{
+int i,n,txt;
+
+
+for(i=10;i<30;i++)
+	{
+		attron(COLOR_PAIR(9));
+		move(i,25);
+		printw("                                                                  ");
+		attron(COLOR_PAIR(1));
+		move(i+1,26);
+		printw("                                                                  ");
+	}	
+	do
+	{
+		attron(COLOR_PAIR(9));
+		move(12,30);
+		printw(" Menu de opciones ");
+		move(15,25);
+		printw("1-Nueva partida");
+		move(17,25);
+		printw("2-Cargar partida");
+		move(19,25);
+		printw("3-Guardar partida");
+		move(21,25);
+		printw("4-Volver a la partida");
+		txt=getch();
+		n=convertir_fila(txt);
+		refresh;
+	}
+	while((n!=1)&&(n!=2)&&(n!=3)&&(n!=4));		//controla la opcion si no es alguna de estas sigue preguntando
+	clear();
+	switch (n)				//menu, desde aqui se controla todo el programa
+	{
+		
+		case 1: inicializar_tablero(tablero,estado);
+			principal(tablero,estado);break;
+		case 2: cargar_partida(tablero,estado);
+			principal(tablero,estado);break;
+		case 3: if(con!=1){		//si es el primer menu(de inicio) no podra grabar partida
+			guardar_partida(tablero,estado);
+			principal(tablero,estado);}
+			else menu(tablero,con,estado);break;
+		case 4: if(con!=1)	//si es el primer menu(de inicio) no podra volver a la partida acutal porque no existe
+			{principal(tablero,estado);}
+			else menu(tablero,con,estado); break;
+			
+	}
+	con++;
+}
+
+void cargar_partida(struct s_casilla tablero[9][9], struct s_estado *estado)
+{
+	FILE*f;
+	int r,s;
+	int x,y;
+	char c;
+	f=fopen("archivo.txt","rb");
+	if (f==NULL)
+	{
+		printf("error......");
+	}
+	else
+	{
+
+		r=fread(tablero, sizeof(struct s_casilla),81,f);	//lee la estrcutura tablero en f
+		s=fread(estado,sizeof(struct s_estado),1,f);		// "   "      "      estado en f
+		
+		if ((r>0)&&(s>0))
+		{	
+			move(49,50);
+			
+			
+		}
+	}
+	
+	
+	fclose(f);
+}
+
+	

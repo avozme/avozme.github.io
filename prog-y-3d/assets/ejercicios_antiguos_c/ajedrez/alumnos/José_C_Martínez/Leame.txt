@@ -1,0 +1,23 @@
+AJEDREZ: FICHERO DE AYUDA
+
+
+MOVIMIENTOS:
+
+Mover arriba				CURSOR ARRIBA
+Mover abajo				CURSOR ABAJO
+Mover izquierda				CURSOR IZQUIERDA
+Mover derecha				CURSOR DERECHA
+Seleccionar/deseleccionar pieza		INTRO
+Pausa/menú				RETROCESO
+
+PIEZAS:
+
+P		Peón
+T		Torre
+C		Caballo
+A		Alfil
+D		Dama o Reina
+R		Rey
+
+
+Este programa es una versión de Ajedrez en modo texto para dos jugadores. Para seleccionar una pieza, desplace el cursor por el tablero con las teclas arriba indicadas. Para deseleccionar la pieza, sitúe el cursor en la posición que ocupa la pieza y vuelva a pulsar INTRO. La partida finalizará cuando uno de los Reyes haya sido eliminado.

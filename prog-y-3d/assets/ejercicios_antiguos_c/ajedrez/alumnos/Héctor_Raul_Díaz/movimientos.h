@@ -1,0 +1,10 @@
+int comprobar_mov(int x, int y, int xd, int yd, struct s_casilla tablero[9][9], struct s_estado estado, struct s_mov *moves);
+int comp_mov_p(int columna, int fila, int columnd, int filad, struct s_casilla tablero[9][9], struct s_estado estado, struct s_mov *moves);
+int comp_mov_t(int columna, int fila, int columnd, int filad, struct s_casilla tablero[9][9], struct s_estado estado, struct s_mov *moves);
+int comp_mov_c(int columna, int fila, int columnd, int filad, struct s_casilla tablero[9][9], struct s_estado estado, struct s_mov *moves);
+int comp_mov_a(int columna, int fila, int columnd, int filad, struct s_casilla tablero[9][9], struct s_estado estado, struct s_mov *moves);
+int comp_mov_r(int columna, int fila, int columnd, int filad, struct s_casilla tablero[9][9], struct s_estado estado, struct s_mov *moves);
+int comp_mov_d(int columna, int fila, int columnd, int filad, struct s_casilla tablero[9][9], struct s_estado estado, struct s_mov *moves);
+int enroque(int x, int y, int xd, int yd, struct s_casilla tablero[9][9], struct s_estado estado, struct s_mov **moves);
+int mover_pieza(int x, int y, int xd, int yd, struct s_casilla tablero[9][9], struct s_estado estado, struct s_mov **moves);
+int mov_inc(struct s_casilla tablero[9][9], struct s_estado estado, struct s_mov *moves);

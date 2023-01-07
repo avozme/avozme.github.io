@@ -1,0 +1,209 @@
+#include "tablero_en_curso2.h"
+#include "tirada.h"
+
+
+
+int tirada(struct s_casilla tablero[9][9])
+{
+	int n,cont=0;
+	int y,x,xo,yo;
+	char turno='B';
+
+do
+	{
+	if(turno=='B')
+	{
+		move(1,65);
+		attron(COLOR_PAIR(1));
+		printw("TURNO de las BLANCAS");
+		turno='N';
+	}
+	else
+	{
+		move(1,65);
+		attron(COLOR_PAIR(2));
+		printw("TURNO de  las NEGRAS");
+		turno='B';
+	}
+
+	move(5,65);
+	attron(COLOR_PAIR(1));
+	printw("Casilla ORIGEN: ");		//SELECCIONA LA CASILLA ORIGEN
+
+
+
+	do
+	{
+	if (cont>=1)
+	{
+		move(20,65);
+		attron(COLOR_PAIR(3));		//SI TURNO!=FICHA SELECCIONADA
+		printw("MOVIMIENTO ILEGAL");
+	}
+	move(7,65);
+	printw("Fila: ");					//Pide la fila
+	refresh();
+	n=getch();
+	xo=cambiar_filas(n);
+
+	attron(COLOR_PAIR(1));
+	move(8,65);
+	printw("Columna: ");					//Pide la columna
+	refresh();
+	n=getch();
+	yo=cambiar_columna(n);
+	cont++;
+	}
+	while(tablero[xo][yo].color_ficha==turno);		//cOMPRUBA EL TURNOO
+	cont=0;
+	move(20,65);
+	printw("                  ");
+
+
+	attron(COLOR_PAIR(1));
+	move(7,73);					//Muestra la fila seleccionada
+	printw("%i",xo);
+
+	attron(COLOR_PAIR(1));
+	move(8,73);						//Muestra la columna
+	printw("%i",yo);
+	move(11,65);
+	attron(COLOR_PAIR(1));
+	printw("Casilla DESTINO: ");		//SELECCIONA LA CASILLA DE DESTINO
+	move(13,65);
+	printw("Fila: ");					//Pide la fila
+	refresh();
+	n=getch();
+	x=cambiar_filas(n);
+
+	attron(COLOR_PAIR(1));
+	move(14,65);
+	printw("Columna: ");					//Pide la Columna
+	refresh();
+	n=getch();
+	y=cambiar_columna(n);
+
+	attron(COLOR_PAIR(1));
+	move(13,73);
+	printw("%i",x);						//Muestra la Fila Seleccionada
+
+
+	attron(COLOR_PAIR(1));
+	move(14,73);
+	printw("%i",y);					//Muestra la Columna Seleccionada
+
+	tablero[x][y].figura=tablero[xo][yo].figura;
+	tablero[x][y].color_ficha=tablero[xo][yo].color_ficha;
+	tablero[xo][yo].figura=' ';
+
+	refrescar_matriz(tablero);
+
+	}
+	while(x!=0);
+
+
+return 0;
+}
+
+
+int cambiar_columna(char c)
+{
+	int y;
+				// Esta funcion cambia el caracter de las columnas por numeros
+switch (c)
+	{
+	case 'a':
+		{
+		y=1;
+		break;
+		}
+	case 'b':
+		{
+		y=2;
+		break;
+		}
+	case 'c':
+		{
+		y=3;
+		break;
+		}
+	case 'd':
+		{
+		y=4;
+		break;
+		}
+	case 'e':
+		{
+		y=5;
+		break;
+		}
+	case 'f':
+		{
+		y=6;
+		break;
+		}
+	case 'g':
+		{
+		y=7;
+		break;
+		}
+	case 'h':
+		{
+		y=8;
+		break;
+		}
+	}
+return(y);
+}
+
+int cambiar_filas(int c)
+{
+	int x;
+
+switch (c)			//Esta funcion cambia el orden de la matriz para su gestion.
+	{
+	case '1':
+		{
+		x=8;
+		break;
+		}
+	case '2':
+		{
+		x=7;
+		break;
+		}
+	case '3':
+		{
+		x=6;
+		break;
+		}
+	case '4':
+		{
+		x=5;
+		break;
+		}
+	case '5':
+		{
+		x=4;
+		break;
+		}
+	case '6':
+		{
+		x=3;
+		break;
+		}
+	case '7':
+		{
+		x=2;
+		break;
+		}
+	case '8':
+		{
+		x=1;
+		break;
+		}
+	}
+return(x);
+}
+
+

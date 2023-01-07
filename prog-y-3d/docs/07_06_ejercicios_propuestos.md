@@ -76,20 +76,9 @@ Cada vez que el jugador escribe un número, el programa le dice: "Mi número sec
 
 Cuando el jugador por fin acierta, el ordenador le dice: "Enhorabuena, has acertado", y añade el número de intentos que ha necesitado para acertar el número secreto.
 
-#### Ejercicio 5. Juego de memoria
+#### Ejercicio 5. Calculadora de edad
 
-Ahora empieza la diversión.
-
-Vamos a escribir en C un juego que podemos bautizar como "Juego de memoria". Será un juego en modo texto (bastante feo, por lo tanto), pero totalmente jugable y que nos servirá para afianzar todos los conocimientos adquiridos hasta ahora.
-
-Reglas del juego:
-
-* El juego comenzará preguntando el nivel de dificultad, que puede ser fácil, medio o difícil.
-* El ordenador elegirá al azar una serie de números. La serie consistirá al principio en un solo número. Luego serán dos números, luego tres, luego cuatro... y así hasta diez. Los números de la serie solo pueden ser tres: 1, 2 y 3. 
-* El ordenador mostrará su serie de números durante un tiempo en la pantalla. Ese tiempo será tanto menor cuanto más alto sea el nivel de dificultad.
-* Después, la serie se borrará y el jugador debe demostrar su memoria y sus reflejos repitiéndola. 
-* Si el jugador acierta en todos los números de la serie, el ordenador pasará a su siguiente serie (que tendrá un número más). Si el jugador falla, el juego termina.
-* Si el jugador es capaz de repetir con éxito todas las series (desde la que solo tiene un número hasta la que tiene 10), el jugador gana.
+Escribe un programa que te pregunte tu fecha de nacimiento y la fecha actual. Luego, tiene que decirte cuál es tu edad EXACTA, en años, meses y días.
 
 #### Ejercicio 6. Pelota que rebota
 
@@ -154,12 +143,25 @@ El jugador (cuyo vehículo representaremos con una H) puede mover su coche hacia
 
 La carretera se va desplazando de abajo a arriba, aprovechándose del scroll propio de la pantalla de texto. La carretera no debe ser recta, sino que tendrá irregularidades, como las mostradas en la figura, generadas al azar.
 
-#### Proyecto.
+#### Proyectos.
 
-XXX
+En lugar de continuar haciendo ejercicios de programación chorras, vamos a plantear un pequeño proyecto individual.
+
+La idea es que cada uno/una elija un proyecto y **lo desarrolle en lo que queda de curso**. Se trata de programas un poco más grandes que los ejercicios anteriores, pero no tan grandes que no se puedan afrontar con éxito.
+
+A continuación te propongo una lista de proyectos posibles basados en **juegos clásicos**. Si no encuentras nada que te guste, puedes elegir tu propio proyecto (antes de darlo por bueno, coméntalo con el profesor).
+
+Puedes empezar por una versión muy simple del programa (sin usar gráficos, que funcione mínimamente, etc) y, dependiendo del tiempo que tengas disponible, ir ampliando sus funcionalidades y mejorando su aspecto visual. O incluso añadir efectos de sonido.
 
 * Hundir la flota
 * Snake
 * Buscaminas
 * Pong
 * Ahorcado
+* Damas
+* Ajedrez
+* Space Invaders
+* Tetris
+* Tenis
+* Palabras cruzadas
+* Otros (libre elección -> *comentar con el profesor*).

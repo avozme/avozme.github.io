@@ -564,6 +564,133 @@ Como esto puede ser un poco engorroso, hay una forma de agregar automáticamente
 
 A partir de ahora, podremos hacer las peticiones Ajax normalmente, porque el token CSRF se añadirá él solito a cada petición Ajax.
 
-## 7.7. Creando una OVA con React y Laravel
+## 7.7. Creando una OVA con Vue.js y PHP
 
-Esta parte del manual está pendiente de elaboración.
+**Vue.js** (o, más popularmente, Vue) es un framework para Javascript pensado para ayudarte a crear **interfaces de usuario y aplicaciones OVA** (one-view-application).
+
+Vue.js añade ciertos componentes tanto a Javascript como a HTML para facilitar la creación de este tipo de aplicaciones. Aunque no es parte de nuestra materia (ya que es un framework del lado del cliente), puedes encontrar una introducción a Vue.js en los apéndices de estos mismos apuntes.
+
+Ten en cuenta que, además de Vue.js, existen otros frameworks que trabajan de forma parecida, como Angular o React. Puedes investigar un poco por ahí y verás que los tres tienen más semejanzas que diferencias.
+
+Vue.js hace todas las peticiones al servidor de forma asíncrona, es decir, usando Ajax, pero queda tan encapsulado por el framework que el programador no es consciente de estar haciendo peticiones Ajax.
+
+En esta sección vamos a ver un **pequeño ejemplo**: vamos a crear con Vue.js el front para consumir un servicio API REST basado en una tabla de Libros que podría formar parte de un sistema mayor (por ejemplo, una biblioteca).
+
+Sin más preámbulos, te presento el código:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<template>
+  <div>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Número de páginas</th>
+        <th>Género</th>
+        <th>País</th>
+        <th>Año</th>
+      </tr>
+      <tr v-for="libro in libros" :key="libro.idLibro">
+        <td>{{ libro.idLibro }}</td>
+        <td>{{ libro.titulo }}</td>
+        <td>{{ libro.numPaginas }}</td>
+        <td>{{ libro.genero }}</td>
+        <td>{{ libro.pais }}</td>
+        <td>{{ libro.ano }}</td>
+      </tr>
+    </table>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      libros: []
+    }
+  },
+  created() {
+    this.cargarLibros();
+  },
+  methods: {
+    async cargarLibros() {
+      try {
+        const response = await axios.get('https://tu-api-rest.com/libros');
+        this.libros = response.data;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
+}
+</script>
+```
+
+Este código crea una tabla HTML que muestra los libros obtenidos de la API REST. La tabla se construye a partir de una lista de libros que se encuentra en el objeto data del componente Vue. Cada vez que el componente se cree, se llama al método cargarLibros() que hace una petición HTTP GET a la API REST utilizando la librería Axios. Cuando se obtiene la respuesta de la API, se actualiza el objeto data libros con los datos obtenidos.
+
+Otro enfoque: 
+
+```html
+<template>
+  <div>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Número de páginas</th>
+        <th>Género</th>
+        <th>País</th>
+        <th>Año</th>
+      </tr>
+      <tr v-for="libro in libros" :key="libro.idLibro">
+        <td>{{ libro.idLibro }}</td>
+        <td>{{ libro.titulo }}</td>
+        <td>{{ libro.numPaginas }}</td>
+        <td>{{ libro.genero }}</td>
+        <td>{{ libro.pais }}</td>
+        <td>{{ libro.ano }}</td>
+      </tr>
+    </table>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      libros: []
+    }
+  },
+  created() {
+    this.cargarLibros();
+  },
+  methods: {
+    async cargarLibros() {
+      try {
+        const response = await axios.get('https://tu-api-rest.com/libros');
+        this.libros = response.data;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
+}
+</script>
+
+<!-- utiliza el componente en tu aplicación Vue -->
+<div id="app">
+  <libros-tabla></libros-tabla>
+</div>
+
+<!-- registra el componente en la aplicación Vue -->
+<script>
+new Vue({
+  el: '#app',
+  components: {
+    'libros-tabla': LibrosTabla
+  }
+});
+</script>
+```
+
