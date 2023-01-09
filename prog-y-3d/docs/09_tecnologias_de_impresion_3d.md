@@ -288,4 +288,4 @@ Una impresora 3D por FDM trabajando
 
 **Ejercicio 4**. En el tema hemos mencionado los paquetes de software de modelado 3D más importantes, como *Maya*, *Blender* o *3DS Max*. Busca en internet información acerca de qué software utiliza la industria del entretenimiento (cine, televisión, publicidad, videojuegos...) para hacer los modelos y animaciones 3D que vemos a diario.
 
-**Ejercicio OBLIGATORIO**. En Moodle encontrarás un [Wiki colaborativo](https://educacionadistancia.juntadeandalucia.es/centros/almeria/mod/wiki/view.php?id=322303) sobre los distintos tipos de impresora que existen. Agrupados en parejas, tenéis que investigar uno de los tipos de impresora siguiendo las pautas que se indican en el propio Wiki.
+**Ejercicio OBLIGATORIO**. En Moodle encontrarás un [Wiki colaborativo](https://educacionadistancia.juntadeandalucia.es/centros/almeria/mod/wiki/view.php?id=395914) sobre los distintos tipos de impresora que existen. Agrupados en parejas, tenéis que investigar uno de los tipos de impresora siguiendo las pautas que se indican en el propio Wiki.
