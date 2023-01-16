@@ -13,7 +13,7 @@ parent: Introd. a la prog. y al diseño 3D
 - TOC
 {:toc}
 
-<p style='color: red'><strong>ATENCIÓN: este capítulo está en fase de revisión, así que su contenido va a cambiar en las próximas semanas.</p>
+<p style='color: red'><strong>ATENCIÓN: este capítulo está en fase de revisión, así que su contenido va a cambiar en las próximas semanas.</strong></p>
 
 En este capítulo vamos a introducir las técnicas de **programación orientada a objetos** y su implementación en Javascript.
 
