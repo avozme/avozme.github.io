@@ -459,24 +459,16 @@ La verdadera potencia de Vue.js para crear aplicaciones web de una sola vista co
 
 La situación habitual en este caso es tener ya una vista cargada (creada con componentes de Vue) que tenemos que actualizar con datos procedentes del servidor. Por lo tanto, **todas las peticiones al servidor deben ser asíncronas**.
 
-Como vimos en el [tema 7](/docs/dwes/_site/ajax/), para hacer peticiones asíncronas debes utilizar **Ajax**:
+Como vimos en el [tema 7](/docs/dwes/_site/ajax/), para hacer peticiones asíncronas puedes utilizar **Ajax** de dos maneras diferentes:
 
 1. En su forma tradicional, es decir, con el objeto ***XMLHttpResponse***.
 2. O bien mediante alguna libería moderna como ***fetch*** o ***axios***.
 
-Como siempre, vamos a ver cómo se cargan los datos de un componente Vue con datos del servidor mediante un ejemplo sencillo que puedas usar como base para tus propios desarrollos.
+Como siempre, vamos a ver cómo se actualiza un componente Vue con datos del servidor mediante un ejemplo sencillo que puedas usar como base para tus propios desarrollos. Después veremos un ejemplo un poco más completo: un CRUD hecho con Vue.
 
 ### A3.4.1. Un ejemplo sencillo
 
-En el siguiente ejemplo, tendremos un *input* de tipo *text* para teclear un DNI. Cuando se introduzca algo en ese *input*, se ejecutará el método *getNameAndLastName()* (observa en el código que el evento se llama, precisamente, *@input*).
-
-Ese método estará declarado como ***async***, lo que significa que contiene una operación asíncrona en su interior. Una función asíncrona permite utilizar el controlador *await* para esperar a que una promesa se resuelva antes de continuar la ejecución del código.
-
-La función *fetch()* devuelve una promesa que se resuelve con la respuesta HTTP. Al usar *await*, se espera a que la promesa se resuelva antes de continuar la ejecución del código, lo que nos permite escribir el código de la función como si fuera síncrono. Esto hace que el código sea más fácil de entender y mantener. 
-
-Si no utilizásemos la palabra *async* delante del nombre del método, el *await* se ejecutaría de forma asíncrona y tendríamos que trabajar con *callbacks* o encadenando promesas para acceder a los datos, como hicimos en los [ejemplos con *fetch* del tema 7](http://localhost:4000/docs/dwes/_site/ajax/#75-ajax-y-la-api-fetch).
-
-Una vez que se recibe la respuesta del servidor (un JSON con el nombre y el apellido de la persona a la que corresponde ese DNI), se coloca en los dos párrafos reservados para ello dentro de la plantilla.
+En el siguiente ejemplo, tendremos un *input* de tipo *text* para teclear un DNI. Cuando se introduzca algo en ese *input*, se cargará el nombre y apellidos de la persona desde el servidor, es decir, mediante una consulta a una base de datos remota, y se mostrarán en la pantalla.
 
 ```html
 <template>
@@ -512,13 +504,23 @@ export default {
 </script>
 ```
 
+Si observas el código con detenimiento, verás que el método *getNameAndLastName()* se ejecuta al introducir cualquier cosa en el campo de texto. La abreviatura para ese evento en Vue es ***@input***, aunque un evento tradicional de Javascript también funcionaría.
+
+El método *getNameAndLastName()* está declarado como ***async***, lo que significa que contiene una operación asíncrona en su interior. Un método declarado así permite utilizar el controlador *await* para esperar a que una promesa se resuelva antes de continuar la ejecución del código.
+
+La función *fetch()* devuelve una promesa que se resuelve cuando el servidor responde. Al usar *await*, se espera a que la promesa se resuelva antes de continuar la ejecución del código, lo que nos permite escribir el código de la función **como si fuera síncrono**. Esto hace que el código sea más fácil de entender y mantener. 
+
+Si no utilizásemos la palabra *async* delante del nombre del método, el *await* se ejecutaría de forma asíncrona y tendríamos que trabajar con *callbacks* o encadenando promesas para acceder a los datos, como hicimos en los [ejemplos con *fetch* del tema 7](http://localhost:4000/docs/dwes/_site/ajax/#75-ajax-y-la-api-fetch).
+
+Una vez que se recibe la respuesta del servidor (un JSON con el nombre y el apellido de la persona a la que corresponde ese DNI), se coloca en los dos elementos <p> reservados para ello dentro de la plantilla.
+
 ### A3.4.2. Un ejemplo completo: CRUD con Vue y un servidor RESTful
 
-Vamos a mostrar ahora un ejemplo más completo. Supongamos ahora que tenemos una base de datos con una tabla llamada *"Libros"* cuyos campos son *id, título, numPaginas, genero, pais* y *año*. Supongamos también que tenemos un **servidor REST** programado con PHP (o con lo que sea, porque en realidad no importa) que trabaja con esa tabla.
+Vamos a mostrar ahora un ejemplo más completo. Supongamos ahora que tenemos una base de datos con una tabla llamada *Libros* cuyos campos son *id, título, autor* y *editorial*. Supongamos también que tenemos un **servidor REST** programado con PHP (o con lo que sea, porque en realidad no importa) que trabaja con esa tabla.
 
 No es un ejemplo realista, desde luego (la tabla está horrorosamente diseñada), pero sí que nos servirá para ilustrar cómo puede interactuar Vue con un servidor RESTful.
 
-En el siguiente código, vamos a usar ***axios*** en lugar de *fetch*. Se trata de otra librería Javascript para hacer peticiones asíncronas al servidor. Es muy similar a *fetch* o *ajax* de jQuery. Como se utiliza mucho, te la muestro en este ejemplo para que veas qué aspecto tiene. Compárala con el ejemplo anterior, en el que utilizamos *fetch*, y verás que hay muy pocas diferencias prácticas.
+En el siguiente código, vamos a usar ***axios*** en lugar de *fetch*. Se trata de otra librería Javascript para hacer peticiones asíncronas al servidor. Es muy similar a *fetch* o al método *ajax* de jQuery. Como se utiliza mucho, te la muestro en este ejemplo para que veas qué aspecto tiene. Compárala con el ejemplo anterior, en el que utilizamos *fetch*, y verás que hay muy pocas diferencias prácticas.
 
 ```html
 <template>
@@ -527,18 +529,14 @@ En el siguiente código, vamos a usar ***axios*** en lugar de *fetch*. Se trata 
       <tr>
         <th>ID</th>
         <th>Título</th>
-        <th>Número de páginas</th>
-        <th>Género</th>
-        <th>País</th>
-        <th>Año</th>
+        <th>Autor</th>
+        <th>Editorial</th>
       </tr>
       <tr v-for="libro in libros" :key="libro.idLibro">
         <td>{{ libro.idLibro }}</td>
         <td>{{ libro.titulo }}</td>
-        <td>{{ libro.numPaginas }}</td>
-        <td>{{ libro.genero }}</td>
-        <td>{{ libro.pais }}</td>
-        <td>{{ libro.ano }}</td>
+        <td>{{ libro.autor }}</td>
+        <td>{{ libro.editorial }}</td>
       </tr>
     </table>
   </div>
@@ -568,11 +566,11 @@ export default {
 </script>
 ```
 
-En el código anterior puedes ver cómo, usando *axios*, se puede hacer dinámicamente la carga de libros y asignarla al array *libros*, que a su vez está asociado al template HTML. El método *cargarLibros()*, como en el ejemplo anterior, debe estar declarado como *async* para poder escribir el código linealmente, como si fuera síncrono, lo cual facilita mucho la labor de desarrollo.
+En el código anterior puedes ver cómo, usando *axios*, se puede hacer dinámicamente la carga de libros y asignarla al array *libros*, que a su vez está asociado al template HTML. El método *cargarLibros()*, como en el ejemplo anterior, se ha declarado como *async* para poder escribir el código linealmente, como si fuera síncrono, lo cual facilita mucho la labor de desarrollo.
 
 Añadamos ahora las **funcionalidades típicas de un CRUD**, como "Editar", "Borrar", etc. De ese modo, conseguiremos un CRUD completo que trabaje con este servidor REST.
 
-En el siguiente ejemplo puedes ver cómo construir ese CRUD con Vue, aunque hemos simplificado un poco la tabla de *libros* para que solo tenga los campos *Título, Autor* y *Editorial*, pero, lógicamente, cambiar esos campos por otros es una tarea sencilla. Observa bien cómo se etiquetan los campos de la tabla y de los formularios para enlazarlos con los datos de Vue, y qué fácil y limpio queda el código de los métodos usando *async* y una librería como *axios*:
+En el siguiente ejemplo puedes ver cómo construir ese CRUD con Vue. Observa bien cómo se etiquetan los campos de la tabla y de los formularios para enlazarlos con los datos de Vue, y qué fácil y limpio queda el código de los métodos usando *async* y una librería como *axios*:
 
 ```html
 <template>
