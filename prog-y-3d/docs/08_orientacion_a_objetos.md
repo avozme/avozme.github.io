@@ -13,6 +13,8 @@ parent: Introd. a la prog. y al diseño 3D
 - TOC
 {:toc}
 
+<p style='color: red'><strong>ATENCIÓN: este capítulo está en fase de revisión, así que su contenido va a cambiar en las próximas semanas.</p>
+
 En este capítulo vamos a introducir las técnicas de **programación orientada a objetos** y su implementación en Javascript.
 
 La programación orientada a objetos es una forma de programar (un *paradigma*, dicen los teóricos) que implica organizar el código fuente de una determinada manera. Desde que este paradigma se impuso con fuerza en la década de 1990, se ha comprobado que las aplicaciones orientadas a objetos son más fáciles de diseñar y de mantener que las aplicaciones que usan técnicas de programación más anticuadas (lo que se llama **programación estructurada clásica**).

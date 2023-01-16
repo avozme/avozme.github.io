@@ -17,23 +17,23 @@ parent: Desarrollo Web en Entorno Servidor
 
 Vue.js es un **framework para Javascript** orientado al **diseño de interfaces de usuario** para aplicaciones web y a la **creación de aplicaciones OVA** (One View Application) o SPA (Single Page Application).
 
-Es similar a otros frameworks como **Angular** o **React**, aunque más fácil de aprender. Al igual que estos dos, tiene licencia de *software libre*.
+Es similar a otros frameworks como **Angular** o **React**, aunque más fácil de aprender (o, al menos, un poco más fácil). Al igual que estos dos, tiene licencia de software libre.
 
-Para usar Vue.js en un proyecto se puede optar por alguna de estas vías:
+Para usar Vue.js en un proyecto se puede optar, al menos, por alguna de estas vías:
 
-1. Incluirlo como una librería Javascript más (mejor desde un CDN). Por ejemplo:
+1. **Incluirlo como una librería Javascript más** (mejor desde un CDN). Por ejemplo:
 
    ```html
    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
    ```
 
-2. Usarlo en combinación con un servidor Node. Hay que instalar Node.js y npm en el lado del servidor. Esto permite desarrollar toda la aplicación web con Javascript, de modo que el código sea, al menos en teoría, más fácil de desarrollar y mantener, además de más eficiente.
+2. **Usarlo en combinación con un servidor Node**. Hay que instalar Node.js y npm en el lado del servidor. Esto permite desarrollar toda la aplicación web con Javascript, de modo que el código sea, al menos en teoría, más fácil de desarrollar y mantener, además de más eficiente.
 
-3. Usarlo en combinación con Laravel. En este caso, como es lógico, hay que tener Laravel corriendo en un servidor Apache o similar. Laravel proporciona su propio servidor Node. De este modo, conseguimos la eficiencia del código Javascript precompilado sin renunciar a la potencia de PHP con Laravel en el lado del servidor.
+3. **Usarlo en combinación con Laravel**. En este caso, como es lógico, hay que tener Laravel corriendo en el servidor. Laravel proporciona su propio servidor Node. De este modo, conseguimos combinar la facilidad para la construcción de interfaces de usuario que proporciona Vue con la potencia de PHP y Laravel.
 
 ## A3.2. Algunos ejemplos sencillos
 
-Para ver cómo trabaja Vue.js (independientemente de que lo estemos usando solo o en combinación con Laravel), vamos a escribir algunos ejemplos sencillos de entender, en lugar de teorizar sobre la estructura de las páginas desarrolladas con Vue.
+Antes de explicar cuál es la estructura típica de una aplicación echa con Vue, vamos a ver algunos ejemplos sencillos de entender. Así quedará luego mucho más claro cómo se escriben este tipo de aplicaciones.
 
 ### Ejemplo 1: hola, mundo
 
@@ -308,22 +308,175 @@ El componente "mis-tareas" puede reutilizarse cuantas veces sean necesarias, y c
     </div>
 ```
 
+## A3.3. Estructura típica de una aplicación Vue
 
-## A3.3. Cómo recibe Vue.js datos del servidor
+Ahora que hemos visto y comprendido algunos ejemplos, estamos en mejores condiciones para hablar de cuál es la estructura típica de una página hecha con Vue.js.
 
-La potencia de Vue.js comenzará a verse si logramos alimentar los componentes con datos procedentes del servidor. Entonces estaremos cerca de lograr una aplicación web con una sola vista que pueda ir cambiando según los datos que se reciban de un servidor web.
+Aunque se puede organizar de diversas maneras, generalmente una web construida con Vue consta de los siguientes elementos:
 
-La idea es que ya tenemos una vista cargada que queremos actualizar con datos procedentes del servidor. Por lo tanto, todas las peticiones al servidor deben ser asíncronas.
+* **Un archivo HTML** que contiene la estructura básica de la página y un contenedor (```<div id="app">```) para la aplicación Vue.
 
-Como ya sabes, para hacer peticiones asíncronas debes utilizar **Ajax**, ya sea en su forma tradicional (con el objeto *XMLHttpResponse*) o mediante alguna libería moderna (como *fetch* o *axios*).
+* **Un archivo JavaScript** que contiene la lógica de la aplicación Vue, incluyendo la configuración, los componentes y los métodos. Aunque en los ejemplos hemos incluido esto en el mismo archivo que el HTML, lo normal es sacarlo a un archivo JS.
 
-En el siguiente ejemplo, tenemos un *input* de tipo *text* para teclear un DNI. Cuando se introduzca algo en ese *input*, se ejecutará el método *getNameAndLastName()* (observa que el evento se llama, precisamente, *@input*).
+* **Un archivo Vue** que contiene la estructura base de la aplicación Vue y todos los componentes. Lo habitual es sacar cada componente a un archivo .vue independiente e importarlos todos en el archivo .vue principal.
 
-Ese método está declarado como ***async***, lo que significa que contiene una operación asíncrona en su interior. Una función asíncrona permite utilizar el controlador *await* para esperar a que una promesa se resuelva antes de continuar la ejecución del código.
+* Además, tendremos los archivos .css con los estilos para la página, como en cualquier web, y, opcionalmente, pueden usarse archivos vue adicionales para manejar rutas, para el almacenamiento de datos y o para otras funcionalidades. Veremos el enrutador de Vue al final de este apéndice.
 
-La función *fetch()* devuelve una promesa que se resuelve con la respuesta HTTP. Al usar *await*, se espera a que la promesa se resuelva antes de continuar la ejecución del código, lo que nos permite trabajar con la respuesta como si fuera síncrono. Esto hace que el código sea más fácil de entender y mantener. (Si no se utilizase la palabra *async* delante del nombre del método, el *await* se ejecutaría de forma asíncrona y tendríamos que trabajar con callbacks o encadenando promesas para acceder a los datos).
+Por lo tanto, la estructura de archivos de una aplicación Vue puede ser más o menos así:
 
-Una vez que se recibe la respuesta del servidor (un JSON con el nombre y el apellido de la persona a la que corresponde ese DNI), se coloca en las dos posiciones reservadas dentro de la plantilla.
+```
+-index.html
+-main.js
+-App.vue
+-components/
+    -header.vue
+    -footer.vue
+-assets/
+    -css/
+        -main.css
+    -img/
+```
+
+* El archivo *index.html* contiene la estructura básica de la página y un contenedor para la aplicación Vue (```<div id="app">```).
+
+* El archivo *main.js* contiene la configuración de la aplicación y las funciones Javascript. Aquí se importa el archivo *App.vue*, donde estarán los componentes Vue.
+
+* El archivo *App.vue* contiene la estructura base de la aplicación Vue. Aquí se importan los demás componentes, que se colocan en archivos individuales.
+
+* En la carpeta *components* se tienen todos los componentes de Vue que se usan en la aplicación (un componente por archivo, todo con extensión .vue).
+
+* En la carpeta *assets*, como es habitual, están todos los demás recursos necesarios para la aplicación, como css adicional, imágenes, audios, etc.
+
+### A3.3.2. El archivo App.vue
+
+El archivo ***App.vue*** del ejemplo anterior debería contener la **estructura base** de la aplicación Vue en forma de **plantilla**, además de importar todos los componentes Vue que estarán almacenados en archivos independientes.
+
+Podría ser algo como esto:
+
+```html
+<template>
+  <div id="app">
+    <header-component />
+    <example-component /> 
+    <footer-component />
+  </div>
+</template>
+
+<script>
+import HeaderComponent from './components/header.vue'
+import ExampleComponent from './components/example.vue'
+import FooterComponent from './components/footer.vue'
+
+export default {
+  name: 'app',
+  components: {
+    'header-component': HeaderComponent,
+    'example-component': ExampleComponent,
+    'footer-component': FooterComponent
+  }
+}
+</script>
+```
+
+Observa como, en el ***template* o plantilla**, se indica la estructura base de la aplicación, donde se importan los componentes *header-component*, *example-component* y *footer-component*, que estarán en sus respectivos archivos .vue.
+
+Inmediatamente después, en el script, se **importan** esos archivos (como *header.vue*, *example.vue* y *footer.vue*). Después, los componentes se **registran** como parte de la aplicación Vue.
+
+En este archivo también podría incluirse el **CSS** u otros archivos de configuración necesarios para la aplicación. No lo hemos hecho en este ejemplo para simplificarlo.
+
+### A3.3.3. Componentes de Vue
+
+Por último, necesitaríamos escribir el código Vue de los **componentes**. Un componente típico que funcionaría con el App.vue sería ***example-component***, que podría tener una estructura similar a esta:
+
+```html
+<template>
+  <div>
+    <h1>{{ title }}</h1>
+    <p>{{ message }}</p>
+    <button @click="changeMessage">Cambiar mensaje</button>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'example-component',
+  data() {
+    return {
+      title: 'Example Component',
+      message: '¡Hola, mundo! Soy example component'
+    }
+  },
+  methods: {
+    changeMessage() {
+      this.message = 'El mensaje ha cambiado'
+    }
+  }
+}
+</script>
+```
+
+En el ***template*** se tiene una estructura básica para el componente, con su título, un párrafo y un botón, los cuales están ligados a las propiedades del componente *title* y *message* que aparecen más abajo. El botón se asocia al evento *click*, de manera que, cuando ocurra ese evento, se lanzará el método *changeMessage()*.
+
+En el ***script*** se configura todo el componente: se le asigna un **nombre** (*example-component*), un objeto ***data*** con las propiedades *title* y *message* y un objeto ***methods*** con el método *changeMessage()*.
+
+Este componente se podría usar en la plantilla de la aplicación (*App.vue*), como de hecho hicimos anteriormente, o también podría usarse como parte de otro componente más complejo.
+
+Y, de este modo, montando componentes, se construyen los interfaces de usuario con Vue.
+
+### A3.3.4. Manejo de eventos con Vue
+
+En todos los ejemplos anteriores hemos utilizado eventos como *@click* o *@keyup* para enlazar métodos de Vue con eventos de usuario.
+
+Vue dispone de muchos otros eventos que podemos usar en nuestros interfaces de usuario. En realidad, son **eventos nativos del navegador** manejados al "estilo Vue". Aunque esto no pretende ser una lista exhaustiva, te pongo aquí los más habituales:
+
+* **click**: Se activa cuando se hace clic en un elemento.
+* **input**: Se activa cuando el valor de un elemento de entrada (input, select, textarea) cambia.
+* **submit**: Se activa cuando se envía un formulario.
+* **keydown**: Se activa cuando se presiona una tecla en un elemento.
+* **keyup**: Se activa cuando se suelta una tecla en un elemento.
+* **mouseenter**: Se activa cuando el cursor entra en un elemento.
+* **mouseleave**: Se activa cuando el cursor sale de un elemento.
+* **focus**: Se activa cuando un elemento obtiene el foco.
+* **blur**: Se activa cuando un elemento pierde el foco.
+
+Todos ellos se pueden manejar con Vue utilizando la directiva ***v-on*** o el atajo ***@***:
+
+```html
+<!-- EVENTO CAPTURADO MEDIANTE LA DIRECTIVA v-on -->
+<template>
+  <button v-on:click="myMethod">Click me</button>
+</template>
+
+<!-- EVENTO CAPTURADO MEDIANTE EL ATAJO @ -->
+<template>
+  <button @click="myMethod">Click me</button>
+</template>
+```
+
+## A3.4. ¿Y si quiero que el componente Vue tome sus datos del servidor?
+
+La verdadera potencia de Vue.js para crear aplicaciones web de una sola vista comienza a verse si logramos **alimentar los componentes con datos procedentes del servidor**. Entonces estaremos cerca de lograr una OVA con una sola vista que pueda ir actualizándose de forma dinámica según los datos que se reciban de un servidor web.
+
+La situación habitual en este caso es tener ya una vista cargada (creada con componentes de Vue) que tenemos que actualizar con datos procedentes del servidor. Por lo tanto, **todas las peticiones al servidor deben ser asíncronas**.
+
+Como vimos en el [tema 7](/docs/dwes/_site/ajax/), para hacer peticiones asíncronas debes utilizar **Ajax**:
+
+1. En su forma tradicional, es decir, con el objeto ***XMLHttpResponse***.
+2. O bien mediante alguna libería moderna como ***fetch*** o ***axios***.
+
+Como siempre, vamos a ver cómo se cargan los datos de un componente Vue con datos del servidor mediante un ejemplo sencillo que puedas usar como base para tus propios desarrollos.
+
+### A3.4.1. Un ejemplo sencillo
+
+En el siguiente ejemplo, tendremos un *input* de tipo *text* para teclear un DNI. Cuando se introduzca algo en ese *input*, se ejecutará el método *getNameAndLastName()* (observa en el código que el evento se llama, precisamente, *@input*).
+
+Ese método estará declarado como ***async***, lo que significa que contiene una operación asíncrona en su interior. Una función asíncrona permite utilizar el controlador *await* para esperar a que una promesa se resuelva antes de continuar la ejecución del código.
+
+La función *fetch()* devuelve una promesa que se resuelve con la respuesta HTTP. Al usar *await*, se espera a que la promesa se resuelva antes de continuar la ejecución del código, lo que nos permite escribir el código de la función como si fuera síncrono. Esto hace que el código sea más fácil de entender y mantener. 
+
+Si no utilizásemos la palabra *async* delante del nombre del método, el *await* se ejecutaría de forma asíncrona y tendríamos que trabajar con *callbacks* o encadenando promesas para acceder a los datos, como hicimos en los [ejemplos con *fetch* del tema 7](http://localhost:4000/docs/dwes/_site/ajax/#75-ajax-y-la-api-fetch).
+
+Una vez que se recibe la respuesta del servidor (un JSON con el nombre y el apellido de la persona a la que corresponde ese DNI), se coloca en los dos párrafos reservados para ello dentro de la plantilla.
 
 ```html
 <template>
@@ -359,13 +512,13 @@ export default {
 </script>
 ```
 
-### A3.3.1. Ejemplo completo: CRUD con Vue y un servidor RESTful programado con PHP
+### A3.4.2. Un ejemplo completo: CRUD con Vue y un servidor RESTful
 
-Supongamos ahora que tenemos una base de datos con una tabla llamada "Libros" cuyos campos son id, título, numPaginas, genero, pais y año. Supongamos también que tenemos un servidor REST programado con PHP que usa esa tabla.
+Vamos a mostrar ahora un ejemplo más completo. Supongamos ahora que tenemos una base de datos con una tabla llamada *"Libros"* cuyos campos son *id, título, numPaginas, genero, pais* y *año*. Supongamos también que tenemos un **servidor REST** programado con PHP (o con lo que sea, porque en realidad no importa) que trabaja con esa tabla.
 
 No es un ejemplo realista, desde luego (la tabla está horrorosamente diseñada), pero sí que nos servirá para ilustrar cómo puede interactuar Vue con un servidor RESTful.
 
-En el siguiente código, se usa ***axios*** en lugar de *fetch*. Se trata de otra librería Javascript para hacer peticiones asíncronas al servidor. Es muy similar a *fetch* o *jQuery.ajax*. Como se utiliza mucho, te la muestro en este ejemplo para que veas qué aspecto tiene.
+En el siguiente código, vamos a usar ***axios*** en lugar de *fetch*. Se trata de otra librería Javascript para hacer peticiones asíncronas al servidor. Es muy similar a *fetch* o *ajax* de jQuery. Como se utiliza mucho, te la muestro en este ejemplo para que veas qué aspecto tiene. Compárala con el ejemplo anterior, en el que utilizamos *fetch*, y verás que hay muy pocas diferencias prácticas.
 
 ```html
 <template>
@@ -415,9 +568,11 @@ export default {
 </script>
 ```
 
-En el código anterior puedes ver cómo, usando *axios*, se puede hacer dinámicamente la carga de libros y asignarla al array *libros*, que a su vez está asociado al template HTML.
+En el código anterior puedes ver cómo, usando *axios*, se puede hacer dinámicamente la carga de libros y asignarla al array *libros*, que a su vez está asociado al template HTML. El método *cargarLibros()*, como en el ejemplo anterior, debe estar declarado como *async* para poder escribir el código linealmente, como si fuera síncrono, lo cual facilita mucho la labor de desarrollo.
 
-Pero ¿y si queremos añadir las funcionalidades típicas de un CRUD, como "Editar" o "Borrar"? En el siguiente ejemplo puedes ver cómo construir un CRUD completo con Vue (hemos simplificado la tabla de libros para que solo tenga los campos Título, Autor y Editorial, pero lógicamente podrían ser campos cualesquiera):
+Añadamos ahora las **funcionalidades típicas de un CRUD**, como "Editar", "Borrar", etc. De ese modo, conseguiremos un CRUD completo que trabaje con este servidor REST.
+
+En el siguiente ejemplo puedes ver cómo construir ese CRUD con Vue, aunque hemos simplificado un poco la tabla de *libros* para que solo tenga los campos *Título, Autor* y *Editorial*, pero, lógicamente, cambiar esos campos por otros es una tarea sencilla. Observa bien cómo se etiquetan los campos de la tabla y de los formularios para enlazarlos con los datos de Vue, y qué fácil y limpio queda el código de los métodos usando *async* y una librería como *axios*:
 
 ```html
 <template>
@@ -539,11 +694,11 @@ export default {
 </script>
 ```
 
-## A3.4. Vue.js con Laravel
+## A3.5. Vue.js con Laravel
 
 Laravel permite instalar Vue a través de *artisan*. Se puede usar Vue sin necesidad de hacer todo esto, pero si lo haces al "estilo Laravel", obtendrás ciertas ventajas adicionales.
 
-### A3.4.1. Instalar Vue en Laravel
+### A3.5.1. Instalar Vue en Laravel
 
 El modo más sencillo de tener Vue en Laravel es instalar *laravel/ui* (aunque existen otras maneras). Este paquete sirve para hacer autenticación de usuarios (como Breeze o Jetstream).
 
@@ -575,7 +730,7 @@ Ya puedes usar Vue en esa vista (asegúrate de utilizar el id “app”):
 
 El componente "example-component" viene creado por defecto pero, por supuesto, puedes crear tus propios componentes. Vamos a ver cómo.
 
-### A3.4.2. Crear componentes
+### A3.5.2. Crear componentes
 
 Para **crear un componente**, solo tienes que crear un archivo .vue en el directorio *resources/js/components*. Allí ya encontrarás un archivo llamado *example-component.vue*. Puedes usarlo como plantilla para crear componentes adicionales.
 
@@ -590,7 +745,7 @@ Puedes usar ese registro como plantilla para registrar tus propios componentes.
 
 Una vez creados y registrados, los componentes estarán disponibles para usarlos en cualquier vista.
 
-### A3.4.3. Ejemplo completo: CRUD con Laravel y Vue
+### A3.5.3. Un ejemplo completo: CRUD con Laravel y Vue
 
 En este ejemplo vamos a seguir todos los pasos necesarios para crear un CRUD sencillo con Laravel y Vue. Lo vamos a hacer con el Vue integrado en Laravel, pero ten en cuenta que también funcionaría si cargamos la versión de Vue que queramos desde un CDN o desde nuestros propios archivos Javascript.
 
@@ -845,7 +1000,7 @@ Vue dispone en Laravel de su propio enrutador en un paquete llamado ***vue-route
 
 El enrutador de Vue con Laravel está ubicado en el archivo *resources/js/routes.js*.
 
-El enrutamiento con Vue permite seleccionar de los componentes que se deben cargar en el lado del servidor en cada ruta. Esto facilita mucho el trabajo en las aplicaciones OVA (*one view application*).
+El enrutamiento con Vue permite seleccionar los componentes cuyos datos se deben cargar en cada ruta. Esto facilita mucho el trabajo en las aplicaciones OVA (*one view application*).
 
 El enrutador de Vue está escrito en Javascript, claro, no en PHP, y tiene un aspecto como este:
 
@@ -871,7 +1026,7 @@ export const routes = [
 
 Observa cómo, para cada ruta, se indica un nombre (de uso interno para la aplicación), una URL y el componente (o componentes) que se cargarán en el *layout* en caso de solicitar esa ruta.
 
-Ese componente, a su vez, se encargará de pedir los datos al servidor mediante alguna de las rutas definidas en el enrutador de Laravel (*web.php*), por lo que el uso del enrutador de Vue no implica que dejemos de usar el enrutamiento en el servidor.
+Cada componente, a su vez, se encargará de pedir los datos al servidor mediante alguna de las rutas definidas en el enrutador de Laravel (*web.php*), por lo que el uso del enrutador de Vue no implica que dejemos de usar el enrutamiento en el servidor.
 
 
 
