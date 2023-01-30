@@ -8,7 +8,7 @@
 
 <span class="nt">&lt;body&gt;</span>
     <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
-        
+        {{ message }}
     <span class="nt">&lt;/div&gt;</span>
     
     <span class="c">&lt;!-- Scripts --&gt;</span>
@@ -35,8 +35,8 @@
 
 <span class="nt">&lt;body&gt;</span>
     <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;p&gt;</span>La pregunta es: <span class="nt">&lt;/p&gt;</span> 
-        <span class="nt">&lt;p&gt;</span>La respuesta es: <span class="nt">&lt;/p&gt;</span> 
+        <span class="nt">&lt;p&gt;</span>La pregunta es: {{ pregunta }}<span class="nt">&lt;/p&gt;</span> 
+        <span class="nt">&lt;p&gt;</span>La respuesta es: {{ respuesta }}<span class="nt">&lt;/p&gt;</span> 
     <span class="nt">&lt;/div&gt;</span>
 
     <span class="c">&lt;!-- Scripts --&gt;</span>
@@ -88,7 +88,7 @@
 
 <span class="nt">&lt;body&gt;</span>
     <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;p</span> <span class="na">v-for=</span><span class="s">"animal in arrayAnimales"</span><span class="nt">&gt;</span>  <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;p</span> <span class="na">v-for=</span><span class="s">"animal in arrayAnimales"</span><span class="nt">&gt;</span> {{ animal }} <span class="nt">&lt;/p&gt;</span>
     <span class="nt">&lt;/div&gt;</span>
 
     <span class="c">&lt;!-- Scripts --&gt;</span>
@@ -116,7 +116,7 @@
 <span class="nt">&lt;body&gt;</span>
     <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
         <span class="nt">&lt;p&gt;</span>Nombre: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">v-model=</span><span class="s">"nombre"</span><span class="nt">&gt;&lt;/p&gt;</span>
-        <span class="nt">&lt;p&gt;</span>Tu nombre es: <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Tu nombre es: {{ nombre }}<span class="nt">&lt;/p&gt;</span>
     <span class="nt">&lt;/div&gt;</span>
 
     <span class="c">&lt;!-- Scripts --&gt;</span>
@@ -249,7 +249,7 @@
         <span class="kd">const</span> <span class="nx">misTareas</span> <span class="o">=</span> <span class="p">{</span>
             <span class="na">template</span><span class="p">:</span> <span class="s2">`&lt;div&gt;
                             &lt;ul&gt;
-                                &lt;li v-for="tarea in tareas"&gt;  &lt;/li&gt;
+                                &lt;li v-for="tarea in tareas"&gt; {{ tarea }} &lt;/li&gt;
                             &lt;/ul&gt;
                             Nueva tarea: &lt;input type="text" v-model="nuevaTarea" @keyup.enter="crearTarea"&gt;
                             &lt;button @click="crearTarea"&gt;Añadir tarea&lt;/button&gt;
@@ -281,7 +281,7 @@
         <span class="nt">&lt;mis-tareas&gt;&lt;/mis-tareas&gt;</span>
     <span class="nt">&lt;/div&gt;</span>
 </code></pre></div></div> <h2 id="a33-estructurando-una-aplicación-hecha-con-vue-los-componentes"> <a href="#a33-estructurando-una-aplicación-hecha-con-vue-los-componentes" class="anchor-heading" aria-labelledby="a33-estructurando-una-aplicación-hecha-con-vue-los-componentes"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> A3.3. Estructurando una aplicación hecha con Vue: los componentes </h2> <p>Ahora que hemos visto y comprendido algunos ejemplos, estamos en mejores condiciones para hablar de cuál es la estructura típica de una página hecha con Vue.js y cómo se crea una jerarquía de componentes.</p> <p>Los <strong>componentes</strong> de Vue, como la lista de tareas de los últimos ejemplos, se usan típicamente para construir elementos del interfaz que sean como <strong>piezas reutilizables</strong>.</p> <p>Es decir, cada componente es una pieza del interfaz que cumple que:</p> <ul> <li>Tiene sus propios datos y lógica interna</li> <li>Puede manipularse independientemente del resto de piezas.</li> <li>Puede contener otras piezas más pequeñas.</li> </ul> <p>¿Qué significa todo esto? Sigue leyendo y lo comprenderás.</p> <h3 id="a331-qué-componentes-debería-tener-mi-aplicación"> <a href="#a331-qué-componentes-debería-tener-mi-aplicación" class="anchor-heading" aria-labelledby="a331-qué-componentes-debería-tener-mi-aplicación"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> A3.3.1. ¿Qué componentes debería tener mi aplicación? </h3> <p>Debes tener muy claro el <strong>interfaz de usuario</strong> de tu aplicación para poder descomponerlo en componentes. Esto es fundamental, así que saca papel y lápiz y diseña el interfaz con detalle.</p> <p>Por ejemplo, imagina que estás diseñando una web sencillita (y bastante típica) con esta distribución de elementos:</p> <p><img src="/docs/dwes/_site/assets/images/a3-vue-01.png" alt="Diseño típico de una web" /></p> <p>Arriba tenemos un encabezado (<em>Header</em>), en el centro el área principal (<em>Main</em>) que contiene dos elementos (que llamaremos <em>Articles</em>), y a la derecha hay un panel lateral (lo llamaremos <em>Aside</em>) con tres elementos (<em>Items</em>).</p> <p>Pues bien; para este diseño de interfaz tendríamos que crear estos componentes:</p> <p><img src="/docs/dwes/_site/assets/images/a3-vue-02.png" alt="Componentes típicos de una web" /></p> <p>Como ves, diseñar y relacionar los componentes Vue entre sí se parece bastante a diseñar y relacionar los elementos HTML de una web tradicional:</p> <ul> <li>En HTML, hay un <strong>componente raíz</strong> que llamado <code class="language-plaintext highlighter-rouge">&lt;body&gt;</code> que contiene a todos los demás elementos HTML. Con Vue, puedes tener un componente “Root” o “App” que contenga a los demás.</li> <li>En HTML, puedes tener <strong>dentro del componente raíz</strong> <code class="language-plaintext highlighter-rouge">&lt;body&gt;</code> varias capas hechas con <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code>, tales como <code class="language-plaintext highlighter-rouge">&lt;div class='header'&gt;</code> para el encabezado, <code class="language-plaintext highlighter-rouge">&lt;div class='main'&gt;</code> para el contenido principal y <code class="language-plaintext highlighter-rouge">&lt;div class='aside'&gt;</code> para la barra lateral. En Vue, puedes tener tres componentes dentro de “Root” llamados “Header”, “Main” y “Aside”</li> <li>En HTML, <strong>algunos elementos pueden tener dentro otros elementos</strong>. Es decir, algunos <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code> pueden tener dentro otros <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code> o cualquier otra cosa. Por ejemplo, el <code class="language-plaintext highlighter-rouge">&lt;div class='main'&gt;</code> puede tener dentro dos <code class="language-plaintext highlighter-rouge">&lt;div class='article'&gt;</code>. En Vue ocurre lo mismo: el componente “Main” puede tener dentro dos componentes “Article”. Y así sucesivamente.</li> </ul> <p>En Vue, <strong>cada componente se guarda en un archivo .vue</strong> independiente con una estructura como esta:</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
-  <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"count++"</span><span class="nt">&gt;</span>You clicked me 8 times.<span class="nt">&lt;/button&gt;</span>
+  <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"count++"</span><span class="nt">&gt;</span>Has hecho click {{ count }} veces.<span class="nt">&lt;/button&gt;</span>
 <span class="nt">&lt;/template&gt;</span>
 
 <span class="nt">&lt;script&gt;</span>
@@ -344,8 +344,8 @@
 <span class="nt">&lt;/script&gt;</span>
 </code></pre></div></div> <p>Observa como, en el <strong><em>template</em> o plantilla</strong>, se indica la estructura base de la aplicación, donde se usan los componentes <code class="language-plaintext highlighter-rouge">&lt;header-component&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;example-component&gt;</code> y <code class="language-plaintext highlighter-rouge">&lt;footer-component&gt;</code>. Por supuesto, podría haber más componentes, o alguno de estos podría usarse varias veces.</p> <p>Inmediatamente después, en el script, se <strong>importan</strong> los archivos que contienen esos componentes (<em>header.vue</em>, <em>example.vue</em> y <em>footer.vue</em>). Después, los componentes se <strong>registran</strong> como parte de la aplicación Vue. Esto es necesario para poder usarlos.</p> <p>En este archivo también podría incluirse el <strong>CSS</strong> u otros archivos de configuración necesarios para la aplicación. No lo hemos hecho en este ejemplo para simplificarlo.</p> <h3 id="a334-componentes-de-vue"> <a href="#a334-componentes-de-vue" class="anchor-heading" aria-labelledby="a334-componentes-de-vue"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> A3.3.4. Componentes de Vue </h3> <p>Por último, necesitaríamos escribir el código Vue de los <strong>componentes</strong>.</p> <p>Mostramos a modo de ejemplo cómo podría ser el código de <strong><em>example-component</em></strong>, donde usaremos la estructura típica de un componente que vimos más arriba:</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
   <span class="nt">&lt;div&gt;</span>
-    <span class="nt">&lt;h1&gt;&lt;/h1&gt;</span>
-    <span class="nt">&lt;p&gt;&lt;/p&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>{{ title }}<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;p&gt;</span>{{ message }}<span class="nt">&lt;/p&gt;</span>
     <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"changeMessage"</span><span class="nt">&gt;</span>Cambiar mensaje<span class="nt">&lt;/button&gt;</span>
   <span class="nt">&lt;/div&gt;</span>
 <span class="nt">&lt;/template&gt;</span>
@@ -378,8 +378,8 @@
 </code></pre></div></div> <h2 id="a34-y-si-quiero-que-el-componente-vue-tome-sus-datos-del-servidor"> <a href="#a34-y-si-quiero-que-el-componente-vue-tome-sus-datos-del-servidor" class="anchor-heading" aria-labelledby="a34-y-si-quiero-que-el-componente-vue-tome-sus-datos-del-servidor"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> A3.4. ¿Y si quiero que el componente Vue tome sus datos del servidor? </h2> <p>La verdadera potencia de Vue.js para crear aplicaciones web de una sola vista comienza a verse si logramos <strong>alimentar los componentes con datos procedentes del servidor</strong>. Entonces estaremos cerca de lograr una OVA con una sola vista que pueda ir actualizándose de forma dinámica según los datos que se reciban de un servidor web.</p> <p>La situación habitual en este caso es tener ya una vista cargada (creada con componentes de Vue) que tenemos que actualizar con datos procedentes del servidor. Por lo tanto, <strong>todas las peticiones al servidor deben ser asíncronas</strong>.</p> <p>Como vimos en el <a href="/docs/dwes/_site/ajax/">tema 7</a>, para hacer peticiones asíncronas puedes utilizar <strong>Ajax</strong> de dos maneras diferentes:</p> <ol> <li>En su forma tradicional, es decir, con el objeto <strong><em>XMLHttpResponse</em></strong>.</li> <li>O bien mediante alguna libería moderna como <strong><em>fetch</em></strong> o <strong><em>axios</em></strong>.</li> </ol> <p>Como siempre, vamos a ver cómo se actualiza un componente Vue con datos del servidor mediante un ejemplo sencillo que puedas usar como base para tus propios desarrollos. Después veremos un ejemplo un poco más completo: un CRUD hecho con Vue.</p> <h3 id="a341-un-ejemplo-sencillo"> <a href="#a341-un-ejemplo-sencillo" class="anchor-heading" aria-labelledby="a341-un-ejemplo-sencillo"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> A3.4.1. Un ejemplo sencillo </h3> <p>En el siguiente ejemplo, tendremos un <em>input</em> de tipo <em>text</em> para teclear un DNI. Cuando se introduzca algo en ese <em>input</em>, se cargará el nombre y apellidos de la persona desde el servidor, es decir, mediante una consulta a una base de datos remota, y se mostrarán en la pantalla.</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
   <span class="nt">&lt;div&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">v-model=</span><span class="s">"dni"</span> <span class="err">@</span><span class="na">input=</span><span class="s">"getNameAndLastname"</span> <span class="na">placeholder=</span><span class="s">"Ingresa el DNI"</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;p&gt;</span>Nombre: <span class="nt">&lt;/p&gt;</span>
-    <span class="nt">&lt;p&gt;</span>Apellido: <span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Nombre: {{ name }}<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Apellido: {{ lastname }}<span class="nt">&lt;/p&gt;</span>
   <span class="nt">&lt;/div&gt;</span>
 <span class="nt">&lt;/template&gt;</span>
 
@@ -416,10 +416,10 @@
         <span class="nt">&lt;th&gt;</span>Editorial<span class="nt">&lt;/th&gt;</span>
       <span class="nt">&lt;/tr&gt;</span>
       <span class="nt">&lt;tr</span> <span class="na">v-for=</span><span class="s">"libro in libros"</span> <span class="na">:key=</span><span class="s">"libro.idLibro"</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;td&gt;&lt;/td&gt;</span>
-        <span class="nt">&lt;td&gt;&lt;/td&gt;</span>
-        <span class="nt">&lt;td&gt;&lt;/td&gt;</span>
-        <span class="nt">&lt;td&gt;&lt;/td&gt;</span>
+        <span class="nt">&lt;td&gt;</span>{{ libro.idLibro }}<span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;td&gt;</span>{{ libro.titulo }}<span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;td&gt;</span>{{ libro.autor }}<span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;td&gt;</span>{{ libro.editorial }}<span class="nt">&lt;/td&gt;</span>
       <span class="nt">&lt;/tr&gt;</span>
     <span class="nt">&lt;/table&gt;</span>
   <span class="nt">&lt;/div&gt;</span>
@@ -461,10 +461,10 @@
       <span class="nt">&lt;/thead&gt;</span>
       <span class="nt">&lt;tbody&gt;</span>
         <span class="nt">&lt;tr</span> <span class="na">v-for=</span><span class="s">"book in books"</span><span class="nt">&gt;</span>
-          <span class="nt">&lt;td&gt;&lt;/td&gt;</span>
-          <span class="nt">&lt;td&gt;&lt;/td&gt;</span>
-          <span class="nt">&lt;td&gt;&lt;/td&gt;</span>
-          <span class="nt">&lt;td&gt;&lt;/td&gt;</span>
+          <span class="nt">&lt;td&gt;</span>{{ book.id }}<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;td&gt;</span>{{ book.title }}<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;td&gt;</span>{{ book.author }}<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;td&gt;</span>{{ book.editorial }}<span class="nt">&lt;/td&gt;</span>
           <span class="nt">&lt;td&gt;</span>
             <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"editBook(book)"</span><span class="nt">&gt;</span>Editar<span class="nt">&lt;/button&gt;</span>
             <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"deleteBook(book.id)"</span><span class="nt">&gt;</span>Borrar<span class="nt">&lt;/button&gt;</span>
@@ -572,12 +572,12 @@
     <span class="nt">&lt;table</span> <span class="na">v-if=</span><span class="s">"tableData.length"</span><span class="nt">&gt;</span>
       <span class="nt">&lt;thead&gt;</span>
         <span class="nt">&lt;tr&gt;</span>
-          <span class="nt">&lt;th</span> <span class="na">v-for=</span><span class="s">"key in Object.keys(tableData[0])"</span> <span class="na">:key=</span><span class="s">"key"</span><span class="nt">&gt;&lt;/th&gt;</span>
+          <span class="nt">&lt;th</span> <span class="na">v-for=</span><span class="s">"key in Object.keys(tableData[0])"</span> <span class="na">:key=</span><span class="s">"key"</span><span class="nt">&gt;</span>{{ key }}<span class="nt">&lt;/th&gt;</span>
         <span class="nt">&lt;/tr&gt;</span>
       <span class="nt">&lt;/thead&gt;</span>
       <span class="nt">&lt;tbody&gt;</span>
         <span class="nt">&lt;tr</span> <span class="na">v-for=</span><span class="s">"row in tableData"</span> <span class="na">:key=</span><span class="s">"row.id"</span><span class="nt">&gt;</span>
-          <span class="nt">&lt;td</span> <span class="na">v-for=</span><span class="s">"key in Object.keys(row)"</span><span class="nt">&gt;&lt;/td&gt;</span>
+          <span class="nt">&lt;td</span> <span class="na">v-for=</span><span class="s">"key in Object.keys(row)"</span><span class="nt">&gt;</span>{{ row[key] }}<span class="nt">&lt;/td&gt;</span>
         <span class="nt">&lt;/tr&gt;</span>
       <span class="nt">&lt;/tbody&gt;</span>
     <span class="nt">&lt;/table&gt;</span>

@@ -49,7 +49,7 @@ Por supuesto, tenemos que empezar por *Hola mundo*. Observa detenidamente este c
 
 <body>
     <div id="app">
-        {{ message }}
+        {% raw %}{{ message }}{% endraw %}
     </div>
     
     <!-- Scripts -->
@@ -95,8 +95,8 @@ En el siguiente ejemplo, puedes ver un <div> parecido al anterior pero que usa d
 
 <body>
     <div id="app">
-        <p>La pregunta es: {{ pregunta }}</p> 
-        <p>La respuesta es: {{ respuesta }}</p> 
+        <p>La pregunta es: {% raw %}{{ pregunta }}{% endraw %}</p> 
+        <p>La respuesta es: {% raw %}{{ respuesta }}{% endraw %}</p> 
     </div>
 
     <!-- Scripts -->
@@ -166,7 +166,7 @@ Observa el siguiente ejemplo, donde un array con nombres de animales genera la s
 
 <body>
     <div id="app">
-        <p v-for="animal in arrayAnimales"> {{ animal }} </p>
+        <p v-for="animal in arrayAnimales"> {% raw %}{{ animal }}{% endraw %} </p>
     </div>
 
     <!-- Scripts -->
@@ -205,7 +205,7 @@ Observa que, para hacer ese enlace efectivo, hay que definir una propiedad HTML 
 <body>
     <div id="app">
         <p>Nombre: <input type="text" v-model="nombre"></p>
-        <p>Tu nombre es: {{ nombre }}</p>
+        <p>Tu nombre es: {% raw %}{{ nombre }}{% endraw %}</p>
     </div>
 
     <!-- Scripts -->
@@ -398,7 +398,7 @@ Observa cómo, al final del código, se registra el componente "mis-tareas" de f
         const misTareas = {
             template: `<div>
                             <ul>
-                                <li v-for="tarea in tareas"> {{ tarea }} </li>
+                                <li v-for="tarea in tareas"> {% raw %}{{ tarea }}{% endraw %} </li>
                             </ul>
                             Nueva tarea: <input type="text" v-model="nuevaTarea" @keyup.enter="crearTarea">
                             <button @click="crearTarea">Añadir tarea</button>
@@ -474,7 +474,7 @@ En Vue, **cada componente se guarda en un archivo .vue** independiente con una e
 
 ```html
 <template>
-  <button @click="count++">You clicked me {{ count }} times.</button>
+  <button @click="count++">Has hecho click {% raw %}{{ count }}{% endraw %} veces.</button>
 </template>
 
 <script>
@@ -596,8 +596,8 @@ Mostramos a modo de ejemplo cómo podría ser el código de ***example-component
 ```html
 <template>
   <div>
-    <h1>{{ title }}</h1>
-    <p>{{ message }}</p>
+    <h1>{% raw %}{{ title }}{% endraw %}</h1>
+    <p>{% raw %}{{ message }}{% endraw %}</p>
     <button @click="changeMessage">Cambiar mensaje</button>
   </div>
 </template>
@@ -679,8 +679,8 @@ En el siguiente ejemplo, tendremos un *input* de tipo *text* para teclear un DNI
 <template>
   <div>
     <input type="text" v-model="dni" @input="getNameAndLastname" placeholder="Ingresa el DNI">
-    <p>Nombre: {{ name }}</p>
-    <p>Apellido: {{ lastname }}</p>
+    <p>Nombre: {% raw %}{{ name }}{% endraw %}</p>
+    <p>Apellido: {% raw %}{{ lastname }}{% endraw %}</p>
   </div>
 </template>
 
@@ -738,10 +738,10 @@ En el siguiente código, vamos a usar ***axios*** en lugar de *fetch*. Se trata 
         <th>Editorial</th>
       </tr>
       <tr v-for="libro in libros" :key="libro.idLibro">
-        <td>{{ libro.idLibro }}</td>
-        <td>{{ libro.titulo }}</td>
-        <td>{{ libro.autor }}</td>
-        <td>{{ libro.editorial }}</td>
+        <td>{% raw %}{{ libro.idLibro }}{% endraw %}</td>
+        <td>{% raw %}{{ libro.titulo }}{% endraw %}</td>
+        <td>{% raw %}{{ libro.autor }}{% endraw %}</td>
+        <td>{% raw %}{{ libro.editorial }}{% endraw %}</td>
       </tr>
     </table>
   </div>
@@ -792,10 +792,10 @@ En el siguiente ejemplo puedes ver cómo construir ese CRUD con Vue. Observa bie
       </thead>
       <tbody>
         <tr v-for="book in books">
-          <td>{{ book.id }}</td>
-          <td>{{ book.title }}</td>
-          <td>{{ book.author }}</td>
-          <td>{{ book.editorial }}</td>
+          <td>{% raw %}{{ book.id }}{% endraw %}</td>
+          <td>{% raw %}{{ book.title }}{% endraw %}</td>
+          <td>{% raw %}{{ book.author }}{% endraw %}</td>
+          <td>{% raw %}{{ book.editorial }}{% endraw %}</td>
           <td>
             <button @click="editBook(book)">Editar</button>
             <button @click="deleteBook(book.id)">Borrar</button>
@@ -918,12 +918,12 @@ Ah, se supone que el servidor devuelve los datos en forma de JSON.
     <table v-if="tableData.length">
       <thead>
         <tr>
-          <th v-for="key in Object.keys(tableData[0])" :key="key">{{ key }}</th>
+          <th v-for="key in Object.keys(tableData[0])" :key="key">{% raw %}{{ key }}{% endraw %}</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="row in tableData" :key="row.id">
-          <td v-for="key in Object.keys(row)">{{ row[key] }}</td>
+          <td v-for="key in Object.keys(row)">{% raw %}{{ row[key] }}{% endraw %}</td>
         </tr>
       </tbody>
     </table>
