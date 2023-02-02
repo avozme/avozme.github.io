@@ -19,9 +19,9 @@ En esta sección presentamos un resumen de las características de los medios in
 
 ### ¿Qué son los carritos de portátiles?
 
-Son carritos móviles con capacidad para 10 ordenadores portátiles cada uno, aunque, más a menudo de lo que nos gustaría, son menos de 10 los que están operativos. 
+Son carritos móviles con capacidad entre 20 y 30 ordenadores portátiles cada uno. 
 
-El centro dispone de 9 carritos de estas características distribuidos de la siguiente forma:
+El centro dispone de 6 carritos de estas características distribuidos de la siguiente forma:
 
 SÓTANO
 
@@ -52,9 +52,7 @@ PLANTA PRIMERA
 <tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
 </thead>
 <tbody>
-<tr><td>A</td><td>10 portátiles</td><td>Dpto. de Física y Química</td></tr>
-<tr><td>B</td><td>10 portátiles</td><td>Dpto. de Física y Química</td></tr>
-<tr><td>C</td><td>10 portátiles</td><td>Aula 8</td></tr>
+<tr><td>A</td><td>20 portátiles</td><td>Dpto. de Física y Química</td></tr>
 <tr><td>I</td><td>30 portátiles</td><td>Biblioteca</td></tr>
 </tbody>
 </table>
@@ -66,8 +64,7 @@ PLANTA SEGUNDA
 <tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
 </thead>
 <tbody>
-<tr><td>D</td><td>10 portátiles</td><td>Lab. de Ciencias Naturales</td></tr>
-<tr><td>E</td><td>10 portátiles</td><td>Lab. de Ciencias Naturales</td></tr>
+<tr><td>B</td><td>20 portátiles</td><td>Lab. de Ciencias Naturales</td></tr>
 <tr><td>H</td><td>24 portátiles</td><td>Aula 22</td></tr>
 </tbody>
 </table>
@@ -82,18 +79,17 @@ Los ordenadores portátiles de los carritos están destinados al alumnado para s
 
 Para usar un carrito de portátiles, el procedimiento general es el siguiente:
 
-* [Reservarlo en Moodle Centros](https://iescelia.org/reservas) (el procedimiento se describe en el siguiente apartado).
-* Conseguir la llave de la dependencia donde se ubiquen los carritos que se han reservado (las llaves están en Conserjería). Los carritos ubicados en aulas pueden conseguirse sin llave, puesto que el aula, normalmente, estará en uso.
-* Acceder a la dependencia y desenchufar los carritos de la toma de corriente.
-* Llevar los carritos hasta el aula. Aunque son pesados, se transportan con facilidad porque disponen de ruedas.
-* Repartir los ordenadores entre el alumnado y velar por que se usen adecuadamente (de vez en cuando sufrimos epidemias de extracción de teclas o de decoración de los portátiles con pegatinas de diverso pelaje).
-* Se ruega encarecidamente anotar qué persona usa cada portátil para poder localizar al culpable en caso de que se produzca algún acto vandálico.
-* Al final de la clase, vigilar la reposición de los ordenadores a sus lugares originales. Para que los siguientes compañeros no los encuentren descargados, hay que dejarlos conectados a sus respectivos cargadores.
-* Devolver el carrito a la dependencia en la que se encontraba, enchufarlo de nuevo a la corriente y devolver la llave.
+1. [Reservarlo en Moodle Centros](https://iescelia.org/reservas) (el procedimiento se describe en el siguiente apartado).
+2. Conseguir la llave de la dependencia donde se ubiquen los carritos que se han reservado (las llaves están en Conserjería). Los carritos ubicados en aulas pueden conseguirse sin llave, puesto que el aula, normalmente, estará en uso.
+3. Conseguir la llave del carrito en Jefatura de Estudios. También te entregarán un parte de uso.
+4. Acceder a la dependencia y desenchufar los carritos de la toma de corriente.
+5. Llevar los carritos hasta el aula. Aunque son pesados, se transportan con facilidad porque disponen de ruedas.
+6. Repartir los ordenadores entre el alumnado y velar por que se usen adecuadamente. **Es imprescindible que el alumnado se apunte en el parte de uso**. Es la única forma de prevenir actos vandálicos y localizar a los responsables en caso de que se produzcan.
+7. Al final de la clase, vigilar la reposición de los ordenadores a sus lugares originales. Para que los siguientes compañeros no los encuentren descargados, hay que dejarlos conectados a sus respectivos cargadores.
+8. Devolver el carrito a la dependencia en la que se encontraba, enchufarlo de nuevo a la corriente y devolver la llave de la dependencia en Conserjería.
+9. Devolver la llave del carrito en la Jefatura de Estudios, junto con el parte de uso.
 
-***MUY IMPORTANTE: si se detecta una incidencia en cualquier ordenador, es imprescindible hacerla llegar al coordinador TIC a la mayor brevedad posible. Más información en el apartado “Gestión de incidencias”***
-
-Si no se sigue este protocolo, los actos vandálicos quedarán sistemáticamente impunes, porque no solo resultará imposible saber qué persona usó el portátil vandalizado, sino que ni siquiera sabremos cuándo ocurrió el acto vandálico ni qué grupo estaba usando los ordenadores.
+***MUY IMPORTANTE: Rellenar adecuadamente el parte de uso es la única manera de prevenir actos vandálicos y poder así mantener los carritos en el mejor estado posible.*** Rogamos para ello vuestra colaboración.
 
 ### Procedimiento para reservar un carrito de portátiles
 
