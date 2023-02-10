@@ -14,6 +14,7 @@ grand_parent: Introd. a la prog. y al diseño 3D
 - TOC
 {:toc}
 
+### 9.6.1. Ejercicios básicos
 
 #### Ejercicio 1. Hola mundo
 
@@ -65,6 +66,7 @@ Por ejemplo, si el usuario del programa escribe el número 3, la salida del prog
 3 x 10 = 30
 ```
 
+Entre los ejercicios resueltos encontrarás uno que utiliza bucles y que puedes usar como modelo para hacer este.
 
 #### Ejercicio 4. Juego del número secreto
 
@@ -80,7 +82,23 @@ Cuando el jugador por fin acierta, el ordenador le dice: "Enhorabuena, has acert
 
 Escribe un programa que te pregunte tu fecha de nacimiento y la fecha actual. Luego, tiene que decirte cuál es tu edad EXACTA, en años, meses y días.
 
-#### Ejercicio 6. Pelota que rebota
+#### Ejercicio 6. Estadística básica
+
+Escribe un programa que utilice un array de 30 números enteros para almacenar la estatura de los 30 estudiantes de una clase de bachillerato.
+
+Posteriormente, el programa preguntará al usuario las estaturas de los 30 estudiantes (en centímetros) y las almacenará en el array. Después, mostrará la estatura del más alto, la del más bajo, el promedio, la mediana y la moda.
+
+Recuerda que:
+
+* El promedio se calcula sumando todas las estaturas y dividiéndolas entre 30.
+* La mediana es el número intermedio de un grupo de números.
+* La moda es el número de la serie que aparece con mayor frecuencia.
+
+Entre los ejercicios resueltos, encontrarás uno que utiliza arrays y que puedes usar como modelo para hacer este.
+
+### 9.6.2. Ejercicios avanzados
+
+#### Ejercicio 7. Pelota que rebota
 
 Escribe un programa en C que muestre una pelota moviéndose por la pantalla y rebotando en sus bordes. La pelota se puede simular con el carácter “O”, escribiéndolo en diferentes celdas de la pantalla cada vez.
 
@@ -120,7 +138,7 @@ FASE 3: la “pelota” se mueve por la pantalla dejando una “estela” de cua
 
 ```
 
-#### Ejercicio 7. Juego de automovilismo
+#### Ejercicio 8. Juego de automovilismo
 
 Escribe un programa que simule un sencillo juego de automovilismo. La pantalla del juego debe tener un aspecto parecido a este:
 
@@ -143,7 +161,7 @@ El jugador (cuyo vehículo representaremos con una H) puede mover su coche hacia
 
 La carretera se va desplazando de abajo a arriba, aprovechándose del scroll propio de la pantalla de texto. La carretera no debe ser recta, sino que tendrá irregularidades, como las mostradas en la figura, generadas al azar.
 
-#### Proyectos.
+#### Ejercicio 9: Proyecto.
 
 En lugar de continuar haciendo ejercicios de programación chorras, vamos a plantear un pequeño proyecto individual.
 

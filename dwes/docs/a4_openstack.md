@@ -42,16 +42,18 @@ No vamos a repetir aquí lo que ya pone en esa guía, porque además corresponde
    ```
    $ ssh ubuntu@dirección_IP
    ```
-5. **Añade una regla al grupo de seguridad de Openstack para poder acceder al servidor por http**. Esto se hace desde el panel de administración  de Openstack, siguiendo esta ruta: *Openstack -> grupos de seguridad -> Admin reglas -> Agregar reglas*. Después, añade un "Acceso por HTTP".
+5. **Añade una regla al grupo de seguridad de Openstack para poder acceder al servidor por http**. Esto se hace desde el panel de administración  de Openstack, siguiendo esta ruta: *Red -> Grupos de seguridad -> Administrar reglas -> Agregar regla*. Después, elije la regla predefinida que se llama "HTTP".
 
-6. **Instala docker, docker-compose, git y composer** en la máquina virtual (bueno, y cualquier otra cosa que te sea necesaria para tu aplicación). Para ello, conéctate a tu máquina virtual por SSH y teclea esto:
+6. **Añade una regla al grupo de seguridad de Openstack para poder acceder a MySQL**. Como antes, se hace desde el panel de administración de Openstack (*Red -> Grupos de seguridad -> Administrar reglas -> Agregar regla*). En esta ocasión, elije la regla predefinida "MySQL".
+
+7. **Instala docker, docker-compose, git y composer** en la máquina virtual (bueno, y cualquier otra cosa que te sea necesaria para tu aplicación). Para ello, *recuerda conectarte antes a tu máquina virtual por SSH* y teclea esto:
 
     ```
     $ sudo apt install docker docker-compose git composer
     $ sudo adduser ubuntu docker  (Añadir usuario "ubuntu" al grupo "docker")
     ```
 
-7. **Instala el software necesario para que tu aplicación web funcione**. Esto se puede hacer de forma nativa, instalado Apache, MySQL y todo lo que tu aplicación necesite, o virtualizando todos esos componentes con Docker, que es más fácil, escalable y recomendable.
+8. **Instala el software necesario para que tu aplicación web funcione**. Esto se puede hacer de forma nativa, instalado Apache, MySQL y todo lo que tu aplicación necesite, o virtualizando todos esos componentes con Docker, que es más fácil, escalable y recomendable.
 
     Como es diferente desplegar una aplicación web escrita en PHP clásico que hacerlo con una escrita con Laravel, vamos a mostrar los siguientes pasos de forma diferenciada para cada situación.
 
