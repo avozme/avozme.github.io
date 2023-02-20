@@ -542,17 +542,17 @@ Existen dos paquetes de SDL: el *runtime*, necesario para ejecutar aplicaciones 
 
 **Instalación de SDL en Linux**
 
-* Instala el paquete **libSDL-dev** desde la tienda de aplicaciones de tu distribución Linux. Eso será suficiente para que se instalen los paquetes de desarrollo y de *runtime*.
+* Instala el paquete **libSDLX.X-dev** (X.X es el número de la versión; por ejemplo, puede ser 1.2) desde la tienda de aplicaciones de tu distribución Linux. Eso será suficiente para que se instalen los paquetes de desarrollo y de *runtime*.
 
 * Si estos paquetes no estuvieran en tu repositorio (algo muy raro), puedes bajártelos de [libsdl.org](https://libsdl.org) e instalarlos manualmente. Consulta el manual de tu Linux para aprender a hacer esto último.
 
-* Además, puedes necesitar paquetes adicionales. Los más habituales son **libSDL-image-dev** (para manipular imágenes), **libSDL-ttf-dev** (para manejar fuentes y renderizar textos) y **libSDL-mixer-dev** (para utilizar sonidos). Ten en cuenta que los nombres de los paquetes pueden variar ligeramente dependiendo de tu distribución de Linux.
+* Además, puedes necesitar paquetes adicionales. Los más habituales son **libSDL-imageX.X-dev** (para manipular imágenes), **libSDL-ttfX-X-dev** (para manejar fuentes y renderizar textos) y **libSDL-mixerX.X-dev** (para utilizar sonidos). Ten en cuenta que los nombres de los paquetes pueden variar ligeramente dependiendo de tu distribución de Linux.
 
-* Para instalar todos estos paquetes en una distribución como Ubuntu, puedes usar este comando:
+* Para instalar todos estos paquetes de SDL 1.2 en una distribución como Ubuntu, puedes usar este comando:
 
   ```
   $ sudo apt update
-  $ sudo apt install libsdl-dev libsdl-image-dev libsdl-ttf-dev libsdl-mixer-dev
+  $ sudo apt install libsdl1.2-dev libsdl-image1.2-dev libsdl-ttf1.2-dev libsdl-mixer1.2-dev
   ```
 
   Si tu distribución no usa apt como gestor de paquetes, tendrás que buscar en la documentación de la misma cómo instalar paquetes de los respositorios.
@@ -573,7 +573,8 @@ Existen dos paquetes de SDL: el *runtime*, necesario para ejecutar aplicaciones 
 
 Al no ser SDL una librería estándar, el enlace entre nuestro programa y las funciones de SDL no se produce automáticamente. Hay que indicarle al enlazador (o linker) lo que debe hacer.
 
-Si estás utilizando **Visual Studio Code** con la extensión **Code Runner**, la forma de hacer que SDL se enlace con tu programa es, simplemente, incluir la libería SDL en tu código fuente:
+Para empezar, como con cualquier librería, tienes que incluirla en tu código fuente, así:
+
 
 ```c
 #include <SDL/SDL.h>
@@ -585,7 +586,19 @@ Si usas otras librerías auxiliares de SDL, como SDL-mixer, también tendrás qu
 #include <SDL/SDL_mixer.h>
 ```
 
-Si estos *includes* fallan, tienes que segurarte de que Visual Studio está encontrando el código con la librería SDL. Para ello, hay que agregar "-lSDL" a la lista de argumentos de la tarea de compilación. Abre el archivo ***.json*** que encontrarás en el directorio ***.vscode*** de tu proyecto. Encontrarás algo como esto:
+Luego, durante la compilación, tienes que indicar al compilador que enlace tu programa con la librería SDL. Si estás compilando desde la línea de comandos esto se hace así:
+
+```
+$ gcc mi_programa.c -o mi_ejecutable -lSDL
+```
+
+Si estás usando otras librerías, como SDL_mixer, tendrás que añadirlas también:
+
+```
+$ gcc mi_programa.c -o mi_ejecutable -lSDL -lSDL_mixer
+```
+
+En cambio, si para compilar utilizas **Visual Studio Code** con la extensión **Code Runner**, tendrás que agregar "-lSDL" a la lista de argumentos de la tarea de compilación. Para eso, abre el archivo ***.json*** que encontrarás en el directorio ***.vscode*** de tu proyecto. Encontrarás algo como esto:
 
 ```json
 {
