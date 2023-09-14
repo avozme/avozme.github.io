@@ -1,0 +1,16 @@
+<body>
+   <h1>Botón saltarín</h1>
+   <button id='boton' onclick='mover_boton()' style='position: absolute; top: 100px; left: 200px'>Púlsame</button>
+   <script>
+      function mover_boton() {
+          var mov_x = Math.random()*50 - 25;
+          var mov_y = Math.random()*50 - 25;
+          var pos_x = document.getElementById('boton').style.left;
+          var pos_y = document.getElementById('boton').style.top;
+          pos_x = parseInt(pos_x) + parseInt(mov_x);
+          pos_y = parseInt(pos_y) + parseInt(mov_y);
+          document.getElementById('boton').style.left = pos_x + "px";
+          document.getElementById('boton').style.top = pos_y + "px";
+      }
+   </script>
+</body>

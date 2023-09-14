@@ -1,0 +1,141 @@
+Abyss;James Cameron;Ed Harris, Mary Elisabeth Mastrantonio;Aventuras;EEUU;146
+Doce monos;Terry Gilliam;Bruce Willis, Madeleine Stowe, Brad Pitt;Ciencia Ficción;EEUU;129
+Alien;Ridley Scott;Sigourney Weaver, Tom Skerritt, Yapett Kotto;Terror;EEUU;117
+Atrapado en el tiempo;Harold Ramis;Bill Murray, Andie McDowell, Chris Elliott;Comedia;EEUU;101
+En Busca del Arca Perdida;Steven Spielberg;Harrison Ford, Karen Allen, Denholm Elliot;Aventuras;EEUU;122
+Agárralo como Puedas;David Zucker;Leslie Nielsen, Priscilla Prestley, Ricardo Montalbán;Comedia;EEUU;100
+Los Intocables de Elliot Ness;Brian DePalma;Kevin Costner, Sean Connery, Robert DeNiro;Acción;EEUU;109
+Alien, el Octavo Pasajero;Ridley Scott;Sigourney Weaver, Tom Skerrit, Ian Holm;Terror;EEUU;130
+La Casa Rusia;Fred Schepisi;Sean Connery, Michelle Pfeiffer, James Fox;Thriller;EEUU;134
+Alien 3;David Fincher;Sigourney Weaver, Lance Henrikssen, Charles Dance;Terror;EEUU;120
+Drácula de Bram Stocker;Francis Ford Coppola;Winona Ryder, Gary Oldman, Anthony Hopkins;Terror;EEUU;131
+Lady Halcón;Richard Donner;Matthew Broderick, Rutger Hauer, Michelle Pfeiffer;Aventuras;EEUU;101
+2001. Una Odisea en el Espacio;Stanley Kubrick;Keir Dullea, Gary Lockwood, William Sylvester;Ciencia Ficción;EEUU;139
+Grita Libertad;Richard Attemborough;Kevin Kline, Denzel Washington, ;Drama;EEUU;151
+Sentido y sensibilidad;Ang Lee;Emma Thompson, Kate Winslet, Alan Rickman;Comedia;EEUU;136
+El Imperio Contraataca;Irwin Keshner;Mark Hammill, Carrie Fisher, Harrison Ford;Aventuras;EEUU;131
+El Retorno del Jedi;George Lucas;Mark Hammill, Carrie Fisher, Harrison Ford;Aventuras;EEUU;133
+Aliens, el Regreso;James Cameron;Sigourney Weaver, Carrie Henn, Paul Reiser;Acción;EEUU;154
+Casablanca;Michael Curtiz;Humphrey Bogart, Ingrid Bergman, Paul Henreid;Drama;EEUU;100
+Cazafantasmas II;Ivan Reitman;Bill Murray, Sigourney Weaver, Dan Aykroyd;Comedia;EEUU;100
+La Misión;Roland Joffé;Jeremy Irons, Robert DeNiro, Liam Neeson;Drama;EEUU;134
+Instinto Básico;Paul Verhoeven;Michael Douglas, Sharon Stone, Jeanne Tipplehorn;Thriller;EEUU;100
+Aterriza como Puedas;J.Abrahams, D.Zucker;Robert Hays, Julie Hagerty, Lloyd Bridges;Comedia;EEUU;82
+Indiana Jones y el Templo Maldito;Steven Spielberg;Harrison Ford, Kate Capshaw, ;Aventuras;EEUU;105
+1941;Steven Spielberg;Dan Aykroyd, John Candy, Treat Williams;Comedia;EEUU;140
+La Fuerza del Cariño;James L. Brooks;Debra Winger, Shirley MacLaine, Jack Nicholson;Drama;EEUU;120
+¿Quién Engañó a Roger Rabbit?;Robert Zemeckis;Bob Hopkins, Christopher Lloyd, Johanna Cassidy;Comedia;EEUU;98
+El Último Mohicano;Michael Mann;Daniel Day Lewis, Madeleine Stowe, Wes Studi;Drama;EEUU;122
+Terminator;James Cameron;Linda Hamilton, Michael Biehn, Arnold Schwarzenegger;Acción;EEUU;100
+Solo en Casa;Chris Columbus;Mackaulay Culkin, Catherine O'Hara, Joe Pesci;Comedia;EEUU;95
+El Silencio de los Corderos;Jonathan Demne;Jodie Foster, Anthony Hopkins, Scott Glen;Thriller;EEUU;105
+Primera Plana;Billy Wilder;Jack Lemmon, Walther Mathau;Comedia;EEUU;102
+Tiburón;Steven Spielberg;Roy Scheider, Richard Dreyfuss, Robert Shaw;Suspense;EEUU;100
+Blade Runner;Ridley Scott;Harrison Ford, Rutger Hauer, Sean Young;Drama;EEUU;120
+Un Horizonte muy Lejano;Ron Howard;Tom Cruise, Nicole Kidman, Robert Prosky;Drama;EEUU;120
+Jungla de Cristal;John McTiernan;Bruce Willis, Bonnie Bedelia, Alan Rickman;Acción;EEUU;120
+La Cosa;John Carpenter;Kurt Russell, Richard Dysart, ;Terror;EEUU;126
+La Loca Historia del Mundo;Mel Brooks;Mel Brooks, Dom DeLouise, Madeline Kahn;Comedia;EEUU;101
+La Princesa Prometida;Rob Reiner;Cary Elwes, Robin Wright, Mandy Matinkim;Comedia;EEUU;79
+Los Inmortales;Russell Mulcahy;Christopher Lambert, Sean Connery, ;Aventuras;EEUU;98
+Paseando a Miss Daisy;Bruce Beresford;Jessica Tandy, Morgan Freeman, Dan Aykroyd;Drama;EEUU;111
+Pretty Woman;Gary Marshall;Julia Roberts, Richard Gere, Hector Helizondo;Comedia;EEUU;99
+Psicosis;Alfred Hitchcock;Anthony Perkins, Vera Miles, Vivien Leight;Thriller;EEUU;97
+Regreso al Futuro;Robert Zemeckis;Michael J. Fox, Christopher Lloyd, Lea Thomsom;Comedia;EEUU;98
+Rocky;John G. Advilsen;Sylvester Stallone, Talia Shire, Carl Weathers;Drama;EEUU;126
+Biba la Banda;Ricardo Palacios;Alfredo Landa, José Sancho, Antonio Ferrandis;Comedia;España;88
+Carretera al Infierno;Robert Harmon;C. Thomas Howell, Jennifer Jason Leight, Rutger Hauer;Thriller;EEUU;102
+Bailando con Lobos;Kevin Costner;Kevin Costner, Mary MacDonnell, Graham Greene;Western;EEUU;180
+Cinema Paradiso;Giuseppe Tornatore;Salvatore Cascio, Philippe Noiret, ;Drama;Italia;90
+E. T. , el Extraterrestre;Steven Spielberg;Henry Thomas, Drew Barrymore, Dee Wallace;Drama;EEUU;121
+Bitelchús;Tim Burton;Michael Keaton, Winona Ryder;Comedia;EEUU;101
+El Club de los Poetas Muertos;Peter Weir;Robin Williams, Ethan Hawke, Robert Sean Leonard;Drama;EEUU;120
+El Puente sobre el Rio Kwai;David Lean;Alec Guiness, William Holden, Toshiro Mifune;Bélico;EEUU;201
+El Resplandor;Stanley Kubrick;Jack Nicholson, Shelley Duvall, Scatman Crothers;Terror;EEUU;125
+Grease;Randall Kleiser;John Travolta, Olivia Newton-John, ;Musical;EEUU;100
+Sin Perdón;Clint Eastwood;Clint Eastwood, Gene Hackman, Morgan Freeman;Western;EEUU;130
+Tierras de Penumbra;Richard Attemborough;Anthony Hopkins, Debra Winger, Joseph Mazzelo;Drama;Gran Breta;109
+Nacido en Cuatro de Julio;Oliver Stone;Tom Cruise, Willem Dafoe, Kyra Sidgewyck;Drama;EEUU;128
+La Lista de Schindler;Steven Spielberg;Liam Neeson, Ben Kingsley, Ralph Fiennes;Drama;EEUU;187
+Los Amigos de Peter;Kenneth Brannagh;Kenneth Brannagh, Emma Thompson, ;Comedia;Gran Breta;87
+La Edad de la Inocencia;Martin Scorsese;Daniel Day-Lewis, Michelle Pfeiffer, Winona Ryder;Drama;EEUU;105
+Speed (Máxima Potencia);Jan DeBont;Keanu Reeves, Sandra Bullock, Dennis Hopper;Acción;EEUU;118
+La extraña pareja;Gene Sacks;Walter Matthau, Jack Lemmon;Comedia;EEUU;102
+Lo Que Queda del Día;James Ivory;Anthony Hopkins, Emma Thompson, James Fox;Drama;EEUU;128
+Algo para Recordar;Nora Ephron;Tom Hanks, Meg Ryan, Ross Mallinger;Comedia;EEUU;102
+J.F.K.  Caso Abierto;Oliver Stone;Kevin Costner, Joe Pesci, Gary Oldman;Thriller;EEUU;177
+Titanic;James Cameron;Leonardo DiCaprio, Kate Winslet, Billy Zane;Drama;EEUU;194
+Ed Wood;Tim Burton;Johnny Deep, Patricia Arquette, Martin Landau;Comedia;EEUU;101
+Los Puentes de Madison;Clint Eastwood;Meryl Streep, Clint Eastwood, Annie Corley;Drama;EEUU;135
+Seven;David Fincher;Brad Pitt, Morgan Freeman, Gwyneth Paltrow;Thriller;EEUU;127
+Ni un Pelo de Tonto;Robert Benton;Paul Newman, Melanie Griffith, Bruce Willis;Comedia;EEUU;95
+Sueños de un seductor;Herbert Ross;Woody Allen, Diane Keaton;Comedia;EEUU;85
+El ejército de las tinieblas;Sam Raimi;Bruce Campbell, Embeth Davidtz;Terror;EEUU;103
+La pelota vasca. La piel contra la piedra;Julio Médem;Documental;Documental;España;134
+El gran Lebowsky;Joel Coen;Jeff Bridges, John Goodman, Steve Buscemi;Comedia;EEUU;110
+Los caballeros de la mesa cuadrada;Terry Jones;Graham Chapman, John Cleese, Eric Idle;Comedia;ReinoUnido;91
+Érase una vez en América;Sergio Leone;Robert DeNiro, James Woods;Drama;EEUU;189
+Con la muerte en los talones;Alfred Hitchcock;Cary Grant, Eva Marie Saint, James Mason;Thriller;EEUU;124
+Amanece que no es poco;José Luis Cuerda;Antonio Resines, José Sazatornil, Fernando Valverde;Comedia;España;88
+Las aventuras de Ford Fairlane;Renny Harlin;Andrew Dice Clay, Lauren Holly;Comedia;EEUU;104
+800 balas;Álex de la Iglesia;Sancho Gracia, Carmen Maura, Eusebio Poncela;Comedia;España;123
+Piedras;Ramón Salazar;Najwa Nimri, Antonia San Juan, Mónica Cervera;Drama;España;135
+El mismo amor, la misma lluvia;Juan José Campanella;Ricardo Darín, Soledad Villamil;Comedia;Argentina;102
+La chaqueta metálica;Stanley Kubrick;Matthew Modine, Vincent D'Onofrio, Ed O'Ross;Bélico;EEUU;116
+El espinazo del diablo;Benicio del Toro;Eduardo Noriega, Marisa Paredes, Federico Luppi;Terror;España;106
+La luz prodigiosa;Miguel Hermoso;Alfredo Landa, Kitty Manver;Drama;España;105
+Rocky;John G. Advilsen;Sylvester Stallone, Talia Shire;Drama;EEUU;119
+El gran dictador;Charles Chaplin;Charles Chaplin, Paulette Goddard;Comedia;EEUU;87
+Sopa de Ganso;Leo McCarey;Groucho, Harpo, Chico Marx;Comedia;EEUU;72
+Spaceballs;Mel Brooks;Mel Brooks, Bill Pullman, Daphne Zuñiga;Comedia;EEUU;96
+Enemigo a las puertas;Jean Jacques Annaud;Jude Law, Ed Harris, Joaquin Phoenix;Bélico;EEUU;131
+X-Men;Brian Singer;Hugh Jackman, Patrick Stewart, Framke Janssen;Fantástico;EEUU;100
+Heat;Michael Mann;Robert DeNiro, Al Pacino;Thriller;EEUU;168
+K-19;Kathryn Bigelow;Harrison Ford, Sam Spruell;Thriller;EEUU;101
+Reservoir Dogs;Quentin Tarantino;Harvey Keitel, Steve Buscemi, Tim Roth;Thriller;EEUU;99
+Oceans eleven;Steven Soderbergh;George Clooney, Brad Pitt;Comedia;EEUU;112
+Apocalypse Now;Francis Ford Coppola;Martin Sheen, Marlon Brando;Bélico;EEUU;178
+Rápida y mortal;Sam Raimi;Sharon Stone, Russell Crowe, Gene Hackman;Western;EEUU;97
+El nombre de la rosa;Jean Jacques Annaud;Sean Connery, F. Murray Abraham;Thriller;ReinoUnido;102
+Jungla de cristal;John McTiernan;Bruce Willis, Alan Rickman, Bonnie Bedelia;Acción;EEUU;120
+El otro lado de la cama;Emilio Martínez-Láza;Paz Vega, Natalia Verbeke, Ernesto Alterio, Gillermo Toledo;Comedia;España;101
+Lugares comunes;Adolfo Aristaráin;Federico Luppi, Mercedes Sampietro;Drama;Argentina;99
+El viaje de Chihiro;Hayao Miyazaki;Animación;Fantástico;Japón;121
+El día de los muertos;George A. Romero;Lori Cardille, Terry Alexander, Joe Pilato;Terror;EEUU;102
+La última noche de Boris Grushenko;Woody Allen;Woody Allen, Diane Keaton;Comedia;EEUU;78
+Descubriendo a Forrester;Gus Van Sant;Sean Connery, Rob Brown;Drama;EEUU;110
+Eduardo manostijeras;Tim Burton;Johnny Deep, Winona Ryder, Kathy Baker;Fantástico;EEUU;101
+Tener o no tener;Howard Hawks;Humphrey Bogart, Lauren Bacall;Negro;EEUU;100
+Atmósfera cero;Peter Hyams;Sean Connery, Powers Boothe;Ciencia Ficción;EEUU;121
+Guerreros;Daniel Calparsoro;Eloy Azorín, Eduardo Noriega;Bélico;España;105
+La guerra de las galaxias;George Lucas;Mark Hamill, Carrie Fisher, Harrison Ford;Aventuras;EEUU;119
+Magnolia;Paul Thomas Anderson;Tom Cruise, Julianne Moore, Jason Robards;Drama;EEUU;188
+Willow;Ron Howard;Johanne Walley, Val Kilmer;Aventuras;EEUU;99
+Ciudadano Kane;Orson Welles;Orson Welles, Joseph Cotten;Drama;EEUU;119
+Belle de Jour;Luis Buñuel;Catherine Deneuve, Jean Sorel, Michel Piccoli;Drama;Francia;101
+Gattaca;Andrew Niccol;Ethan Hawke, Uma Thurman;Ciencia Ficción;EEUU;108
+Taxi Driver;Martin Scorsese;Robert DeNiro, Jodie Foster, Cybill Sepherd;Drama;EEUU;135
+Los puentes de Madison;Clint Eastwood;Clint Eastwood, Meryl Streep;Drama;EEUU;120
+La habitación del pánico;David Fincher;Jodie Foster, Forest Witaker;Thriller;EEUU;112
+Los Tanenbaums;Wes Anderson;Gene Hackman, Gwyneth Paltrow, Ben Stiller;Comedia;EEUU;109
+Qué bello es vivir;Frank Capra;James Stewart, Donna Reed, Lionel Barrymore;Comedia;EEUU;130
+Rio Rojo;Howard Hawks;John Wayne, Montgomery Clift, Joanne Dry;Western;EEUU;133
+Alguien voló sobre el nido del cuco;Milos Forman;Jack Nicholson, Danny DeVito;Drama;EEUU;129
+En busca del arca perdida;Steven Spielberg;Harrison Ford, Karen Allen;Aventuras;EEUU;121
+Al final de la escalera;Peter Medak;George C. Scott, Trish Van Devere;Terror;EEUU;115
+El sexto sentido;M. Night Shyamalan;Bruce Willis, Toni Collette, Haley Joey Osment;Terror;EEUU;107
+Escalofrío;Bill Paxton;Bill Paxton, Matthew MacConaughey;Terror;EEUU;100
+Posesión infernal;Sam Raimi;Bruce Campbell, Ellen Sandweiss;Terror;EEUU;82
+South Park;Nick Park;Animación;Comedia;EEUU;91
+Todo lo que quiso saber sobre el sexo;Woody Allen;Woody Allen, Diane Keaton;Comedia;EEUU;100
+Blow;Ted Demme;Johnny Deep, Penélope Cruz, Franka Potente;Drama;EEUU;102
+Jay y Bob el silencioso contraatacan;Kevin Smith;Jason Mewes, Kevin Smith, Ben Affleck;Comedia;EEUU;104
+Soldados de Salamina;David Trueba;Ariadna Gil, Ramón Fontsere, María Botto;Drama;España;112
+Deep rising;Stephen Hopkins;Treat Williams, Framke Janssen;Aventuras;EEUU;105
+O'Brother;Joel Cohen;George Clooney, Charles Durning;Comedia;EEUU;110
+Encuentros en la Tercera Fase;Steven Spielberg;Richard Dreyfuss, François Truffaut;Ciencia Ficción;EEUU;128
+Trainspotting;Danny Boyle;Ewan MacGregor, Robert Carlyle, John Lee Miller;Comedia;ReinoUnido;101
+El sentido de la vida;Terry Jones;John Cleese, Graham Chapman, Michael Palin;Comedia;ReinoUnido;100
+Delitos y Faltas;Woody Allen;Martin Landau, Woody Allen, Mia Farrow;Drama;EEUU;104
+Unico Testigo;Peter Weir;Harrison Ford, Kelly McGillis;Drama;EEUU;98
+Terminator;James Cameron;Arnold Schwarzenegger, Linda Hamilton, Michael Biehn;Acción;EEUU;105

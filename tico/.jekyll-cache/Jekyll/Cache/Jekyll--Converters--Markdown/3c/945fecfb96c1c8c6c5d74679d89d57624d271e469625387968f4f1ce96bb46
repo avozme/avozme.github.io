@@ -1,0 +1,1431 @@
+I"�<h2 class="no_toc" id="92-introducción-a-c">9.2. Introducción a C</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#921--características-básicas-de-c" id="markdown-toc-921--características-básicas-de-c">9.2.1.  Características básicas de C</a></li>
+  <li><a href="#922-breve-historia-de-c" id="markdown-toc-922-breve-historia-de-c">9.2.2. Breve historia de C</a></li>
+  <li><a href="#923-sintaxis-básica-de-c" id="markdown-toc-923-sintaxis-básica-de-c">9.2.3. Sintaxis básica de C</a></li>
+  <li><a href="#924-conversiones-de-tipo" id="markdown-toc-924-conversiones-de-tipo">9.2.4. Conversiones de tipo</a></li>
+  <li><a href="#925-asignación" id="markdown-toc-925-asignación">9.2.5. Asignación</a></li>
+  <li><a href="#926-operadores-y-expresiones" id="markdown-toc-926-operadores-y-expresiones">9.2.6. Operadores y expresiones</a></li>
+  <li><a href="#927-estructuras-de-control" id="markdown-toc-927-estructuras-de-control">9.2.7. Estructuras de control</a></li>
+  <li><a href="#928-algoritmo-principal-y-subalgoritmos" id="markdown-toc-928-algoritmo-principal-y-subalgoritmos">9.2.8. Algoritmo principal y Subalgoritmos</a></li>
+  <li><a href="#929-entrada-y-salida-en-c" id="markdown-toc-929-entrada-y-salida-en-c">9.2.9. Entrada y salida en C</a></li>
+  <li><a href="#9210-cadenas-de-caracteres" id="markdown-toc-9210-cadenas-de-caracteres">9.2.10. Cadenas de caracteres</a></li>
+  <li><a href="#9211-arrays" id="markdown-toc-9211-arrays">9.2.11. Arrays</a></li>
+  <li><a href="#9212-funciones-de-la-librería-estándar" id="markdown-toc-9212-funciones-de-la-librería-estándar">9.2.12. Funciones de la librería estándar</a></li>
+</ul>
+
+<p>C es un lenguaje muy antiguo pero plenamente vigente en muchos ámbitos de la <strong>informática y diversas ingenierías</strong>.</p>
+
+<p>¡C tiene más de 50 años, lo que es una auténtica burrada en informática!</p>
+
+<p>Sin embargo, sigue usándose en la actualidad. <strong>Por algo será.</strong></p>
+
+<p>Por un lado, C genera código máquina tan eficiente que ningún otro lenguaje puede igualarlo. Y puedes acceder directamente al hardware de tu máquina desde C, o incluso incrustar código ensamblador.</p>
+
+<p>Por si esto fuera poco, C (o su hermano mayor, C++, que veremos en el siguiente tema) se utiliza mucho en la actualidad en diversos ámbitos donde se necesita acceder al hardware o que los programas se ejecuten muy, muy rápido:</p>
+
+<ul>
+  <li>Desarrollo de sistemas. Gran parte de Windows, Linux, iOS o Android están programados en C.</li>
+  <li>Desarrollo de drivers para los sistemas operativos.</li>
+  <li>Robótica y automática.</li>
+  <li>Sistemas integrados en electrodomésticos: televisores, microondas, frigoríficos, routers, etc.</li>
+  <li>Sistemas integrados en los automóviles: ABS, ESP, climatización, visualización de información en tiempo real, control de los sensores…</li>
+  <li>Aprendizaje. Con C aprenderás a programar de verdad, sin que librerías enormes o <em>frameworks</em> te oculten lo que pasa en las entrañas de la máquina.</li>
+</ul>
+
+<p>Por todas estas razones, C es un lenguaje estupendo para iniciarse en la programación, así que ¡vamos a ello!</p>
+
+<h3 id="921--características-básicas-de-c">9.2.1.  Características básicas de C</h3>
+
+<ul>
+  <li>C es un lenguaje de <strong>nivel intermedio</strong>. Tiene características de los lenguajes de alto nivel pero, al mismo tiempo, permite manipular detalles del hardware que para otros lenguajes resultan innacesibles y genera código máquina ultrarrápido.</li>
+  <li>Es <strong>imperativo y estructurado</strong>. Admite <strong>orientación a objetos</strong> (aunque entonces se llama C++).</li>
+  <li>Su <strong>tipado es estático y débil</strong>. Eso significa que hay que indicar el tipo de datos de las variables antes de usarlas y que se pueden hacer mezclas de tipos.</li>
+  <li>La <strong>sintaxis</strong> de sus estructuras de control se parece a las de Java, Javascript, PHP o Python, porque todos estos lenguajes son herederos naturales de C.</li>
+  <li>Es un <strong>lenguaje compilado</strong>, pensado para producir código máquina rápido y eficiente. Si quieres velocidad de ejecución, C es tu lenguaje.</li>
+  <li>Es <strong>altamente portable</strong> (para ser un lenguaje compilado). Existen compiladores de C para todos los sistemas y arquitecturas. Si respetas el estándar de C, no tendrás dificultad para migrar las aplicaciones a cualquier sistema.</li>
+  <li>Es un lenguaje de programación <strong>muy  popular</strong> y <strong>muy veterano</strong>. Aunque se ha intentado reemplazar muchas veces, ningún lenguaje lo ha conseguido y tiene una base de programadores muy fieles.</li>
+</ul>
+
+<h3 id="922-breve-historia-de-c">9.2.2. Breve historia de C</h3>
+
+<p>A principios de la década de 1970, los laboratorios Bell necesitaban un nuevo sistema operativo. Hasta ese momento, la mayoría de los sistemas operativos estaban escritos en lenguaje ensamblador (muy parecido al lenguaje máquina) para que el resultado fuera un programa lo suficientemente rápido.</p>
+
+<p>Pero los programas escritos en ensamblador son difíciles de mantener y Bell quería que su nuevo sistema operativo se pudiera mantener y modificar con facilidad. Por lo tanto, se decidieron a inventar un lenguaje nuevo con el que programar su sistema operativo.</p>
+
+<p>Tras varios intentos, Brian Kerningham y Dennis Ritchie, dos ingenieros de laboratorios Bell, terminaron de diseñar el lenguaje C en un ordenador DEC PDP-11 y, con él, desarrollaron el sistema operativo Unix.</p>
+
+<p>El tándem C - Unix ha sido una referencia fundamental en el mundo de la programación en el último medio siglo, y C se ha convertido en uno de los lenguajes de programación más populares y longevos de la historia de la informática. C creció en popularidad muy rápidamente y sigue siendo uno de los lenguajes fundamentales tanto en el mundo educativo como en el mundo profesional.</p>
+
+<p>El primer estándar de C (ANSI C) no apareció hasta 1990, por lo que es posible encontrar diferentes dialectos de C ligeramente incompatibles entre sí.</p>
+
+<p>Una evolución de C fue el lenguaje C++ que, a parte de todas las características del ANSI C, incluye la posibilidad de orientación a objetos, una técnica de programación ligeramente diferente de la programación estructurada. Algo más tarde, en el año 2000, Microsoft patentó el lenguaje C#, otra evolución de C++ orientada al desarrollo de aplicaciones en red para la plataforma .NET de esta compañía.</p>
+
+<p>Otros lenguajes han sido diseñados para permitir que los no programadores puedan leer y comprender los programas y, presumiblemente, aprender a escribir los suyos propios para resolver problemas sencillos. Por el contrario, C fue creado, influenciado y probado en vivo por programadores profesionales. El resultado es que C da al programador lo que muchos programadores piden: unas pocas y bien escogidas palabras clave, una biblioteca poderosa y estandarizada, unas mínimas restricciones y un máximo control sobre lo que sucede en el interior de la máquina.</p>
+
+<p>Si a esto unimos que el código objeto generado por C es casi tan eficiente como el ensamblador, se entenderá por qué lleva medio siglo siendo uno de los lenguajes más populares entre los programadores profesionales.</p>
+
+<p>C también tiene sus detractores que lo acusan de ser confuso, críptico y demasiado flexible. En efecto, con C se pueden desarrollar las técnicas de programación estructurada, pero también se puede programar “código espagueti”. Esto, sin embargo, ocurre con todos los lenguajes: incluso los que tienen una sintaxis más estilizada y elegante, como Python o Ruby, pueden generar código absolutamente ininteligible en manos de un programador manazas.</p>
+
+<h3 id="923-sintaxis-básica-de-c">9.2.3. Sintaxis básica de C</h3>
+
+<p>En este apartado vamos a aprender cómo se escriben en C las estructuras de control y el resto de instrucciones básicas.</p>
+
+<h4 id="generalidades-sintácticas">Generalidades sintácticas</h4>
+
+<p>Hay algunas normas básicas de la sintaxis de C que tienes que conocer:</p>
+
+<ul>
+  <li><strong>Los bloques de código se marcan con las llaves</strong> ( <strong>{</strong> y <strong>}</strong> ). Por ejemplo, después de una sentencia <em>while</em> (equivalente al <em>mientras</em> de pseudocódigo) hay que abrir una llave. El cuerpo de bucle comprenderá desde esa llave de apertura hasta la siguiente llave de cierre, así:</li>
+</ul>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="k">while</span> <span class="p">(</span><span class="n">condicion</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">Instrucci</span><span class="err">ó</span><span class="n">n</span> <span class="mi">1</span> <span class="n">del</span> <span class="n">bucle</span>
+      <span class="n">Instrucci</span><span class="err">ó</span><span class="n">n</span> <span class="mi">2</span> <span class="n">del</span> <span class="n">bulce</span>
+      <span class="p">...</span>
+      <span class="n">Instrucci</span><span class="err">ó</span><span class="n">n</span> <span class="n">N</span> <span class="n">del</span> <span class="n">bucle</span>
+   <span class="p">}</span>
+</code></pre></div></div>
+
+<p>La llave de cierre, por tanto, sería el equivalente al <em>FinMientras</em> de pseudocódigo.</p>
+
+<ul>
+  <li>
+    <p>Todas las instrucciones <strong>terminan con un punto y coma</strong> ( <strong>;</strong> ). Excepción: si una instrucción contiene un bloque marcado con llaves ( { … } ), se considera que esa instrucción termina al cerrar el bloque, y en ese caso no hace falta poner punto y coma.</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>                     <span class="cm">/* La instrucción de asignación termina con ; */</span>
+ <span class="k">while</span> <span class="p">(</span><span class="n">condicion</span><span class="p">)</span> <span class="p">{</span>
+    <span class="cm">/* Cuerpo del bucle */</span>
+ <span class="p">}</span>                           <span class="cm">/* El bucle termina con }, así que no necesita ; */</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Los <strong>identificadores</strong> de variables, funciones, etc., no pueden empezar con un número ni contener espacios o símbolos especiales, salvo el de subrayado ( _ )</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">a5</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>     <span class="cm">/* Identificador de variable válido */</span>
+ <span class="mi">5</span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>     <span class="cm">/* Identificador de variable NO válido */</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Las <strong>cadenas de caracteres</strong> deben encerrarse entre <strong>comillas dobles</strong> ( “…” ). Los <strong>caracteres</strong> individuales se encierran entre <strong>comillas simples</strong>.</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="s">"Soy una cadena"</span><span class="p">;</span>   <span class="cm">/* Cadena de caracteres */</span>
+ <span class="sc">'C'</span><span class="p">;</span>                <span class="cm">/* Carácter individual */</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>El lenguaje es <strong>sensitivo a las mayúsculas</strong>. Es decir, no es lo mismo que una variable se llame <em>edad</em> que <em>Edad</em> o <em>EDAD</em>.</p>
+  </li>
+</ul>
+
+<h4 id="tipos-de-datos-simples">Tipos de datos simples</h4>
+
+<p>C utiliza varios tipos de datos <strong>simples</strong> porque solo pueden contener un valor en cada momento (como en pseudocódigo). Los más importantes son:</p>
+
+<ul>
+  <li><strong>int</strong>: números enteros. Admite modificadores como <strong>long</strong> (para enteros largos) o <strong>short</strong> (para enteros cortos). Por ejemplo, el tipo <em>int</em> permite usar números entre –32768 a 32767, mientras que el tipo <em>long int</em> admite números entre –2147483648 a 2147483647.</li>
+  <li><strong>float</strong>: número reales. El tipo <strong>double</strong> se usa para lo mismo, pero tiene más precisión y admite números mayores.</li>
+  <li><strong>char</strong>: caracteres.</li>
+  <li><strong>void</strong>: vacío. Se usa en funciones que no devuelven nada o que tienen una lista de parámetros vacía.</li>
+</ul>
+
+<p>Observa que en C no existe el tipo de dato <strong>lógico o booleano</strong>. Se utiliza en su lugar el tipo <em>int</em>, representando el 0 el valor falso y cualquier otra cantidad (normalmente 1) el valor verdadero.</p>
+
+<h4 id="declaración-de-variables">Declaración de variables</h4>
+
+<p>Todas las variables tienen que <strong>declararse</strong> antes de su primer uso. Esto se hace así:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span><span class="p">;</span>   <span class="cm">/* Declaración de la variable a, de tipo entero */</span>
+<span class="kt">char</span> <span class="n">b</span><span class="p">;</span>  <span class="cm">/* Declaración de la variable b, de tipo carácter */</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>  <span class="cm">/* Uso de la variable a */</span>
+<span class="n">b</span> <span class="o">=</span> <span class="sc">'z'</span><span class="p">;</span> <span class="cm">/* Uso de la variable b */</span>
+</code></pre></div></div>
+
+<p>Observa que, al declarar una variable, hay que especificar su tipo.</p>
+
+<p>Todas las variables son <strong>locales</strong> a la función o bloque de código donde estén definidas, salvo que se indique otra cosa, dejando de existir al finalizar el bloque actual. Aunque pueden crearse variables globales, su uso está tan desaconsejado que ni siquiera te voy a explicar cómo se hace.</p>
+
+<h3 id="924-conversiones-de-tipo">9.2.4. Conversiones de tipo</h3>
+
+<p>C es un lenguaje <strong>débilmente tipado</strong>, es decir, no hace comprobaciones estrictas de tipos a la hora de asignar un valor a una variable o de comparar dos expresiones.</p>
+
+<p>Por ejemplo, estas instrucciones son correctas:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">float</span> <span class="n">a</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">b</span><span class="p">;</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>¡Hemos asignado un valor entero a la variable <em>a</em>, que es de tipo <em>float</em>!</p>
+
+<p>En otros lenguajes esto no está permitido, pero en C se realizan conversiones automáticas de tipo cuando en una misma expresión aparecen datos de tipos diferentes. Esto, que en principio es una ventaja, pues elimina algunas limitaciones engorrosas, otras veces es peligroso porque algunos datos pueden cambiar extrañamente de valor al hacerse esa conversión automática.</p>
+
+<p>La conversión puede ser de dos clases:</p>
+
+<ul>
+  <li>
+    <p><strong>Asignación de un valor a una variable que permita más precisión</strong>. Por ejemplo, asignar un número entero a una variable <em>float</em>. En este caso, el número se convierte a real añadiendo “.0” a la parte decimal. No hay pérdida de información.</p>
+  </li>
+  <li>
+    <p><strong>Asignación de un valor a una variable que permita menos precisión</strong>. Por ejemplo, asignar un número <em>long int</em> a una variable de tipo <em>int</em>. En este caso, el número se recorta, perdiendo sus bits más significativos, es decir, los dígitos binarios que estén más a la izquierda. Por lo tanto, hay pérdida de información. Hay que tener mucho cuidado con este tipo de conversiones.</p>
+  </li>
+</ul>
+
+<p>Además de las conversiones automáticas de tipo, el programador puede <strong>forzar la conversión de tipos</strong> a voluntad utilizando <strong>moldes</strong>.</p>
+
+<p>Un molde es una expresión de un tipo de datos entre paréntesis que aparece delante de un dato. Entonces, antes de evaluar la expresión, el dato es convertido al tipo especificado en el molde. Por ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">float</span> <span class="n">a</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">b</span><span class="p">;</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">a</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Sin el molde <code class="language-plaintext highlighter-rouge">(float)</code>, la división <code class="language-plaintext highlighter-rouge">a/2</code> sería entera, ya que a es una variable de tipo <em>int</em>, y se perdería la parte decimal. Al aplicar el molde, se convierte momentáneamente el valor entero 5 al valor real 5.0 y se evalúa la expresión, que ahora sí se realiza como división real, conservando sus decimales.</p>
+
+<h3 id="925-asignación">9.2.5. Asignación</h3>
+
+<p>La <strong>asignación</strong> de valores a variables en C es fácil de explicar: se hace con el <strong>símbolo igual (=)</strong>, no con el símbolo &lt;= que usábamos en pseudocódigo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span><span class="p">;</span>      <span class="cm">/* Declaración de la variable a */</span>
+<span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>  <span class="cm">/* Declaración y asignación de valor a la variable b */</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>  <span class="cm">/* Asignación de valor a la variable a */</span>
+</code></pre></div></div>
+
+<p>Observa cómo, en la segunda instrucción, hemos declarado y asignado valor a una variable en la misma línea.</p>
+
+<h3 id="926-operadores-y-expresiones">9.2.6. Operadores y expresiones</h3>
+
+<p>Los <strong>operadores y expresiones en C</strong> son iguales que los que hemos empleado en pseudocódigo:</p>
+
+<ul>
+  <li>Operadores <strong>aritméticos</strong>: +, -, *, /, % (este último significa <em>módulo de la división</em>).</li>
+  <li>Operadores <strong>relacionales</strong>: &gt;, &lt;, &gt;=, &lt;=…</li>
+</ul>
+
+<p>Sin embargo, hay algunas <strong>diferencias</strong> importantes entre el pseudocódigo de PseInt y C. Son estas:</p>
+
+<ul>
+  <li>
+    <p>La <strong>asignación</strong>, como ya hemos visto más arriba, se hace con el <strong>símbolo igual (=)</strong>, no con &lt;=.</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>        <span class="cm">/* A la variable a se le asigna el valor 5 */</span>
+ <span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>    <span class="cm">/* A la variable b se le asigna el valor a + 1 */</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>La <strong>comparación de igualdad</strong> se hace con un <strong>doble igual (==)</strong>, no con un solo igual (=). Esto es así para distinguir la comparación de la asignación.</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span> <span class="p">{</span>    <span class="cm">/* Comparación: ¿es a igual a 5? */</span>
+     <span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>   <span class="cm">/* Asignación: b toma el valor a + 1 */</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Existe el <strong>operador incremento (++)</strong>. Se utiliza para sumar una unidad a una variable.</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span>
+     <span class="n">i</span><span class="o">++</span><span class="p">;</span>         <span class="cm">/* Esto es equivalente a: i = i + 1 */</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>También existe el <strong>operador decremento (- -)</strong>, para restar una unidad a una variable.</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+     <span class="n">i</span><span class="o">--</span><span class="p">;</span>     <span class="cm">/* Equivalente a: i = i - 1 */</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Los <strong>operadores lógicos</strong> (Y, O, NO) se escriben de forma distinta:</p>
+    <ul>
+      <li><strong>Y</strong> se escribe <strong>&amp;&amp;</strong>.</li>
+      <li><strong>O</strong> se escribe <strong>||</strong>.</li>
+      <li><strong>NO</strong> se escribe <strong>!</strong> (sí, sí, es una admiración).</li>
+    </ul>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">b</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>   <span class="cm">/* Operador Y: tienen que darse las dos condiciones a la vez */</span>
+     <span class="p">...</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>Hay algunas otras diferencias, desde luego, pero con esto ya tienes para hacer un buen montón de programas.</p>
+
+<h3 id="927-estructuras-de-control">9.2.7. Estructuras de control</h3>
+
+<p>Las <strong>estructuras de control</strong> en C son muy similares a las que hemos utilizado en pseudocódigo, cambiando ligeramente la notación empleada.</p>
+
+<p>A continuación te muestro una tabla con las más habituales y su equivalente en pseudocódigo, sin entrar en explicaciones, porque supondremos que ya sabes manejarlas. Si no recuerdas para qué servía alguna de ellas, quizá sería buena idea que le dieras un repaso al capítulo dedicado al pseudocódigo.</p>
+
+<table>
+    <tr>
+      <th>Instrucción</th>
+      <th>Pseudocódigo</th>
+      <th>Lenguaje C</th>
+    </tr>
+    <tr>
+      <td>Condicional simple</td>
+      <td>
+         <code>
+         Si condición entonces<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         FinSi
+         </code>
+      </td>
+      <td>
+         <code>
+         if (condicion) {<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         }
+         </code>
+      </td>
+    </tr>
+    <tr>
+      <td>Condicional doble</td>
+      <td>
+         <code>
+         Si condicion entonces<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         SiNo<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         FinSi
+         </code>
+      </td>
+      <td>
+         <code>
+         if (condicion) {<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         }<br />
+         else {<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         }
+         </code>
+      </td>
+    </tr>
+    <tr>
+      <td>Bucle tipo mientras</td>
+      <td>
+         <code>
+         Mientras condicion hacer<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         FinMientras
+         </code>
+      </td>
+      <td>
+         <code>
+         while (condicion) {<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         }
+         </code>
+      </td>
+    </tr>
+    <tr>
+      <td>Bucle tipo repetir</td>
+      <td>
+         <code>
+         Repetir<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         Hasta Que condicion
+         </code>
+      </td>
+      <td>
+         <code>
+         do {<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         } while (condicion)
+         </code>
+      </td>
+    </tr>
+    <tr>
+      <td>Bucle tipo para</td>
+      <td>
+         <code>
+         Para variable &lt;- valor_inicial hasta valor_final con paso incremento hacer<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         FinPara
+         </code>
+      </td>
+      <td>
+         <code>
+         for (variable = valor_inicial; variable != valor_final; variable = variable + incremento) {<br />
+         &nbsp;&nbsp;&nbsp;acciones<br />
+         }
+         </code>
+      </td>
+    </tr>
+</table>
+
+<p>Fíjate en que casi todo se escribe del mismo modo que en pseudocódigo con un par de diferencias notables:</p>
+
+<ul>
+  <li>
+    <p><strong>DIFERENCIA 1: En el bucle tipo <em>repetir</em></strong>, la condición de salida se expresa al revés (“repetir mientras..” en lugar de “repetir hasta que…”. Lo verás mejor en este ejemplo que muestra los números del 1 al 100. Observa la condición del final del bucle:</p>
+
+    <p>En pseudocódigo:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> i &lt;- 1
+ Repetir
+    Escribir i
+    i &lt;- i + 1
+ Hasta que i &gt;= 100
+</code></pre></div>    </div>
+
+    <p>En C:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="k">do</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%i"</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+    <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+ <span class="p">}</span>
+ <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>DIFERENCIA 2: En el bucle tipo <em>para</em></strong> hay que indicar la asignación a la variable que controla el bucle, la condición de salida y la forma en la que esa variable cambiará en cada iteración. Observa este ejemplo:</p>
+
+    <p>En pseudocódigo:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> Para i &lt;- 1 hasta 10 hacer
+    Escribir i
+ FinPara
+</code></pre></div>    </div>
+
+    <p>En C:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%i"</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+
+    <p>Si el <strong>paso</strong> del bucle no es +1 (es decir, si la variable que controla el bucle no incrementa su valor de 1 en 1 en cada iteración), hay que indicarlo de este modo:</p>
+
+    <p>En pseudocódigo:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> Para i &lt;- 1 hasta 10 con paso 2 hacer
+    Escribir i
+ FinPara
+</code></pre></div>    </div>
+
+    <p>En C:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%i"</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+
+    <p>Por último, recuerda que en C existe una abreviatura para <code class="language-plaintext highlighter-rouge">i = i + 1</code>, que se escribe <code class="language-plaintext highlighter-rouge">i++</code>, por lo que lo más habitual es encontrar los bucles de tipo <em>para</em> escritos así:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span><span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%i"</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="928-algoritmo-principal-y-subalgoritmos">9.2.8. Algoritmo principal y Subalgoritmos</h3>
+
+<p>C es un <strong>lenguaje modular</strong> hasta el extremo de que todas las líneas de código deben pertenecer a alguna función, incluyendo las instrucciones del algoritmo principal, que se escriben en una función llamada <em>principal</em> (<strong><em>main</em></strong> en inglés)</p>
+
+<h4 id="la-función-main">La función <em>main()</em></h4>
+
+<p>La <strong>función <em>main()</em></strong> contiene el algoritmo o módulo principal del programa. La ejecución de un programa siempre empieza por la primera línea de la función <em>main()</em>.</p>
+
+<p>Esta función, como todas las funciones de C, puede devolver un valor. El valor devuelto por <em>main()</em> debe ser de tipo entero (<em>int</em>). Esto se utiliza para pasar algún valor al programa que haya llamado al nuestro, que suele ser el sistema operativo. Si <em>main()</em> no devuelve un número entero al sistema operativo mediante una sentencia return, entonces nuestro programa devolverá un número desconocido.</p>
+
+<p>(Moraleja: es una buena idea incluir un <em>return</em> al final de la función <em>main()</em>. Generalmente, la devolución de un 0 indica al sistema operativo que el programa a finalizado sin problemas, mientras que cualquier otro valor señala que se ha producido algún error).</p>
+
+<p>Por lo tanto, la forma habitual de la función <em>main()</em> será:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="p">...</span><span class="n">instrucciones</span> <span class="n">del</span> <span class="n">algoritmo</span> <span class="n">principal</span><span class="p">...</span>
+   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Observa que <em>main()</em> no tiene argumentos, por lo que aparece el identificador <em>void</em> entre paréntesis en la declaración. También se pueden utilizar argumentos en <em>main()</em>, pero eso es algo que no trataremos de momento.</p>
+
+<h4 id="las-funciones-en-c">Las funciones en C</h4>
+
+<p>La declaración de funciones se hace de forma similar a la empleada en pseudocódigo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tipo_devuelto</span> <span class="n">nombre_funci</span><span class="err">ó</span><span class="n">n</span> <span class="p">(</span><span class="n">par</span><span class="err">á</span><span class="n">metros_formales</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="p">...</span><span class="n">instrucciones</span><span class="p">...</span>
+   <span class="k">return</span> <span class="n">expresi</span><span class="err">ó</span><span class="n">n</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Observa que las únicas diferencias con el pseudocódigo son que no se usa la palabra “función”, que las llaves { y } sustituyen a <em>inicio</em> y <em>fin</em>, y que se emplea la palabra <em>return</em> en lugar de devolver.</p>
+
+<p>Si el tipo_devuelto es <em>void</em>, se considera que la función no devuelve ningún valor y que, por lo tanto, es un procedimiento. Entonces, un procedimiento en C se declara así:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">nombre_procedimiento</span> <span class="p">(</span><span class="n">par</span><span class="err">á</span><span class="n">metros_formales</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="p">...</span><span class="n">instrucciones</span><span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="paso-de-parámetros">Paso de parámetros</h4>
+
+<p>Los parámetros formales son, como en pseudocódigo, una lista de tipos e identificadores que se sustituirán por los parámetros actuales y se usarán como variables dentro de la función.</p>
+
+<p>Los parámetros se pasan normalmente <strong>por valor</strong>, pero también se pueden pasar por referencia. El paso de parámetros por referencia admite dos sitaxis ligeramente diferentes en C: anteponiendo el <strong>operador *</strong> (asterisco) al nombre del parámetro (equivalente a usar la expresión <em>por referencia</em> en pseudocódigo) o anteponiendo el <strong>operador &amp;</strong>.</p>
+
+<p><strong>Paso de parámetros por valor</strong></p>
+
+<p>Por ejemplo, en esta función el paso de parámetros es por valor:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">funcion1</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="p">...</span><span class="n">c</span><span class="err">ó</span><span class="n">digo</span> <span class="n">de</span> <span class="n">la</span> <span class="n">funci</span><span class="err">ó</span><span class="n">n</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Esto quiere decir que <em>funcion1()</em> recibirá únicamente el valor de los dos parámetros, x e y. Podrá utilizar esos valores a lo largo de su código, e incluso podrá cambiarlos. Pero cualquier cambio en x e y no afectará a los parámetros actuales, es decir, a los parámetros del programa que llamó a <em>funcion1()</em>.</p>
+
+<p><strong>Paso de parámetros por referencia con el operador *</strong></p>
+
+<p>En la siguiente función, el paso del parámetro “x” es por valor y el del parámetro “y”, por referencia:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">funcion2</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">y</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="p">...</span><span class="n">c</span><span class="err">ó</span><span class="n">digo</span> <span class="n">de</span> <span class="n">la</span> <span class="n">funci</span><span class="err">ó</span><span class="n">n</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>En este caso, cada vez que se vaya a usar el parámetro “y” dentro del código de la función, será necesario acompañarlo del asterisco. Por ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">17</span> <span class="o">+</span> <span class="o">*</span><span class="n">y</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>(Hay algunas excepciones a esta regla, pero ahora no vienen a cuento).</p>
+
+<p>En la llamada a la función hay que indicar explícitamente qué parámetro se está pasando por referencia utilizando el operador &amp;. Por lo tanto, para llamar a <em>funcion2()</em> con los parámetros a y b habrá que escribir:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">resultado</span> <span class="o">=</span> <span class="n">funcion2</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Observa que el segundo parámetro (el que se pasa por referencia), lleva delante el operador &amp;.</p>
+
+<p>Si dentro de la función se cambia el valor de y, también cambiará el valor de b fuera de la función, ya que ambas variables han quedado ligadas por el paso por referencia. En cambio, las variables x y a son independientes. (Si todo esto te suena a chino, repásate el apartado dedicado al paso de parámetros en el tema de introducción a la programación en pseudocódigo, donde se explicaba con más detalle).</p>
+
+<p><strong>Paso de parámetros por referencia con el operador &amp;</strong></p>
+
+<p>Otra forma de pasar un parámetro por referencia es usar el operador &amp; en los parámetros formales, así:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">funcion3</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="p">...</span><span class="n">c</span><span class="err">ó</span><span class="n">digo</span> <span class="n">de</span> <span class="n">la</span> <span class="n">funci</span><span class="err">ó</span><span class="n">n</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>En esta función, el parámetro x se pasa por valor y el parámetro y se pasa por referencia. Utilizando esta sintaxis no es necesario añadir asteriscos cada vez que se usa la y en el cuerpo de la función, ni tampoco usar “&amp;” en la llamada a la función.</p>
+
+<p>Esta tercera forma de paso por referencia no es estándar en C, sino que es propia de C++, por lo que evitaremos utilizarla de momento.</p>
+
+<h4 id="juntándolo-todo-en-un-ejemplo">Juntándolo todo en un ejemplo</h4>
+
+<p>En el siguiente ejemplo se ilustran los dos tipos de paso de parámetros y, en el paso por referencia, las dos sintaxis alternativas de que dispone C.</p>
+
+<p>El ejemplo muestra tres funciones muy similares que reciben dos parámetros, a y b. Las tres intentan intercambiar el valor de a y b mediante una tercera variable llamada tmp. Sin embargo, en la primera de ellas el intercambio no tiene ningún efecto en el programa <em>main()</em>, ya que los parámetros están pasados por valor. En las otras dos funciones sí que se consigue el intercambio, ya que los parámetros está pasados por referencia.</p>
+
+<p>No te preocupes si no entiendes toda la sintaxis de este ejemplo. Lo interesante ahora es que veas cuál es la forma correcta de escribir cada tipo de paso de parámetros.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span>
+<span class="c1">// Paso de parámetros por valor.</span>
+<span class="c1">// En este ejemplo, esta función no tendrá el efecto deseado, porque las variables</span>
+<span class="c1">// del programa principal no se verán afectadas.</span>
+<span class="kt">void</span> <span class="nf">intercambiar1</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+     <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+     <span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+     <span class="n">b</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Paso de parámetros por referencia, sintaxis 1.</span>
+<span class="c1">// Esta función sí que consigue intercambiar los valores de las variables</span>
+<span class="c1">// del programa principal.</span>
+<span class="kt">void</span> <span class="nf">intercambiar2</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+     <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="o">*</span><span class="n">a</span><span class="p">;</span>
+     <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="o">*</span><span class="n">b</span><span class="p">;</span>
+     <span class="o">*</span><span class="n">b</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Paso de parámetros por referencia, sintaxis 2.</span>
+<span class="c1">// Esta función también consigue su objetivo. A todos los efectos,</span>
+<span class="c1">// es idéntica a la función anterior.</span>
+<span class="kt">void</span> <span class="nf">intercambiar3</span><span class="p">(</span><span class="kt">int</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+     <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+     <span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+     <span class="n">b</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="c1">// Programa principal</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">dato1</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> <span class="n">dato2</span> <span class="o">=</span> <span class="mi">90</span><span class="p">;</span>
+    
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Antes de la llamada a las funcioens: dato1 = %i, dato2 = %i</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">dato1</span><span class="p">,</span> <span class="n">dato2</span><span class="p">);</span>
+    <span class="n">intercambiar1</span><span class="p">(</span><span class="n">dato1</span><span class="p">,</span> <span class="n">dato2</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Después de intercambiar1: dato1 = %i, dato2 = %i</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">dato1</span><span class="p">,</span> <span class="n">dato2</span><span class="p">);</span>
+    <span class="n">intercambiar2</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dato1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">dato2</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Después de intercambiar2: dato1 = %i, dato2 = %i</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">dato1</span><span class="p">,</span> <span class="n">dato2</span><span class="p">);</span>
+    <span class="n">intercambiar3</span><span class="p">(</span><span class="n">dato1</span><span class="p">,</span> <span class="n">dato2</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Después de intercambiar3: dato1 = %i, dato2 = %i</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">dato1</span><span class="p">,</span> <span class="n">dato2</span><span class="p">);</span>
+    
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="prototipos-de-funciones">Prototipos de funciones</h4>
+
+<p>En C no es necesario escribir las funciones (subalgoritmos) antes de su primera invocación. El mecanismo de compilación y enlace de C permite, de hecho, que las funciones puedan estar físicamente en un archivo distinto del lugar desde el que se invocan.</p>
+
+<p>En la práctica, esto plantea un problema: C no tiene forma de saber si la llamada a una función se hace correctamente, es decir, si se le pasan los argumentos debidos y con el tipo correcto, ni si el resutado devuelto es asignado a una variable del tipo adecuado.</p>
+
+<p>Para conseguir que C realice esas comprobaciones durante la compilación se utilizan los <strong>prototipos de función</strong>. Un prototipo de función es, simplemente, <em>la declaración de una función</em>. Es decir, la primera línea del código la función.</p>
+
+<p>El prototipo debe aparecer antes de que la función se invoque por primera vez, aunque el código completo de la función esté en otra parte. Los prototipos permiten al compilador comprobar que los argumentos de la función coinciden en tipo y número con los de la invocación de la misma, y que el tipo devuelto es el correcto.</p>
+
+<p>Los prototipos suelen aparecer al principio del programa, antes de la función <em>main()</em>. Observa, en el siguiente ejemplo, que el prototipo de la función <em>calcular_area()</em> se coloca delante de <em>main()</em>. Sin embargo, el código concreto de esta función no aparece hasta después (incluso podría estar situado en otro archivo diferente):</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">float</span> <span class="nf">calcular_area</span> <span class="p">(</span><span class="kt">float</span> <span class="n">base</span><span class="p">,</span> <span class="kt">float</span> <span class="n">altura</span><span class="p">);</span>	<span class="c1">// Prototipo de la función</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>				<span class="c1">// Algoritmo principal</span>
+<span class="p">{</span>
+   <span class="p">...</span><span class="n">instrucciones</span><span class="p">...</span>
+   <span class="n">area</span> <span class="o">=</span> <span class="n">calcular_area</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
+   <span class="p">...</span><span class="n">m</span><span class="err">á</span><span class="n">s</span> <span class="n">instrucciones</span><span class="p">...</span>
+   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">float</span> <span class="nf">calcular_area</span><span class="p">(</span><span class="kt">float</span> <span class="n">base</span><span class="p">,</span> <span class="kt">float</span> <span class="n">altura</span><span class="p">)</span>	<span class="c1">// Código de la función (podría estar incluso en otro archivo)</span>
+<span class="p">{</span>
+   <span class="p">...</span> <span class="n">instrucciones</span><span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Cuando se vayan a usar funciones de librería, como <em>fabs()</em> (valor absoluto), <em>sqrt()</em> (raíz cuadrada) o cualquier otra, hay que escribir sus prototipos antes de la función <em>main()</em>. Sin embargo, como estas funciones no las hemos escrito nosotros, desconocemos cuales son sus prototipos.</p>
+
+<p>En C se soluciona este problema con los <strong>archivos de cabecera</strong>, que son archivos que incluyen en su interior los prototipos de las funciones, entre otras cosas.</p>
+
+<p>Hay muchos archivos de cabecera en la librería estándar de C. Por ejemplo, el archivo <strong>math.h</strong> tiene los prototipos de todas las funciones matemáticas. Todos los archivos de cabecera tienen la <strong>extensión .h</strong> en su nombre (h de “header”).</p>
+
+<p>Para incluir un archivo de cabecera en nuestro programa se utiliza <strong>#include</strong>, que no es exactamente una instrucción de C, sino una <strong>directiva de compilación</strong>. Ya hemos visto otra directiva de compilación: #define, que usábamos para definir constantes. Las directivas de compilación indican al compilador cómo se debe comportar y, aunque estrictamente hablando no son instrucciones de C, para nosotros es como si lo fueran.</p>
+
+<p>Por ejemplo, esta línea de código sirve para incluir todos los prototipos de las funciones de librería matemática en nuestro programa:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp">
+</span></code></pre></div></div>
+
+<h3 id="929-entrada-y-salida-en-c">9.2.9. Entrada y salida en C</h3>
+
+<p>La entrada y salida de datos en C, es decir, la traducción de las instrucciones leer() y escribir() de pseudocódigo, es uno de los aspectos más difíciles de C para los principiantes.</p>
+
+<p>El estándar ANSI C dispone de muchas funciones para hacer las entradas y salidas de datos. En concreto, dispone de un subconjunto de ellas para hacer la entrada y salida por consola, es decir, por teclado y pantalla.</p>
+
+<p>Podemos clasificar estas funciones de E/S en dos grupos:</p>
+
+<ul>
+  <li><strong>Funciones de E/S simples</strong>: <em>getchar(), putchar(), gets(), puts()</em></li>
+  <li><strong>Funciones de E/S con formato</strong>: <em>printf(), scanf()</em></li>
+</ul>
+
+<p>Las más utilizadas y versátiles son sin duda las segundas, así que nos detendremos en ellas.</p>
+
+<h4 id="salida-de-datos-con-printf">Salida de datos con <em>printf()</em></h4>
+
+<p>La función <em>printf()</em> (de “print” = imprimir y “f” = formato) sirve para escribir datos en el dispositivo de salida estándar (generalmente la pantalla) con un formato determinado por el programador. La forma general de utilizarla es la siguiente:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">printf</span><span class="p">(</span><span class="n">cadena_de_formato</span><span class="p">,</span> <span class="n">datos</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>El prototipo de <em>printf()</em> se encuentra en el archivo de cabecera <strong>&lt;stdio.h&gt;</strong> (de “std” = standard e “io” = input/output, es decir, “stdio” es un acrónimo de “entrada/salida estándar”).</p>
+
+<p>El primer argumento, la <em>cadena_de_formato</em>, especifica el modo en el que se deben mostrar los datos que aparecen a continuación. Esta cadena se compone de una serie de códigos de formato que indican a C qué tipo de datos son los que se desean imprimir.</p>
+
+<p>Todos los códigos están precedidos del símbolo de porcentaje (“%”). Por ejemplo, el código “%i” indica a la función que se desea escribir un número de tipo <em>int</em>, y el código “%f”, que se desea escribir un número real de tipo <em>float</em>.</p>
+
+<p>La forma más simple de utilizar <em>printf()</em> es:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"%i"</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Esto escribirá el valor de la variable entera a en la pantalla, es decir, 5. Fíjate que el primer argumento de printf() es una cadena (y, por lo tanto, se escribe entre comillas) cuyo contenido es el código del tipo de dato que se pretende escribir. El segundo argumento es el dato mismo.</p>
+
+<p>En una sola instrucción <em>printf()</em> pueden escribirse varios datos. Por ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+<span class="kt">float</span> <span class="n">x</span><span class="p">;</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">.</span><span class="mi">33</span><span class="p">;</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"%i%f"</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Observa detenidamente la cadena de formato: primero aparece “%i” y luego “%f”. Esto indica que el primer dato que debe imprimirse es un entero, y el segundo, un real. Después, aparecen esos datos separados por comas y exactamente en el mismo orden que en la cadena de formato: primero la variable entera y luego la variable real. El resultado será que en la pantalla se escribirán los números 5 y 10.33.</p>
+
+<p>Algunos de los códigos de formato que se pueden utilizar en <em>printf()</em> son:</p>
+
+<ul>
+  <li><strong>%c</strong>: para imprimir caracteres individuales.</li>
+  <li><strong>%i</strong> o <strong>%d</strong>: para imprimir números enteros.</li>
+  <li><strong>%u</strong>: para imprimir números enteros sin signo.</li>
+  <li><strong>%f</strong>: para imprimir números reales.</li>
+  <li><strong>%e</strong>: para imprimir números reales en notación científica.</li>
+  <li><strong>%s</strong>: para imprimir cadenas de caracteres (strings).</li>
+  <li><strong>%o</strong> y <strong>%x</strong>: para imprimir números en octal y en hexadecimal, respectivamente.</li>
+</ul>
+
+<p>Algunos de estos código admiten modificadores. Los más habituales son:</p>
+
+<ul>
+  <li><strong>Los códigos numéricos como “%i” o “%f”</strong> permiten insertar modificadores de longitud como “l” (longitud doble) o “h” (longitud corta). Así, por ejemplo, “%ld” indica que se va a imprimir un entero de longitud doble (long int); “%hu” sirve para enteros cortos sin signo (unsigned short int); “%lf” indica que se imprimirá un número real de longitud doble (double), etc.</li>
+  <li><strong>El código “%f”</strong> (números reales) se pueden usar con un modificador de posiciones decimales que se desean mostrar. Por ejemplo, con “%3.4f” obligamos a que se impriman tres dígitos a la izquierda de la coma decimal y cuatro a la derecha. La escritura se justifica a la derecha. Para justificarla a la izquierda se utiliza el modificador “-“, de esta forma: “%-10.4f”.</li>
+  <li><strong>El código “%s”</strong> (cadenas de caracteres) se puede combinar con un especificador de longitud máxima y mínima de la cadena. Por ejemplo, “%4.8s” escribe una cadena de al menos cuatro caracteres y no más de ocho. Si la cadena tiene más, se pierden los que excedan de ocho. También se puede utilizar el modificador “-“ para alinear el texto a la izquierda.</li>
+</ul>
+
+<p>Además de los códigos de formato, en la cadena de formato puede aparecer cualquier texto entremezclado con los códigos. A la hora de escribir en la pantalla, los códigos serán sustituidos por los datos correspondientes. Por ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+<span class="kt">float</span> <span class="n">x</span><span class="p">;</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">.</span><span class="mi">33</span><span class="p">;</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"El número entero es %i y el real es %f"</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Lo que aparecerá en la pantalla al ejecutar este fragmento de código será:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>El número entero es 5 y el real es 10.33
+</code></pre></div></div>
+
+<p>Una última observación sobre <em>printf()</em>: hay ciertos caracteres que no son directamente imprimibles desde el teclado. Uno de ellos es el <strong>salto de línea</strong>. Para poder ordenar a <em>printf()</em> que escriba un salto de línea (o cualquier otro carácter no imprimible) se utilizan los códigos de barra invertida, que con códigos especiales precedidos del carácter “".</p>
+
+<p>En concreto, el carácter “salto de línea” se indica con el código “\n”. Observa las diferencias entre estos dos bloques de instrucciones para intentar comprender la importancia del salto de línea:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"La variable a vale %i"</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">14</span><span class="p">;</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"La variable a vale %i"</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>El resultado en la pantalla de la ejecución de estas instrucciones es:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>La variable a vale 5La variable a vale 14
+</code></pre></div></div>
+
+<p>Veamos el mismo ejemplo usando el código del salto de línea (\n):</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"La variable a vale %i</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">14</span><span class="p">;</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"La variable a vale %i"</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>El resultado en la pantalla será:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>La variable a vale 5
+La variable a vale 14
+
+</code></pre></div></div>
+
+<h4 id="entrada-de-datos-con-scanf">Entrada de datos con scanf()</h4>
+
+<p>La función <em>scanf()</em> es, en muchos sentidos, la inversa de <em>printf()</em>. Puede leer desde el dispositivo de entrada estándar (normalmente el teclado) datos de cualquier tipo de los manejados por el compilador, convirtiéndolos al formato interno apropiado. Funciona de manera análoga a <em>printf()</em>, por lo que su sintaxis es:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scanf</span><span class="p">(</span><span class="n">cadena_de_formato</span><span class="p">,</span> <span class="n">datos</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>El prototipo de <em>scanf()</em> se encuentra en el archivo de cabecera <strong>&lt;stdio.h&gt;</strong>, como <em>printf()</em>.</p>
+
+<p>La <em>cadena_de_formato</em> tiene la misma composición que la de printf(). Los datos son las variables donde se desea almacenar el dato o datos leidos desde el teclado. <strong>¡Cuidado!</strong> Con los tipos simples, es necesario utilizar el operador &amp; delante del nombre de la variable, porque esa variable se pasa por referencia a <em>scanf()</em> para que ésta pueda modificarla.</p>
+
+<p>Por ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+<span class="kt">float</span> <span class="n">x</span><span class="p">;</span>
+<span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"Escribe un número entero:"</span><span class="p">);</span>
+<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"Ahora escribe un número entero y un número real:"</span><span class="p">);</span>
+<span class="n">scanf</span><span class="p">(</span><span class="s">"%d%f"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"Escribe una cadena:"</span><span class="p">);</span>
+<span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>La función <em>scanf()</em> tiene alguna otra funcionalidad añadida para el manejo de cadenas de caracteres que ya veremos en su momento.</p>
+
+<h4 id="ejemplo-de-uso-de-scanf-y-printf">Ejemplo de uso de scanf() y printf()</h4>
+
+<p>Debido a la relativa complejidad de estas funciones de entrada y salida, vamos a presentar un pequeño ejemplo de traducción de pseudocódigo a C. Se trata de un algoritmo que lee dos números enteros, A y B. Si A es mayor que B los resta, y en otro caso los suma.</p>
+
+<p>Observa detenidamente la correspondencia entre cada pareja de instrucciones, especialmente las de entrada y salida.</p>
+
+<p><strong>Pseudocódigo:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>algoritmo suma_y_resta
+   definir a, b como entero
+   escribir "Introduzca dos números enteros";
+   leer a
+   leer b
+   si a &lt; b entonces
+       escribir "La suma de a y b es:", a+b
+   sino
+       escribir "La resta de a menos b es:", a–b
+finAlgoritmo
+</code></pre></div></div>
+
+<p><strong>Lenguaje C:</strong></p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* Programa suma y resta */</span>
+<span class="cp">#include stdio.h
+</span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>   
+  <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+  <span class="n">printf</span> <span class="p">(</span><span class="s">"Introduzca dos números enteros</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+  <span class="n">scanf</span><span class="p">(</span><span class="s">"%d%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">)</span> 
+     <span class="n">printf</span><span class="p">(</span><span class="s">"La suma de %d y %d es: %d"</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">);</span>
+  <span class="k">else</span>
+     <span class="n">printf</span><span class="p">(</span><span class="s">"La resta de %d menos %d es: %d"</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="err">–</span><span class="n">b</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="funciones-para-es-simple-por-consola">Funciones para E/S simple por consola</h4>
+
+<p>Técnicamente, con <em>printf()</em> y <em>scanf()</em> es posible escribir y leer cualquier tipo de datos desde cualquier dispositivo de salida o entrada, no solo la pantalla y el teclado.</p>
+
+<p>En la práctica, aunque <em>printf()</em> resulta bastante efectiva y versátil, <em>scanf()</em> puede darte muchos dolores de cabeza. Para hacerte una idea, sólo tienes que probar a hacer un <em>scanf()</em> de un número entero e inmediatamente después otro <em>scanf()</em> de una cadena de caracteres. El segundo <em>scanf()</em> fallará. La razón es bastante rocambolesca: el flujo de entrada no consumirá el carácter de retorno de carro al leer el número entero, por lo que dicho carácter se adjudicará al segundo <em>scanf()</em> automáticamente.</p>
+
+<p>Por suerte, <strong>existe otro grupo de funciones en ANSI C específicamente diseñadas para hacer la E/S por consola</strong>, es decir, por teclado y pantalla, de manera más simple. Las resumimos en el siguiente cuadro.</p>
+
+<p>Los prototipos de estas funciones, como el de <em>scanf()</em>, se encuentran en el archivo de cabecera <strong><em>stdio.h</em></strong>, así que tendrás que incluirlo en tu código para poder usarlas.</p>
+
+<ul>
+  <li>
+    <p><strong><em>getchar()</em></strong>: Espera a que se pulse una tecla seguida de INTRO y devuelve su valor. Muestra el eco en la pantalla, es decir, la tecla pulsada aparece en la pantalla.</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kt">char</span> <span class="n">car</span><span class="p">;</span>
+ <span class="n">car</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">();</span>
+ <span class="n">printf</span><span class="p">(</span><span class="s">"Tecla pulsada:</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong><em>putchar(c)</em></strong>: Escribe el carácter <em>c</em> en la pantalla.</li>
+  <li>
+    <p><strong><em>gets(cadena)</em></strong>: Lee del teclado una cadena de caracteres seguida de INTRO.</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kt">char</span> <span class="n">cadena</span><span class="p">[</span><span class="mi">50</span><span class="p">];</span>
+ <span class="n">gets</span><span class="p">(</span><span class="n">cadena</span><span class="p">);</span>
+ <span class="n">printf</span><span class="p">(</span><span class="s">"Cadena tecleada:</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+ <span class="n">puts</span><span class="p">(</span><span class="n">cadena</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong><em>puts(cadena)</em></strong>: Escribe una cadena de caracteres en la pantalla (ver ejemplo anterior).</li>
+</ul>
+
+<p>Por lo tanto, <strong>para evitar los problemas que a menudo causa <em>scanf()</em>, podemos recurrir a <em>gets()</em></strong> para leer las cadenas de caracteres. Si necesitamos leer un número, podemos usar <em>gets()</em> y luego <strong>convertir la cadena</strong> a un tipo de dato numérico con las funciones de conversión <em>atoi()</em> y <em>atof()</em>, como se muestra en el siguiente ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="n">cadena</span><span class="p">[</span><span class="mi">50</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+<span class="kt">float</span> <span class="n">x</span><span class="p">;</span>
+
+<span class="n">gets</span><span class="p">(</span><span class="n">cadena</span><span class="p">);</span>      <span class="c1">// Leemos una cadena de caracteres</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">cadena</span><span class="p">);</span>  <span class="c1">// Convertimos la cadena en un número entero</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">atof</span><span class="p">(</span><span class="n">cadena</span><span class="p">);</span>  <span class="c1">// Convertimos la cadena en un número real</span>
+</code></pre></div></div>
+
+<p>Las funciones de conversión <em>atoi()</em> y <em>atof()</em> tratarán de convertir la cadena en un número, si ello es posible (es decir, si la cadena realmente contiene números).</p>
+
+<p>Pero cuidado: si se teclean más caracteres de los que caben en la cadena, el resultado es imprevisible (a menudo el programa fallará durante la ejecución). Esto puede solucionarse utilizando <em>fgets()</em> en lugar de <em>gets()</em>, que es una función más compleja y no vamos a explicar aquí. Puedes buscar información en internet si te interesa el tema.</p>
+
+<p>Tal vez pienses que resulta demasiado complicado hacer algo muy simple como una entrada de datos por teclado. Tienes razón. Pero ten en cuenta dos cosas: las entradas de datos nunca son simples (son el punto donde el usuario interacciona con más libertad con el programa, y los usuarios humanos tendemos a hacer cosas impredecibles y complicadas), y C es un lenguaje de nivel intermedio más que de alto nivel, por lo que muchas tareas de alto nivel, simplemente, no las resolverá por nosotros. En ese sentido, C requiere del programador prestar atención a ciertos detalles que podría obviar en otros lenguajes.</p>
+
+<h3 id="9210-cadenas-de-caracteres">9.2.10. Cadenas de caracteres</h3>
+
+<p>Las <strong>cadenas</strong> de caracteres en C son, en realidad, <strong>arrays de caracteres</strong>.</p>
+
+<p>Aunque veremos los arrays en el próximo apartado, si ya sabes pseudocódigo quizá no te sorprenda saber que una cadena se declara así:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="n">cadena</span><span class="p">[</span><span class="mi">50</span><span class="p">];</span>		<span class="cm">/* Declaración de una cadena de 50 caracteres */</span>
+</code></pre></div></div>
+
+<p>La cadenas tienen ciertas peculiaridades que comentaremos en este apartado, pero todo lo que digamos en el siguiente sobre arrays también será aplicable a las cadenas.</p>
+
+<h4 id="declaración-y-manipulación-de-cadenas">Declaración y manipulación de cadenas</h4>
+
+<p>Las cadenas pueden manipularse elemento por elemento, como cualquier array. Por ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="n">cadena</span><span class="p">[</span><span class="mi">50</span><span class="p">];</span>
+<span class="n">cadena</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'H'</span><span class="p">;</span>
+<span class="n">cadena</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'o'</span><span class="p">;</span>
+<span class="n">cadena</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'l'</span><span class="p">;</span>
+<span class="n">cadena</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'a'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Las cadenas deben tener, después de su último carácter válido, un carácter especial llamado <strong>nulo</strong>. Este carácter marca el final de la cadena. El carácter nulo se simboliza con <strong>el código \0</strong>. Por lo tanto, en el ejemplo anterior habría que agregar la siguiente línea para que la cadena estuviera completa:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cadena</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'\0'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>Todas las cadenas deben terminar en un carácter nulo</strong>. De lo contrario, podemos tener problemas al imprimirlas en la pantalla o al realizar con ellas cualquier otro proceso. En consecuencia, en una cadena definida como la anterior, de 50 caracteres, en realidad sólo tienen cabida 49, ya que siempre hay que reservar una posición para el carácter nulo.</p>
+
+<p>La declaración de una cadena puede ir acompañada de una inicialización mediante una constante. En este caso, la constante debe ir encerrada entre comillas dobles, al tratarse de una cadena y no de caracteres sueltos. Por ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="n">cadena</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="s">"Hola"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>En inicializaciones de este tipo, el compilador se encarga de añadir el carácter nulo.
+Por último, señalemos que no es necesario indicar el tamaño de la cadena si se inicializa al mismo tiempo que se declara. Por ejemplo, la declaración anterior puede sustituirse por esta otra:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="n">cadena</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"Hola"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Esto se denomina array de longitud indeterminada. El compilador, al encontrar una declaración así, crea una cadena del tamaño suficiente para contener todos los caracteres. Esto vale no sólo para las cadenas, sino que también es aplicable a cualquier otro tipo de array que se inicialice al mismo tiempo que se declare.</p>
+
+<h4 id="funciones-para-manejo-de-cadenas">Funciones para manejo de cadenas</h4>
+
+<p>La mayor parte de las veces las cadenas son manipuladas mediante el uso de funciones de librería específicas. En este apartado comentaremos las más comunes.</p>
+
+<p><strong>Funciones de lectura y escritura</strong></p>
+
+<p>Para leer por teclado una cadena de caracteres se puede utilizar también la función <em>scanf()</em> con la cadena de formato “%s”. Como las cadenas son arrays, no es preciso anteponer el símbolo &amp; al nombre de la variable. Sin embargo, es preferible emplear la función <strong><em>gets()</em></strong> por estar específicamente diseñada para la lectura de cadenas. Por ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="n">cadena</span><span class="p">[</span><span class="mi">50</span><span class="p">];</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"Introduzca su nombre "</span><span class="p">);</span>
+<span class="n">gets</span><span class="p">(</span><span class="n">cadena</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Tanto <em>scanf()</em> como <strong>gets()</strong> insertan automáticamente el carácter “\0” al final de la cadena.</p>
+
+<p>De manera análoga podemos emplear la función <em>printf()</em> para escribir el contenido de una cadena en la pantalla, pero preferiremos la función <strong><em>puts()</em></strong>, específica de las cadenas. Por ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="n">cadena</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="s">"Hola, mundo"</span><span class="p">;</span>
+<span class="n">puts</span><span class="p">(</span><span class="n">cadena</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="funciones-de-tratamiento-de-cadenas">Funciones de tratamiento de cadenas</h4>
+
+<p>Las funciones de librería ANSI C para manejar cadenas suelen empezar por las letras “str” (de “string”, que significa “cadena” en inglés) y utilizan el archivo de cabecera <strong><em>string.h</em></strong>.</p>
+
+<p>Entre las funciones más habituales encontramos las siguientes:</p>
+
+<ul>
+  <li>
+    <p><strong><em>strcpy()</em></strong>: Copia el contenido de una cadena en otra, incluyendo el carácter nulo. Su sintaxis es:</p>
+
+    <p>El siguiente ejemplo es otra versión (artificialmente enrevesada) del “hola, mundo”:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kt">char</span> <span class="n">cad1</span><span class="p">[</span><span class="mi">50</span><span class="p">];</span>
+ <span class="kt">char</span> <span class="n">cad2</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="s">"Hola"</span><span class="p">;</span>
+ <span class="n">strcpy</span><span class="p">(</span><span class="n">cad1</span><span class="p">,</span> <span class="n">cad2</span><span class="p">);</span>
+ <span class="n">strcpy</span><span class="p">(</span><span class="n">cad2</span><span class="p">,</span> <span class="s">"mundo"</span><span class="p">);</span>
+ <span class="n">printf</span><span class="p">(</span><span class="s">"%s, %s"</span><span class="p">,</span> <span class="n">cad1</span><span class="p">,</span> <span class="n">cad2</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong><em>strlen()</em></strong>: Devuelve la longitud de una cadena, es decir, el número de caracteres de que consta, sin contar el carácter nulo.
+Por ejemplo, en este fragmento de código el resultado debe ser 11. Fíjate que la variable cadena tiene una longitud total de 50 caracteres, pero <em>strlen()</em> sólo cuenta los que efectivamente se están usando, es decir, los que hay hasta el carácter nulo:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kt">char</span> <span class="n">cadena</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="s">"Hola, mundo"</span><span class="p">;</span>
+ <span class="kt">int</span> <span class="n">longitud</span><span class="p">;</span>
+ <span class="n">longitud</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">cadena</span><span class="p">);</span>
+ <span class="n">printf</span><span class="p">(</span><span class="s">"La longitud es %i"</span><span class="p">,</span> <span class="n">longitud</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong><em>strcmp()</em></strong>: Compara dos cadenas. Devuelve el valor 0 si son iguales, un valor mayor que 0 si la primera es alfabéticamente mayor que la segunda, o un valor menor que 0 en caso contrario. Por ejemplo:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kt">char</span> <span class="n">cad1</span><span class="p">[</span><span class="mi">50</span><span class="p">],</span> <span class="n">cad2</span><span class="p">[</span><span class="mi">50</span><span class="p">];</span>
+ <span class="kt">int</span> <span class="n">comparacion</span><span class="p">;</span>
+ <span class="n">printf</span><span class="p">(</span><span class="s">"Introduzca dos cadenas"</span><span class="p">);</span>
+ <span class="n">scanf</span><span class="p">(</span><span class="s">"%s %s"</span><span class="p">,</span> <span class="n">cad1</span><span class="p">,</span> <span class="n">cad2</span><span class="p">);</span>
+ <span class="n">comparacion</span> <span class="o">=</span> <span class="n">strcmp</span><span class="p">(</span><span class="n">cad1</span><span class="p">,</span> <span class="n">cad2</span><span class="p">);</span>
+ <span class="k">if</span> <span class="p">(</span><span class="n">comparacion</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Las dos cadenas son iguales"</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong><em>strcat()</em></strong>: Concatena dos cadenas. Esta función añade la <em>cadena2</em> al final de la <em>cadena1</em>, incluyendo el carácter nulo. El resultado del siguiente ejemplo debe ser, otra vez, “hola, mundo”:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kt">char</span> <span class="n">cad1</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="s">"Hola, "</span><span class="p">;</span>
+ <span class="kt">char</span> <span class="n">cad2</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="s">"mundo"</span><span class="p">;</span>
+ <span class="n">strcat</span><span class="p">(</span><span class="n">cad1</span><span class="p">,</span> <span class="n">cad2</span><span class="p">);</span>
+ <span class="n">prinft</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="n">cad1</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h4 id="las-cadenas-y-la-validación-de-los-datos-de-entrada">Las cadenas y la validación de los datos de entrada</h4>
+
+<p>Una de las principales fuentes de error de los programas son los datos de entrada incorrectos. Por ejemplo, si un programa está preparado para leer un número entero pero el usuario, por error o por mala fe, introduce un carácter, la función <em>scanf()</em> fallará y el programa se detendrá.</p>
+
+<p>En otros lenguajes de más alto nivel, el propio lenguaje tiene mecanismos para prevenir estos errores. Pero recuerda que C es un lenguaje de nivel intermedio, pensado para producir código máquina supereficiente y rápido. El precio a pagar por ello es que el lenguaje no hará ninguna comprobación de este tipo de errores: es responsabilidad del programador preverlos.</p>
+
+<p>Hay un modo bastante sencillo de hacer esto: <strong>leer todos los datos de entrada como cadenas y, luego, convertirlos al tipo de dato adecuado</strong>.</p>
+
+<p>Observa el siguiente ejemplo. Sirve para leer un número entero por teclado, pero previniendo los errores provocados por el usuario que antes mencionábamos. Se utiliza la función <em>atoi()</em>, que convierte una cadena a un número entero:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">n</span><span class="p">;</span>		<span class="c1">// El número entero que se pretende leer por teclado</span>
+<span class="kt">char</span> <span class="n">cad</span><span class="p">[</span><span class="mi">50</span><span class="p">];</span>	<span class="c1">// La cadena que se usará para prevenir errores de lectura</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"Introduzca un número entero"</span><span class="p">);</span>
+<span class="n">gets</span><span class="p">(</span><span class="n">cad</span><span class="p">);</span>		<span class="c1">// No se lee un número entero, sino una cadena</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">cad</span><span class="p">);</span>	<span class="c1">// Se convierte la cadena a entero</span>
+</code></pre></div></div>
+
+<h3 id="9211-arrays">9.2.11. Arrays</h3>
+
+<p>Un <strong>array</strong>, como ya vimos en pseudocódigo, es una agrupación de muchos datos individuales del mismo tipo bajo el mismo nombre. Cada dato individual de un array es accesible mediante un <strong>índice</strong>.</p>
+
+<p>El caso más simple de array es el <strong>array unidimensional</strong>. Por ejemplo, un array unidimensional de números enteros es una colección de muchos números enteros a los que les adjudicamos un único identificador.</p>
+
+<h4 id="declaración-de-arrays">Declaración de arrays</h4>
+
+<p>La declaración de un array en C se hace así:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tipo_de_datos</span> <span class="n">nombre_array</span><span class="p">[</span><span class="n">n</span><span class="err">ú</span><span class="n">mero_de_elementos</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>Por ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">serie</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>La variable <em>serie</em> será un array que contendrá 10 números enteros. Los 10 números reciben el mismo nombre, es decir, <em>serie</em>. 
+Se puede acceder a cada uno de los números que forman el array escribiendo a continuación del nombre un número entre corchetes. Ese número se denomina índice. Lo puedes ver en el siguiente ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">serie</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+<span class="n">serie</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+<span class="n">serie</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span>
+<span class="n">serie</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">serie</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">serie</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"%i"</span><span class="p">,</span> <span class="n">serie</span><span class="p">[</span><span class="mi">4</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>El array <em>serie</em> puede almacenar hasta 10 números enteros. Las posiciones empiezan a numerarse en el 0, así que <em>serie[2]</em> se refiere, en realidad, a la tercera posición. En ella se almacena el número 20. En la cuarta posición (<em>serie[3]</em>) se almacena el número 15. Luego se suman ambos valores, y el resultado se almacena en la quinta posición (<em>serie[4]</em>). Finalmente, se imprime en la pantalla el resultado de la suma, es decir, 35.</p>
+
+<pre>
+            +------------+----+----+----+----+----+
+            | Posiciones |  0 |  1 |  2 |  3 |  4 |
+    serie = +------------+----+----+----+----+----+
+            | Valores    |  ? |  ? | 20 | 15 | 35 |
+            +------------+----+----+----+----+----+
+</pre>
+
+<p>C no realiza comprobación de los índices de los arrays, por lo que es perfectamente posible utilizar un índice fuera del rango válido (por ejemplo, <em>serie[17]</em>). Es responsabilidad del programador evitar que esto ocurra, porque los efectos serán desastrosos para el programa.</p>
+
+<p>Como es lógico, se pueden construir arrays cuyos elementos sean de cualquier otro tipo simple, como <em>float</em> o <em>double</em>, con la única restricción de que todos los elementos sean del mismo tipo. Los arrays de caracteres se denominan <strong>cadenas de caracteres</strong>, y ya hablamos de ellos en el apartado anterior.</p>
+
+<p>También es posible construir arrays cuyos elementos sean de un tipo complejo. Así, podemos tener arrays de arrays o de otros tipos que no vamos a estudiar en este curso de introducción.</p>
+
+<h4 id="manipulación-de-los-elementos-individuales-de-un-array">Manipulación de los elementos individuales de un array</h4>
+
+<p>Los arrays en C deben manipularse elemento a elemento. No se pueden modificar todos los elementos a la vez.</p>
+
+<p>Para asignar valores a los elementos de un array, por lo tanto, el mecanismo es este:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">serie</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+<span class="n">serie</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="n">serie</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="n">serie</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+<span class="p">...</span><span class="n">etc</span><span class="p">...</span>
+</code></pre></div></div>
+
+<p>La inicialización de los valores de un array también puede hacerse conjuntamente en el momento de declararlo, así:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">serie</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">14</span><span class="p">};</span>
+</code></pre></div></div>
+
+<p>El resultado de esta declaración será un array de 5 elementos de tipo entero a los que se les asigna los valores 5, 3, 7, 9 y 14.</p>
+
+<p>Cada elemento del array es, a todos los efectos, una variable que puede usarse independientemente de los demás elementos. Así, por ejemplo, un elemento del array serie puede usarse en una instrucción de salida igual que cualquier variable simple de tipo <em>int</em>:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">serie</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+<span class="n">serie</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">21</span><span class="p">;</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"%i"</span><span class="p">,</span> <span class="n">serie</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>Del mismo modo, pueden usarse elementos de array en una instrucción de entrada. Por ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">serie</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+<span class="n">scanf</span><span class="p">(</span><span class="s">"%i"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">serie</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="n">serie</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">serie</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">15</span><span class="p">;</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"%i"</span><span class="p">,</span> <span class="n">serie</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<h4 id="recorrido-de-un-array">Recorrido de un array</h4>
+
+<p>Una forma habitual de manipular un array es <strong>acceder secuencialmente</strong> a todos sus elementos, uno tras otro.</p>
+
+<p>Para ello, <strong>se utiliza un bucle con contador</strong>, de modo que la variable contador nos sirve como índice para acceder a cada uno de los elementos del array.</p>
+
+<p>Supongamos, por ejemplo, que tenemos un array de 10 números enteros declarado como <code class="language-plaintext highlighter-rouge">int v[10]</code> y una variable entera declarada como  <code class="language-plaintext highlighter-rouge">int i</code>. Por medio de un bucle, con ligeras modificaciones, podemos realizar todas estas operaciones:</p>
+
+<p><strong>1) Inicializar todos los elementos a un valor cualquiera</strong> (por ejemplo, 0):</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>2) Inicializar todos los elementos con valores introducidos por teclado</strong>:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s">"Escribe el valor del elemento nº %i: "</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+   <span class="n">scanf</span><span class="p">(</span><span class="s">"%i"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>3) Mostrar todos los elementos en la pantalla</strong>:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s">"El elemento nº %i vale %i</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>4) Realizar alguna operación que implique a todos los elementos</strong>. Por ejemplo, sumarlos:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">suma</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="n">suma</span> <span class="o">=</span> <span class="n">suma</span> <span class="o">+</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="arrays-y-funciones">Arrays y funciones</h4>
+
+<p>Para <strong>pasar un array como argumento</strong> a una función, en la llamada a la función se escribe simplemente el nombre del array, sin índices.</p>
+
+<p>Los arrays en C <strong>siempre se pasan por referencia</strong>, nunca por valor. Por lo tanto, si algún elemento del array se modifica en una función, también será modificado en la función desde la que fue invocada.</p>
+
+<p>Como siempre se pasan por referencia, no es necesario utilizar el símbolo &amp; delante del parámetro.</p>
+
+<p>Por ejemplo, supongamos que <em>serie</em> es un array de 15 números enteros. Para pasarlo como parámetro a una función llamada <em>funcion1()</em> escribiríamos simplemente esto:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">serie</span><span class="p">[</span><span class="mi">15</span><span class="p">];</span>
+<span class="n">funcion1</span><span class="p">(</span><span class="n">serie</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>En cuanto a la declaración de la función, el parámetro de tipo array se especifica esta maneras:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">funcion1</span> <span class="p">(</span><span class="kt">int</span> <span class="n">serie</span><span class="p">[</span><span class="mi">15</span><span class="p">])</span> <span class="p">{</span>
+   <span class="p">...</span><span class="n">c</span><span class="err">ó</span><span class="n">digo</span> <span class="n">de</span> <span class="n">la</span> <span class="n">funci</span><span class="err">ó</span><span class="n">n</span><span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Dentro de la función, el array <em>serie</em> puede usarse del mismo modo que en el programa que la llama, es decir, no es preciso utilizar el operador asterisco ni nada por el estilo.</p>
+
+<h4 id="un-programa-de-ejemplo-que-usa-arrays-y-funciones">Un programa de ejemplo que usa arrays y funciones</h4>
+
+<p>Para ilustrar todo esto, te muestro  programa que sirve para leer 50 números por teclado y calcular la suma, la media y la desviación típica de todos los valores.</p>
+
+<p>Lee el código detenidamente, prestando sobre todo atención al uso de los arrays y a cómo se pasan como parámetros.</p>
+
+<p>Los números de la serie se almacenarán en un array de tipo <em>float</em> de 50 posiciones llamado <em>valores</em>. La introducción de datos en el array se hace en la función <em>introducir_valores()</em>. Como los arrays siempre se pasan por referencia, al modificar el array <em>valores</em> dentro de la función, también se modificará en el algoritmo principal.</p>
+
+<p>Después, se llama a 3 funciones que calculan las tres magnitudes (suma, media y desviación). El array también se pasa por referencia a estas funciones, ya que en C no hay modo de pasar un array por valor.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp">
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">float</span> <span class="n">valores</span><span class="p">[</span><span class="mi">50</span><span class="p">];</span>
+	<span class="kt">float</span> <span class="n">suma</span><span class="p">,</span> <span class="n">media</span><span class="p">,</span> <span class="n">desviacion</span><span class="p">;</span>
+	
+	<span class="n">introducir_valores</span><span class="p">(</span><span class="n">valores</span><span class="p">);</span>
+	<span class="n">suma</span> <span class="o">=</span> <span class="n">calcular_suma</span><span class="p">(</span><span class="n">valores</span><span class="p">);</span>	
+	<span class="n">media</span> <span class="o">=</span> <span class="n">calcular_media</span><span class="p">(</span><span class="n">valores</span><span class="p">,</span> <span class="n">suma</span><span class="p">);</span>
+	<span class="n">desviacion</span> <span class="o">=</span> <span class="n">calcular_desviacion</span><span class="p">(</span><span class="n">valores</span><span class="p">,</span> <span class="n">media</span><span class="p">);</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"La suma es %f, la media es %f y la desviación es %f"</span><span class="p">,</span> <span class="n">suma</span><span class="p">,</span> <span class="n">media</span><span class="p">,</span> <span class="n">desviacion</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* Lee 50 números y los almacena en el array N pasado por referencia */</span>
+<span class="kt">void</span> <span class="nf">introducir_valores</span><span class="p">(</span><span class="kt">float</span> <span class="n">n</span><span class="p">[</span><span class="mi">50</span><span class="p">])</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="mi">49</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"Introduzca el valor nº %d: "</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+		<span class="n">scanf</span><span class="p">(</span><span class="s">"%f"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/* Devuelve la suma todos los elementos del array n */</span>
+<span class="kt">float</span> <span class="nf">calcular_suma</span><span class="p">(</span><span class="kt">float</span> <span class="n">n</span><span class="p">[</span><span class="mi">50</span><span class="p">])</span>	
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+	<span class="kt">float</span> <span class="n">suma</span><span class="p">;</span>
+	<span class="n">suma</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="mi">49</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+		<span class="n">suma</span> <span class="o">=</span> <span class="n">suma</span> <span class="o">+</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+	<span class="k">return</span> <span class="n">suma</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* Devuelve el valor medio de los elementos del array n. Necesita conocer la suma de los elementos para calcular la media */</span>
+<span class="kt">float</span> <span class="nf">calcular_media</span><span class="p">(</span><span class="kt">float</span> <span class="n">n</span><span class="p">[</span><span class="mi">50</span><span class="p">],</span> <span class="kt">float</span> <span class="n">suma</span><span class="p">)</span>	
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+	<span class="kt">float</span> <span class="n">media</span><span class="p">;</span>
+	<span class="n">media</span> <span class="o">=</span> <span class="n">suma</span> <span class="o">/</span> <span class="mi">50</span><span class="p">;</span>
+	<span class="k">return</span> <span class="n">media</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* Calcula la desviación típica de los elementos del array n. Necesita conocer la media para hacer los cálculos */</span>
+<span class="kt">float</span> <span class="nf">calcular_desviacion</span><span class="p">(</span><span class="kt">float</span> <span class="n">n</span><span class="p">[</span><span class="mi">50</span><span class="p">],</span> <span class="kt">float</span> <span class="n">media</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+	<span class="kt">float</span> <span class="n">diferencias</span><span class="p">;</span>
+	<span class="n">diferencias</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="mi">49</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+		<span class="n">diferencias</span> <span class="o">=</span> <span class="n">diferencias</span> <span class="o">+</span> <span class="n">abs</span><span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="err">–</span> <span class="n">media</span><span class="p">)</span> <span class="p">;</span>
+	<span class="n">diferencias</span> <span class="o">=</span> <span class="n">diferencias</span> <span class="o">/</span> <span class="mi">50</span><span class="p">;</span>
+	<span class="k">return</span> <span class="n">diferencias</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="9212-funciones-de-la-librería-estándar">9.2.12. Funciones de la librería estándar</h3>
+
+<p>La siguiente lista resume algunas funciones de uso frecuente de ANSI C. Para cada función se muestra su prototipo y se explica brevemente cuál es su cometido y cuáles sus datos de entrada y salida. También se indica el archivo de cabecera donde se encuentra el prototipo.</p>
+
+<p>Debes tener en cuenta que ANSI C dispone de muchas otras funciones. Si en algún momento las necesitas, una búsqueda rápida por internet te proporcionará información de sobra. Eso sí, asegúrate que la función que vayas a usar pertenezca al estándar ANSI C. Solo así tendrás la garantía de que tu compilador la reconocerá y de que tu programa será portable a otros sistemas.</p>
+
+<p><strong>Funciones de entrada/salida</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Función</th>
+      <th>Prototipo</th>
+      <th>Utilidad</th>
+      <th>Archivo de cabecera</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong><em>getchar()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">int getchar(void)</code></td>
+      <td>Devuelve un carácter leido por teclado mostrando el eco. Es necesario pulsar INTRO</td>
+      <td>stdio.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>gets()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">char* gets(char* cadena)</code></td>
+      <td>Lee una cadena de caracteres del dispositivo estándar de entrada y la sitúa en la posición apuntada por cadena</td>
+      <td>stdio.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>printf()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">int printf(const char* formato, lista_argumentos)</code></td>
+      <td>Salida estándar con formato. Véase el texto del capítulo para más detalles</td>
+      <td>stdio.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>putchar()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">int putchar(int carácter)</code></td>
+      <td>Escribe carácter en la pantalla</td>
+      <td>stdio.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>puts()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">int puts(const char* cadena)</code></td>
+      <td>Escribe cadena en el dispositivo estándar de salidastdio.h</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><strong><em>scanf()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">int scanf(const char* formato, lista_argumentos)</code></td>
+      <td>Entrada estándar con formato. Véase el texto del capítulo para más detalles</td>
+      <td>stdio.h</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Funciones de caracteres</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Función</th>
+      <th>Prototipo</th>
+      <th>Utilidad</th>
+      <th>Archivo de cabecera</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong><em>isalnum()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">int isalnum(int carácter)</code></td>
+      <td>Devuelve 1 si el carácter es alfanumérico (letra o número), o 0 si no lo es</td>
+      <td>ctype.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>isalpha()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">int isalpha(int carácter)</code></td>
+      <td>Devuelve 1 si el carácter es alfabético (una letra mayúscula o minúscula), o 0 si no lo es</td>
+      <td>ctype.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>isdigit()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">int isdigit(int carácter)</code></td>
+      <td>Devuelve 1 si el carácter es numérico, o 0 si no lo es</td>
+      <td>ctype.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>isupper()</em></strong> e <strong><em>islower()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">int isupper(int carácter);  int islower(int carácter);</code></td>
+      <td>La primera devuelve 1 si el carácter es una letra mayúscula y 0 en otro caso. La segunda, al revés</td>
+      <td>ctype.h</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Funciones matemáticas</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Función</th>
+      <th>Prototipo</th>
+      <th>Utilidad</th>
+      <th>Archivo de cabecera</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong><em>abs()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">int abs(int número)</code></td>
+      <td>Devuelve el valor absoluto de número</td>
+      <td>stdlib.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>cos()</em></strong><br /><strong><em>sin()</em></strong><br /><strong><em>tan()</em></strong><br /><strong><em>acos()</em></strong><br /><strong><em>asin()</em></strong><br /><strong><em>atan()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">double acos(double argumento)</code></td>
+      <td>Todas tienen un prototipo similar. Calculan y devuelven, respectivamente, el arcocoseno, el arcoseno, el arcotangente, el coseno, el seno y la tangente de argumento. Los ángulos se expresan en radianes</td>
+      <td>math.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>ceil()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">double ceil(double número)</code></td>
+      <td>Redondea número por exceso. P. ej: ceil(3.2) devuelve 4</td>
+      <td>math.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>exp()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">double exp(double potencia)</code></td>
+      <td>Calcula el exponencial epotencia</td>
+      <td>math.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>fabs()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">double fabs(double número)</code></td>
+      <td>Devuelve el valor absoluto de número</td>
+      <td>math.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>floor()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">double floor(double número)</code></td>
+      <td>Redondea número por defecto. P. ej: floor(3.8) devuelve 3</td>
+      <td>math.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>log()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">double log(double número)</code></td>
+      <td>Devuelve el logaritmo natural de número</td>
+      <td>math.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>log10()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">double log10(double número)</code></td>
+      <td>Devuelve el logaritmo decimal de número</td>
+      <td>math.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>pow()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">double log(double base, double exp)</code></td>
+      <td>Devuelve la potencia de base elevado a exp</td>
+      <td>math.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>sqrt()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">double sqrt(double número)</code></td>
+      <td>Devuelve la raiz cuadrada de número</td>
+      <td>math.h</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Funciones variadas</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Función</th>
+      <th>Prototipo</th>
+      <th>Utilidad</th>
+      <th>Archivo de cabecera</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong><em>atof()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">double atof(char* cadena)</code></td>
+      <td>Convierte la cadena en un número real. Si la cadena no contiene un número real válido, devuelve 0</td>
+      <td>stdlib.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>atoi()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">int atoi(char* cadena)</code></td>
+      <td>Convierte la cadena en un número entero. Si la cadena no contiene un número entero válido, devuelve 0</td>
+      <td>stdlib.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>atof()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">double atof(char* cadena)</code></td>
+      <td>Convierte la cadena en un número real. Si la cadena no contiene un número real válido, devuelve 0</td>
+      <td>stdlib.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>itoa()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">char* itoa(int número, int base)</code></td>
+      <td>Convierte el número en una cadena. La base de la cadena resultante se determina en base</td>
+      <td>stdlib.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>rand()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">int rand(void)</code></td>
+      <td>Devuelve un número entero al azar entre 0 y RAND_MAX (RAND_MAX es una constante definida en stdlib.h)</td>
+      <td>stdlib.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>randomize()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">void randomize(void)</code></td>
+      <td>Inicializa el generador de números aleatorio. Es necesario invocar esta función si después se va a usar random()</td>
+      <td>stdlib.h</td>
+    </tr>
+    <tr>
+      <td><strong><em>random()</em></strong></td>
+      <td><code class="language-plaintext highlighter-rouge">int random(int máximo)</code></td>
+      <td>Devuelve un número al azar entre 0 y máximo – 1</td>
+      <td>stdlib.h</td>
+    </tr>
+  </tbody>
+</table>
+:ET

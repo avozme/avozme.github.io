@@ -1,0 +1,263 @@
+I"�\<h1 class="no_toc" id="3-introducción-a-la-programación">3. Introducción a la programación</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#31-qué-es-exactamente-eso-de-programar-un-ordenador" id="markdown-toc-31-qué-es-exactamente-eso-de-programar-un-ordenador">3.1. ¿Qué es exactamente eso de “programar un ordenador”?</a></li>
+  <li><a href="#32-programas-y-algoritmos" id="markdown-toc-32-programas-y-algoritmos">3.2. Programas y algoritmos</a>    <ul>
+      <li><a href="#33-datos-y-tipos-de-datos" id="markdown-toc-33-datos-y-tipos-de-datos">3.3. Datos y tipos de datos</a></li>
+      <li><a href="#34-variables-y-constantes" id="markdown-toc-34-variables-y-constantes">3.4. Variables y constantes</a></li>
+      <li><a href="#35-subalgoritmos" id="markdown-toc-35-subalgoritmos">3.5. Subalgoritmos</a></li>
+      <li><a href="#36-expresiones-y-operadores" id="markdown-toc-36-expresiones-y-operadores">3.6. Expresiones y operadores</a></li>
+      <li><a href="#37-tipos-de-instrucciones" id="markdown-toc-37-tipos-de-instrucciones">3.7. Tipos de instrucciones</a></li>
+      <li><a href="#38-dos-maneras-formales-de-escribir-los-algoritmos-pseudocódigo-y-diagramas-de-flujo" id="markdown-toc-38-dos-maneras-formales-de-escribir-los-algoritmos-pseudocódigo-y-diagramas-de-flujo">3.8. Dos maneras formales de escribir los algoritmos: pseudocódigo y diagramas de flujo</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="31-qué-es-exactamente-eso-de-programar-un-ordenador">3.1. ¿Qué es exactamente eso de “programar un ordenador”?</h2>
+
+<p><strong>Programar un ordenador</strong> no es más que proporcionarle a la máquina un conjunto de instrucciones y datos para que realice una tarea. Esa tarea, generalmente, resuelve un problema concreto, que puede ir desde realizar complicados cálculos matemáticos hasta entretenernos con un videojuego en nuestros ratos de ocio.</p>
+
+<p>El conjunto de las instrucciones que conforma el programa se denomina <strong>código fuente</strong>, y tiene que estar escrito en un lenguaje comprensible por la máquina, es decir, un <strong>lenguaje de programación</strong>.</p>
+
+<p>Esas instrucciones se traducen a <strong>código binario</strong> (que, recuerda, es lo único que puede comprender el ordenador). La CPU de un ordenador está construida de manera que puede entender y ejecutar ciertas instrucciones binarias, gracias a lo cual nuestro programa acaba ejecutándose en las entrañas de la máquina.</p>
+
+<p>Este es un fragmento de un programa informático real escrito en lenguaje PHP. Implementa un algoritmo de ordenación de elementos llamado <em>Bubble Sort</em> o, en español, <em>método de la burbuja</em>. No es necesario, ni mucho menos, que lo entiendas de momento. Solo quiero que le eches un vistazo para que veas el aspecto que tiene un programa real (o un fragmento) escrito en un lenguaje real.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">bubble_Sort</span><span class="p">(</span><span class="nv">$my_array</span> <span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">do</span>
+	<span class="p">{</span>
+		<span class="nv">$swapped</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+		<span class="k">for</span><span class="p">(</span> <span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">$c</span> <span class="o">=</span> <span class="nb">count</span><span class="p">(</span> <span class="nv">$my_array</span> <span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$c</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span> <span class="p">)</span>
+		<span class="p">{</span>
+			<span class="k">if</span><span class="p">(</span> <span class="nv">$my_array</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nv">$my_array</span><span class="p">[</span><span class="nv">$i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="p">)</span>
+			<span class="p">{</span>
+				<span class="k">list</span><span class="p">(</span> <span class="nv">$my_array</span><span class="p">[</span><span class="nv">$i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="nv">$my_array</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span> <span class="p">)</span> <span class="o">=</span>
+						<span class="k">array</span><span class="p">(</span> <span class="nv">$my_array</span><span class="p">[</span><span class="nv">$i</span><span class="p">],</span> <span class="nv">$my_array</span><span class="p">[</span><span class="nv">$i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="p">);</span>
+				<span class="nv">$swapped</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">while</span><span class="p">(</span> <span class="nv">$swapped</span> <span class="p">);</span>
+<span class="k">return</span> <span class="nv">$my_array</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nv">$test_array</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="k">echo</span> <span class="s2">"Original Array :"</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nb">implode</span><span class="p">(</span><span class="s1">', '</span><span class="p">,</span><span class="nv">$test_array</span> <span class="p">);</span>
+<span class="k">echo</span> <span class="s2">"Sorted Array:"</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nb">implode</span><span class="p">(</span><span class="s1">', '</span><span class="p">,</span><span class="nf">bubble_Sort</span><span class="p">(</span><span class="nv">$test_array</span><span class="p">))</span><span class="mf">.</span> <span class="kc">PHP_EOL</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>(Fuente: php.net)</p>
+
+<h2 id="32-programas-y-algoritmos">3.2. Programas y algoritmos</h2>
+
+<p>Para realizar un programa es necesario idear previamente un algoritmo. Esto es importante hasta el extremo de que, sin algoritmo, no existiría el programa.</p>
+
+<p>Un algoritmo, como hemos visto, es una <strong>secuencia ordenada de acciones que conducen a la solución de un problema en un número finito de pasos simples</strong>.</p>
+
+<p>Por ejemplo, vamos a escribir un algoritmo para determinar si un número entero cualquiera (que llamaremos N) es par o impar:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- Inicio del algoritmo
+- Paso 1. Preguntar qué número concreto es N.
+- Paso 2. Si N es divisible entre 2, entonces la solución es "PAR".
+- Paso 3. Si N no es divisible entre 2, entonces la solución es "IMPAR".
+- Paso 4. Imprimir la solución.
+- Fin del algoritmo
+</code></pre></div></div>
+
+<p>Recuerda que este algoritmo está <strong>escrito para que lo ejecute un ordenador</strong>, no para que lo ejecute una persona. Por eso el Paso 1 es “Preguntar qué número es N”: porque el ordenador tendrá que preguntarnos a nosotros, los humanos, el número. Y por eso el Paso 4 es “Imprimir la solución”: porque el ordenador nos ofrecerá el resultado imprimiéndolo en la pantalla o en un papel.</p>
+
+<p>Este algoritmo resuelve el problema planteado en un número finito de pasos simples. Lógicamente, al ordenador no le podemos dar estas instrucciones tal y como las hemos escrito, sino que habrá que expresarlo en un lenguaje de programación, pero esto es algo que trataremos más adelante.</p>
+
+<h3 id="33-datos-y-tipos-de-datos">3.3. Datos y tipos de datos</h3>
+
+<p>Los algoritmos, como hemos dicho, son colecciones de instrucciones que resuelven un problema.</p>
+
+<p>Pero esas instrucciones <strong>siempre trabajan con datos</strong>, es decir, con información formalizada para su uso en un ordenador:</p>
+
+<ul>
+  <li><strong>Los datos de entrada</strong> son datos que el algoritmo necesita para trabajar. En el ejemplo anterior, el número “N” es un dato de entrada.</li>
+  <li><strong>Los datos de salida</strong> son datos que el algoritmo produce como resultado de sus cálculos. En el ejemplo anterior, “solución” es un dato de salida.</li>
+</ul>
+
+<p>Los datos siempre pertenecen a un <strong>tipo de datos</strong>, que es el rango de valores que ese dato puede tomar. Existen multitud de tipos de datos posibles, pero empezaremos trabajando solo con estos:</p>
+
+<ul>
+  <li><strong>Enteros</strong>. Los datos de este tipo solo pueden tomar como valores números enteros (positivos o negativos). Ejemplos: 3, 28, -15, 0, 4982…</li>
+  <li><strong>Reales</strong>. Números con decimales. Ejemplos: 18.25, -3.198887</li>
+  <li><strong>Caracteres</strong>. Letras, números, signos de puntuación… Ojo, si un dato es de tipo “carácter”, solo puede contener en cada momento un único carácter. Ejemplos: ‘a’, ‘Z’, ‘&amp;’, ‘?’</li>
+  <li><strong>Cadenas de caracteres</strong>. O, simplemente, <em>cadenas</em>. Son colecciones de letras, números, signos de puntuación… Es decir, palabras y cualquier cosa que se le parezca. Ejemplos: “Hoy es lunes”, “sgcv08 e98 ie7f83 ?so9&amp;/”. Suelen distinguirse de los caracteres individuales por la doble comilla, aunque esto depende del lenguaje de programación.</li>
+  <li><strong>Lógicos o booleanos</strong>. Estos datos solo pueden tener dos valores: <em>verdadero</em> o <em>falso</em>.</li>
+</ul>
+
+<h3 id="34-variables-y-constantes">3.4. Variables y constantes</h3>
+
+<p>Las <strong>variables</strong> de un algoritmo son como las variables en una ecuación matemática: representaciones de un dato a las que asignamos un nombre o identificador.</p>
+
+<p>En el algoritmo para averiguar si un número es par o impar, <em>N</em> es una variable y <em>solución</em> es otra variable.</p>
+
+<p>Las variables pueden tomar un valor perteneciente a un tipo de datos. Ese valor puede cambiar a lo largo del algoritmo (por eso se denominan <em>variables</em>). Lo que no puede cambiar es el tipo de datos al que pertenecen. Es decir: si una variable es entera, no puede cambiar y pasar a ser real durante la ejecución del programa.</p>
+
+<p>(Bueno, hay lenguajes que sí permiten hacer esto, pero esa es otra historia).</p>
+
+<p>Por eso, la mayoría de los lenguajes de programación exigen que les indiquemos a qué tipo de datos pertenece cada variable antes de usarlas por primera vez. Es algo que también haremos en pseudocódigo. Eso se denomina <strong>declarar una variable</strong>.</p>
+
+<p>Así pues, podemos mejorar el algoritmo anterior con la declaración de las variables “N” y “solución”:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- Inicio del algoritmo
+- Declaración de variables:
+   - N es un número entero.
+   - solución es una cadena de caracteres.
+- Paso 1. Averiguar qué número es N.
+- Paso 2. Si N es divisible entre 2, entonces la solución es "PAR".
+- Paso 3. Si N no es divisible entre 2, entonces la solución es "IMPAR".
+- Paso 4. Imprimir la solución.
+- Fin del algoritmo
+</code></pre></div></div>
+
+<p>Las <strong>constantes</strong> se parecen a las variables: tienen un nombre y un tipo, y se les asigna un valor. La única diferencia es que una constante <em>no puede cambiar de valor durante la ejecución del algoritmo</em> y una variable sí.</p>
+
+<h3 id="35-subalgoritmos">3.5. Subalgoritmos</h3>
+
+<p>Cuando un algoritmo es muy complejo, lo dividimos en trozos más simples que denominamos <strong>subalgoritmos</strong>. En programación, esos subalgoritmos se denominan <strong>procedimientos</strong> o <strong>funciones</strong>. Son casi la misma cosa, con una sutil diferencia que ya veremos cuando llegue el momento.</p>
+
+<p>Los lenguajes de programación reales, además de las instrucciones básicas que enseguida vamos a ver, tienen unas colecciones de funciones predefinidas llamadas <strong>bibliotecas</strong>. Esas funciones se encargan de realizar tareas habituales y repetitivas, de modo que nos ahorran un montón de trabajo.</p>
+
+<p>Por ejemplo, es posible escribir algoritmos para hacer cálculos matemáticos complejos, tales como logaritmos o raíces cuadradas. Para evitarnos ese trabajo, todos los lenguajes de programación disponen de una biblioteca de funciones matemáticas que incluye, entre otras muchas cosas, el cálculo de logaritmos y de raíces cuadradas para cuando los necesitemos. Así que vamos a suponer, cuando escribamos pseudocódigo, que también tenemos a nuestra disposición de esas bibliotecas de funciones.</p>
+
+<p>Algunos subalgoritmos o funciones que existen en todos los lenguajes de programación y que podemos considerar que también existen en pseudocódigo son las siguientes:</p>
+
+<ul>
+  <li>abs(x). Calcula el valor absoluto de x. Funciona con números reales y con enteros.</li>
+  <li>sen(x). Calcula el seno de x. Devuelve valores reales.</li>
+  <li>cos(x). Calcula el coseno de x. Devuelve valores reales.</li>
+  <li>exp(x). Calcula e<sup>x</sup>. Devuelve un real.</li>
+  <li>ln(x). Calcula el logaritmo neperiano de x. Devuelve un valor real.</li>
+  <li>redon(x). Redondea el número x al valor entero más próximo. El valor x será real, y la función devolverá un entero.</li>
+  <li>trunc(x). Trunca el número x, es decir, le elimina la parte decimal. El valor x será real, y la función devolverá un entero.</li>
+  <li>rc(x). Calcula la raíz cuadrada de x. Devuelve un valor real</li>
+  <li>azar(x). Genera un número al azar entre 0 y x. Supondremos que solo funciona con números enteros.</li>
+</ul>
+
+<h3 id="36-expresiones-y-operadores">3.6. Expresiones y operadores</h3>
+
+<p>Una <strong>expresión</strong> es una combinación de constantes, variables, operadores y funciones.</p>
+
+<p>Por ejemplo, esto es una expresión:</p>
+
+<p align="center">rc((5 + x) / 2)</p>
+
+<p>En esta expresión, aparecen dos constantes literales (5 y 2), una variable (x), dos operadores aritméticos (+ y /) y una función (rc, para calcular la raíz cuadrada), además de los paréntesis, que sirven para manipular la prioridad de las operaciones.</p>
+
+<p>Lógicamente, para resolver la expresión, es decir, para evaluar su resultado, debemos conocer cuál es el valor de la variable x.</p>
+
+<p>Si suponemos que la variable x tiene el valor 7, el resultado de la expresión será 2,449.</p>
+
+<p>La forma más habitual de encontrar una expresión es combinada con una <strong>sentencia de asignación a una variable</strong>. Por ejemplo:</p>
+
+<p align="center">y &lt;- raiz((5 + x) / 2)</p>
+
+<p>En estos casos, la expresión (lo que hay a la derecha del signo “&lt;-“) se evalúa y <em>su resultado es asignado a la variable</em> situada a la izquierda del “&lt;-“.</p>
+
+<p>En el ejemplo anterior, suponiendo que la variable x valiera 7, la expresión se evaluaría como 2,449, y, por lo tanto, ese es el valor que se asignaría a la variable y.</p>
+
+<p>En las expresiones anteriores se han realizado algunas operaciones matemáticas (como sumas o divisiones). Los símbolos que se usan para ello se denominan <strong>operadores</strong>. En programación, existen distintos tipos de operadores:</p>
+
+<ul>
+  <li><strong>Operadores aritméticos</strong>: para hacer operaciones matemáticas convencionales. Los más habituales son + (suma), - (resta), * (producto), / (división) y MOD (resto de la división entera).</li>
+  <li><strong>Operadores relacionales</strong>: se utilizan para comparar números, aunque también pueden comparar caracteres o cadenas alfabéticamente. Los más habituales son &lt; (menor que), &gt; (mayor que), = (igual que), != (distinto de), &lt;= (menor o igual que) y &gt; (mayor o igual que). El resultado de estas comparaciones siempre es un valor lógico, es decir, verdadero o falso.</li>
+  <li><strong>Operadoresl lógicos</strong>: se utilizan para comparar otros datos lógicos y relacionarlos entre sí. Los más habituales son Y, O y NO. Estas palabras tienen el mismo significado que en la lengua natural.</li>
+</ul>
+
+<p>Observa, por ejemplo, este fragmento de pseudocódigo muy fácil de entender:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>puntos_carnet = &lt;poner-aquí-un-número-entero&gt;
+edad = &lt;poner-aquí-otro-número-entero&gt;
+Si edad &gt;= 18 y puntos_carnet &gt; 0 Entonces
+   escribir "Puedes conducir"
+FinSi
+Si edad &lt; 18 o puntos_carnet = 0 Entonces
+   escribir "No puedes conducir"
+FinSi
+</code></pre></div></div>
+
+<p>Aquí se usan dos variables, <em>puntos_carnet</em> y <em>edad</em> (que pueden tomar el valor que quieras ponerle) y luego se hacen dos comparaciones que implican operadores relacionales y lógicos.</p>
+
+<ul>
+  <li>En la primera comparación, se tienen que cumplir a la vez las dos condiciones (que la edad sea mayor o igual que 18 años y que los puntos del carnet sean superiores a cero) para que el programa nos diga <em>“Puedes conducir”</em>.</li>
+  <li>En la segunda comparación, basta con que una de las dos condiciones se cumpla para que el programa diga <em>“No puedes conducir”</em>.</li>
+</ul>
+
+<p>Es habitual encontrar varias operaciones juntas en una misma línea. En estos casos es imprescindible conocer la <strong>prioridad de los operadores</strong>, porque las operaciones se calcularán en el orden de prioridad y el resultado puede ser muy distinto del esperado.</p>
+
+<p>En general, los operadores aritméticos tienen la máxima prioridad y, entre ellos, la multiplicación y la división son más prioritarias que la suma o la resta. Los siguientes operadores por prioridad son los relacionales y, por último, los lógicos. Sin embargo, esto puede variar según el lenguaje de programación concreto.</p>
+
+<p>Lo más apropiado, si tenemos dudas sobre el orden en el que se van a ejecutar las operaciones, es usar paréntesis, exactamente igual que hacemos en matemáticas.</p>
+
+<h3 id="37-tipos-de-instrucciones">3.7. Tipos de instrucciones</h3>
+
+<p>Hemos dicho varias veces que los algoritmos constan de dos elementos: un conjunto de datos (representados por constantes y variables) y un conjunto de instrucciones.</p>
+
+<p>Son muy pocas, en realidad, las instrucciones que necesitamos para construir algoritmos que funcionen. Increíblemente pocas:</p>
+
+<ul>
+  <li><strong>Instrucciones de entrada de datos</strong>. Sirven para indicar que, en ese punto, hay que proporcionar un dato al algoritmo. En el <em>Paso 1</em> del algoritmo para determinar si un número es par o impar hay una instrucción de entrada.</li>
+  <li><strong>Instrucciones de salida de datos</strong>. Sirven para que el algoritmo nos facilite el resultado de sus cálculos. En el <em>Paso 4</em> del algoritmo par-impar hay una instrucción de salida.</li>
+  <li><strong>Instrucciones de asignación</strong>. Sirven para asignar un valor a una variable.</li>
+  <li><strong>Instrucciones para crear subalgoritmos</strong>. Sirven para declarar subalgoritmos y darles un nombre.</li>
+  <li><strong>Instrucciones condicionales</strong>. Sirven para bifurcar el posible flujo de ejecución del algoritmo. Las instrucciones condicionales contienen siempre una condición que puede ser verdadera o falsa. Si es verdadera, el algoritmo continúa por un camino. Si es falsa, continúa por otro. Antes o después, esa bifurcación finaliza y el flujo del algoritmo vuelve a reunirse.</li>
+  <li><strong>Instrucciones iterativas</strong>. Sirven para repetir una o varias instrucciones un número finito de veces. Son la estructura más difícil de manejar para los programadores principiantes.</li>
+</ul>
+
+<h3 id="38-dos-maneras-formales-de-escribir-los-algoritmos-pseudocódigo-y-diagramas-de-flujo">3.8. Dos maneras formales de escribir los algoritmos: pseudocódigo y diagramas de flujo</h3>
+
+<p>Necesitamos un método de escritura de algoritmos que sea independiente del lenguaje de programación que luego se vaya a utilizar. Así se podrán traducir más tarde a cualquier lenguaje.</p>
+
+<p>Tres posibles maneras de escribir un algoritmo son:</p>
+
+<ul>
+  <li><strong>Lenguaje natural</strong> (como hicimos con el algoritmo para decidir si un número es o no par).</li>
+  <li><strong>Diagramas de flujo</strong></li>
+  <li><strong>Pseudocódigo</strong></li>
+</ul>
+
+<p>Por supuesto, también podríamos escribir los algoritmos directamente con un lenguaje de programación real, pero, si eres principiante, es más fácil aprender a programar usando pseudocódigo o diagramas de flujo que hacerlo con un lenguaje de programación. No tengas prisa: el lenguaje de programación llegará muy pronto.</p>
+
+<p>El lenguaje natural (castellano, en nuestro caso) no es apropiado porque, como todos los lenguajes naturales humanos, tiene muchas ambigüedades que provocarían que, a veces, no quedara claro lo que queremos decir.</p>
+
+<p>El <strong>pseudocódigo</strong> es un lenguaje de codificación de algoritmos basado en la lengua castellana, pero donde solo se permite un conjunto reducido de palabras con un significado muy concreto. El pseudocódigo tiene dos propiedades que nos interesarán mucho: facilita considerablemente el aprendizaje de las técnicas de programación y logra que la traducción a un lenguaje de programación real sea casi instantánea.</p>
+
+<p>Los <strong>diagramas de flujo</strong> son representaciones gráficas de los algoritmos que ayudan a comprender de forma visual su funcionamiento. Tienen una correspondencia directa con los diagramas de flujo.</p>
+
+<p>Son dos técnicas complementarias que vamos a trabajar indistintamente. Usar uno u otro es una cuestión de gustos y preferencias personales.</p>
+
+<p>A continuación, vamos a mostrar el algoritmo que determina si un número es par escrito de los dos modos. Solo es un ejemplo, pero deberías echarle un vistazo con detenimiento para comprobar si lo entiendes o no.</p>
+
+<p><em>“Con detenimiento”</em> significa que no lo leas deprisa y corriendo para marcharte a hacer otra cosa en dos minutos. Respira hondo y tómate tu tiempo.</p>
+
+<p>Si no lo entiendes todo, no te agobies todavía. Aprenderás a escribir pseudocódigo y diagramas de flujo muy pronto.</p>
+
+<p><strong>1. El algoritmo “Par-Impar” escrito como pseudocódigo:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Algoritmo par_impar
+	Definir N como Entero
+	Definir solucion como Cadena
+
+	Escribir "Dime un número:"
+	Leer N
+	Si N MOD 2 = 0 Entonces
+		solucion &lt;- "PAR"
+	SiNo
+		solucion &lt;- "IMPAR"
+	FinSi
+	Escribir "El número ", N, " es ", solucion
+FinAlgoritmo
+</code></pre></div></div>
+
+<p><strong>2. El algoritmo “Par-Impar” escrito como diagrama de flujo:</strong></p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/03-par-impar.png" alt="Diagrama de flujo par-impar" /></p>
+
+:ET

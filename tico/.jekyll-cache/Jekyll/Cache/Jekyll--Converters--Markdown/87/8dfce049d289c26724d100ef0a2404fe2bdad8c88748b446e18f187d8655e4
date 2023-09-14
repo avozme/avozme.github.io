@@ -1,0 +1,257 @@
+I"�|<h2 class="no_toc" id="95-un-ejemplo-completo-las-tres-en-raya">9.5. Un ejemplo completo: las tres en raya</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#961-el-código-fuente" id="markdown-toc-961-el-código-fuente">9.6.1. El código fuente</a></li>
+  <li><a href="#962-cómo-ejecutar-y-depurar-este-programa" id="markdown-toc-962-cómo-ejecutar-y-depurar-este-programa">9.6.2. ¿Cómo ejecutar y depurar este programa?</a></li>
+</ul>
+
+<p>Llegó la hora de poner manos a la obra.</p>
+
+<p>Si hay una sección de este capítulo que tienes que leer con atención, es esta. Así que es un mal momento para tener prisa.</p>
+
+<p>Vamos a escribir un <strong>programa completo en C</strong>. Te puede servir de plantilla para desarrollar tus propios programas a partir de este código fuente.</p>
+
+<p>El programa en cuestión será una versión del juego de <strong>las tres en raya</strong> que encontrarás resuelta en pseudocódigo el tema de introducción a la programación. No dudes en repasar aquel ejercicio resuelto para ver el pseudocódigo, puesto que nuestro programa será una traducción literal de ese pseudocódigo a C.</p>
+
+<p>Aquí tienes el código fuente completo. Estúdialo con atención y asegúrate de entenderlo todo (o un gran porcentaje) antes de continuar. Ah, y no dejes de compararlo línea a línea con el mismo código en pseudocódigo.</p>
+
+<h3 id="961-el-código-fuente">9.6.1. El código fuente</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span>
+<span class="c1">//-------------------------</span>
+<span class="c1">//   ALGORITMO PRINCIPAL</span>
+<span class="c1">//-------------------------</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+   <span class="kt">char</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+   <span class="kt">int</span> <span class="n">ganador</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>        <span class="c1">// 0 = ninguno, 1 = humano, 2 = ordenador</span>
+   <span class="kt">int</span> <span class="n">tablas</span><span class="p">;</span>             <span class="c1">// 0 = no hay tablas, 1 = sí hay tablas</span>
+
+   <span class="n">inicializar</span><span class="p">(</span><span class="n">tablero</span><span class="p">);</span>   <span class="c1">// Esto es un subalgoritmo. Está escrito más abajo</span>
+   <span class="k">do</span> <span class="p">{</span>
+      <span class="n">mostrar</span><span class="p">(</span><span class="n">tablero</span><span class="p">);</span>
+      <span class="n">colocar_pieza_humano</span><span class="p">(</span><span class="n">tablero</span><span class="p">);</span>
+      <span class="n">ganador</span> <span class="o">=</span> <span class="n">comprobar_ganador</span><span class="p">(</span><span class="n">tablero</span><span class="p">);</span>
+      <span class="n">tablas</span> <span class="o">=</span> <span class="n">comprobar_tablas</span><span class="p">(</span><span class="n">tablero</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">((</span><span class="n">ganador</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">tablas</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+         <span class="n">colocar_pieza_ordenador</span><span class="p">(</span><span class="n">tablero</span><span class="p">);</span>
+         <span class="n">ganador</span> <span class="o">=</span> <span class="n">comprobar_ganador</span><span class="p">(</span><span class="n">tablero</span><span class="p">);</span>
+         <span class="n">tablas</span> <span class="o">=</span> <span class="n">comprobar_tablas</span><span class="p">(</span><span class="n">tablero</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="k">while</span> <span class="p">((</span><span class="n">ganador</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">tablas</span> <span class="o">==</span> <span class="mi">0</span><span class="p">));</span>
+	
+   <span class="n">mostrar</span><span class="p">(</span><span class="n">tablero</span><span class="p">);</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">ganador</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">printf</span><span class="p">(</span><span class="s">"EL JUEGO HA TERMINADO EN TABLAS</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+   <span class="p">}</span>
+   <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">ganador</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">printf</span><span class="p">(</span><span class="s">"EL JUEGO HA TERMINADO Y HAS GANADO TÚ</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+   <span class="p">}</span>
+   <span class="k">else</span> <span class="p">{</span>
+      <span class="n">printf</span><span class="p">(</span><span class="s">"EL JUEGO HA TERMINADO Y HE GANADO YO</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// --------------------------------------------</span>
+<span class="c1">// Inicializa el tablero con espacios en blanco</span>
+<span class="c1">// --------------------------------------------</span>
+<span class="kt">void</span> <span class="nf">inicializar</span><span class="p">(</span><span class="kt">char</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span> <span class="p">{</span>
+   <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+   <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Como tablero es un array, se pasa por referencia y los cambios que</span>
+      <span class="c1">// hagamos aquí se reflejarán en el algoritmo principal</span>
+      <span class="n">tablero</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="sc">' '</span><span class="p">;</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// --------------------------------------------</span>
+<span class="c1">// Muestra el estado actual del tablero</span>
+<span class="c1">// --------------------------------------------</span>
+<span class="kt">void</span> <span class="nf">mostrar</span><span class="p">(</span><span class="kt">char</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span> <span class="p">{</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s">"ESTADO ACTUAL DEL TABLERO</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s">"+-+-+-+</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s">"|%c|%c|%c|</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s">"+-+-+-+</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s">"|%c|%c|%c|</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">6</span><span class="p">]);</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s">"+-+-+-+</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s">"|%c|%c|%c|</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">9</span><span class="p">]);</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s">"+-+-+-+</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// ---------------------------------------------------</span>
+<span class="c1">// Coloca una pieza del jugador humano en el tablero</span>
+<span class="c1">// ---------------------------------------------------</span>
+<span class="kt">void</span> <span class="nf">colocar_pieza_humano</span><span class="p">(</span><span class="kt">char</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span> <span class="p">{</span>
+   <span class="kt">int</span> <span class="n">casilla</span><span class="p">;</span>
+   <span class="kt">int</span> <span class="n">casilla_correcta</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="k">do</span> <span class="p">{</span>
+      <span class="n">printf</span><span class="p">(</span><span class="s">"¿En qué casilla quieres poner una pieza? (1-9)"</span><span class="p">);</span>
+      <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">casilla</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="n">casilla</span><span class="p">]</span> <span class="o">==</span> <span class="sc">' '</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">tablero</span><span class="p">[</span><span class="n">casilla</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'X'</span><span class="p">;</span>
+         <span class="n">casilla_correcta</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">else</span> <span class="p">{</span>
+         <span class="n">printf</span><span class="p">(</span><span class="s">"Error: Esa casilla ya está ocupada</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="k">while</span> <span class="p">(</span><span class="n">casilla_correcta</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// ---------------------------------------------------</span>
+<span class="c1">// Coloca una pieza del ordenador en el tablero</span>
+<span class="c1">// ---------------------------------------------------</span>
+<span class="kt">void</span> <span class="nf">colocar_pieza_ordenador</span><span class="p">(</span><span class="kt">char</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span> <span class="p">{</span>
+   <span class="kt">int</span> <span class="n">casilla</span><span class="p">;</span>
+   <span class="kt">int</span> <span class="n">casilla_correcta</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="n">srand</span><span class="p">(</span><span class="n">time</span><span class="p">(</span><span class="nb">NULL</span><span class="p">));</span>
+   <span class="k">do</span> <span class="p">{</span>
+      <span class="n">casilla</span> <span class="o">=</span> <span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">10</span><span class="p">;</span>
+      <span class="n">printf</span><span class="p">(</span><span class="s">"Voy a colocar mi pieza en la casilla "</span><span class="p">,</span> <span class="n">casilla</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="n">casilla</span><span class="p">]</span> <span class="o">==</span> <span class="sc">' '</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">tablero</span><span class="p">[</span><span class="n">casilla</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'O'</span><span class="p">;</span>
+         <span class="n">casilla_correcta</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">else</span> <span class="p">{</span>
+         <span class="n">printf</span><span class="p">(</span><span class="s">"¡Está ocupada! Voy a elegir otra"</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="k">while</span> <span class="p">(</span><span class="n">casilla_correcta</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// ---------------------------------------------------</span>
+<span class="c1">// Comprueba si hay un ganador según el estado del </span>
+<span class="c1">// tablero. Devuelve "Ninguno", "Humano" u "Ordenador"</span>
+<span class="c1">// ---------------------------------------------------</span>
+<span class="kt">int</span> <span class="nf">comprobar_ganador</span><span class="p">(</span><span class="kt">char</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span> <span class="p">{</span>
+   <span class="kt">int</span> <span class="n">ganador</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="c1">// Comprobamos primera fila</span>
+   <span class="k">if</span> <span class="p">((</span><span class="n">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'X'</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">ganador</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'O'</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">ganador</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="c1">// Comprobamos segunda fila</span>
+   <span class="k">if</span> <span class="p">((</span><span class="n">tablero</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">6</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'X'</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">ganador</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'O'</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">ganador</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="c1">// Comprobamos tercera fila</span>
+   <span class="k">if</span> <span class="p">((</span><span class="n">tablero</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">==</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">==</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">9</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'X'</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">ganador</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'O'</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">ganador</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="c1">// Comprobamos primera columna</span>
+   <span class="k">if</span> <span class="p">((</span><span class="n">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">7</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'X'</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">ganador</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'O'</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">ganador</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="c1">// Comprobamos segunda columna</span>
+   <span class="k">if</span> <span class="p">((</span><span class="n">tablero</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">8</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'X'</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">ganador</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'O'</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">ganador</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="c1">// Comprobamos tercera columna</span>
+   <span class="k">if</span> <span class="p">((</span><span class="n">tablero</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">9</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'X'</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">ganador</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'O'</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">ganador</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="c1">// Comprobamos una diagonal</span>
+   <span class="k">if</span> <span class="p">((</span><span class="n">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">9</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'X'</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">ganador</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'O'</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">ganador</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="c1">// Comprobamos la otra diagonal</span>
+   <span class="k">if</span> <span class="p">((</span><span class="n">tablero</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">7</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'X'</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">ganador</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'O'</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">ganador</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+   <span class="k">return</span> <span class="n">ganador</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// -------------------------------------------</span>
+<span class="c1">// Comprueba si hay una situación de tablas</span>
+<span class="c1">// según el estado actual del tablero. Devuelve</span>
+<span class="c1">// verdadero si hay tablas o falso en otro caso.</span>
+<span class="c1">// -------------------------------------------</span>
+<span class="kt">int</span> <span class="nf">comprobar_tablas</span><span class="p">(</span><span class="kt">char</span> <span class="n">tablero</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span> <span class="p">{</span>
+   <span class="kt">int</span> <span class="n">tablas</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">contador</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">tablero</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span>  <span class="sc">' '</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">contador</span><span class="o">++</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+	
+	<span class="c1">// Si todas las casillas están ya ocupadas y no hay ganador,</span>
+	<span class="c1">// entonces estamos en tablas.</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">contador</span> <span class="o">==</span> <span class="mi">9</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">tablas</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+   <span class="p">}</span>
+   <span class="k">else</span> <span class="p">{</span>
+      <span class="n">tablas</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="p">}</span>
+   <span class="k">return</span> <span class="n">tablas</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="962-cómo-ejecutar-y-depurar-este-programa">9.6.2. ¿Cómo ejecutar y depurar este programa?</h3>
+
+<p>Guarda el programa anterior en un archivo de texto con extensión .c (por ejemplo, <em>3enraya.c</em>).</p>
+
+<p>Si estás trabajando con Visual Studio Code con la extensión Code Runner, como hemos recomendado, puedes ejecutar tu programa directamente desde ahí. Basta con que pulses el botón “Play” de la esquina superior derecha. Se abrirá una consola en la parte de abajo donde tu programa se ejecutará.</p>
+
+<h4 id="socorro-el-programa-no-funciona">¡Socorro! El programa no funciona</h4>
+
+<p>¿El resultado no es el esperado? Es lo habitual. Habrá algún error en el código y te tocará depurarlo.</p>
+
+<p>En la ventana inferior de Visual Studio Code verás varias pestañas.</p>
+
+<ul>
+  <li>En la pestaña <strong>Terminal</strong> verás el resultado de la ejecución de tu programa.</li>
+  <li>En la pestaña <strong>Problems</strong> verás la lista de errores que el compilador ha encontrado en tu programa. En tal caso, en el <em>Terminal</em> solo verás un lenguaje de tipo “La compilación ha terminado con errores”.</li>
+</ul>
+
+<p>Los mensajes pueden estar en español o en inglés, dependiendo del compilador, pero ¿qué esperabas? Si quieres aprender a programar, tienes que acostumbrarte a manejar el inglés técnico.</p>
+
+<p>El mensaje de error te dará información sobre lo que hay de malo en tu código y te dirá en qué línea, aproximadamente, está el error.</p>
+
+<p>Cuando lo hayas localizado, <strong>regresa a tu editor de texto, haz los cambios necesarios, guarda las modificaciones y vuelve a compilar y ejecutar el programa</strong> (pulsando de nuevo el botón “Play”).</p>
+
+<p>Y así hasta que funcione.</p>
+
+<p>¡Mucha paciencia y sangre fría! Recuerda siempre que la mayor parte del tiempo de programación se va en depurar programas, no en escribirlos.</p>
+
+:ET

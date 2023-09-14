@@ -143,7 +143,7 @@ Estos ordenadores están destinados al uso del profesorado durante el ejercicio 
 
 Actualmente, hay cuatro modalidades de aula con pizarra interactiva (PDI) diferentes en el centro. Aunque todos tienen la misma funcionalidad, varían ligeramente en su forma de uso. Además, los proyectores que se van averiando están siendo sustituidos por televisores de gran formato.
 
-**Aulas 1, 2, 4, 5, 9 y 11: pizarras Promethean**
+**Aulas con pizarras Promethean**
 
 Algunos de estos ordenadores se encienden con un interruptor en el pie del monitor. La mayoría se encienden directamente pulsando el interruptor del ordenador.
 
@@ -158,7 +158,7 @@ El procedimiento de puesta en marcha de estas prizarras es el siguiente:
 
 ![PDI Promethean](../assets/medios-tic/pdi-promethean.jpg)
 
-**Aulas 12, 15, 18, 25, 27 y 28: pizarras blancas con cañones Optoma**
+**Aulas con pizarras blancas y cañones Optoma**
 
 Todos estos ordenadores se encienden pulsando el interruptor del mismo. Puede ser necesario conectar la electricidad encendiendo una regleta que suele estar acoplada a la mesa o situada en el suelo.
 
@@ -175,7 +175,7 @@ Para utilizarlas, el procedimiento es el siguiente:
 
 ![Proyector Optoma con pizarra blanca](../assets/medios-tic/pdi-optoma.jpg)
 
-**Aulas 6, 13, 14, 16, 17 y 19: pizarras Smartboard**
+**Aulas con pizarras Smartboard**
 
 Estas pizarras están controladas por un miniordenador llamado NUC incorporado bajo la misma. Puede accionarse con el dedo, sin ningún puntero.
 
@@ -202,7 +202,7 @@ Fíjate que la botonera de la pizarra y las funciones táctiles no están contec
 
 ![PDI Smartboard con PC sobremesa](../assets/medios-tic/pdi-smartboard-2.jpg)
 
-**Aulas 7, 10, 26, emprendimiento y antigua cantina: TV de gran formato**
+**Aulas con televisiones de gran formato**
 
 Los proyectores que se averían se están sustituyendo, cuando es posible, por televisores de gran formato (65 y 75 pulgadas). Esto también se está haciendo en los departamentos que se usan ocasionalmente para impartir clases.
 

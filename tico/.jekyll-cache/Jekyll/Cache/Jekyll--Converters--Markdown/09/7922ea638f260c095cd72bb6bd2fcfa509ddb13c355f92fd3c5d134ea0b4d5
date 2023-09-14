@@ -1,0 +1,1628 @@
+I"Q<h1 class="no_toc" id="2-el-lenguaje-sql">2. El lenguaje SQL</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#21-creando-las-tablas-con-sql" id="markdown-toc-21-creando-las-tablas-con-sql">2.1. Creando las tablas con SQL</a>    <ul>
+      <li><a href="#211-creación-de-tablas-create-table" id="markdown-toc-211-creación-de-tablas-create-table">2.1.1. Creación de tablas: CREATE TABLE</a></li>
+      <li><a href="#212-modificación-de-tablas-alter-table" id="markdown-toc-212-modificación-de-tablas-alter-table">2.1.2. Modificación de tablas: ALTER TABLE</a></li>
+      <li><a href="#223-borrado-de-tablas-drop-table" id="markdown-toc-223-borrado-de-tablas-drop-table">2.2.3. Borrado de tablas: DROP TABLE</a></li>
+      <li><a href="#214-algunas-consideraciones-sobre-la-integridad-referencial" id="markdown-toc-214-algunas-consideraciones-sobre-la-integridad-referencial">2.1.4. Algunas consideraciones sobre la integridad referencial</a></li>
+    </ul>
+  </li>
+  <li><a href="#22-manipulando-los-datos-con-sql" id="markdown-toc-22-manipulando-los-datos-con-sql">2.2. Manipulando los datos con SQL</a>    <ul>
+      <li><a href="#221-inserción-de-datos-insert" id="markdown-toc-221-inserción-de-datos-insert">2.2.1. Inserción de datos: INSERT</a></li>
+      <li><a href="#222-modificación-de-datos-update" id="markdown-toc-222-modificación-de-datos-update">2.2.2. Modificación de datos: UPDATE</a></li>
+      <li><a href="#223-borrado-de-datos-delete" id="markdown-toc-223-borrado-de-datos-delete">2.2.3. Borrado de datos: DELETE</a></li>
+    </ul>
+  </li>
+  <li><a href="#23-buscando-información-con-sql-la-instrucción-select" id="markdown-toc-23-buscando-información-con-sql-la-instrucción-select">2.3. Buscando información con SQL: la instrucción SELECT</a>    <ul>
+      <li><a href="#231-seleccionar-columnas-de-una-tabla" id="markdown-toc-231-seleccionar-columnas-de-una-tabla">2.3.1. Seleccionar columnas de una tabla</a></li>
+      <li><a href="#232-filtrar-resultados-la-cláusula-where" id="markdown-toc-232-filtrar-resultados-la-cláusula-where">2.3.2. Filtrar resultados: la cláusula WHERE</a></li>
+      <li><a href="#233-búsquedas-aproximadas-con-caracteres-comodín" id="markdown-toc-233-búsquedas-aproximadas-con-caracteres-comodín">2.3.3. Búsquedas aproximadas con caracteres comodín</a></li>
+      <li><a href="#234-ordenar-resultados-con-order-by" id="markdown-toc-234-ordenar-resultados-con-order-by">2.3.4. Ordenar resultados con ORDER BY</a></li>
+      <li><a href="#235-agrupar-resultados-con-distinct" id="markdown-toc-235-agrupar-resultados-con-distinct">2.3.5. Agrupar resultados con DISTINCT</a></li>
+      <li><a href="#236-funciones-de-agregado-y-group-by" id="markdown-toc-236-funciones-de-agregado-y-group-by">2.3.6. Funciones de agregado y GROUP BY</a></li>
+      <li><a href="#237-obtener-resultados-de-varias-tablas-join" id="markdown-toc-237-obtener-resultados-de-varias-tablas-join">2.3.7. Obtener resultados de varias tablas: JOIN</a></li>
+      <li><a href="#238-sql-avanzado-introducción-a-las-subconsultas" id="markdown-toc-238-sql-avanzado-introducción-a-las-subconsultas">2.3.8. SQL avanzado: introducción a las subconsultas</a></li>
+      <li><a href="#239-otras-cuestiones-avanzadas-alias-y-combinaciones-de-consultas" id="markdown-toc-239-otras-cuestiones-avanzadas-alias-y-combinaciones-de-consultas">2.3.9. Otras cuestiones avanzadas: alias y combinaciones de consultas</a></li>
+    </ul>
+  </li>
+  <li><a href="#24-y-cómo-puedo-probar-todo-esto" id="markdown-toc-24-y-cómo-puedo-probar-todo-esto">2.4. ¿Y cómo puedo probar todo esto?</a></li>
+  <li><a href="#25-ejercicios" id="markdown-toc-25-ejercicios">2.5. Ejercicios</a></li>
+</ul>
+
+<p>Cuando tenemos una base de datos relacional ya diseñada, llega el momento de <strong>acceder a esa base de datos para operar con ella</strong>:</p>
+
+<ul>
+  <li>En primer lugar, crear las tablas, es decir, las estructuras donde se van a guardar los datos.</li>
+  <li>En segundo lugar, operar con los datos: insertar, modificar, borrar y, lo más habitual de todo, buscar información y recuperarla.</li>
+</ul>
+
+<p>Para hacer todo eso existe un lenguaje estandarizado que soportan la mayoría de las bases de datos relaciones. Puede que tu nombre te suene: se llama <strong>SQL</strong>, y vamos a dedicar todo este capítulo a aprenderlo</p>
+
+<h2 id="21-creando-las-tablas-con-sql">2.1. Creando las tablas con SQL</h2>
+
+<p>El lenguaje SQL nos permite <strong>crear las tablas, modificarlas y borrarlas</strong>.</p>
+
+<p>Las instrucciones más importantes para hacer esto son:</p>
+
+<ul>
+  <li><strong>CREATE TABLE</strong>: para crear tablas.</li>
+  <li><strong>ALTER TABLE</strong>: para modificar una tabla existente.</li>
+  <li><strong>DROP TABLE</strong>: para eliminar tablas.</li>
+</ul>
+
+<p>Escribiremos, a partir de ahora, las palabras reservadas de SQL en MAYÚSCULA por convenio y para distinguirlas del resto. Realmente, SQL no distingue mayúsculas de minúsculas, así que puedes escribirlas como prefieras.</p>
+
+<h3 id="211-creación-de-tablas-create-table">2.1.1. Creación de tablas: CREATE TABLE</h3>
+
+<p>La instrucción <strong>CREATE TABLE</strong> sirve para <strong>crear tablas</strong> en la base de datos. Tiene muchísimas posibilidades. No es mi intención mostrártelas todas, porque para eso necesitarías un curso de SQL avanzado. Pero, a través de algunos ejemplos, aprenderás a usarla a un nivel básico enseguida.</p>
+
+<p>La <strong>sintaxis básica</strong> (que admite montones de añadidos, pero que raramente usarás, al menos al principio) es esta:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">nombre_de_tabla</span> <span class="p">(</span>
+    <span class="n">columna1</span> <span class="n">tipo</span><span class="p">,</span>
+    <span class="n">columna2</span> <span class="n">tipo</span><span class="p">,</span>
+    <span class="n">columna3</span> <span class="n">tipo</span><span class="p">,</span>
+    <span class="n">etc</span><span class="p">.</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>Por ejemplo, así se <strong>crea una tabla</strong> de <em>clientes</em>:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">clientes</span> <span class="p">(</span>
+   <span class="n">id</span> <span class="nb">INTEGER</span><span class="p">,</span>
+   <span class="n">nombre</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+   <span class="n">apellido1</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+   <span class="n">apellido2</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+   <span class="n">fecha_nacimiento</span> <span class="nb">DATE</span><span class="p">,</span>
+   <span class="n">estatura</span> <span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+   <span class="n">email</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>SQL maneja multitud de <strong>tipos de datos</strong>, pero por ahora basta con que conozcas estos:</p>
+
+<ul>
+  <li><strong>INTEGER</strong> = números enteros. Hay varios subtipos, como BIGINT (entero enorme), SMALLINT (entero pequeño), etc. Se diferencian entre sí por el número más grande que son capaces de almacenar. La mayoría de las veces, INTEGER es más que suficiente.</li>
+  <li><strong>VARCHAR</strong> = cadenas de caracteres (se indica la longitud máxima entre paréntesis).</li>
+  <li><strong>CHAR</strong> = cadenas de caracteres. Se diferencia de VARCHAR en que, si no se usan todos los caracteres, se rellenan con espacios. Con los VARCHAR no sucede eso: los caracteres que no se usan, simplemente, no existen. Ante la duda, usa siempre VARCHAR en lugar de CHAR.</li>
+  <li><strong>DECIMAL</strong> = números reales (se indica entre paréntesis la cantidad de cifras antes y después de la coma decimal)</li>
+  <li><strong>DATE</strong> = fechas.</li>
+  <li><strong>TIME</strong> = horas.</li>
+  <li><strong>DATETIME</strong> = fecha y hora.</li>
+  <li><strong>BLOB</strong> = información binaria así, en general. Los campos BLOB pueden usarse para guardar imágenes, archivos ejecutables, secuencias de vídeo o de audio…</li>
+  <li><strong>TEXT</strong> = información de texto de grandes dimensiones, que no nos quepa dentro de un VARCHAR o un CHAR.</li>
+</ul>
+
+<p>Ahora vamos a utilizar <strong>algunos modificadores</strong> en la tabla <em>clientes</em>:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">clientes</span> <span class="p">(</span>
+   <span class="n">id</span> <span class="nb">INTEGER</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">UNIQUE</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+   <span class="n">nombre</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+   <span class="n">apellido1</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+   <span class="n">apellido2</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+   <span class="n">fecha_nacimiento</span> <span class="nb">DATE</span><span class="p">,</span>
+   <span class="n">estatura</span> <span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+   <span class="n">email</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">200</span><span class="p">),</span>
+   <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="p">)</span> <span class="k">DEFAULT</span> <span class="nb">CHARACTER</span> <span class="k">SET</span> <span class="n">utf</span><span class="o">-</span><span class="mi">8</span> <span class="k">COLLATE</span> <span class="n">utf8</span><span class="o">-</span><span class="n">spanish</span><span class="o">-</span><span class="n">ci</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Fíjate en que hemos añadido algunas cosas a algunas columnas:</p>
+
+<ul>
+  <li><strong>NOT NULL</strong> significa que ese campo no puede quedarse en blanco, es decir, que todos los clientes deben tener obligatoriamente un valor asignado en ese campo.</li>
+  <li><strong>UNIQUE</strong> significa que el valor de ese campo no puede repetirse, esto es, que debe ser diferente en todos los clientes de la tabla.</li>
+  <li><strong>AUTO_INCREMENT</strong> hace que la base de datos, cada vez que se inserta un registro, asigne a este campo el número entero inmediatamente superior al que se asignó al último registro insertado. Solo funciona con campos de tipo INTEGER. Suele utilizarse en el campo ID de las tablas para no tener que ocuparnos de insertar nosotros un número manualmente.</li>
+  <li><strong>PRIMARY KEY</strong> especifica cual es la clave primaria de la tabla. Pueden ponerse varios campos, separados por comas. Lo lógico es que la clave sea NOT NULL y UNIQUE al mismo tiempo.</li>
+</ul>
+
+<p>También hemos añadido algunos modificadores que afectan a toda la tabla, no solo a algunos campos:</p>
+<ul>
+  <li><strong>CHARACTER SET</strong> indica la condificación de caracteres que va a usarse en la tabla.</li>
+  <li><strong>COLLATE</strong> indica cómo van a ordenarse los caracteres en la tabla. Por ejemplo, usando utf8-spanish-ci nos aseguramos de que la Ñ va entre la N y la P. Si usásemos otras colaciones, la Ñ se ordenaría después de la Z.</li>
+</ul>
+
+<p>Los modificadores que se pueden emplear con un CREATE TABLE son muy numerosos, pero la mayoría se usan con muy poca frecuencia. Los principales son los que hemos visto en este ejemplo.</p>
+
+<p>Otro modificadorde uso frecuente es el que se emplea para la creación de <strong>claves ajenas</strong>. Obsérvalo en este otro ejemplo:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">clientes</span> <span class="p">(</span>
+   <span class="n">id</span> <span class="nb">INTEGER</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">UNIQUE</span><span class="p">,</span>
+   <span class="n">nombre</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+   <span class="n">apellido1</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+   <span class="n">apellido2</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+   <span class="n">fecha_nacimiento</span> <span class="nb">DATE</span><span class="p">,</span>
+   <span class="n">estatura</span> <span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+   <span class="n">email</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">200</span><span class="p">),</span>
+   <span class="n">id_ciudad</span> <span class="nb">INTEGER</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+   <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">id</span><span class="p">),</span>
+   <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">id_ciudad</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="n">ciudades</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="p">)</span> <span class="k">DEFAULT</span> <span class="nb">CHARACTER</span> <span class="k">SET</span> <span class="n">utf</span><span class="o">-</span><span class="mi">8</span> <span class="k">COLLATE</span> <span class="n">utf8</span><span class="o">-</span><span class="n">spanish</span><span class="o">-</span><span class="n">ci</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Hemos añadido el campo <em>id_ciudad</em> que, obviamente, es una clave ajena que pertenece a la tabla <em>ciudades</em>. Pues bien, para informar a la base de datos que ese campo, en efecto, es una clave ajena, hay que usar FOREIGN KEY, indicándole la tabla (<em>ciudades</em>) y el campo (<em>id</em>) al que está enlazada nuestra clave ajena.</p>
+
+<p>Por último, debes saber que tanto a restricción de clave primaria como a las restricciones de claves ajenas puede <strong>asignárseles un nombre</strong>. Esto es importante si luego queremos modificar esas claves sin necesidad de borrar toda la tabla (con la consiguiente pérdida de datos) para volver a crearla. Se hace así:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">clientes</span> <span class="p">(</span>
+   <span class="p">...</span>
+   <span class="k">CONSTRAINT</span> <span class="n">pk_clientes</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">id</span><span class="p">),</span>
+   <span class="k">CONSTRAINT</span> <span class="n">fk_clientes_ciudades</span> <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">id_ciudad</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="n">ciudades</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>Como ves, basta con añadir <strong>CONSTRAINT nombre</strong> a la restricción de clave primaria o de clave ajena. Esto asigna un nombre a esa restricción para poder referirnos a él más adelante (ver ALTER TABLE).</p>
+
+<p>El nombre para las restricciones de clave primaria suele empezar por las letras <em>pk_</em> (de “primary key”) y el de las restricciones de clave ajena por <em>fk_</em> (de “foreign key”), pero esto solo es una convención que no tienes por qué respetar.</p>
+
+<h3 id="212-modificación-de-tablas-alter-table">2.1.2. Modificación de tablas: ALTER TABLE</h3>
+
+<p>La <strong>modificación de la estructura de una tabla</strong> que ya existe se hace con la instrucción <strong>ALTER TABLE</strong>.</p>
+
+<p>Vamos a ver cómo trabaja esta instrucción con unos ejemplos basado en la tabla <em>clientes</em> del apartado anterior. De nuevo, ALTER TABLE tiene muchísimas opciones, pero las que te voy a mostrar en estos ejemplos cubren el 99% de los usos habituales.</p>
+
+<p>En primer lugar, si queremos <strong>añadir un campo</strong> (o varios) a una tabla ya existente, haremos esto:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">clientes</span>
+    <span class="k">ADD</span> <span class="n">telefono</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>También podemos <strong>eliminar un campo</strong> (o columna) existente (cuidado: todos los datos de ese campo se perderán):</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">clientes</span>
+    <span class="k">DROP</span> <span class="k">COLUMN</span> <span class="n">email</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Podemos, asimismo, <strong>renombrar campos</strong>:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">clientes</span>
+    <span class="k">RENAME</span> <span class="k">COLUMN</span> <span class="n">email</span> <span class="k">TO</span> <span class="n">correo_electronico</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>O podemos <strong>modificar campos</strong>, cambiando su tipo o sus restricciones (¡Ojo! Esto puede afectar a los datos que haya almacenados en ese campo, si la tabla ya tiene datos, puesto que el SGBD intentará convertirlos de un tipo de dato a otro. Si no lo consigue, la instrucción fallará):</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">ALTER</span> <span class="k">TABLE</span>
+    <span class="k">MODIFY</span> <span class="k">COLUMN</span> <span class="n">telefono</span> <span class="nb">INTEGER</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Por último, con ALTER TABLE se pueden <strong>crear o borrar las restricciones</strong> de la tabla, tales como claves primarias o claves ajenas.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">ALTER</span> <span class="k">TABLE</span>
+    <span class="k">ADD</span> <span class="k">CONSTRAINT</span> <span class="n">pk_clientes</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Para borrar una restricción, tendremos que haberles asignado un nombre al crear la tabla. Así:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">ALTER</span> <span class="k">TABLE</span>
+    <span class="k">DROP</span> <span class="k">CONSTRAINT</span> <span class="n">pk_clientes</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="223-borrado-de-tablas-drop-table">2.2.3. Borrado de tablas: DROP TABLE</h3>
+
+<p>El <strong>borrado de tablas</strong> se hace en sql con la instrucción <strong>DROP TABLE</strong>. Es muy fácil de usar, puesto que solo hay que indicar el nombre de la tabla que queremos borrar.</p>
+
+<p>¡Mucho cuidado! Esta acción es destructiva y perderás todos los datos que hubiera almacenados en esa tabla.</p>
+
+<p>Por ejemplo, para borrar la tabla <em>clientes</em> de los ejemplos anteriores, escribiríamos esto:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">DROP</span> <span class="k">TABLE</span> <span class="n">clientes</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="214-algunas-consideraciones-sobre-la-integridad-referencial">2.1.4. Algunas consideraciones sobre la integridad referencial</h3>
+
+<p>La <strong>integridad referencial</strong> es un mecanismo de seguridad de las bases de datos que asegura que la información entre las claves ajenas y las claves primarias a las que hacen referencia permanezca siempre bien sincronizada.</p>
+
+<p>Enseguida pondremos un ejemplo en el que lo entenderás muy bien. Ahora lo importante es que quede claro esto: perder esa sincronización entre clave ajena y clave primaria (es decir, romper la integridad referencial) es equivalente a perder datos. Y, si una base de datos va por ahí perdiendo datos, ¿para qué narices sirve?</p>
+
+<h4 id="entendiendo-qué-es-la-integridad-referencial">Entendiendo qué es la integridad referencial</h4>
+
+<p>En el siguiente ejemplo se ve muy bien en qué consiste la <strong>pérdida de integridad referencial</strong> y los problemas de pérdida de datos que causa.</p>
+
+<p>Imaginemos dos tablas de una base de datos más grande (por ejemplo, de una biblioteca): la tabla <strong><em>libros</em></strong> contiene información sobre los libros (<em>cod_libro</em> y <em>título</em>, entre otros campos), mientras que la tabla <strong><em>autores</em></strong> contiene información sobre los autores de los libros (<em>cod_autor</em> y <em>nombre</em>, entre otros campos).</p>
+
+<p>La tabla <em>libros</em> tiene una clave ajena, <em>cod_autor</em>, que es un campo que en realidad pertenece a la tabla <em>autores</em> pero que expandimos hasta <em>libros</em> para implementar la relación 1:N entre ambas entidades. ¡Repasa el capítulo anterior, sobre diseño de bases de datos, si no sabes de lo que estamos hablando!</p>
+
+<p>(En realidad, la relación entre <em>libros</em> y <em>autores</em> es N:N, porque un libro puede ser escrito por muchos autores y cada autor puede escribir muchos libros, pero aquí la consideramos una 1:N para simplificar el ejemplo)</p>
+
+<p>Este es el aspecto que podrían tener esas dos tablas o, al menos, un fragmento de ellas:</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/08-01-integridad-referencial.png" alt="Ejemplo de integridad referencial" /></p>
+
+<p>No hay que se un lince para darse cuenta de que todos los códigos de autor que aparecen en la tabla <em>libros</em> se corresponden con autores que <strong>realmente existen</strong> en la tabla <em>autores</em>.</p>
+
+<p>¿Pero qué pasaría si, por cualquier razón, un código de autor inexistente acabase por error en la tabla de <em>libros</em>? Entonces tendríamos algo como esto:</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/08-01-integridad-referencial-rota.png" alt="Ejemplo de integridad referencial rota" /></p>
+
+<p>Ahí lo tenemos: el libro 484 (“Ana Karenina”) está asociado al autor 32, que <em>no existe en la tabla de autores</em>. ¿El resultado? <strong>Hemos perdido información</strong>. Ya no hay manera de saber quién escribió ese libro. Es lo mismo que si hubiésemos borrado un registro, o parte de un registro, de una tabla, aunque en realidad nadie ha borrado nada.</p>
+
+<p>Te puedes estar diciendo: “Sí, claro, ¿pero quién va a ser tan idiota de escribir un código que no existe en el campo <em>cod_autor</em>?”</p>
+
+<p>Hay cientos de razones por las que el código equivocado puede acabar asignado a una clave ajena: puede tratarse de un error de programación en la aplicación cliente, puede haber un fallo de comunicaciones, puede ocurrir un problema de concurrencia, puede que alguien elimine, a propósito o sin querer, un autor que ya tenía libros asignados.</p>
+
+<p>Y sí, también hay gente idiota en el mundo, esto es incuestionable. Y algunos podrían acabar usando nuestra base de datos.</p>
+
+<p>Como el problema de la integridad referencial es tan frecuente y potencialmente devastador, <strong>las bases de datos se autoprotegen e impiden que la integridad referencial pueda violarse</strong>.</p>
+
+<p>El efecto colateral de esta obsesión por la protección de los datos es que <em>no podrás insertar los datos en cualquier orden</em>. En el ejemplo anterior, tendrás que insertar primero al autor del libro en la tabla <em>autores</em> y luego al libro en la tabla <em>libros</em>, y no al revés, porque en tal caso estarías violando la integridad referencial.</p>
+
+<h4 id="borrado-en-cascada">Borrado en cascada</h4>
+
+<p>El <strong>borrado en cascada</strong> es una de las formas que tiene la base de datos de proteger la integridad referencial.</p>
+
+<p>Uno de los errores más frecuentes que provoca la violación de la integridad referencial es el borrado de un registro de una tabla que está referenciado en otra tabla como clave ajena.</p>
+
+<p>Para entenderlo mejor, vamos a volver sobre nuestro ejemplo de la tabla <strong><em>libros</em></strong> y la tabla <strong><em>autores</em></strong>. Supongamos que vamos a borrar un autor (el que tiene código 4):</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/08-01-integridad-referencial-borrado-1.png" alt="Ejemplo de integridad referencial - Borrado" /></p>
+
+<p>El resultado de borrar ese registro es que se rompe la integridad referencial, porque el libro 485 hará referencia a un autor que ya no existe:</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/08-01-integridad-referencial-borrado-2.png" alt="Ejemplo de integridad referencial - Borrado" /></p>
+
+<p>La base de datos impedirá este borrado para no violar la integridad referencial. Pero se puede hacer algo más: <strong>activar el borrado en cascada</strong>.</p>
+
+<p>Cuando se activa el borrado en cascada para una clave ajena, la base de datos se encargará de eliminar los registros adecuados si se borra un registro de la tabla a la que hace referencia esa clave ajena. Así también se protege la integridad referencial.</p>
+
+<p>En el ejemplo anterior, al borrar el autor 4, también se borrarán en cascada (¡y automáticamente!) <em>todos los libros escritos por ese autor</em>:</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/08-01-integridad-referencial-borrado-3.png" alt="Ejemplo de integridad referencial - Borrado" /></p>
+
+<p>El borrado en cascada se habilita durante la creación de la tabla con el modificador <strong>ON DELETE CASCADE</strong>. Por ejemplo, si queremos habilitarlo para la tabla <em>libros</em> anterior:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">libros</span> <span class="p">(</span>
+    <span class="n">cod_libro</span> <span class="nb">INTEGER</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">UNIQUE</span><span class="p">,</span>
+    <span class="n">titulo</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">500</span><span class="p">),</span>
+    <span class="n">cod_autor</span> <span class="nb">INTEGER</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">cod_autor</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="n">autores</span><span class="p">(</span><span class="n">cod_autor</span><span class="p">)</span> <span class="k">ON</span> <span class="k">DELETE</span> <span class="k">CASCADE</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="modificación-en-cascada">Modificación en cascada</h4>
+
+<p>La <strong>modificación de registros</strong> también puede provocar <strong>fallos de integridad referencial</strong>.</p>
+
+<p>Por ejemplo: ¿qué ocurre si modificamos la clave de un registro de nuestra tabla de <em>autores</em>?</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/08-01-integridad-referencial-modificacion-1.png" alt="Ejemplo de integridad referencial - Modificación" /></p>
+
+<p>Aquí lo tenemos otra vez: al cambiar el código del autor “Benito Pérez Galdós” de 4 a 5, el libro 485 vuelve a quedarse sin autor. ¡Hemos perdido información de nuevo!</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/08-01-integridad-referencial-modificacion-2.png" alt="Ejemplo de integridad referencial - Modificación" /></p>
+
+<p>Como en el caso del borrado, la base de datos <strong>nos prohibirá</strong> hacer este tipo de cosas para <strong>proteger la integridad referencial</strong>.</p>
+
+<p>Y, como en el caso del borrado, también existe la posibilidad de habilitar la <strong>actualización o modificación en cascada</strong>, de manera que, si cambia el valor de una clave primaria, pueda modificarse el valor de la clave ajena automáticamente:</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/08-01-integridad-referencial-modificacion-3.png" alt="Ejemplo de integridad referencial - Modificación" /></p>
+
+<p>Para habilitar la modificación en cascada, hay que especificarlo con <strong>ON UPDATE CASCADE</strong> durante la creación en la clave ajena:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">libros</span> <span class="p">(</span>
+    <span class="n">cod_libro</span> <span class="nb">INTEGER</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">UNIQUE</span><span class="p">,</span>
+    <span class="n">titulo</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">500</span><span class="p">),</span>
+    <span class="n">cod_autor</span> <span class="nb">INTEGER</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">cod_autor</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="n">autores</span><span class="p">(</span><span class="n">cod_autor</span><span class="p">)</span> <span class="k">ON</span> <span class="k">DELETE</span> <span class="k">CASCADE</span> <span class="k">ON</span> <span class="k">UPDATE</span> <span class="k">CASCADE</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>Como ves en este código, la actualización y el borrado en cascada pueden usarse simultáneamente. También pueden habilitarse más tarde, cuando la tabla ya está en uso, mediante un <strong>ALTER TABLE</strong>.</p>
+
+<h2 id="22-manipulando-los-datos-con-sql">2.2. Manipulando los datos con SQL</h2>
+
+<p>Hasta aquí hemos visto cómo SQL nos permite crear la estructura de la base de datos, es decir, las tablas con sus campos, tipos, restricciones, etc.</p>
+
+<p>Pero aún no lo hemos usado para <strong>almacenar y manipular datos</strong>, que es el objetivo final de toda base de datos. De eso se encarga otra parte de SQL llamada <strong>DML</strong> (lenguaje de manipulación de datos).</p>
+
+<p>En realidad, la creación de la estructura se hace solo una vez, cuando la base de datos se construye. Cuando la base de datos ya está en uso, raramente se altera la estructura, puesto que sería como modificar la estructura de una casa cuando ya está habitada: hay que meterse de albañiles y eso siempre es un engorro.</p>
+
+<p><em>Durante la inmensa mayoría del tiempo de explotación de una base de datos, el SQL que se utiliza es el que vamos a ver en esta sección.</em></p>
+
+<p>SQL tiene varias instrucciones para manipular datos, pero nos vamos a centrar en las cuatro más importantes:</p>
+
+<ul>
+  <li><strong>INSERT</strong>: sirve para insertar datos en una tabla.</li>
+  <li><strong>UPDATE</strong>: modifica datos ya existentes.</li>
+  <li><strong>DELETE</strong>: elimina datos de una tabla.</li>
+  <li><strong>SELECT</strong>: consulta datos de una o varias tablas.</li>
+</ul>
+
+<p>Insisto en la idea: estas instrucciones actúan a nivel de datos, es decir, de <em>registros</em> o <em>filas</em> de las tablas. Insertan, modifican y borran registros. Para insertar, modificar y borrar <em>campos</em> está el lenguaje de definición de datos, es decir, CREATE TABLE, ALTER TABLE o DROP TABLE.</p>
+
+<h3 id="221-inserción-de-datos-insert">2.2.1. Inserción de datos: INSERT</h3>
+
+<p>La instrucción <strong>INSERT</strong> se utiliza para <strong>insertar registros en una tabla</strong>.</p>
+
+<p>Como siempre, vamos a aprender a utilizarla mediante algunos ejemplos.</p>
+
+<p>Supongamos que tenemos una tabla llamada <em>personas</em> con los siguientes campos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PERSONAS(id, nombre, apellido1, apellido2, estatura, fecha_nacimiento, pais_nacimiento)
+</code></pre></div></div>
+
+<p>Esta tabla se habrá creado mediante esta instrucción:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">personas</span> <span class="p">(</span>
+   <span class="n">id</span> <span class="nb">INTEGER</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">UNIQUE</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+   <span class="n">nombre</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+   <span class="n">apellido1</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+   <span class="n">apellido2</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+   <span class="n">estatura</span> <span class="nb">INTEGER</span><span class="p">,</span>
+   <span class="n">fecha_nacimiento</span> <span class="nb">DATE</span><span class="p">,</span>
+   <span class="n">pais_nacimiento</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+   <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>Pues bien: para <strong>insertar una fila</strong> en esta tabla, basta con escribir esta instrucción <strong>INSERT</strong>:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">personas</span><span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span><span class="p">,</span> <span class="n">estatura</span><span class="p">,</span> <span class="n">fecha_nacimiento</span><span class="p">,</span> <span class="n">pais_nacimiento</span><span class="p">)</span>
+       <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'José'</span><span class="p">,</span> <span class="s1">'Pérez'</span><span class="p">,</span> <span class="s1">'Sánchez'</span><span class="p">,</span> <span class="s1">'179'</span><span class="p">,</span> <span class="s1">'13/12/1998'</span><span class="p">,</span> <span class="s1">'México'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>En este código puedes observar varias cosas curiosas:</p>
+
+<ul>
+  <li>No indicamos el valor del campo <em>id</em> porque lo hemos declarado como AUTO_INCREMENT y la base de datos se encargará de asignarle un valor automáticamente.</li>
+  <li>Primero indicamos una lista de campos y luego una lista de valores. Los valores se asignarán a los campos en el mismo orden en el que están escritos.</li>
+  <li>No hacemos distinción entre campos de texto, numéricos o fechas: todos los valores se escriben entre comillas. Da igual que sean comillas simples (‘) o dobles (“): SQL admite las dos. De hecho, los números pueden escribirse sin comillas, pero, para evitar errores, mi recomendación es que escribas todos los valores, siempre, entre comillas.</li>
+</ul>
+
+<p>Es posible no asignar valores a todos los campos. Por ejemplo, <em>estatura</em>, <em>fecha_nacimiento</em> y <em>pais_nacimiento</em> no están declarados como NOT NULL, es decir, que se pueden dejar en blanco, así que este INSERT también funcionaría:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">personas</span><span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span><span class="p">)</span>
+       <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'Susana'</span><span class="p">,</span> <span class="s1">'García'</span><span class="p">,</span> <span class="s1">'Moreno'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>En cambio, si intentamos dejar en blanco el nombre o uno de los dos apellidos, el INSERT fallará.</p>
+
+<h3 id="222-modificación-de-datos-update">2.2.2. Modificación de datos: UPDATE</h3>
+
+<p>La <strong>modificación o actualización de registros</strong> se hace mediante la instrucción <strong>UPDATE</strong>.</p>
+
+<p>La podemos ver en acción en este ejemplo basado en la misma tabla <em>personas</em> del apartado anterior:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">UPDATE</span> <span class="n">personas</span>
+   <span class="k">SET</span> <span class="n">nombre</span> <span class="o">=</span> <span class="s1">'Luis'</span>
+   <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">18</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Lo que hace UPDATE es localizar un registro que coincida con la condición expresada en la cláusula WHERE, el decir, localiza el registro cuyo id valga 18, y modifica el valor del campo <em>nombre</em> de ese registro, asignándole el valor “Luis”.</p>
+
+<p>Se pueden actualizar varios campos a la vez:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">UPDATE</span> <span class="n">personas</span>
+   <span class="k">SET</span> <span class="n">nombre</span> <span class="o">=</span> <span class="s1">'Luis'</span><span class="p">,</span>
+       <span class="n">estatura</span> <span class="o">=</span> <span class="s1">'180'</span>
+   <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">25</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Y también se puede usar otra condición que no sea sobre el campo <em>id</em>. Por ejemplo, esta instrucción UPDATE actualizará todos los nombres almacenados como “Paco” y los cambiará por “Francisco”.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">UPDATE</span> <span class="n">personas</span>
+   <span class="k">SET</span> <span class="n">nombre</span> <span class="o">=</span> <span class="s1">'Francisco'</span>
+   <span class="k">WHERE</span> <span class="n">nombre</span> <span class="o">=</span> <span class="s1">'Paco'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Por lo tanto, un UPDATE puede afectar 0, 1 o muchas filas de la tabla. ¡Mucho cuidado con ejecutar un UPDATE sin cláusula WHERE! Esa actualización afectará a <strong>todos los registros</strong> de la tabla:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">UPDATE</span> <span class="n">personas</span>
+   <span class="k">SET</span> <span class="n">nombre</span> <span class="o">=</span> <span class="s1">'Francisco'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>¡Acabamos de cambiar el nombre de todas las personas de nuestra base de datos!</p>
+
+<h3 id="223-borrado-de-datos-delete">2.2.3. Borrado de datos: DELETE</h3>
+
+<p>Para <strong>eliminar registros</strong> utilizamos la instrucción <strong>DELETE</strong>.</p>
+
+<p>Aquí tienes un ejemplo sobre la tabla <em>personas</em>. Vamos a borrar la persona con id = 18:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">personas</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">18</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Al igual que UPDATE, DELETE localizará el registro (o registros) que coincida con la condición expresada en la cláusula WHERE. Y, una vez localizado, lo borrará.</p>
+
+<p>Obviamente, DELETE es una <strong>instrucción destructiva</strong> y debe usarse con cautela.</p>
+
+<p>Se pueden borrar varios registros a la vez. Por ejemplo, así borraremos a todas las personas cuyo primer apellido sea “Pérez”:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">personas</span> <span class="k">WHERE</span> <span class="n">apellido1</span> <span class="o">=</span> <span class="s1">'Pérez'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Y así borramos <strong>todos los registros</strong> de una tabla y la dejamos completamente vacía. ¡Utilízalo solo cuando estés muy seguro/a de lo que estás haciendo!</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">personas</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="23-buscando-información-con-sql-la-instrucción-select">2.3. Buscando información con SQL: la instrucción SELECT</h2>
+
+<p>Para <strong>buscar datos</strong> entre las tablas de una base de datos se usa la sentencia <strong>SELECT</strong>. Estas búsquedas suelen recibir el nombre de <strong>consultas</strong>.</p>
+
+<p>El resultado de una búsqueda de datos tiene forma de tabla y está constituido por el conjunto de datos que cumplen unos <strong>criterios de búsqueda</strong>, porque, para buscar datos con SQL, no hace falta indicarle a la base de datos cómo hacer la búsqueda, sino <em>qué datos tiene que buscar</em>. Y ella se encarga de todo.</p>
+
+<p>Sí, es increíble, pero funciona.</p>
+
+<p>La sentencia SELECT es, probablemente, la más compleja del lenguaje SQL. Sin embargo, no necesitas conocerla en profundidad para sacarle partido. La mayor parte del tiempo, SELECT se usa en alguna de sus formas más simples. Si más adelante te vuelves un experto/a en bases de datos, ya aprenderás los usos más complejos.</p>
+
+<p>Para comprender mejor los siguientes ejemplos, vamos a suponer que nuestra tabla <em>personas</em> contiene estos siete registros (que quede claro que, en un caso real, la tabla podría tener cientos o miles de registros):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>nombre</th>
+      <th>apellido1</th>
+      <th>apellido2</th>
+      <th>estatura</th>
+      <th>fecha_nacimiento</th>
+      <th>pais_nacimiento</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Antonia</td>
+      <td>López</td>
+      <td>Zapata</td>
+      <td>171</td>
+      <td>18/02/2002</td>
+      <td>España</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Micaela</td>
+      <td>Cruz</td>
+      <td>Ortega</td>
+      <td>168</td>
+      <td>23/03/1993</td>
+      <td>México</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Luis Fernando</td>
+      <td>Guzmán</td>
+      <td>Rojas</td>
+      <td>174</td>
+      <td>01/01/2001</td>
+      <td>Colombia</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Juan</td>
+      <td>López</td>
+      <td>Gutiérrez</td>
+      <td>191</td>
+      <td>28/02/1997</td>
+      <td>Argentina</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Esteban</td>
+      <td>López</td>
+      <td>López</td>
+      <td>166</td>
+      <td>07/09/2001</td>
+      <td>México</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Ana Lucía</td>
+      <td>Smith</td>
+      <td>López</td>
+      <td>185</td>
+      <td>19/01/2000</td>
+      <td>Argentina</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Fernando José</td>
+      <td>Delgado</td>
+      <td>Aguas</td>
+      <td>157</td>
+      <td>17/08/1969</td>
+      <td>México</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="231-seleccionar-columnas-de-una-tabla">2.3.1. Seleccionar columnas de una tabla</h3>
+
+<p>La sintaxis más básica concebible de una sentencia SELECT funcional es esta:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">columna1</span><span class="p">,</span> <span class="n">columna2</span><span class="p">,</span> <span class="p">...,</span> <span class="n">columnaN</span>
+  <span class="k">FROM</span> <span class="n">nombre_tabla</span><span class="p">;</span>
+</code></pre></div></div>
+<p>Por ejemplo, esta instrucción nos devolverá todos los registros de la tabla <em>personas</em>, pero seleccionando solo las columnas <em>nombre</em>, <em>apellido1</em> y <em>apellido2</em> y desechando todas las demás:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span>
+  <span class="k">FROM</span> <span class="n">personas</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>El resultado de la consulta será:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Antonia López Zapata
+Micaela Cruz Ortega
+Luis Fernando Guzmán Rojas
+Juan López Gutiérrez
+Esteban López López
+Ana Lucía Smith López
+Fernando José Delgado Aguas
+</code></pre></div></div>
+
+<p>El símbolo * (asterisco) significa “todas las columnas”. De modo que esto nos devolverá todo el contenido de la tabla <em>personas</em> sin excepción:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span>
+  <span class="k">FROM</span> <span class="n">personas</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>El resultado de esta consulta será:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 Antonia López Zapata 171 18/02/2002 España
+2 Micaela Cruz Ortega 168 23/03/1993 México
+3 Luis Fernando Guzmán Rojas 174 01/01/2001 Colombia
+4 Juan López Gutiérrez 191 28/02/1997 Argentina
+5 Esteban López López 166 07/09/2001 México
+6 Ana Lucía Smith López 185 19/01/2000 Argentina
+7 Fernando José Delgado Aguas 157 17/08/1969 México
+</code></pre></div></div>
+
+<h3 id="232-filtrar-resultados-la-cláusula-where">2.3.2. Filtrar resultados: la cláusula WHERE</h3>
+
+<p>Normalmente, no vamos a necesitar <em>todos</em> los registros de una tabla, sino que queremos localizar alguno o algunos en concreto. Para eso sirven las búsquedas, ¿no? Para encontrar unos pocos resultados entre un montón de datos.</p>
+
+<p>Pues bien, para <strong>filtrar esos resultados</strong> se utiliza la <strong>cláusula WHERE</strong>.</p>
+
+<p>Es sencilla de comprender. Simplemente, se indica una <strong>condición</strong> que afecte a alguno de los campos de la tabla, y la base de datos se encargará de encontrar para nosotros los registros que cumplan esa condición.</p>
+
+<p>Por ejemplo, esta consulta nos devuelve los nombres y apellidos de todas las personas cuya estatura es igual a 168 cm (recuerda que <em>estatura</em> es un campo de nuestra tabla <em>personas</em>):</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">WHERE</span> <span class="n">estatura</span> <span class="o">=</span> <span class="s1">'168'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Como resultado, solo obtendremos un registro, porque solo una persona cumple esa condición:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Micaela Cruz Ortega
+</code></pre></div></div>
+
+<p>La condición puede utilizar los <strong>operadores de comparación</strong> habituales:</p>
+
+<ul>
+  <li><strong>Igual que</strong>: =</li>
+  <li><strong>Mayor que</strong>: &gt;</li>
+  <li><strong>Mayor o igual</strong>: &gt;=</li>
+  <li><strong>Menor que</strong>: &lt;</li>
+  <li><strong>Menor o igual</strong>: &lt;=</li>
+  <li><strong>Distinto de</strong>: !=</li>
+</ul>
+
+<p>Además, también existen <strong>operadores lógicos</strong> que ya conoces de otros lenguajes de programación: <strong>AND</strong>, <strong>OR</strong> y <strong>NOT</strong>.</p>
+
+<p>Con todo esto, se pueden hacer consultas bastante elaboradas con muy poco esfuerzo. Por ejemplo, vamos a pedirle a la base de datos que busque a todas las personas que miden más de 170 cm:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">WHERE</span> <span class="n">estatura</span> <span class="o">&gt;</span> <span class="s1">'170'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>El resultado será:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Antonia López Zapata
+Luis Fernando Guzmán Rojas
+Juan López Gutiérrez
+Ana Lucía Smith López
+</code></pre></div></div>
+
+<p>Esta otra consulta localiza a todas las personas cuyo primer apellido es “López” y que miden más de 170 cm:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">WHERE</span> <span class="n">apellido1</span> <span class="o">=</span> <span class="s1">'López'</span>
+    <span class="k">AND</span> <span class="n">estatura</span> <span class="o">&gt;</span> <span class="s1">'170'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Resultado:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Antonia López Zapata
+Juan López Gutiérrez
+</code></pre></div></div>
+
+<p>Y esta otra busca a todas las personas que tienen “López” como primer o segundo apellido y que han nacido antes del año 2002. Observa cómo se pueden usar paréntesis para agrupar condiciones:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">WHERE</span> <span class="p">(</span><span class="n">apellido1</span> <span class="o">=</span> <span class="s1">'López'</span> <span class="k">OR</span> <span class="n">apellido2</span> <span class="o">=</span> <span class="s1">'López'</span><span class="p">)</span>
+    <span class="k">AND</span> <span class="n">fecha_nacimiento</span> <span class="o">&lt;</span> <span class="s1">'01/01/2002'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Resultado:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Juan López Gutiérrez
+Esteban López López
+Ana Lucía Smith López
+</code></pre></div></div>
+
+<h3 id="233-búsquedas-aproximadas-con-caracteres-comodín">2.3.3. Búsquedas aproximadas con caracteres comodín</h3>
+
+<p>Las comparaciones en la cláusula WHERE permiten usar lo que se llaman <strong>caracteres comodín</strong>, que son básicamente dos: % (símbolo del tanto por ciento) y _ (símbolo del subrayado).</p>
+
+<ul>
+  <li><strong>%</strong> significa “cualquier conjunto de caracteres, incluyendo ningún carácter”.</li>
+  <li><strong>_</strong> significa “un carácter cualquiera”. En algunos gestores de bases de datos, este carácter es “?” (interrogación)</li>
+</ul>
+
+<p>Las comparaciones que usan carácteres comodín deben escribirse con el operador de comparación <strong>LIKE</strong>, no con los operadores habituales.</p>
+
+<p>Por ejemplo, esta consulta localiza personas cuyo nombre comienza por la letra A, sin importar cuántos caracteres contenga el nombre a continuación de esa A:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">WHERE</span> <span class="n">nombre</span> <span class="k">LIKE</span> <span class="s1">'A%'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Resultado:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Antonia López Zapata
+Ana Lucía Smith López
+</code></pre></div></div>
+
+<p>Esta otra consulta busca a personas que hayan en el mes de enero de cualquier año:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">WHERE</span> <span class="n">fecha_nacimiento</span> <span class="k">LIKE</span> <span class="s1">'__/01/____'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Resultado:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Luis Fernando Guzmán Rojas
+Ana Lucía Smith López
+</code></pre></div></div>
+
+<h3 id="234-ordenar-resultados-con-order-by">2.3.4. Ordenar resultados con ORDER BY</h3>
+
+<p>Los resultados obtenidos en una consulta pueden <strong>ordenarse</strong> por cualquier campo con la <strong>cláusula ORDER BY</strong>, independientemente de cuales sean las condiciones de búsqueda.</p>
+
+<p>Por ejemplo, para obtener una lista de personas ordenadas por apellido:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">apellido1</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Resultado:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Micaela Cruz Ortega
+Fernando José Delgado Aguas
+Luis Fernando Guzmán Rojas
+Antonia López Zapata
+Juan López Gutiérrez
+Esteban López López
+Ana Lucía Smith López
+</code></pre></div></div>
+
+<p>Fíjate que Antonia López, Juan López y Esteban López comparten el primer apellido y, por ese motivo, siguen apareciendo desordenados. O, mejor dicho, aparecen en el orden en el que están almacenados en la tabla, que no tiene por qué ser alfabético.</p>
+
+<p>Se puede indicar un segundo criterio de ordenación (y un tercero, y un cuarto…). Nosotros vamos a usar como segundo criterio el segundo apellido, así:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Resultado:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Micaela Cruz Ortega
+Fernando José Delgado Aguas
+Luis Fernando Guzmán Rojas
+Esteban López López
+Juan López Gutiérrez
+Antonia López Zapata
+Ana Lucía Smith López
+</code></pre></div></div>
+
+<p>El ordenamiento se hace, por defecto, de manera <strong>ascendente</strong> (numérica en caso de campos numéricos o alfabética en caso de campos de texto). Se puede forzar un ordenamiento <strong>descendente</strong> con el modificador <strong>DESC</strong>.</p>
+
+<p>Por ejemplo, aquí obtenemos la lista de las personas apellidadas “López” ordenadas de la más alta a la más bajita:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span><span class="p">,</span> <span class="n">estatura</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">WHERE</span> <span class="n">apellido1</span> <span class="o">=</span> <span class="nv">"López"</span>
+  <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">estatura</span> <span class="k">DESC</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Resultado:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Juan López Gutiérrez 191
+Antonia López Zapata 171
+Esteban López López 166
+</code></pre></div></div>
+
+<h3 id="235-agrupar-resultados-con-distinct">2.3.5. Agrupar resultados con DISTINCT</h3>
+
+<p>Atención, pregunta. ¿Qué ocurrirá si ejecutamos esta consulta?</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">apellido1</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">apellido1</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Si has respondido que obtendremos todos los primeros apellidos de todas las personas de la tabla <em>personas</em>, ordenados alfabéticamente, has acertado.</p>
+
+<p><em>Pero hay varias personas que comparten el primer apellido.</em></p>
+
+<p>Por esa razón, ese apellido aparece (“López”) repetido varias veces en el resultado:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Cruz
+Delgado
+Guzmán
+López
+López
+López
+Smith
+</code></pre></div></div>
+
+<p>Esta repetición de resultados puede ser algo buscado o un efecto secundario indeseable de la búsqueda. Para <strong>evitar resultados repetidos</strong> se usa <strong>DISTINCT</strong>. Por ejemplo, el siguiente SELECT nos mostrará todos los primeros apellidos de la tabla, pero sin repetir ninguno:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">apellido1</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">apellido1</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Cruz
+Delgado
+Guzmán
+López
+Smith
+</code></pre></div></div>
+
+<h3 id="236-funciones-de-agregado-y-group-by">2.3.6. Funciones de agregado y GROUP BY</h3>
+
+<p>En la lista de campos, se pueden utilizar las llamadas <strong>funciones de agregado</strong>. Se trata de funciones que realizan cálculos sobre los resultados de la consulta.</p>
+
+<p>Por ejemplo, esta consulta (que no usa funciones de agregado) nos devuelve los IDs de las personas cuyo país de nacimiento es “México”:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">id</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">WHERE</span> <span class="n">pais_nacimiento</span> <span class="o">=</span> <span class="nv">"México"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Resultado:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Micaela Cruz Ortega
+Esteban López López
+Fernando José Delgado Aguas
+</code></pre></div></div>
+
+<p>En cambio, esta otra consulta (que usa la función de agregado COUNT()) nos devuelve <em>el número de personas</em> cuyo país de nacimiento es “México”:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">WHERE</span> <span class="n">pais_nacimiento</span> <span class="o">=</span> <span class="nv">"México"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Resultado:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3
+</code></pre></div></div>
+
+<p>Las <strong>funciones de agregado más importantes</strong> son las siguientes:</p>
+
+<ul>
+  <li><strong>COUNT()</strong>: cuenta el número de filas que cumplen los criterios de búsqueda de la consulta.</li>
+  <li><strong>MIN()</strong>: calcula el valor mínimo de un campo numérico.</li>
+  <li><strong>MAX()</strong>: calcula el valor máximo de un campo numérico.</li>
+  <li><strong>AVG()</strong>: calcula el valor promedio de un campo numérico.</li>
+  <li><strong>SUM()</strong>: calcula la suma de todos los valores de un campo numérico.</li>
+</ul>
+
+<p>Con estas funciones, es muy fácil buscar, por ejemplo, la estatura máxima de todas las personas cuyo primer apellido es “López”:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">MAX</span><span class="p">(</span><span class="n">estatura</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">WHERE</span> <span class="n">apellido1</span> <span class="o">=</span> <span class="nv">"López"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Resultado:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>191
+</code></pre></div></div>
+
+<p>Las funciones de agregado se usan a menudo con la <strong>clásula GROUP BY</strong>, que nos permite <strong>agrupar los resultados por algún campo</strong>. Observa cómo funciona en este ejemplo:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">pais_nacimiento</span><span class="p">,</span> <span class="k">COUNT</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="n">personas</span><span class="p">;</span>
+  <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">pais_nacimiento</span>
+  <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">pais_nacimiento</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Esta consulta nos dirá cuántas personas han nacido en cada país, ofreciéndonos un resultado con un aspecto como este:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Argentina 2
+Colombia 1
+España 1
+México 3
+</code></pre></div></div>
+
+<p>Lo que ha ocurrido aquí es que los resultados se han agrupado por paises (<strong>GROUP BY pais_nacimiento</strong>) y, para cada grupo, se ha hecho el cálculo de la función de agregado (<strong>COUNT(id)</strong>).</p>
+
+<p>La cláusula GROUP BY aparece, a veces, acompañada de la <strong>cláusula HAVING</strong>, que es <strong>como WHERE pero aplicable a funciones de agregado</strong>.</p>
+
+<p>Por ejemplo, esta consulta nos mostrará la cantidad de personas nacidas en cada país pero solo de aquellos países de los que se contabilicen al menos 3 personas en la tabla:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">pais_nacimiento</span><span class="p">,</span> <span class="k">COUNT</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="n">personas</span><span class="p">;</span>
+  <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">pais_nacimiento</span>
+  <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">pais_nacimiento</span>
+    <span class="k">HAVING</span> <span class="k">COUNT</span><span class="p">(</span><span class="n">id</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="p">;</span>
+</code></pre></div></div>
+
+<p>Resultado:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>México 3
+</code></pre></div></div>
+
+<h3 id="237-obtener-resultados-de-varias-tablas-join">2.3.7. Obtener resultados de varias tablas: JOIN</h3>
+
+<p>Hasta ahora, solo hemos visto ejemplos de consultas que obtienen datos de una sola tabla, pero es muy frecuente que queramos <strong>extraer datos de varias tablas relacionadas entre sí</strong>.</p>
+
+<p>SQL permite hacer eso con la cláusula <strong>JOIN</strong>.</p>
+
+<p>Para comprender cómo funciona JOIN, necesitamos añadir una o dos tablas a nuestra base de datos, así que los siguientes ejemplos se basarán en estas tres tablas:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PERSONAS(id, nombre, apellido1, apellido2, estatura, fecha_nacimiento, id_pais)
+PAISES(id, nombre, id_continente)
+CONTINENTES(id, nombre)
+</code></pre></div></div>
+
+<p>Como puedes imaginarte, el campo <em>id_pais</em> de la tabla <em>PERSONAS</em> es una clave ajena que está relacionada con el campo <em>id</em> de la tabla <em>PAISES</em>.</p>
+
+<p>Del mismo modo, <em>id_continente</em> en la tabla <em>PAISES</em> es una clave ajena enlazada con <em>id</em> en la tabla CONTINENTES.</p>
+
+<p>Para que quede más claro, te muestro un ejemplo de lo que podrían contener estas tablas:</p>
+
+<p><strong>TABLA PERSONAS</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>nombre</th>
+      <th>apellido1</th>
+      <th>apellido2</th>
+      <th>estatura</th>
+      <th>fecha_nacimiento</th>
+      <th>id_pais</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Antonia</td>
+      <td>López</td>
+      <td>Zapata</td>
+      <td>171</td>
+      <td>18/02/2002</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Micaela</td>
+      <td>Cruz</td>
+      <td>Ortega</td>
+      <td>168</td>
+      <td>23/03/1993</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Luis Fernando</td>
+      <td>Guzmán</td>
+      <td>Rojas</td>
+      <td>174</td>
+      <td>01/01/2001</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Juan</td>
+      <td>López</td>
+      <td>Gutiérrez</td>
+      <td>191</td>
+      <td>28/02/1997</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Esteban</td>
+      <td>López</td>
+      <td>López</td>
+      <td>166</td>
+      <td>07/09/2001</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Ana Lucía</td>
+      <td>Smith</td>
+      <td>López</td>
+      <td>185</td>
+      <td>19/01/2000</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Fernando José</td>
+      <td>Delgado</td>
+      <td>Aguas</td>
+      <td>157</td>
+      <td>17/08/1969</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>etc</td>
+      <td>etc</td>
+      <td>etc</td>
+      <td>etc</td>
+      <td>etc</td>
+      <td>etc</td>
+      <td>etc</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>TABLA PAISES</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>nombre</th>
+      <th>id_continente</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>México</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Colombia</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>España</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Australia</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>China</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Egipto</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Argentina</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>etc</td>
+      <td>etc</td>
+      <td>etc</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>TABLA CONTINENTES</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>nombre</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>África</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>América</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Asia</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Europa</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Oceanía</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Ahora el nombre del país no está almacenado directamente en la tabla <em>personas</em>, sino en la tabla <em>paises</em>. Ambas tablas se relacionan gracias al campo <em>id_pais</em>. Lo mismo ocurre entre <em>paises</em> y <em>continentes</em>.</p>
+
+<p>Por lo tanto, si necesitamos recuperar, por ejemplo, <strong>los nombres y apellidos de todas las personas junto con su país de nacimiento</strong>, será necesario mezclar los datos de las tablas <em>personas</em> y <em>paises</em>. Esto se hace así:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">personas</span><span class="p">.</span><span class="n">nombre</span><span class="p">,</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span><span class="p">,</span> <span class="n">paises</span><span class="p">.</span><span class="n">nombre</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">JOIN</span> <span class="n">paises</span> <span class="k">ON</span> <span class="n">personas</span><span class="p">.</span><span class="n">id_pais</span> <span class="o">=</span> <span class="n">paises</span><span class="p">.</span><span class="n">id</span>
+</code></pre></div></div>
+
+<p>El resultado será:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Antonia López Zapata España
+Micaela Cruz Ortega México
+Luis Fernando Guzmán Rojas Colombia
+Juan López Gutiérrez Argentina
+Esteban López López México
+Ana Lucía Smith López Argentina
+Fernando José Delgado Aguas México
+</code></pre></div></div>
+
+<p>Observa algunas cosas importantes en esta sentencia:</p>
+
+<ul>
+  <li>En la <strong>clásula FROM</strong> indicamos la tabla principal de nuestra consulta (<em>personas</em>).</li>
+  <li>En la <strong>clásula JOIN</strong> indicamos la segunda tabla de nuestra consulta (<em>paises</em>) y le indicamos a SQL cuál es el campo que relaciona <em>personas</em> con <em>paises</em> (<code class="language-plaintext highlighter-rouge">personas.id_pais = paises.id</code>).</li>
+  <li>En la lista de campos, tenemos dos campos llamados <em>nombre</em>, uno perteneciente a la tabla <em>personas</em> (el nombre de la persona) y otro perteneciente a la tabla <em>paises</em> (el nombre del país). Por eso es necesario distinguirlos poniendo delante el identificador de la tabla (<em>personas.nombre</em> y <em>paises.nombre</em>). Con <em>apellido1</em> y <em>apellido2</em> no hace falta, puesto que esos campos solo existen en la tabla <em>personas</em>.</li>
+</ul>
+
+<p>Y poco más hay que decir sobre los JOIN. Son así de sencillos. SQL se encargará de mostrar a cada persona con su país correspondiente, cruzando los datos de las dos tablas.</p>
+
+<p>Se puede hacer <strong>JOIN de más de dos tablas</strong>. En esos casos, basta con cruzar las tablas por parejas. Por ejemplo, para mostrar la lista de personas junto con su país y su continente de nacimiento, primero cruzaremos <em>personas</em> con <em>paises</em> y después <em>paises</em> con <em>continentes</em>. No se puede cruzar directamente <em>personas</em> con <em>continentes</em> porque no tienen ningún campo en común, es decir, no están directamente relacionadas entre sí.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">personas</span><span class="p">.</span><span class="n">nombre</span><span class="p">,</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span><span class="p">,</span> <span class="n">paises</span><span class="p">.</span><span class="n">nombre</span><span class="p">,</span> <span class="n">continentes</span><span class="p">.</span><span class="n">nombre</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">JOIN</span> <span class="n">paises</span> <span class="k">ON</span> <span class="n">personas</span><span class="p">.</span><span class="n">id_pais</span> <span class="o">=</span> <span class="n">paises</span><span class="p">.</span><span class="n">id</span>
+  <span class="k">JOIN</span> <span class="n">continentes</span> <span class="k">ON</span> <span class="n">paises</span><span class="p">.</span><span class="n">id_continente</span> <span class="o">=</span> <span class="n">continentes</span><span class="p">.</span><span class="n">id</span>
+</code></pre></div></div>
+
+<p>El resultado de esta consulta será:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Antonia López Zapata España Europa
+Micaela Cruz Ortega México América
+Luis Fernando Guzmán Rojas Colombia América
+Juan López Gutiérrez Argentina América
+Esteban López López México América
+Ana Lucía Smith López Argentina América
+Fernando José Delgado Aguas México América
+</code></pre></div></div>
+
+<p>Por último, <strong>las consultas con JOIN también pueden llevar cláusulas WHERE, ORDER BY, GROUP BY o HAVING</strong>, como cualquier otra consulta. Por ejemplo, vamos a buscar los nombres, apellidos, país de nacimiento y continente de todas las personas nacidas a partir de 1 de enero del año 2000 y vamos a ordenar los resultados por apellidos:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">personas</span><span class="p">.</span><span class="n">nombre</span><span class="p">,</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span><span class="p">,</span> <span class="n">paises</span><span class="p">.</span><span class="n">nombre</span><span class="p">,</span> <span class="n">continentes</span><span class="p">.</span><span class="n">nombre</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">JOIN</span> <span class="n">paises</span> <span class="k">ON</span> <span class="n">personas</span><span class="p">.</span><span class="n">id_pais</span> <span class="o">=</span> <span class="n">paises</span><span class="p">.</span><span class="n">id</span>
+  <span class="k">JOIN</span> <span class="n">continentes</span> <span class="k">ON</span> <span class="n">paises</span><span class="p">.</span><span class="n">id_continente</span> <span class="o">=</span> <span class="n">continentes</span><span class="p">.</span><span class="n">id</span>
+  <span class="k">WHERE</span> <span class="n">fecha_nacimiento</span> <span class="o">&gt;=</span> <span class="s1">'01/01/2000'</span>
+  <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>El resultado será:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Luis Fernando Guzmán Rojas Colombia América
+Esteban López López México América
+Antonia López Zapata España Europa
+Ana Lucía Smith López Argentina América
+</code></pre></div></div>
+
+<h3 id="238-sql-avanzado-introducción-a-las-subconsultas">2.3.8. SQL avanzado: introducción a las subconsultas</h3>
+
+<p>Hay ciertas situaciones en las que nos encontramos con una consulta tan compleja que no se puede resolver con las herramientas que hemos visto hasta ahora.</p>
+
+<p>En esos casos, <strong>utilizar una subconsulta en una cláusula WHERE o HAVING</strong> suele obrar milagros. Sin embargo, no conviene abusar de este recurso: las consultas con subconsultas siempre consumen más recursos y son más lentas de ejecutar que las consultas convencionales.</p>
+
+<p>La subconsulta se inserta en cualquier cláusula WHERE o HAVING con alguno de estos operadores:</p>
+
+<ul>
+  <li><strong>ANY</strong>, <strong>ALL</strong> o <strong>SOME</strong>.</li>
+  <li><strong>IN</strong> o <strong>NOT IN</strong>.</li>
+  <li><strong>EXISTS</strong> o <strong>NOT EXISTS</strong>.</li>
+  <li><strong>=, &gt;, &gt;=, &lt;, &lt;=</strong>.</li>
+</ul>
+
+<p>El significado de los operadores es bastante obvio. Como siempre, se comprende mejor con algunos ejemplos.</p>
+
+<p><strong>Ejemplo 1: buscar a todas las personas que hayan nacido en algún país del continente americano:</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">WHERE</span> <span class="n">personas</span><span class="p">.</span><span class="n">id_pais</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">id_pais</span> <span class="k">FROM</span> <span class="n">paises</span>
+                              <span class="k">WHERE</span> <span class="n">id_continente</span> <span class="o">=</span> <span class="mi">2</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Observa bien el código de esta consulta: le estamos pidiendo a la base de datos que, en primer lugar, ejecute la consulta que hay entre paréntesis (es decir, la <em>subconsulta</em>). Esta consulta nos devolverá una lista de IDs de paises del contienente americano. Y luego, gracias a la clásula WHERE de la consulta principal, seleccionaremos solo a las personas que hayan nacido en alguno de esos países.</p>
+
+<p>(Esta consulta, por cierto, puede resolverse sin subconsultas de forma más eficiente. Puedes pensar en ello si lo deseas: es un interesante ejercicio).</p>
+
+<p><strong>Ejemplo 2: buscar todos los países de los cuales hay al menos una persona en la base de datos:</strong></p>
+
+<p>También puede hacerse sin subconsultas, pero la solución con subconsulta es así de simple:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">nombre</span>
+  <span class="k">FROM</span> <span class="n">paises</span>
+  <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="k">ANY</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">id_pais</span> <span class="k">FROM</span> <span class="n">personas</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>Ejemplo 3: buscar a las personas más altas de la base de datos</strong>:</p>
+
+<p>Es decir, buscar a las personas que compartan el valor máximo de estatura, sea este el que sea. Este es un ejemplo de consulta que difícilmente podrías resolver sin subconsultas, pero que con subconsultas queda en algo tan simple como:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">WHERE</span> <span class="n">estatura</span> <span class="o">=</span> <span class="p">(</span><span class="k">SELECT</span> <span class="k">MAX</span><span class="p">(</span><span class="n">estatura</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">personas</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Las subconsultas se pueden considerar SQL avanzado, por lo que no es necesario que las domines en este momento, pero sí que conozcas su existencia por si más adelante en tu carrera como programador/a tienes que profundizar en ellas.</p>
+
+<h3 id="239-otras-cuestiones-avanzadas-alias-y-combinaciones-de-consultas">2.3.9. Otras cuestiones avanzadas: alias y combinaciones de consultas</h3>
+
+<p>Como dijimos al principio, SQL en general y la instrucción SELECT en particular son muy amplios y se pueden aplicar en muchísimos casos diferentes, desde consultas sencillísimas hasta casos complejos donde tu cerebro puede tener un amago de explosión mientras trata de buscar una solución.</p>
+
+<p>Te menciono aquí <strong>algunos aspectos avanzados de los SELECT</strong> para que los conozcas, haciéndote saber que, si no aprendes a controlarlos ahora, no es ninguna tragedia: más adelante, si te especializas en esto, sin duda aprenderás a dominarlos.</p>
+
+<p>Por ahora basta con que los conozcas y los comprendas. En algunos de los ejercicios del tema usaremos estos aspectos avanzados para buscar soluciones a supuestos prácticos particularmente enrevesados.</p>
+
+<p><strong>ALIAS</strong></p>
+
+<p>Los alias son <strong>nombres alternativos que se asignan a las tablas o a las columnas</strong> en una consulta.</p>
+
+<p>El objetivo del alias puede ser doble:</p>
+
+<ul>
+  <li>Usar un nombre más corto para facilitar la escritura de una expresión que, de otro modo, sería muy larga.</li>
+  <li>Poder referirse a la misma tabla en dos conextos diferentes.</li>
+</ul>
+
+<p>El primer uso es muy fácil de entender. El segundo, no tanto. De momento, vamos a ver el uso más fácil. No te preocupes demasiado por el otro: veremos algún ejemplo en los ejercicios de este capítulo.</p>
+
+<p>El <strong>alias se indica con la palabra AS</strong>.</p>
+
+<p>Por ejemplo, en la siguiente consulta, se usan alias para acortar los identificadores de los campos <em>persona.nombre</em>, <em>paises.nombre</em> y <em>continentes.nombre</em>, que pasan a ser <em>nom_pers</em>, <em>nom_pais</em> y <em>nom_cont</em>, respectivamente. Observa como podemos referirnos a cualquiera de esos campos por su nombre o su alias, como hacemos en la cláusula WHERE de este ejemplo.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">personas</span><span class="p">.</span><span class="n">nombre</span> <span class="k">AS</span> <span class="n">nom_pers</span><span class="p">,</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span><span class="p">,</span> <span class="n">paises</span><span class="p">.</span><span class="n">nombre</span> <span class="k">AS</span> <span class="n">nom_pais</span><span class="p">,</span> <span class="n">continentes</span><span class="p">.</span><span class="n">nombre</span> <span class="k">AS</span> <span class="n">nom_cont</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">JOIN</span> <span class="n">paises</span> <span class="k">ON</span> <span class="n">personas</span><span class="p">.</span><span class="n">id_pais</span> <span class="o">=</span> <span class="n">paises</span><span class="p">.</span><span class="n">id</span>
+  <span class="k">JOIN</span> <span class="n">continentes</span> <span class="k">ON</span> <span class="n">paises</span><span class="p">.</span><span class="n">id_continente</span> <span class="o">=</span> <span class="n">continentes</span><span class="p">.</span><span class="n">id</span>
+  <span class="k">WHERE</span> <span class="n">nom_pers</span> <span class="k">LIKE</span> <span class="s1">'A%'</span>
+  <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>COMBINACIONES DE CONSULTAS</strong></p>
+
+<p>Es posible <strong>combinar los resultados de dos consultas</strong> para obtener un resultado más amplio.</p>
+
+<p>Si tenemos dos consultas, que llamaremos C1 y C2, sus resultados pueden combinarse de tres modos diferentes:</p>
+
+<ul>
+  <li>Con <strong>UNION</strong>: los registros de C1 y de C2 se sumarán, es decir, el resultado de <strong>C1 UNION C2</strong> serán todas las filas que estén en C1 más las que estén en C2.</li>
+  <li>Con <strong>INSERSECT</strong>: el resultado de <strong>C1 INSERSECT C2</strong> serán todas las filas que están a la vez en C1 y en C2, es decir, la insersección de los dos conjuntos de resultados.</li>
+  <li>Con <strong>EXCEPT</strong>: el resultado de <strong>C1 EXCEPT C2</strong> serán todas las filas que estén en C1, quitando las que estén en C2.</li>
+</ul>
+
+<p>Para poder hacer UNION, INSERSECT o EXCEPT de dos consultas, ambas tienen que haber producido exactamente el mismo conjunto de campos. Si no, estas operaciones no son posibles.</p>
+
+<p>Por ejemplo, observa el siguiente código. Fíjate en que las dos consultas producen el mismo conjunto de campos (<em>nombre, apellido1, apellido2</em>). Si no, no sería posible combinarlas. Observa también el uso de los paréntesis:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">SELECT</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span>
+  <span class="k">FROM</span> <span class="n">personas</span>
+  <span class="k">WHERE</span> <span class="n">pais_nacimiento</span> <span class="o">=</span> <span class="s1">'1'</span><span class="p">)</span>
+<span class="k">UNION</span>
+<span class="p">(</span><span class="k">SELECT</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">apellido1</span><span class="p">,</span> <span class="n">apellido2</span>
+   <span class="k">FROM</span> <span class="n">personas</span><span class="p">)</span>
+   <span class="k">WHERE</span> <span class="n">estatura</span> <span class="o">&gt;</span> <span class="s1">'180'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>(por supuesto, esto mismo puede resolverse sin usar UNION)</p>
+
+<ul>
+  <li>
+    <p>La combinación de estas dos consultas con <strong>UNION</strong> nos devuelve la lista de personas que han nacido en Argentina <strong>O</strong> que miden más de 180 cm. Cualquier persona que cumpla una de las dos condiciones estará en el resultado final.</p>
+  </li>
+  <li>
+    <p>Si combinásemos las mismas consultas con <strong>INSERSECT</strong> en lugar de con UNION, lo que obtendríamos sería la lista de personas que nacieron en Argentina <strong>Y</strong> que miden más de 180 cm. Es decir, las personas que formen parte de los dos resultados y, por lo tanto, cumplan <em>a la vez</em> las dos condiciones.</p>
+
+    <p>Fíjate en que en el enunciado solo hemos cambiado una “O” por una “Y”, pero es que esa es precisamente la diferencia entre UNION e INTERSECT.</p>
+  </li>
+  <li>
+    <p>Por último, si combinamos las mismas consultas con <strong>EXCEPT</strong>, obtendremos la lista de personas que nacieron en Argentina, excepto las que miden más de 180 cm. Habremos eliminado del primer SELECT los resultados que estén en el segundo SELECT. Esto es, obtendremos la lista de personas nacidas en argentina que miden 180 cm o menos.</p>
+  </li>
+</ul>
+
+<p>Es un lío desde el punto de vista lógico, ¿verdad? Y es que no se te habrán escapado las semejanzas de UNION, INTERSECT y EXCEPT con los operadores lógicos Y, O y NO. En efecto, UNION, INSERSECT y EXCEPT son los equivalentes a Y, O y NO a nivel de consultas completas.</p>
+
+<p>Aplicaremos UNION, INSERSECT y EXCEPT a algunas de las consultas más complejas de nuestros ejercicios propuestos.</p>
+
+<h2 id="24-y-cómo-puedo-probar-todo-esto">2.4. ¿Y cómo puedo probar todo esto?</h2>
+
+<p>Seguro que te has hecho esta pregunta mientras leías los ejemplos de este capítulo y tal vez incluso intentabas resolverlos por tu cuenta.</p>
+
+<p>Es una excelente pregunta.</p>
+
+<p>Para ejecutar SQL <strong>necesitas un gestor de bases de datos relacionales</strong>. Puede instalar un gestor de escritorio, para bases de datos domésticas, como <em>Microsoft Access</em> o <em>Libreoffice Base</em>, o puedes decantarte por un gestor profesional en red, como <em>MySQL, MariaDB, Oracle, SQLite</em> o <em>SQL Server</em>.</p>
+
+<p>En realidad, da igual, porque el SQL es más o menos igual en todos.</p>
+
+<p>(Digo “más o menos” porque cada base de datos hace su propia interpretación del estándar SQL y puede haber pequeñas diferencias entre uno y otro).</p>
+
+<p>Si nunca has usado una base de datos profesional como MySQL, Oracle u SQL Server, probablemente <strong>lo más sencillo es que empieces por Microsoft Access o Libreoffice Base</strong>. Si, en cambio, ya conoces las bases de datos profesionales, no necesitas leer este apartado. Puedes pasar directamente a los ejercicios, aunque probablemente tampoco los necesites.</p>
+
+<p>Ten en cuenta que tanto Microsoft Access como Libreoffice Base usan versiones de SQL bastante alejadas del estándar (más aún en el caso de Base). Son la manera más sencilla de ejecutar SQL, pero probablemente no la mejor. Si aún así es lo único que tienes a mano, te cuento brevemente cómo ponerlas en marcha:</p>
+
+<ol>
+  <li>
+    <p><strong>Instala Microsoft Access (forma parte del paquete Microsoft Office) o Libreoffice Base (forma parte del paquete Libreoffice)</strong> en tu ordenador. Microsoft ofrece una versión online de su Office. Recuerda que Microsoft Office es un paquete de software propietario y que copiar y usar programas de forma fraudulenta es un delito penal. Libreoffice, en cambio, es software libre y puedes usarlo y distribuirlo libremente. Eso sí: ¡descárgalo solo de la web oficial, por favor!</p>
+  </li>
+  <li>
+    <p><strong>Arranca el programa</strong> (claro).</p>
+  </li>
+  <li>
+    <p><strong>En Microsoft Access</strong>, crea una base de datos (o abre una existente). Ahora puedes ejecutar tus sentencias SQL pulsando el botón “Create” de la parte superior de la pantalla, y luego seleccionando “Query design” -&gt; “Show table” -&gt; “SQL view”. Escribe tu sentencia SQL y pulsa “Run” para probarla.</p>
+  </li>
+  <li>
+    <p><strong>En Libreoffice Base</strong>, crea una base de datos (o abre una existente). Selecciona “Tool - SQL” y luego “Create Query in SQL view”. En la pantalla siguiente, haz clic en “View” -&gt; “Switch Design View On/Off”. Escribe tu sentencia SQL y pulsa “Run” para probarla.</p>
+  </li>
+</ol>
+
+<p>Existe otra posibilidad para ejecutar SQL sin complicarte la vida: las <strong>soluciones online</strong>. Hay páginas son <a href="https://sqliteonline.com">sqliteonline.com</a> o <a href="https://sqlfiddle.com">sqlfiddle.com</a> que te permiten lanzar sentencias SQL contra bases de datos virtuales de forma gratuita y sin necesidad de registrarte en ningún sitio.</p>
+
+<p>En realidad, todo esto no tiene nada que ver con aprender SQL, sino con aprender a manejar un determinado programa. Elige el tuyo y bichea un poco hasta que averigües cómo se ejecuta el SQL. Se presupone de ti que eres un usuario/a de ordenadores de nivel medio-avanzado, y por eso quieres aprender a programar. No tiene mucho sentido explicar aquí cómo ejecutar SQL en cada gestor de bases de datos porque puede haber importantes diferencias entre un gestor de bases de datos y otro o, incluso, entre versiones del mismo programa. Y, en última instancia, es algo tan simple como trastear un rato con el programa.</p>
+
+<h2 id="25-ejercicios">2.5. Ejercicios</h2>
+
+<p>Como de costumbre, vamos a proponer una batería de ejercicios de SQL para que practiques todo lo que hemos visto a lo largo de este capítulo.</p>
+
+<p>Muchos de ellos los encontrarás resueltos en la siguiente sección. Ya sabes lo que digo siempre: es una pésima idea mirar las soluciones antes de haber intentado resolverlos por tu cuenta.</p>
+
+<h4 id="ejercicio-1-compañía-de-seguros">Ejercicio 1: compañía de seguros</h4>
+
+<p>Una compañía de seguros dispone de una base de datos con las siguientes tablas:</p>
+
+<ul>
+  <li>Personas (dni#, nombre, apellidos, dirección, ciudad, país)</li>
+  <li>Coches (matrícula#, marca, modelo, potencia, conductor, seguro)</li>
+  <li>Seguros (núm-póliza#, compañía, tipo, franquicia, dni-tomador, fecha)</li>
+</ul>
+
+<p>Las claves ajenas, es decir, las claves de unas tablas que se han copiado en otras para implementar las relaciones, son estas:</p>
+
+<ul>
+  <li>Coches.conductor → Personas.dni (es decir, el campo <em>coches.conductor</em> es una clave ajena de <em>personas.dni</em>)</li>
+  <li>Coches.seguro → Seguros.núm-póliza (el campo <em>coches.seguro</em> es una clave ajena de <em>seguros.num-numpoliza</em>)</li>
+  <li>Seguros.dni-tomador → Personas.dni (el campo <em>seguros.dni-tomador</em> es una clave ajena de <em>personas.dni</em>)</li>
+</ul>
+
+<p>Se pide escribir el código SQL necesario para:</p>
+
+<p><strong>a) Crear las tablas</strong> (CREATE TABLE), suponiendo las siguientes restricciones:</p>
+
+<ul>
+  <li>Todas las claves primarias y ajenas son campos obligatorios (no pueden ser nulos). Además, las claves primarias no pueden tomar valores repetidos.</li>
+  <li><em>Personas.país</em> tendrá, por defecto, el valor “España”. Personas.ciudad tendrá, por defecto, el valor “Almería”.</li>
+  <li>Hay que activar el borrado y actualización en cascada en todas las relaciones.</li>
+  <li>Es conveniente definir todas las claves como restricciones (<em>constraints</em>), con el objeto de poder modificarlas más adelante.</li>
+  <li>Todos los datos son cadenas de caracteres (la longitud puedes elegirla tú, siempre que sea razonable), excepto los siguientes:
+    <ul>
+      <li><em>Coches.potencia</em> es un número real con tres cifras enteras y dos cifras decimales.</li>
+      <li><em>Seguros.núm-póliza</em> es un número entero largo.</li>
+      <li><em>Seguros.franquicia</em> es un número real con seis cifras enteras y dos decimales.</li>
+      <li><em>Seguros.fecha</em> es de tipo fecha (claro)</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>b) Realizar los siguientes cambios en las tablas</strong> (ALTER TABLE, INSERT, UPDATE, DELETE):</p>
+
+<ol>
+  <li>Agregar a la tabla Personas el campo <em>sexo</em>, con un sólo carácter y obligatorio.</li>
+  <li>Desactivar el borrado en cascada (no la actualización) de la clave ajena en la tabla Seguros.</li>
+  <li>Insertar estos registros:
+    <ul>
+      <li>En <em>Personas</em>, DNI = 1111A, Juan Martín, C/ Barco, Roquetas de Mar, España</li>
+      <li>En <em>Seguros</em>, Nº Póliza = 1, Compañía = Mapfre, Franquicia = 299,95 €, Tomador = Juan Martín</li>
+    </ul>
+  </li>
+  <li>Modificar todos los seguros de tipo “Todo riesgo” para que la franquicia sea de 120 €</li>
+  <li>Borrar todas las personas que no vivan ni en España ni en Portugal.</li>
+</ol>
+
+<p><strong>c) Realizar las siguientes consultas</strong> (SELECT):</p>
+
+<ol>
+  <li>Nombre y apellidos, ordenados alfabéticamente, de todas las personas cuyo nombre sea “Laura”</li>
+  <li>Nombre y apellidos, ordenados alfabéticamente, de todas las personas que viven en ciudades que empiezan por “A”.</li>
+  <li>Compañías de seguros que aseguran coches de la marca Seat y cuyas pólizas fueron contratadas después del año 2005.</li>
+  <li>Precio medio de las franquicias de los coches asegurados por la compañía Mapfre y cuya potencia es mayor de 100 caballos.</li>
+</ol>
+
+<h4 id="ejercicio-1-resuelto">EJERCICIO 1 RESUELTO:</h4>
+
+<p><strong>a) Crear las tablas con las restricciones detalladas en el enunciado del ejercicio:</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">Personas</span> <span class="p">(</span>
+	<span class="n">dni</span>       <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>	<span class="k">UNIQUE</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+	<span class="n">nombre</span>    <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>	<span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+	<span class="n">apellidos</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>	<span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+	<span class="n">ciudad</span>    <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>	<span class="k">DEFAULT</span> <span class="nv">"Almería"</span><span class="p">,</span>
+	<span class="n">pa</span><span class="err">í</span><span class="n">s</span>      <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>	<span class="k">DEFAULT</span> <span class="nv">"España"</span><span class="p">,</span>
+	<span class="k">CONSTRAINT</span> <span class="n">pk_personas</span>
+		<span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">dni</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">Seguros</span> <span class="p">(</span>
+	<span class="n">num_p</span><span class="err">ó</span><span class="n">liza</span>  <span class="nb">BIGINT</span> <span class="k">UNIQUE</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+	<span class="n">compa</span><span class="err">ñí</span><span class="n">a</span>    <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>	<span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+	<span class="n">tipo</span>        <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+	<span class="n">franquicia</span>  <span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>	<span class="k">DEFAULT</span> <span class="mi">0</span><span class="p">,</span>
+	<span class="n">dni_tomador</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>	<span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+	<span class="n">fecha</span>       <span class="nb">DATE</span><span class="p">,</span>
+	<span class="k">CONSTRAINT</span> <span class="n">pk_seguros</span>
+		<span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">num_p</span><span class="err">ó</span><span class="n">liza</span><span class="p">),</span>
+	<span class="k">CONSTRAINT</span> <span class="n">fk_seguros_personas</span>
+		<span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">dni_tomador</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="n">Personas</span><span class="p">(</span><span class="n">dni</span><span class="p">)</span>
+		<span class="k">ON</span> <span class="k">DELETE</span> <span class="k">CASCADE</span>
+		<span class="k">ON</span> <span class="k">UPDATE</span> <span class="k">CASCADE</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">Coches</span> <span class="p">(</span>
+	<span class="n">matr</span><span class="err">í</span><span class="n">cula</span>  <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>	<span class="k">UNIQUE</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+	<span class="n">marca</span>      <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>	<span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+	<span class="n">modelo</span>     <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+	<span class="n">potencia</span>   <span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+	<span class="n">conductor</span>  <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>	<span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+	<span class="n">seguro</span>     <span class="nb">BIGINT</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+	<span class="k">CONSTRAINT</span> <span class="n">pk_coches</span>
+		<span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">matricula</span><span class="p">),</span>
+	<span class="k">CONSTRAINT</span> <span class="n">fk_coches_personas</span>
+		<span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">conductor</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="n">Personas</span><span class="p">(</span><span class="n">dni</span><span class="p">)</span>
+		<span class="k">ON</span> <span class="k">DELETE</span> <span class="k">CASCADE</span>
+		<span class="k">ON</span> <span class="k">UPDATE</span> <span class="k">CASCADE</span><span class="p">,</span>
+	<span class="k">CONSTRAINT</span> <span class="n">fk_coches_seguros</span>
+		<span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">seguro</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="n">Seguros</span><span class="p">(</span><span class="n">num_p</span><span class="err">ó</span><span class="n">liza</span><span class="p">)</span>
+		<span class="k">ON</span> <span class="k">DELETE</span> <span class="k">CASCADE</span>
+		<span class="k">ON</span> <span class="k">UPDATE</span> <span class="k">CASCADE</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>b) Realizar los siguientes cambios en las tablas</strong></p>
+
+<p><strong>Agregar a la tabla Personas el campo sexo, con un sólo carácter y obligatorio.</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">Personas</span>
+	<span class="k">ADD</span> <span class="n">Sexo</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>Desactivar el borrado en cascada (no la actualización) de la clave ajena en la tabla Seguros.</strong></p>
+
+<p>(No puede eliminarse solamente el borrado en cascada, así que hay que quitar por completo la restricción “fk_seguros_personas”, y luego volver a crearla sin borrado en cascada. Observa que esto no afectará a los datos de la tabla.)</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">Seguros</span>
+	<span class="k">DROP</span> <span class="k">CONSTRAINT</span> <span class="n">fk_seguros_personas</span><span class="p">;</span>
+
+<span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">Seguros</span>
+	<span class="k">ADD</span> <span class="k">CONSTRAINT</span> <span class="n">fk_seguros_personas</span>
+		<span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">dni_tomador</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="n">Personas</span><span class="p">(</span><span class="n">dni</span><span class="p">)</span>
+		<span class="k">ON</span> <span class="k">UPDATE</span> <span class="k">CASCADE</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>Insertar estos registros:</strong></p>
+<ul>
+  <li>En Personas, DNI = 1111A, Juan Martín, C/ Barco, Roquetas de Mar, España</li>
+  <li>En Seguros, Nº Póliza = 1, Compañía = Mapfre, Franquicia = 299,95 €, Tomador = Juan Martín</li>
+</ul>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">Personas</span> <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'1111A'</span><span class="p">,</span> <span class="s1">'Juan'</span><span class="p">,</span> <span class="s1">'Martín'</span><span class="p">,</span> <span class="s1">'C/ Barco'</span><span class="p">,</span> <span class="s1">'Roquetas de Mar'</span><span class="p">,</span> <span class="s1">'España'</span><span class="p">);</span>
+
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">Seguros</span> <span class="p">(</span><span class="n">num_p</span><span class="err">ó</span><span class="n">liza</span><span class="p">,</span> <span class="n">compa</span><span class="err">ñí</span><span class="n">a</span><span class="p">,</span> <span class="n">franquicia</span><span class="p">,</span> <span class="n">dni_tomador</span><span class="p">)</span>
+	<span class="k">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'Mapfre'</span><span class="p">,</span> <span class="mi">299</span><span class="p">.</span><span class="mi">95</span><span class="p">,</span> <span class="s1">'1111A'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>Modificar todos los seguros de tipo “Todo riesgo” para que la franquicia sea de 120 €</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">UPDATE</span> <span class="n">Pacientes</span>
+	<span class="k">SET</span> <span class="n">pais</span> <span class="o">=</span> <span class="s1">'Desconocido'</span>
+	<span class="k">WHERE</span> <span class="n">tipo</span> <span class="o">=</span> <span class="s1">'Todo riesgo'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>Borrar todas las personas que no vivan ni en España ni en Portugal.</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">Personas</span>
+	<span class="k">WHERE</span> <span class="n">pa</span><span class="err">í</span><span class="n">s</span> <span class="o">&lt;&gt;</span> <span class="s1">'España'</span> <span class="k">AND</span> <span class="n">pa</span><span class="err">í</span><span class="n">s</span> <span class="o">&lt;&gt;</span> <span class="s1">'Portugal'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>c) Realizar las siguientes consultas</strong> (SELECT):</p>
+
+<p><strong>Nombre y apellidos, ordenados alfabéticamente, de todas las personas cuyo nombre sea “Laura”</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">apellidos</span>
+	<span class="k">FROM</span> <span class="n">Personas</span>
+	<span class="k">WHERE</span> <span class="n">nombre</span> <span class="o">=</span> <span class="s1">'Laura'</span>
+	<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">apellidos</span><span class="p">,</span> <span class="n">nombre</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>Nombre y apellidos, ordenados alfabéticamente, de todas las personas que viven en ciudades que empiezan por “A” (consideraremos también la “A” con tilde):</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">apellidos</span>
+	<span class="k">FROM</span> <span class="n">Personas</span>
+	<span class="k">WHERE</span> <span class="n">ciudad</span> <span class="k">LIKE</span> <span class="s1">'A*'</span>  <span class="k">OR</span>  <span class="n">ciudad</span> <span class="k">LIKE</span> <span class="s1">'Á*'</span>
+	<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">apellidos</span><span class="p">,</span> <span class="n">nombre</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>Compañías de seguros que aseguran coches de la marca Seat y cuyas pólizas fueron contratadas después del año 2005.</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">compa</span><span class="err">ñí</span><span class="n">a</span>
+	<span class="k">FROM</span> <span class="n">Seguros</span>
+  <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Coches</span> <span class="k">ON</span> <span class="n">Seguros</span><span class="p">.</span><span class="n">num_p</span><span class="err">ó</span><span class="n">liza</span> <span class="o">=</span> <span class="n">Coches</span><span class="p">.</span><span class="n">seguro</span>
+	    <span class="k">WHERE</span> <span class="n">marca</span> <span class="o">=</span> <span class="s1">'Seat'</span>
+	    <span class="k">AND</span> <span class="n">fecha</span> <span class="o">&gt;</span> <span class="s1">'31/12/2005'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>Precio medio de las franquicias de los coches asegurados por la compañía Mapfre y cuya potencia es mayor de 100 caballos.</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">AVG</span><span class="p">(</span><span class="n">franquicia</span><span class="p">)</span>
+	<span class="k">FROM</span> <span class="n">Seguros</span>
+  <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Coches</span> <span class="k">ON</span> <span class="n">Seguros</span><span class="p">.</span><span class="n">num_p</span><span class="err">ó</span><span class="n">liza</span> <span class="o">=</span> <span class="n">Coches</span><span class="p">.</span><span class="n">seguro</span>
+	    <span class="k">WHERE</span> <span class="n">compa</span><span class="err">ñí</span><span class="n">a</span> <span class="o">=</span> <span class="s1">'Mapfre'</span>
+	    <span class="k">AND</span> <span class="n">potencia</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="ejercicio-2-academia-de-idiomas">Ejercicio 2: academia de idiomas</h4>
+
+<p>(Advertencia: las consultas de este ejercicio son más complicadas. Solo las ponemos aquí a modo de ejemplo, pero no os vamos a pedir que sepáis hacerlas).</p>
+
+<p>La base de datos de una academia de idiomas está formada por las siguientes tablas:</p>
+
+<ul>
+  <li>PROFESORES(#dni-prof, nombre, apellidos, idioma)</li>
+  <li>ALUMNOS(#dni-alum, nombre, apellidos)</li>
+  <li>GRUPOS(#cod-grupo, denominación)</li>
+  <li>HORARIOS(#cod-grupo, #día-semana, #dni-prof, hora-inicio, hora-fin, aula)</li>
+</ul>
+
+<p>Se pide escribir las sentencias SQL necesarias para:</p>
+
+<p>1) Consultar los nombres y apellidos de los profesores que dan clase de francés de lunes a jueves a partir de las 16:00 horas, junto con la denominación de los grupos a los que dan clase y el horario de cada día.
+2) Consultar los nombres y apellidos de los alumnos que reciben clases de al menos dos idiomas diferentes.
+3) Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS y de FRANCÉS.
+4) Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS o de FRANCÉS.
+5) Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS pero no reciben clases de ALEMÁN.</p>
+
+<h4 id="solución-del-ejercicio-2">Solución del ejercicio 2:</h4>
+
+<p><strong>1) Consultar los nombres y apellidos de los profesores que dan clase de francés de lunes a jueves a partir de las 16:00 horas, junto con la denominación de los grupos a los que dan clase y el horario de cada día.</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">apellidos</span><span class="p">,</span> <span class="n">denominaci</span><span class="err">ó</span><span class="n">n</span><span class="p">,</span> <span class="n">d</span><span class="err">í</span><span class="n">a_semana</span><span class="p">,</span> <span class="n">hora_inicio</span><span class="p">,</span> <span class="n">hora_fin</span> 
+	<span class="k">FROM</span> <span class="n">Profesores</span>
+  <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Horarios</span> <span class="k">ON</span> <span class="n">Profesores</span><span class="p">.</span><span class="n">dni_prof</span> <span class="o">=</span> <span class="n">Horarios</span><span class="p">.</span><span class="n">dni_prof</span>
+  <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Grupos</span> <span class="k">ON</span> <span class="n">Horarios</span><span class="p">.</span><span class="n">cod_grupo</span> <span class="o">=</span> <span class="n">Grupos</span><span class="p">.</span><span class="n">cod_grupo</span>
+	  <span class="k">WHERE</span> <span class="p">(</span><span class="n">d</span><span class="err">í</span><span class="n">a_semana</span> <span class="o">=</span> <span class="s1">'L'</span> <span class="k">OR</span> <span class="n">d</span><span class="err">í</span><span class="n">a_semana</span> <span class="o">=</span> <span class="s1">'M'</span> <span class="k">OR</span> <span class="n">d</span><span class="err">í</span><span class="n">a_semana</span> <span class="o">=</span> <span class="s1">'X'</span> <span class="k">OR</span> <span class="n">d</span><span class="err">í</span><span class="n">a_semana</span> <span class="o">=</span> <span class="s1">'J'</span><span class="p">)</span>
+	    <span class="k">AND</span> <span class="n">hora_inicio</span> <span class="o">&gt;=</span> <span class="s1">'16:00'</span>
+	    <span class="k">AND</span> <span class="n">idioma</span> <span class="o">=</span> <span class="s1">'Francés'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>2) Consultar los nombres y apellidos de los alumnos que reciben clases de al menos dos idiomas diferentes.</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">nombre</span><span class="p">,</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">apellidos</span>
+	<span class="k">FROM</span> <span class="n">Alumnos</span>
+  <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Horarios</span> <span class="k">ON</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">cod_grupo</span> <span class="o">=</span> <span class="n">Horarios</span><span class="p">.</span><span class="n">cod_grupo</span>
+  <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Profesores</span> <span class="k">AS</span> <span class="n">Profes1</span> <span class="k">ON</span> <span class="n">Horarios</span><span class="p">.</span><span class="n">dni_prof</span> <span class="o">=</span> <span class="n">Profes1</span><span class="p">.</span><span class="n">dni_prof</span>
+    <span class="k">WHERE</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">dni</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">dni</span> 
+				<span class="k">FROM</span> <span class="n">Alumnos</span>
+        <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Horarios</span> <span class="k">ON</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">cod_grupo</span> <span class="o">=</span> <span class="n">Horarios</span><span class="p">.</span><span class="n">cod_grupo</span>
+        <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Profesores</span> <span class="k">AS</span> <span class="n">Profes2</span> <span class="k">ON</span> <span class="n">Horarios</span><span class="p">.</span><span class="n">dni_prof</span> <span class="o">=</span> <span class="n">Profes2</span><span class="p">.</span><span class="n">dni_prof</span>
+				  <span class="k">WHERE</span> <span class="n">Profes1</span><span class="p">.</span><span class="n">idioma</span> <span class="o">&lt;&gt;</span> <span class="n">Profes2</span><span class="p">.</span><span class="n">idioma</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>3) Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS y de FRANCÉS.</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">nombre</span><span class="p">,</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">apellidos</span>
+	<span class="k">FROM</span> <span class="n">Alumnos</span>
+  <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Horarios</span> <span class="k">ON</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">cod_grupo</span> <span class="o">=</span> <span class="n">Horarios</span><span class="p">.</span><span class="n">cod_grupo</span>
+  <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Profesores</span> <span class="k">ON</span> <span class="n">Horarios</span><span class="p">.</span><span class="n">dni_prof</span> <span class="o">=</span> <span class="n">Profesores</span><span class="p">.</span><span class="n">dni_prof</span>
+	<span class="k">WHERE</span> <span class="n">Profesores</span><span class="p">.</span><span class="n">idioma</span> <span class="o">=</span> <span class="nv">"Inglés"</span>
+<span class="k">INTERSECT</span>
+<span class="k">SELECT</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">nombre</span><span class="p">,</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">apellidos</span>
+	<span class="k">FROM</span> <span class="n">Alumnos</span>
+  <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Horarios</span> <span class="k">ON</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">cod_grupo</span> <span class="o">=</span> <span class="n">Horarios</span><span class="p">.</span><span class="n">cod_grupo</span>
+  <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Profesores</span> <span class="k">ON</span> <span class="n">Horarios</span><span class="p">.</span><span class="n">dni_prof</span> <span class="o">=</span> <span class="n">Profesores</span><span class="p">.</span><span class="n">dni_prof</span>
+	  <span class="k">WHERE</span> <span class="n">Profesores</span><span class="p">.</span><span class="n">idioma</span> <span class="o">=</span> <span class="nv">"Francés"</span>
+</code></pre></div></div>
+
+<p><strong>4) Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS o de FRANCÉS.</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">nombre</span><span class="p">,</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">apellidos</span>
+	<span class="k">FROM</span> <span class="n">Alumnos</span>
+  <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Horarios</span> <span class="k">ON</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">cod_grupo</span> <span class="o">=</span> <span class="n">Horarios</span><span class="p">.</span><span class="n">cod_grupo</span>
+  <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Profesores</span> <span class="k">ON</span> <span class="n">Horarios</span><span class="p">.</span><span class="n">dni_prof</span> <span class="o">=</span> <span class="n">Profesores</span><span class="p">.</span><span class="n">dni_prof</span>
+	  <span class="k">WHERE</span> <span class="p">(</span><span class="n">Profesores</span><span class="p">.</span><span class="n">idioma</span> <span class="o">=</span> <span class="nv">"Inglés"</span> <span class="k">OR</span> <span class="n">Profesores</span><span class="p">.</span><span class="n">idioma</span> <span class="o">=</span> <span class="nv">"Francés"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>5) Consultar los nombres y apellidos de los alumnos que reciben clases de INGLÉS pero no reciben clases de ALEMÁN.</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">nombre</span><span class="p">,</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">apellidos</span>
+	<span class="k">FROM</span> <span class="n">Alumnos</span>
+  <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Horarios</span> <span class="k">ON</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">cod_grupo</span> <span class="o">=</span> <span class="n">Horarios</span><span class="p">.</span><span class="n">cod_grupo</span>
+  <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Profesores</span> <span class="k">ON</span> <span class="n">Horarios</span><span class="p">.</span><span class="n">dni_prof</span> <span class="o">=</span> <span class="n">Profesores</span><span class="p">.</span><span class="n">dni_prof</span>
+	  <span class="k">WHERE</span> <span class="n">Profesores</span><span class="p">.</span><span class="n">idioma</span> <span class="o">=</span> <span class="nv">"Inglés"</span>
+<span class="k">EXCEPT</span>
+<span class="k">SELECT</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">nombre</span><span class="p">,</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">apellidos</span>
+	<span class="k">FROM</span> <span class="n">Alumnos</span>
+  <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Horarios</span> <span class="k">ON</span> <span class="n">Alumnos</span><span class="p">.</span><span class="n">cod_grupo</span> <span class="o">=</span> <span class="n">Horarios</span><span class="p">.</span><span class="n">cod_grupo</span>
+  <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Profesores</span> <span class="k">ON</span> <span class="n">Horarios</span><span class="p">.</span><span class="n">dni_prof</span> <span class="o">=</span> <span class="n">Profesores</span><span class="p">.</span><span class="n">dni_prof</span>
+	  <span class="k">WHERE</span> <span class="n">Profesores</span><span class="p">.</span><span class="n">idioma</span> <span class="o">=</span> <span class="nv">"Alemán"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="ejercicio-obligatorio-series-de-tv">Ejercicio obligatorio: Series de TV</h4>
+
+<p>La base de datos para nuestras series de TV favoritas incluye estas tablas:</p>
+
+<ul>
+  <li>SERIES (id#, titulo, canal, puntuacion)</li>
+  <li>TEMPORADAS (id#, anyo, num_capitulos, id_serie)</li>
+  <li>PERSONAS (id#, nombre, apellido)</li>
+  <li>DIRIGEN (id_persona#, id_serie#)</li>
+  <li>ACTUAN (id_persona#, id_serie#)</li>
+</ul>
+
+<ol>
+  <li>Crea las tablas con las instrucciones CREATE TABLE necesarias, asignando los tipos de datos que te parezcan más adecuados.</li>
+  <li>Inserta unos cuantos datos de ejemplo en cada una de las tablas con INSERT INTO.</li>
+  <li>Escribe las siguientes consultas:
+    <ul>
+      <li>Obtener los títulos y canales de todas las series, ordenadas por puntuación (de mayor a menor) y, en caso de empate, por orden alfabético.</li>
+      <li>Obtener los títulos de todas las series donde actúe… (pon aquí el nombre de tu actor o actriz favorito).</li>
+      <li>Obtener todos los datos disponibles (reparto, directores, temporadas, etc.) de la serie… (pon aquí el título de tu serie preferida).</li>
+      <li>Obtener el número de personas que hay en el reparto de tu serie preferida. Es decir, si esa serie tiene 5 actores y actrices en el reparto, el resultado de esta consulta debe ser “5”, no la lista de nombres de esas personas.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>Para hacer este ejercicio, hemos creado una base de datos online a la que puedes acceder con un programa llamado PHPMyAdmin desde la dirección <a href="https://acceso.donhosting.es/pma/">https://acceso.donhosting.es/pma/</a>. Usa estas credenciales:</p>
+
+<ul>
+  <li>Usuario: la primera letra de tu nombre + tu apellido</li>
+  <li>Contraseña: la primera letra de tu nombre + tu apellido + 2022!</li>
+</ul>
+
+<p>Por ejemplo, si te llamas “Ana López”, podrás entrar con el usuario “alopez” y la contraseña “alopez2022!”. Si tu nombre es compuesto, como en “Jose Luis Rubio”, tu cuenta será “jlrubio” y tu contraseña “jlrubio2022!”.</p>
+
+<p>Una vez conectado a MySQL, tendrás que seleccionar la base de datos que vas a usar (en el panel de la izquierda). Solo tienes una disponible, así que no tiene pérdida:</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/08-phpmyadmin-seleccionar-bd.png" alt="Seleccionar la base de datos" /></p>
+
+<p>Ahora escribe tus instrucciones SQL desde la pestaña “SQL” (pulsa “Continuar” para ejecutar la instrucción):</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/08-phpmyadmin-ejecutar-sql.png" alt="Ejecutar SQL" /></p>
+
+<p>Para comprobar si tus instrucciones SQL están funcionando:</p>
+
+<ol>
+  <li>Asegúrate de que no dan ningún error al ejecutarlas.</li>
+  <li>Selecciona una tabla en la lista de tablas y mira en la pestaña “Estructura” a ver si se han creado las tablas como deberían.</li>
+  <li>Selecciona una tabla en la lista de tablas y mira en la pestaña “Examinar” a ver si contiene los datos que debería.</li>
+</ol>
+
+<p>No olvides ir copiando tu código SQL en algún editor de texto para poder luego subirme a Moodle el ejercicio completo.</p>
+:ET

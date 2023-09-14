@@ -1,0 +1,713 @@
+I"�1<h1 class="no_toc" id="10-orientación-a-objetos-con-c">10. Orientación a objetos con C++</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#101-conceptos-básicos-de-programación-orientada-a-objetos" id="markdown-toc-101-conceptos-básicos-de-programación-orientada-a-objetos">10.1. Conceptos básicos de programación orientada a objetos</a>    <ul>
+      <li><a href="#1011-un-ejemplo-sencillo-para-entender-el-concepto-de-objeto" id="markdown-toc-1011-un-ejemplo-sencillo-para-entender-el-concepto-de-objeto">10.1.1. Un ejemplo sencillo para entender el concepto de “objeto”</a></li>
+      <li><a href="#1012-métodos" id="markdown-toc-1012-métodos">10.1.2. Métodos</a></li>
+      <li><a href="#1013-atributos" id="markdown-toc-1013-atributos">10.1.3. Atributos</a></li>
+      <li><a href="#1014-herencia" id="markdown-toc-1014-herencia">10.1.4. Herencia</a></li>
+    </ul>
+  </li>
+  <li><a href="#102-los-objetos-en-javascript" id="markdown-toc-102-los-objetos-en-javascript">10.2. Los objetos en Javascript</a>    <ul>
+      <li><a href="#1021-creación-de-objetos-con-javascript" id="markdown-toc-1021-creación-de-objetos-con-javascript">10.2.1. Creación de objetos con Javascript</a></li>
+      <li><a href="#1022-el-objeto-this" id="markdown-toc-1022-el-objeto-this">10.2.2. El objeto “this”</a></li>
+      <li><a href="#1023-las-clases-en-javascript" id="markdown-toc-1023-las-clases-en-javascript">10.2.3. Las clases en Javascript</a></li>
+      <li><a href="#1024-herencia-en-javascript" id="markdown-toc-1024-herencia-en-javascript">10.2.4. Herencia en Javascript</a></li>
+      <li><a href="#1025-el-objeto-super" id="markdown-toc-1025-el-objeto-super">10.2.5. El objeto “super”</a></li>
+      <li><a href="#1026-algunos-aspectos-avanzados" id="markdown-toc-1026-algunos-aspectos-avanzados">10.2.6. Algunos aspectos avanzados</a></li>
+      <li><a href="#1027-objetos-predefinidos-de-javascript" id="markdown-toc-1027-objetos-predefinidos-de-javascript">10.2.7. Objetos predefinidos de Javascript</a></li>
+    </ul>
+  </li>
+  <li><a href="#103-un-ejemplo-completo" id="markdown-toc-103-un-ejemplo-completo">10.3. Un ejemplo completo</a></li>
+</ul>
+
+<p style="color: red"><strong>ATENCIÓN: este capítulo está en fase de revisión, así que su contenido va a cambiar en las próximas semanas.</strong></p>
+
+<p>En este capítulo vamos a introducir las técnicas de <strong>programación orientada a objetos</strong> y su implementación en Javascript.</p>
+
+<p>La programación orientada a objetos es una forma de programar (un <em>paradigma</em>, dicen los teóricos) que implica organizar el código fuente de una determinada manera. Desde que este paradigma se impuso con fuerza en la década de 1990, se ha comprobado que las aplicaciones orientadas a objetos son más fáciles de diseñar y de mantener que las aplicaciones que usan técnicas de programación más anticuadas (lo que se llama <strong>programación estructurada clásica</strong>).</p>
+
+<p>Javascript es un lenguaje orientado a objetos, aunque hace una interpretación un poco peculiar de lo que significa este concepto. En este capítulo, veremos primero qué es la programación orientada a objetos y luego nos centraremos en cómo aplicar esas ideas a Javascript.</p>
+
+<h2 id="101-conceptos-básicos-de-programación-orientada-a-objetos">10.1. Conceptos básicos de programación orientada a objetos</h2>
+
+<p>Los párrafos que vienen a continuación se basan en un texto <strong>Yukihiro Matsumoto</strong>, el creador del lenguaje Ruby. La razón es sencilla: me parece una explicación insuperable (gracias a Matsumoto, claro, no a mí).</p>
+
+<p>Para entender qué significa exactamente <strong>programación orientada a objetos</strong>, primero tenemos que comprender en qué consiste la <strong>programación tradicional</strong> o no orientada a objetos.</p>
+
+<p>En programación tradicional, cualquier problema informático se resuelve codificando un conjunto de algoritmos que trabajan sobre un conjunto de datos. Es decir, los datos son elementos pasivos: es el código el que se encarga de hacer todo el trabajo por ellos.</p>
+
+<p>A medida que los proyectos crecen, el código también lo hace, y llega un momento en el que es imposible saber cómo funciona todo el sistema. Surgen interacciones imprevistas e impredecibles entre distintas partes del programa. El fallo más tonto, como un error tipográfico, puede convertirse en una pesadilla cuya localización puede suponer muchas horas de trabajo (y, en consecuencia, mucho dinero).</p>
+
+<p>Como dice Matsumoto, el mantenimiento de estos programas se convierte en algo parecido a <strong>transportar un calamar gigante intentado que ninguno de sus tentáculos te alcance la cara</strong>.</p>
+
+<p>Lo que hace la programación orientada a objetos es cambiar esta forma de trabajar. No supone una revolución con los métodos anteriores, sino un cambio en la forma en la que se hacen las mismas cosas de siempre.</p>
+
+<p>La mayoría del trabajo se delega a los propios datos, de modo que <strong>los datos ya no son estáticos</strong>, sino que se encargan de mantenerse en forma a sí mismos. De nuevo en palabras de Matsumoto: <em>dejamos de tratar cada pieza de dato como una caja en la que se puede abrir su tapa y arrojar cosas en ella y empezamos a tratarlos como máquinas funcionales cerradas con unos pocos interruptores y diales bien definidos</em>.</p>
+
+<p>Un dato en programación orientada a objetos (es decir, una caja con interruptores, botoncitos y diales) puede tener, en sus tripas, algo muy simple o muy complejo. No se puede saber desde el exterior y no se nos permite abrir la máquina (excepto cuando estamos completamente seguros de que algo está mal en su diseño), por lo que se nos obliga a utilizar los interruptores y leer los diales para interactuar con los datos. Una vez construida una de esas máquinas, no queremos tener que volver a pensar en cómo funciona internamente.</p>
+
+<h3 id="1011-un-ejemplo-sencillo-para-entender-el-concepto-de-objeto">10.1.1. Un ejemplo sencillo para entender el concepto de “objeto”</h3>
+
+<p>Seguimos con Matsumoto para ilustrar con un ejemplo sencillo qué es eso de una “máquina con unos pocos interruptores y diales”.</p>
+
+<p>Seguramente en tu cocina tienes un horno microondas (aunque, en realidad, para este ejemplo podrías elegir cualquier electrodoméstico). El horno consta, entre otros muchos subsistemas, de un temporizador. Su trabajo consiste en mantener el horno encendido durante un tiempo determinado por el usuario.</p>
+
+<p>¿Cómo podríamos representar esto en un lenguaje de programación? En Javascript, por ejemplo, el temporizador podría ser, simplemente, una variable de tipo <em>number</em>. El programa manipularía esa variable disminuyendo el valor una vez por segundo, y permitiría al usuario establecer el tiempo inicial del temporizador antes de poner el horno en marcha.</p>
+
+<p>Con este enfoque tradicional, un error en cualquier parte del programa podría terminar asignando un valor falso a la variable, como un número negativo o un tiempo de varias horas. <em>Hay un número infinito de razones inesperadas por las que podría llegar a suceder esto</em>. Cualquiera con cierta experiencia programando sabe que se pueden perder horas o días tratando de encontrar ese error.</p>
+
+<p>Pero si programamos con un lenguaje orientado a objetos, <em>no pensaremos en el tipo de datos que mejor se ajusta a un temporizador de microondas, sino en el modo en el que un temporizador de microondas funciona en el mundo real</em>.</p>
+
+<p>No parece una gran diferencia, pero lo es.</p>
+
+<p>El programador, o el diseñador, necesitará dedicar cierto tiempo a decidir qué es exactamente un temporizador de microondas y cómo se espera que el mundo exterior interactúe con el. Por fin, construirá una pequeña máquina (una pieza de software) con controles que permitan establecer, consultar y disminuir su valor.</p>
+
+<p>Por ejemplo, podemos decidir crear el temporizador impidiendo asignarle un valor arbitrario, por la sencilla razón de que los temporizadores de microondas no trabajan de esa forma en el mundo real: solo permiten asignar múltiplos de 10 segundos, por lo general.</p>
+
+<p>Es decir: existen sólo unas cuantas cosas que un temporizador de microondas puede hacer, y sólo permitiremos esas cosas. Así, si alguien desde otra parte del programa trata de asignar algún valor no permitido al temporizador, como un número negativo, le resultará imposible hacerlo por la sencilla razón de que el propio temporizador no lo permitirá. Ya no es un dato “tonto” y estático, que permite que cualquiera lo manipule. Es un dato “listo”, con control y autonomía sobre su propio comportamiento.</p>
+
+<p><em>Lo hemos convertido en un <strong>objeto</strong></em>.</p>
+
+<p>De ese modo, estaremos protegiendo una parte del programa de errores cometidos en otras partes y que, en programación tradicional, se propagan como el fuego en un tanque de gasolina.</p>
+
+<p>Por si fuera poco, los lenguajes orientados a objetos nos permiten que, una vez que hayamos diseñado un temporizador de microondas (o el objeto que sea), podamos fabricar tantos como sea necesario. Habremos creado un patrón o molde de temporizador y, a partir de ese molde, se pueden construir objetos diferentes (pero similares) indefinidamente.</p>
+
+<p>Pues bien, el <em>molde</em> se conoce como <strong>clase</strong>, y cada temporizador concreto que fabriquemos a partir de ese molde se conoce como <strong>objeto</strong>.</p>
+
+<p>Aclaremos, sin embargo, que la programación orientada a objetos no es una solución milagrosa: nada impide, en cualquier lenguaje, escribir código poco claro, descuidado, inestable o directamente erróneo.</p>
+
+<p>A continuación hablaremos de los “interruptores y diales” del temporizador del microondas (métodos) y, un poco después, veremos como se construyen los moldes (clases).</p>
+
+<h3 id="1012-métodos">10.1.2. Métodos</h3>
+
+<p>En la programación orientada a objetos, como acabamos de ver, no se piensa en manipular los datos directamente desde el exterior de un objeto, sino que son los propios objetos los que deciden cómo se debe operar sobre ellos. Se pasa un mensaje al objeto y este mensaje provoca algún tipo de acción o respuesta significativa por parte del objeto. Esto ocurre sin que nos importe cómo realiza el objeto, interiormente, el trabajo.</p>
+
+<p>Las <em>tareas que podemos pedir que un objeto realice</em> (o lo que es lo mismo, los <em>mensajes</em> que el objeto comprende) son los <strong>métodos</strong>.</p>
+
+<p>En Javascript, se llama a un método con la <strong>notación punto</strong> (como en Java, C++, Python, Ruby o muchos otros lenguajes). El objeto con el que nos comunicamos se nombra a la izquierda del punto. Por ejemplo:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">mi_cadena</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Hoy es viernes</span><span class="dl">"</span><span class="p">;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Cadena convertida a mayúsculas: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">mi_cadena</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">());</span> 
+</code></pre></div></div>
+
+<p>Hemos enviado a un objeto llamado <em>mi_cadena</em> (que es, evidentemente, una cadena de caracteres) el menaje <em>toUpperCase()</em>. La salida por pantalla será:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Cadena convertida a mayúsculas: HOY ES VIERNES
+</code></pre></div></div>
+
+<p>Intuitivamente es fácil comprender lo que ha ocurrido aquí: al objeto <em>mi_cadena</em> se le ha pedido que nos calcule una versión de sí mismo con todos los caracteres convertidos en mayúscula.</p>
+
+<p>Técnicamente, lo que hemos hecho se llama <strong>invocar el método <em>toUpperCase()</em></strong> del objeto mi_cadena.</p>
+
+<p>Otros objetos pueden hacer una interpretación un poco diferente de <em>toUpperCase()</em>, o no comprenderlo en absoluto.</p>
+
+<p>Cuando un objeto recibe un mensaje que no conoce, se produce un error. Por lo tanto, hay que conocer qué métodos son aceptables para un objeto, aunque no se necesita saber como están programados por dentro. Los métodos, recuerda, son como los diales del horno microondas: como usuario, tienes que saber qué diales existen y cómo usarlos, pero no cómo están construidos.</p>
+
+<h3 id="1013-atributos">10.1.3. Atributos</h3>
+
+<p>Los <strong>atributos</strong> de un objeto definen las <strong>características</strong> del mismo. Por ejemplo, un atributo del temporizador del microondas debería ser el número de segundos que éste debe permanecer activo, y un atributo de un objeto de tipo String debe de ser el número de caracteres de que consta la cadena.</p>
+
+<p>Al programador que usa un objeto deberían importarle un bledo los atributos del mismo. Él (o ella) se encargará de usar el objeto a través de sus métodos, y éstos operarán con los atributos, si ello es necesario, de forma totalmente transparente al programador.</p>
+
+<p>Es decir, los atributos raramente son accesibles desde el exterior del objeto, salvo que, por razones de diseño, el programador del objeto haya decidido lo contrario.</p>
+
+<h3 id="1014-herencia">10.1.4. Herencia</h3>
+
+<p>En programación orientada a objetos, unas clases pueden <strong>heredar</strong> de otras.</p>
+
+<p>El concepto de herencia, en este contexto, se parece a la herencia genética entre seres vivos. Un ser vivo hereda por vía genética ciertas características de sus progenitores. Del mismo modo, una clase puede heredear ciertas características de sus clases-madre.</p>
+
+<p>Esto es extraordinariamente útil para <strong>reutilizar código</strong> y, por lo tanto, facilitar y abaratar el desarrollo y el mantenimiento de las aplicaciones informáticas.</p>
+
+<p>Por ejemplo, si en una aplicación tenemos una clase llamada <em>Vehículo</em> con ciertos atributos (<em>matrícula</em>, <em>marca</em>, <em>modelo</em>, etc), podemos crear varias subclases o clases-hijas llamadas <em>Turismo</em>, <em>Camión</em> o <em>Bicicleta</em>. Todas ellas heredarán los atributos y métodos de la clase-madre. Es decir, todas tendrán <em>matrícula</em>, <em>marca</em> y <em>modelo</em>, por ejemplo.</p>
+
+<p>Pero algunas de las subclases pueden necesitar atributos o métodos adicionales (¿qué tal un atributo <em>número_plazas</em> para <em>Turismo</em>?), mientras que otras pueden prescindir de algunos atributos o métodos (las bicicletas no suelen tener matrícula).</p>
+
+<p>Sin embargo, todas las subclases siguen siendo vehículos, y el código fuente que hayamos escrito para la clase <em>Vehículo</em> sigue siendo válido en cada una de ellas, sin necesidad de reescribirlo.</p>
+
+<h2 id="102-los-objetos-en-javascript">10.2. Los objetos en Javascript</h2>
+
+<p>Una vez comprendidos los conceptos básicos de programación orientada a objetos, vamos a ver cómo se utilizan en Javascript.</p>
+
+<p>Javascript ha hecho, históricamente, una interpretación un poco peculiar del paradigma de orientación a objetos. De hecho, se decía de él que no era un lenguaje orientado a objetos, sino orientado a prototipos. No importa demasiado lo que esto significa, al menos de momento. Afortunadamente, desde la versión EC6 del año 2015, Javascript admite definiciones de clases y objetos mucho más convencionales y respetuosas con el paradigma.</p>
+
+<h3 id="1021-creación-de-objetos-con-javascript">10.2.1. Creación de objetos con Javascript</h3>
+
+<p>En JavaScript, <strong>crear un objeto individual</strong> es tan sencillo como declarar una variable con esta sintaxis:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">book</span> <span class="o">=</span> <span class="p">{};</span>
+</code></pre></div></div>
+
+<p>Por supuesto, esto creará un objeto llamado <em>book</em> que estará vacío. Para que el objeto tenga atributos y métodos, hay que rellenarlo con código. Observa el siguiente ejemplo:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">book</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">The Lord of the Rings</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">year</span><span class="p">:</span> <span class="mi">1954</span><span class="p">,</span>
+  <span class="na">genre</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">epic</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">fantasy</span><span class="dl">'</span><span class="p">],</span>
+  <span class="na">getTitle</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nl">getGenres</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">genre</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> </span><span class="dl">'</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">genre</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="p">},</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Este objeto se compone de <strong>tres atributos</strong> (<em>title, year, genre</em>) y dos métodos (<em>getGenres()</em> y <em>getTitle()</em>).</p>
+
+<p>A los atributos les hemos asignado algunos valores. De este modo, podemos invocar a los métodos y comprobar que el objeto responde correctamente. Así:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">book</span><span class="p">.</span><span class="nx">getTitle</span><span class="p">();</span>
+<span class="nx">book</span><span class="p">.</span><span class="nx">getGenres</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>El resultado serán dos pantallas de tipo <em>alert()</em> donde se nos mostrarán los textos “The Lord of the Rings” y “epic fantasy”, respectivamente.</p>
+
+<p>En el objeto anterior, también podemos acceder y modificar los atributos del objeto. Observa este código:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="nx">book</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
+<span class="nx">book</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Harry Potter and the Philosopher's Stone</span><span class="dl">"</span><span class="p">;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">book</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>El primer <em>alert()</em> mostrará “The Lord of the Rings” (exactamente igual que el método <em>getTitle()</em>), mientras que el segundo <em>alert()</em> mostrará “Harry Potter and the Philosopher’s Stone”, porque hemos accedido y modificado el atributo <em>title</em> del objeto <em>book</em>.</p>
+
+<h3 id="1022-el-objeto-this">10.2.2. El objeto “this”</h3>
+
+<p>Es posible que te haya llamado la atención la presencia de la palabra <strong><em>this</em></strong> en el objeto <em>book</em>.</p>
+
+<p>Esa palabra se refiere <strong>al objeto actual</strong> sobre el que se está ejecutando el código. En el ejemplo, <em>this</em> es equivalente a <em>book</em>. Si, por ejemplo, le cambiásemos el nombre a la variable <em>book</em>, no será necesario cambiar el código fuente de sus métodos porque esos métodos se refieren a <em>this</em>, no a <em>book</em>.</p>
+
+<p>Puedes verlo mejor en este ejemplo:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">book1</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">The Lord of the Rings</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">getTitle</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">book2</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">The Hunger Games</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">getTitle</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>En el objeto <em>book1</em> podíamos haber utilizado el identificador <em>book1</em> en lugar de <em>this</em>, y funcionaría exactamente igual. Lo mismo suceden con <em>book2</em>.</p>
+
+<p>¿Cuál es la ventaja, entonces, de usar <em>this</em>? Muy pronto aprenderemos a crear múltiples objetos a partir <em>del mismo código fuente</em>. En ese caso, ¿qué tendríamos que poner en el código fuente? Si escribimos <em>book1</em>, el código ya no funcionaría para <em>book2</em>, y si escribimos <em>book2</em>, no funcionaría para <em>book1</em>. En cambio, escribiendo <em>this</em>, el método <em>getTitle()</em> funciona con <em>book1</em>, con <em>book2</em> y con cualquier otro objeto que creemos a partir del mismo molde.</p>
+
+<h3 id="1023-las-clases-en-javascript">10.2.3. Las clases en Javascript</h3>
+
+<p><em>(<strong>Nota importante</strong>: como hemos dicho al principio, vamos a utilizar la sintaxis de Javascript EC6 y posterior. Si no sabes de qué estamos hablando, no te preocupes: solo tienes que mantener tu navegador web actualizado para asegurarte que entiende el Javascript moderno).</em></p>
+
+<p>Como vimos antes, una <strong>clase</strong> en un molde a partir del cual podemos crear objetos idénticos (aunque luego cada uno pueda evolucionar de forma independiente del resto).</p>
+
+<p>Por ejemplo, podemos definir una clase <em>Book</em> que tenga en su interior los atributos (<em>title</em>, <em>genre</em>, etc) y los métodos (como <em>getTitle()</em>), y a partir de ella podemos crear todos los objetos de tipo <em>Book</em> que necesitemos. Así, solo habremos escrito el código fuente una vez, y lo podemos reutilizar tantas veces como sea necesario, no cada vez que vayamos a crear un libro.</p>
+
+<p>En Javascript, la clase <em>Book</em> se declara así:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Book</span> <span class="p">{</span>
+  <span class="nx">title</span><span class="p">;</span>                  <span class="c1">// Atributo</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">title</span><span class="p">)</span> <span class="p">{</span>    <span class="c1">// Método constructor</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">title</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">getTitle</span><span class="p">()</span> <span class="p">{</span>            <span class="c1">// Otro método</span>
+      <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Esta clase contiene:</p>
+<ul>
+  <li><strong>Un atributo</strong> (<em>title</em>).</li>
+  <li><strong>El método <em>constructor()</em></strong>, que se ejecutará automáticamente al crear cada nuevo objeto del tipo <em>Book</em>. Es importante que se llame exactamente así. Observa que tiene un parámetro, <em>title</em>.</li>
+  <li><strong>El método <em>getTitle()</em></strong> , que nos mostrará el título del libro mediante un <em>alert()</em>. Este método puede tener el nombre que queramos y podría hacer cualquier otra cosa con el libro. Nos limitamos al mostrar el título como ejemplo de algo que tiene sentido hacer con un libro.</li>
+</ul>
+
+<p>Ahora podemos crear todos los <em>Books</em> que queramos, y todos utilizarán el mismo código y tendrán los mismos atributos. Por ejemplo:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">book1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Book</span><span class="p">(</span><span class="dl">'</span><span class="s1">The Lord of the Rings</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">book2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Book</span><span class="p">(</span><span class="dl">'</span><span class="s1">The Hunger Games</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">book3</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Book</span><span class="p">(</span><span class="dl">'</span><span class="s1">The Neverending Story</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Acabamos de crear tres objetos de tipo <em>Book</em> diferentes. Observa cómo se usa la palabra <em>new</em> delante del nombre de la clase y como, al crear cada libro, debemos pasar su título como parámetro. <em>Esto es así porque el constructor de la clase tenía un parámetro</em>, el título del libro.</p>
+
+<p>Ahora podemos usar los métodos de esos objetos, y cada uno actuará sobre su propio conjunto de atributos. Por ejemplo:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">book1</span><span class="p">.</span><span class="nx">getTitle</span><span class="p">();</span>
+<span class="nx">book2</span><span class="p">.</span><span class="nx">getTitle</span><span class="p">();</span>
+<span class="nx">book3</span><span class="p">.</span><span class="nx">getTitle</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Este código provocará la ejecución de tres <em>alerts</em> consecutivos, que nos mostrarán, uno tras otro, los títulos de nuestros tres libros.</p>
+
+<p>(Nota: por convenio, el nombre de la clase suele escribirse con mayúscula inicial, mientras que el nombre de los atributos, métodos y objetos individuales se escribe empezando en minúsculas).</p>
+
+<h3 id="1024-herencia-en-javascript">10.2.4. Herencia en Javascript</h3>
+
+<p><em>(Nuevamente, nos referiremos a cómo se maneja la herencia en las versiones recientes de Javascript (EC6 o posterior). ¡Asegúrate de tener tu navegador web actualizado!)</em></p>
+
+<p>Cuando se crea una clase, se puede hacer desde cero o bien se puede basar en otra clase preexistente. En este segundo caso, la nueva clase <strong>hereda los atributos y los métodos</strong> de la <strong>clase-madre</strong> o <strong>superclase</strong>, a los que puede añadir sus propios atributos y métodos.</p>
+
+<p>Esto permite reutilizar grandes cantidades de código de forma bien organizada y sin necesidad de volver a escribirlo.</p>
+
+<p>Lo vamos a entender mejor con otro ejemplo. <strong>Vamos a crear una clase nueva</strong>, en esta ocasión llamada <strong><em>Person</em></strong>. Tendrá dos atributos (<em>name</em> y <em>age</em>) y un método (<em>getName()</em>), además del constructor:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Person</span> <span class="p">{</span>
+  <span class="c1">// Atributos</span>
+  <span class="nx">name</span><span class="p">;</span>   
+  <span class="nx">age</span><span class="p">;</span>
+  <span class="c1">// Método constructor</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">firstname</span><span class="p">,</span> <span class="nx">lastname</span><span class="p">,</span> <span class="nx">age</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="p">{</span><span class="nx">firstname</span><span class="p">,</span> <span class="nx">lastname</span><span class="p">};</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// Otros métodos</span>
+  <span class="nx">getName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Esta persona se llama: </span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">firstname</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">lastname</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>En este caso, pasamos tres parámetros a la función constructora. Dos de ellos (<em>firstname</em> y <em>lastname</em>) los agrupamos dentro de un solo atributo (<em>name</em>). Por ese motivo, en el método <em>getName()</em> tenemos que acceder a cada uno de los elementos de <em>name</em> por separado. Podríamos haber utilizado dos atributos diferenciados, pero hemos preferido hacerlo así para darle un poco de variedad a los ejemplos y para que veas que el número de parámetros del constructor no tiene por qué coincidir con el número de atributos.</p>
+
+<p>Ahora, por supuesto, podemos <strong>crear todos los objetos que queramos a partir de la clase <em>Person</em></strong>. Por ejemplo:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">person1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="dl">'</span><span class="s1">Juan</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Pérez</span><span class="dl">'</span><span class="p">,</span> <span class="mi">25</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">person2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="dl">'</span><span class="s1">Ana</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">López</span><span class="dl">'</span><span class="p">,</span> <span class="mi">37</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>A continuación, podemos <strong>crear nuestras clases-hija</strong> o <strong>clases derivadas</strong> que hereden de <em>Person</em>. Observa detenidamente este código y enseguida entenderás cómo funciona la herencia:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Student</span> <span class="kd">extends</span> <span class="nx">Person</span> <span class="p">{</span>
+  <span class="c1">// Atributos adicionales</span>
+  <span class="nx">course</span><span class="p">;</span>
+  <span class="c1">// Método constructor</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">firstname</span><span class="p">,</span> <span class="nx">lastname</span><span class="p">,</span> <span class="nx">age</span><span class="p">,</span> <span class="nx">course</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">firstname</span><span class="p">,</span> <span class="nx">lastname</span><span class="p">,</span> <span class="nx">age</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">course</span> <span class="o">=</span> <span class="nx">course</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// Otros métodos</span>
+  <span class="nx">getCourse</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Este estudiante está matriculado en el curso: </span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">course</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">Teacher</span> <span class="kd">extends</span> <span class="nx">Person</span> <span class="p">{</span>
+  <span class="c1">// Atributos adcicionales</span>
+  <span class="nx">speciality</span><span class="p">;</span>
+  <span class="c1">// Método constructor</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">firstname</span><span class="p">,</span> <span class="nx">lastname</span><span class="p">,</span> <span class="nx">age</span><span class="p">,</span> <span class="nx">speciality</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">firstname</span><span class="p">,</span> <span class="nx">lastname</span><span class="p">,</span> <span class="nx">age</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">speciality</span> <span class="o">=</span> <span class="nx">speciality</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// Otros métodos</span>
+  <span class="nx">getSpeciality</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">La especialidad de este profesor/a es: </span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">speciality</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>¿No es cierto que los estudiantes y los profesores suelen ser personas (en la mayoría de los casos, al menos)? Pues bien, aquí hemos <strong>definido dos nuevas clases llamadas <em>Student</em> y <em>Teacher</em></strong>. Pero no las hemos definido <em>completamente</em>, sino que hemos <strong>reutilizado la clase <em>Person</em></strong>.</p>
+
+<p>Y lo hemos hecho indicando que <strong>tanto <em>Student</em> como <em>Teacher</em> heredan de la clase <em>Person</em></strong>. Esto se indica con la palabra <strong><em>extends</em></strong> en la declaración de la clase. Es decir, que las dos nuevas clases heredan todo el contenido de su clase-madre.</p>
+
+<p>Luego, simplemente, hemos añadido los nuevos atributos y nuevos métodos que existen en esas clases pero no tienen sentido en la clase-madre.</p>
+
+<p>Observa bien los constructores de <em>Student</em> y <em>Teacher</em>. Ahí encontrarás la palabra <strong><em>super</em></strong>. En el siguiente apartado veremos lo que significa. El resto del código es bastante trivial.</p>
+
+<p>Ahora podemos hacer algo como esto y funcionará:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">person1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="dl">'</span><span class="s1">Juan</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Pérez</span><span class="dl">'</span><span class="p">,</span> <span class="mi">25</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">person2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Student</span><span class="p">(</span><span class="dl">'</span><span class="s1">Ana</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">López</span><span class="dl">'</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="dl">'</span><span class="s1">1º bachillerato A</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">person3</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Teacher</span><span class="p">(</span><span class="dl">'</span><span class="s1">Laura</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Sánchez</span><span class="dl">'</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Matemáticas</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Acabamos de crear tres personas diferentes. La primera es una persona genérica, la segunda es una estudiante (y tiene un atributo y un método extra del que carecen las personas genéricas) y la tercera es una profesora (con su propio atributo y método extra).</p>
+
+<p>(Por supuesto, los estudiantes y los profesores podrían tener más atributos y métodos adicionales, no solo uno).</p>
+
+<p>Por lo tanto, los tres objetos tendrán un método <em>getName()</em>, pero solo el <em>Student</em> tendrá un método <em>getCourse()</em> y solo el <em>Teacher</em> tendrá un método <em>getSpeciality()</em>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">person1</span><span class="p">.</span><span class="nx">getName</span><span class="p">();</span>        <span class="c1">// Funciona</span>
+<span class="nx">person2</span><span class="p">.</span><span class="nx">getName</span><span class="p">();</span>        <span class="c1">// Funciona</span>
+<span class="nx">person3</span><span class="p">.</span><span class="nx">getName</span><span class="p">();</span>        <span class="c1">// Funciona</span>
+
+<span class="nx">person1</span><span class="p">.</span><span class="nx">getCourse</span><span class="p">();</span>      <span class="c1">// NO FUNCIONA. person1 no es un Student</span>
+<span class="nx">person2</span><span class="p">.</span><span class="nx">getCourse</span><span class="p">();</span>      <span class="c1">// Funciona</span>
+<span class="nx">person3</span><span class="p">.</span><span class="nx">getCourse</span><span class="p">();</span>      <span class="c1">// NO FUNCIONA. person3 no es un Student</span>
+
+<span class="nx">person1</span><span class="p">.</span><span class="nx">getSpeciality</span><span class="p">();</span>  <span class="c1">// NO FUNCIONA. person1 no es un Teacher</span>
+<span class="nx">person2</span><span class="p">.</span><span class="nx">getSpeciality</span><span class="p">();</span>  <span class="c1">// NO FUNCIONA. person2 no es un Teacher</span>
+<span class="nx">person3</span><span class="p">.</span><span class="nx">getSpeciality</span><span class="p">();</span>  <span class="c1">// Funciona</span>
+</code></pre></div></div>
+
+<h3 id="1025-el-objeto-super">10.2.5. El objeto “super”</h3>
+
+<p>En los constructores de las clases <em>Student</em> y <em>Teacher</em> del apartado anterior hemos usado la palabra <strong><em>super</em></strong>. ¿Qué significa exactamente?</p>
+
+<p><strong><em>super</em></strong> es una <strong>referencia a la superclase</strong>.</p>
+
+<p>Por lo tanto, al escribir <code class="language-plaintext highlighter-rouge">super(firstname, lastname, age)</code>, estamos <strong>invocando al constructor de la superclase <em>Person</em></strong>. Esto es <strong>obligatorio</strong> hacerlo en todos los constructores de las clases derivadas.</p>
+
+<p>Del mismo modo, si escribiéramos algo como <code class="language-plaintext highlighter-rouge">super.getName()</code>, estaríamos invocando al método getName() de la clase madre, no de la clase actual. Esto, por supuesto, no es obligatorio, y solo lo haremos si realmente nuestro código lo necesita.</p>
+
+<h3 id="1026-algunos-aspectos-avanzados">10.2.6. Algunos aspectos avanzados</h3>
+
+<p>Como ves, la programación orientada a objetos no es más que una manera particular de organizar el código fuente en clases que se ha revelado muy útil a la hora de minimizar el tiempo y el esfuerzo para construir y mantener proyectos grandes.</p>
+
+<p>La programación orientada a objetos tiene otras características más avanzadas que vamos a describir muy brevemente, no porque sean complicadas de entender o de usar, sino porque solo tienen sentido cuando trabajas en proyectos muy grandes y con un conjunto de clases muy elaborado.</p>
+
+<p>Como de momento solo estamos aprendiendo, aún no necesitamos profundizar en ello. Ya lo harás cuando llegue tu momento y te lo pida el cuerpo. Lo que sí es importante es que estos conceptos te suenen para que puedas buscar información cuando lo necesites.</p>
+
+<ul>
+  <li>
+    <p><strong>Clases abstractas</strong>: son clases de las que <em>no se pueden crear objetos</em>.</p>
+
+    <p>¿Entonces para qué sirven?, te preguntarás. Muy sencillo: para hacer herencia a partir de ellas.</p>
+
+    <p>Normalmente, las clases abstractas son clases muy genéricas de las que no tiene sentido crear un objeto, porque ese objeto apenas sería funcional. La clase abstracta se limita a proporcionar un conjunto de atributos y métodos que heredan todas las clases-hija.</p>
+  </li>
+  <li>
+    <p><strong>Herencia múltiple</strong>: ocurre cuando una clase hereda de varias clases-madre a la vez. Proporciona una enorme flexibilidad a la hora de diseñar nuestra arquitectura de clases, pero también provoca no pocos problemas. Muchos lenguajes, entre ellos Javascript, no la permiten. Otros, como C++ o Python, sí.</p>
+  </li>
+  <li>
+    <p><strong>Visibilidad</strong>: los métodos y atributos de los objetos se pueden hacer <strong>públicos o privados</strong>. Si son públicos, quiere decir que pueden usarse desde cualquier lugar del código fuente. Si son privados, quiere decir que solo pueden usarse desde el código escrito dentro de la propia clase.</p>
+
+    <p>Esto se hace para que el objeto funcione como una caja negra, cuyas “tripas” sean invisibles al exterior.</p>
+
+    <p>Generalmente, los atributos de una clase suelen hacerse privados, mientras que la mayor parte de los métodos suelen ser públicos, pero puede haber tantas excepciones a esta regla que sería imposible enumerarlas.</p>
+  </li>
+  <li>
+    <p><strong>Sobrecarga</strong>. Sobrecargar un método consiste en crear varias versiones del mismo que se diferencian por el número de parámetros. Puede llegar a ser muy útil en programas muy grandes con jerarquías de clases muy complejas.</p>
+  </li>
+  <li>
+    <p><strong>Polimorfismo</strong>. Se llama <em>polimorfismo</em> a la capacidad de los lenguajes orientados a objetos de que existan varias versiones diferentes de un mismo elemento (métodos, generalmente) que se nombran del mismo modo pero se comportan de modo diferente.</p>
+
+    <p>Probablemente sigues sin entender qué narices significa la frase anterior aunque la hayas leído varias veces, ¿verdad?</p>
+
+    <p>Tranquilidad, porque a todo el mundo le ocurre la primera vez que le mencionan el término polimorfismo. Te lo explico con un ejemplo, pero tampoco te preocupes demasiado: no es algo que vayas a usar hasta dentro de muuucho tiempo.</p>
+
+    <p>Imagina que tenemos una superclase llamada <em>Person</em> con sus clases derivadas como <em>Student</em> o <em>Teacher</em>. Es decir, como en los ejemplos anteriores. Hasta aquí, bien.</p>
+
+    <p>Ahora sigue imaginando que tienes un método, el que sea, en la clase <em>Person</em>. Por ejemplo, <em>getProfession()</em>. Todos los objetos de tipo <em>Student</em> o <em>Teacher</em> heredarán el método <em>getProfession()</em>. Ahora bien, ¿tiene sentido que ese método sea el mismo para <em>Student</em> que para <em>Teacher</em>? Probablemente no. ¡Para empezar, el estudiante ni siquiera tiene profesión (aún)!</p>
+
+    <p>Una cosa muy interesante que pueden hacer las clases-hija es <strong>sobreescribir</strong> los métodos, es decir, coger un método heredado y cambiar su código fuente. Así, puedes tener diferentes versiones del método <em>getProfession()</em>, una para cada clase de la jerarquía.</p>
+
+    <p>Y ya lo tienes. Eso es una manifestación del <strong>polimorfismo</strong>: tener un método (<em>getProfession()</em>) con diferentes formas o implementaciones. Según cuál sea el objeto con el que lo llames, se ejecutará una versión u otra del método. Esto puede parecer una chorrada, pero con jerarquías de clases muy complejas ayuda a resolver situaciones muy chungas. Por ejemplo: ¿qué pasa si un profesor es, a su vez, estudiante en algún curso? Según el papel de esa persona en cada momento, habrá que ejecutar una versión diferente de <em>getProfession()</em>.</p>
+
+    <p>Si has llegado hasta aquí en esta explicación, puedes volver a leer la definición de polimorfismo y seguramente sí la entenderás.</p>
+  </li>
+</ul>
+
+<h3 id="1027-objetos-predefinidos-de-javascript">10.2.7. Objetos predefinidos de Javascript</h3>
+
+<p>Ahora que ya conoces un poco sobre la programación orientada a objetos y cómo trabajar con ella en Javascript, puedo confesarte un secreto: <em>has estado utilizando objetos desde el primer momento en el que empezaste a trabajar con Javascript</em>.</p>
+
+<p>Así es. Como Javascript es un lenguaje orientado a objetos, hay un montón de objetos predefinidos que existen en todos los programas Javascript para que los uses si los necesitas.</p>
+
+<p>Por ejemplo, cuando hacías <em>Math.rand()</em>, estabas invocando al método <em>rand()</em> del <strong>objeto <em>Math</em></strong>. Este objeto es un poco especial, porque no necesitas crear una instancia. Es decir, no necesitas hacer <code class="language-plaintext highlighter-rouge">var math = new Math()</code> para usarlo. Con algunas clases ocurre esto, y se llaman <strong>clases estáticas</strong>.</p>
+
+<p>Otro objeto predefinido que seguro que has utilizado sin saber que lo era es el <strong>objeto <em>window</em></strong>. En este caso, es un objeto normal, no estático, pero no tenemos que crearlo con <code class="language-plaintext highlighter-rouge">var window = new Window()</code> porque Javascript lo crea automáticamente para nosotros cada vez que abrimos una ventana del navegador web.</p>
+
+<p>De hecho, los métodos <em>alert()</em> o <em>confirm()</em> son, en realidad, métodos del objeto <em>window</em>. Es decir, podemos escribir <em>window.alert()</em> o <em>window.confirm()</em>, y funcionarían exactamente igual. Lo que ocurre es que, si no indicamos un objeto delante del nombre del método, Javascript interpretará que se trata de un método del objeto <em>window</em>.</p>
+
+<p>Y así hay otro buen puñado de objetos predefinidos cuya existencia te conviene conocer. Algunos de ellos son:</p>
+
+<ul>
+  <li><strong>Math</strong>: contiene un montón de métodos para operaciones matemáticas.</li>
+  <li><strong>window</strong>: métodos y atributos para manejar la ventana del navegador donde se ejecuta la aplicación.</li>
+  <li><strong>Date</strong>: para trabajar con fechas y horas.</li>
+  <li><strong>Number</strong>: operaciones relacionadas con números.</li>
+  <li><strong>String</strong>: para trabajar con cadenas de caracteres.</li>
+  <li><strong>Array</strong>: para trabajar con arrays.</li>
+  <li><strong>JSON</strong>: para trabajar con datos complejos codificados como JSON, un formato de intercambio de información muy utilizado con Javascript y otros lenguajes.</li>
+  <li><strong>Error</strong>: para manipular los errores de ejecución y obtener información sobre ellos.</li>
+</ul>
+
+<h2 id="103-un-ejemplo-completo">10.3. Un ejemplo completo</h2>
+
+<p>Vamos a terminar esta pequeña introducción a la programación orientada a objetos mostrando un ejemplo completo desarrollado con Javascript.</p>
+
+<p>Puedes considerarlo un ejercicio resuelto. Es decir: <em>primero puedes intentar hacerlo tú, y luego comparar tu intento con mi solución</em>. No es necesario que tu solución y la mía sean idénticas, desde luego, puesto que siempre hay varias formas correctas de hacer lo mismo.</p>
+
+<h4 id="lo-que-queremos-hacer">Lo que queremos hacer</h4>
+
+<p>Este es un ejemplo clásico para practicar la herencia entre clases, porque resulta fácil de entender y de programar.</p>
+
+<p>Se trata de escribir un programa que sea capaz de calcular ciertas magnitudes, como el área y el perímetro, de muchos tipos diferentes de figuras geométricas. Empezaremos por círculos, cuadrados y rectángulos, pero podríamos extender el programa con facilidad para abarcar otras figuras.</p>
+
+<p>Observa el diagrama de aquí abajo. Se trata de un <strong>diagrama de clases</strong>, una representación gráfica de las clases que existen en un programa y cómo heredan unas de otras. No te asustes: es sencillo leer un diagrama de clases. Más abajo te doy algunas pistas.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/06-01-figuras-geometricas.jpg" alt="Diagrama de clases - Figuras geométricas" /></p>
+
+<p>Cada “caja” de este diatrama es una clase, y en cada clase se indica su nombre, sus atributos y sus métodos. Delante de cada atributo y método verás un símbolo: + significa que ese atributo o método es público, es decir, accesible desde otras clases, y - significa que es privado, accesible solo desde la propia clase.</p>
+
+<p>Si no se indica lo contrario, Javascript considerará que los atributos y métodos son públicos. Es decir, todos los atributos y métodos que hemos usado hasta ahora son públicos. En sistemas complejos, es importante distinguir los atributos y métodos públicos de los privados.</p>
+
+<p>Además, el diagrama expresa cómo heredan las clases unas de otras. La clase <em>Figura</em> es la madre de toda la jerarquía, también llamada <strong>superclase</strong>. Las clases <em>Círculo</em> y <em>Rectángulo</em> son hijas de <em>Figura</em>, es decir, <strong>subclases</strong> o <strong>clases derivadas</strong>. Por último, la clase <em>Cuadrado</em> es subclase de <em>Rectángulo</em>.</p>
+
+<p>Por supuesto, podíamos haber añadido más figuras, pero con estas ya tienes entretenimiento para un rato. Observa, por cierto, como <em>Cuadrado</em> hereda de <em>Rectángulo</em>, y no directamente de <em>Figura</em>.</p>
+
+<p>El programa que vamos a escribir tiene que incluir lo siguiente:</p>
+
+<ol>
+  <li><strong>La superclase <em>Figura</em></strong> (figura geométrica), que contendrá:
+    <ul>
+      <li>Dos atributos: color (String) y relleno (boolean).</li>
+      <li>Un constructor que recibirá dos argumentos para inicializar los atributos.</li>
+      <li><em>Getters</em> y <em>setters</em>, es decir, métodos para consultar el valor de los atributos (<em>getColor()</em> y <em>getRelleno()</em>) y para establecer el valor de los atributos (<em>setColor()</em> y <em>setRelleno()</em>). Entiendes por qué se llaman <em>getters</em> y <em>setters</em>, ¿verdad?</li>
+      <li>Un método <em>toString()</em> que devolverá la cadena: “Soy una figura de color xxx y rellena/no rellena”, según lo que valgan los atributos en ese momento.</li>
+    </ul>
+  </li>
+  <li><strong>Una subclase de <em>Figura</em> llamada <em>Círculo</em></strong>. La clase <em>Círculo</em> contendrá:
+    <ul>
+      <li>Un atributo llamado <em>radio</em> (un número real).</li>
+      <li>Un constructor, como se ve en el diagrama de clases.</li>
+      <li><em>Getter</em> y <em>setter</em> para el radio.</li>
+      <li>Los métodos <em>getArea()</em> y <em>getPerimetro()</em>. Si no recuerdas como calcular el área y el perímetro (o circunferencia) de un círculo… bueno, ¿para qué está la wikipedia?</li>
+      <li>El método <em>toString()</em> heredado de <em>Figura</em> se debe sobreescribir. Ahora, el método devolverá: “Soy un círculo con radio = x, esta es mi superclase: yyy”, donde yyy es la salida del método <em>toString()</em> de la superclase de <em>Figura</em>.</li>
+    </ul>
+  </li>
+  <li><strong>Una subclase de <em>Figura</em> llamada <em>Rectángulo</em></strong>. La clase <em>Rectángulo</em> se comportará igual que <em>Círculo</em>, con las lógicas diferencias en atributos y métodos <em>getters</em> y <em>setters</em>. Mira el diagrama de clases si tienes alguna duda.</li>
+  <li>
+    <p><strong>Una subclase de <em>Rectángulo</em> llamada <em>Cuadrado</em></strong>. Esta clase podía haberse modelado como subclase de <em>Figura</em>, pero es más cómodo hacerlo como subclase de <em>Rectángulo</em>, porque podemos aprovechar casi todo el código de su superclase. Basta con crear el siguiente constructor:</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Cuadrado</span> <span class="p">{</span>
+   <span class="kd">constructor</span><span class="p">(</span><span class="nx">side</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">super</span><span class="p">(</span><span class="nx">side</span><span class="p">,</span> <span class="nx">side</span><span class="p">);</span>  <span class="c1">// Llama al constructor de la superclase Rectangulo</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>Además de crear el constructor, sobreescribiremos, como en los otros casos, el método <em>toString()</em>.</li>
+      <li>Atención, pregunta: ¿necesitarás sobreescribir <em>getArea()</em> y <em>getPerimetro()</em>, o funcionarán tal y como han sido heredados de <em>Rectángulo</em>? Haz la prueba a ver qué pasa…</li>
+      <li>También sobreescribiremos los métodos <em>setAlto()</em> y <em>setAncho()</em> para evitar que el largo y el ancho del cuadrado puedan tener dimensiones diferentes.</li>
+    </ul>
+  </li>
+  <li>Finalmente, tendremos que escribir un fragmento de código para testear que todo lo anterior funcione, creando unas cuantas figuras de cada tipo y llamando a algunos métodos.</li>
+</ol>
+
+<h4 id="nuestra-implementación">Nuestra implementación</h4>
+
+<p>En la implementación de la clase <em>Figura</em> vamos a usar comentarios en formato <strong>javadoc</strong>. Es una manera de escribir los comentarios que te vas a encontrar a menudo por ahí, puesto que se trata de un estándar de la industria.</p>
+
+<p>El resto de clases son tan sencillas que nos hemos ahorrado los comentarios para no complicar innecesariamente el código fuente.</p>
+
+<p>Como en otras ocasiones, tu trabajo aquí es intentar resolver el ejercicio antes de ver la solución. Y, una vez que empieces a leer la solución, hacerlo poco a poco y sin prisas.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Jerarquía de figuras geométricas<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+        <span class="cm">/**
+         * Clase Figura (figura geométrica genérica)
+         */</span>
+        <span class="kd">class</span> <span class="nx">Figura</span> <span class="p">{</span>
+
+            <span class="nx">color</span><span class="p">;</span>    <span class="c1">// Atributos</span>
+            <span class="nx">relleno</span><span class="p">;</span>
+
+            <span class="cm">/**
+             * Constructor con parámetros.
+             *
+             * @param c El color de la figura.
+             * @param r Indica si la figura está rellena o no.
+             */</span>
+            <span class="kd">constructor</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="nx">c</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">relleno</span> <span class="o">=</span> <span class="nx">r</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="cm">/**
+             * Determina el color de la figura.
+             *
+             * @return El color de la figura.
+             */</span>
+            <span class="nx">getColor</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">color</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="cm">/**
+             * Establece el color de la figura.
+             *
+             * @param c El color de la figura.
+             */</span>
+            <span class="nx">setColor</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="nx">c</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="cm">/**
+             * Determina si la figura está o no rellena.
+             *
+             * @return True si la figura está rellena, false si no está.
+             */</span>
+            <span class="nx">estaRelleno</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">relleno</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="cm">/**
+             * Cambia el valor del relleno de la figura.
+             *
+             * @param r True para que la figura pase a estar rellena,
+             *          false para que no lo esté.
+             */</span>
+            <span class="nx">setRelleno</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">relleno</span> <span class="o">=</span> <span class="nx">r</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="cm">/**
+             * Devuelve una cadena descriptiva del objeto actual.
+             * @return La cadena con la descripción del objeto.
+             */</span>
+            <span class="nx">toString</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Soy una figura de color </span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">color</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> y </span><span class="dl">"</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">relleno</span><span class="p">)</span> <span class="nx">s</span> <span class="o">=</span> <span class="nx">s</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">estoy rellena</span><span class="dl">"</span><span class="p">;</span>
+                <span class="k">else</span> <span class="nx">s</span> <span class="o">=</span> <span class="nx">s</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">no estoy rellena</span><span class="dl">"</span><span class="p">;</span>
+                <span class="k">return</span> <span class="nx">s</span><span class="p">;</span>
+            <span class="p">}</span>
+
+        <span class="p">}</span>
+
+        <span class="kd">class</span> <span class="nx">Circulo</span> <span class="kd">extends</span> <span class="nx">Figura</span> <span class="p">{</span>
+
+            <span class="nx">radio</span><span class="p">;</span>   <span class="c1">// Atributo</span>
+
+            <span class="kd">constructor</span><span class="p">(</span><span class="nx">color</span><span class="p">,</span> <span class="nx">relleno</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">super</span><span class="p">(</span><span class="nx">color</span><span class="p">,</span> <span class="nx">relleno</span><span class="p">);</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">radio</span> <span class="o">=</span> <span class="nx">r</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nx">getRadio</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">radio</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nx">setRadio</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">radio</span> <span class="o">=</span> <span class="nx">r</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nx">getArea</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">radio</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">radio</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nx">getPerimetro</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">radio</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nx">toString</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="dl">"</span><span class="s2">Soy un círculo de radio </span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">radio</span> <span class="o">+</span>
+                    <span class="dl">"</span><span class="s2"> y esta es mi superclase: </span><span class="dl">"</span> <span class="o">+</span> <span class="k">super</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+
+        <span class="kd">class</span> <span class="nx">Rectangulo</span> <span class="kd">extends</span> <span class="nx">Figura</span> <span class="p">{</span>
+
+            <span class="nx">ancho</span><span class="p">;</span>   <span class="c1">// Atributos</span>
+            <span class="nx">alto</span><span class="p">;</span>
+
+            <span class="kd">constructor</span><span class="p">(</span><span class="nx">color</span><span class="p">,</span> <span class="nx">relleno</span><span class="p">,</span> <span class="nx">an</span><span class="p">,</span> <span class="nx">al</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">super</span><span class="p">(</span><span class="nx">color</span><span class="p">,</span> <span class="nx">relleno</span><span class="p">);</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">ancho</span> <span class="o">=</span> <span class="nx">an</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">alto</span> <span class="o">=</span> <span class="nx">al</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nx">getAncho</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">ancho</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nx">setAncho</span><span class="p">(</span><span class="nx">an</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">ancho</span> <span class="o">=</span> <span class="nx">an</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nx">getAlto</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">alto</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nx">setAlto</span><span class="p">(</span><span class="nx">al</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">alto</span> <span class="o">=</span> <span class="nx">al</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nx">getArea</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">ancho</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">alto</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nx">getPerimetro</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">ancho</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">alto</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nx">toString</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="dl">"</span><span class="s2">Soy un rectángulo de base </span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">ancho</span> <span class="o">+</span>
+                    <span class="dl">"</span><span class="s2"> y altura </span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">alto</span> <span class="o">+</span>
+                    <span class="dl">"</span><span class="s2"> y esta es mi superclase: </span><span class="dl">"</span> <span class="o">+</span> <span class="k">super</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="kd">class</span> <span class="nx">Cuadrado</span> <span class="kd">extends</span> <span class="nx">Rectangulo</span> <span class="p">{</span>
+
+            <span class="kd">constructor</span><span class="p">(</span><span class="nx">color</span><span class="p">,</span> <span class="nx">relleno</span><span class="p">,</span> <span class="nx">lado</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">super</span><span class="p">(</span><span class="nx">lado</span><span class="p">,</span> <span class="nx">lado</span><span class="p">,</span> <span class="nx">color</span><span class="p">,</span> <span class="nx">relleno</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="nx">setAncho</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">super</span><span class="p">.</span><span class="nx">setAncho</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+                <span class="k">super</span><span class="p">.</span><span class="nx">setAlto</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="nx">setAlto</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">super</span><span class="p">.</span><span class="nx">setAncho</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+                <span class="k">super</span><span class="p">.</span><span class="nx">setAlto</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="nx">toString</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="dl">"</span><span class="s2">Soy un cuadrado de lado </span><span class="dl">"</span> <span class="o">+</span> <span class="k">super</span><span class="p">.</span><span class="nx">getAncho</span><span class="p">()</span> <span class="o">+</span>
+                    <span class="dl">"</span><span class="s2"> y esta es mi superclase: </span><span class="dl">"</span> <span class="o">+</span> <span class="k">super</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="c1">// --------------------------------------------------------------------------------</span>
+        <span class="c1">// El siguiente código sirve para TESTEAR la jerarquía de clases</span>
+        <span class="c1">// --------------------------------------------------------------------------------</span>
+
+        <span class="c1">// Primero, vamos a crear una figura con cada constructor y a llamar a toString()</span>
+        <span class="kd">var</span> <span class="nx">fig1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Figura</span><span class="p">(</span><span class="dl">"</span><span class="s2">rojo</span><span class="dl">"</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">fig1</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+        <span class="kd">var</span> <span class="nx">circulo1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Circulo</span><span class="p">(</span><span class="dl">"</span><span class="s2">azul</span><span class="dl">"</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">);</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">circulo1</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+        <span class="kd">var</span> <span class="nx">rect1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Rectangulo</span><span class="p">(</span><span class="dl">"</span><span class="s2">amarillo</span><span class="dl">"</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="mf">8.3</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">);</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">rect1</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+        <span class="kd">var</span> <span class="nx">cuadrado1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cuadrado</span><span class="p">(</span><span class="dl">"</span><span class="s2">verde</span><span class="dl">"</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="mf">3.1</span><span class="p">);</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">cuadrado1</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+
+        <span class="c1">// Probamos ahora algunos métodos sobre los objetos anteriores</span>
+        <span class="c1">// y volvemos a llamar a toString() para comprobar que </span>
+        <span class="c1">// los atributos han cambiado como se esperaba.</span>
+        <span class="nx">fig1</span><span class="p">.</span><span class="nx">setColor</span><span class="p">(</span><span class="dl">"</span><span class="s2">blanco</span><span class="dl">"</span><span class="p">);</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">fig1</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+        <span class="nx">circulo1</span><span class="p">.</span><span class="nx">setRadio</span><span class="p">(</span><span class="mf">2.5</span><span class="p">);</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">El área del círculo es </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">circulo1</span><span class="p">.</span><span class="nx">getArea</span><span class="p">());</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">circulo1</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+        <span class="nx">rect1</span><span class="p">.</span><span class="nx">setAlto</span><span class="p">(</span><span class="mf">3.0</span><span class="p">);</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">El perímetro del rectángulo es </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">rect1</span><span class="p">.</span><span class="nx">getPerimetro</span><span class="p">());</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">rect1</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+        <span class="nx">cuadrado1</span><span class="p">.</span><span class="nx">setAncho</span><span class="p">(</span><span class="mf">5.1</span><span class="p">);</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">La base del cuadrado es </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">cuadrado1</span><span class="p">.</span><span class="nx">getAlto</span><span class="p">()</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> y su altura es </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">cuadrado1</span><span class="p">.</span><span class="nx">getAncho</span><span class="p">());</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">El área del cuadrado es </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">cuadrado1</span><span class="p">.</span><span class="nx">getArea</span><span class="p">());</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">cuadrado1</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+:ET

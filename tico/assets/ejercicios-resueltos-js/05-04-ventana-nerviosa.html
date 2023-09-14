@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<head>
+    <title>Ventana nerviosa</title>
+</head>
+<body>
+   <h1>Ventana nerviosa</h1>
+   <button id='btn_saltar' onclick='btn_saltar()'>Saltar</button>
+   <button id='btn_temblar' onclick='btn_temblar()'>Temblar</button>
+   <button id='btn_ocultar' onclick='btn_ocultar()'>Ocultar</button>
+   <button id='btn_mostrar' onclick='btn_mostrar()'>Mostrar</button>
+
+   <script>
+      myWindow = window.open('', '', 'width=300, height=200'); 
+
+      function btn_saltar() {
+          let pos_x = Math.random() * 600;
+          let pos_y = Math.random() * 300;
+          myWindow.moveTo(pos_x, pos_y);
+      }
+
+      function btn_temblar() {
+          var pos_x = myWindow.screenX;
+          var pos_y = myWindow.screenY;
+          for (var i = 0; i < 5000; i++) {
+             let mov_x = Math.random() * 2 - 1;
+             let mov_y = Math.random() * 2 - 1;
+             pos_x = pos_x + mov_x;
+             pos_y = pos_y + mov_y;
+             myWindow.moveTo(pos_x, pos_y);
+          }
+      }
+
+      function btn_ocultar() {
+          document.getElementById('btn_saltar').style.visibility = "hidden";
+          document.getElementById('btn_temblar').style.visibility = "hidden";
+      }
+
+      function btn_mostrar() {
+          document.getElementById('btn_saltar').style.visibility = "visible";
+          document.getElementById('btn_temblar').style.visibility = "visible";
+      }
+   </script>
+
+</body>

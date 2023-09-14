@@ -1,0 +1,8 @@
+Esto es una pequeña prueba
+para ver si funciona el ejercicio de concatenación de archivos.
+Este es el primer archivo.
+Aquí termina.
+
+�Aquí empieza el segundo archivo-
+Y aquí termina.
+�

@@ -1,0 +1,401 @@
+#include "ajedrez.h"
+#include "movs.h"
+
+int mover_humano(struct s_casilla tablero[9][9],struct s_estado estado)
+{
+	int ox,oy,dx,dy,n,p,cont, t = 0;
+	ox=0;oy=0;dx=0;dy=0;
+
+	if(estado.turno==BLANCO)
+	{
+		move(30,1);
+		printw("TURNO_DE_LAS_BLANCAS");
+	}
+	else
+	{
+		move(30,1);
+		printw("TURNO_DE_LAS_NEGRAS");
+	}
+	t=casilla_origen(tablero,&ox,&oy);
+	if(t!=2)
+	{
+		n=comprobar_origen(tablero,estado,ox,oy);
+		if (n==1)
+		{
+			t=casilla_destino(tablero,&dx,&dy);
+			if(t!=2)
+			{
+				p=comprobar_movimiento(tablero,estado,ox,oy,dx,dy);
+				if (p==1)
+					mover(tablero,ox,oy,dx,dy);
+				else 
+				{
+					printw("No_se_puede_realizar_ese_movimiento");
+					t = 1;
+				}
+			}
+		}
+		else
+			t=1;
+	}
+	
+	return t;
+
+}
+
+int convertir(char c)
+{
+	int n;
+
+	if ((c == 'A')|| (c == 'a'))
+		n = 1;
+	if ((c == 'B')|| (c == 'b'))
+		n = 2;
+	if ((c == 'C')|| (c == 'c'))
+		n = 3;
+	if ((c == 'D')|| (c == 'd'))
+		n = 4;
+	if ((c == 'E')|| (c == 'e'))
+		n = 5;
+	if ((c == 'F')|| (c == 'f'))
+		n = 6;
+	if ((c == 'G')|| (c == 'g'))
+		n = 7;
+	if ((c == 'H')|| (c == 'h'))
+		n = 8;
+
+	return n;
+}
+char casilla_origen( struct s_casilla tablero[9][9],int *ox,int *oy)
+{
+	char c,cont=0;
+
+	move(5,60);
+	attron(color_pair(5));
+	printw("SELECCIONE_ORIGEN\n");
+	
+	do
+	{
+		move(7,60);
+		printw("Columna(A-H)\n");
+		move(8,60);
+		c = getch();
+		if((c=='m')||(c=='M')) cont=2;
+		else
+			*oy=convertir(c);
+	}
+	while (((*oy<=0)&&(*oy>=9)) && ((c!='m') && (c!='M')));
+	
+	do
+	{
+		move(9,60);
+		printw("Fila(1-8)\n");
+		move(10,60);
+		c = getch();
+		if((c=='m')||(c=='M')) cont=2;
+		else
+			*ox=c - 48;
+	}
+	while (((*ox<=0)&&(*ox>=9)) && ((c!='m') && (c!='M')));
+	
+	return cont;
+}
+
+int comprobar_origen( struct s_casilla tablero[9][9], struct s_estado estado, int ox, int oy)
+{
+	int n;
+
+	n=0;
+	if ((tablero[ox][oy].tipo_pieza!=NINGUNA) && (estado.turno==tablero[ox][oy].color_pieza))
+		n=1;
+	
+	return n;
+}
+
+char casilla_destino(struct s_casilla tablero[9][9],int *dx,int *dy)
+{
+	int cont=0;
+	char c;
+
+	move(11,60);
+	printw("SELECCIONE DESTINO\n");
+	
+	do
+	{
+		move(13,60);
+		printw("Columna(A-H)\n");
+		move(14,60);
+		c = getch();
+		if((c=='m')||(c=='M')) cont=2;
+		else
+			*dy=convertir(c);
+	}
+	while ((*dy<=0)&&(*dy>=9)&& (c!='m') && (c!='M'));
+	
+	do
+	{
+		move(15,60);
+		printw("Fila(1-8)\n");
+		move(16,60);
+		c = getch();
+		if((c=='m')||(c=='M')) cont=2;
+		else
+			*dx = c - 48;   
+	}
+	while((*dx<=0)&&(*dx>=9) && (c!='m') && (c!='M'));
+	
+	return cont;
+}
+
+void mover(struct s_casilla tablero[9][9],int ox,int oy,int dx,int dy)
+{
+	tablero[dx][dy].tipo_pieza=tablero[ox][oy].tipo_pieza;
+	tablero[dx][dy].color_pieza=tablero[ox][oy].color_pieza;
+	tablero[ox][oy].tipo_pieza=NINGUNA;
+	tablero[ox][oy].color_pieza=' ';
+}
+
+
+int comprobar_movimiento(struct s_casilla tablero[9][9],struct s_estado estado, int ox, int oy,int dx,int dy)
+{
+	int n;
+
+	n = 0;
+	switch (tablero[ox][oy].tipo_pieza)
+	{
+		case PEON: n=compr_movi_peon(tablero,estado,ox,oy,dx,dy); break;
+		case CABALLO: n=compr_movi_caballo(tablero,estado,ox,oy,dx,dy); break;
+		case TORRE: n=compr_movi_torre(tablero,estado,ox,oy,dx,dy); break;
+		case ALFIL: n=compr_movi_alfil(tablero,estado,ox,oy,dx,dy); break;
+		case REY: n=compr_movi_rey(tablero,estado,ox,oy,dx,dy); break;
+		case DAMA: n=compr_movi_dama(tablero,estado,ox,oy,dx,dy); break;
+	}
+
+	return n;
+}
+
+int compr_movi_peon(struct s_casilla tablero[9][9], struct s_estado estado, int ox, int oy, int dx, int dy)
+{
+	int correcto=0;
+
+	if(estado.turno == 'B')
+	{
+	
+		if((dy == oy) && (dx == ox-1) && (tablero [dx][dy].tipo_pieza == NINGUNA))
+			correcto=1;
+		if((ox == 7) && (dy == oy) && (dx == ox-2) && (tablero [ox-1][dy].tipo_pieza == NINGUNA) && (tablero[ox-2][dy].tipo_pieza == NINGUNA))
+			correcto=1;
+		if((dx == ox-1) && (dy == oy+1) && (tablero[dx][dy].color_pieza == NEGRO))
+			correcto=1;
+		if((dx == ox-1)&&(dy == oy-1) && (tablero[dx][dy].color_pieza == NEGRO))
+			correcto=1;
+	}			
+	if(estado.turno == 'N')
+	{
+		if((dy == oy) && (dx == ox+1) && (tablero [dx][dy].tipo_pieza == NINGUNA))
+			correcto=1;
+		if((ox == 2) && (dy == oy) && (dx == ox+2) && (tablero [ox+1][dy].tipo_pieza == NINGUNA) && (tablero[ox+2][dy].tipo_pieza == NINGUNA))
+			correcto=1;
+		if((dx == ox+1) && (dy == oy+1) && (tablero[dx][dy].color_pieza == BLANCO))
+			correcto=1;
+		if((dx == ox+1) && (dy == oy-1) && (tablero[dx][dy].color_pieza == BLANCO))
+			correcto=1;
+	}
+	return correcto;
+}
+
+int compr_movi_caballo (struct s_casilla tablero[9][9], struct s_estado estado, int ox, int oy, int dx, int dy)
+{
+	int correcto=0;
+	
+	if(tablero[ox][oy].color_pieza=='B')
+	{
+		if (tablero[dx][dy].color_pieza!='B')
+		{
+			if((dx==ox-2)&&(dy==oy-1)&&(tablero[dx][dy].color_pieza!=estado.turno))
+			correcto=1;
+			if((dx==ox-2)&&(dy==oy+1)&&(tablero[dx][dy].color_pieza!=estado.turno))
+			correcto=1;
+			if((dx==ox-1)&&(dy==oy+2)&&(tablero[dx][dy].color_pieza!=estado.turno))
+			correcto=1;
+			if((dx==ox-1)&&(dy==oy-2)&&(tablero[dx][dy].color_pieza!=estado.turno))
+			correcto=1;
+			if((dx==ox+2)&&(dy==oy-1)&&(tablero[dx][dy].color_pieza!=estado.turno))
+			correcto=1;
+			if((dx==ox+2)&&(dy==oy+1)&&(tablero[dx][dy].color_pieza!=estado.turno))
+			correcto=1;
+			if((dx==ox+1)&&(dy==oy+2)&&(tablero[dx][dy].color_pieza!=estado.turno))
+			correcto=1;
+			if((dx==ox+1)&&(dy==oy-2)&&(tablero[dx][dy].color_pieza!=estado.turno))
+			correcto=1;
+		}
+	}
+	if(tablero[ox][oy].color_pieza=='N')
+	{
+		if (tablero[dx][dy].color_pieza!='N')
+		{
+			if((dx==ox-2)&&(dy==oy-1)&&(tablero[dx][dy].color_pieza!=estado.turno))
+			correcto=1;
+			if((dx==ox-2)&&(dy==oy+1)&&(tablero[dx][dy].color_pieza!=estado.turno))
+			correcto=1;
+			if((dx==ox-1)&&(dy==oy+2)&&(tablero[dx][dy].color_pieza!=estado.turno))
+			correcto=1;
+			if((dx==ox-1)&&(dy==oy-2)&&(tablero[dx][dy].color_pieza!=estado.turno))
+			correcto=1;
+			if((dx==ox+2)&&(dy==oy-1)&&(tablero[dx][dy].color_pieza!=estado.turno))
+			correcto=1;
+			if((dx==ox+2)&&(dy==oy+1)&&(tablero[dx][dy].color_pieza!=estado.turno))
+			correcto=1;
+			if((dx==ox+1)&&(dy==oy+2)&&(tablero[dx][dy].color_pieza!=estado.turno))
+			correcto=1;
+			if((dx==ox+1)&&(dy==oy-2)&&(tablero[dx][dy].color_pieza!=estado.turno))
+			correcto=1;
+		}
+	}
+	return correcto;
+}
+
+int compr_movi_rey(struct s_casilla tablero[9][9], struct s_estado estado, int ox, int oy, int dx, int dy)
+{
+	int correcto=0;
+	
+	if(tablero[ox][oy].color_pieza=='B')
+	{
+		if (tablero[dx][dy].color_pieza!='B')
+		{
+			if((dx==ox-1)&&(dy==oy)) correcto=1;
+			if((dx==ox+1)&&(dy==oy)) correcto=1;
+			if((dx==ox-1)&&(dy==oy-1)) correcto=1;
+			if((dx==ox+1)&&(dy==oy-1)) correcto=1;
+			if((dx==ox+1)&&(dy==oy+1)) correcto=1;
+			if((dx==ox-1)&&(dy==oy+1)) correcto=1;
+			if((dx==ox)&&(dy==oy+1)) correcto=1;
+			if((dx==ox)&&(dy==oy-1)) correcto=1;
+		}
+	}
+	if(tablero[ox][oy].color_pieza=='N')
+	{
+		if(tablero[dx][dy].color_pieza!='N')
+		{
+			if((dx==ox-1)&&(dy==oy)) correcto=1;
+			if((dx==ox+1)&&(dy==oy)) correcto=1;
+			if((dx==ox-1)&&(dy==oy-1)) correcto=1;
+			if((dx==ox+1)&&(dy==oy-1)) correcto=1;
+			if((dx==ox+1)&&(dy==oy+1)) correcto=1;
+			if((dx==ox-1)&&(dy==oy+1)) correcto=1;
+			if((dx==ox)&&(dy==oy+1)) correcto=1;
+			if((dx==ox)&&(dy==oy-1)) correcto=1;
+		}
+	}
+	return correcto;
+}
+
+int compr_movi_torre(struct s_casilla tablero[9][9],struct s_estado estado,int ox,int oy,int dx,int dy)
+{
+	int correcto=0;
+
+	if(tablero[ox][oy].color_pieza!=tablero[dx][dy].color_pieza)
+	{
+		if((dy==oy)&&(dx==ox+1)) correcto=1;
+		if((dy==oy)&&(dx==ox+2)&&(tablero[dx-1][dy].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy)&&(dx==ox+3)&&(tablero[dx-1][dy].tipo_pieza==NINGUNA)&&(tablero[dx-2][dy].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy)&&(dx==ox+4)&&(tablero[dx-1][dy].tipo_pieza==NINGUNA)&&(tablero[dx-2][dy].tipo_pieza==NINGUNA)&&(tablero[dx-3][dy].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy)&&(dx==ox+5)&&(tablero[dx-1][dy].tipo_pieza==NINGUNA)&&(tablero[dx-2][dy].tipo_pieza==NINGUNA)&&(tablero[dx-3][dy].tipo_pieza==NINGUNA)&&(tablero[dx-4][dy].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy)&&(dx==ox+6)&&(tablero[dx-1][dy].tipo_pieza==NINGUNA)&&(tablero[dx-2][dy].tipo_pieza==NINGUNA)&&(tablero[dx-3][dy].tipo_pieza==NINGUNA)&&(tablero[dx-4][dy].tipo_pieza==NINGUNA)&&(tablero[dx-5][dy].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy)&&(dx==ox+7)&&(tablero[dx-1][dy].tipo_pieza==NINGUNA)&&(tablero[dx-2][dy].tipo_pieza==NINGUNA)&&(tablero[dx-3][dy].tipo_pieza==NINGUNA)&&(tablero[dx-4][dy].tipo_pieza==NINGUNA)&&(tablero[dx-5][dy].tipo_pieza==NINGUNA)&& (tablero[dx-6][dy].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy)&&(dx==ox+8)&&(tablero[dx-1][dy].tipo_pieza==NINGUNA)&&(tablero[dx-2][dy].tipo_pieza==NINGUNA)&&(tablero[dx-3][dy].tipo_pieza==NINGUNA)&&(tablero[dx-4][dy].tipo_pieza==NINGUNA)&&(tablero[dx-5][dy].tipo_pieza==NINGUNA)&&(tablero[dx-6][dy].tipo_pieza==NINGUNA)&&(tablero[dx-7][dy].tipo_pieza==NINGUNA)) correcto=1;
+		
+		if((dy==oy)&&(dx==ox-1)) correcto=1;
+		if((dy==oy)&&(dx==ox-2)&&(tablero[dx+1][dy].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy)&&(dx==ox-3)&&(tablero[dx+1][dy].tipo_pieza==NINGUNA)&&(tablero[dx+2][dy].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy)&&(dx==ox-4)&&(tablero[dx+1][dy].tipo_pieza==NINGUNA)&&(tablero[dx+2][dy].tipo_pieza==NINGUNA)&&(tablero[dx+3][dy].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy)&&(dx==ox-5)&&(tablero[dx+1][dy].tipo_pieza==NINGUNA)&&(tablero[dx+2][dy].tipo_pieza==NINGUNA)&&(tablero[dx+3][dy].tipo_pieza==NINGUNA)&&(tablero[dx+4][dy].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy)&&(dx==ox-6)&&(tablero[dx+1][dy].tipo_pieza==NINGUNA)&&(tablero[dx+2][dy].tipo_pieza==NINGUNA)&&(tablero[dx+3][dy].tipo_pieza==NINGUNA)&&(tablero[dx+4][dy].tipo_pieza==NINGUNA)&&(tablero[dx+5][dy].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy)&&(dx==ox-7)&&(tablero[dx+1][dy].tipo_pieza==NINGUNA)&&(tablero[dx+2][dy].tipo_pieza==NINGUNA)&&(tablero[dx+3][dy].tipo_pieza==NINGUNA)&&(tablero[dx+4][dy].tipo_pieza==NINGUNA)&&(tablero[dx+5][dy].tipo_pieza==NINGUNA)&& (tablero[dx+6][dy].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy)&&(dx==ox-8)&&(tablero[dx+1][dy].tipo_pieza==NINGUNA)&&(tablero[dx+2][dy].tipo_pieza==NINGUNA)&&(tablero[dx+3][dy].tipo_pieza==NINGUNA)&&(tablero[dx+4][dy].tipo_pieza==NINGUNA)&&(tablero[dx+5][dy].tipo_pieza==NINGUNA)&&(tablero[dx+6][dy].tipo_pieza==NINGUNA)&&(tablero[dx+7][dy].tipo_pieza==NINGUNA)) correcto=1;
+
+		if((dx==ox)&&(dy==oy-1)) correcto=1;
+		if((dx==ox)&&(dy==oy-2)&& (tablero[dx][dy+1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dx==ox)&&(dy==oy-3)&&(tablero[dx][dy+1].tipo_pieza==NINGUNA)&&(tablero[dx][dy+2].tipo_pieza==NINGUNA)) correcto=1;
+		if((dx==ox)&&(dy==oy-4)&&(tablero[dx][dy+1].tipo_pieza==NINGUNA)&&(tablero[dx][dy+2].tipo_pieza==NINGUNA)&& (tablero[dx][dy+3].tipo_pieza== NINGUNA)) correcto=1;
+		if((dx==ox)&&(dy==oy-5)&&(tablero[dx][dy+1].tipo_pieza==NINGUNA)&&(tablero[dx][dy+2].tipo_pieza==NINGUNA)&&(tablero[dx][dy+3].tipo_pieza)&&(tablero[dx][dy+4].tipo_pieza== NINGUNA)) correcto=1;
+		if((dx==ox)&&(dy==oy-6)&&(tablero[dx][dy+1].tipo_pieza==NINGUNA)&&(tablero[dx][dy+2].tipo_pieza==NINGUNA)&&(tablero[dx][dy+3].tipo_pieza)&&(tablero[dx][dy+4].tipo_pieza== NINGUNA)&&(tablero[dx][dy+5].tipo_pieza== NINGUNA)) correcto=1;
+		if((dx==ox)&&(dy==oy-7)&&(tablero[dx][dy+1].tipo_pieza==NINGUNA)&&(tablero[dx][dy+2].tipo_pieza==NINGUNA)&&(tablero[dx][dy+3].tipo_pieza)&&(tablero[dx][dy+4].tipo_pieza== NINGUNA)&&(tablero[dx][dy+5].tipo_pieza== NINGUNA)&&(tablero[dx][dy+6].tipo_pieza==NINGUNA)) correcto=1;
+		if((dx==ox)&&(dy==oy-8)&&(tablero[dx][dy+1].tipo_pieza==NINGUNA)&&(tablero[dx][dy+2].tipo_pieza==NINGUNA)&&(tablero[dx][dy+3].tipo_pieza)&&(tablero[dx][dy+4].tipo_pieza== NINGUNA)&&(tablero[dx][dy+5].tipo_pieza== NINGUNA)&&(tablero[dx][dy+6].tipo_pieza==NINGUNA)&&(tablero[dx][dy+7].tipo_pieza==NINGUNA)) correcto=1;
+		
+		if((dx==ox)&&(dy==oy+1)) correcto=1;
+		if((dx==ox)&&(dy==oy+2)&& (tablero[dx][dy-1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dx==ox)&&(dy==oy+3)&&(tablero[dx][dy-1].tipo_pieza==NINGUNA)&&(tablero[dx][dy-2].tipo_pieza==NINGUNA)) correcto=1;
+		if((dx==ox)&&(dy==oy+4)&&(tablero[dx][dy-1].tipo_pieza==NINGUNA)&&(tablero[dx][dy-2].tipo_pieza==NINGUNA)&&(tablero[dx][dy-3].tipo_pieza)) correcto=1;
+		if((dx==ox)&&(dy==oy+5)&&(tablero[dx][dy-1].tipo_pieza==NINGUNA)&&(tablero[dx][dy-2].tipo_pieza==NINGUNA)&&(tablero[dx][dy-3].tipo_pieza)&&(tablero[dx][dy-4].tipo_pieza== NINGUNA)) correcto=1;
+		if((dx==ox)&&(dy==oy+6)&&(tablero[dx][dy-1].tipo_pieza==NINGUNA)&&(tablero[dx][dy-2].tipo_pieza==NINGUNA)&&(tablero[dx][dy-3].tipo_pieza)&&(tablero[dx][dy-4].tipo_pieza== NINGUNA)&&(tablero[dx][dy-5].tipo_pieza== NINGUNA)) correcto=1;
+		if((dx==ox)&&(dy==oy+7)&&(tablero[dx][dy-1].tipo_pieza==NINGUNA)&&(tablero[dx][dy-2].tipo_pieza==NINGUNA)&&(tablero[dx][dy-3].tipo_pieza)&&(tablero[dx][dy-4].tipo_pieza== NINGUNA)&&(tablero[dx][dy-5].tipo_pieza== NINGUNA)&&(tablero[dx][dy-6].tipo_pieza==NINGUNA)) correcto=1;
+		if((dx==ox)&&(dy==oy+8)&&(tablero[dx][dy-1].tipo_pieza==NINGUNA)&&(tablero[dx][dy-2].tipo_pieza==NINGUNA)&&(tablero[dx][dy-3].tipo_pieza)&&(tablero[dx][dy-4].tipo_pieza== NINGUNA)&&(tablero[dx][dy-5].tipo_pieza== NINGUNA)&&(tablero[dx][dy-6].tipo_pieza==NINGUNA)&&(tablero[dx][dy-7].tipo_pieza==NINGUNA)) correcto=1;
+	}
+	return correcto;
+		
+}
+
+int compr_movi_alfil(struct s_casilla tablero[9][9],struct s_estado estado,int ox,int oy,int dx,int dy)
+{
+	int correcto=0;
+
+	if(tablero[ox][oy].color_pieza!=tablero[dx][dy].color_pieza)
+	{
+		if((dy==oy+1)&&(dx==ox+1)) correcto=1;
+		if((dy==oy+2)&&(dx==ox+2)&&(tablero[dx-1][dy-1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy+3)&&(dx==ox+3)&&(tablero[dx-2][dy-2].tipo_pieza==NINGUNA)&&(tablero[dx-1][dy-1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy+4)&&(dx==ox+4)&&(tablero[dx-3][dy-3].tipo_pieza==NINGUNA)&&(tablero[dx-2][dy-2].tipo_pieza==NINGUNA)&&(tablero[dx-1][dy-1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy+5)&&(dx==ox+5)&&(tablero[dx-4][dy-4].tipo_pieza==NINGUNA)&&(tablero[dx-3][dy-3].tipo_pieza==NINGUNA)&&(tablero[dx-2][dy-2].tipo_pieza==NINGUNA)&&(tablero[dx-1][dy-1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy+6)&&(dx==ox+6)&&(tablero[dx-5][dy-5].tipo_pieza==NINGUNA)&&(tablero[dx-4][dy-4].tipo_pieza==NINGUNA)&&(tablero[dx-3][dy-3].tipo_pieza==NINGUNA)&&(tablero[dx-2][dy-2].tipo_pieza==NINGUNA)&&(tablero[dx-1][dy-1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy+7)&&(dx==ox+7)&&(tablero[dx-6][dy-6].tipo_pieza==NINGUNA)&&(tablero[dx-5][dy-5].tipo_pieza==NINGUNA)&&(tablero[dx-4][dy-4].tipo_pieza==NINGUNA)&&(tablero[dx-3][dy-3].tipo_pieza==NINGUNA)&&(tablero[dx-2][dy-2].tipo_pieza==NINGUNA)&&(tablero[dx-1][dy-1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy+8)&&(dx==ox+8)&&(tablero[dx-7][dy-7].tipo_pieza==NINGUNA)&&(tablero[dx-6][dy-6].tipo_pieza==NINGUNA)&&(tablero[dx-5][dy-5].tipo_pieza==NINGUNA)&&(tablero[dx-4][dy-4].tipo_pieza==NINGUNA)&&(tablero[dx-3][dy-3].tipo_pieza==NINGUNA)&&(tablero[dx-2][dy-2].tipo_pieza==NINGUNA)&&(tablero[dx-1][dy-1].tipo_pieza==NINGUNA)) correcto=1;
+
+		if((dy==oy-1)&&(dx==ox-1)) correcto=1;
+		if((dy==oy-2)&&(dx==ox-2)&&(tablero[dx+1][dy+1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy-3)&&(dx==ox-3)&&(tablero[dx+2][dy+2].tipo_pieza==NINGUNA)&&(tablero[dx+1][dy+1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy-4)&&(dx==ox-4)&&(tablero[dx+3][dy+3].tipo_pieza==NINGUNA)&&(tablero[dx+2][dy+2].tipo_pieza==NINGUNA)&&(tablero[dx+1][dy+1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy-5)&&(dx==ox-5)&&(tablero[dx+4][dy+4].tipo_pieza==NINGUNA)&&(tablero[dx+3][dy+3].tipo_pieza==NINGUNA)&&(tablero[dx+2][dy+2].tipo_pieza==NINGUNA)&&(tablero[dx+1][dy+1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy-6)&&(dx==ox-6)&&(tablero[dx+5][dy+5].tipo_pieza==NINGUNA)&&(tablero[dx+4][dy+4].tipo_pieza==NINGUNA)&&(tablero[dx+3][dy+3].tipo_pieza==NINGUNA)&&(tablero[dx+2][dy+2].tipo_pieza==NINGUNA)&&(tablero[dx+1][dy+1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy-7)&&(dx==ox-7)&&(tablero[dx+6][dy+6].tipo_pieza==NINGUNA)&&(tablero[dx+5][dy+5].tipo_pieza==NINGUNA)&&(tablero[dx+4][dy+4].tipo_pieza==NINGUNA)&&(tablero[dx+3][dy+3].tipo_pieza==NINGUNA)&&(tablero[dx+2][dy+2].tipo_pieza==NINGUNA)&&(tablero[dx+1][dy+1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy-8)&&(dx==ox-8)&&(tablero[dx+7][dy+7].tipo_pieza==NINGUNA)&&(tablero[dx+6][dy+6].tipo_pieza==NINGUNA)&&(tablero[dx+5][dy+5].tipo_pieza==NINGUNA)&&(tablero[dx+4][dy+4].tipo_pieza==NINGUNA)&&(tablero[dx+3][dy+3].tipo_pieza==NINGUNA)&&(tablero[dx+2][dy+2].tipo_pieza==NINGUNA)&&(tablero[dx+1][dy+1].tipo_pieza==NINGUNA)) correcto=1;
+
+		if((dy==oy-1)&&(dx==ox+1)) correcto=1;
+		if((dy==oy-2)&&(dx==ox+2)&&(tablero[dx-1][dy+1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy-3)&&(dx==ox+3)&&(tablero[dx-2][dy+2].tipo_pieza==NINGUNA)&&(tablero[dx-1][dy+1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy-4)&&(dx==ox+4)&&(tablero[dx-3][dy+3].tipo_pieza==NINGUNA)&&(tablero[dx-2][dy+2].tipo_pieza==NINGUNA)&&(tablero[dx-1][dy+1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy-5)&&(dx==ox+5)&&(tablero[dx-4][dy+4].tipo_pieza==NINGUNA)&&(tablero[dx-3][dy+3].tipo_pieza==NINGUNA)&&(tablero[dx-2][dy+2].tipo_pieza==NINGUNA)&&(tablero[dx-1][dy+1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy-6)&&(dx==ox+6)&&(tablero[dx-5][dy+5].tipo_pieza==NINGUNA)&&(tablero[dx-4][dy+4].tipo_pieza==NINGUNA)&&(tablero[dx-3][dy+3].tipo_pieza==NINGUNA)&&(tablero[dx-2][dy+2].tipo_pieza==NINGUNA)&&(tablero[dx-1][dy+1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy-7)&&(dx==ox+7)&&(tablero[dx-6][dy+6].tipo_pieza==NINGUNA)&&(tablero[dx-5][dy+5].tipo_pieza==NINGUNA)&&(tablero[dx-4][dy+4].tipo_pieza==NINGUNA)&&(tablero[dx-3][dy+3].tipo_pieza==NINGUNA)&&(tablero[dx-2][dy+2].tipo_pieza==NINGUNA)&&(tablero[dx-1][dy+1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy-8)&&(dx==ox+8)&&(tablero[dx-7][dy+7].tipo_pieza==NINGUNA)&&(tablero[dx-6][dy+6].tipo_pieza==NINGUNA)&&(tablero[dx-5][dy+5].tipo_pieza==NINGUNA)&&(tablero[dx-4][dy+4].tipo_pieza==NINGUNA)&&(tablero[dx-3][dy+3].tipo_pieza==NINGUNA)&&(tablero[dx-2][dy+2].tipo_pieza==NINGUNA)&&(tablero[dx-1][dy+1].tipo_pieza==NINGUNA)) correcto=1;
+
+		if((dy==oy+1)&&(dx==ox-1)) correcto=1;
+		if((dy==oy+2)&&(dx==ox-2)&&(tablero[dx+1][dy-1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy+3)&&(dx==ox-3)&&(tablero[dx+2][dy-2].tipo_pieza==NINGUNA)&&(tablero[dx+1][dy-1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy+4)&&(dx==ox-4)&&(tablero[dx+3][dy-3].tipo_pieza==NINGUNA)&&(tablero[dx+2][dy-2].tipo_pieza==NINGUNA)&&(tablero[dx+1][dy-1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy+5)&&(dx==ox-5)&&(tablero[dx+4][dy-4].tipo_pieza==NINGUNA)&&(tablero[dx+3][dy-3].tipo_pieza==NINGUNA)&&(tablero[dx+2][dy-2].tipo_pieza==NINGUNA)&&(tablero[dx+1][dy-1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy+6)&&(dx==ox-6)&&(tablero[dx+5][dy-5].tipo_pieza==NINGUNA)&&(tablero[dx+4][dy-4].tipo_pieza==NINGUNA)&&(tablero[dx+3][dy-3].tipo_pieza==NINGUNA)&&(tablero[dx+2][dy-2].tipo_pieza==NINGUNA)&&(tablero[dx+1][dy-1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy+7)&&(dx==ox-7)&&(tablero[dx+6][dy-6].tipo_pieza==NINGUNA)&&(tablero[dx+5][dy-5].tipo_pieza==NINGUNA)&&(tablero[dx+4][dy-4].tipo_pieza==NINGUNA)&&(tablero[dx+3][dy-3].tipo_pieza==NINGUNA)&&(tablero[dx+2][dy-2].tipo_pieza==NINGUNA)&&(tablero[dx+1][dy-1].tipo_pieza==NINGUNA)) correcto=1;
+		if((dy==oy+8)&&(dx==ox-8)&&(tablero[dx+7][dy-7].tipo_pieza==NINGUNA)&&(tablero[dx+6][dy-6].tipo_pieza==NINGUNA)&&(tablero[dx+5][dy-5].tipo_pieza==NINGUNA)&&(tablero[dx+4][dy-4].tipo_pieza==NINGUNA)&&(tablero[dx+3][dy-3].tipo_pieza==NINGUNA)&&(tablero[dx+2][dy-2].tipo_pieza==NINGUNA)&&(tablero[dx+1][dy-1].tipo_pieza==NINGUNA)) correcto=1;
+	}
+	return correcto;
+}
+
+int compr_movi_dama(struct s_casilla tablero[9][9],struct s_estado estado,int ox,int oy,int dx,int dy)
+{
+	int n, correcto=0;
+
+	if(tablero[ox][oy].color_pieza!=tablero[dx][dy].color_pieza)
+	{
+		n=compr_movi_alfil(tablero,estado,ox,oy,dx,dy);
+		if(n==1)
+			correcto=1;
+		else
+		{
+			n=compr_movi_torre(tablero,estado,ox,oy,dx,dy);
+			if(n==1)
+				correcto=1;
+		}
+	}
+	return correcto;
+}

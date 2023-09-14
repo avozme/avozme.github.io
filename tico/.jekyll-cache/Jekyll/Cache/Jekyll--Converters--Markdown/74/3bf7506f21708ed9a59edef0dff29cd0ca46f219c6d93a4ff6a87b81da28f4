@@ -1,0 +1,949 @@
+I"�<h2 class="no_toc" id="94-un-poco-de-c-avanzado">9.4. Un poco de C avanzado</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#941-punteros" id="markdown-toc-941-punteros">9.4.1. Punteros</a></li>
+  <li><a href="#942-comprendiendo-los-punteros" id="markdown-toc-942-comprendiendo-los-punteros">9.4.2. Comprendiendo los punteros</a></li>
+  <li><a href="#943-declaración-e-inicialización-de-punteros" id="markdown-toc-943-declaración-e-inicialización-de-punteros">9.4.3. Declaración e inicialización de punteros</a></li>
+  <li><a href="#944-asignación-de-punteros" id="markdown-toc-944-asignación-de-punteros">9.4.4. Asignación de punteros</a></li>
+  <li><a href="#945-punteros-y-arrays" id="markdown-toc-945-punteros-y-arrays">9.4.5. Punteros y arrays</a></li>
+  <li><a href="#946-paso-de-punteros-como-parámetros" id="markdown-toc-946-paso-de-punteros-como-parámetros">9.4.6. Paso de punteros como parámetros</a></li>
+  <li><a href="#947-devolución-de-punteros" id="markdown-toc-947-devolución-de-punteros">9.4.7. Devolución de punteros</a></li>
+  <li><a href="#948-punteros-a-punteros" id="markdown-toc-948-punteros-a-punteros">9.4.8. Punteros a punteros</a></li>
+  <li><a href="#949-gestión-dinámica-de-la-memoria-arrays-dinámicos" id="markdown-toc-949-gestión-dinámica-de-la-memoria-arrays-dinámicos">9.4.9. Gestión dinámica de la memoria: arrays dinámicos</a></li>
+  <li><a href="#9410-librerías-no-estándar-que-molan-ncurses" id="markdown-toc-9410-librerías-no-estándar-que-molan-ncurses">9.4.10. Librerías no estándar que molan: ncurses</a></li>
+  <li><a href="#9411-librerías-no-estándar-que-molan-sdl" id="markdown-toc-9411-librerías-no-estándar-que-molan-sdl">9.4.11. Librerías no estándar que molan: SDL</a></li>
+</ul>
+
+<p>En esta sección vamos a ver algunas cosas (¡no todas!) sobre C avanzado: una introducción a los punteros, algo sobre gestión dinámica de memoria, un poco acerca de los arrays dinámicos y cómo usar librerías no estándar importantes tales como Ncurses (para añadir color y otros efectos a nuestros programas de texto) o SDL (para añadir gráficos y sonidos).</p>
+
+<h3 id="941-punteros">9.4.1. Punteros</h3>
+
+<p>Comprender y usar correctamente los punteros es con seguridad <strong>lo más complicado del lenguaje C</strong>, pero también se trata de un mecanismo muy poderoso. Tan poderoso que un simple puntero descontrolado (hay quien los llama <em>punteros locos</em>) puede provocar que el programa se cuelgue o se comporte de forma extraña e impredecible.</p>
+
+<p>Todos los programadores con cierta experiencia en C reconocerán que, a veces, programar con punteros es como quedarse atrapado en un ascensor con un montón de serpientes pitón enloquecidas. Pero, cuando se les coge el tranquillo y se les ata en corto, permiten hacer auténticas virguerías.</p>
+
+<h3 id="942-comprendiendo-los-punteros">9.4.2. Comprendiendo los punteros</h3>
+
+<p>Dentro de la memoria del ordenador, cada <strong>dato</strong> almacenado ocupa <strong>una o más celdas contiguas de memoria</strong>. El número de celdas de memoria requeridas para almacenar un dato depende de su tipo. Por ejemplo, un dato de tipo entero puede ocupar 32 bits (es decir, 4 bytes), mientras que un dato de tipo carácter ocupa 8 bits (es decir, 1 byte).</p>
+
+<div style="padding: 10px; background-color: #ddd"><strong>Un puntero no es más que una variable cuyo contenido no es un dato, sino la dirección de memoria donde está almacenado un dato.</strong></div>
+
+<p>Veámoslo a través de un ejemplo. Imaginemos que v es una variable de tipo carácter y que, por tanto, necesita 1 byte para ser almacenada. La declaración e inicialización de la variable será como la siguiente:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="n">v</span><span class="p">;</span>
+<span class="n">v</span> <span class="o">=</span> <span class="sc">'A'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Al ejecutar este código, el sistema operativo asigna automáticamente una celda de memoria para el dato. Supongamos que la celda asignada tiene la dirección 1200. Al hacer la asignación v = ‘A’, el sistema almacena en la celda 1200 el valor 65, que es el código ASCII de la letra ‘A’:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dirección de memoria</th>
+      <th>Contenido</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1198</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>1199</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>1200</td>
+      <td>65</td>
+    </tr>
+    <tr>
+      <td>1201</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Cuando usamos la variable v a lo largo del programa, el sistema consulta el dato contenido en la celda de memoria asignada a la variable. Esa celda será siempre la misma a lo largo de la ejecución: la 1200.</p>
+
+<p>Por ejemplo, al encontrar esta instrucción:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">printf</span><span class="p">(</span><span class="s">"%c"</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>.. el compilador acude a la celda 1200 de la memoria, consulta el dato almacenado en ella en ese momento y sustituye la variable v por ese dato.</p>
+
+<p>El programador no tiene modo de saber en qué posición de memoria se almacena cada dato, a menos que utilice punteros. Los punteros sirven, entonces, para conocer la dirección de memoria donde se almacena el dato, y no el dato en sí.</p>
+
+<p>La dirección ocupada por una variable v se determina escribiendo <strong>&amp;v</strong>. Por lo tanto, el <strong>operador &amp;</strong> es un operador unario, llamado <strong>operador dirección</strong>, que proporciona la dirección de memoria de una variable.</p>
+
+<p>La dirección de v se le puede asignar a otra variable mediante esta instrucción:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="n">p</span><span class="p">;</span>
+<span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">v</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<p>Resultará que esta nueva variable es un puntero a v, es decir, una variable cuyo contenido es la dirección de memoria ocupada por la variable v. <em>Representa la dirección de v y no su valor</em>. Por lo tanto, el contenido de p será 1200, mientras que el contenido de v será 65.</p>
+
+<p>El dato almacenado en la celda apuntada por la variable puntero puede ser accedido mediante el operador asterisco aplicado al puntero. Así pues, la expresión *p devuelve el valor 65, que es el contenido de la celda apuntada por p. El <strong>operador *</strong> es un operador unario, llamado <strong>operador indirección</strong>, que opera sólo sobre una variable puntero.</p>
+
+<p>Resumiendo: podemos tener <em>variables “normales”</em> y utilizar el operador &amp; para conocer su dirección de memoria. O podemos tener <em>variables puntero</em>, que ya son en sí mismas direcciones de memoria, y utilizar el operador * para acceder al dato que contienen:</p>
+
+<ul>
+  <li><strong>El operador dirección (&amp;)</strong> sólo puede actuar sobre variables que <strong>no</strong> sean punteros. En el ejemplo anterior, la variable v vale 65 y la expresión &amp;v vale 1200.</li>
+  <li><strong>El operador indirección (*)</strong> sólo puede actuar sobre variables que sean punteros. En el ejemplo anterior, la expresión *p vale 65 y la variable p vale 1200.</li>
+</ul>
+
+<p>Las variables puntero pueden apuntar a direcciones donde se almacene cualquier tipo de dato: enteros, flotantes, caracteres, cadenas, arrays, estructuras, etc. Esto es tremendamente útil y proporciona una enorme potencia al lenguaje C, pero también es una fuente inagotable de errores de programación difíciles de detectar y corregir, como iremos viendo en los siguientes temas</p>
+
+<h3 id="943-declaración-e-inicialización-de-punteros">9.4.3. Declaración e inicialización de punteros</h3>
+
+<p>Las variables de tipo puntero, como cualquier otra variable, deben <strong>declararse</strong> antes de ser usadas.</p>
+
+<p>Cuando una variable puntero es definida, <em>el nombre de la variable debe ir precedido por un *</em>.</p>
+
+<p>El tipo de dato que aparece en la declaración se refiere al tipo de dato que se almacena en la dirección representada por el puntero, en vez del puntero mismo. Así, una declaración de puntero general es:</p>
+
+<p>Por ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="o">*</span><span class="n">numero</span><span class="p">;</span>
+<span class="kt">char</span> <span class="o">*</span><span class="n">letra</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>La variable <em>numero</em> no contiene un número entero, sino <em>la dirección de memoria donde se almacenará un número entero</em>. La variable letra tampoco contiene un carácter, sino <em>la dirección de memoria donde se almacenará un carácter</em>.</p>
+
+<p>Cuando un puntero ha sido declarado pero no inicializado, apunta a una dirección de memoria indeterminada. Si tratamos de usarlo en esas condiciones obtendremos resultados impredecibles (y casi siempre desagradables).</p>
+
+<p>Antes de usar cualquier puntero hay que <strong>asegurarse de que está apuntando a una dirección válida</strong>, es decir, a la dirección de alguna variable del tipo adecuado. Por ejemplo, así:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="o">*</span><span class="n">numero</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+<span class="n">numero</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>El puntero <em>numero</em> ahora sí está en condiciones de ser usado, porque está apuntado a la dirección de la variable <em>a</em>, que es de tipo <em>int</em>, como el puntero.</p>
+
+<p>Otra posibilidad es hacer que un puntero apunte a NULL. El identificador NULL es una constante definida en el lenguaje que indica que un puntero no está apuntando a ninguna dirección válida y que, por lo tanto, no se debe utilizar:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="o">*</span><span class="n">numero</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="944-asignación-de-punteros">9.4.4. Asignación de punteros</h3>
+
+<p>Se puede asignar una variable puntero a otra siempre que ambas apunten al mismo tipo de dato. Al realizar la asignación, ambos punteros quedarán apuntando a la misma dirección de memoria.</p>
+
+<p>Observa este ejemplo y trata de determinar qué resultado se obtiene en la pantalla (antes de leer la solución que aparece más abajo):</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">;</span>
+<span class="kt">int</span> <span class="o">*</span><span class="n">p1</span><span class="p">,</span> <span class="o">*</span><span class="n">p2</span><span class="p">;</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="n">p1</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>	<span class="cm">/* p1 apunta a la dirección de memoria de la variable a */</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="n">p1</span><span class="p">;</span>	<span class="cm">/* a p2 se le asigna la misma dirección que tenga p1 */</span>
+<span class="n">b</span> <span class="o">=</span> <span class="o">*</span><span class="n">p1</span><span class="p">;</span>
+<span class="n">c</span> <span class="o">=</span> <span class="o">*</span><span class="n">p1</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>	<span class="cm">/* Suma 5 a lo que contenga la dirección apuntada por p1 */</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"%i %i %i %p %p"</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>En la pantalla se imprimirá “5 5 10”, que es el contenido de las variables a, b y c al terminar la ejecución de este bloque de instrucciones, y la dirección a la que apuntan p1 y p2, que debe ser la misma. Observa que con <em>printf</em> y la cadena de formato “%p” se puede mostrar la dirección de memoria de cualquier variable.</p>
+
+<h3 id="945-punteros-y-arrays">9.4.5. Punteros y arrays</h3>
+
+<h4 id="punteros-y-arrays-de-una-dimensión">Punteros y arrays de una dimensión</h4>
+
+<p>Los punteros y los arrays tienen una relación muy estrecha en C, ya que <strong>el nombre de un array es en realidad un puntero al primer elemento</strong> de ese array.</p>
+
+<p>Es decir, si <em>x</em> es un array undimensional, la dirección del primer elemento puede ser expresada como <em>&amp;x[0]</em> o simplemente como <em>x</em>.</p>
+
+<p>Y, del mismo modo, la dirección del elemento i-ésimo se puede expresar como <em>&amp;x[i]</em> o como <em>(x+i)</em>. En este caso, la expresión <em>(x+i)</em> no es una operación aritmética convencional, sino una operación con punteros.</p>
+
+<p>Si &amp;x[i] y (x+i) representan la dirección del i-ésimo elemento de x, podemos decir que x[i] y *(x+i) representan el <strong>contenido</strong> de esa dirección, es decir, el valor del i-ésimo elemento de x. Observa que la forma x[i] es la que hemos estado utilizando hasta ahora para acceder a los elementos de un vector.</p>
+
+<p>Los arrays, por lo tanto, pueden utilizarse con índices o con punteros. Al programador suele resultarle mucho más cómodo utilizar la forma x[i] para acceder al elemento i-ésimo de un array. Sin embargo, hay que tener en cuenta que la forma *(x+i) es mucho más eficiente que x[i], por lo que suele preferirse cuando la velocidad del ejecución es un factor determinante.</p>
+
+<h4 id="punteros-y-arrays-multidimensionales">Punteros y arrays multidimensionales</h4>
+
+<p>Un array multidimensional es en realidad una colección de varios arrays unidimensionales (vectores). Por tanto, se puede definir un array multidimensional como un puntero a un grupo contiguo de arrays unidimensionales.</p>
+
+<p>El caso más simple de array de varias dimensiones es el bidimiensional. Supongamos que <em>x</em> es un array bidimensional de enteros con 10 filas y 20 columnas. Podemos declarar <em>x</em> de dos formas:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">x</span><span class="p">[</span><span class="mi">10</span><span class="p">][</span><span class="mi">20</span><span class="p">];</span>   <span class="cm">/* Declaración convencional */</span>
+<span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)[</span><span class="mi">20</span><span class="p">];</span>    <span class="cm">/* Declaración como puntero */</span>
+</code></pre></div></div>
+<p>En la segunda declaración, <em>x</em> se define como un puntero a un grupo de array unidimensionales de 20 elementos enteros. Así <em>x</em> apunta al primero de los arrays de 20 elementos, que es en realidad la primera fila (fila 0) del array bidimensional original. Del mismo modo (x+1) apunta al segundo array de 20 elementos, y así sucesivamente.</p>
+
+<p>Por ejemplo, el elemento de la columna 2 y la fila 5 puede ser accedido de estas dos maneras:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">5</span><span class="p">];</span>      <span class="cm">/* Acceso convencional */</span>
+<span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">5</span><span class="p">);</span>  <span class="cm">/* Acceso mediante punteros */</span>
+</code></pre></div></div>
+
+<p>Esta instrucción parece muy complicada pero es fácil de desentrañar:</p>
+
+<ul>
+  <li>(x+2) es un puntero a la columna 2</li>
+  <li>*(x+2) es el objeto de ese puntero y refiere a toda la columna. Como la columna 2 es un array unidimensional,  *(x+2) es realmente un puntero al primer elemento de la columna 2.</li>
+  <li>(*(x+2)+5) es un puntero al elemento 5 de la columna 2.</li>
+  <li>El objeto de este puntero <em>(</em>(x+2)+5) refiere al elemento 5 de la columna 2.</li>
+</ul>
+
+<h3 id="946-paso-de-punteros-como-parámetros">9.4.6. Paso de punteros como parámetros</h3>
+
+<p>A menudo los punteros son <strong>pasados a las funciones como argumentos</strong>. Esto permite que datos de la porción de programa desde el que se llama a la función sean accedidos por la función, alterados dentro de ella y devueltos de forma alterada.</p>
+
+<p>Este uso de los punteros se conoce como <strong>paso de parámetros por variable o referencia</strong> y lo hemos estado utilizando hasta ahora sin saber muy bien lo que hacíamos.</p>
+
+<p>Cuando los punteros son usados como argumento de una función, es necesario tener cuidado con la declaración y uso de los parámetros dentro de la función. Los argumentos formales que sean punteros deben ir precedidos por un asterisco. Observa detenidamente el siguiente ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="kt">void</span> <span class="nf">funcion1</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">funcion2</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">,</span> <span class="kt">int</span><span class="o">*</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">;</span>
+  <span class="n">u</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="n">v</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="n">funcion1</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"Después de la llamada a funcion1:  u=%d v=%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span>
+  <span class="n">funcion2</span><span class="p">(</span><span class="o">&amp;</span><span class="n">u</span><span class="p">,</span><span class="o">&amp;</span><span class="n">v</span><span class="p">);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"Después de la llamada a funcion2:  u=%d v=%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">funcion1</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span>	
+<span class="p">{</span>
+   <span class="n">u</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+   <span class="n">v</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">funcion2</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">pu</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">pv</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="o">*</span><span class="n">pu</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+   <span class="o">*</span><span class="n">pv</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>La función de <em>funcion1()</em> utiliza <strong>paso de parámetros por valor</strong>. Cuando es invocada, los valores de las variables <em>u</em> y <em>v</em> del programa principal son <em>copiados</em> en los parámetros <em>u</em> y <em>v</em> de la función. Al modificar estos parámetros dentro de la función, el valor de u y v en el programa principal no cambia.</p>
+
+<p>En cambio, <em>funcion2()</em> utiliza paso de parámetros por por referencia. Lo que se pasa a la función no es el <em>valor</em> de las variables sino su <em>dirección</em> de memoria, es decir, un puntero a las celdas de memoria donde <em>u</em> y <em>v</em> están almacenadas. Dentro de la función, se utiliza el operador asterisco para acceder al <em>contenido</em> de <em>pu</em> y <em>pv</em> y, en consecuencia, se altera el contenido de las posiciones de memoria apuntadas por <em>pu</em> y <em>pv</em>. El resultado es que las variables <em>u</em> y <em>v</em> del programa principal quedan modificadas.</p>
+
+<p>Por lo tanto, la salida del programa debe ser:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Después de la llamada a funcion1:  u=1 v=3
+Después de la llamada a funcion2:  u=0 v=0
+</code></pre></div></div>
+
+<p>¿Recuerdas que la función <em>scanf()</em> requiere que sus argumentos vayan precedidos por &amp;, mientras que <em>printf()</em> no lo necesita? Hasta ahora no podíamos comprender por qué, pero ahora podemos dar una razón: <em>scanf()</em> necesita que sus argumentos vayan precedidos del símbolo &amp; porque necesita las direcciones de los datos que van a ser leídos, para poder colocar en esas posiciones de memoria los datos introducidos por teclado. En cambio, printf() no necesita las direcciones, sino únicamente los valores de los datos para poder mostrarlos en la pantalla.</p>
+
+<p>Al estudiar los arrays y las estructuras ya vimos en detalle cómo se deben pasar como parámetros a las funciones. Recuerda que los arrays siempre se pasan por variable y no es necesario usar el símbolo &amp; en la llamada, ya que el propio nombre del array se refiere, en realidad, a la dirección del primer elemento.</p>
+
+<h3 id="947-devolución-de-punteros">9.4.7. Devolución de punteros</h3>
+
+<p>Una función también puede devolver un puntero. Para hacer esto, la declaración de la función debe indicar que devolverá un puntero. Esto se realiza precediendo el nombre de la función con un asterisco. Por ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">double</span> <span class="o">*</span><span class="n">pf</span><span class="p">;</span>
+<span class="n">pf</span> <span class="o">=</span> <span class="n">funcion</span><span class="p">(</span><span class="n">argumentos</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"%lf"</span><span class="p">,</span> <span class="o">*</span><span class="n">pf</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Cuando esta función sea invocada, devolverá un puntero a un dato de tipo double, y por lo tanto debe ser asignada a una variable de ese tipo. Por ejemplo, así:</p>
+
+<h3 id="948-punteros-a-punteros">9.4.8. Punteros a punteros</h3>
+
+<p>Un último aspecto (a la vez confuso y potente) de los punteros es la posibilidad de definir punteros que, a su vez, apunten a otros punteros. Esto no es un trabalenguas, sino que, técnicamente, se denomina <strong>indirección múltiple</strong>.</p>
+
+<p>Por ejemplo, el resultado del siguiente fragmento de código en C debe ser que se imprima el número 15 en la pantalla:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+<span class="kt">int</span><span class="o">*</span> <span class="n">p1</span><span class="p">;</span>      <span class="cm">/* puntero a un número entero */</span>
+<span class="kt">int</span><span class="o">**</span> <span class="n">p2</span><span class="p">;</span>     <span class="cm">/* puntero a un puntero de números enteros */</span>
+<span class="n">p1</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">;</span>	     <span class="cm">/* p1 contiene la dirección de n */</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">p1</span><span class="p">;</span>	  <span class="cm">/* p2 contiene la dirección de p1 */</span>
+<span class="o">**</span><span class="n">p2</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span>    
+<span class="n">printf</span><span class="p">(</span><span class="s">"%i"</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="949-gestión-dinámica-de-la-memoria-arrays-dinámicos">9.4.9. Gestión dinámica de la memoria: arrays dinámicos</h3>
+
+<p>Según hemos visto hasta ahora, la memoria reservada para cada variable se define en el momento de escribir el código del programa.</p>
+
+<p>Por ejemplo, si declaramos una variable de tipo <em>int</em>, ésta tendrá asignados 2 o 4 bytes de memoria (esa cantidad puede variar dependiendo del compilador y del sistema operativo). Entonces, si declaramos un array de 100 números enteros, el array tendrá reservados 200 o 400 bytes de memoria.</p>
+
+<p><em>¿Pero qué ocurre si no sabemos de antemano cuántos elementos puede llegar a tener el array?</em></p>
+
+<p>Por ejemplo, imaginemos un problema consistente en leer por teclado (u otro dispositivo de entrada) una cantidad indefinida de números para almacenarlos en un array y luego hacer ciertas operaciones con ellos. ¿De qué tamaño podemos definir el array? ¿De 100 elementos? ¿Y si el usuario introduce 101 elementos?</p>
+
+<p>Para estas situaciones, que son muy frecuentes, existe la <strong>asignación dinámica de memoria</strong>, que consiste en reservar memoria para las variables en tiempo de ejecución, es decir, mientras el programa está funcionando. Así, es posible “estirar” o “encoger” sobre la marcha el espacio reservado para el array, dependiendo de las necesidades de cada momento.</p>
+
+<p>Veremos enseguida que, para manejar la memoria dinámicamente, es imprescindible <strong>el uso de punteros</strong>. De hecho, este es uno de los grandes frutos que vamos a obtener de ellos.</p>
+
+<p>Como los arrays son la estructura de datos más simple y fácil de entender, vamos a centrarnos en crear y manipular <strong>arrays dinámicos</strong>, pero los principios que veamos aquí son aplicables a cualquier otra estructura dinámica simple, como pilas, listas o colas, o complejas, como árboles o grafos.</p>
+
+<h4 id="reserva-de-memoria-con-malloc">Reserva de memoria con <em>malloc()</em></h4>
+
+<p>Ya que un nombre de array es en realidad un puntero a su primer elemento, es posible definir un array como una variable puntero en vez de como un array convencional. Así, estas dos definiciones sirven para un vector de números enteros:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">vector1</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="kt">int</span><span class="o">*</span> <span class="n">vector2</span><span class="p">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>El <em>vector1</em> se define del modo convencional de un array. Esto produce la reserva de un bloque fijo de memoria al empezar la ejecución del programa lo suficientemente grande como para almacenar 100 números enteros.</li>
+  <li>El <em>vector2</em> se define como puntero a entero. En este caso, no se reserva ninguna cantidad de memoria para almacenar los números enteros.</li>
+</ul>
+
+<p>Si intentamos acceder a los elementos de los vectores obtendremos resultados diferentes:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector1</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="mi">83</span><span class="p">;</span>
+<span class="n">vector2</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="mi">27</span><span class="p">;</span>	<span class="cm">/* Esto es un error */</span>
+</code></pre></div></div>
+
+<p>La primera asignación funcionará correctamente, ya que el quinto elemento del <em>vector1</em> tiene un espacio de memoria asignado. La segunda asignación producirá un efecto impredecible, ya que <em>vector2</em> no tiene ningún espacio de memoria asignado y, por lo tanto, el dato 27 se escribirá en una posición de memoria correspondiente a otro dato u otro programa. La consecuencia puede llegar a ser bastante desagradable.</p>
+
+<p>Se necesita, pues, reservar un fragmento de memoria antes de que los elementos del array sean procesados. Tales tipos de reserva se realizan mediante la <strong>función <em>malloc()</em></strong> o alguna de sus variedades. Observa bien su uso en este ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="o">*</span><span class="n">x</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span> <span class="n">malloc</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="nf">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p>La función <em>malloc()</em> reserva un especio de memoria consistente en 100 veces el tamaño de un número entero. Fíjate bien en el uso del <em>sizeof(int)</em>: se trata de un operador unario que devuelve el tamaño de un tipo de dato cualquiera, tanto simple como complejo.</p>
+
+<p>Suponiendo que <em>sizeof(int)</em> fuera 2 (es decir, que cada número de tipo int ocupase 2 bytes), lo que se le está pidiendo a <em>malloc()</em> es que reserve 100 * 2 bytes, es decir, 200 bytes de memoria.</p>
+
+<p>Además, es necesario usar el <strong>molde (int *)</strong>, ya que malloc() devuelve un puntero sin tipo (es decir, un puntero a <em>void</em>), así que hay que convertirlo a puntero a entero antes de asignarlo a la variable x, que efectivamente es un puntero a entero.</p>
+
+<p>De esta manera, la variable <em>vector2</em> pasa a ser un <strong>array dinámico</strong>: se comporta como un array y puede usarse como tal, pero su tamaño ha sido definido durante la ejecución del programa. Y más adelante, en el mismo programa, podemos redefinir el tamaño del array para acortarlo o alargarlo.</p>
+
+<p>Si la función <em>malloc()</em> falla devolverá un puntero a NULL. Utilizar un puntero a NULL es la forma más segura de hacer explotar tu programa, así que siempre debemos comprobar que el puntero devuelto es correcto. Una vez hecho esto, podemos utilizar x con toda tranquilidad como si fuera un array de 100 números enteros. Por ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="n">i</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span> <span class="n">malloc</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="nf">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"Error en la asignación de memoria"</span><span class="p">);</span>
+<span class="k">else</span>
+<span class="p">{</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"Se ha reservado con éxito espacio para 100 números"</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"Introduzca un número:"</span><span class="p">);</span>
+	<span class="n">scanf</span><span class="p">(</span><span class="s">"%i"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="liberación-de-memoria-con-free">Liberación de memoria con <em>free()</em></h4>
+
+<p>El programador debe tener dos precauciones básicas a la hora de manejar la memoria dinámicamente:</p>
+
+<ul>
+  <li><strong>Asignar memoria</strong> a un puntero antes de usarlo con <em>malloc()</em> u otra función similar</li>
+  <li><strong>Liberar la memoria asignada</strong>, cuando ya no va a usarse más, con <em>free()</em> u otra función similar.</li>
+</ul>
+
+<p>Si no se libera la memoria asignada a un puntero, teóricamente no ocurre nada grave, salvo que podemos terminar por agotar la memoria disponible si reservamos continuamente y nunca liberamos.</p>
+
+<p>Es, en cualquier caso, una costumbre muy saludable.</p>
+
+<p>Para liberar la memoria reservada previamente con <em>malloc()</em> u otra función de su misma familia, se utiliza la función <em>free()</em>. Observa su uso en este ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="n">i</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span> <span class="n">malloc</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="nf">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+<span class="p">...</span> <span class="n">instrucciones</span> <span class="n">de</span> <span class="n">manipulaci</span><span class="err">ó</span><span class="n">n</span> <span class="n">de</span> <span class="n">x</span> <span class="p">...</span>
+<span class="n">free</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Toda la memoria reservada con <em>malloc()</em> quedará liberada después de hacer <em>free()</em> y se podrá utilizar para guardar otros datos o programas. El puntero <em>x</em> quedará apuntado a NULL y no debe ser utilizado hasta que se le asigne alguna otra dirección válida.</p>
+
+<h4 id="funciones-básicas-para-la-gestión-dinámica-de-la-memoria">Funciones básicas para la gestión dinámica de la memoria</h4>
+
+<p>Además de <em>malloc()</em> y <em>free()</em> existen otras funciones similares pero con pequeñas diferencias. A continuación resumimos las más usuales y mostramos un ejemplo de su uso.</p>
+
+<p>Pero antes haremos una advertencia: todas las funciones de reserva de memoria devuelven un puntero a NULL si no tienen éxito. Por lo tanto, deben ir seguidas de un condicional que compruebe si el puntero apunta a NULL antes de utilizarlo.</p>
+
+<ul>
+  <li>
+    <p><strong>calloc()</strong>: Reserva un bloque de memoria para almacenar num elementos de tam bytes y devuelve un puntero void al comienzo del bloque.</p>
+
+    <p>El siguiente ejemplo reserva espacio para 35 números enteros:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kt">int</span><span class="o">*</span> <span class="n">p</span><span class="p">;</span>
+ <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>free()</strong>: Libera el bloque de memoria apuntado por un puntero y que previamente había sido reservado.</p>
+  </li>
+  <li>
+    <p><strong>malloc()</strong>: Reserva un bloque de memoria de tam bytes y devuelve un puntero void al comienzo del mismo. Por ejemplo, para reservar espacio para una cadena de 100 caracteres:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kt">char</span><span class="o">*</span> <span class="n">texto</span><span class="p">;</span>
+ <span class="n">texto</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="nf">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>realloc()</strong>: Cambia el tamaño de un bloque de memoria apuntado por puntero. Dicho bloque ha debido ser previamente asignado con malloc() u otra función similar. El nuevo tamaño será de tam bytes. Devuelve un puntero void al comienzo del bloque.</p>
+
+    <p>En el siguiente ejemplo, se reserva espacio para 100 caracteres, pero luego se modifica el tamaño del bloque para dar cabida hasta 500 caracteres:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kt">char</span><span class="o">*</span> <span class="n">texto</span><span class="p">;</span>
+ <span class="n">texto</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="nf">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+ <span class="cm">/* Aquí irían las instrucciones que utilicen el puntero texto
+    con un tamaño de 100 caracteres */</span>
+ <span class="n">texto</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">realloc</span><span class="p">(</span><span class="n">texto</span><span class="p">,</span> <span class="mi">500</span> <span class="o">*</span> <span class="nf">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+ <span class="cm">/* A partir de aquí, el mismo puntero texto puede usarse para
+    manejar hasta 500 caracteres */</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="9410-librerías-no-estándar-que-molan-ncurses">9.4.10. Librerías no estándar que molan: ncurses</h3>
+
+<p>Además de las librerías estándar ANSI, existen muchas (¡muchísimas!) librerías de terceros que se pueden usar en nuestros programas. Las que vamos a ver a continuación nos permitirán introducir colores, sonidos y movimientos en nuestros programas, pero debes tener presente una cosa: al no ser librerías estándar, los programas creados con estas librerías serán más difícilmente portables a otros sistemas.</p>
+
+<h4 id="qué-es-ncurses">Qué es Ncurses</h4>
+
+<p><strong>Ncurses</strong> es una <strong>librería para el manejo de interfaces basadas en texto</strong>.</p>
+
+<p>Es decir, se trata de un conjunto de funciones ya programadas que podemos utilizar en nuestros programas de texto para mejorar su aspecto. Con Ncurses podemos añadir colores, escribir en cualquier parte de la pantalla o borrar caracteres concretos. Por ejemplo, este programa para generar y resolver sudokus está escrito con Ncurses:</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/05-ncurses.png" alt="Ejemplo de programa escrito con Ncurses" /></p>
+
+<p>Desde luego, la pantalla anterior sería imposible de obtener con las librerías estándar de C.</p>
+
+<h4 id="compilación-y-enlace">Compilación y enlace</h4>
+
+<p>Como Ncurses no es una librería estándar, es necesario ordenar al compilador que la enlace con nuestro programa.</p>
+
+<p>Si compilas desde la consola, esto se hace añadiendo la opción –lncurses al comando <em>gcc</em>. Por ejemplo:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">gcc holamundo.c</code>: compila holamundo.c sin enlazarlo con la librería Ncurses</li>
+  <li><code class="language-plaintext highlighter-rouge">gcc -lncurses holamundo.c</code>: compila holamundo.c enlazándolo con Ncurses</li>
+</ul>
+
+<p>Si trabajas desde desde Visual Studio Code y tienes la librería Ncurses instalada en tu sistema, no es necesario que hagas nada en especial. Un simple <code class="language-plaintext highlighter-rouge">#include &lt;ncurses.h&gt;</code> bastará para poder usar la librería.</p>
+
+<p>Ncurses tiene muchísimas funciones, pero nosotros sólo nos referiremos aquí a las más básicas, que nos permitirán añadir color a nuestros textos y controlar libremente la posición del cursor de escritura. Pero Ncurses va mucho más allá, permitiendo la creación de capas de texto superpuestas, menús desplegables y muchas otras cosas en la consola de texto.</p>
+
+<h4 id="inicialización-de-ncurses">Inicialización de Ncurses</h4>
+
+<p>Para utilizar las funciones de Ncurses en nuestro programa, basta con que incluyamos la siguiente llamada:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">initscr</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Esta función crea una ventana de texto. La ventana se llama <em>stdscr</em> (que significa “standard screen”, es decir, “pantalla estándar”). A partir de aquí podremos utilizar cualquier función de Ncurses, pues todas actúan sobre esa ventana (se pueden crear varias ventanas sobre stdscr, pero nosotros no profundizaremos en esa posibilidad). Por ejemplo, una función que suele ir justo después es:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">keypad</span> <span class="p">(</span><span class="n">stdscr</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Esto sirve para activar la recepción de teclas especiales (como F1, F2, ESC, etc). Si no llamamos a keypad(), no podremos utilizar ese tipo de teclas en nuestro programa. El segundo parámetro sirve para activar (1) o desactivar (0) la recepción de teclas especiales.</p>
+
+<p>A continuación te dejo una lista con las principales funciones de inicialización de Ncurses:</p>
+
+<ul>
+  <li><strong>initscr()</strong>. Inicializa Ncurses y crea la pantalla estándar. Debe ser invocada antes que cualquier otra función de la librería.</li>
+  <li><strong>keypad()</strong>. Activa / desactiva la recepción de teclas especiales, como F1, ESC, Intro, etc. Si activar = 1, se activa la recepción. Si activar = 0, se desactiva.</li>
+  <li><strong>echo()</strong> y <strong>noecho()</strong>. Activa / desactiva el eco de caracteres. Si el eco está activo, lo que se escriba en el teclado aparece en la pantalla. Si está inactivo, no.</li>
+  <li><strong>cbreak()</strong> y <strong>nocbreak()</strong>. Activa / desactiva el envío inmediato de teclas. Normalmente, cuando se teclea algo no es enviado al programa hasta que no se pulsa “intro”. La función cbreak() hace que todo cuanto se teclee sea enviado al programa sin necesidad de “intro”. La función nocbreak() desactiva este comportamiento</li>
+  <li>
+    <p><strong>nodelay(stdscr)</strong>. Activa / desactiva la espera para lectura de teclado. Las funciones para leer un solo carácter, como getch(), detienen la ejecución del programa hasta que se pulsa alguna tecla. Llamando a esta función con el parámetro activar = 1, conseguiremos que el programa no se detenga en getch() aunque no se pulse tecla alguna. Para desactivarlo, llamaremos a la función con activar = 0.</p>
+  </li>
+  <li><strong>endwin()</strong>. Finaliza Ncurses. Hay que llamar a esta función antes de terminar el programa para liberar la memoria ocupada y restaurar la consola al estado inicial.</li>
+</ul>
+
+<h4 id="escribir-y-leer-con-ncurses">Escribir y leer con ncurses</h4>
+
+<p>Cuando utilicemos Ncurses debemos olvidarnos de las funciones de entrada/salida estándar, como <em>scanf()</em>, <em>printf()</em>, <em>gets()</em> o <em>puts()</em>. En su lugar usaremos estas otras funciones:</p>
+
+<ul>
+  <li><strong>printw()</strong> y <strong>putstr()</strong>. Para escribir usaremos la función <em>printw()</em>, que funciona igual que <em>printf()</em> pero sobre una ventana de Ncurses. También podemos usar <em>putstr()</em>, que es como <em>puts()</em>, es decir, sirve para imprimir cadenas</li>
+  <li><strong>getstr()</strong> y <strong>getch()</strong>. Para leer disponemos de <em>getstr()</em>, que es como <em>gets()</em>, es decir, sirve para leer cadenas por teclado. De modo que, si queremos leer un número, debemos leerlo como cadena y luego convertirlo a número (con las funciones estándar <em>atoi()</em>, <em>atof()</em>, etc). También podemos usar <em>getch()</em>, que lee un único carácter.</li>
+  <li><strong>move()</strong>. Posiciona el cursor de texto en la columna x y la fila y de la pantalla. ¡Atención! Se indica primero la fila y luego la columna.</li>
+  <li><strong>refresh()</strong>. Actualiza la pantalla. Es el único modo de asegurarnos de que los cambios realizados se muestren instantáneamente. Si no, Ncurses decidirá cuándo actualizar la pantalla por su cuenta, y te aseguro que no lo hace continuamente.</li>
+</ul>
+
+<h4 id="dar-color-a-nuestro-texto">Dar color a nuestro texto</h4>
+
+<p>Antes de utilizar los colores en la terminal de texto hay que inicializarlos llamando a la función <em>start_color()</em> sin argumentos, así:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">has_colors</span><span class="p">())</span>
+  <span class="n">start_color</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>La llamada previa a <em>has_colors()</em> se realiza para asegurarnos de que nuestra consola soporta el uso de colores. Es raro encontrar una consola que no permita colores, pero existen, así que no está de más hacer la comprobación.</p>
+
+<p>Una vez hecho esto, podemos utilizar los colores básicos definidos en <em>ncurses.h</em>, cuyas constantes son COLOR_BLACK, COLOR_WHITE, COLOR_YELLOW, etc.</p>
+
+<p>Para utilizar esos colores se deben agrupar en parejas: un color para el texto junto con un color para el fondo. A cada pareja se le asigna un número a través de la función <em>init_pair()</em>. Por ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">init_pair</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">COLOR_YELLOW</span><span class="p">,</span> <span class="n">COLOR_BLUE</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Esto define a la <em>pareja de colores nº 1</em> como <em>texto amarillo sobre fondo azul</em>. De este modo podemos definir, por lo general, hasta 64 parejas.</p>
+
+<p>Después, para <strong>activar una pareja de color</strong>, haremos esta llamada:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">attron</span><span class="p">(</span><span class="n">COLOR_PAIR</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p>Esto activa la pareja de colores nº 1, de manera que todo el texto que aparezca en la pantalla a partir de este momento se verá amarillo con el fondo azul.</p>
+
+<p>La función <em>attron()</em>, además de para activar parejas de colores, sirve para cambiar otros atributos del texto. Por ejemplo, lo siguiente se utiliza para escribir en <strong>negrita</strong>:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">attron</span><span class="p">(</span><span class="n">A_BOLD</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Puedes obtener más información sobre attron() en las páginas de manual (escribiendo <code class="language-plaintext highlighter-rouge">$ man attron</code> en la consola) o en internet (por ejemplo, <a href="https://linux.die.net/man/3/attron">aquí</a>).</p>
+
+<h4 id="ejemplo-de-uso-de-ncurses">Ejemplo de uso de Ncurses</h4>
+
+<p>Para terminar esta breve introducción a la librería Ncurses mostraremos un ejemplo ilustrativo del uso de algunas de las funciones que aquí se han visto.</p>
+
+<p>El siguiente programa utiliza Ncurses para escribir el texto HOLA en color rojo sobre fondo azul y el texto MUNDO en color amarillo sobre fondo verde. El texto HOLA aparece en la línea 11, y MUNDO en la 12. Luego, el programa espera hasta que se pulsa la tecla “flecha arriba”, y entonces termina.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;ncurses.h&gt;</span><span class="cp">
+</span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">char</span> <span class="n">car</span><span class="err">á</span><span class="n">cter</span><span class="p">;</span>
+  <span class="n">initscr</span><span class="p">();</span>         <span class="c1">// Inicializa Ncurses</span>
+  <span class="n">keypad</span><span class="p">(</span><span class="n">stdscr</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// Activa teclas especiales (como las flechas)</span>
+  <span class="n">cbreak</span><span class="p">();</span>          <span class="c1">// Para no tener que pulsar Intro tras cada carácter </span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">has_colors</span><span class="p">())</span> <span class="n">start_color</span><span class="p">();</span>         <span class="c1">// Inicializa colores</span>
+  <span class="n">init_pair</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">COLOR_RED</span><span class="p">,</span> <span class="n">COLOR_BLUE</span><span class="p">);</span>     <span class="c1">// Pareja 1 = Texto rojo, fondo azul</span>
+  <span class="n">init_pair</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">COLOR_YELLOW</span><span class="p">,</span> <span class="n">COLOR_GREEN</span><span class="p">);</span> <span class="c1">// Pareja 2 = Texto amarillo, fondo verde</span>
+  <span class="n">attron</span><span class="p">(</span><span class="n">COLOR_PAIR</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>    <span class="c1">// Activa pareja 1</span>
+  <span class="n">move</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">printw</span><span class="p">(</span><span class="s">"HOLA"</span><span class="p">);</span>
+  <span class="n">attron</span><span class="p">(</span><span class="n">COLOR_PAIR</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>    <span class="c1">// Activa pareja 2</span>
+  <span class="n">move</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">printw</span><span class="p">(</span><span class="s">"MUNDO"</span><span class="p">);</span>
+  <span class="k">do</span>
+  <span class="p">{</span>  
+       <span class="n">car</span><span class="err">á</span><span class="n">cter</span> <span class="o">=</span> <span class="n">getch</span><span class="p">();</span>  <span class="c1">// Lee un carácter desde el teclado</span>
+  <span class="p">}</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">car</span><span class="err">á</span><span class="n">cter</span> <span class="o">!=</span> <span class="n">KEY_UP</span><span class="p">);</span>
+  <span class="n">endwin</span><span class="p">();</span>  <span class="c1">// Finaliza Ncurses</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="9411-librerías-no-estándar-que-molan-sdl">9.4.11. Librerías no estándar que molan: SDL</h3>
+
+<p><strong>SDL</strong> (iniciales de <em>Single DirectMedia Layer</em>) es una biblioteca de C libre y disponible para múltiples plataformas (entre ellas, Linux y Windows). Puedes bajarte la última versión de <a href="http://www.libsdl.org">http://www.libsdl.org</a>.</p>
+
+<p>Esta biblioteca contiene un conjunto muy completo de funciones para manejar gráficos, además de sonidos y distintos dispositivos multimedia (ratón, CD-ROM, etc). Muchos programas escritos en C (en particular, videojuegos) se han desarrollado con SDL. Además, la librería es razonablemente sencilla de usar.</p>
+
+<p>La siguiente captura pertenece a un juego llamado <em>Unknown Horizons</em>, desarrollado en 2008 con la librería SDL y cuya última versión es del año 2019. Puedes encontrar en internet muchos otros ejemplos de programas escritos con SDL, tanto antiguos como recientes:</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/05-sdl-example.png" alt="Ejemplo de juego desarrollado con SDL" /></p>
+
+<p>Nosotros sólo nos vamos a centrar en la parte de SDL dedicada a los gráficos. Si quieres más información, en la página web reseñada antes encontrarás una completa documentación.</p>
+
+<p><em>NOTA IMPORTANTE: todo lo que sigue se refiere a la versión 1.2 de la librería SDL. La versión más reciente podría tener algunas pequeñas diferencias que debes consultar en la documentación.</em></p>
+
+<h4 id="instalación-de-sdl">Instalación de SDL</h4>
+
+<p>SDL no es una librería C estándar, es decir, no viene “de serie” con el compilador de C. En realidad, tampoco <em>ncurses</em> lo es, pero su uso está tan extendido en entornos Unix que viene incorporada a las librerías del compilador gcc.</p>
+
+<p>En cambio, la librería SDL debe ser instalada antes de poder utilizarla. A continuación describimos el proceso de instalación en Linux y en Windows</p>
+
+<p>Existen dos paquetes de SDL: el <em>runtime</em>, necesario para ejecutar aplicaciones que usen SDL, y el <em>development</em>, necesario para escribir y compilar programas que usen SDL. Nosotros necesitaremos los dos, claro.</p>
+
+<p><strong>Instalación de SDL en Linux</strong></p>
+
+<ul>
+  <li>
+    <p>Instala el paquete <strong>libSDLX.X-dev</strong> (X.X es el número de la versión; por ejemplo, puede ser 1.2) desde la tienda de aplicaciones de tu distribución Linux. Eso será suficiente para que se instalen los paquetes de desarrollo y de <em>runtime</em>.</p>
+  </li>
+  <li>
+    <p>Si estos paquetes no estuvieran en tu repositorio (algo muy raro), puedes bajártelos de <a href="https://libsdl.org">libsdl.org</a> e instalarlos manualmente. Consulta el manual de tu Linux para aprender a hacer esto último.</p>
+  </li>
+  <li>
+    <p>Además, puedes necesitar paquetes adicionales. Los más habituales son <strong>libSDL-imageX.X-dev</strong> (para manipular imágenes), <strong>libSDL-ttfX-X-dev</strong> (para manejar fuentes y renderizar textos) y <strong>libSDL-mixerX.X-dev</strong> (para utilizar sonidos). Ten en cuenta que los nombres de los paquetes pueden variar ligeramente dependiendo de tu distribución de Linux.</p>
+  </li>
+  <li>
+    <p>Para instalar todos estos paquetes de SDL 1.2 en una distribución como Ubuntu, puedes usar este comando:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt update
+$ sudo apt install libsdl1.2-dev libsdl-image1.2-dev libsdl-ttf1.2-dev libsdl-mixer1.2-dev
+</code></pre></div>    </div>
+
+    <p>Si tu distribución no usa apt como gestor de paquetes, tendrás que buscar en la documentación de la misma cómo instalar paquetes de los respositorios.</p>
+  </li>
+</ul>
+
+<p><strong>Instalación de SDL en Windows</strong></p>
+
+<ul>
+  <li>
+    <p>Bájate la última versión de la librería de la web de SDL. Necesitarás la librería de vínculos dinámicos (denominada dll), que es el <em>runtime</em> para Windows, y el paquete de desarrollo.</p>
+  </li>
+  <li>
+    <p>La librería de vínculos dinámicos suele venir comprimida en un archivo cuyo nombre es similar a: SDL-x.x.x.zip, donde “x.x.x” es la versión de la libería. Existirán varios paquetes de desarrollo para varios compiladores. Mi consejo es que bajes el que está preparado para el compilador de GNU, cuyo nombre es SDL-devel-x.x.x-mingw32.tar o algo similar.</p>
+  </li>
+  <li>
+    <p>Descomprime la librería de vínculos dinámicos. Debes obtener un archivo llamado sdl.dll. Copia este archivo al directorio /windows/system32, o bien ubícalo en la misma carpeta en la que se encuentre el programa que estás escribiendo.</p>
+  </li>
+  <li>
+    <p>Descomprime el paquete de desarrollo. Encontrarás varios directorios y, dentro de ellos, multitud de archivos. Copia los archivos en los directorios del mismo nombre de tu compilador. Por ejemplo, el copia el directorio “include” del paquete de desarrollo al directorio “include” de la carpeta donde esté instalado tu compilador. Repite la operación para todos los directorios cuyo nombre coincida.</p>
+  </li>
+  <li>
+    <p>Si vas a usar otras librerías auxiliares, como <em>image</em>, <em>ttf</em> o <em>mixer</em> (para manipular imágenes, fuentes y sonidos con SDL), repite el proceso con cada una de ellas.</p>
+  </li>
+</ul>
+
+<h4 id="compilación-y-enlace-de-sdl">Compilación y enlace de SDL</h4>
+
+<p>Al no ser SDL una librería estándar, el enlace entre nuestro programa y las funciones de SDL no se produce automáticamente. Hay que indicarle al enlazador (o linker) lo que debe hacer.</p>
+
+<p>Para empezar, como con cualquier librería, tienes que incluirla en tu código fuente, así:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;SDL/SDL.h&gt;</span><span class="cp">
+</span></code></pre></div></div>
+
+<p>Si usas otras librerías auxiliares de SDL, como SDL-mixer, también tendrás que incluir el archivo de cabecera. Por ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;SDL/SDL_mixer.h&gt;</span><span class="cp">
+</span></code></pre></div></div>
+
+<p>Luego, durante la compilación, tienes que indicar al compilador que enlace tu programa con la librería SDL. Si estás compilando desde la línea de comandos esto se hace así:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gcc mi_programa.c -o mi_ejecutable -lSDL
+</code></pre></div></div>
+
+<p>Si estás usando otras librerías, como SDL_mixer, tendrás que añadirlas también:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gcc mi_programa.c -o mi_ejecutable -lSDL -lSDL_mixer
+</code></pre></div></div>
+
+<p>En cambio, si para compilar utilizas <strong>Visual Studio Code</strong> con la extensión <strong>Code Runner</strong>, tendrás que agregar “-lSDL” a la lista de argumentos de la tarea de compilación. Para eso, abre el archivo <strong><em>.json</em></strong> que encontrarás en el directorio <strong><em>.vscode</em></strong> de tu proyecto. Encontrarás algo como esto:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"configurations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Linux"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"includePath"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"${workspaceFolder}/**"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nl">"defines"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+            </span><span class="nl">"compilerPath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/usr/bin/gcc"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"cStandard"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gnu17"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"cppStandard"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gnu++17"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"intelliSenseMode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"linux-gcc-x64"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"compilerArgs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"-lSDL"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"-lSDL_mixer"</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Mira en la sección “compilerArgs”. Si esa sección no existe o existe pero no contiene la línea “-lSDL”, añádela. Si necesitas otras librerías, como SDL-mixer, añádela también. Guarda el archivo y reinicia Visual Studio Code.</p>
+
+<p>Si utilizas otro entorno de desarrollo distinto de Visual Studio Code, u otra extensión distinta de Code Runner dentro de Visual Studio Code, el proceso debe ser muy parecido, pero tendrás que mirar la documentación de ese entorno o de esa extensión para ver los detalles.</p>
+
+<h4 id="inicialización-y-terminación-de-la-pantalla-gráfica">Inicialización y terminación de la pantalla gráfica</h4>
+
+<p>Una vez instalada la libería y preparado el compilador, podemos usar las funciones de SDL como cualquier otra función estándar de C. Su uso es exactamente igual en Windows y en Linux, por lo que el programa que obtendremos debería compilar sin necesidad de hacerle ningún cambio en ambos sistemas.</p>
+
+<p>Para usar los gráficos, hay que hacer un <code class="language-plaintext highlighter-rouge">#include &lt;SDL/SDL.h&gt;</code> en el archivo fuente, como es natural. Aparece dos veces el nombre “SDL” porque el archivo SDL.h está dentro de una carpeta llamada SDL.</p>
+
+<p>Lo siguiente que hay que hacer es <strong>inicializar la pantalla gráfica</strong>. Para eso disponemos de dos funciones: <em>SDL_Init()</em> y <em>SDL_SetVideoMode()</em>:</p>
+
+<ul>
+  <li>
+    <p><strong><em>SDL_Init()</em></strong>. Debe ser la primera función en invocarse. No se puede usar ninguna otra función de SDL si antes no se ha llamado a esta. Hay que pasarle un parámetro que indica qué tipo de sistema multimedia queremos manejar (la tarjeta de vídeo, la de sonido, el CD-ROM, etc). En nuestro caso será la tarjeta de vídeo, ya que sólo nos interesa manipular gráficos. La constante para ello es SDL_INIT_VIDEO:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">SDL_Init</span><span class="p">(</span><span class="n">SDL_INIT_VIDEO</span><span class="p">);</span>
+</code></pre></div>    </div>
+
+    <p>La fución SDL_Init() devuelve –1 si ocurre algún error al iniciar el sistema de gráficos. En ese caso, el programa no podrá continuar, de modo que debemos comprobar el valor devuelto por SDL_Init().</p>
+  </li>
+  <li>
+    <p><strong><em>SDL_SetVideoMode()</em></strong>. Esta debe ser la segunda función en invocarse, justo a continuación de SDL_Init(). Sirve para establecer el tipo de pantalla gráfica que queremos. Hay que indicarle el tamaño en píxels, el número de bits de color y los atributos de la pantalla. Por ejemplo:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">SDL_SetVideoMode</span><span class="p">(</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">960</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="n">SDL_ANYFORMAT</span> <span class="o">|</span> <span class="n">SDL_DOUBLEBUFFER</span><span class="p">);</span>
+</code></pre></div>    </div>
+
+    <p>Esto crea una ventana gráfica de 1200x960 píxeles, con 24 bits de profundidad de color. El último parámetro, <em>SDL_ANYFORMAT</em>, es una constante que indica a SDL que puede seleccionar otra profundidad de color si la elegida no está disponible. Este cuarto parámetro puede tomar otros muchos valores que no vamos a ver, pero sí señalaremos que es conveniente añadir la constante <em>SDL_DOUBLEBUFFER</em> por motivos de rendimiento (ver ejemplo más abajo).</p>
+
+    <p><em>SDL_SetVideoMode()</em> devuelve un puntero a una estructura llamada <em>SDL_Surface</em>, definida en <em>SDL.h</em>, o NULL si ocurre algún error. Este puntero nos será imprescidible para manejar la pantalla gráfica, así que <strong>debes guardarlo en una variable</strong>.</p>
+
+    <p>Esta variable, además, debe ser <strong>global</strong> si se va a usar en otras partes del programa, contraviniendo una de las buenas prácticas de programación más universales que existen. Sin embargo, si no lo haces así, la variable no funcionará correctamente.</p>
+
+    <p>Aquí tienes un ejemplo de inicialización de la pantalla gráfica:</p>
+  </li>
+</ul>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include</span> <span class="cpf">&lt;SDL/SDL.h&gt;</span><span class="c1">  </span><span class="cp">
+</span>  <span class="p">...</span>
+  <span class="n">SDL_Surface</span> <span class="o">*</span><span class="n">pantalla</span><span class="p">;</span>	<span class="c1">// Esta variable debe ser GLOBAL</span>
+  <span class="p">...</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">SDL_Init</span><span class="p">(</span><span class="n">SDL_INIT_VIDEO</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">puts</span><span class="p">(</span><span class="s">"Error en la inicialización del sistema de vídeo</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="n">SDL_Quit</span><span class="p">();</span>
+    <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">pantalla</span> <span class="o">=</span> <span class="n">SDL_SetVideoMode</span><span class="p">(</span><span class="mi">1280</span><span class="p">,</span> <span class="mi">960</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">SDL_ANYFORMAT</span><span class="o">|</span><span class="n">SDL_DOUBLEBUF</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">pantalla</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">puts</span><span class="p">(</span><span class="s">"Fallo al establecer el modo de vídeo</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="n">SDL_Quit</span><span class="p">();</span>
+    <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="p">...</span>
+  <span class="n">SDL_Quit</span><span class="p">();</span>		<span class="c1">// Esto se hace al final del programa</span>
+</code></pre></div></div>
+
+<p>Tan importante como inicializar la pantalla gráfica es <strong>finalizarla</strong>. Ten en cuenta que la pantalla gráfica consume muchos recursos, y éstos deben ser liberados antes de que el programa termine su ejecución. Para eso tenemos la función <em>SDL_Quit()</em>, que se invoca sin argumentos (observa el ejemplo)</p>
+
+<h4 id="dibujar-gráficos-en-la-pantalla">Dibujar gráficos en la pantalla</h4>
+
+<p>Ya tenemos nuestra pantalla gráfica inicializada y lista para empezar a dibujar en ella. Pero, ¿qué tipo de objetos se pueden dibujar?</p>
+
+<p>Aunque las librerías gráficas permiten al programador <strong>pintar píxels individuales</strong> en cualquier punto de la pantalla, lo habitual es <strong>trabajar con imágenes</strong> previamente existentes llamadas <strong><em>sprites</em></strong>.</p>
+
+<p>Un <em>sprite</em> es una imagen guardada en un archivo que puede ser cargada por el programa y mostrada en cualquier parte de la pantalla gráfica y tantas veces como sea necesario.</p>
+
+<p>Por lo tanto, lo primero que necesitas es hacerte con una colección de sprites para tu programa. Si, por ejemplo, suponemos que estamos desarrollando un de ajedrez, necesitaríamos los siguientes:</p>
+
+<ul>
+  <li>Una imagen del tablero.</li>
+  <li>Una imagen de cada una de las piezas.</li>
+  <li>Opcionalmente, una imagen de fondo para decorar la pantalla.</li>
+</ul>
+
+<p>Los archivos con las imágenes deben estar en formato BMP. SDL admite otros formatos, pero el BMP es fácil de manipular, así que es buena idea empezar por las imágenes BMP y luego, cuando ya las manejes bien, dar el salto a otros formatos con compresión, como JPG o PNG. Cualquier editor de imágenes te permitirá convertir tus <em>sprites</em> a BMP.</p>
+
+<p>Para dibujar una imagen en cualquier punto de la pantalla, hay que hacer dos cosas que pasamos a describir con detalle:</p>
+
+<ul>
+  <li>Cargar la imagen en la memoria (procedente de un archivo BMP)</li>
+  <li>Mostrar la imagen en la pantalla</li>
+</ul>
+
+<p><strong>1. Cargar imágenes en la memoria</strong></p>
+
+<p>Sólo es necesario cargar las imágenes <strong>una vez</strong>. Normalmente, se hará <strong>al principio del programa</strong>, justo después de la inicialización de SDL.</p>
+
+<p>Una vez cargadas en la memoria, podremos utilizarlas tantas veces como las necesitemos, a menos que liberemos el espacio de memoria que ocupan. La liberación de espacio, por tanto, debería hacerse al final del programa, justo antes de terminar.</p>
+
+<p>Para cargar una imagen BMP se usa la función <em>SDL_LoadBMP()</em>, de esta forma:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">SDL_Surface</span> <span class="o">*</span><span class="n">tablero</span><span class="p">;</span>
+
+  <span class="n">tablero</span> <span class="o">=</span> <span class="n">SDL_LoadBMP</span><span class="p">(</span><span class="s">"tablero.bmp"</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">tablero</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+     <span class="n">printf</span><span class="p">(</span><span class="s">"Error al cargar el archivo tablero.bmp"</span><span class="p">);</span>
+     <span class="n">SDL_Quit</span><span class="p">();</span>
+     <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Observa que <em>SDL_LoadBMP()</em> devuelve un puntero a <em>SDL_Surface</em>. Este puntero será necesario para luego mostrar la imagen en cualquier lugar de la pantalla. La variable “tablero” debe ser global si se va a usar en más de una función (si es local y la pasamos como parámetro a otra función, SDL fallará).</p>
+
+<p>Las imágenes son rectangulares. En muchas ocasiones, necesitamos mostrar una imagen encima de otra. Es el caso de las piezas, que se mostrarán encima del tablero. Cuando esto ocurre, el color de fondo de la pieza (que decidimos que fuera negro) aparecerá encima del tablero como un desagradable recuadro de color negro. En estas situaciones, hay que avisar a SDL de que, para este <em>sprite</em> en concreto, el color negro (o el que decidamos) va a ser transparente, es decir, no debe ser mostrado. Esto se hace así:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">SDL_Surface</span> <span class="o">*</span><span class="n">peon_blanco</span><span class="p">;</span>
+  <span class="n">Uint32</span> <span class="n">color</span><span class="p">;</span>	<span class="c1">// Para definir el color de transparencia (donde proceda)</span>
+
+  <span class="c1">// Cargamos la imagen del peón blanco</span>
+  <span class="n">peon_blanco</span> <span class="o">=</span> <span class="n">SDL_LoadBMP</span><span class="p">(</span><span class="s">"peon_blanco.bmp"</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">peon_blanco</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+     <span class="n">printf</span><span class="p">(</span><span class="s">"Error al cargar el archivo peon_blanco.bmp"</span><span class="p">);</span>
+     <span class="n">SDL_Quit</span><span class="p">();</span>
+     <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+ 
+  <span class="c1">// Definimos la transparencia (color negro = (0,0,0) )</span>
+  <span class="n">color</span> <span class="o">=</span> <span class="n">SDL_MapRGB</span><span class="p">(</span><span class="n">peon_blanco</span><span class="o">-&gt;</span><span class="n">format</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">SDL_SetColorKey</span><span class="p">(</span><span class="n">cuadro1</span><span class="p">,</span> <span class="n">SDL_SRCCOLORKEY</span> <span class="o">|</span> <span class="n">SDL_RLEACCEL</span><span class="p">,</span> <span class="n">color</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Las imágenes cargadas en memoria deben ser liberadas antes de finalizar el programa con una llamada a SDL_FreeSurface(). Por ejemplo, para liberar la memoria ocupada por la imagen “tablero.bmp” que hemos cargado antes usaremos el puntero que obtuvimos al cargarla, así:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">SDL_FreeSurface</span><span class="p">(</span><span class="n">tablero</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>2. Mostrar imágenes en la pantalla</strong></p>
+
+<p>Una vez cargada una imagen BMP en la memoria, podemos mostrarla en la pantalla a través del puntero <em>SDL_Surface</em> que obtuvimos al cargarla. Una imagen cargada puede ser mostrada todas las veces que queramos en cualquier posición de la pantalla.</p>
+
+<p>Por ejemplo, para mostrar la imagen del tablero (que cargamos en un ejemplo del apartado anterior) haríamos lo siguiente (luego comentamos el código):</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">SDL_Rect</span> <span class="n">rect</span><span class="p">;</span>
+  <span class="n">rect</span> <span class="o">=</span> <span class="p">(</span><span class="n">SDL_Rect</span><span class="p">)</span> <span class="p">{</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">};</span>
+  <span class="n">SDL_BlitSurface</span><span class="p">(</span><span class="n">tablero</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">pantalla</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">rect</span><span class="p">);</span>
+  <span class="n">SDL_Flip</span><span class="p">(</span><span class="n">pantalla</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>La variable <em>rect</em> es de tipo <em>SDL_Rect</em>, y define un área rectangular de la pantalla. El área rectangular empieza en las coordenadas (10, 10) (esquina superior izquierda de la pantalla) y mide 400 píxels de ancho y 400 de alto, es decir, termina en (410, 410).</p>
+
+<p><em>SDL_BlitSurface()</em> es la función que se encarga de mostrar en la pantalla un <em>sprite</em>. La variable <em>tablero</em> es de tipo <em>SDL_Surface</em>, y debe ser la que nos devolvió <em>SDL_LoadBMP()</em> al cargar la imagen del tablero. La variable <em>pantalla</em> también es una <em>SDL_Surface</em>, y debe ser la que nos devolvió <em>SDL_SetVideoMode()</em> al inicializar la pantalla gráfica. Ya dijimos que los punteros que nos devuelven estas funciones son imprescidibles y que debíamos definirlos como variables globales. La variable <em>rect</em> es el área rectangular que acabamos de definir.</p>
+
+<p>Fíjate que <em>rect</em> es la que indica en qué lugar de la pantalla va a aparecer el <em>sprite</em>. En este ejemplo, aparecerá en (10,10). Se le han reservado 400x400 píxels para dibujarse, es decir, hasta la posición (410, 410). Si el <em>sprite</em> es más pequeño, no pasará nada (ocupará lo que mida realmente). Si es más grande, se truncará.</p>
+
+<p>Por último, <em>SDL_Flip()</em> hace que lo que acabamos de dibujar se muestre realmente en la pantalla. Su efecto es parecido al de la función refresh() de ncurses. En realidad, todo lo que dibujamos se escribe en una zona de memoria específica y, al hacer <em>SDL_Flip()</em>, esa zona de memoria se vuelca sobre la memoria de vídeo, apareciendo todo en la pantalla. Esto representa el movimiento de gran cantidad de información entre distintas zonas de memoria, lo cual es un proceso relativamente lento. Por eso, si vamos a dibujar varios sprites consecutivos, es mejor hacer una sola vez <em>SDL_Flip()</em>, al final, cuando los hayamos dibujado todos. Llamar a <em>SDL_Flip()</em> después de dibujar cada sprite ralentizará notablemente el funcionamiento de nuestro programa.</p>
+
+<h4 id="control-del-teclado">Control del teclado</h4>
+
+<p>Para leer el teclado en una ventana gráfica creada con SDL <em>no</em> se pueden usar las funciones estándar (como <em>getchar()</em> o <em>gets()</em>), ni mucho menos las de <em>ncurses</em> (como <em>getstr()</em>).</p>
+
+<p>SDL solo permite <strong>leer los caracteres de uno en uno</strong>, y <strong>no muestra eco</strong> por la pantalla (si queremos eco, tenemos que mostrar los caracteres nosotros mismos después de leerlos).</p>
+
+<p>Por lo demás, la forma de capturar un carácter tecleado es similar a la de <em>ncurses</em>, solo que un poco más complicada. A continuación se muestra un código de ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">SDL_Event</span> <span class="n">evento</span><span class="p">;</span>	  	      <span class="c1">// Para leer el teclado</span>
+
+<span class="c1">// Leer teclado</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">SDL_PollEvent</span><span class="p">(</span><span class="o">&amp;</span><span class="n">evento</span><span class="p">))</span>            <span class="c1">// Comprobar si se ha pulsado una tecla</span>
+<span class="p">{</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">evento</span><span class="p">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">SDL_KEYDOWN</span><span class="p">)</span>     <span class="c1">// Efectivamente, se ha pulsado una tecla</span>
+   <span class="p">{</span>
+       <span class="k">switch</span> <span class="p">(</span><span class="n">evento</span><span class="p">.</span><span class="n">key</span><span class="p">.</span><span class="n">keysym</span><span class="p">.</span><span class="n">sym</span><span class="p">)</span>  <span class="c1">// Vamos a mirar qué ecla es</span>
+       <span class="p">{</span>
+           <span class="k">case</span> <span class="n">SDLK_UP</span><span class="p">:</span>     <span class="p">...</span><span class="n">acciones</span><span class="p">...;</span> <span class="k">break</span><span class="p">;</span>	<span class="c1">// Flecha arriba</span>
+           <span class="k">case</span> <span class="n">SDLK_DOWN</span><span class="p">:</span>   <span class="p">...</span><span class="n">acciones</span><span class="p">...;</span> <span class="k">break</span><span class="p">;</span>	<span class="c1">// Flecha abajo</span>
+           <span class="k">case</span> <span class="n">SDLK_LEFT</span><span class="p">:</span>   <span class="p">...</span><span class="n">acciones</span><span class="p">...;</span> <span class="k">break</span><span class="p">;</span>	<span class="c1">// Felcha izquierda</span>
+           <span class="k">case</span> <span class="n">SDLK_RIGHT</span><span class="p">:</span>  <span class="p">...</span><span class="n">acciones</span><span class="p">...;</span> <span class="k">break</span><span class="p">;</span>	<span class="c1">// Flecha derecha</span>
+           <span class="k">case</span> <span class="n">SDLK_RETURN</span><span class="p">:</span> <span class="p">...</span><span class="n">acciones</span><span class="p">...;</span> <span class="k">break</span><span class="p">;</span>	<span class="c1">// Intro </span>
+           <span class="k">case</span> <span class="n">SDLK_ESCAPE</span><span class="p">:</span> <span class="p">...</span><span class="n">acciones</span><span class="p">...;</span> <span class="k">break</span><span class="p">;</span>	<span class="c1">// ESC</span>
+           <span class="k">case</span> <span class="n">SDLK_m</span><span class="p">:</span>      <span class="p">...</span><span class="n">acciones</span><span class="p">...;</span> <span class="k">break</span><span class="p">;</span>	<span class="c1">// Tecla "m" (menú)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Existen constantes para cualquiera de las otras teclas del teclado. Todas empiezan por <em>SDLK_</em>. Por ejemplo, la tecla “a” tendrá el código <em>SDLK_a</em>.</p>
+
+<h4 id="definición-de-colores">Definición de colores</h4>
+
+<p>Aunque a menudo trabajes con <em>sprites</em> basados en imágenes preexistentes, es posible que también necesites definir algún color para usarlo directamente sobre la pantalla gráfica (por ejemplo, para usar transparencias o para escribir un texto).</p>
+
+<p>En SDL no hay colores predefinidos, como en <em>ncurses</em>. Los colores debemos definirlos nosotros mezclando los colores básicos RGB (rojo, verde y azul).</p>
+
+<p>Hay dos formas de definir un color: con una variable de tipo <em>SDL_Color</em> o con una variable de tipo <em>Uint32</em>. El uso de una u otra dependerá de para qué queramos usar ese color:</p>
+
+<p><strong>a) Con una variable de tipo SDL_Color</strong>:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="n">SDL_Color</span> <span class="n">color</span><span class="p">;</span>
+   <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="n">SDL_Color</span><span class="p">)</span> <span class="p">{</span><span class="mi">50</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">255</span><span class="p">};</span>
+</code></pre></div></div>
+
+<p>Los cuatro números definen el color. Deben ser números comprendidos entre 0 y 255. El primero es el nivel de rojo (R), el segundo el nivel de verde (G) y el tercero, el nivel de azul (B). El cuarto número es el brillo. El color definido en este ejemplo tiene mucho azul, bastante verde y poco rojo. El resultado debe ser un azul amarillento.</p>
+
+<p><strong>b) Con una variable de tipo Uint32</strong>:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="n">Uint32</span> <span class="n">color</span><span class="p">;</span>
+   <span class="n">color</span> <span class="o">=</span> <span class="n">SDL_MapRGB</span><span class="p">(</span><span class="n">pantalla</span><span class="o">-&gt;</span><span class="n">format</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">200</span><span class="p">);</span>  
+</code></pre></div></div>
+
+<p>En esta ocasión, <em>pantalla</em> debe ser un puntero a una imagen <em>SDL_Surface</em> que hayamos cargado previamente. Los tres valores siguientes son los niveles RGB. No hay nivel de brillo, porque éste se toma de la imagen apuntada por <em>pantalla</em>.</p>
+
+<p>De las dos maneras se pueden definir colores para usarlos posteriormente. Si el color lo necesitamos para una transparencia, recurriremos al segundo método (de hecho, ya vimos un ejemplo de ello al estudiar cómo se cargaban y mostaban las imágenes en SDL; allí usamos el color negro como transparencia). Si el color lo necesitamos para escribir un texto en la pantalla gráfica, usaremos el primer método (como se podrá ver en el siguiente apartado)</p>
+
+<h4 id="mostrar-texto-en-la-pantalla-gráfica-instalación-y-uso-de-la-librería-sdl_ttf">Mostrar texto en la pantalla gráfica: instalación y uso de la librería SDL_TTF</h4>
+
+<p>La librería SDL no permite directamente la escritura de texto en la pantalla gráfica. Esto se debe a que la pantalla gráfica, por definición, no admite caracteres, sino únicamente imágenes.</p>
+
+<p>Por fortuna, a la sombra de SDL se han creado multitud de librerías adicionales que, partiendo de SDL, complementan y mejoran sus prestaciones. Una de ellas es SDL_TTF.</p>
+
+<p>La libería SDL_TTF permite cargar fuentes <em>true type</em> que estén guardadas en archivos .ttf y manejarlas como si fueran imágenes BMP en la pantalla gráfica generada por SDL. Necesitamos SDL_TTF, por lo tanto, para escribir los mensajes de usuario y las opciones del menú.</p>
+
+<p>La <strong>instalación</strong> de la librería SDL_TTF es similar a la de SDL, tanto en Linux como en Windows, de modo que puedes remitirte al apartado correspondiente para recordar cómo se hacía. Lo mismo puede decirse en cuanto a la compilación y el enlace.</p>
+
+<p>Igual que SDL, la librería SDL_TTF necesita ser <strong>inicializada</strong> antes de usarla, y <strong>finalizada</strong> antes de terminar el programa para liberar los recursos adquiridos.</p>
+
+<p>Como SDL_TTF corre por debajo de SDL, debe ser inicializada después de SDL, y debe ser terminada antes que SDL. Observa cómo se hace en este ejemplo:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">if</span><span class="p">(</span><span class="n">TTF_Init</span><span class="p">()</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Fallo al inicializar SDL_TTF"</span><span class="p">);</span>
+    <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>  
+</code></pre></div></div>
+
+<p>Inmediatamente después, ya podemos cargar una fuente true type de un archivo TTF, así:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">TTF_Font</span><span class="o">*</span> <span class="n">fuente</span><span class="p">;</span>
+  <span class="p">....</span>
+  <span class="n">fuente</span> <span class="o">=</span> <span class="n">TTF_OpenFont</span><span class="p">(</span><span class="s">"arial.ttf"</span><span class="p">,</span> <span class="mi">14</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">fuente</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Fallo al abrir la fuente"</span><span class="p">);</span>
+    <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">TTF_SetFontStyle</span><span class="p">(</span><span class="n">fuente</span><span class="p">,</span> <span class="n">TTF_STYLE_BOLD</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>La variable <em>fuente</em> es un puntero a <em>TTF_Font</em>. Debe ser una variable global por el mismo motivo que las variables <em>SDL_Surface</em>. La función <em>TTF_OpenFont()</em> abre el archivo “arial.ttf” y carga el tipo de letra Arial en tamaño 14 para su uso en el programa. Después es conveniente comprobar que el puntero <em>fuente</em> contenga un valor válido y no NULL.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Por último, la función <em>TTF_SetFontStyle()</em> puede usarse para determinar el estilo de la fuente. Tenemos varias posibilidades: <em>TTF_STYLE_BOLD</em> (negrita), <em>TTF_STYLE_ITALIC</em> (cursiva), <em>TTF_STYLE_UNDERLINE</em> (subrayado) y <em>TTF_STYLE_NORMAL</em>. Si queremos combinar varios estilos, podemos separarlos por el operador “</td>
+      <td>”. Por ejemplo, para poner la fuente en negrita y cursiva escribiríamos esto:</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">TTF_SetFontStyle</span><span class="p">(</span><span class="n">fuente</span><span class="p">,</span> <span class="n">TTF_STYLE_BOLD</span> <span class="o">|</span> <span class="n">TTF_STYLE_ITALIC</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>El proceso de <strong>finalización</strong> del SDL_TTF es inverso y complementario al de inicialización. Primero habrá que liberar todas las fuentes cargadas durante la inicialización, y luego hay que terminar el subsistema SDL_TTF:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">TTF_CloseFont</span><span class="p">(</span><span class="n">fuente</span><span class="p">);</span> 
+  <span class="n">TTF_Quit</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>La variable <em>fuente</em> será de tipo <em>TTF_Font</em>, y debe coincidir con la que nos devolvió la función <em>TTF_OpenFont()</em>. Esta operación la repetiremos con cada una de las fuentes que hayamos cargado.</p>
+
+<p>Recuerda que todo esto debe hacerse ANTES de <em>SDL_Quit()</em>, ya que SDL_TTF depende de SDL.</p>
+
+<h4 id="escribir-texto-con-sdl_ttf">Escribir texto con SDL_TTF</h4>
+
+<p>Todo esto lo hacemos con un objetivo: poder escribir texto en la pantalla gráfica y sustituir así todas las funciones <em>printw()</em> y similares.</p>
+
+<p>Para escribir un texto hay que hacer dos cosas: <strong>primero, convertirlo en una imagen; segundo, mostrar la imagen en la pantalla</strong>.</p>
+
+<p>La conversión de un texto en una imagen se hace con la función <em>TTF_Render()</em>:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">SDL_Color</span> <span class="n">color</span><span class="p">;</span>
+  <span class="n">SDL_Surface</span><span class="o">*</span> <span class="n">txt_img</span><span class="p">;</span>
+
+  <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="n">SDL_Color</span><span class="p">)</span> <span class="p">{</span><span class="mi">255</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">255</span><span class="p">};</span>
+  <span class="n">txt_img</span> <span class="o">=</span> <span class="n">TTF_RenderText_Blended</span><span class="p">(</span><span class="n">fuente</span><span class="p">,</span> <span class="s">"Hola mundo"</span><span class="p">,</span> <span class="n">color</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">txt_img</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"Fallo al renderizar el texto"</span><span class="p">);</span>
+	<span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Como ves, hay que hacer bastantes cosas para mostrar un texto en la pantalla gráfica, pero todo es acostumbrarse. Primero, hay que definir un color para el texto (cómo se definen los colores es algo que vimos en el epígrafe anterior). En este caso, hemos escogido un rojo brillante.</p>
+
+<p>Después se invoca a <em>TTF_RenderText()</em>, pasándole como parámetros el puntero a la fuente que obtuvimos con <em>TTF_OpenFont()</em>, el texto que queremos mostrar y el color. La función nos devuelve un puntero de tipo <em>SDL_Surface</em> que, si recuerdas, es exactamente el mismo que usábamos con las imágenes cargadas desde un archivo BMP.</p>
+
+<p>En realidad, la función <em>TTF_RenderText()</em> tiene tres formas:</p>
+
+<ul>
+  <li><em>TTF_RenderText_Solid()</em> - realiza una conversión del texto en imagen rápida pero de poca calidad.</li>
+  <li><em>TTF_RenderText_Shaded()</em> - la imagen resultante es de gran calidad pero tiene un recuadro negro alrededor</li>
+  <li><em>TTF_RenderText_Blended()</em> - la imagen resultante es de gran calidad y sin recuadro negro</li>
+</ul>
+
+<p>En general preferiremos el modo <em>Blended</em>, que es el que proporciona mejores resultados. El modo <em>Shaded</em> se puede usar en determinados lugares (si no hay otra imagen debajo del texto). El modo <em>Solid</em> sólo debe usarse si hay que mostrar mucho texto y el modo <em>Blended</em> se revela demasiado lento.</p>
+
+<p>Hasta aquí, sólo hemos convertido el texto “Hola mundo” en una imagen, pero aún no la hemos mostrado en la pantalla. Para hacerlo procederemos como con cualquier otra imagen:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">// Mostramos el texto como si fuera una imagen</span>
+  <span class="n">rect</span> <span class="o">=</span> <span class="p">(</span><span class="n">SDL_Rect</span><span class="p">)</span> <span class="p">{</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">280</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">30</span> <span class="p">};</span>
+  <span class="n">SDL_BlitSurface</span><span class="p">(</span><span class="n">txt_img</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">pantalla</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">rect</span><span class="p">);</span>	
+  <span class="n">SDL_Flip</span><span class="p">(</span><span class="n">scr</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Se supone que <em>rect</em> es de tipo <em>SDL_Rect</em> y que pantalla es el puntero a <em>SDL_Surface</em> que nos devolvió <em>SDL_SetVideoMode()</em> al inicializar SDL. Así, el texto “Hola mundo” se mostrará en la posición (500, 280) de la pantalla gráfica, reservándose para él 100 píxels de ancho y 30 de alto.</p>
+
+:ET

@@ -1,0 +1,700 @@
+I"��<h1 class="no_toc" id="4-modelado-e-impresión-3d">4. Modelado e impresión 3D</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#41-software-para-diseño-3d-tinkercad" id="markdown-toc-41-software-para-diseño-3d-tinkercad">4.1. Software para diseño 3D: TinkerCAD</a>    <ul>
+      <li><a href="#411-qué-es-tinkercad-y-cómo-funciona" id="markdown-toc-411-qué-es-tinkercad-y-cómo-funciona">4.1.1. Qué es TinkerCAD y cómo funciona</a></li>
+      <li><a href="#412-moviéndose-por-tinkercad" id="markdown-toc-412-moviéndose-por-tinkercad">4.1.2. Moviéndose por TinkerCAD</a></li>
+      <li><a href="#413-el-panel-de-control" id="markdown-toc-413-el-panel-de-control">4.1.3. El panel de control</a></li>
+      <li><a href="#414-cómo-modelar-objetos-3d-con-tinkercad" id="markdown-toc-414-cómo-modelar-objetos-3d-con-tinkercad">4.1.4. Cómo modelar objetos 3D con TinkerCAD</a></li>
+      <li><a href="#415-edición-de-objetos-externos-a-tinkercad" id="markdown-toc-415-edición-de-objetos-externos-a-tinkercad">4.1.5. Edición de objetos externos a TinkerCAD</a></li>
+      <li><a href="#416-el-generador-de-formas" id="markdown-toc-416-el-generador-de-formas">4.1.6. El generador de formas</a></li>
+      <li><a href="#417-algunos-aspectos-avanzados-de-tinkercad" id="markdown-toc-417-algunos-aspectos-avanzados-de-tinkercad">4.1.7. Algunos aspectos avanzados de TinkerCAD</a></li>
+      <li><a href="#418-exportando-nuestros-modelos-para-impresión-3d" id="markdown-toc-418-exportando-nuestros-modelos-para-impresión-3d">4.1.8. Exportando nuestros modelos para impresión 3D</a></li>
+    </ul>
+  </li>
+  <li><a href="#42-formatos-de-archivo-para-impresión-3d" id="markdown-toc-42-formatos-de-archivo-para-impresión-3d">4.2. Formatos de archivo para impresión 3D</a></li>
+  <li><a href="#42-software-para-slicing-corte-o-laminado" id="markdown-toc-42-software-para-slicing-corte-o-laminado">4.2. Software para <em>slicing</em> (corte o laminado)</a></li>
+  <li><a href="#44-pruebas-de-impresión" id="markdown-toc-44-pruebas-de-impresión">4.4. Pruebas de impresión</a>    <ul>
+      <li><a href="#441-diez-pasos-para-calibrar-una-impresora-3d" id="markdown-toc-441-diez-pasos-para-calibrar-una-impresora-3d">4.4.1. Diez pasos para calibrar una impresora 3D</a></li>
+      <li><a href="#442-modelos-de-prueba" id="markdown-toc-442-modelos-de-prueba">4.4.2. Modelos de prueba</a></li>
+    </ul>
+  </li>
+  <li><a href="#45-imprimir-el-modelo" id="markdown-toc-45-imprimir-el-modelo">4.5. Imprimir el modelo</a>    <ul>
+      <li><a href="#451-consejos-antes-de-imprimir" id="markdown-toc-451-consejos-antes-de-imprimir">4.5.1. Consejos antes de imprimir</a></li>
+      <li><a href="#452-consejos-durante-la-impresión" id="markdown-toc-452-consejos-durante-la-impresión">4.5.2. Consejos durante la impresión</a></li>
+      <li><a href="#453-consejos-para-después-de-imprimir" id="markdown-toc-453-consejos-para-después-de-imprimir">4.5.3. Consejos para después de imprimir</a></li>
+      <li><a href="#454-algunos-tips-para-usar-la-impresora-de-cr10-mini-con-éxito" id="markdown-toc-454-algunos-tips-para-usar-la-impresora-de-cr10-mini-con-éxito">4.5.4. Algunos <em>tips</em> para usar la impresora de CR10-mini con éxito</a></li>
+    </ul>
+  </li>
+  <li><a href="#46-ejercicios" id="markdown-toc-46-ejercicios">4.6. Ejercicios</a></li>
+</ul>
+
+<p>En este capítulo vamos a aprender a usar una herramienta de <strong>modelado 3D</strong> llamada <strong>TinkerCAD</strong>. Se trata de una aplicación online muy sencilla (para tratarse de modelado 3D) e intuitiva que puede usarse desde cualquier navegador web, independientemente de tu sistema operativo. Y, encima, es gratuita.</p>
+
+<p>También veremos cómo los modelos 3D creados con TinkerCAD pueden <strong>laminarse en capas</strong> (<em>slicing</em>) para su tratamiento con una impresora 3D y qué tenemos que hacer para <strong>obtener ese modelo finalmente impreso</strong>.</p>
+
+<h2 id="41-software-para-diseño-3d-tinkercad">4.1. Software para diseño 3D: TinkerCAD</h2>
+
+<p><em>(Este apartado está adaptado del artículo “Mega Tutorial TinkerCAD, cómo utilizarlo Paso a Paso”, publicado por Jorge Lorenzo en https://of3lia.com/tinkercad-tutorial-completo/)</em></p>
+
+<p>Aunque existen programas de modelado 3D tan alucinantes como <em>Blender</em>, <em>Maya</em> o <em>3DSmax</em> (el primero de ellos, encima, gratuito), para aprender los fundamentos de estas técnicas sin complicarse mucho la vida, sin duda lo más apropiado es <strong>TinkerCAD</strong>.</p>
+
+<p>TinkerCAD es versátil, no hace falta instalarlo, es muy potente, es muy estable y, además, es online.</p>
+
+<p>Es verdad que resulta algo más limitado que sus hermanos mayores, ya que no tiene tantas opciones como otros programa de modelado 3D, pero, para la gran mayoría de nosotros, lo que ofrece TinkerCAD es más que suficiente.</p>
+
+<h3 id="411-qué-es-tinkercad-y-cómo-funciona">4.1.1. Qué es TinkerCAD y cómo funciona</h3>
+
+<p><strong>TinkerCAD</strong> es un <strong>programa de modelado 3D</strong> que crea las piezas con el método <em>lowpoly</em>, que consiste en la <strong>unión de polígonos</strong> en un número relativamente bajo (comparado con otros programas) para crear los modelos.</p>
+
+<p>TinkerCAD trae un montón de figuras geométricas predefinidas para que las puedas usar en tus diseños. Para crear un perro, por ejemplo, tendrías que pensar qué conjunto de figuras es más adecuado unir: cilindros para las patas, una esfera para la cabeza, dos conos para las orejas… Cada una de estas figuras está constituida por un montón de polígonos que TinkerCAD maneja por nosotros.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-tinkercad-01.jpg" alt="Figura simple" /></p>
+<div style="font-size: 75%; font-style: italic">
+Un perro salchicha modelado con TinkerCAD de forma muy cutre y empleando solo formas geométricas simples
+</div>
+
+<p>Además, como TinkerCAD es online, no hay que descargarlo, instalarlo ni configurarlo: basta con crearse una cuenta en su web <a href="https://www.tinkercad.com/">www.tinkercad.com</a>. Existen cuentas de tres tipos:</p>
+
+<ul>
+  <li>Educadores: pensada para profesores/as que quieren usar TinkerCAD en sus clases.</li>
+  <li>Estudiantes: para alumnos/as de los profesores anteriores. Los profesores pueden crear clases y los estudiantes pueden unirse a esas clases. Los miembros de una clase pueden interactuar entre ellos, ver sus diferentes trabajos o colaborar en grupos.</li>
+  <li>Cuentas personales: para el público en general.</li>
+</ul>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-tinkercad-00-A.png" alt="TinkerCAD - Homepage" /></p>
+<div style="font-size: 75%; font-style: italic">
+Homepage de TinkerCAD
+</div>
+<div>&nbsp;</div>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-tinkercad-00-B.png" alt="TinkerCAD - Tipos de usuario" /></p>
+<div style="font-size: 75%; font-style: italic">
+Al registrarte, puedes indicar qué tipo de usuario eres<br />
+</div>
+
+<h3 id="412-moviéndose-por-tinkercad">4.1.2. Moviéndose por TinkerCAD</h3>
+
+<p>Los controles de TinkerCAD son muy sencillos. Eso sí, necesitarás un ratón con ruleta central. Estos son los principales:</p>
+
+<ul>
+  <li><strong>Click izquierdo</strong>: Selección.</li>
+  <li><strong>Click derecho</strong>: Rotación.</li>
+  <li><strong>Ruleta del ratón</strong>: Zoom.</li>
+  <li><strong>Click en ruleta ratón</strong>: Traslación.</li>
+</ul>
+
+<p>Cuando seleccionas un objeto, aparecen unos controles muy intuitivos a su alrededor para <strong>moverlo, rotarlo y escalarlo</strong>. Además, también puedes mover el <strong>cubo</strong> que hay en la parte superior izquierda para mover todo el objeto y si das doble click en sus caras posicionas tu vista de forma perpendicular a ese plano.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-tinkercad-02.jpg" alt="Controles de TinkerCAD" /></p>
+
+<h3 id="413-el-panel-de-control">4.1.3. El panel de control</h3>
+
+<p>En esta imagen puedes ver el aspecto del <strong>panel de control</strong> de TinkerCAD con sus áreas principales numeradas:</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-tinkercad-03.jpg" alt="Panel de control de TinkerCAD" /></p>
+
+<p>Las áreas del panel de control son estas:</p>
+
+<ol>
+  <li>
+    <p><strong>Espacio de trabajo</strong>. El cuadrado grande es la superficie de trabajo y el pequeño son las opciones de dicha superficie: tamaño total, tamaño de la rejilla y unidades de medición.</p>
+  </li>
+  <li>
+    <p><strong>Modos de visualización</strong>. El primero es el <strong><em>cubo</em></strong> de visualización, que nos permite rotar el objeto. Después tenemos la <strong><em>vista inicial</em></strong>, para volver a la visualización estándar, los controles de <strong><em>zoom</em></strong> (para acercarnos o alejarnos del objeto) y el <strong><em>cambio de vista</em></strong> (para activar o desactivar la perspectiva isométrica).</p>
+  </li>
+  <li>
+    <p><strong>Zona de edición de objetos</strong>. Aquí podremos ocultar objetos si nos molestan, hacer simetrías, agrupar, desagrupar y alinear. Es una de las herramientas que más usaremos.</p>
+  </li>
+  <li>
+    <p><strong>Zona de usuario</strong>: importar y exportar archivos y acceder funcionalidades adicionales.</p>
+  </li>
+  <li>
+    <p><strong>Banco de piezas</strong>. Aquí está toda la (enorme) biblioteca de pieza prediseñadas de TinkerCAD. Esta es una de las principales características que diferencian a TinkerCAD de otros programas de modelado 3D: la enorme cantidad de figuras predefinidas que existen. Otros programas tienen solo cubos, conos, cilindros y poco más.</p>
+
+    <p>Encima de la biblioteca encontrarás las herramientas del <strong>plano de trabajo</strong> y la <strong>regla</strong>. Más adelante veremos para qué sirven.</p>
+  </li>
+  <li>
+    <p><strong>Herramientas de edición del documento</strong>: copiar, pegar, duplicar, eliminar, rehacer, deshacer… Si hacemos click justo al lado del nombre del documento, podremos cambiar su visibilidad y su tipo de licencia.</p>
+  </li>
+</ol>
+
+<h3 id="414-cómo-modelar-objetos-3d-con-tinkercad">4.1.4. Cómo modelar objetos 3D con TinkerCAD</h3>
+
+<p><strong>Modelar objetos 3D</strong> con TinkerCAD es muy fácil, al menos en comparación con otros programas de diseño 3D.</p>
+
+<p>Vamos a hacer recorrido por el proceso mediante unos ejemplos, revisando con ellos las cuatro cosas fundamentales que se usan en todos los modelados. Una vez que hayas asimilado esas cuatro cosas, podrás aplicarlas por tu cuenta para diseñar cualquier otro objeto, simplemente dejando volar tu imaginación.</p>
+
+<h4 id="hacer-uniones-y-vaciados-entre-formas">Hacer uniones y vaciados entre formas</h4>
+
+<p>Una de las cosas más habituales que se han en los programas de diseño 3D es <strong>unir dos objetos</strong> entre sí.</p>
+
+<p>Para entender cómo funciona, sigue estos pasos:</p>
+
+<ol>
+  <li>Arrastra un cubo al espacio de trabajo.</li>
+  <li>Arrastra un cilindro al espacio de trabajo.</li>
+  <li>Agranda el cilindro.</li>
+  <li>Mete el cubo en el cilindro y vuelve a pulsar el cubo.</li>
+  <li>Ahora te toca decidir: déjalo como está o selecciona la opción <em>“hueco”</em>. Cuando te decidas, pulsa <em>“Agrupar”</em>.</li>
+</ol>
+
+<p>Si has escogido la primera opción, se habrá formado un sólido a partir de la <strong>unión</strong> de las dos piezas. La pieza resultante es ahora una sola, y cuando la escales o la muevas se moverá como tal.</p>
+
+<p>Si has escogido la segunda opción 2, se habrá formado un sólido a partir de la <strong>diferencia</strong> de una pieza con la otra. Es decir, has escogido que el cubo sea un hueco. Y si juntas un sólido con un hueco, ¿qué tienes? Muy fácil: un sólido con un agujero.</p>
+
+<p>Acabas de practicar tu primer <strong>vaciado</strong> de piezas.</p>
+
+<p>La unión y el vaciado son dos de las operaciones más comunes durante el modelado. Si controlas bien estas dos operaciones, puedes hacer casi cualquier cosa.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-tinkercad-07.jpg" alt="Uniones y vaciados con TinkerCAD" /></p>
+
+<h4 id="cambiar-el-plano-de-trabajo">Cambiar el plano de trabajo</h4>
+
+<p>Sigamos trabajando con nuestro sólido con agujero, al que vamos a llamar <em>“cabaña”</em>.</p>
+
+<p>Ahora queremos ponerle un bonito <strong>tejado cónico</strong>. Para ello, podemos crear un cono, agrandarlo y subirlo hasta la parte superior de nuestro objeto, ¿verdad?</p>
+
+<p>Pero <em>hay una solución más fácil</em>.</p>
+
+<p>Seleccionar la herramienta <strong>Plano de trabajo</strong> y sitúa el nuevo plano sobre el tejado de nuestra pieza. Verás que también puedes ponerlo en las paredes, en la puerta o donde te dé la gana.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-tinkercad-08.jpg" alt="Cambiar el plano de trabajo" /></p>
+
+<p>Ahora crea un cono sobre el plano y listo. Como ves, el nuevo plano de trabajo tiene otro color para distinguirlo del original.</p>
+
+<p>Esta es herramienta es muy útil para no tener que mover objetos continuamente hasta colocarlos en su lugar. Además, no necesitas tener una cara plana para crear un nuevo plano de trabajo: incluso puedes hacerlo tangente a una esfera.</p>
+
+<p>Para <strong>volver al plano de trabajo original</strong>, pulsa sobre la herramienta y selecciónalo otra vez. Así de sencillo.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-tinkercad-09.jpg" alt="Volver al plano de trabajo original" /></p>
+
+<h4 id="transformar-alinear-y-medir">Transformar, alinear y medir</h4>
+
+<p>El siguiente ejemplo lo vamos a hacer con <strong>cuatro esferas</strong> coloreadas como las fichas del parchís:</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-tinkercad-10.jpg" alt="Cuatro esferas" /></p>
+
+<p>Lo primero que haremos será <strong>transformarlas</strong>. Para ello, selecciona una de ellas (la azul, por ejemplo), y verás que salen varios iconos:</p>
+
+<ul>
+  <li>Los <strong>puntos blancos</strong> transforman la pieza en dos dimensiones a la vez (X e Y) o solo el eje Z.</li>
+  <li>Los <strong>puntos negros</strong> transforman la pieza en una sola dimensión (X o Y).</li>
+  <li>La <strong>flecha negra</strong> superior mueve el objeto hacia arriba y hacia abajo.</li>
+  <li>Las <strong>flechas curvas</strong> rotan la pieza en cualquiera de los 3 ejes (X, Y o Z).</li>
+</ul>
+
+<p>Si, además, pulsas la <strong>tecla Mayúsculas</strong> y mueves uno de los puntos blancos, la figura se <strong>escala</strong> uniformemente.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-tinkercad-11.jpg" alt="Escalado" /></p>
+
+<p>Otra cuestión fundamental es <strong>alinear objetos</strong>. Cuando tienes varios objetos, a menudo necesitarás dejarlos perfectamente alineados. Hacerlo a mano es tedioso e inexacto. TinkerCAD lo hace por ti.</p>
+
+<p>Simplemente, selecciona la esfera roja y la esfera verde y pulsa “Alinear”. Vamos a alinearlas en la línea media del eje longitudinal.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-tinkercad-12.jpg" alt="Alineación" /></p>
+
+<p>Y ahora intena alinear todas las esferas entre sí, en disposición de rectángulo.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-tinkercad-13.jpg" alt="Alineación en rectángulo" /></p>
+
+<p>Finalmente, vamos a ver para que sirve la <strong>regla</strong>.</p>
+
+<p>Al posicionar la regla te darás cuenta de dos cosas:</p>
+
+<ul>
+  <li>Puedes cambiar todas las medidas de la pelota (ya que las ves).</li>
+  <li>Puedes cambiar la posición relativa de los objetos con respecto a la regla.</li>
+</ul>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-tinkercad-14.jpg" alt="Regla" /></p>
+
+<p>Esto te ayudará a saber la posición relativa entre los objetos, por si necesitas medidas exactas. Vamos a probarlo poniendo las esferas en forma de cuadrado de 40 mm de lado.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-tinkercad-15.jpg" alt="Regla" /></p>
+
+<p>Si interiorizas todo esto bien (a base de practicar un buen rato), ya puedes considerarte un usuario/a avanzado/a en TinkerCAD. Pero aún vamos a aprender un par de cosas más…</p>
+
+<h3 id="415-edición-de-objetos-externos-a-tinkercad">4.1.5. Edición de objetos externos a TinkerCAD</h3>
+
+<p>TinkerCAD también puede manipular modelos 3D hechos por otras personas, aunque hayan usado otros programas.</p>
+
+<p>Por ejemplo, vamos a diseñar una taza con la cabeza de Ironman capaz de contener en su interior una lata de refresco convencional.</p>
+
+<p>Ve a la web de <a href="https://www.thingiverse.com/">Thingiverse</a>, un portal donde los usuarios suben sus diseños 3D para que otros usuarios puedan descargarlos libremente, y descárgarte el busto de Ironman (simplemente, busca “Ironman Bust”):</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-tinkercad-16.jpg" alt="Edición de objetos externos con TinkerCAD" /></p>
+
+<p>(Si tienes problemas para descargarlo, inténtalo desde <a href="/docs/prog-y-3d/_site/assets/images/10-ironman-bust.stl">aquí</a>)</p>
+
+<p>Ahora sigue estos pasos:</p>
+
+<ul>
+  <li>Escala el busto para que mida 140 mm de ancho.</li>
+  <li>Crea 3 cubos huecos para quitarle toda la parte del cuerpo (hombros incluidos). El cubo central hasta la barbilla mide 63mm de alto. Ahora se los restamos.</li>
+  <li>Inserta un cilindro de 67mm de diámetro y 115mm de alto. Esto es debido a que las latas convencionales de refresco miden 66mm de diámetro, y tenemos que dejar al menos 1mm de holgura.</li>
+  <li>Inserta un toroide (o “donut”) como mango.</li>
+  <li>Haz la unión de todos los elementos.</li>
+</ul>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-tinkercad-17.jpg" alt="Edición de objetos externos con TinkerCAD" /></p>
+
+<p>Más o menos así debería quedarte el resultado: ¡una taza de Ironman para latas diseñada en cinco minutos!</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-tinkercad-18.jpg" alt="Taza de Ironman" /></p>
+
+<h3 id="416-el-generador-de-formas">4.1.6. El generador de formas</h3>
+
+<p>Si has usado las formas básicas un tiempo, te habrás dado cuenta de que cada objeto tiene sus propiedades: longitud, altura, anchura. Pero ¿y si hubiera objetos con otras propiedades diferentes? ¿Y si los pudiéramos crear nosotros y asignarles las propiedades que queramos?</p>
+
+<p>Para eso sirve el <strong>generador de formas</strong>. Lo encontrarás en el mismo lugar que las formas básicas, pero en otra pestaña diferente. Ten en cuenta que todos estos objetos tienen diferentes propiedades modificables: lapared de ladrillos, por ejemplo, además del grosor, el ancho o el alto, te permite manipular el número de filas de ladrillos o el grosor de los ladrillos, propiedades que no tendrían sentido en otros objetos.</p>
+
+<p>Entre los objetos que puedes encontrar en el generador de formas encontrarás cosas tan locas como:</p>
+
+<ul>
+  <li>Mapas de muchos lugares del mundo, incluyendo Europa y países europeos.</li>
+  <li>Una casa completa con jardín.</li>
+  <li>Importar archivos .svg (imágenes vectoriales)</li>
+  <li>Generador de código QR.</li>
+  <li>Diagramas circulares y de barras.</li>
+  <li>Figuras del Carcassonne (un popular juego de mesa).</li>
+  <li>Engranajes diversos.</li>
+  <li>Un generador de funciones 3D y otro de superficies.</li>
+  <li>Un taladro (la boquilla)</li>
+  <li>Un mandala.</li>
+  <li>Una caja ventilada para meter placas electrónicas.</li>
+  <li>Un reflector parabólico paramétrico.</li>
+  <li>Perfiles aerodinámicos de avión.</li>
+  <li>Una matriz circular de perfil personalizable.</li>
+  <li>Una matriz 3D con cubos y nomenclatura matriz.</li>
+  <li>La curva de Moebius.</li>
+  <li>Un árbol con fractales.</li>
+  <li>El mosaico de Penrose.</li>
+  <li>Simuladores de terreno (rocoso y de hierba).</li>
+</ul>
+
+<p>¡Y así hasta 17 páginas completas!</p>
+
+<h3 id="417-algunos-aspectos-avanzados-de-tinkercad">4.1.7. Algunos aspectos avanzados de TinkerCAD</h3>
+
+<p>Aunque es un software mucho más sencillo que otros como <em>Blender</em> o <em>Maya</em>, TinkerCAD también esconde sus características avanzadas. Aquí te resumo algunas que pueden resultarte útiles.</p>
+
+<h4 id="atajos-de-teclado">Atajos de teclado</h4>
+
+<p>Si te aprendes los siguientes atajos de teclado, te convertirás en un diseñador (o diseñadora) mucho más rápido y eficaz:</p>
+
+<ul>
+  <li><strong>Ctrl + C, Ctrl + V</strong>: copiar y pegar.</li>
+  <li><strong>Ctrl + Z, Ctrl + Y</strong>: deshacer y rehacer.</li>
+  <li><strong>Ctrl + D</strong>: duplicar el objeto seleccionado.</li>
+  <li><strong>Ctrl + H</strong>: ocultar el objeto seleccionado.</li>
+  <li><strong>Ctrl + Shift + H</strong>: mostrar todos los objetos ocultos.</li>
+  <li><strong>Ctrl + G</strong>: agrupar los objetos seleccionados.</li>
+  <li><strong>Ctrl + Shift + G</strong>: desagrupar el objeto seleccionado.</li>
+  <li><strong>L</strong>: abrir la herramienta para alinear.</li>
+  <li><strong>M</strong>: abrir la herramienta “espejo”.</li>
+</ul>
+
+<h4 id="diferencia-entre-copy-paste-y-duplicar">Diferencia entre “copy-paste” y “duplicar”</h4>
+
+<p>Si te has fijado, hay dos formas de crear copias de un objeto: por un lado, el clásico “copiar y pegar” y, por otro, “duplicar”.</p>
+
+<p>La principal diferencia entre estos dos procedimientos es cómo manejan las transformaciones:</p>
+
+<ul>
+  <li><strong>Si haces “copiar y pegar”</strong>, las transformaciones que hayas aplicado al objeto copiado no se aplican al nuevo objeto. Por ejemplo, si el objeto copiado está rotado 20 grados a la derecha, la copia no lo estará.</li>
+  <li><strong>Si haces “duplicar”</strong>, todas las transformaciones del objeto original se aplicarán también al objeto duplicado.</li>
+</ul>
+
+<h4 id="cambiar-la-rejilla">Cambiar la rejilla</h4>
+
+<p>El plano de trabajo tiene una rejilla cuadriculada que nos ayuda a conseguir la sensación de perspectiva. Esa rejilla puede cambiarse haciendo clic en la esquina inferior derecha del área de trabajo, donde está el <strong>botón “Edit Grid”</strong>.</p>
+
+<p>En la ventana que aparece entonces puedes elegir la configuración de la rejilla que más te convenga. Por ejemplo, puedes cambiar el tamaño del plano de trabajo. Puede ser muy útil para hacerlo coincidir con el tamaño de la cama de tu impresora 3D.</p>
+
+<h4 id="bloques-de-código">Bloques de código</h4>
+
+<p><strong>Tinkercad Codeblocks</strong> permite generar objetos mediante programación visual (no confundir con “Code Blocks”, una herramienta <em>open source</em> de programación visual semejante a <em>Scratch</em>).</p>
+
+<p>Para iniciar <em>Codeblocks</em> en TinkerCAD, solo tienes que ir a la página principal de la web, iniciar tu sesión y hacer click en la opción “Bloques de código” -&gt; “Crear nuevo bloque de código”.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-codeblocks-01.png" alt="Acceso a Codeblocks" /></p>
+
+<p>La edición de objetos por bloques de código te proporciona un montón de objetos predefinidos para empezar a trabajar con ellos. Es buena idea que pruebes alguno sencillito para ver qué aspecto tienen los bloques de código. Si has trabajado con <em>Scratch</em>, te resultará muy familiar. En general, cualquiera que haya programado alguna vez, se acostumbrará rápidamente a los bloques de código.</p>
+
+<p>Por ejemplo, este es el aspecto de los bloques de código que generan una sencilla mesa con cuatro patas:</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-codeblocks-02.png" alt="Generación de mesa roja con Codeblocks" /></p>
+
+<p>A la izquierda tienes los tipos de bloque disponibles, en el centro los bloques que estás usando y a la derecha el resultado.</p>
+
+<p>Los bloques de la zona centras se “ejecutan” de arriba a abajo para obtener la figura final. Para “ejecutar” el programa y ver cómo se va construyendo la figura al seguir los pasos, pulsa el botón “Play” que hay arriba a la derecha.</p>
+
+<p>Por ejemplo, en el programa de la imagen anterior, la secuencia de pasos es esta:</p>
+
+<ul>
+  <li>Se definen algunas variables, como el alto, el ancho y la profundidad de la mesa, o la longitud de las patas.</li>
+  <li>Se crea un cubo de color rojo</li>
+  <li>Se mueve el cubo a la posición 0,0 del plano de trabajo.</li>
+  <li>Se crean otros dos cubos, que se usarán para hacer el “vaciado” de la parte inferior de la mesa.</li>
+  <li>Se agrupan los tres cubos, haciendo la operación de vaciado (como haríamos con el editor 3D).</li>
+  <li>Se reposiciona el grupo resultante para que la mesa quede justo sobre el plano de trabajo</li>
+</ul>
+
+<p>Puedes encajar y desencajar bloques de la secuencia para cambiar la manera en la que se genera el objeto. De este modo, y con un poco de práctica, lograrás crear objetos muy complejos en menos tiempo que si los hicieras con el editor 3D.</p>
+
+<h3 id="418-exportando-nuestros-modelos-para-impresión-3d">4.1.8. Exportando nuestros modelos para impresión 3D</h3>
+
+<p>Desde TinkerCAD, es muy sencillo <strong>exportar un modelo para imprimirlo con una impresora 3D</strong>.</p>
+
+<p>Simplemente, haz clic en el <strong>botón “Exportar”</strong> que encontrarás tanto en la pantalla de edición del modelo como en la pantalla principal de TinkerCAD.</p>
+
+<p>También podemos abrir la pantalla de edición de un modelo y seleccionar un solo objeto de nuestra escena (si es que tenemos varios) y, a continuación, hacer clic en “Exportar” para guardar en un archivo solo ese objeto, no la escena completa.</p>
+
+<p>Al exportar un modelo 3D, la aplicación te preguntará qué <strong>formato de archivo</strong> quieres utilizar. Para impresión 3D, TinkerCAD soporta archivos STL y OBJ, así que ha llegado el momento de que conozcas qué tipos de archivos para modelos 3D existen.</p>
+
+<h2 id="42-formatos-de-archivo-para-impresión-3d">4.2. Formatos de archivo para impresión 3D</h2>
+
+<p>Como ocurre con las imágenes planas o los archivos de vídeo, hay un montón de formatos diferentes para los modelos 3D. En este apartado vamos a conocer los principales y qué características tienen.</p>
+
+<p>Todos los archivos de modelos 3D contienen, como mínimo, una definición de la geometría de la pieza. Algunos, además, pueden contener información sobre las texturas, la escala, etc.</p>
+
+<p>A la hora de elegir un formato u otro, tienes que fijarte en la precisión con la que son capaces de reproducir el modelo original y, además, consultar la documentación de tu impresora para saber qué formatos soporta.</p>
+
+<h4 id="formato-stl">Formato STL</h4>
+
+<p>El formato STL es el formato de modelos 3D <em>más popular</em> en el ámbito de la impresión 3D. Y también uno de los <em>más antiguos</em> y <em>menos precisos</em>.</p>
+
+<p>Fue creado en los años 90 por la empresa 3D Systems para la impresión 3D usando esterolitografía. Los archivos STL contienen las coordenadas de los polígonos que conforman la <strong>geometría tridimensional</strong> del objeto, excluyendo otras propiedades como el color, la escala, o la estructura del modelo. Una peculiaridad de los archivos STL es que el único polígono que soporta es el <strong>triángulo</strong>, por lo que, si nuestro modelo está hecho con otro tipo de polígonos, al exportarlo a STL estos polígonos se descomponen en triángulos.</p>
+
+<p>Existen varios tipos de archivo STL, pero los más comunes son el <strong>ASCII</strong> y el <strong>binario</strong>. Hay varios matices en el funcionamiento de cada uno, pero quédate con la idea de que los STL binarios son algo más pequeños y aparecieron como respuesta al tamaño creciente de los STL ASCII. A pesar de ser más ligeros, los STL binarios siguen ocupando demasiado tamaño si queremos dar mucha resolución a un objeto, ya que necesitaremos incluir muchos triángulos.</p>
+
+<p>Este formato es, actualmente, el más utilizado para compartir modelos para impresión 3D, aunque no es ni de lejos el mejor, ya que existen formatos más modernos que ocupan menos espacio y añaden más información.</p>
+
+<h4 id="formato-obj">Formato OBJ</h4>
+
+<p>El formato OBJ, pese a ser menos conocido que el STL, es también muy popular y casi cualquier software relacionado con el diseño o la impresión 3D acepta este formato. Este formato es mucho más complejo y dispone de dos modos de funcionamiento:</p>
+
+<ul>
+  <li>
+    <p><strong>Modo preciso</strong>. Un archivo OBJ que utilice codificación precisa no hara descripción del modelo en polígonos, como sí hace un STL. En su lugar, conservará la geometría original del modelo utilizando unas líneas tridimensionales conocidas como <strong>NURBS</strong> (Non-uniform Rational B-spline). Esto significa que, usando un OBJ podemos capturar la geometría «original» del modelo, no una aproximación construída a partir de triángulos.</p>
+  </li>
+  <li>
+    <p><strong>Modo aproximado</strong>. Un archivo OBJ que utilice una codificación aproximada genera una versión simplificada de la superficie del modelo a través de polígonos, como ocurre con un STL. En este caso, no estamos limitados a triángulos, sino que se pueden usar otros polígonos, por lo que, pese a ser solo una aproximación de la geometría original, podemos conseguir acabados más suaves.</p>
+  </li>
+</ul>
+
+<p>En ambos casos, además de la propia geometría del modelo 3D, un archivo OBJ incluye información adicional como:</p>
+
+<ul>
+  <li>Un mapa de textura: básicamente, una imagen 2D que representa la «piel» del modelo. Este mapa de texturas es entendido por otros programas y así podemos recuperar la textura y colores originales del modelo.</li>
+  <li>Iluminación: fuentes de luz para iluminar adecuadamente el modelo en un programa de edición 3D.</li>
+  <li>Metadatos: quién creó el modelo, cuándo, con qué programa, etc.</li>
+</ul>
+
+<p>En resumen, el formato OBJ es una <em>excelente alternativa a STL</em> si queremos mayor precisión en los modelos.</p>
+
+<h4 id="formato-3mf">Formato 3MF</h4>
+
+<p>Otro de los problemas de los archivos STL es que son totalmente desestructurados, ya que contienen únicamente una lista de coordenadas de los bordes de los triángulos que componen la superficie del objeto. Nada en un archivo STL impide que un objeto tenga errores en su definición como, por ejemplo, agujeros, triángulos que se intersectan entre sí, triángulos volteados o invertidos, vértices no compartidos (es decir, que quedan “sueltos”), etc.</p>
+
+<p>Estos problemas, derivados de un mal modelado o de una mala exportación, pueden prevenirse usando el formato 3MF. Los modelos que exportemos como 3MF serán validados para evitar todos estos errores, por lo que podemos estar seguro de que nuestro archivo podrá ser impreso en 3D sin errores.</p>
+
+<p>Además de prevenir los errores, un archivo 3MF incluye mucha más información, ya que puede comprimir otros archivos y encapsularlos en un solo paquete, como hacemos al usar un archivo ZIP. Esa información adicional incluye:</p>
+
+<ul>
+  <li><strong>Escala</strong>: Los modelos tienen escala y unidades por lo que siempre tendremos el mismo tamaño al margen de la impresora o del laminador que usemos.</li>
+  <li><strong>Escenas</strong>: Un archivo 3MF puede contener varios modelos separados y guardarlos como modelos diferentes que pertenecen a una misma escena.</li>
+  <li><strong>Colores y texturas</strong>, como los OBJ.</li>
+  <li><strong>Ajustes de impresión</strong>: junto a los modelos se pueden incluir los ajustes de impresión. De esta manera nos aseguramos de que compartimos no sólo el modelo, sino también cómo queremos que se imprima.</li>
+</ul>
+
+<p>Además, un archivo 3MF está comprimido y ocupa mucho menos que un STL.</p>
+
+<p>Por todo esto, <em>3MF es uno de los formatos más recomendables para la impresión 3D</em>.</p>
+
+<h4 id="otros-formatos">Otros formatos</h4>
+
+<p>Existen varios formatos más que también son interesantes:</p>
+
+<ul>
+  <li>
+    <p><strong>Formato STP</strong>. Es el formato estándar para compartir modelos 3D según la norma ISO 10303. Este formato es muy interesante para intercambiar los modelos entre programas de CAD, ya que un archivo en este formato se podrá editar fácilmente en softwares de CAD convencionales.</p>
+  </li>
+  <li>
+    <p><strong>Formato Collada</strong>. Este formato está en desuso, pero antes se utilizaba mucho para el intercambio de archivos entre programas como <em>Maya</em> o <em>3DSmax</em>. Puede incluír geometría, color, textura y también información sobre las cinemáticas de los modelos.</p>
+  </li>
+  <li>
+    <p><strong>Formato FBX</strong>. Muy usado en la industria del cine, incluye información sobre el «esqueleto» de las figuras, lo cual es importante para su animación.</p>
+  </li>
+</ul>
+
+<h2 id="42-software-para-slicing-corte-o-laminado">4.2. Software para <em>slicing</em> (corte o laminado)</h2>
+
+<p>Para la impresión 3D, no solo necesitamos disponer de un modelo 3D convenientemente diseñado con una herramienta como <em>TinkerCAD</em>, <em>Maya</em> o <em>Blender</em>, sino que debemos preparar nuestro modelo para la impresión en capas.</p>
+
+<p>El <strong>software para corte o laminado</strong> (<em>slicing</em>, en inglés) se encarga de eso: se trata de un programa que convierte el modelo 3D en una serie de finas capas y produce un fichero que contiene el <strong>código G</strong>, que no es otra cosa que el conjunto de instrucciones adecuadas para un determinado tipo de impresora 3D.</p>
+
+<p>(El lenguaje G, por cierto, es un lenguaje de programación de control numérico muy extendido, pero no es necesario aprenderlo para imprimir en 3D, porque el <em>slicer</em> se encarga de todo)</p>
+
+<p>Existen numerosos programas de laminado en el mercado, y muchos de ellos son gratuitos, pero sin duda el número uno es uno con el peculiar nombre de <strong>Cura</strong>.</p>
+
+<p><strong>Ultimaker Cura</strong> es un programa gratuito, multiplataforma (Windows, Linux, Mac) y de código abierto mantenido por Ultimaker (un fabricante de impresoras 3D) y una ferviente comunidad de usuarios.</p>
+
+<p>Admite archivos STL, 3MF y OBJ, que el slicer 3D puede reparar en caso necesario. Además, crea rutas de herramientas, así como estimaciones del material y el tiempo de impresión.</p>
+
+<p>Dispone de ajustes para novatos y para expertos, por lo que es muy apropiado para cualquier tipo de usuario. Los resultados de impresión son generalmente muy buenos.</p>
+
+<p>El software Cura se actualiza continuamente y dispone de montones de plugins externos. Existe una versión <em>enterprise</em> que no es gratuita y que dispone de plugins especialmente diseñados para profesionales.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-cura-01.jpg" alt="Aspecto general de Ultimaker Cura" /></p>
+<div style="font-size: 75%; font-style: italic">
+Aspecto de Ultimaker Cura en su versión para Windows
+</div>
+
+<p>Para <strong>preparar un modelo 3D con Cura</strong> y <strong>dejarlo listo para imprimir</strong>, simplemente sigue estos pasos:</p>
+
+<ol>
+  <li>Instala Cura en tu ordenador y ejecútalo.</li>
+  <li>Abre tu modelo 3D. Cura admite los formatos STL, OBJ y 3MF, así que puedes abrir los modelos hechos con TinkerCAD sin problemas.</li>
+  <li>En la parte superior del área de trabajo verás dos botones, etiquetados como “1” y “2” (ver captura de pantalla más abajo). Pulsa el botón “1” para seleccionar tu tipo de impresora. Si no está en la lista, selecciona la que más se parezca.</li>
+  <li>Después, pulsa el botón “2” para seleccionar los ajustes de impresión. Si has seleccionado bien la impresora, estos ajustes ya vendrán preestablecidos y no tendrás que tocarlos. En caso contrario, tendrás que juguetear un poco con ellos hasta conseguir una impresión adecuada.</li>
+  <li>Inicia el laminador pulsando en el botón que encontrarás abajo y a la derecha.</li>
+  <li>Una vez terminado el laminado, se habilitará el botón “Preview” (en la parte superior de la ventana) para previsualizar el resultado. Es muy útil para comprobar si el modelo es apto para su impresión o si contiene errores.</li>
+  <li>Guarda el trabajo en una memoria USB o disco extraíble para poder transferirlo a tu impresora. Algunas impresoras más avanzadas soportan la impresión por red o a través de servicios <em>cloud</em>, por lo que puedes imprimir tu modelo directamente desde Cura.</li>
+</ol>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-cura-02.png" alt="Un modelo 3D laminado por Cura" /></p>
+<div style="font-size: 75%; font-style: italic">
+Aspecto de Cura justo después de preparar un modelo 3D para su impresión. Arriba puedes observar los botones para seleccionar la impresora (etiquetado como "1") y para los ajustes de impresión (etiquetado como "2"). El botón "Preview" ya está disponible porque el <i>slicing</i> ya ha finalizado.
+</div>
+
+<h2 id="44-pruebas-de-impresión">4.4. Pruebas de impresión</h2>
+
+<p>La impresión 3D ha avanzado mucho en los últimos años, pero aún se encuentra dando sus primeros pasos.</p>
+
+<p>Te digo esto para que comprendas por qué imprimir en 3D no es tan sencillo como hacerlo en 2D.</p>
+
+<p>En tu vieja impresora de inyección de tinta o láser, simplemente cargas una hoja de papel, envías un archivo para imprimir, y en unos segundos tienes una copia perfectamente impresa.</p>
+
+<p>Sin embargo, si alguna vez has cambiado los cartuchos de tinta o el tóner de tu impresora, quizá te hayas fijado en que la impresora hace un <strong>calibrado automático</strong> inmediatamente después. Esto es necesario para que la impresión se haga correctamente, esto es, para que cada punto de tinta se imprima en el lugar correcto de la página.</p>
+
+<p>Por desgracia, las impresoras 3D necesitan un <strong>calibrado manual</strong> porque, como te digo, esta tecnología aún está dando sus primeros pasos.</p>
+
+<p>Y ese calibrado puede llegar a ser una tortura.</p>
+
+<p>Aprender a calibrar bien una impresora 3D es importante para:</p>
+
+<ul>
+  <li>Que los componentes no se rompan.</li>
+  <li>Que tus piezas salgan perfectas.</li>
+  <li>Evitar dolores de cabeza y filamento malgastado.</li>
+</ul>
+
+<h3 id="441-diez-pasos-para-calibrar-una-impresora-3d">4.4.1. Diez pasos para calibrar una impresora 3D</h3>
+
+<p><strong>1. Limpia bien la impresora 3D</strong>: Muchas veces no nos damos cuenta la cantidad de roña que hay en nuestras impresoras y de lo que afecta a su funcionamiento. Límpiala a conciencia antes de imprimir nada.</p>
+
+<p><strong>2. Tensa bien las correas</strong>: Las correas de la impresora siempre tienen que estar bien tensas para que no haya problemas de pérdida de pasos. Es la parte más importante de la mecánica.</p>
+
+<p><strong>3. Cambia piezas desgastadas</strong>: Nada de “ya lo cambiaré cuando se rompa”. Los fallos por rotura en las impresoras hacen efecto dominó, y un simple rodamiento en mal estado puede acabar estropeando otras piezas.</p>
+
+<p><strong>4. Lubrica todo bien</strong>: Una máquina lubricada es una máquina con años de vida. Lubrica bien los componentes necesarios: aceite de silicona para rodamientos y grasa de litio para husillos y varillas.</p>
+
+<p><strong>5. Instala Marlin</strong>: Marlin es un <em>firmware</em> abierto y gratuito que funciona en muchas impresoras 3D. El <em>firmware</em> es un pequeño programa que controla la propia impresora. Si puedes instalar Marlin en tu impresora 3D, conseguirás configurarla y afinarla con mucha más facilidad.</p>
+
+<p><strong>6. Mira los pasos de los motores</strong>: Es decir, cuando “avanza” cada motor en cada giro. Con Marlin se puede ajustar al milímetro el paso de motor. Si no es posible, tienes que mirar si el software que trae tu impresora te permite ajustarlo.</p>
+
+<p><strong>7. Calibra el flujo de plástico</strong>: Hay veces que nuestro extrusor se desajusta y no extruye lo que debería extruir, sacando más cantidad o menos cantidad de plástico de la necesaria.</p>
+
+<p><strong>8. Afina la distancia del Eje Z</strong>: Esta distancia es vital para la impresión: si lo dejas muy lejos, el plástico 3D no se pegará; si lo haces muy cerca, habrá una sobrepresión que acabará deformando la figura. Una distancia de 0,15mm suele funcionar bien.</p>
+
+<p><strong>9. Testéalo todo con un cubo</strong>: Una vez hecho todo hay que comprobar si va bien. Para ello, lo mejor es imprimir un cubo u otra figura muy simple.</p>
+
+<p><strong>10. Imprímete algo bonito</strong>: Así comprobarás si realmente todo se ha calibrado correctaemente.</p>
+
+<h3 id="442-modelos-de-prueba">4.4.2. Modelos de prueba</h3>
+
+<p>Hablando de imprimir “algo bonito”, existen <strong>modelos de prueba</strong> usados para <strong>probar específicamente ciertas capacidades de tu impresora 3D</strong> y ayudarte a calibrarla. Por ejemplo, unos modelos pueden probar la habilidad de tu impresora para imprimir puentes o voladizos; otros pueden probar la precisión o el acabado de la superficie, y otros ponen a prueba determinados ajustes del programa de corte o slicer, como la velocidad, la temperatura o la extrusión de las capas.</p>
+
+<p>Estos son algunos modelos de prueba muy populares:</p>
+
+<h4 id="3d-benchy">3D Benchy</h4>
+
+<p><strong>3DBenchy</strong> es el buque insignia, nunca mejor dicho, de las pruebas de impresión más populares. Con este modelo, puedes experimentar con todo tipo de elementos, desde voladizos hasta extrusiones.</p>
+
+<p>Si quieres poner a punto tu impresora, Benchy te ayudará a determinar los ajustes necesarios para obtener las impresiones perfectas. La presencia de unos cuantos barquitos Benchy alrededor de una impresora es un signo inequívoco de un fabricante experimentado.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-modelos-de-prueba-3dbenchy.jpg" alt="3DBenchy" /></p>
+
+<h4 id="all-in-one-3d-printer-test">All in one 3D printer test</h4>
+
+<p>Como su nombre indica, este test «todo en uno» para impresoras 3D contempla todo tipo de elementos: voladizos, puentes, encordado, extrusión, temperatura, tensión de la correa…</p>
+
+<p>Una vez realizada la impresión, podrás encontrar una solución para los problemas que hayan surgido en la guía de resolución de problemas que suele acompañar al modelo y en muchos sitios de internet.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-modelos-de-prueba-todo-en-uno.png" alt="All in one 3D printer test" /></p>
+
+<h4 id="dado-de-calibración-xyz-de-20-mm">Dado de calibración XYZ de 20 mm</h4>
+
+<p>Este dado de calibración es un modelo sencillo, rápido y fácil para poner a tu impresora contra las cuerdas. Su objetivo principal es ayudarte a ajustar la precisión de tu impresora modificando los pasos por mm, pero también permite probar la temperatura, la extrusión y la vibración.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-modelos-de-prueba-dado-calibracion.jpg" alt="Dado de calibración XYZ" /></p>
+
+<h4 id="cali-cat-el-gato-para-calibración">Cali Cat, el gato para calibración</h4>
+
+<p>Cali Cat es un modelo sencillo y adorable que te permitirá probar la precisión, los voladizos, los detalles, los puentes, las extrusiones y la vibración en tu impresora, todo ello en menos de una hora. Diseñado para realizar la calibración inicial, este lindo gatito te permitirá calibrar tu impresora en muy poco tiempo.</p>
+
+<p>Curiosidad: si imprimes un gato el doble de grande que el otro, el gato pequeño encajará perfectamente sobre el grande.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-modelos-de-prueba-cali-cat.png" alt="CaliCat" /></p>
+
+<h4 id="modelo-paramétrico-para-la-calibración-de-la-cama">Modelo paramétrico para la calibración de la cama</h4>
+
+<p>La nivelación de la cama suele ser el paso más complejo de la calibración de una impresora 3D. Este modelo te permitirá detectar cómo mejorar las primeras capas de tus impresiones.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-modelos-de-prueba-calibracion-cama.jpg" alt="Calibración de cama" /></p>
+
+<h2 id="45-imprimir-el-modelo">4.5. Imprimir el modelo</h2>
+
+<p>Hemos diseñado nuestro modelo 3D, lo hemos exportado a un archivo STL, OBJ o 3MF, lo hemos laminado y tenemos nuestra impresora razonablemente bien calibrada. ¡Por fin llega el momento de ponernos a imprimir!</p>
+
+<p>¿Cómo se hace eso?</p>
+
+<p>Lógicamente, el procedimiento exacto depende del modelo de impresora 3D que tengamos, pues incluso entre impresoras FDM puede haber muchas diferencias.</p>
+
+<p>La mayoría de las impresoras FDM domésticas tienen un <strong>panel de control con botones o diales, un puerto USB y una pantalla</strong> para comunicarse con el usuario. En estos modelos, tienes que guardar tu <strong>código G</strong> (el que genera el software de <em>slicing</em>) en una memoria USB (o disco duro externo) y conectarla al puerto USB del panel de control.</p>
+
+<p>Para asegurarte de que no hay problemas con la lectura, formatea la memoria USB como <strong>FAT32</strong>. Si eso no es posible, consulta el manual de usuario de tu impresora para ver qué sistemas de ficheros soporta.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-impresoras-3d-panel-de-control.jpg" alt="Uniones y vaciados con TinkerCAD" /></p>
+<div style="font-size: 75%; font-style: italic">
+Panel de control típico de una impresora FDM doméstica. El puerto USB suele estar en un lateral.
+</div>
+
+<p>La electrónica del panel de control revisará el contenido de la memoria USB y te permitirá elegir el archivo que quieres imprimir. La forma de hacer esto también puede ser diferente en unas impresoras que en otras: algunas cuentan con una rueda que se gira a un lado y a otro para cambiar la selección y que se pulsa para aceptar la selección. Otras tienen botones o pantallas táctiles para lograr el mismo efecto.</p>
+
+<p>Por último, la impresora te preguntará por algunos parámetros de configuración (como la temperatura) y te pedirá confirmación para iniciar la impresión. Además, cuando el proceso de impresión comience, te irá informando en la pantalla de cómo se está desarrollando o de posibles errores.</p>
+
+<h3 id="451-consejos-antes-de-imprimir">4.5.1. Consejos antes de imprimir</h3>
+
+<p>Además de hacer un adecuado mantenimiento de la impresora (limpieza, calibración, etc), antes de imprimir cualquier modelo es necesario <strong>preparar la cama y cargar el filamento</strong>.</p>
+
+<p>La <strong>preparación de la cama</strong> suele consistir en aplicar un material antideslizante a su superficie, sobre todo si es de cristal. Hay quien usa <strong>cintas especiales</strong>, como <em>Kapton Tape</em>, que se vende en distintos anchos, para crear una capa antideslizante muy fina y resistente. También existen láminas de plástico como <em>BuildTak</em>. Puedes encontrar todos estos productos en cualquier tienda especializada física u <em>online</em>.</p>
+
+<p>Si no tienes a mano nada de esto, la <strong>cinta de pintor</strong> (<em>Blue tape</em>, o incluso cinta de carrocero de toda la vida) es una solución barata y aceptable.</p>
+
+<p>Otras personas prefieren imprimir directamente sobre el cristal, que debe estar en buen estado, sin arañazos profundos. En tal caso, es necesario rociarlo con un <strong><em>spray</em> antideslizante</strong> como <em>3DLac</em> o <em>DimaFix</em>. También se puede usar <strong>laca para el pelo</strong>, que por su naturaleza crea una capa invisible levemente pegajosa que puede limpiarse después con un trapo humedecido con agua.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-impresora-3d-problema-de-adherencia-cama.jpg" alt="Figura simple" /></p>
+<div style="font-size: 75%; font-style: italic">
+Pieza despegada por falta de adherencia a la cama
+</div>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-impresora-3d-cintas-antideslizantes.jpg" alt="Figura simple" /></p>
+<div style="font-size: 75%; font-style: italic">
+Kapton tape (cinta específica para camas de impresoras 3D) y blue painter tape (cinta de pintor azul)
+</div>
+
+<p>La <strong>carga de filamento</strong> solo es necesaria si este no está ya cargado de una impresión anterior. Cambiar el filamento es sencillo: se calienta el cabezal, se saca el material, se coloca la nueva bobina y se introduce el filamento. Si el material del nuevo filamento fuera diferente del viejo, hay que limpiar el cabezal antes de volver a introducir el nuevo.</p>
+
+<p>Por supuesto, debes asegurarte de que queda filamento suficiente en la bobina para imprimir la pieza. Algunos programas como <em>Cura</em> te hacen una estimación del peso de la pieza que vas a imprimir, para que puedas estimar si tu bobina es suficiente.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/53tj0cSil_8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+<div style="font-size: 75%; font-style: italic">
+Cómo sustituir una bobina y cargar el filamento en el extrusor
+</div>
+
+<p>La <strong>limpieza del extrusor</strong> es imprescindible para evitar atascos en el cabezal de impresión. Debe hacerse depués de cada impresión y comprobarse antes de imprimir.</p>
+
+<p>Esta limpieza puede hacerse de varias maneras. Muchos usuarios utilizan un <em>hilo de nylon</em> del grosor adecuado, que puede conseguirse en cualquier ferretería. Se calienta el cabezal y se hace pasar el nylon por él hasta que salga limpio. El nylon tiene una temperatura de fusión superior a los filamentos FDM, por lo que limpiará los restos sin derretirse él mismo. Luego se enfría el cabezal hasta los 90º y se retira el filamento de nylon. Veremos que sale sucio. Se tiene que repetir esta operación hasta que salga limpio. También existen filamentos hechos adrede para este propósito.</p>
+
+<p>En casos extremos, puede ser necesario desmontar el extrusor para hacer la limpieza desde el interior.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/tT1bZKQpm38" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+<div style="font-size: 75%; font-style: italic">
+Cómo limpiar el extrusor con un filamento de nylon
+</div>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ADhby6hNBcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+<div style="font-size: 75%; font-style: italic">
+Cómo desmontar el extrusor en caso de atasco persistente
+</div>
+
+<h3 id="452-consejos-durante-la-impresión">4.5.2. Consejos durante la impresión</h3>
+
+<p>Mientras la impresora trabaja podemos hacer una <strong>inspección visual periódica</strong> de cómo se está imprimiendo nuestra pieza. Esto es particularmente importante en las primeras capas, que es donde suelen darse la mayor parte de los problemas. Por ejemplo, porque la pieza se deslice sobre la cama.</p>
+
+<p>Todos los paneles de control permiten suspender la impresión en cualquier momento si obervamos que algo está saliendo mal.</p>
+
+<p>El proceso de impresión puede durar bastante tiempo: desde unos minutos hasta varias horas. Todo depende de la complejidad de la pieza y de los ajustes de la impresora (velocidad, grosor de cada capa, etc), así que tampoco es necesario que te pases las horas muertas observando trabajar al cabezal de impresión, pero sí es buena idea que te pases de vez en cuando para ver cómo va el trabajo.</p>
+
+<p>Asegúrate de que en el entorno de la impresora no se producen <strong>corrientes de aire</strong> durante la impresión. El filamento es muy ligero y la corriente de aire puede desviarlo, dando lugar a un inoportuno error de impresión. Para el correcto enfriamento del filamento, la <strong>temperatura ambiente</strong> debe ser moderada (menos de 30º C). El <strong>exceso de polvo</strong> en el ambiente y la <strong>luz solar directa</strong> también pueden afectar a la calidad de la impresión.</p>
+
+<h3 id="453-consejos-para-después-de-imprimir">4.5.3. Consejos para después de imprimir</h3>
+
+<p><strong>Corta el filamento</strong> sobrante. Para ello, necesitarás disponer de unos alicates apropiados.</p>
+
+<p><strong>Retira la pieza</strong> de la cama con cuidado, en particular si aplicaste alguna sustancia antideslizante, porque entonces la pieza estará ligeramente pegada a la cama. Antes de retirarla, <strong>espera al menos 5 minutos</strong> para que toda la pieza se endurezca.</p>
+
+<p><strong>Limpia la cama</strong>, sobre todo si la rociaste con <em>spray</em>. Retira cualquier resto de plástico con una espátula suave. Si has aplicado laca para el pelo, límpiala con un trapo humedecido con agua u otro disolvente. Los <em>sprays</em> específicos para impresoras 3D también se limpian con agua, pero estos últimos pueden durarte varias impresiones antes de tener que volver a aplicarlos. En cualquier caso, antes de poner una nueva capa de <em>spray</em>, limpia bien la anterior. Por último, si has utilizado una cinta antideslizante, retírala si está en mal estado y limpia los restos de adhesivo, si los hubiera, con el disolvente apropiado (alcohol o acetona suelen dar buen resultado).</p>
+
+<p><strong>Limpia el extrusor</strong>. Te explicamos como hacerlo en el apartado “Antes de imprimir” que encontrarás un poco más arriba.</p>
+
+<p><strong>Comprueba la pieza</strong>, no solo sus acabados, sino también sus dimensiones. Esto te permitirá descubrir errores de calibrado de tu impresora antes de que se hagan muy grandes. En algunas piezas, y dependiendo del material utilizado para la impresión, puede aplicarse una capa protectora de <strong>acetona</strong> (solo para plástico ABS) o una resina de recubrimiento llamada <strong>XTC</strong>, que permite lijar y pintar la pieza, dándole un aspecto mucho más liso.</p>
+
+<p><img src="/docs/prog-y-3d/_site/assets/images/10-impresoras-3d-xtc.jpg" alt="Figura simple" /></p>
+<div style="font-size: 75%; font-style: italic">
+Una pieza antes y después de la aplicación de una resina XTC.
+</div>
+
+<h3 id="454-algunos-tips-para-usar-la-impresora-de-cr10-mini-con-éxito">4.5.4. Algunos <em>tips</em> para usar la impresora de CR10-mini con éxito</h3>
+
+<p>En el momento de escribir esto, en el IES Celia Viñas contamos con una impresora <strong>Crealty CR10-mini</strong>. Se trata de una impresora de filamento capaz de imprimir en plástico ABS y PLA.</p>
+
+<p>Después de varios meses de experiencia trabajando con ella, podemos proporcionarte algunos consejos adicionales referidos a este modelo concreto:</p>
+
+<ul>
+  <li>Calienta el filamento un poco por encima de la temperatura indicada por el fabricante del mismo, sobre todo en invierno. Alrededor de 210 o 215º van bien para el PLA. El ABS necesitará que pongas la máquina a tope de temperatura. Ojo, porque cada vez que inicies una nueva impresión, la impresora hará bajar su temperatura hasta los valores establecidos de fábrica y tendrás que volver a subirlos.</li>
+  <li>Calienta también la cama un poco por encima de lo normal: unos 60º para el PLA y 70-80º para el ABS.</li>
+  <li>La calibración de la altura de la cama es <em>fundamental</em> para obtener un buen resultado. Si no, las piezas se despegarán hagas lo que hagas. Recuerda que el ABS se despega con más facilidad que el PLA.</li>
+  <li>Limpia y calibra la cama antes de cada impresión. Los laminados de Cura hacen varias pasadas de calibración previas antes de empezar a imprimir. Úsalas para darle un último toque a la calibración mirando de perfil cómo se mueve el extrusor y a qué distancia de la cama está. Recuerda que debe estar muy, muy cerca del cristal pero sin llegar a tocarlo.</li>
+  <li>Usa laca del pelo extrafuerte o, mejor aún, algún spray específico para mejorar el agarre de la pieza a la cama. Debes reponerlo antes de cada impresión y extender una capa generosa cuando la cama aún no esté demasiado caliente.</li>
+  <li>Usa un poco de cinta de carrocero para asegurarte de que el cristal no se mueve de su posición en la cama.</li>
+  <li>Las piezas con una base muy grande se imprimen mejor. Cuanto menor es la base con la que apoyan en la cama, más posibilidades hay de que se muevan y la impresión se estropee. Si la pieza es pequeña y siempre se te despega, platéate alguna de estas alternativas:
+    <ul>
+      <li>Aumentar su tamaño.</li>
+      <li>Reducir la velocidad de impresión.</li>
+      <li>Añadir a la pieza una base de apoyo de tamaño generoso.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="46-ejercicios">4.6. Ejercicios</h2>
+
+<p><strong>Ejercicio 1</strong>.  Regístrate en TinkerCAD y familiarízate con el entorno de trabajo. Tienes que aprender, como mínimo, a rotar, trasladar y hacer zoom de la vista, así como a insertar objetos, escalarlos y moverlos.</p>
+
+<p><strong>Ejercicio 2</strong>. Trata de crear con TinkerCAD <a href="/docs/prog-y-3d/_site/modelado-e-impresion-3d/#411-qu%C3%A9-es-tinkercad-y-c%C3%B3mo-funciona">este sencillo perro salchicha</a>.</p>
+
+<p><strong>Ejercicio 3</strong>. Sigue los pasos de los apuntes para crear con TinkerCAD la cabaña que aparece <a href="/docs/prog-y-3d/_site/modelado-e-impresion-3d/#414-cómo-modelar-objetos-3d-con-tinkercad">aquí</a></p>
+
+<p><strong>Ejercicio 4</strong>. Sigue los pasos de los apuntes para crear con TinkerCAD la estructura con cuatro esferas alineadas que aparece <a href="/docs/prog-y-3d/_site/modelado-e-impresion-3d/#transformar-alinear-y-medir">aquí</a></p>
+
+<p><strong>Ejercicio 5</strong>. Intenta crear con TinkerCAD la taza con el busto de Ironman que se describe <a href="/docs/prog-y-3d/_site/modelado-e-impresion-3d/#415-edici%C3%B3n-de-objetos-externos-a-tinkercad">aquí</a>. Puedes usar otro busto que localices en Thingverse (o en algún otro sitio de modelos 3D de libre uso) si lo tuyo no son Los Vengadores.</p>
+
+<p><strong>Ejercicio 6</strong>. Instala el programa <em>Ultimaker Cura</em> en tu ordenador. Exporta la taza de Ironman (o del busto que hayas empleado) a formato STL y ábrela con <em>Cura</em>. Haz el <em>slicing</em> (laminado) para dejarla lista para su impresión. Guarda el archivo con el resultado.</p>
+
+<p><strong>Ejercicio 7</strong>. Utiliza los bloques de código para crear con TinkerCAD 10 mesas de cuatro patas, siguiendo las pistas que se dan en <a href="/docs/prog-y-3d/_site/modelado-e-impresion-3d/#bloques-de-código">este apartado</a>. Las mesas deben estar lo bastante separadas unas de otras como para que se puedan ver con facilidad. A ver si consigues que cada una tenga un color diferente.</p>
+
+<p><strong>Ejercicio 8</strong>. Modifica el ejercicio anterior para generar 28 mesas en lugar de 10. Colócalas como si fueran las mesas de un aula para 28 personas (por ejemplo, haciendo 4 filas de 7 mesas). Crea 28 sillas y colócalas junto a las mesas. Por último, crea una mesa (un poco más grande) junto con su silla para el profesor y colócala en un extremo de la clase.</p>
+
+<p><strong>Ejercicio OBLIGATORIO</strong>. Ya conoces los fundamentos del modelado e impresión 3D. Ahora, para evaluar este bloque de la asignatura, te voy a pedir que  prepares dos modelos distintos:</p>
+
+<ul>
+  <li><strong>Un modelo para imprimir</strong>. Debe ser algo sencillito (un llavero con tu nombre, por ejemplo). Expórtalo a STL, lamínalo con <em>Cura</em> e imprímelo. Haremos turnos de impresión para que todos/as tengáis ocasión de usar la impresora 3D.</li>
+  <li><strong>Un modelo para lucirte</strong>. Este puede (y debe) ser todo lo complejo que quieras. Deja volar tu imaginación o, mejor todavía, deja que se te vaya un poco la olla para crear algo que solo tú puedas hacer. Este modelo tendrás que subirlo a Moodle Centros.</li>
+</ul>
+
+<p><em>Importante: los dos modelos deben ser tuyos, no descargados de Internet (aunque puedes descargar alguna parte para reutilizarla, como hicimos con la taza de Ironman)</em></p>
+
+:ET
