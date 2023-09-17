@@ -15,13 +15,12 @@ parent: Tecnologías de la Información y la Comunicación 2º BACHILLERATO
 
 ## 0.1. Contextualización y horario
 
-La asignatura **Tecnologías de la información y la comunicación II** se imparte como optativa en segundo curso de Bachillerato en el IES Celia Viñas de Almería y tiene una duración de 72 horas (2 horas semanales).
-
-Durante el curso 2023-2024, el **horario** de clases será el siguiente:
-
-* Por determinar.
-* Por determinar.
-
+* Asignatura: **Tecnologías de la información y la comunicación II**
+* Curso: 2º de Bachillerato
+* Duración: 72 horas (2 horas semanales).
+* Horario: por determinar.
+* Profesor: Alfredo Moreno Vozmediano
+* Contacto: alfredomoreno@iescelia.org (también a través de Moodle Centros o de Pasen).
 
 ## 0.2. Competencias específicas
 
