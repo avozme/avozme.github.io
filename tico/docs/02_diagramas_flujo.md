@@ -1,13 +1,13 @@
 ---
 layout: page
-title: 4. Programación con diagramas de flujo
+title: 2. Programación con diagramas de flujo
 permalink: /diagramas-de-flujo/
-nav_order: 4
+nav_order: 2
 has_children: true
 parent: Tecnologías de la Información y la Comunicación 2º BACHILLERATO
 ---
 
-# 4. Programación con diagramas de flujo
+# 2. Programación con diagramas de flujo
 {: .no_toc }
 
 
@@ -24,7 +24,7 @@ Los diagramas de flujo son herramientas descriptivas tan potentes que se utiliza
 
 ![Diagrama de flujo COVID-19](/docs/prog-y-3d/_site/assets/images/03-diagrama-de-flujo-covid-19.png)
 
-## 4.1. Simbología de los diagramas de flujo
+## 2.1. Simbología de los diagramas de flujo
 
 En los diagramas de flujo, cada **símbolo** representa una operación específica. Las operaciones se conectan entre ellas con **flechas**, que indican el orden de ejecución.
 

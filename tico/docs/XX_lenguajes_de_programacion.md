@@ -2,7 +2,7 @@
 layout: page
 title: 6. Los lenguajes de programación
 permalink: /lenguajes-de-programacion/
-parent: Tecnologías de la Información y la Comunicación 2º BACHILLERATO
+parent: XXXXTecnologías de la Información y la Comunicación 2º BACHILLERATO
 nav_order: 6
 has_children: false
 ---

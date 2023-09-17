@@ -1,21 +1,21 @@
 ---
 layout: page
-title: 5. Programación con pseudocódigo
+title: 3. Programación con pseudocódigo
 permalink: /pseudocodigo/
-nav_order: 5
+nav_order: 3
 has_children: true
 parent: Tecnologías de la Información y la Comunicación 2º BACHILLERATO
 ---
 
 
-# 5. Programación con pseudocódigo
+# 3. Programación con pseudocódigo
 {: .no_toc }
 
 
 - TOC
 {:toc}
 
-## 5.1. Qué es y qué no es el pseudocódigo
+## 3.1. Qué es y qué no es el pseudocódigo
 
 El pseudocódigo, ya lo hemos dicho, no es un lenguaje formal de programación, sino un *pseudolenguaje*.
 
@@ -25,7 +25,7 @@ Nosotros vamos a usar una sintaxis concreta tomada de una utilidad llamada **[PS
 
 Hablaremos más de PSeInt en el apartado de ejercicios propuestos.
 
-## 5.2. Instrucciones típicas en pseudocódigo (versión PSeInt)
+## 3.2. Instrucciones típicas en pseudocódigo (versión PSeInt)
 
 La siguiente tabla muestra una lista de las instrucciones principales del pseudocódigo estándar de PSeInt.
 
@@ -96,7 +96,7 @@ teclado), asignando ese dato a la variable.</td>
 
 También existen instrucciones para crear y manejar subalgoritmos. Como nuestros programas, de momento, van a ser muy simples, aún no vamos a verlas. Nos dedicaremos a ellas cuando llegue el momento.
 
-## 5.3. Un ejemplo sencillo de algoritmo escrito en pseudocódigo
+## 3.3. Un ejemplo sencillo de algoritmo escrito en pseudocódigo
 
 Vamos a terminar esta sección mostrando un ejemplo sencillo pero muy completo de algoritmo escrito en pseudocódigo.
 
@@ -131,7 +131,7 @@ FinAlgoritmo
 
 Léelo con atención y asegúrate de entenderlo antes de continuar. En la siguiente sección, veremos cómo representar este mismo algoritmo mediante un diagrama de flujo.
 
-## 5.4. Errores frecuentes entre principiantes
+## 3.4. Errores frecuentes entre principiantes
 
 En esta sección recopilo para ti algunas de las dudas, errores y pifias más frecuentes que, según mi experiencia como profesor de programación, suelen asaltar a los principantes.
 
@@ -326,7 +326,7 @@ Así que, si estás dispuesto/a a aprender a programar, prepárate para pasar mu
 
 Así que mi principal consejo para todos los principiantes es: practica, practica y practica. Y si, mientras practicas, te das cuenta de que no estás disfrutando, plantéate si de verdad quieres aprender a programar. 
 
-## 5.5. Ejercicios propuestos
+## 3.5. Ejercicios propuestos
 
 A partir de este punto, necesitarás **instalar PSeInt** en tu ordenador.
 
@@ -597,7 +597,7 @@ Su saldo actual es de 39,5 euros.
 
 Este programa se puede mejorar haciendo que calcule la edad en años, meses y días (¡incluso en horas, minutos y segundos!), pero es una labor por ahora solo apta para los más atrevidos/as.
 
-## 5.6. Ejercicios resueltos
+## 3.6. Ejercicios resueltos
 
 A continuación, vamos a mostrar la solución de algunos de los ejercicios anteriores. No de todos, porque entonces este texto sería interminable, pero si de bastantes de ellos.
 

@@ -42,24 +42,22 @@ Los contenidos de la asignatura se dividen en **tres bloques y 11 unidades didá
 
 **Bloque 1. Desarrollo de software**
 
-* **UD1. Pensamiento computacional**. Algoritmos. Descomposición de problemas.
-* **UD2. Representación de la información**. Código binario, hexadecimal, ASCII y Unicode. Unidades de medida de información.
-* **UD3. Introducción a la programación**. Programas y algoritmos. Datos y tipos de datos. Constantes y variables. Expresiones y operadores.
-* **UD4. Programación con diagramas de flujo**. Simbología. Estructuras de control.
-* **UD5. Programación con pseudocódigo**. Instrucciones. Subprogramas. Errores frecuentes.
-* **UD6. Lenguajes de programación**. Tipos de lenguaje. Introducción a Java.
+* **UD1. Introducción a la programación**.
+* **UD2. Programación con diagramas de flujo**.
+* **UD3. Programación con pseudocódigo**.
 
 **Bloque 2. Publicación de contenidos**
 
-* **UD7. Publicación en la web**. HTML. CSS. Estándares.
-* **UD8. Gestores de contenido**. Wordpress. Blogger. Prestashop. Moodle.
-* **UD9. Posicionamiento, analíticas y publicación**. Estrategias y herramientas. Proveedores web. Publicación de un proyecto web.
-* **UD10. Trabajo colaborativo**. Herramientas de productividad. Repositorios. Creación de contenidos. Gestión de tareas. Derechos de autor.
+* **UD4. Internet y la web**.
+* **UD5. Diseño de páginas web**.
+* **UD6. Hojas de estilos**.
 
 **Bloque 3. Seguridad informática**
 
-* **UD11. Ciberseguridad**. Protección de la información. Medidas de seguridad básicas. Tipos de ataque. Cifrado. Certificados digitales. Firma electrónica.
-* **UD12. Privacidad y uso responsable**. Datos personales. Derechos digitales. Redes sociales. Ciberacoso.
+* **UD7. Principios de seguridad informática**. 
+* **UD8. Recuperación de datos**. 
+* **UD9. Criptografía y cifrado**.
+* **UD10. Software malicioso**.
 
 
 ## 0.4. Evaluación y calificación

@@ -1,18 +1,18 @@
 ---
 layout: page
-title: 8. Gestores de contenido
-permalink: /gestores-de-contenido/
+title: 4. Internet y la web
+permalink: /internet-web/
 parent: Tecnologías de la Información y la Comunicación 2º BACHILLERATO
-nav_order: 8
+nav_order: 4
 has_children: false
 ---
 
-# 8. Gestores de contenido
+# 4. Publicación en la web
 {: .no_toc }
 
 - TOC
 {:toc}
 
-Wordpress. Blogger. Prestashop. Moodle.
-
 Este capítulo aún está en construcción.
+
+
