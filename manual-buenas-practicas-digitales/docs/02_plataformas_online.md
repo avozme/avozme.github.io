@@ -217,9 +217,9 @@ La Consejería de Educación y Deporte de la Junta de Andalucía ha firmado un c
 
 En esta sección expondremos cómo puedes acceder a tu cuenta de Google Suite y cómo puedes utilizar sus herramientas.
 
-**Qué es Google Suite**
+**Qué es Google Suite for Education**
 
-Googe Suite for Education es un conjunto de herramientas web que Google ofrece a instituciones educativas. Incluye aplicaciones como Gmail, Meet, Calendar, Classroom, Docs o Drive.
+Googe Suite for Education es un conjunto de herramientas web que Google ofrece a instituciones educativas. Incluye las aplicaciones más populares de Google Suite como Gmail, Meet, Calendar, Classroom, Docs o Drive.
 
 Funciona como las cuentas personales de Google, pero incluye acceso a más herramientas, como Classroom o Meet, que normalmente son de pago.
 
@@ -247,10 +247,77 @@ No. Moodle Centros sigue siendo la plataforma online de referencia. Si un profes
 
 **Soy nuevo/a en el centro. ¿Tengo que hacer algo para crear mi cuenta de Google Suite?**
 
-No. Tu cuenta de Google Suite se creará automáticamente alrededor de 24 horas después de que te hayan dado de alta en el sistema Séneca. Del mismo modo, si dejas de pertenecer a la plantilla del centro, la cuenta de Google dejará de estar operativa.
+En principio, no. Simplemente por el hecho de trabajar para la Consejería de Educación y estar destinado en el IES Celia Viñas, tu cuenta de Google Suite debería estar operativa.
 
+Si te acaban de asignar como destino el IES Celia Viñas, podría ser que la cuenta de Google Suite tardase hasta 24 horas en ser accesible desde que te hayan dado de alta en el sistema Séneca.
 
-## 2.3. Videoconferencias
+**¿Se pierde el contenido que tenga almacenado en la nube de Google si cambio de centro?**
+
+Es posible.
+
+Ten en cuenta que ni nosotros ni la Consejería de Educación manejamos directamente estas cuentas, por lo que no podemos saber con exactitud cómo procederá Google en estos casos.
+
+Lo habitual es que, si cambias de centro, tu cuenta Google y todos tus archivos y recursos en la nube permanezcan, pero no te fíes del todo: es mejor que hagas una copia de seguridad al finalizar el curso.
+
+**¿Puedo comprobar el estado de mi cuenta Google?**
+
+Sí. Puedes comprobar el estado actual de tu cuenta Google desde Séneca si sigues esta ruta: *Utilidades -> Configuración del usuario -> Cuentas corporativas*.
+
+## 2.3. Microsoft 365
+
+XXX revisar toda esta sección (copiada de Google) para adaptarla a Microsoft
+
+La Consejería de Educación y Deporte de la Junta de Andalucía ha firmado un convenio con Google para proporcionar Google Suite de manera gratuita a los centros que así lo soliciten. El IES Celia Viñas es uno de esos centros.
+
+En esta sección expondremos cómo puedes acceder a tu cuenta de Google Suite y cómo puedes utilizar sus herramientas.
+
+**Qué es Google Suite for Education**
+
+Googe Suite for Education es un conjunto de herramientas web que Google ofrece a instituciones educativas. Incluye las aplicaciones más populares de Google Suite como Gmail, Meet, Calendar, Classroom, Docs o Drive.
+
+Funciona como las cuentas personales de Google, pero incluye acceso a más herramientas, como Classroom o Meet, que normalmente son de pago.
+
+**Acceso a Google Suite: profesorado**
+
+En virtud del convenio de la Junta de Andalucía, todo el profesorado dispone de una cuenta en Google Suite con estas credenciales:
+
+* Nombre de usuario: usuario-de-seneca@g.educaand.es
+* Contraseña: Tu contraseña de Séneca
+
+Basta con que inicies una sesión de Google con esas credenciales (por ejemplo, en Gmail) para empezar a usar las herramientas de Google Suite. Si ya tenías una cuenta de Google suite en el dominio iescelia.org, puedes seguir usándola porque seguirá estando operativa, pero ten en cuenta que son dos cuentas totalmente independientes.
+
+**Acceso a Google Suite: alumnado**
+
+El alumnado puede acceder a Google Suite del mismo modo que el profesorado, usando sus credenciales de Pasen:
+
+* Nombre de usuario: usuario-de-pasen@g.educaand.es
+* Contraseña: Su contraseña de Pasen
+
+IMPORTANTE: para cumplir con la Ley Orgánica de Protección de Datos, el alumnado menor de 14 años debe contar con una autorización expresa de sus tutores legales antes de usar esta cuenta.
+
+**¿Google Suite sustituye a Moodle Centros?**
+
+No. Moodle Centros sigue siendo la plataforma online de referencia. Si un profesor/a desea usar Google Suite, debería enlazar los recursos de Google Suite en Moodle Centros, para no crear confusión entre el alumnado y las familias acerca del lugar en el que puede encontrar los recursos educativos.
+
+**Soy nuevo/a en el centro. ¿Tengo que hacer algo para crear mi cuenta de Google Suite?**
+
+En principio, no. Simplemente por el hecho de trabajar para la Consejería de Educación y estar destinado en el IES Celia Viñas, tu cuenta de Google Suite debería estar operativa.
+
+Si te acaban de asignar como destino el IES Celia Viñas, podría ser que la cuenta de Google Suite tardase hasta 24 horas en ser accesible desde que te hayan dado de alta en el sistema Séneca.
+
+**¿Se pierde el contenido que tenga almacenado en la nube de Google si cambio de centro?**
+
+Es posible.
+
+Ten en cuenta que ni nosotros ni la Consejería de Educación manejamos directamente estas cuentas, por lo que no podemos saber con exactitud cómo procederá Google en estos casos.
+
+Lo habitual es que, si cambias de centro, tu cuenta Google y todos tus archivos y recursos en la nube permanezcan, pero no te fíes del todo: es mejor que hagas una copia de seguridad al finalizar el curso.
+
+**¿Puedo comprobar el estado de mi cuenta Google?**
+
+Sí. Puedes comprobar el estado actual de tu cuenta Google desde Séneca si sigues esta ruta: *Utilidades -> Configuración del usuario -> Cuentas corporativas*.
+
+## 2.4. Videoconferencias
 
 Las videoconferencias para las clases semipresenciales o a distancia (o para cualquier otra situación en la que sea necesario establecer una videoconferencia) deben realizarse, por motivos de **protección de datos**, a través de las dos plataformas seleccionadas por la Consejería de Educación y Deporte: Moodle Centros o Google Suite (Google Meet).
 
@@ -281,15 +348,15 @@ Debes tener en cuenta que Google Meet consume más ancho de banda que BB Collabo
 
 ![Google Meet](../assets/plataformas-online/googlemeet.jpg)
 
-## 2.4. Otras plataformas
+## 2.5. Otras plataformas
 
-El centro solo dispone de dos plataformas online oficiales: Moodle Centros y Google Suite.
+El centro solo dispone de tres plataformas online oficiales: Moodle Centros, Google Suite y Microsoft 365.
 
 El profesorado que quiera usar cualquier otra, puede hacerlo siempre que su uso no exija la creación de cuentas de carácter personal por parte del alumnado. 
 
-Por ejemplo, podrías usar Office 365 para elaborar documentos o presentaciones, pero no podrías exigir a tu alumnado que se registre en Microsoft para acceder o colaborar en los mismos.
+Por ejemplo, podrías usar Dropbox para compartir documentos o Canva para hacer presentaciones, pero no podrías exigir a tu alumnado que se registre en ninguno de esos servicios con sus cuentas personales.
 
-Para este propósito, recuerda que el alumnado dispone de cuentas de Moodle y de Google con todas las garantías legales (¡recuerda que los menores de 14 años necesitan autorización de los tutores legales para usar estas últimas!)
+Para este propósito, recuerda que el alumnado dispone de cuentas de Moodle, de Google y de Microsoft con todas las garantías legales (¡los menores de 14 años necesitan autorización de los tutores legales para usar las dos últimas!). El alumnado puede registrarse en servicios de terceros usando esas cuentas corporativas, pero nunca las suyas personales.
 
 
 

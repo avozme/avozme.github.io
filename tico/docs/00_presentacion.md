@@ -75,4 +75,14 @@ Se hará un examen teórico-práctico final, con actividades de un nivel similar
 
 Asimismo, habrá una recuperación en junio con la misma naturaleza y que abarcará toda la materia impartida durante el curso, incluyendo la entrega de las prácticas necesarias para superar la asignatura.
 
+## 0.5. Profesor y contacto
+
+El profesor de esta asignatura es D. **Alfredo Moreno Vozmediano**, del Departamento de Informática del IES Celia Viñas, Ingeniero Técnico en Informática de Sistemas por la Universidad de Castilla - La Mancha e Ingeniero en Informática por la Universidad de Málaga. Trabaja como profesor de enseñanza secundaria para la Junta de Andalucía desde el año 2000.
+
+Tanto el alumnado como las familias pueden contactar directamente con él a través de alguno de estos medios:
+
+* **Por email** a la dirección alfredomoreno@iescelia.org
+* **A través de la mensajería interna Moodle Centros** (solo para alumnado)
+* **A través de la mensajería interna de iPasen** (para alumnado y para familias, puesto que cada uno cuenta con sus propias credenciales de acceso)
+
 

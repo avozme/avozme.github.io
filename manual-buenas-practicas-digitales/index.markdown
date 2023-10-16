@@ -9,7 +9,7 @@ nav_exclude: false
 nav_order: 1
 ---
 
-![Reserva de carritos de portátiles](assets/manual-practicas-digitales-front.jpg)
+![Manual de buenas prácticas digitales](assets/manual-practicas-digitales-front.jpg)
 
 Estás leyendo  el **Manual de buenas prácticas digitales** del [IES Celia Viñas](https://iescelia.org) de Almería.
 
