@@ -442,26 +442,3 @@ Su saldo actual es de 39,5 euros.
 (Aviso: no es tan fácil como parece)
 
 Este programa se puede mejorar haciendo que calcule la edad en años, meses y días (¡incluso en horas, minutos y segundos!), pero es una labor por ahora solo apta para los más atrevidos/as.
-
-
-## 2.5. Ejercicios resueltos
-
-A continuación, vamos a mostrar la solución de algunos de los ejercicios anteriores. No de todos, porque entonces este texto sería interminable, pero sí de bastantes de ellos.
-
-Ten en cuenta que, **en muchas ocasiones, hay más de una solución posible** igualmente válida. Si tú has logrado resolver el ejercicio por otra vía, puede que hayas dado con una de esas otras soluciones.
-
-Sin embargo, también hay soluciones inaceptables por su poca eficiencia aunque, en apariencia, parezcan funcionar bien. Ten en cuenta que, para ir de Almería a Granada, se puede ir por la autovía A-92 o se puede dar un rodeo por Barcelona. O por Júpiter y Saturno. De todos esos modos conseguiremos llegar a Granada, pero las últimas soluciones son tan ineficientes que no resultan aceptables.
-
-Lo mismo ocurre con los programas informáticos.
-
-Cuando tu solución sea muy diferente de la mía, pregúntate si la tuya da un rodeo mucho mayor que la mía para llegar al mismo sitio, o si, por el contrario, es igual de eficiente (¡o incluso más!). En este caso, enhorabuena: has dado con una de esas soluciones alternativas de las que hablaba.
-
-Por último, permíteme un consejo: **intenta resistir la tentación de mirar la solución a los ejercicios antes de hacerlos**. Es muy conveniente que pases un rato tratando de resolver los problemas por ti mismo/a antes de mirar la solución. Al menos, es muy conveniente si tu intención es aprender a programar.
-
-**IREMOS COLGANDO LOS EJERCICIOS RESUELTOS EN ESTA SECCIÓN CONFORME LOS VAYAMOS HACIENDO EN CLASE**
-
-#### Ejercicios con estructura secuencial
-
-**Ejercicio 1**. Calcular el área y la circunferencia de un círculo cuyo radio será proporcionado a través del teclado. Recuerda que área = 3.14 x r x r y circunferencia = 2 x 3.14 x r
-
-![Diagrama de flujo area_circulo](/docs/tico/_site/assets/ejercicios-resueltos-pseint/03_01_area_perimetro.png)
