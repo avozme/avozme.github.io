@@ -544,35 +544,33 @@ Así que mi principal consejo para todos los principiantes es: practica, practic
 
 ## 3.4. Ejercicios propuestos
 
-Vamos a resolver con pseudocódigo (o con Python, si lo prefieres) varios de los ejercicios que hicimos con diagramas de flujo. 
+Vamos a resolver con pseudocódigo (o con Python, si lo prefieres) varios de los ejercicios que ya propusimos hacer con diagramas de flujo. 
 
 La idea es que ahora los **escribas, depures y pruebes tecleando el código**, no dibujando del diagrama de flujo.
 
 Por lo tanto, necesitarás PseInt (si usas pseudocódigo) o Thonny (si usas Python) para realizar los siguientes ejercicios.
 
+#### Ejercicio introductorio
+
 **Ejercicio 0**.
 <div style='background: #eee'>Escribe un programa que, simplemente, muestre el mensaje "Hola, mundo" por la consola de texto. Este programa, por tradición, es el primero que se escribe cuando un programador/a está probando un lenguaje o un entorno de desarrollo nuevo.</div>
 
-**Ejercicio 1**. 
-<div style='background: #eee'>Calcular el área y la circunferencia de un círculo cuyo radio será proporcionado a través del teclado. Recuerda que área = 3.14 x r x r y circunferencia = 2 x 3.14 x r</div>
+#### Ejercicios con condicionales
 
-**Ejercicio 2**. 
-<div style='background: #eee'>Pedir las cuatro notas de los exámenes del primer trimestre de un alumno y mostrar la nota media obtenida.</div>
+**Ejercicio 9**. 
+<div style='background: #eee'>Escribe un programa que lea tres números por teclado, X, Y y Z, y te diga si están ordenados de menor a mayor, es decir, si X es menor que Y y, además, Y es menor que Z.</div>
 
-**Ejercicio 3**. 
-<div style='background: #eee'>Calcular el precio de llenar una piscina de agua. Para ello se tienen que pedir al usuario las medidas de la piscina (largo, ancho y alto) y el precio del m​<sup>3</sup>​ del agua. Se mostrará el precio total. Supondremos que la piscina es de forma regular.</div>
+**Ejercicio 10 (optativo para ampliar)**. 
+<div style='background: #eee'>Modifica el programa anterior para que, además de decirte si X, Y y Z están ordenados, te diga si son consecutivos.</div>
 
-**Ejercicio 4**. 
-<div style='background: #eee'>Determinar si un número leído del teclado es positivo, negativo o cero.</div>
+#### Ejercicios con bucles
 
-**Ejercicio 6**. Leídos dos números por teclado, A y B, calcular la resta del mayor menos el menor. Por ejemplo, si A = 8 y B = 3, el resultado debe ser A – B, es decir, 5. Pero si A = 4 y B = 7, el resultado debe ser B – A, es decir, 3.
+**Ejercicio 17**. 
+<div style='background: #eee'>Escribe un programa que calcule el sumatorio entre 1 y n, siendo n un entero introducido por teclado. Es decir, tiene que calcular 1 + 2 + 3 + ...  + n y mostrar el resultado en la pantalla.</div>
 
-**Ejercicio 11**. Determinar si un año es bisiesto o no (los años bisiestos son múltiplos de 4; utilícese el operador módulo)
+**Ejercicio 25**. 
+<div style='background: #eee'>Escribe un programa que genere una combinación al azar para la quiniela (es decir, 14 valores dentro del conjunto 1, X o 2). Puedes generar un número aleatorio entre 1 y n con PseInt usando la función <i>azar(n)</i>. Con Python, eso mismo se hace escribiendo <i>randint(1,n)</i></div>
 
-**Ejercicio 14**. 
-<div style='background: #eee'>Escribir todos los números entre 1 y n, siendo n un entero introducido por teclado.</div>
+**Ejercicio 30. Juego del número secreto (optativo para ampliar)**. 
+<div style='background: #eee'>En este programa, el ordenador elegirá un número al azar entre 1 y 100. El usuario irá introduciendo números por teclado, y el ordenador le irá dando pistas: "mi número es mayor" o "mi número es menor", hasta que el usuario acierte. Entonces el ordenador le felicitará y le comunicará el número de intentos que necesitó para acertar el número secreto**.</div>
 
-**Ejercicio 20**. El usuario de este programa será un profesor, que introducirá las notas de sus 30 alumnos de una en una. El algoritmo debe decirle cuántos suspensos y cuántos aprobados hay.
-
-**Ejercicio 23**. 
-<div style='background: #eee'>Calcular el factorial de un número entero N. Recuerda que el factorial de un número es el producto de ese número por todos los enteros menores que él. Por ejemplo, el factorial de 5 (simbolizado 5!) se calcula como: 5! = 5 x 4 x 3 x 2 x 1.</div>

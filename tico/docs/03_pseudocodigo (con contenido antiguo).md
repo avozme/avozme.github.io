@@ -336,6 +336,275 @@ No es necesario que hagas *todos* los ejercicios. Están ordenados en un grado d
 
 En realidad, esto último es lo más adecuado. Recuerda que para aprender a programar necesitarás practicar, practicar y practicar. Y para lograr practicar tanto, es imprescindible que te guste lo que estás haciendo.
 
+A partir de este punto, necesitarás **instalar PSeInt** en tu ordenador.
+
+En todos los ejercicios que vienen a continuación se te pide escribir un programa que resuelva un determinado problema. Puedes escribirlo en pseudocódigo o con un diagrama de flujo, como prefieras, ya que, con PSeInt, ambas herramientas son intercambiables. No dejes de comprobar que tu solución funciona antes de pasar al siguiente.
+
+No es necesario que hagas *todos* los ejercicios. Están ordenados en un grado de dificultad creciente, de modo que, si los primeros te resultan muy sencillos, puedes saltar a otro un poco más complicado. Céntrate solo en los que te parezcan más interesantes, o incluso puedes inventarte tus propios programas.
+
+En realidad, esto último es lo más adecuado. Recuerda que para aprender a programar necesitarás practicar, practicar y practicar. Y para lograr practicar tanto, es imprescindible que te guste lo que estás haciendo.
+
+**Ejercicio 0**. **Instala PseInt en tu ordenador** siguiendo las instrucciones que [hemos dado antes](/docs/tico/_site/diagramas-de-flujo/#231-instalación-de-pseint).
+
+Comprueba que el programa arranca con normalidad y sin errores.
+
+No olvides configurar adecuadamente PseInt durante la primera ejecución. Si te equivocas, se puede reconfigurar más tarde, pero es más engorroso.
+
+Si el programa ya está instalado en tu ordenador, puedes pasar al siguiente ejercicio.
+
+#### Ejercicios con estructura secuencial
+
+**Ejercicio 1**. 
+<div style='background: #eee'>Calcular el área y la circunferencia de un círculo cuyo radio será proporcionado a través del teclado. Recuerda que área = 3.14 x r x r y circunferencia = 2 x 3.14 x r</div>
+
+**Ejercicio 2**. 
+<div style='background: #eee'>Pedir las cuatro notas de los exámenes del primer trimestre de un alumno y mostrar la nota media obtenida.</div>
+
+**Ejercicio 3**. 
+<div style='background: #eee'>Calcular el precio de llenar una piscina de agua. Para ello se tienen que pedir al usuario las medidas de la piscina (largo, ancho y alto) y el precio del m​<sup>3</sup>​ del agua. Se mostrará el precio total. Supondremos que la piscina es de forma regular.</div>
+
+#### Ejercicios con estructuras condicionales
+
+**Ejercicio 4**. 
+<div style='background: #eee'>Determinar si un número leído del teclado es positivo, negativo o cero.</div>
+
+**Ejercicio 5**. Calcular la raíz cuadrada de un número introducido por teclado. Hay que tener la precaución de comprobar que el número sea positivo.
+
+**Ejercicio 6**. Leídos dos números por teclado, A y B, calcular la resta del mayor menos el menor. Por ejemplo, si A = 8 y B = 3, el resultado debe ser A – B, es decir, 5. Pero si A = 4 y B = 7, el resultado debe ser B – A, es decir, 3.
+
+**Ejercicio 7**. Averiguar si un número real introducido  por teclado tiene o no parte fraccionaria (utilícese la función trunc() que aparece descrita en los apuntes)
+
+**Ejercicio 8**. 
+<div style='background: #eee'>Leer un número real y un tipo de moneda, que puede ser "euro" o "peseta". Convertir la cantidad al tipo de moneda indicado, suponiendo que está expresada en la otra. Por ejemplo, si la cantidad es 15 y la moneda es "peseta", se supondrá que se trata de 15 € y que hay que convertirlos a pesetas y, por lo tanto, el resultado debe ser 2495.</div>
+
+**Ejercicio 9**. Leer tres números por teclado, X, Y y Z, y decidir si están ordenados de menor a mayor.
+
+**Ejercicio 10**. Como el anterior, pero para averiguar si los números son consecutivos.
+
+**Ejercicio 11**. Determinar si un año es bisiesto o no (los años bisiestos son múltiplos de 4; utilícese el operador módulo)
+
+**Ejercicio 12**. 
+<div style='background: #eee'>Determinar el número de cifras de un número entero. El algoritmo debe funcionar para números de hasta 5 cifras, considerando los negativos. Por ejemplo, si se introduce el número 5342, la respuesta del programa debe ser 4. Si se introduce –250, la respuesta debe ser 3.</div>
+
+**Ejercicio 13**. Calcular las dos soluciones de una ecuación de segundo grado, del tipo ax<sup>2</sup> + bx + c = 0. Los coeficientes a, b y c deberá introducirlos el usuario a través del teclado.
+
+#### Ejercicios con estructuras condicionales e iterativas
+
+**Ejercicio 14**. 
+<div style='background: #eee'>Escribir todos los números entre 1 y n, siendo n un entero introducido por teclado.</div>
+
+**Ejercicio 15**. 
+<div style='background: #eee'>Escribir todos los números pares entre 1 y n.</div>
+
+**Ejercicio 16**. 
+<div style='background: #eee'>Escribir todos los números impares entre dos números a y b introducidos por teclado. Antes habrá que comprobar cuál de los dos números (a o b) es mayor.</div>
+
+**Ejercicio 17**. Calcular la suma de todos los números pares entre 1 y n, siendo n un entero introducido por teclado. Es decir, hay que calcular 2 + 4 + 6 + ... hasta n (o n-1, si n es un número impar).
+
+**Ejercicio 18**. 
+<div style='background: #eee'>Realiza un programa que calcule la suma de los n primeros números, donde n es un número introducido por teclado. Al terminar, el programa nos mostrará el mensaje "¿Desea terminar? (S/N)". Si el usuario escribe "S", el programa terminará, pero, si escribe "N", volverá a comenzar.</div>
+
+**Ejercicio 19**. Calcular la nota media de un alumno a partir de las notas de todos sus exámenes a lo largo del curso. El programa nos irá pidiendo notas, pero no sabemos cuántas son. Para terminar de introducir valores, el usuario debe teclear un número negativo. Entonces, el programa calculará el promedio de todas las notas introducidas.
+
+**Ejercicio 20**. El usuario de este programa será un profesor, que introducirá las notas de sus 30 alumnos de una en una. El algoritmo debe decirle cuántos suspensos y cuántos aprobados hay.
+
+**Ejercicio 21**. Calcular el valor máximo de una serie de 10 números introducidos por teclado. 
+
+**Ejercicio 22**. 
+<div style='background: #eee'>Generalizar el ejercicio anterior para que también se averigüe el valor mínimo y el medio.</div>
+
+**Ejercicio 23**. 
+<div style='background: #eee'>Calcular el factorial de un número entero N. Recuerda que el factorial de un número es el producto de ese número por todos los enteros menores que él. Por ejemplo, el factorial de 5 (simbolizado 5!) se calcula como: 5! = 5 x 4 x 3 x 2 x 1.</div>
+
+**Ejercicio 24**. 
+<div style='background: #eee'>Generar combinaciones al azar para la lotería primitiva (6 números entre 1 y 49). Debes utilizar la función azar(x) que vimos en los apuntes. Por ahora, no te preocupes porque los números puedan repetirse.</div>
+
+**Ejercicio 25**. 
+<div style='background: #eee'>Generar combinaciones al azar para la quiniela (14 valores dentro del conjunto 1, X o 2).</div>
+
+#### Ejercicios más avanzados
+
+**Ejercicio 26**. 
+<div style='background: #eee'>Determinar si un número N introducido por teclado es o no primo. Recuerda que un número primo es aquél que sólo es divisible por sí mismo y por la unidad.</div>
+
+**Ejercicio 27**. Generalizar el algoritmo anterior para averiguar todos los números primos que existen entre 2 y N, siendo N un número introducido por teclado.
+
+**Ejercicio 28**. Introducida una hora por teclado (horas, minutos y segundos), se pretende sumar un segundo a ese tiempo e imprimir en la pantalla la hora que resulta (también en forma de horas, minutos y segundos).
+
+**Ejercicio 29**. La calculadora. Diseñar un algoritmo que lea dos números, A y B, y un operador (mediante una variable de tipo carácter), y calcule el resultado de operar A y B con esa operación. Por ejemplo, si A = 5 y B = 2, y operación = "+", el resultado debe ser 7. El algoritmo debe seguir pidiendo números y operaciones indefinidamente, hasta que el usuario decida terminar (utilizar un valor centinela para ello)
+
+
+
+#### Algunos juegos sencillos
+
+
+**Ejercicio 30. Juego del número secreto**. El ordenador elegirá un número al azar entre 1 y 100. El usuario irá introduciendo números por teclado, y el ordenador le irá dando pistas: "mi número es mayor" o "mi número es menor", hasta que el usuario acierte. Entonces el ordenador le felicitará y le comunicará el número de intentos que necesitó para acertar el número secreto**.
+
+**Ejercicio 31. Número de la suerte**
+
+El número de la suerte o *lucky number* es una tontuna que se han inventado los numerólogos y que se obtiene sumando todas las cifras de la fecha de nacimiento de un modo azaroso. Por ejemplo, como yo nací el 15 de octubre de 1974 (15-10-1974), se supone que mi número de la suerte es 15+10+1974 = 1999. Ahora sumo todas las cifras de 1999 así: 1+9+9+9 = 28. Como aún tengo dos dígitos, vuelvo a sumarlos. 2 + 8 = 10. Y, por último, 1 + 0 = 1.
+
+Por lo tanto, 1 es mi número de la suerte. Si alguna vez me toca la lotería y llevo un número acabado en 1, os aviso.
+
+Por ahora, nos conformamos con escribir un programa que, dada una fecha de nacimiento (día, mes y año), calcule el número de la suerte de esa persona.
+
+**Ejercicio 32. El juego de la ruleta**
+
+<div style='background: #eee'>Escribe un programa que permita jugar a la ruleta con el ordenador. 
+
+Supondremos que la ruleta tiene 20 números rojos y 20 negros. El jugador, que tendrá una suma de dinero inicial, apostará una cantidad (siempre menor que el dinero que le quede) a un número y un color.
+
+La ruleta, que puedes simular con el método azar(), la manejará el ordenador y comunicará al jugador el resultado. 
+
+Si el jugador acierta, multiplicará por 10 el dinero apostado. Si falla, perderá el dinero apostado. El proceso se repetirá hasta que el jugador decida abandonar el juego, o bien se quede sin dinero.
+
+Por favor, abstenerse ludópatas.</div>
+
+**Ejercicio 33. Juego de dados**
+
+Escribe un programa para jugar a los dados con el ordenador. Las reglas del juego son las siguientes:
+
+* El jugador humano dispondrá de una cantidad inicial de dinero que se introducirá por teclado.
+* El jugador apostará una cantidad de dinero (siempre igual o menor del que le queda)
+* Después, se tirarán tres dados (lo cual se puede simular con el método azar())
+* Si en los tres dados sale la misma cantidad, el dinero apostado por el jugador:
+   * Se multiplica por 5 si en los dados ha salido un 6
+   * Se multiplica por 3 si sale cualquier otra cantidad
+* Si en dos dados de los tres sale la misma cantidad, el dinero apostado se multiplica por 2
+* En cualquier otro caso, el dinero apostado se pierde
+* El proceso se repite hasta que el jugador se queda sin dinero o hasta que decide dejar de jugar.
+
+**Ejercicio 34. Juego de las Tres en Raya**
+
+<div style='background: #eee'><p>Vamos a hacer una versión del popular juego de las Tres en Raya para jugar contra el ordenador. No será un juego con inteligencia artificial como el de la WOPR (si no sabes qué es la WOPR, bueno, ¿para qué sirve wikipedia?), pero te permitirá pasar un buen rato programando, que es de lo que se trata.</p>
+
+<p>El juego se desarrolla en un tablero de 3 x 3 casillas en el que los jugadores van disponiendo sus fichas tratando de formar una línea vertical, horizontal o diagonal.</p>
+
+<p>Las fichas del jugador humano tendrán forma de aspa (X) y, las del ordenador, forma de círculo (O)</p>
+
+Al principio, el tablero está en blanco. Comenzará jugando el jugador humano, que colocará una ficha en el tablero. Después, será el turno del ordenador.
+
+El proceso se repite hasta que uno de los dos consigue colocar tres fichas formando una línea, o hasta que ya no es posible colocar más fichas (situación de “tablas”)</div>
+
+*Aviso: este juego es más difícil de programar que los anteriores.*
+
+**Ejercicio 35**. Dibujar con asteriscos. Se trata de escribir un programa que sea capaz de dibujar en la pantalla, *mediante bucles*, estos bonitos diseños. Añade alguno de tu propia cosecha, por favor. (Por si queda alguna duda: el último se supone que es un árbol de navidad)
+
+```
+   *
+  ***
+ *****
+*******
+
+
+   *
+  ***
+ *****
+*******
+ *****
+  ***
+   *
+
+
+   *
+  * *
+ *   *
+*     *
+ *   *
+  * *
+   *
+
+
+      *
+     ***
+      *
+     ***
+    *****
+   *******
+      *
+     ***
+    *****
+   *******
+  *********
+ ***********
+*************
+     ***
+     ***
+     ***
+     ***
+```
+
+**Ejercicio 36. Máquina tragaperras**
+
+Vamos a escribir ahora un programa que simule el funcionamiento de una máquina tragaperras. No es que yo tenga ningún problema con los juegos de azar, ¿eh?, es solo que son simples y adecuados para simular con un ordenador en el momento del curso en el que nos encontramos. Además, puedo dejarlos cuando quiera. 
+
+El programa debe tener el siguiente comportamiento:
+   
+a) Preguntará al usuario con cuánto dinero inicial desea jugar (en euros). Esta cantidad no puede ser menor que 1 euro ni mayor que 50. 
+
+b) Cada jugada costará 0,50 euros, que se descontarán automáticamente del saldo que el jugador tenga en cada momento.
+
+c) Cada jugada consiste en una combinación de tres frutas elegidas al azar entre estas seis:
+* Manzana
+* Naranja
+* Fresa
+* Cereza
+* Limón
+* Sandía
+
+d) El jugador no gana nada si las tres frutas que salen son distintas.
+
+e) En cambio, si varias frutas coinciden, el jugador gana un premio, que pasa a incrementar su saldo. El premio será:
+
+* Si dos frutas cualesquiera son iguales:
+
+   * 1) Si son dos cerezas, 3 euros
+   * 2) Si son dos sandías, 2 euros
+   * 3) Si no son ni sandías ni cerezas, 1 euro
+
+* Si las tres frutas son iguales:
+
+   * 1) Si son tres cerezas, 30 euros
+   * 2) Si son tres sandías, 20 euros
+   * 3) Si son tres fresas, 10 euros
+   * 4) Si no son ni cerezas, ni sandías, ni fresas, 5 euros
+
+f) Después de cada jugada, la máquina comunicará al jugador la combinación que ha salido y le dirá si ha ganado algún premio.
+
+g) Después de eso, la máquina le dirá al jugador cuál es su saldo actual y le preguntará si desea seguir jugando. Si el jugador se queda sin dinero, el juego terminará automáticamente sin preguntar nada.
+       
+Este es un ejemplo de ejecución del programa:
+
+```       
+*** BIENVENIDO AL JUEGO DE LA TRAGAPERRAS ***
+¿Con cuánto dinero desea empezar (de 1 a 50 euros) ? 60
+Cantidad incorrecta
+¿Con cuánto dinero desea empezar (de 1 a 50 euros) ? 20
+COMIENZA EL JUEGO...
+La combinación de esta jugada es: NARANJA – CEREZA – SANDÍA
+Lo siento, no ha obtenido ningún premio
+Su saldo actual es de 19,5 euros. 
+¿Desea jugar otra vez (S/N) ? S
+La combinación de esta jugada es: SANDÍA – SANDÍA - LIMÓN
+¡Enhorabuena! Ha ganado 20 euros.
+Su saldo actual es de 39,5 euros. 
+¿Desea jugar otra vez (S/N) ? N
+¡Hasta la próxima!
+```
+
+#### Desafíos matemáticos para personas valientes
+
+**Ejercicio 37**. Mínimo común múltiplo. El programa nos pedirá dos números y calculará el mínimo común múltiplo de ambos. *Atención: este ejercicio es de dificultad elevada*.
+
+**Ejercicio 38**. Máximo común divisor. Como el anterior, pero calculando el máximo común divisor. *Atención: este ejercicio es de dificultad elevada*.
+
+**Ejercicio 39**. Escribe un programa que pregunte al usuario su fecha de nacimiento y la fecha del día de hoy, y calcule la edad del usuario en años.
+
+(Aviso: no es tan fácil como parece)
+
+Este programa se puede mejorar haciendo que calcule la edad en años, meses y días (¡incluso en horas, minutos y segundos!), pero es una labor por ahora solo apta para los más atrevidos/as.
+
+
 
 ## 3.6. Ejercicios resueltos
 
