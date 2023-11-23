@@ -574,3 +574,16 @@ Por lo tanto, necesitarás PseInt (si usas pseudocódigo) o Thonny (si usas Pyth
 **Ejercicio 30. Juego del número secreto (optativo para ampliar)**. 
 <div style='background: #eee'>En este programa, el ordenador elegirá un número al azar entre 1 y 100. El usuario irá introduciendo números por teclado, y el ordenador le irá dando pistas: "mi número es mayor" o "mi número es menor", hasta que el usuario acierte. Entonces el ordenador le felicitará y le comunicará el número de intentos que necesitó para acertar el número secreto**.</div>
 
+**Ejercicio 33. Juego de dados (optativo: solo para valientes)**.
+
+Escribe un programa para jugar a los dados con el ordenador. Las reglas del juego son las siguientes:
+
+* El jugador humano dispondrá de una cantidad inicial de dinero que se introducirá por teclado.
+* El jugador apostará una cantidad de dinero (siempre igual o menor del que le queda)
+* Después, se tirarán tres dados (lo cual se puede simular con el método azar())
+   * Si en los tres dados sale la misma cantidad, el dinero apostado por el jugador:
+      * Se multiplica por 5 si en los dados ha salido un 6
+      * Se multiplica por 3 si sale cualquier otra cantidad
+   * Si en dos dados de los tres sale la misma cantidad, el dinero apostado se multiplica por 2
+* En cualquier otro caso, el dinero apostado se pierde
+* El proceso se repite hasta que el jugador se queda sin dinero o hasta que decide dejar de jugar.
