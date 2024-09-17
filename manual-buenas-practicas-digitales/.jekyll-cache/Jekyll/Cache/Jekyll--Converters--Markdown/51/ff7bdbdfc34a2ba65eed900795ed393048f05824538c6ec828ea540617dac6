@@ -1,4 +1,4 @@
-I"�n<h1 class="no_toc" id="1-medios-informáticos-del-centro">1. Medios informáticos del centro</h1>
+I"�i<h1 class="no_toc" id="1-medios-informáticos-del-centro">1. Medios informáticos del centro</h1>
 
 <ul id="markdown-toc">
   <li><a href="#11-carritos-de-portátiles" id="markdown-toc-11-carritos-de-portátiles">1.1. Carritos de portátiles</a>    <ul>
@@ -22,9 +22,9 @@
 
 <h3 id="qué-son-los-carritos-de-portátiles">¿Qué son los carritos de portátiles?</h3>
 
-<p>Son carritos móviles con capacidad para 10 ordenadores portátiles cada uno, aunque, más a menudo de lo que nos gustaría, son menos de 10 los que están operativos.</p>
+<p>Son carritos móviles con capacidad entre 12 y 30 ordenadores portátiles cada uno.</p>
 
-<p>El centro dispone de 9 carritos de estas características distribuidos de la siguiente forma:</p>
+<p>El centro dispone de 6 carritos de estas características distribuidos de la siguiente forma:</p>
 
 <p>SÓTANO</p>
 
@@ -55,9 +55,7 @@
 <tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
 </thead>
 <tbody>
-<tr><td>A</td><td>10 portátiles</td><td>Dpto. de Física y Química</td></tr>
-<tr><td>B</td><td>10 portátiles</td><td>Dpto. de Física y Química</td></tr>
-<tr><td>C</td><td>10 portátiles</td><td>Aula 8</td></tr>
+<tr><td>A</td><td>20 portátiles</td><td>Dpto. de Física y Química</td></tr>
 <tr><td>I</td><td>30 portátiles</td><td>Biblioteca</td></tr>
 </tbody>
 </table>
@@ -69,8 +67,7 @@
 <tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
 </thead>
 <tbody>
-<tr><td>D</td><td>10 portátiles</td><td>Lab. de Ciencias Naturales</td></tr>
-<tr><td>E</td><td>10 portátiles</td><td>Lab. de Ciencias Naturales</td></tr>
+<tr><td>B</td><td>20 portátiles</td><td>Lab. de Ciencias Naturales</td></tr>
 <tr><td>H</td><td>24 portátiles</td><td>Aula 22</td></tr>
 </tbody>
 </table>
@@ -85,20 +82,19 @@
 
 <p>Para usar un carrito de portátiles, el procedimiento general es el siguiente:</p>
 
-<ul>
+<ol>
   <li><a href="https://iescelia.org/reservas">Reservarlo en Moodle Centros</a> (el procedimiento se describe en el siguiente apartado).</li>
   <li>Conseguir la llave de la dependencia donde se ubiquen los carritos que se han reservado (las llaves están en Conserjería). Los carritos ubicados en aulas pueden conseguirse sin llave, puesto que el aula, normalmente, estará en uso.</li>
+  <li>Conseguir la llave del carrito en Conserjería o en Jefatura de Estudios. También te entregarán un parte de uso.</li>
   <li>Acceder a la dependencia y desenchufar los carritos de la toma de corriente.</li>
   <li>Llevar los carritos hasta el aula. Aunque son pesados, se transportan con facilidad porque disponen de ruedas.</li>
-  <li>Repartir los ordenadores entre el alumnado y velar por que se usen adecuadamente (de vez en cuando sufrimos epidemias de extracción de teclas o de decoración de los portátiles con pegatinas de diverso pelaje).</li>
-  <li>Se ruega encarecidamente anotar qué persona usa cada portátil para poder localizar al culpable en caso de que se produzca algún acto vandálico.</li>
+  <li>Repartir los ordenadores entre el alumnado y velar por que se usen adecuadamente. <strong>Es imprescindible que el alumnado se apunte en el parte de uso</strong>. Es la única forma de prevenir actos vandálicos y localizar a los responsables en caso de que se produzcan.</li>
   <li>Al final de la clase, vigilar la reposición de los ordenadores a sus lugares originales. Para que los siguientes compañeros no los encuentren descargados, hay que dejarlos conectados a sus respectivos cargadores.</li>
-  <li>Devolver el carrito a la dependencia en la que se encontraba, enchufarlo de nuevo a la corriente y devolver la llave.</li>
-</ul>
+  <li>Devolver el carrito a la dependencia en la que se encontraba, enchufarlo de nuevo a la corriente y devolver la llave de la dependencia en Conserjería.</li>
+  <li>Devolver la llave del carrito en la Jefatura de Estudios, junto con el parte de uso.</li>
+</ol>
 
-<p><strong><em>MUY IMPORTANTE: si se detecta una incidencia en cualquier ordenador, es imprescindible hacerla llegar al coordinador TIC a la mayor brevedad posible. Más información en el apartado “Gestión de incidencias”</em></strong></p>
-
-<p>Si no se sigue este protocolo, los actos vandálicos quedarán sistemáticamente impunes, porque no solo resultará imposible saber qué persona usó el portátil vandalizado, sino que ni siquiera sabremos cuándo ocurrió el acto vandálico ni qué grupo estaba usando los ordenadores.</p>
+<p><strong><em>MUY IMPORTANTE: Rellenar adecuadamente el parte de uso es la única manera de prevenir actos vandálicos y poder así mantener los carritos en el mejor estado posible.</em></strong> Rogamos para ello vuestra colaboración.</p>
 
 <h3 id="procedimiento-para-reservar-un-carrito-de-portátiles">Procedimiento para reservar un carrito de portátiles</h3>
 
@@ -166,11 +162,9 @@
 
 <p>Estos ordenadores están destinados al uso del profesorado durante el ejercicio de su docencia.</p>
 
-<p>Actualmente, hay cuatro modalidades de aula con pizarra interactiva (PDI) diferentes en el centro. Aunque todos tienen la misma funcionalidad, varían ligeramente en su forma de uso. Además, los proyectores que se van averiando están siendo sustituidos por televisores de gran formato.</p>
+<p>Actualmente, hay muchas modalidades de aula con pizarra interactiva diferentes en el centro. Aunque todos tienen la misma funcionalidad, varían ligeramente en su forma de uso. Además, los proyectores que se van averiando están siendo sustituidos por televisores de gran formato.</p>
 
-<p><strong>Aulas 1, 2, 4, 5, 9 y 11: pizarras Promethean</strong></p>
-
-<p>Algunos de estos ordenadores se encienden con un interruptor en el pie del monitor. La mayoría se encienden directamente pulsando el interruptor del ordenador.</p>
+<p><strong>Aulas con pizarras Promethean</strong></p>
 
 <p>Estas PDI están obsoletas y no funcionan correctamente como tales con los sistemas operativos recientes. Solo es posible utilizarlas como proyectores.</p>
 
@@ -185,7 +179,7 @@
 
 <p><img src="../assets/medios-tic/pdi-promethean.jpg" alt="PDI Promethean" /></p>
 
-<p><strong>Aulas 12, 15, 18, 25, 27 y 28: pizarras blancas con cañones Optoma</strong></p>
+<p><strong>Aulas con pizarras blancas y cañones Optoma</strong></p>
 
 <p>Todos estos ordenadores se encienden pulsando el interruptor del mismo. Puede ser necesario conectar la electricidad encendiendo una regleta que suele estar acoplada a la mesa o situada en el suelo.</p>
 
@@ -199,7 +193,7 @@
   <li>Si es necesario, encender los altavoces.
     <ul>
       <li>En algunas aulas, el interruptor de los altavoces está situado en un cajetín blanco en la pared. El cajetín dispone de tres botones: on/off, subir volumen y bajar volumen. Manteniendo pulsado el botón on/off, los altavoces se encienden y se apagan, pero, si se pulsa solo un instante, se cambia de canal. Los ordenadores están conectados en el canal 1 (por el canal 2 no se escuchará nada).</li>
-      <li>En otras aulas, el interruptor es un mando giratorio situado tras uno de los altavoces. Ese mando también controla el volumen. Lo normal es que siempre estén encendidos.</li>
+      <li>En otras aulas, el interruptor es un mando giratorio situado tras uno de los altavoces. Ese mando también controla el volumen. Lo normal (que no lo recomendable) es que siempre estén encendidos. Si los apagamos al finalizar la clase, aumentaremos la vida útil de los altavoces.</li>
     </ul>
   </li>
   <li>Introducir el usuario y contraseña para usar el ordenador. Para más información sobre este punto, véase el apartado “Usuarios y contraseñas”</li>
@@ -207,7 +201,7 @@
 
 <p><img src="../assets/medios-tic/pdi-optoma.jpg" alt="Proyector Optoma con pizarra blanca" /></p>
 
-<p><strong>Aulas 6, 13, 14, 16, 17 y 19: pizarras Smartboard</strong></p>
+<p><strong>Aulas con pizarras Smartboard</strong></p>
 
 <p>Estas pizarras están controladas por un miniordenador llamado NUC incorporado bajo la misma. Puede accionarse con el dedo, sin ningún puntero.</p>
 
@@ -238,15 +232,15 @@
 
 <p><img src="../assets/medios-tic/pdi-smartboard-2.jpg" alt="PDI Smartboard con PC sobremesa" /></p>
 
-<p><strong>Aulas 7, 10, 26, emprendimiento y antigua cantina: TV de gran formato</strong></p>
+<p><strong>Aulas con televisiones de gran formato</strong></p>
 
-<p>Los proyectores que se averían se están sustituyendo, cuando es posible, por televisores de gran formato (65 y 75 pulgadas). Esto también se está haciendo en los departamentos que se usan ocasionalmente para impartir clases.</p>
+<p>Los proyectores que se averían se están sustituyendo, cuando es posible, por televisores de gran formato (65 y 75 pulgadas). Esto también se está haciendo en los departamentos que se usan para impartir clases.</p>
 
-<p>Estos televisores se usan para proyectar la imagen y el sonido del ordenador del profesorado. Para usarlos, el procedimiento es:</p>
+<p>Estos televisores sirven para proyectar la imagen y el sonido del ordenador del profesorado. Para usarlos, el procedimiento es:</p>
 
 <ol>
   <li>Encender el ordenador y el televisor (da igual el orden). El televisor puede encenderse con el mando a distancia o pulsando directamente el botón de la carcasa, que suele ubicarse en el marco inferior.</li>
-  <li>Ajustar el nivel de volumen del ordenador y del televisor.</li>
+  <li>Ajustar el nivel de volumen del ordenador y/o del televisor.</li>
 </ol>
 
 <p>Es importante que recordemos apagar el televisor al finalizar la clase con el fin de prolongar su vida útil.</p>
@@ -359,8 +353,8 @@
 <p>Casi siempre la causa es una de estas tres:</p>
 
 <ul>
-  <li>Los altavoces están apagados. Se encienden de forma diferente según el modelo de PDI que exista en ese aula (Consúltese el apartado “Equipos de profesorado de las aulas generales”)</li>
-  <li>Los altavoces están “escuchando” en un canal distinto del que deberían. En algunas aulas, los altavoces disponen de dos canales de entrada. A veces, por accidente, acaban conectados al canal incorrecto (Consúltese el apartado “Equipos de profesorado de las aulas generales”)</li>
+  <li>Los altavoces están apagados. Se encienden de forma diferente según el modelo de altavoz que exista en ese aula (Consúltese el apartado “Equipos de profesorado de las aulas generales”)</li>
+  <li>Los altavoces están “escuchando” en un canal distinto del que deberían. En algunas aulas, los altavoces disponen de dos canales de entrada. A veces, por accidente o maldad premeditada, acaban conectados al canal incorrecto (Consúltese el apartado “Equipos de profesorado de las aulas generales”)</li>
   <li>El cable de audio está desconectado o conectado en el lugar incorrecto. El cable de audio es un minijack convencional. Debe salir del conector verde del ordenador y llegar a la entrada de los altavoces (a veces, a un conector en la pared).</li>
 </ul>
 
@@ -415,13 +409,4 @@
 <p>Si necesitas cualquier equipación adicional a las disponibles, por favor, contacta con el coordinador TDE lo antes posible. Podemos mover equipos, cambiar instalaciones y, en general, hacer bastantes malabarismos con el material disponible, pero necesitaremos tiempo para organizarlo.</p>
 
 <p>Si lo que necesitas es adquirir material nuevo para tu departamento o tu aula, tanto inventariable como consumible, recuerda que esto es competencia del equipo directivo, aunque siempre puedes hablarlo antes con el coordinador TDE para obtener una orientación técnica o para comprobar si ese material ya existe en alguna dependencia del instituto.</p>
-
-<p>Vamos a empezar con algo que no tiene nada que ver con la programación: <strong>los CMS</strong>.</p>
-
-<p>Los <strong>Sistemas Gestores de Conentido</strong> (CMS = Content Management Systems) son aplicaciones web que permiten montar sitios web sin necesidad de programar una sola línea de código.</p>
-
-<p>Así que, sí, <strong>los CMS son tus enemigos</strong>. Y al enemigo hay que conocerlo.</p>
-
-<p>Cuando termines este tema, deberías ser capaz de instalar, configurar y utilizar algunos de los CMS más populares, como Wordpress y Prestashop, para publicar tus propios sitios web. En el caso concreto de Wordpress, también veremos cómo meterle mano al código fuente desarrollando nuestras propias plantillas y plugins (o modificando los que ya existen).</p>
-
 :ET

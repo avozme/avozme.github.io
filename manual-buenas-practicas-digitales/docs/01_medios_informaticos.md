@@ -19,7 +19,7 @@ En esta sección presentamos un resumen de las características de los medios in
 
 ### ¿Qué son los carritos de portátiles?
 
-Son carritos móviles con capacidad entre 20 y 30 ordenadores portátiles cada uno. 
+Son carritos móviles con capacidad entre 12 y 30 ordenadores portátiles cada uno. 
 
 El centro dispone de 6 carritos de estas características distribuidos de la siguiente forma:
 
@@ -81,7 +81,7 @@ Para usar un carrito de portátiles, el procedimiento general es el siguiente:
 
 1. [Reservarlo en Moodle Centros](https://iescelia.org/reservas) (el procedimiento se describe en el siguiente apartado).
 2. Conseguir la llave de la dependencia donde se ubiquen los carritos que se han reservado (las llaves están en Conserjería). Los carritos ubicados en aulas pueden conseguirse sin llave, puesto que el aula, normalmente, estará en uso.
-3. Conseguir la llave del carrito en Jefatura de Estudios. También te entregarán un parte de uso.
+3. Conseguir la llave del carrito en Conserjería o en Jefatura de Estudios. También te entregarán un parte de uso.
 4. Acceder a la dependencia y desenchufar los carritos de la toma de corriente.
 5. Llevar los carritos hasta el aula. Aunque son pesados, se transportan con facilidad porque disponen de ruedas.
 6. Repartir los ordenadores entre el alumnado y velar por que se usen adecuadamente. **Es imprescindible que el alumnado se apunte en el parte de uso**. Es la única forma de prevenir actos vandálicos y localizar a los responsables en caso de que se produzcan.
@@ -141,11 +141,9 @@ Todas las aulas del centro están equipadas con, al menos, un ordenador de sobre
 
 Estos ordenadores están destinados al uso del profesorado durante el ejercicio de su docencia.
 
-Actualmente, hay cuatro modalidades de aula con pizarra interactiva (PDI) diferentes en el centro. Aunque todos tienen la misma funcionalidad, varían ligeramente en su forma de uso. Además, los proyectores que se van averiando están siendo sustituidos por televisores de gran formato.
+Actualmente, hay muchas modalidades de aula con pizarra interactiva diferentes en el centro. Aunque todos tienen la misma funcionalidad, varían ligeramente en su forma de uso. Además, los proyectores que se van averiando están siendo sustituidos por televisores de gran formato.
 
 **Aulas con pizarras Promethean**
-
-Algunos de estos ordenadores se encienden con un interruptor en el pie del monitor. La mayoría se encienden directamente pulsando el interruptor del ordenador.
 
 Estas PDI están obsoletas y no funcionan correctamente como tales con los sistemas operativos recientes. Solo es posible utilizarlas como proyectores.
 
@@ -170,7 +168,7 @@ Para utilizarlas, el procedimiento es el siguiente:
 2. Encender el ordenador.
 3. Si es necesario, encender los altavoces.
     * En algunas aulas, el interruptor de los altavoces está situado en un cajetín blanco en la pared. El cajetín dispone de tres botones: on/off, subir volumen y bajar volumen. Manteniendo pulsado el botón on/off, los altavoces se encienden y se apagan, pero, si se pulsa solo un instante, se cambia de canal. Los ordenadores están conectados en el canal 1 (por el canal 2 no se escuchará nada).
-    * En otras aulas, el interruptor es un mando giratorio situado tras uno de los altavoces. Ese mando también controla el volumen. Lo normal es que siempre estén encendidos. 
+    * En otras aulas, el interruptor es un mando giratorio situado tras uno de los altavoces. Ese mando también controla el volumen. Lo normal (que no lo recomendable) es que siempre estén encendidos. Si los apagamos al finalizar la clase, aumentaremos la vida útil de los altavoces.
 4. Introducir el usuario y contraseña para usar el ordenador. Para más información sobre este punto, véase el apartado “Usuarios y contraseñas”
 
 ![Proyector Optoma con pizarra blanca](../assets/medios-tic/pdi-optoma.jpg)
@@ -204,12 +202,12 @@ Fíjate que la botonera de la pizarra y las funciones táctiles no están contec
 
 **Aulas con televisiones de gran formato**
 
-Los proyectores que se averían se están sustituyendo, cuando es posible, por televisores de gran formato (65 y 75 pulgadas). Esto también se está haciendo en los departamentos que se usan ocasionalmente para impartir clases.
+Los proyectores que se averían se están sustituyendo, cuando es posible, por televisores de gran formato (65 y 75 pulgadas). Esto también se está haciendo en los departamentos que se usan para impartir clases.
 
-Estos televisores se usan para proyectar la imagen y el sonido del ordenador del profesorado. Para usarlos, el procedimiento es:
+Estos televisores sirven para proyectar la imagen y el sonido del ordenador del profesorado. Para usarlos, el procedimiento es:
 
 1. Encender el ordenador y el televisor (da igual el orden). El televisor puede encenderse con el mando a distancia o pulsando directamente el botón de la carcasa, que suele ubicarse en el marco inferior.
-2. Ajustar el nivel de volumen del ordenador y del televisor.
+2. Ajustar el nivel de volumen del ordenador y/o del televisor.
 
 Es importante que recordemos apagar el televisor al finalizar la clase con el fin de prolongar su vida útil.
 
@@ -309,8 +307,8 @@ Si ninguno de estos trucos funciona, por favor, contacte con el Coordinador TDE 
 
 Casi siempre la causa es una de estas tres:
 
-* Los altavoces están apagados. Se encienden de forma diferente según el modelo de PDI que exista en ese aula (Consúltese el apartado "Equipos de profesorado de las aulas generales")
-* Los altavoces están "escuchando" en un canal distinto del que deberían. En algunas aulas, los altavoces disponen de dos canales de entrada. A veces, por accidente, acaban conectados al canal incorrecto (Consúltese el apartado "Equipos de profesorado de las aulas generales")
+* Los altavoces están apagados. Se encienden de forma diferente según el modelo de altavoz que exista en ese aula (Consúltese el apartado "Equipos de profesorado de las aulas generales")
+* Los altavoces están "escuchando" en un canal distinto del que deberían. En algunas aulas, los altavoces disponen de dos canales de entrada. A veces, por accidente o maldad premeditada, acaban conectados al canal incorrecto (Consúltese el apartado "Equipos de profesorado de las aulas generales")
 * El cable de audio está desconectado o conectado en el lugar incorrecto. El cable de audio es un minijack convencional. Debe salir del conector verde del ordenador y llegar a la entrada de los altavoces (a veces, a un conector en la pared).
 
 Si ninguna de estas tres soluciones funciona, por favor, contacta con el Coordinador TDE (véase "Gestión de incidencias")
@@ -364,14 +362,3 @@ Por favor, ponte en contacto con el Coordinador TDE para estudiar tus necesidade
 Si necesitas cualquier equipación adicional a las disponibles, por favor, contacta con el coordinador TDE lo antes posible. Podemos mover equipos, cambiar instalaciones y, en general, hacer bastantes malabarismos con el material disponible, pero necesitaremos tiempo para organizarlo.
 
 Si lo que necesitas es adquirir material nuevo para tu departamento o tu aula, tanto inventariable como consumible, recuerda que esto es competencia del equipo directivo, aunque siempre puedes hablarlo antes con el coordinador TDE para obtener una orientación técnica o para comprobar si ese material ya existe en alguna dependencia del instituto.
-
-
-
-Vamos a empezar con algo que no tiene nada que ver con la programación: **los CMS**.
-
-Los **Sistemas Gestores de Conentido** (CMS = Content Management Systems) son aplicaciones web que permiten montar sitios web sin necesidad de programar una sola línea de código.
-
-Así que, sí, **los CMS son tus enemigos**. Y al enemigo hay que conocerlo. 
-
-Cuando termines este tema, deberías ser capaz de instalar, configurar y utilizar algunos de los CMS más populares, como Wordpress y Prestashop, para publicar tus propios sitios web. En el caso concreto de Wordpress, también veremos cómo meterle mano al código fuente desarrollando nuestras propias plantillas y plugins (o modificando los que ya existen).
-

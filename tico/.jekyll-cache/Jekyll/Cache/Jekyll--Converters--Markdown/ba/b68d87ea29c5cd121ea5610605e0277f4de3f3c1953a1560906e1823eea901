@@ -1,4 +1,4 @@
-I"K|<h1 class="no_toc" id="2-programación-con-diagramas-de-flujo">2. Programación con diagramas de flujo</h1>
+I"ms<h1 class="no_toc" id="2-programación-con-diagramas-de-flujo">2. Programación con diagramas de flujo</h1>
 
 <ul id="markdown-toc">
   <li><a href="#21-simbología-de-los-diagramas-de-flujo" id="markdown-toc-21-simbología-de-los-diagramas-de-flujo">2.1. Simbología de los diagramas de flujo</a></li>
@@ -9,7 +9,6 @@
     </ul>
   </li>
   <li><a href="#24-ejercicios-propuestos" id="markdown-toc-24-ejercicios-propuestos">2.4. Ejercicios propuestos</a></li>
-  <li><a href="#25-ejercicios-resueltos" id="markdown-toc-25-ejercicios-resueltos">2.5. Ejercicios resueltos</a></li>
 </ul>
 
 <p>El diagrama de flujo es una de las herramientas más poderosas para describir algoritmos.</p>
@@ -459,26 +458,4 @@ Su saldo actual es de 39,5 euros.
 <p>(Aviso: no es tan fácil como parece)</p>
 
 <p>Este programa se puede mejorar haciendo que calcule la edad en años, meses y días (¡incluso en horas, minutos y segundos!), pero es una labor por ahora solo apta para los más atrevidos/as.</p>
-
-<h2 id="25-ejercicios-resueltos">2.5. Ejercicios resueltos</h2>
-
-<p>A continuación, vamos a mostrar la solución de algunos de los ejercicios anteriores. No de todos, porque entonces este texto sería interminable, pero sí de bastantes de ellos.</p>
-
-<p>Ten en cuenta que, <strong>en muchas ocasiones, hay más de una solución posible</strong> igualmente válida. Si tú has logrado resolver el ejercicio por otra vía, puede que hayas dado con una de esas otras soluciones.</p>
-
-<p>Sin embargo, también hay soluciones inaceptables por su poca eficiencia aunque, en apariencia, parezcan funcionar bien. Ten en cuenta que, para ir de Almería a Granada, se puede ir por la autovía A-92 o se puede dar un rodeo por Barcelona. O por Júpiter y Saturno. De todos esos modos conseguiremos llegar a Granada, pero las últimas soluciones son tan ineficientes que no resultan aceptables.</p>
-
-<p>Lo mismo ocurre con los programas informáticos.</p>
-
-<p>Cuando tu solución sea muy diferente de la mía, pregúntate si la tuya da un rodeo mucho mayor que la mía para llegar al mismo sitio, o si, por el contrario, es igual de eficiente (¡o incluso más!). En este caso, enhorabuena: has dado con una de esas soluciones alternativas de las que hablaba.</p>
-
-<p>Por último, permíteme un consejo: <strong>intenta resistir la tentación de mirar la solución a los ejercicios antes de hacerlos</strong>. Es muy conveniente que pases un rato tratando de resolver los problemas por ti mismo/a antes de mirar la solución. Al menos, es muy conveniente si tu intención es aprender a programar.</p>
-
-<p><strong>IREMOS COLGANDO LOS EJERCICIOS RESUELTOS EN ESTA SECCIÓN CONFORME LOS VAYAMOS HACIENDO EN CLASE</strong></p>
-
-<h4 id="ejercicios-con-estructura-secuencial-1">Ejercicios con estructura secuencial</h4>
-
-<p><strong>Ejercicio 1</strong>. Calcular el área y la circunferencia de un círculo cuyo radio será proporcionado a través del teclado. Recuerda que área = 3.14 x r x r y circunferencia = 2 x 3.14 x r</p>
-
-<p><img src="/docs/tico/_site/assets/ejercicios-resueltos-pseint/03_01_area_perimetro.png" alt="Diagrama de flujo area_circulo" /></p>
 :ET

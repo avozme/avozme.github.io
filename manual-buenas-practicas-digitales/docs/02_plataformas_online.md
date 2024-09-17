@@ -127,14 +127,6 @@ No te olvides de hacer clic en el botón "Guardar cambios y regresar" que está 
 
 ![Links](../assets/plataformas-online/primeros-pasos-moodle-04c.jpg)
 
-**4d) Sala de videoconferencia**. Todas las aulas de Moodle Centros tienen una sala de videoconferencia ya creada. Está en la cabecera del curso, incluso cuando el mismo está vacío. Simplemente, haz clic en el texto "Sala de videoconferencia".
-
-Luego haz clic en "Crear sesión", asigna un nombre a la sesión (Por ejemplo: "Clase del lunes a las 8:05") y establece la fecha, la hora y la duración de la sesión. ¡No te olvides de pulsar el botón "Crear" para guardar los cambios!
-
-![Sala de videoconferencia](../assets/plataformas-online/primeros-pasos-moodle-04.jpg)
-
-Todos los usuarios del curso (es decir, tú y tu alumnado) tendréis acceso a esa videoconferencia en el horario programado. Si deseas que otras personas puedan entrar, debes hacer clic en "Acceso de invitados". Te aparecerá una dirección que puedes compartir con las personas que quieras invitar. Esto es lo que hace el equipo directivo, por ejemplo, cuando nos pasan el enlace para los claustros telemáticos.
-
 ### 2.1.3. Quiero separar al alumnado en grupos
 
 En las aulas virtuales creadas automáticamente mediante el proceso que hemos visto en el apartado 1, nos encontraremos con todo el alumnado del mismo nivel agrupado en la misma aula virtual.
@@ -172,25 +164,29 @@ https://blogsaverroes.juntadeandalucia.es/eaprendizaje/moodle-centros/
 
 Si, a pesar de ello, algún alumno/a no puede, no sabe o no quiere autogenerar sus credenciales, puede pasarse por jefatura de estudios para pedir que le generen unas.
 
-***¿El aula virtual antigua del instituto va a desaparecer?***
+***¿El aula virtual antigua del instituto ya no existe?***
 
-Sí, esa es la idea.
-
-Tanto por razones técnicas como legales, la antigua aula virtual del instituto (https://iescelia.org/aulavirtual) dejó de estar operativa en la primavera de 2021. Hemos hecho una copia de seguridad de todo el contenido. Si necesitas rescatar algún contenido antiguo, ponte en contacto con el equipo de coordinación TDE para que hagamos el trabajo arqueológico.
+Tanto por razones técnicas como legales, la antigua aula virtual del instituto (https://iescelia.org/aulavirtual) dejó de estar operativa en la primavera de 2021.
 
 ***¿Es ilegal usar cualquier otra plataforma web que no sea Moodle Centros?***
 
 Si los servidores de esa otra plataforma manipulan cualquier dato personal del alumnado (cosas tan simples como nombres, direcciones de email, imágenes capturadas con la webcam, etc), entonces tenemos un problema. Mejor buscar una alternativa dentro de Moodle Centros.
 
+Si usas Google Classroom u Office 365 con las cuentas de la Junta de Andalucía, todo es legal.
+
 ***Quiero usar Google Suite, o Google Classroom, o cualquier otra cosa que empieza por "Google".***
 
 La Junta de Andalucía tiene un convenio con Google para usar todas sus herramientas educativas de forma gratuita y con todas las garantías legales. Revisa la sección sobre Google Suite para encontrar más información.
+
+***Quiero usar la suite Microsoft Office 365***
+
+Del mismo modo, la Junta de Andalucía tiene un convenio con Microsoft para usar sus herramientas colaborativas con todas las garantías legales. Revisa la sección sobre Office 365 para encontrar más información.
 
 ***Quiero usar recursos que no están en Moodle***
 
 No hay ningún problema. Puedes usar cualquier cosa que haya en internet, siempre que sea legal (¡claro!) y no requiera datos personales de los usuarios.
 
-Eso sí, te ruego que sigas centralizando todo el material en Moodle Centros, de modo que el alumnado no se vuelva loco localizando los recursos de cada materia.
+Eso sí, te rogamos que sigas centralizando todo el material en Moodle Centros, de modo que el alumnado no se vuelva loco localizando los recursos de cada materia.
 
 Por ejemplo, si quieres enlazar unos vídeos de Youtube para tu alumnado, bastaría con que colocaras esos enlaces en algún lugar de tu aula virtual de Moodle Centros.
 
@@ -263,59 +259,57 @@ Lo habitual es que, si cambias de centro, tu cuenta Google y todos tus archivos 
 
 Sí. Puedes comprobar el estado actual de tu cuenta Google desde Séneca si sigues esta ruta: *Utilidades -> Configuración del usuario -> Cuentas corporativas*.
 
-## 2.3. Microsoft 365
+## 2.3. Microsoft Office 365 for Education
 
-XXX revisar toda esta sección (copiada de Google) para adaptarla a Microsoft
+Del mismo modo que ha hecho con Google, la Consejería de Educación y Deporte de la Junta de Andalucía ha firmado un convenio con Microsoft para proporcionar Microsoft Office 365 for Education de manera gratuita a los centros que así lo soliciten. El IES Celia Viñas es uno de esos centros.
 
-La Consejería de Educación y Deporte de la Junta de Andalucía ha firmado un convenio con Google para proporcionar Google Suite de manera gratuita a los centros que así lo soliciten. El IES Celia Viñas es uno de esos centros.
+En esta sección expondremos cómo puedes acceder a tu cuenta de Microsoft y cómo puedes utilizar sus herramientas.
 
-En esta sección expondremos cómo puedes acceder a tu cuenta de Google Suite y cómo puedes utilizar sus herramientas.
+**Qué es Microsoft Office 365 for Education**
 
-**Qué es Google Suite for Education**
+Microsoft Office 365 for Education es un servicio de Microsoft para instituciones educativas que ofrece el paquete Office 365, con aplicaciones populares como Word, Excel o Powerpoint, enfocadas en el fácil manejo por parte del usuario. 
 
-Googe Suite for Education es un conjunto de herramientas web que Google ofrece a instituciones educativas. Incluye las aplicaciones más populares de Google Suite como Gmail, Meet, Calendar, Classroom, Docs o Drive.
+Office 365 también ofrece la posibilidad de creación y compartición de archivos.
 
-Funciona como las cuentas personales de Google, pero incluye acceso a más herramientas, como Classroom o Meet, que normalmente son de pago.
+**Acceso a Office 365: profesorado**
 
-**Acceso a Google Suite: profesorado**
+En virtud del convenio de la Junta de Andalucía, todo el profesorado dispone de una cuenta en Microsoft Office 365 con estas credenciales:
 
-En virtud del convenio de la Junta de Andalucía, todo el profesorado dispone de una cuenta en Google Suite con estas credenciales:
-
-* Nombre de usuario: usuario-de-seneca@g.educaand.es
+* Nombre de usuario: usuario-de-seneca@m.educaand.es
 * Contraseña: Tu contraseña de Séneca
 
-Basta con que inicies una sesión de Google con esas credenciales (por ejemplo, en Gmail) para empezar a usar las herramientas de Google Suite. Si ya tenías una cuenta de Google suite en el dominio iescelia.org, puedes seguir usándola porque seguirá estando operativa, pero ten en cuenta que son dos cuentas totalmente independientes.
+Basta con que inicies una sesión de Microsoft con esas credenciales (por ejemplo, en [https://www.office.com/](https://www.office.com/)) para empezar a usar las herramientas de Office 365.
 
 **Acceso a Google Suite: alumnado**
 
-El alumnado puede acceder a Google Suite del mismo modo que el profesorado, usando sus credenciales de Pasen:
+El alumnado puede acceder a Office 365 del mismo modo que el profesorado, usando sus credenciales de Pasen:
 
-* Nombre de usuario: usuario-de-pasen@g.educaand.es
+* Nombre de usuario: usuario-de-pasen@m.educaand.es
 * Contraseña: Su contraseña de Pasen
 
 IMPORTANTE: para cumplir con la Ley Orgánica de Protección de Datos, el alumnado menor de 14 años debe contar con una autorización expresa de sus tutores legales antes de usar esta cuenta.
 
-**¿Google Suite sustituye a Moodle Centros?**
+**¿Office 365 sustituye a Moodle Centros?**
 
-No. Moodle Centros sigue siendo la plataforma online de referencia. Si un profesor/a desea usar Google Suite, debería enlazar los recursos de Google Suite en Moodle Centros, para no crear confusión entre el alumnado y las familias acerca del lugar en el que puede encontrar los recursos educativos.
+No. Moodle Centros sigue siendo la plataforma online de referencia del IES Celia Viñas. Si un profesor/a desea usar Office 365, debería enlazar los recursos de Office 365 en Moodle Centros, para no crear confusión entre el alumnado y las familias acerca del lugar en el que puede encontrar los recursos educativos.
 
-**Soy nuevo/a en el centro. ¿Tengo que hacer algo para crear mi cuenta de Google Suite?**
+**Soy nuevo/a en el centro. ¿Tengo que hacer algo para crear mi cuenta de Office 365?**
 
-En principio, no. Simplemente por el hecho de trabajar para la Consejería de Educación y estar destinado en el IES Celia Viñas, tu cuenta de Google Suite debería estar operativa.
+En principio, no. Simplemente por el hecho de trabajar para la Consejería de Educación y estar destinado en el IES Celia Viñas, tu cuenta de Office 365 debería estar operativa.
 
-Si te acaban de asignar como destino el IES Celia Viñas, podría ser que la cuenta de Google Suite tardase hasta 24 horas en ser accesible desde que te hayan dado de alta en el sistema Séneca.
+Si te acaban de asignar como destino el IES Celia Viñas, podría ser que la cuenta de Office 365 tardase hasta 24 horas en ser accesible desde que te hayan dado de alta en el sistema Séneca.
 
-**¿Se pierde el contenido que tenga almacenado en la nube de Google si cambio de centro?**
+**¿Se pierde el contenido que tenga almacenado en la nube de Microsoft si cambio de centro?**
 
 Es posible.
 
-Ten en cuenta que ni nosotros ni la Consejería de Educación manejamos directamente estas cuentas, por lo que no podemos saber con exactitud cómo procederá Google en estos casos.
+Ten en cuenta que ni nosotros ni la Consejería de Educación manejamos directamente estas cuentas, por lo que no podemos saber con exactitud cómo procederá Microsoft en estos casos.
 
-Lo habitual es que, si cambias de centro, tu cuenta Google y todos tus archivos y recursos en la nube permanezcan, pero no te fíes del todo: es mejor que hagas una copia de seguridad al finalizar el curso.
+Lo habitual es que, si cambias de centro, tu cuenta Microsoft y todos tus archivos y recursos en la nube permanezcan, pero no te fíes del todo: es mejor que hagas una copia de seguridad al finalizar el curso.
 
-**¿Puedo comprobar el estado de mi cuenta Google?**
+**¿Puedo comprobar el estado de mi cuenta Microsoft?**
 
-Sí. Puedes comprobar el estado actual de tu cuenta Google desde Séneca si sigues esta ruta: *Utilidades -> Configuración del usuario -> Cuentas corporativas*.
+Sí. Puedes comprobar el estado actual de tu cuenta Microsoft desde Séneca si sigues esta ruta: *Utilidades -> Configuración del usuario -> Cuentas corporativas*.
 
 ## 2.4. Videoconferencias
 
@@ -338,38 +332,28 @@ IMPORTANTE: la primera vez, Webex nos pedirá que nos registremos en su servicio
 
 Más información: [Guía Rápida Webex](https://www.juntadeandalucia.es/educacion/eaprendizaje/wp-content/uploads/2021/09/Guia-rapida-Webex-21-22.pdf)
 
-**Google Suite: Meet o Hangouts**
+**Google Suite: Meet**
 
-Google Suite proporciona acceso a sus dos plataformas de videoconferencia: Meet y Hangouts, aunque Meet es más recomendable porque tiene más funcionalidades y permite la conexión de más usuarios simultáneos.
+Google Suite proporciona acceso a su plataforma Meet para videoconferencias.
 
 En virtud del acuerdo firmado entre la Consejería de Educación y Deporte y Google, todos los datos de carácter personal implicados en las videoconferencias celebradas con estas herramientas están debidamente protegidos. Eso sí, debes asegurarte de que tu alumnado entra a la videoconferencia utilizando las cuentas corporativas de Google Suite pertenecientes al IES Celia Viñas, y no con cualquier otra cuenta personal.
 
-Debes tener en cuenta que Google Meet consume más ancho de banda que BB Collaborate, por lo que, si experimentas problemas de rendimiento con Meet, te aconsejamos que te plantees la posibilidad de probar con BB Collaborate.
+Debes tener en cuenta que Google Meet consume más ancho de banda que Webex, por lo que, si experimentas problemas de rendimiento con Meet, te aconsejamos que te plantees la posibilidad de probar con Webex.
 
 ![Google Meet](../assets/plataformas-online/googlemeet.jpg)
 
+**Office 365: Teams**
+
+Office 365 también tiene su propio sistema de videoconferencia, llamado Microsoft Teams, accesible con las cuentas Office 365 de la Junta de Andalucía.
+
+Del mismo modo que con Google, la privacidad de los participantes está asegurada siempre que el alumnado y el profesorado acceda a la sala de videoconferencia con las cuentas de la Junta de Andalucía y no con cuentas de carácter personal.
+
 ## 2.5. Otras plataformas
 
-El centro solo dispone de tres plataformas online oficiales: Moodle Centros, Google Suite y Microsoft 365.
+El centro solo dispone de tres plataformas online oficiales: Moodle Centros, Google Suite y Microsoft Office 365.
 
 El profesorado que quiera usar cualquier otra, puede hacerlo siempre que su uso no exija la creación de cuentas de carácter personal por parte del alumnado. 
 
 Por ejemplo, podrías usar Dropbox para compartir documentos o Canva para hacer presentaciones, pero no podrías exigir a tu alumnado que se registre en ninguno de esos servicios con sus cuentas personales.
 
 Para este propósito, recuerda que el alumnado dispone de cuentas de Moodle, de Google y de Microsoft con todas las garantías legales (¡los menores de 14 años necesitan autorización de los tutores legales para usar las dos últimas!). El alumnado puede registrarse en servicios de terceros usando esas cuentas corporativas, pero nunca las suyas personales.
-
-
-
-
-
-
-En este capítulo te voy a presentar a un amigo íntimo: **el lenguaje PHP**. Veremos la sintaxis básica y cómo este lenguaje trabaja **en el lado del servidor** para ayudarnos a crear aplicaciones web dinámicas, es decir, aplicaciones que generan un HTML distinto según los datos de entrada y el estado del servidor.
-
-También conoceremos el **kit de herramientas** básico que vamos a necesitar para convertirnos en desarrolladores/as web y nos conectaremos a una base de datos remota para enviar y recuperar información.
-
-Por último, veremos algunos **ejemplos de aplicaciones web** sencillas que puedes utilizar como base para tus propios desarrollos. Esta será una práctica habitual a lo largo de todo este curso de programación: siempre ofreceremos ejemplos de código real para comprender y aplicar la parte más "teórica".
-
-Y, por supuesto, no te escaparás sin desarrollar tus primeras aplicaciones web.
-
-
-
