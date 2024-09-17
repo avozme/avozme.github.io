@@ -54,9 +54,9 @@ Los contenidos de la asignatura se dividen en **tres bloques y 11 unidades didá
 
 **Bloque 3. Seguridad informática**
 
-* **UD7. Principios de seguridad informática**. 
-* **UD8. Recuperación de datos**. 
-* **UD9. Criptografía y cifrado. Software malicioso**.
+* **UD7. Principios de seguridad informática. Recuperación de datos**. 
+* **UD8. Criptografía y cifrado**. 
+* **UD9. Software malicioso**.
 
 ## 0.4. Competencias específicas
 
@@ -92,21 +92,21 @@ Asimismo, habrá una recuperación en junio con la misma naturaleza y que abarca
 
 Los criterios de evaluación legalmente establecidos para esta materia son los siguientes:
 
-**Competencia 1, Criterio 1.1.** Analizar impacto del software en la sociedad.
+* **Competencia 1, Criterio 1.1.** Analizar impacto del software en la sociedad.
 
-**Competencia 2, Criterio 2.1.** Emplear medidas de seguridad informática.
+* **Competencia 2, Criterio 2.1.** Emplear medidas de seguridad informática.
 
-**Competencia 2, Criterio 2.2.** Proteger privacidad en la red. Actuar ante conductas inapropiadas.
+* **Competencia 2, Criterio 2.2.** Proteger privacidad en la red. Actuar ante conductas inapropiadas.
 
-**Competencia 3, Criterio 3.1.** Elaborar y publicar contenidos web.
+* **Competencia 3, Criterio 3.1.** Elaborar y publicar contenidos web.
 
-**Competencia 4, Criterio 4.1.** Trabajar colaborativamente en entornos digitales.
+* **Competencia 4, Criterio 4.1.** Trabajar colaborativamente en entornos digitales.
 
-**Competencia 5, Criterio 5.1.** Desarrollar aplicaciones informáticas simples.
+* **Competencia 5, Criterio 5.1.** Desarrollar aplicaciones informáticas simples.
 
-**Competencia 5, Criterio 5.2.** Usar entornos de desarrollo integrados.
+* **Competencia 5, Criterio 5.2.** Usar entornos de desarrollo integrados.
 
-**Competencia 5, Criterio 5.3.** Dividir problemas en subproblemas para diseñar algoritmos más complejos.
+* **Competencia 5, Criterio 5.3.** Dividir problemas en subproblemas para diseñar algoritmos más complejos.
 
 ### Asignación de criterios de evaluación a unidades didácticas
 
@@ -130,9 +130,9 @@ Los criterios de evaluación legalmente establecidos para esta materia son los s
 
    * **UD7.** Principios de seguridad informática → Criterios 2.1, 2.2
 
-   * **UD8.** Recuperación de datos → Criterios 2.1, 2.2
+   * **UD8.** Criptografía y cifrado → Criterios 2.1, 2.2
 
-   * **UD9.** Criptografía. Software malicioso → Criterios 2.1, 2.2
+   * **UD9.** Software malicioso → Criterios 2.1, 2.2
 
 ### Asignación de instrumentos de evaluación a criterios de evaluación
 
