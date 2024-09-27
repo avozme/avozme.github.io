@@ -1,4 +1,4 @@
-I"ms<h1 class="no_toc" id="2-programación-con-diagramas-de-flujo">2. Programación con diagramas de flujo</h1>
+I"�u<h1 class="no_toc" id="2-programación-con-diagramas-de-flujo">2. Programación con diagramas de flujo</h1>
 
 <ul id="markdown-toc">
   <li><a href="#21-simbología-de-los-diagramas-de-flujo" id="markdown-toc-21-simbología-de-los-diagramas-de-flujo">2.1. Simbología de los diagramas de flujo</a></li>
@@ -322,62 +322,33 @@ Por favor, abstenerse ludópatas.</div>
 
 <p><strong>Ejercicio 34. Juego de las Tres en Raya</strong></p>
 
-<div style="background: #eee"><p>Vamos a hacer una versión del popular juego de las Tres en Raya para jugar contra el ordenador. No será un juego con inteligencia artificial como el de la WOPR (si no sabes qué es la WOPR, bueno, ¿para qué sirve wikipedia?), pero te permitirá pasar un buen rato programando, que es de lo que se trata.</p>
+<p>Vamos a hacer una versión del popular juego de las Tres en Raya para jugar contra el ordenador. No será un juego con inteligencia artificial pero te permitirá pasar un buen rato programando, que es de lo que se trata.&lt;/p&gt;</p>
 
 <p>El juego se desarrolla en un tablero de 3 x 3 casillas en el que los jugadores van disponiendo sus fichas tratando de formar una línea vertical, horizontal o diagonal.</p>
 
 <p>Las fichas del jugador humano tendrán forma de aspa (X) y, las del ordenador, forma de círculo (O)</p>
 
-Al principio, el tablero está en blanco. Comenzará jugando el jugador humano, que colocará una ficha en el tablero. Después, será el turno del ordenador.
+<p>Al principio, el tablero está en blanco. Comenzará jugando el jugador humano, que colocará una ficha en el tablero. Después, será el turno del ordenador.</p>
 
-El proceso se repite hasta que uno de los dos consigue colocar tres fichas formando una línea, o hasta que ya no es posible colocar más fichas (situación de “tablas”)</div>
+<p>El proceso se repite hasta que uno de los dos consigue colocar tres fichas formando una línea, o hasta que ya no es posible colocar más fichas (situación de “tablas”)</p>
 
 <p><em>Aviso: este juego es más difícil de programar que los anteriores.</em></p>
 
-<p><strong>Ejercicio 35</strong>. Dibujar con asteriscos. Se trata de escribir un programa que sea capaz de dibujar en la pantalla, <em>mediante bucles</em>, estos bonitos diseños. Añade alguno de tu propia cosecha, por favor. (Por si queda alguna duda: el último se supone que es un árbol de navidad)</p>
+<p><strong>Ejercicio 35. Cajero automático</strong></p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   *
-  ***
- *****
-*******
+<p>En este ejercicio, vamos a simular el funcionamiento de un <strong>cajero automático</strong> cuando sacas dinero de él.</p>
 
+<p>Cuando el programa comience, le asignaremos al cajero una cantidad limitada de billetes de 10, 20 y 50 euros (por ejemplo, puedes hacer que tenga 50 billetes de cada tipo).</p>
 
-   *
-  ***
- *****
-*******
- *****
-  ***
-   *
+<p>Después, el programa nos preguntará cuánto dinero queremos sacar, y nos lo “entregará” (figuradamente) como una colección de billetes. Por ejemplo, si le pedimos 90 euros, nos lo puede entregar como 1 billete de 50 y 2 billetes de 20, o como 1 billete de 50 y 4 billetes de 10.</p>
 
+<p>¡El programa debería elegir la mejor manera de entregarnos los billetes para no quedarse sin dinero demasiado pronto!</p>
 
-   *
-  * *
- *   *
-*     *
- *   *
-  * *
-   *
+<p>Después de “entregarnos” el dinero, el programa nos informará de cuántos billetes le quedan aún de 50, de 20 y de 10 (esto no lo hacen los cajeros reales, pero nos servirá para comprobar si el programa está funcionando correctamente)</p>
 
+<p>Llegará un momento en el que el cajero no pueda entregarnos la cantidad solicitada porque no le queden billetes suficientes. En ese caso, debe pedirnos disculpas y solicitarnos otra cantidad.</p>
 
-      *
-     ***
-      *
-     ***
-    *****
-   *******
-      *
-     ***
-    *****
-   *******
-  *********
- ***********
-*************
-     ***
-     ***
-     ***
-     ***
-</code></pre></div></div>
+<p>El programa terminará cuando el usuario así lo decida o cuando el cajero se quede sin billetes de ningún tipo.</p>
 
 <p><strong>Ejercicio 36. Máquina tragaperras</strong></p>
 

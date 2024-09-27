@@ -1,4 +1,4 @@
-I"�,<h1 class="no_toc" id="0-presentación-de-la-asignatura">0. Presentación de la asignatura</h1>
+I"�-<h1 class="no_toc" id="0-presentación-de-la-asignatura">0. Presentación de la asignatura</h1>
 
 <ul id="markdown-toc">
   <li><a href="#01-contextualización-y-horario" id="markdown-toc-01-contextualización-y-horario">0.1. Contextualización y horario</a></li>
@@ -66,9 +66,9 @@
 <p><strong>Bloque 3. Seguridad informática</strong></p>
 
 <ul>
-  <li><strong>UD7. Principios de seguridad informática</strong>.</li>
-  <li><strong>UD8. Recuperación de datos</strong>.</li>
-  <li><strong>UD9. Criptografía y cifrado. Software malicioso</strong>.</li>
+  <li><strong>UD7. Principios de seguridad informática. Recuperación de datos</strong>.</li>
+  <li><strong>UD8. Criptografía y cifrado</strong>.</li>
+  <li><strong>UD9. Software malicioso</strong>.</li>
 </ul>
 
 <h2 id="04-competencias-específicas">0.4. Competencias específicas</h2>
@@ -109,21 +109,32 @@
 
 <p>Los criterios de evaluación legalmente establecidos para esta materia son los siguientes:</p>
 
-<p><strong>Competencia 1, Criterio 1.1.</strong> Analizar impacto del software en la sociedad.</p>
-
-<p><strong>Competencia 2, Criterio 2.1.</strong> Emplear medidas de seguridad informática.</p>
-
-<p><strong>Competencia 2, Criterio 2.2.</strong> Proteger privacidad en la red. Actuar ante conductas inapropiadas.</p>
-
-<p><strong>Competencia 3, Criterio 3.1.</strong> Elaborar y publicar contenidos web.</p>
-
-<p><strong>Competencia 4, Criterio 4.1.</strong> Trabajar colaborativamente en entornos digitales.</p>
-
-<p><strong>Competencia 5, Criterio 5.1.</strong> Desarrollar aplicaciones informáticas simples.</p>
-
-<p><strong>Competencia 5, Criterio 5.2.</strong> Usar entornos de desarrollo integrados.</p>
-
-<p><strong>Competencia 5, Criterio 5.3.</strong> Dividir problemas en subproblemas para diseñar algoritmos más complejos.</p>
+<ul>
+  <li>
+    <p><strong>Competencia 1, Criterio 1.1.</strong> Analizar impacto del software en la sociedad.</p>
+  </li>
+  <li>
+    <p><strong>Competencia 2, Criterio 2.1.</strong> Emplear medidas de seguridad informática.</p>
+  </li>
+  <li>
+    <p><strong>Competencia 2, Criterio 2.2.</strong> Proteger privacidad en la red. Actuar ante conductas inapropiadas.</p>
+  </li>
+  <li>
+    <p><strong>Competencia 3, Criterio 3.1.</strong> Elaborar y publicar contenidos web.</p>
+  </li>
+  <li>
+    <p><strong>Competencia 4, Criterio 4.1.</strong> Trabajar colaborativamente en entornos digitales.</p>
+  </li>
+  <li>
+    <p><strong>Competencia 5, Criterio 5.1.</strong> Desarrollar aplicaciones informáticas simples.</p>
+  </li>
+  <li>
+    <p><strong>Competencia 5, Criterio 5.2.</strong> Usar entornos de desarrollo integrados.</p>
+  </li>
+  <li>
+    <p><strong>Competencia 5, Criterio 5.3.</strong> Dividir problemas en subproblemas para diseñar algoritmos más complejos.</p>
+  </li>
+</ul>
 
 <h3 id="asignación-de-criterios-de-evaluación-a-unidades-didácticas">Asignación de criterios de evaluación a unidades didácticas</h3>
 
@@ -162,10 +173,10 @@
     <p><strong>UD7.</strong> Principios de seguridad informática → Criterios 2.1, 2.2</p>
   </li>
   <li>
-    <p><strong>UD8.</strong> Recuperación de datos → Criterios 2.1, 2.2</p>
+    <p><strong>UD8.</strong> Criptografía y cifrado → Criterios 2.1, 2.2</p>
   </li>
   <li>
-    <p><strong>UD9.</strong> Criptografía. Software malicioso → Criterios 2.1, 2.2</p>
+    <p><strong>UD9.</strong> Software malicioso → Criterios 2.1, 2.2</p>
   </li>
 </ul>
 
