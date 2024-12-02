@@ -30,7 +30,7 @@ SÓTANO
 <tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
 </thead>
 <tbody>
-<tr><td>F</td><td>24 portátiles</td><td>Ateca</td></tr>
+<tr><td>F</td><td>24 portátiles (se ampliará a 30 a lo largo del curso 24/25)</td><td>Ateca</td></tr>
 </tbody>
 </table>
 
@@ -53,6 +53,7 @@ PLANTA PRIMERA
 </thead>
 <tbody>
 <tr><td>A</td><td>30 portátiles</td><td>Dpto. de Física y Química</td></tr>
+<tr><td>C</td><td>24 portátiles</td><td>Biblioteca</td></tr>
 <tr><td>I</td><td>30 portátiles</td><td>Biblioteca</td></tr>
 </tbody>
 </table>
@@ -64,8 +65,8 @@ PLANTA SEGUNDA
 <tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
 </thead>
 <tbody>
-<tr><td>B</td><td>20 portátiles</td><td>Lab. de Ciencias Naturales</td></tr>
-<tr><td>H</td><td>24 portátiles</td><td>Aula 22</td></tr>
+<tr><td>B</td><td>24 portátiles (se ampliará a 30 a lo largo del curso 24/25)</td><td>Lab. de Ciencias Naturales</td></tr>
+<tr><td>H</td><td>26 portátiles (se ampliará a 30 a lo largo del curso 24/25)</td><td>Aula 22</td></tr>
 </tbody>
 </table>
 
@@ -79,15 +80,14 @@ Los ordenadores portátiles de los carritos están destinados al alumnado para s
 
 Para usar un carrito de portátiles, el procedimiento general es el siguiente:
 
-1. [Reservarlo en Moodle Centros](https://iescelia.org/reservas) (el procedimiento se describe en el siguiente apartado).
-2. Conseguir la llave de la dependencia donde se ubiquen los carritos que se han reservado (las llaves están en Conserjería). Los carritos ubicados en aulas pueden conseguirse sin llave, puesto que el aula, normalmente, estará en uso.
-3. Conseguir la llave del carrito en Conserjería o en Jefatura de Estudios. También te entregarán un parte de uso.
-4. Acceder a la dependencia y desenchufar los carritos de la toma de corriente.
-5. Llevar los carritos hasta el aula. Aunque son pesados, se transportan con facilidad porque disponen de ruedas.
-6. Repartir los ordenadores entre el alumnado y velar por que se usen adecuadamente. **Es imprescindible que el alumnado se apunte en el parte de uso**. Es la única forma de prevenir actos vandálicos y localizar a los responsables en caso de que se produzcan.
-7. Al final de la clase, vigilar la reposición de los ordenadores a sus lugares originales. Para que los siguientes compañeros no los encuentren descargados, hay que dejarlos conectados a sus respectivos cargadores.
-8. Devolver el carrito a la dependencia en la que se encontraba, enchufarlo de nuevo a la corriente y devolver la llave de la dependencia en Conserjería.
-9. Devolver la llave del carrito en la Jefatura de Estudios, junto con el parte de uso.
+1. **[Reservarlo en Moodle Centros](https://iescelia.org/reservas)** (el procedimiento se describe en el siguiente apartado).
+2. **Conseguir las llaves**, tanto de la dependencia donde se ubiquen los carritos que se han reservado como del propio carrito. Todas las llaves están en **Conserjería**. Los carritos ubicados en aulas suelen estar accesibles siempre que el aula esté en uso.
+3. **Rellenar el parte de uso**. Te entregarán uno en blanco junto con la llave. También puedes hacerte con tus propias copias si usas el carro a menudo. *Es imprescindible rellenar este parte para localizar a los responsables de posibles actos vandálicos*.
+4. **Acceder a la dependencia y desenchufar el carrito** de la toma de corriente.
+5. **Llevar el carrito hasta el aula**. Aunque son pesados, se transportan con facilidad porque disponen de ruedas.
+6. **Repartir los ordenadores entre el alumnado** y velar por que se usen adecuadamente. *REPETIMOS: Es importantísimo que el alumnado se apunte en el parte de uso*. Es la única forma de prevenir actos vandálicos y localizar a los responsables en caso de que se produzcan.
+7. **Al final de la clase, vigilar la reposición de los ordenadores** a sus lugares originales. Para que los siguientes compañeros no los encuentren descargados, hay que dejarlos conectados a sus respectivos cargadores.
+8. **Devolver el carrito** a la dependencia en la que se encontraba, **enchufarlo** de nuevo a la corriente y **devolver las llaves y el parte de uso relleno** en Conserjería.
 
 ***MUY IMPORTANTE: Rellenar adecuadamente el parte de uso es la única manera de prevenir actos vandálicos y poder así mantener los carritos en el mejor estado posible.*** Rogamos para ello vuestra colaboración.
 

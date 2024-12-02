@@ -66,3 +66,24 @@ Por lo tanto, el alumnado se puede oponer a la publicación de su admisión en u
 
 Los resultados académicos también son datos sensibles según la legislación vigente, por lo que no se deben publicar en ningún lugar de acceso público, ya sea físico o virtual. Esta información, además de grabarse en el sistema Séneca, sí puede manipularse en Moodle Centros y en Google Suite, puesto que son plataformas en las que el acceso se haya restringido y la Consejería de Educación y Deporte asegura la salvaguardar de esos datos.
 
+## 4.6. Normas básicas de seguridad de la información
+
+Toda la comunidad educativa, cada cual en su ámbito de trabajo, debe conocer e implementar una serie de **medidas básicas para asegurar la información** que manipulan en su actividad cotidiana, así como el buen uso de los dispositivos digitales.
+
+Entre esas normas básicas de seguridad podemos destacar las siguientes:
+
+* **Utilizar software antivirus actualizado** para proteger los dispositivos contra malware y virus.
+* Emplear exclusivamente **aplicaciones corporativas autorizadas** (como Séneca) en el tratamiento de datos personales.
+* Acceder a datos personales únicamente mediante **conexiones seguras**.
+* **Emplear contraseñas robustas** y actualizarlas con regularidad para el acceso a sistemas y aplicaciones.
+* **Realizar copias de seguridad** periódicas de los datos personales para prevenir su pérdida.
+* **Evitar el uso de dispositivos USB** o de almacenamiento externo no seguros que puedan comprometer la integridad de los datos.
+* **Mantener actualizados los dispositivos y software** con los últimos parches de seguridad.
+* **Limitar el acceso a los datos personales** estrictamente necesarios para el desempeño laboral.
+
+## 4.7. ¿Necesitas más información?
+
+En este documento se recogen solo los aspectos más importantes que los miembros de la comunidad educativa deben tener presentes a la hora de manipular datos personales.
+
+Si deseas conocer más detalles, la Junta de Andalucía ha publicado su **"Guía sobre protección de datos personales en centros educativos"** que puedes consultar en Averroes: [https://blogsaverroes.juntadeandalucia.es/tdealmeria/guia-sobre-proteccion-de-datos-personales-en-centros-educativos/](https://blogsaverroes.juntadeandalucia.es/tdealmeria/guia-sobre-proteccion-de-datos-personales-en-centros-educativos/) 
+
