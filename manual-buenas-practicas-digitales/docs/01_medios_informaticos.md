@@ -19,7 +19,7 @@ En esta sección presentamos un resumen de las características de los medios in
 
 ### ¿Qué son los carritos de portátiles?
 
-Son carritos móviles con capacidad entre 12 y 30 ordenadores portátiles cada uno. 
+Son carritos móviles con capacidad entre 10 y 30 ordenadores portátiles cada uno. 
 
 El centro dispone de 6 carritos de estas características distribuidos de la siguiente forma:
 
@@ -30,7 +30,8 @@ SÓTANO
 <tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
 </thead>
 <tbody>
-<tr><td>F</td><td>24 portátiles (se ampliará a 30 a lo largo del curso 24/25)</td><td>Ateca</td></tr>
+<tr><td>D (en preparación)</td><td>10 portátiles</td><td>Ateca</td></tr>
+<tr><td>F</td><td>30 portátiles</td><td>Taller tecnología</td></tr>
 </tbody>
 </table>
 
@@ -41,7 +42,8 @@ PLANTA BAJA
 <tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
 </thead>
 <tbody>
-<tr><td>G</td><td>30 portátiles</td><td>Junto a secretaría</td></tr>
+<tr><td>C</td><td>24 portátiles</td><td>Secretaría</td></tr>
+<tr><td>G</td><td>30 portátiles</td><td>Secretaría</td></tr>
 </tbody>
 </table>
 
@@ -53,7 +55,6 @@ PLANTA PRIMERA
 </thead>
 <tbody>
 <tr><td>A</td><td>30 portátiles</td><td>Dpto. de Física y Química</td></tr>
-<tr><td>C</td><td>24 portátiles</td><td>Biblioteca</td></tr>
 <tr><td>I</td><td>30 portátiles</td><td>Biblioteca</td></tr>
 </tbody>
 </table>
@@ -65,8 +66,19 @@ PLANTA SEGUNDA
 <tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
 </thead>
 <tbody>
-<tr><td>B</td><td>24 portátiles (se ampliará a 30 a lo largo del curso 24/25)</td><td>Lab. de Ciencias Naturales</td></tr>
-<tr><td>H</td><td>26 portátiles (se ampliará a 30 a lo largo del curso 24/25)</td><td>Aula 22</td></tr>
+<tr><td>B</td><td>24 portátiles</td><td>Lab. de Ciencias Naturales</td></tr>
+<tr><td>H</td><td>26 portátiles</td><td>Aula 22</td></tr>
+</tbody>
+</table>
+
+USO RESERVADO
+
+<table>
+<thead>
+<tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
+</thead>
+<tbody>
+<tr><td>E</td><td>10 portátiles</td><td>Taller TIC</td></tr>
 </tbody>
 </table>
 
