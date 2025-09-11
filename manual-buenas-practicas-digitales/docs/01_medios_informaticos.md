@@ -225,6 +225,14 @@ El centro, debido a la falta de espacio, no dispone de ningún aula de informát
 
 Sin embargo, cualquier aula del centro puede convertirse temporalmente en aula de informática usando los abundantes carritos de portátiles que existen distribuidos por el centro (véase sección "Carritos de portátiles").
 
+## 1.5. Departamentos
+
+Todos los departamentos cuentan con, al menos, un ordenador Linux con conexión a internet e impresora.
+
+Además, hay una impresora de alta capacidad en la Sala de Profesorado, donde se encuentran 5 ordenadores a disposición de los docentes.
+
+Asimismo, las fotocopiadores admiten archivos en formato PDF que el personal de conserjería podrá imprimir fácilmente si se los facilitamos en una memoria USB.
+
 ## 1.5. Otros medios
 
 El IES Celia Viñas dispone de otros muchos medios relacionados con las TIC. Sus características son tan variadas que enumerarlas aquí no tiene sentido. Nos limitaremos a dar una lista de los medios con los que contamos.
