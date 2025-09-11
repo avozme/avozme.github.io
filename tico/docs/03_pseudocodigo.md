@@ -1,14 +1,14 @@
 ---
 layout: page
-title: 3. Programación con pseudocódigo y Python
-permalink: /pseudocodigo-y-python/
+title: 3. Programación con pseudocódigo, Python y Javascript
+permalink: /pseudocodigo-python-javascript/
 nav_order: 3
 has_children: true
 parent: Tecnologías de la Información y la Comunicación 2º BACHILLERATO
 ---
 
 
-# 3. Programación con pseudocódigo y Python
+# 3. Programación con pseudocódigo, Python y Javascript
 {: .no_toc }
 
 
@@ -345,7 +345,480 @@ Solo tienes que acceder a uno de estos intérpretes y (a veces registrándote an
 
 Algunos intérpretes online de Python bastante confiables son el de [W3Schools](https://www.w3schools.com/python/python_compiler.asp) o el de [Porgramiz](https://www.programiz.com/python-programming/online-compiler/).
 
-## 3.3. Errores frecuentes entre principiantes
+
+## 3.3. Javascript
+
+**Javascript** es otro de los lenguajes más utilizados en la actualidad. Aunque no es tan limpio ni sencillo como Python, es fácil empezar a hacer programas sencillos con él.
+
+Además, se caracteriza porque se ejecuta dentro de los navegadores web. Es decir, para empezar a trabajar con Javascript no necesitas más que un **editor de texto** y tu **navegador web** preferido.
+
+En las siguientes secciones vamos a ver una breve introducción a Javascript.
+
+### 3.3.1. Correspondencia entre pseudocódigo y Javascript
+
+En la siguiente tabla se muestran las correspondencias entre las principales instrucciones de pseudocódigo y las de Javascript:
+
+<table>
+    <tr>
+        <td style='background-color: lightgrey'>
+        <strong>PSEUDOCÓDIGO</strong>
+        </td>
+        <td style='background-color: lightgrey'>
+        <strong>JAVASCRIPT</strong>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <strong>// Condicional simple</strong><br>
+        Si condición entonces<br>
+        &nbsp;&nbsp;&nbsp;acciones-1<br>
+        FinSi
+        </td>
+        <td>
+        <strong>// Condicional simple</strong><br>
+        if (condicion) {<br>
+        &nbsp;&nbsp;&nbsp;acciones;<br>
+        }
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <strong>// Condicional doble</strong><br>
+        Si condición entonces<br>
+        &nbsp;&nbsp;&nbsp;acciones-1;<br>
+        Sino<br>
+        &nbsp;&nbsp;&nbsp;acciones-2;<br>
+        FinSi
+        </td>
+        <td>
+        <strong>// Condicional doble</strong><br>
+        if (condicion) {<br>
+        &nbsp;&nbsp;&nbsp;acciones-1;<br>
+        }<br>
+        else {<br>
+        &nbsp;&nbsp;&nbsp;acciones-2;<br>
+        }<br>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <strong>// Bucle tipo “mientras”</strong><br>
+        Mientras condición hacer<br>
+        &nbsp;&nbsp;&nbsp;acciones<br>
+        FinMientras
+        </td>
+        <td>
+        <strong>// Bucle tipo “mientras”</strong><br>
+        while (condición) {<br>
+        &nbsp;&nbsp;&nbsp;acciones;<br>
+        }<br>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <strong>// Bucle tipo “para”</strong><br>
+        Para variable <- valor_inicial hasta valor_final Hacer<br>
+        &nbsp;&nbsp;&nbsp;acciones<br>
+        FinPara
+        </td>
+        <td>
+        <strong>// Bucle tipo “para” </strong><br>
+        for (variable = valor_inicial; condicion; incremento) {<br>
+        &nbsp;&nbsp;&nbsp;acciones;<br>
+        }<br>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <strong>// Asignación</strong><br>
+        a <- 20
+        </td>
+        <td>
+        <strong>// Asignación </strong><br>
+        a = 20;
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <strong>// Salida de datos</strong><br>
+        Escribir "El resultado es ", x
+        </td>
+        <td>
+        <strong>// Salida de datos </strong><br>
+        alert("El resultado es " + x);<br>
+        <i>o bien:</i><br>
+        document.write("El resultado es " + x);<br>
+        <i>o bien:</i><br>
+        document.getElementById('?').innerHTML += "El resultado es " + x;
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <strong>// Entrada de datos</strong><br>
+        Escribir "Dime un número"<br>
+        Leer variable
+        </td>
+        <td>
+        <strong>// Entrada de datos </strong><br>
+        variable = prompt("Dime un número");
+        </td>
+    </tr>
+</table>
+
+A continuación tienes un pequeño ejemplo de un algoritmo escrito en Pseudocódigo y su equivalente en Javascript. Fíjate en cómo se usan las llaves { y } para marcar el principio y el fin de un bloque de instrucciones.
+
+<table>
+    <tr>
+        <td style='background-color: lightgrey'>
+        <strong>PSEUDOCÓDIGO</strong>
+        </td>
+        <td style='background-color: lightgrey'>
+        <strong>JAVASCRIPT</strong>
+        </td>
+    </tr>
+<tr>
+<td>
+<pre>
+i <- 0<br>
+Mientras i < 100 hacer<br>
+   Escribir i<br>
+   i <- i + 1<br>
+FinMientras<br>
+<br>
+// Esta instrucción ya está fuera del bucle<br>
+Escribir "El bucle ha terminado"<br>
+</pre>
+</td>
+<td>
+<pre>
+let i = 0;  // La primera vez que se usa una variable es conveniente anteponer la palabra "let"<br>
+while (i < 100) {<br>
+   document.write(i);<br>
+   i = i + 1;<br>
+}<br>
+// Esta instrucción ya está fuera del bucle<br>
+document.write("El bucle ha terminado");<br>
+</pre>
+</td>
+</tr>
+</table>
+
+### 3.3.2. Un ejemplo sencillo de programa escrito en Javascript
+
+Teniendo en cuenta la tabla anterior, es fácil escribir en Javascript el mismo programa que hicimos antes con pseudocódigo; ya sabes, aquel que mostraba todos los números enteros que hay entre dos números cualesquiera, A y B, que se introducen por teclado. 
+
+Vamos a escribirlo usando **alert()** para la salida de datos, pero podríamos sustituirlo por **document.write()** y obtendríamos el mismo resultado, solo que presentado de otro modo. Te animo a probarlo para comprobar las diferencias.
+
+```javascript
+// Obtener los números del usuario
+let A = parseInt(prompt("Dime un número: "));
+let B = parseInt(prompt("Dime otro número: "));
+
+// Determinar los valores de inicio y final
+let inicio, final;
+if (A < B) {
+    inicio = A;
+    final = B;
+} else {
+    inicio = B;
+    final = A;
+}
+
+// Mostrar los números desde inicio hasta final
+alert("Estos son los números desde " + inicio + " hasta " + final);
+
+// Iterar y mostrar cada número
+for (let i = inicio; i <= final; i++) {
+    alert(i);
+}
+```
+
+Observa cómo se hace la entrada de datos en las dos primeras instrucciones del algoritmo: no solo hay que usar la intrucción **prompt()**, sino que hay que usar una segunda instrucción **parseInt()**. 
+
+Esto ocurre porque, en Javascript, cualquier cosa que se lea por el teclado se considera una cadena de caracteres. Para manipularla como otra cosa (por ejemplo, un número entero), es necesario *convertirla explícitamente* a ese tipo de datos. Y eso es exactamente lo que hace **parseInt()**: convertir lo que le pases entre paréntesis en un número entero.
+
+### 3.3.3. Cómo ejecutar un programa escrito Javascript
+
+Aunque los programas en Javascript pueden ejecutarse de diferentes maneras, sin duda la más habitual es lanzar el programa **dentro de un navegador web**.
+
+Para lograrlo, debes seguir estos pasos:
+
+1. Escribe tu programa Javascript con un editor de textos.
+2. Coloca una etiqueta **script** *antes* y *después* de tu código fuente (ver ejemplo más abajo).
+3. Guarda el archivo con extensión .html (por ejemplo, "mi-programa.html").
+4. Abre el archivo .html con un navegador web.
+
+Por ejemplo, el programa anterior se tendría que escribir así en el archivo .html (observa las etiquetas **script** antes y después del código):
+
+```html
+<script>
+  // Obtener los números del usuario
+  let A = parseInt(prompt("Dime un número: "));
+  let B = parseInt(prompt("Dime otro número: "));
+  // ...etc...
+</script>
+```
+
+### 3.3.4. Funciones con Javascript
+
+Javascript es un lenguaje **modular**, es decir, permite la escritura de subalgoritmos dentro de algoritmos. Todos los subalgoritmos en Javascript se llaman **funciones**.
+
+Esta es la forma de crear una función:
+
+```javascript
+function nombre_funcion(parámetros) {
+   Instrucciones de la función;
+   return expresión;
+}
+```
+
+El **return** es optativo. Una función de Javascript puede no tener **return**. Los **parámetros** también son optativos: puede haber funciones sin ningún parámetro y funciones con decenas de ellos.
+
+La **invocación** de un subalgoritmo desde el algoritmo principal se hace poniendo el nombre de la función y su lista de parámetros (si los tiene).
+
+Por ejemplo:
+
+```javascript
+// Definición de la función
+function potencia(base, exponente) {
+   var i;
+   var resultado = 1;
+   for (i = 1; i <= exponente; i++) {
+      resultado = resultado * base;
+   }
+   return resultado;
+}
+
+// Invocación de la función
+var b = 9;
+var e = 4;
+var p = potencia(9, 4);
+document.write("9 elevado a 4 es " + p);
+```
+
+### 3.3.5. Entrada y salida de datos con Javascript
+
+Hay varias formas de hacer la entrada y salida de datos con Javascript, es decir, hay varios equivalentes a la instrucciones **Leer** y **Escribir** de pseudocódigo.
+
+Para nuestros primeros ejemplos, hemos usado la función **prompt()** para hacer la entrada y **document.write()** o **alert()** para hacer la salida.
+
+Vamos a ver un poco más despacio en qué se diferencian estos métodos.
+
+#### Entrada de datos con prompt()
+
+La **entrada de datos** en Javascript puede hacerse de diversas maneras. En particular, usando **formularios HTML**, pero de momento no necesitas pelearte con eso.
+
+En esta primera toma de contacto con el lenguaje, vamos a conformarnos con la función **prompt()**. Esta función muestra un mensaje en forma de ventana emergente y permite escribir un texto, asignándolo a una variable.
+
+Observa cómo se usa *prompt()* con este ejemplo escrito primero en pseudocódigo y luego en Javascript:
+
+Pseudocódigo:
+```
+Escribir("Dime un número")
+Leer n
+```
+
+Javascript:
+```html
+<script>
+   n = prompt("Dime un número");
+</script>
+```
+
+#### Salida de datos con innerHTML, document.write() y alert()
+
+La forma más sencilla de hacer la salida de datos con Javascript es usar **document.write()** o su hermana melliza, **document.writeln()**.
+
+Mira cómo se usa en este ejemplo:
+
+Código:
+```html
+<script>
+document.write("Hola, mundo");
+</script>
+```
+
+Sin embargo, **document.write()** tiene un grave problema: puede que el texto de salida *no se muestre inmediatamente*. La decisión de cuándo se muestra la salida la toma el navegador y hay poco que puedas hacer al respecto. Por eso, la usaremos en contadas ocasiones.
+
+Otra manera muy sencilla de hacer salida de datos es con **alert()**. Esta función muestra un texto en forma de ventana emergente. Parecido a *prompt()*, pero sin caja de texto para escribir. Observa a *alert()* en acción en el siguiente ejemplo:
+
+Código:
+```html
+<script>
+alert("Hola, mundo");
+</script>
+```
+
+La salida con *alert()* es simple y efectiva, pero resulta muy invasiva. Si haces todo tu programa con *alert()*, el usuario se sentirá enseguida apabullado por esa cantidad de ventanas emergentes que le saltan a la cara.
+
+De modo que nos queda la tercera vía. Es la más enrevesada, pero también la mejor. Y, en fin, tampoco es tan complicado.
+
+Consiste en preparar una zona de la pantalla del navegador para hacer en ella la salida de datos, y luego acceder a la misma con **document.getElementById().innerHTML**.
+
+Si sabes un poco de **HTML**, el lenguaje de marcado con el que se codifican las páginas web, enseguida comprenderás lo que estamos haciendo. Si no tienes ni idea de HTML, no te preocupes. Basta con que sigas los pasos que proponemos aquí para que puedas ejecutar tus programas Javascript. Ya tendrás tiempo de aprender HTML más adelante.
+
+**Paso 1. Prepara la caja donde se hará la salida**. La caja se crea un la etiqueta **<div>** de HTML, a la que puedes asignar un estilo de visualización. La primeras veces, puedes limitarte copiar y pegar este código en todos los programas Javascript que vayas a hacer:
+
+```html
+<div id='salida' style='text-align: center; border-style: solid; border-color: black'></div>
+<script>
+   // Escribe aquí tu programa Javascript
+</script>
+```
+
+**Paso 2. Dentro de tu programa Javascript, utiliza *document.getElementById('salida').innerHTML = expresión* para hacer la salida**. Sí, lo sé, es un poco largo, pero Javascript es así. Por ejemplo, mira este código:
+
+```html
+<div id='salida' style='text-align: center; border-style: solid; border-color: black'></div>
+<script>
+   document.getElementById('salida').innerHTML = "Hola, mundo";
+</script>
+```
+**Paso 3. Utiliza *document.getElementById('salida').innerHTML += expresión* si no quieres perder la salida anterior**. Es decir, si usas un **igual** (=), cada salida de datos borrará la pantalla. Si usas **más igual** (+=), la salida de datos se añadirá a la anterior, sin borrarla:
+
+```html
+<div id='salida' style='text-align: center; border-style: solid; border-color: black'></div>
+<script>
+   document.getElementById('salida').innerHTML += "Hola, mundo";
+</script>
+```
+
+**Paso 4 (OPTATIVO). Cambia las propiedades de tu caja de salida**. Intenta juguetear con las propiedades ***text-align***, ***border-style*** o ***border-color*** del *div* de salida. Además, hay muchas otras propiedades que puedes asignarle a esa caja. Si te atreves, investiga un poco cómo cambiar el color del texto o la tipografía.
+
+### 3.3.6. Alterando las propiedades de la página web con Javascript
+
+Una de las cosas que hacen tan atractivo a Javascript es la posibilidad de manipular *cualquier* elemento de una página web para moverlo, ocultarlo o cambiarlo de forma, aspecto o contenido.
+
+Para lograrlo, necesitas saber un poco de HTML. Si no es tu caso, olvida esta parte por ahora hasta que aprendas HTML.
+
+Imagina que tienes una sencilla web con un texto, una imagen y un botón. Algo como esto:
+
+```html
+<h1 id='texto' style='color: red'>Esto es un título</h1>
+<img id='imagen' src='mi-imagen' style='position: absolute; top: 100px; left: 50x'>
+<input type='button' onclick='cambiar()'>Púlsame</input>
+```
+
+El texto se verá de color rojo y la imagen se posicionará en las coordenadas 100x50 de la ventana del navegador. Observa que ambos elementos tienen un atributo **id**. Esto es necesario para que, posteriormente, Javascript pueda modificarlos. 
+
+Pues bien, con Javascript puedes cambiar eso cuando la página ya está cargada. Y vamos a hacer que suceda cuando se haga clic en el botón. ¿Has visto que el botón tiene un atributo llamado **onclick**? El nombre que aparece a continuación es el de una función Javascript que se ejecutará cuando se pulse el botón.
+
+Así pues, puedemos añadir un pequeño script que haga cambios en la página:
+
+```html
+<h1 id='texto' style='color: red'>Esto es un título</h1>
+<img id='imagen' src='mi-imagen' style='position: absolute; top: 100px; left: 50x'>
+<input type='button' value='Púlsame' onclick='cambiar()'>
+
+<script>
+    function cambiar() {
+        document.getElementById('texto').style.color = 'blue';
+        document.getElementById('imagen').style.top = '200px';
+    }
+</script>
+```
+
+¿Puedes adivinar lo que ocurrirá al hacer clic en el botón? Exacto: el texto "Esto es un título" cambiará de rojo a azul, y la imagen se moverá hacia abajo en la pantalla. ¡Pruébalo en un navegador web si no te lo crees!
+
+### 3.6.7. Temporizadores de Javascript
+
+Lo que te voy a contar ahora puede considerarse Javascript avanzado (o, al menos, no es Javascript básico). Pero lo vas a necesitar para hacer juegos y otras diversiones con Javascript y, en fin, tampoco es tan complicado...
+
+Se trata de los **temporizadores**.
+
+Un temporizador es como el cronómetro de una bomba de relojería de las que salen en las películas. Ya sabes, esas bombas que siempre tienen una pantalla LCD donde se ve una cuenta atrás que indica cuánto falta para que explote.
+
+(El temporizador es el cronómetro, no la bomba, que conste...)
+
+Un temporizador se pone en marcha así:
+
+```javascript
+var timer = setTimeout('nombre-de-función', intervalo);
+```
+
+El *nombre-de-función* es exactamente eso: el nombre de alguna función Javascript que ya exista. El *intervalo* es un número entero.
+
+Lo que hace el temporizador es **iniciar una cuenta atrás de *intervalo* milisegundos y, cuando el cronómetro llega a cero, se ejecuta la función indicada**.
+
+Por ejemplo:
+
+```javascript
+var timer = setTimeout('saludar', 1000);
+
+function saludar() {
+   alert("Hola, mundo");
+}
+```
+
+Si ejecutas este código, verás que el saludo (¡Hola, mundo!) tarda exactamente un segundo en aparecer. El temporizador se ha encargado de ello. Nada más ejecutar el código, se ha puesto en marcha un temporizador cuyo encargo es ejecutar la función *saludar()* al cabo de 1000 milisegundos (es decir, un segundo).
+
+Programar acciones para que se realicen en el futuro abre muchísimas posibilidades. En particular, piensa en qué ocurriría si hacemos que la propia función *saludar()* vuelva a reestablecer el temporizador:
+
+```javascript
+var timer = setTimeout('saludar', 1000);
+
+function saludar() {
+   alert("Hola, mundo");
+   setTimeout('saludar', 1000);
+}
+```
+
+Detente un momento a tratar de averiguar qué ocurriría al ejecutar este programa y por qué podríamos decir sin dudarlo que se trata de uno de los programas más plastas que hemos escrito hasta ahora. Si no te lo crees, pruébalo y lo comprobarás.
+
+Por último, si, por lo que sea, necesitas **detener un temporizador** que ya está en marcha, solo tienes que usar la función ***clearTimeout()***:
+
+```javascript
+clearTimeout(timer);
+```
+
+Lógicamente, la variable *timer* debe ser la misma que usaste al crear el temporizador.
+
+### 3.3.8. Los objetos predefinidos de Javascript
+
+Los **objetos predefindos de Javascript** son elementos del lenguaje que encierran dentro de sí una serie de funciones y variables para manipular diferentes aspectos de la página web y para facilitar la vida al programador.
+
+Existen muchos objetos predefinidos en Javascript. Te voy a presentar a unos cuantos particularmente útiles, aunque debes saber que hay muchos más. Para esta introducción, con estos tendremos más que de sobra.
+
+* **Date**. Permite obtener la fecha y hora actual del reloj del ordenador. Por ejemplo:
+
+   ```javascript
+   var d = new Date(); // Fecha y hora actual
+   document.write('Día de la semana', d.getDay());
+   document.write('Día del mes', d.getDate());
+   document.write('Mes', d.getMonth());
+   document.write('Año', d.getFullYear());
+   ```
+* **Math**. Este objeto contiene una enorme colección de funciones matemáticas. Algunas son: 
+   * *sin(x), cos(x), tan(x)*: calcula el seno, el coseno y la tangente de x.
+   * *max(valor1, valor2, ..., valorN), min(valor1, valor2, ..., valorN)*: calcula el máximo o el mínimo de una lista de valores.
+   * *round(x)*: redondea el número x al entero más próximo. Si ya era entero, lo deja como estaba.
+   * *trunc(x)*: trunca el número x. Es decir, elimina los decimales, sin redondear.
+   * *pow(b, e)*: calcula la potencia de b elevado a e.
+   * *random()*: devuelve un número real aleatorio entre 0 y 1. Si quieres que sea un aleatorio entero entre dos valores cualesquiera, tendrás que hacer algo así:
+
+      ```javascript
+      document.write("Aleatorio de 0 a 1:  " + Math.random());
+      document.write("Aleatorio de 0 a 99: " + Math.trunc(Math.random()*100));
+      document.write("Aleatorio de 1 a 100:" + Math.trunc(Math.random()*100 + 1));
+      document.write("Aleatorio de 0 a 100:" + Math.trunc(Math.random()*101));
+      ```
+
+* **window**. Proporciona acceso a una ventana del navegador web. Te ofrece métodos muy interesantes como:
+   * *open()*: abre una ventana del navegador nueva.
+   * *close()*: cierra una ventana del navegador.
+   * *moveTo(x, y)*: mueve la ventana actual a la posición x, y.
+   * *resizeTo(tamañoX, tamañoY)*: cambia el tamaño de la ventana actual.
+   * *screenX* y *screenY*: nos da las coordenadas X e Y donde se encuentra la ventana ubicada en este momento.
+   * *innerWidth* y *innerHeight*: nos devuelve el espacio disponible dentro de la ventana del navegador (en píxeles).
+
+* **document**. Proporciona acceso al texto escrito dentro de la ventana del navegador. Lo hemos estado usando para generar la salida de nuestros programas. Estos son algunos métodos:
+   * *write()*: añade texto a la ventana del navegador.
+   * *writeln()*: añade texto a la ventana del navegador, y termina con una salto de línea.
+   * *open()*: elimina todo el contenido que haya en la ventana del navegador e inicia una nueva salida.
+   * *close()*: finaliza el envío de datos a la ventana del navegador.
+   * *getElementById()*: recupera un elemento del navegador a partir de su id.
+
+## 3.4. Errores frecuentes entre programadores novatos
 
 En esta sección recopilo para ti algunas de las dudas, errores y pifias más frecuentes que, según mi experiencia como profesor de programación, suelen asaltar a los principantes.
 
@@ -544,11 +1017,13 @@ Así que mi principal consejo para todos los principiantes es: practica, practic
 
 ## 3.4. Ejercicios propuestos
 
-Vamos a resolver con pseudocódigo (o con Python, si lo prefieres) varios de los ejercicios que ya propusimos hacer con diagramas de flujo. 
+Vamos a resolver con pseudocódigo (o con Python o Javascript, si lo prefieres) varios de los ejercicios que ya propusimos hacer con diagramas de flujo. 
 
 La idea es que ahora los **escribas, depures y pruebes tecleando el código**, no dibujando del diagrama de flujo.
 
 Por lo tanto, necesitarás PseInt (si usas pseudocódigo) o Thonny (si usas Python) para realizar los siguientes ejercicios.
+
+### 3.4.1. Ejercicios para pseudocódigo y Python
 
 #### Ejercicio introductorio
 
@@ -587,3 +1062,175 @@ Escribe un programa para jugar a los dados con el ordenador. Las reglas del jueg
    * Si en dos dados de los tres sale la misma cantidad, el dinero apostado se multiplica por 2
 * En cualquier otro caso, el dinero apostado se pierde
 * El proceso se repite hasta que el jugador se queda sin dinero o hasta que decide dejar de jugar.
+
+### 3.4.2. Ejercicios exclusivos para Javascript
+
+Si lo tuyo es Javascript, a continuación te propongo algunos ejercicios interesantes (o eso espero) para que practiques con este lenguaje. IMPORTANTE: no intentes hacerlos con Pseudocódigo o con Python. No es que no se pueda, es que resulta mucho más difícil.
+
+**EJERCICIO JAVASCRIPT 1. Botón saltarín**
+
+**Vamos a hacer una página web con un botón. Al pulsar ese botón, Javascript hará que ¡el botón cambie de sitio!**
+
+Para eso, capturaremos el **evento *click*** del botón.
+
+El botón lo tienes que crear antes mediante HTML. No importa que no sepas HTML. Solo echa un vistazo a este código. Luego cópialo en un archivo de texto y guarda el archivo con el nombre ejercicio1.html:
+
+```html
+<body>
+   <button id='boton' onclick='mover_boton()' style='position: absolute; top: 100px; left: 200px'>Púlsame</button>
+   <script>
+      function mover_boton() {
+          // Escribe aquí tu código javascript
+      }
+   </script>
+</body>
+```
+
+Ahora solo te queda programar la función *mover_boton()*, que en el código anterior está vacía.
+
+Para lograr que el botón se mueva, tendrás que fijarte primero en cómo está el botón creado: tiene un **id**, un evento **onclick** y un **style**. Dentro del este último se definen dos propiedades:
+
+* **top** es la distancia desde la parte superior de la ventana del navegador hasta el botón. Lo hemos establecido en 100 píxeles (100px).
+* **left** es la distancia desde la parte izquierda de la ventana del navegador hasta el botón. Le hemos dado 200 píxeles.
+
+Pues bien, debes hacer que Javascript modifique esas dos propiedades. Por ejemplo, así:
+
+```javascript
+function mover_boton() {
+   document.getElementById('boton').style.top = '150px';
+   document.getElementById('boton').style.left = '250px';
+}
+```
+
+Con eso, el botón se moverá al hacer clic sobre él, pero solo la primera vez. Quedará colocado en la posición top = 150px y left = 250px y ya no se desplazará más.
+
+**¿Y si quisiéramos que se moviera *siempre* que hagamos clic sobre él?** Piensa cómo lograrlo. Eso es lo que tienes que conseguir en este ejercicio.
+
+**EJERCICIO JAVASCRIPT 2. Ventana nerviosa y botones evanescentes**
+
+**Ahora vamos a conseguir que una ventana entera del navegador se mueva al pulsar un botón. Y a hacer aparecer y desaparecer botones.**
+
+De hecho, vamos a crear cuatro botones:
+
+* **Botón "Saltar"**: al pulsarlo, la ventana dará un salto. Es decir, cambiará de posición..
+* **Botón "Temblar"**: al pulsarlo, la ventana se pondrá a "temblar", como si tuviera frío o se hubiera puesto nerviosa, durante un rato.
+* **Botón "Ocultar"**: al pulsarlo, los dos botones anteriores desaparecerán de la vista.
+* **Botón "Mostrar"**: al pulsarlo, los botones desaparecidos volverán a aparecer.
+
+Esos cuatro botones puedes crearlos con este código HTML. También crearemos una segunda ventana del navegador, que será la que cambiará de posición:
+
+```html
+<body>
+   <h1>Ventana nerviosa</h1>
+   <button id='btn_saltar' onclick='btn_saltar()'>Saltar</button>
+   <button id='btn_temblar' onclick='btn_temblar()'>Temblar</button>
+   <button id='btn_ocultar' onclick='btn_ocultar()'>Ocultar</button>
+   <button id='btn_mostrar' onclick='btn_mostrar()'>Mostrar</button>
+   <script>
+      myWindow = window.open('', '', 'width=300, height=200'); 
+      function btn_saltar() {
+          // Escribe aquí tu código javascript para cuando se pulse el botón "Saltar"
+      }
+      function btn_temblar() {
+          // Escribe aquí tu código javascript para cuando se pulse el botón "Temblar"
+      }
+      function btn_ocultar() {
+          // Escribe aquí tu código javascript para cuando se pulse el botón "Ocultar"
+      }
+      function btn_mostrar() {
+          // Escribe aquí tu código javascript para cuando se pulse el botón "Mostrar"
+      }
+   </script>
+</body>
+```
+
+Lo siguiente es programar el código de cada una de las cuatro funciones Javascript, que se ejecutarán al pulsar cada botón.
+
+No te voy a decir lo que tienes que escribir en ellas, pero sí te voy a dar un par de pistas:
+
+* **Pista nº 1**. Hay un objeto en Javascript llamado ***window***, que nos permite alterar las propiedades de la ventana del navegador. Por ejemplo, nos permite cambiar su posición y su tamaño. En el apartado 5.2.11, sobre *Objetos predefinidos de Javascript*, hablamos de qué modo se puede cambiar eso.
+
+   Observa que, en el fragmento de código anterior, hemos creado un objeto *window* llamado ***myWindow***. Es sobre ese objeto sobre el que tienes que actuar.
+
+* **Pista nº 2**. En el ejercicio anterior cambiábamos las propiedades *top* y *left* de un botón, pero los botones (y cualquier cosa que haya en una página web) tienen muchas otras propiedades (¡pero MUCHAS!). Una de ellas se llama ***visibility***, y puede tomar dos valores: *visible* o *hidden*.
+
+**EJERCICIO JAVASCRIPT 3. Colorines**
+
+Vamos a juguetear más con las propiedades de la página web cargada desde Javascript.
+
+En esta ocasión, construiremos una página con un cuadro de texto, un botón y un recuadro de color negro.
+
+Si escribimos en la caja de texto otro color (por ejemplo, "orange") y hacemos click en el botón, **el recuadro negro tiene que cambiar de color** y volverse naranja.
+
+El código HTML que puedes usar como base es este:
+
+```html
+<html>
+<head>
+   <title>Colorines</title>
+</head>
+<body>
+   <h1>Colorines</h1>
+   <div id='caja_color' style='position: absolute; top: 5%; left: 70%; width: 25%; height: 20%; background-color: black'></div>
+   <input type='text' id='color' value='yellow'>
+   <button id='boton' onclick='cambiar_color()'>Cambiar color</button>
+   <script>
+      function cambiar_color() {
+         // Escribe aquí el código Javascript
+      }
+   </script>
+</body>
+</html>
+```
+
+Observa que, además de preparar los tres elementos que necesitamos (el recuadro de color negro, la caja de texto y el botón), hemos añadido más elementos HTML como *head* o *title*. Esos elementos son necesarios para que la página web se considere bien formada. Si no sabes lo que significan (aunque es bastante evidente), puedes repasarlos en el capítulo dedicado a HTML.
+
+(El navegador se tragará la página web aunque no esté bien formada, pero lo correcto es hacerla bien dentro de lo posible).
+
+Ahora solo te falta escribir el código de la función Javascript para cambiar el color del recuadro.
+
+**EJERCICIO JAVASCRIPT 4. Pelota de goma**
+
+Busca en internet una imagen de una pelota que te guste y descárgala. En esa imagen no debe aparecer nada más, excepto la pelota. 
+
+Luego insértala en una página web, así:
+
+```html
+<body>
+   <img  id='pelota' src='nombre-del-archivo-de-la-imagen' style='position: absolute; width: 100px; height: 100px'>
+</body>  
+```
+
+En *'nombre-del-archivo-de-la-imagen'*, como es lógico, tendrás que escribir el nombre del archivo que contiene tu pelota. Le hemos asignado 100 píxeles de ancho y 100 de alto, pero si es demasiado pequeña o demasiado grande, siéntete libre de cambiar esas cantidades.
+
+**Ahora escribe en Javascript un programa para que la pelota rebote por la pantalla como si fuera una pelota de verdad.**
+
+Para conseguirlo, tendrás que:
+
+* Alterar de nuevo las propiedades *top* y *left* de la pelota
+* Usar las propiedades el objeto ***window*** para evitar que la pelota se salga de los márgenes de la pantalla.
+* Utilizar un **temporizador** para mover la pelota cada x milisegundos. Según el valor de x, la pelota se moverá más deprisa o más despacio.
+
+**Mejora para los más valientes**: trata de añadir un botón a este programa. Al pulsarlo, la pelota se detendrá. Al volver a pulsarlo, la pelota se pondrá en marcha de nuevo.
+
+**EJERCICIO JAVASCRIPT 5. Tenis**
+
+*(ADVERTENCIA: este ejercicio es de dificultad elevada)*
+
+Ya sabes hacer que una pelota rebote (ejercicio 5). **Vamos a mejorar ese programa haciendo una versión del clásico juego de tenis *"Pong"***, el primer videojuego comercial de la historia.
+
+Si no conoces el *Pong*, bichea un poco por Internet para averiguar cómo es.
+
+¡Y ahora trata de programar una versión actualizada en Javascript!
+
+**EJERCICIO JAVASCRIPT 6. Carretera al infierno**
+
+*(Advertencia: este ejercicio es de dificultad elevada)*
+
+En esta ocasión, vamos a programar **un juego que llamaremos "Carretera al infierno"**.
+
+En el juego, manejaremos un coche (busca en internet la imagen de un coche visto desde arriba). El coche aparecerá en la parte inferior de la pantalla, centrado y mirando hacia arriba.
+
+Una carretera irá desplazándose de arriba a abajo. La carretera no será recta, sino que tendrá irregularidades aleatorias hacia la izquierda y hacia la derecha. Nuestro objetivo es mover el coche hacia la izquierda y hacia la derecha para evitar que se salga de la carretera.
+
+La carreterá se moverá cada vez más deprisa. **El objetivo del juego es aguantar la mayor cantidad posible de tiempo sin salirnos.**

@@ -1,1 +1,0 @@
-int comprobar(struct s_casillas tablero[9][9], struct s_estado* estado, int io, int jo, int id, int jd);

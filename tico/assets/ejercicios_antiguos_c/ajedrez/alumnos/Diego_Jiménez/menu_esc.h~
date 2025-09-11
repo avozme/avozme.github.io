@@ -1,4 +1,0 @@
-#include "tablero_en_curso2.h"
-#include "tirada.h"
-
-int menu_esc(struct s_casilla tablero[9][9])

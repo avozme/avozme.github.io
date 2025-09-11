@@ -315,63 +315,33 @@ Escribe un programa para jugar a los dados con el ordenador. Las reglas del jueg
 
 **Ejercicio 34. Juego de las Tres en Raya**
 
-<div style='background: #eee'><p>Vamos a hacer una versión del popular juego de las Tres en Raya para jugar contra el ordenador. No será un juego con inteligencia artificial como el de la WOPR (si no sabes qué es la WOPR, bueno, ¿para qué sirve wikipedia?), pero te permitirá pasar un buen rato programando, que es de lo que se trata.</p>
+Vamos a hacer una versión del popular juego de las Tres en Raya para jugar contra el ordenador. No será un juego con inteligencia artificial pero te permitirá pasar un buen rato programando, que es de lo que se trata.</p>
 
-<p>El juego se desarrolla en un tablero de 3 x 3 casillas en el que los jugadores van disponiendo sus fichas tratando de formar una línea vertical, horizontal o diagonal.</p>
+El juego se desarrolla en un tablero de 3 x 3 casillas en el que los jugadores van disponiendo sus fichas tratando de formar una línea vertical, horizontal o diagonal.
 
-<p>Las fichas del jugador humano tendrán forma de aspa (X) y, las del ordenador, forma de círculo (O)</p>
+Las fichas del jugador humano tendrán forma de aspa (X) y, las del ordenador, forma de círculo (O)
 
 Al principio, el tablero está en blanco. Comenzará jugando el jugador humano, que colocará una ficha en el tablero. Después, será el turno del ordenador.
 
-El proceso se repite hasta que uno de los dos consigue colocar tres fichas formando una línea, o hasta que ya no es posible colocar más fichas (situación de “tablas”)</div>
+El proceso se repite hasta que uno de los dos consigue colocar tres fichas formando una línea, o hasta que ya no es posible colocar más fichas (situación de “tablas”)
 
 *Aviso: este juego es más difícil de programar que los anteriores.*
 
-**Ejercicio 35**. Dibujar con asteriscos. Se trata de escribir un programa que sea capaz de dibujar en la pantalla, *mediante bucles*, estos bonitos diseños. Añade alguno de tu propia cosecha, por favor. (Por si queda alguna duda: el último se supone que es un árbol de navidad)
+**Ejercicio 35. Cajero automático**
 
-```
-   *
-  ***
- *****
-*******
+En este ejercicio, vamos a simular el funcionamiento de un **cajero automático** cuando sacas dinero de él.
 
+Cuando el programa comience, le asignaremos al cajero una cantidad limitada de billetes de 10, 20 y 50 euros (por ejemplo, puedes hacer que tenga 50 billetes de cada tipo).
 
-   *
-  ***
- *****
-*******
- *****
-  ***
-   *
+Después, el programa nos preguntará cuánto dinero queremos sacar, y nos lo "entregará" (figuradamente) como una colección de billetes. Por ejemplo, si le pedimos 90 euros, nos lo puede entregar como 1 billete de 50 y 2 billetes de 20, o como 1 billete de 50 y 4 billetes de 10.
 
+¡El programa debería elegir la mejor manera de entregarnos los billetes para no quedarse sin dinero demasiado pronto!
 
-   *
-  * *
- *   *
-*     *
- *   *
-  * *
-   *
+Después de "entregarnos" el dinero, el programa nos informará de cuántos billetes le quedan aún de 50, de 20 y de 10 (esto no lo hacen los cajeros reales, pero nos servirá para comprobar si el programa está funcionando correctamente)
 
+Llegará un momento en el que el cajero no pueda entregarnos la cantidad solicitada porque no le queden billetes suficientes. En ese caso, debe pedirnos disculpas y solicitarnos otra cantidad.
 
-      *
-     ***
-      *
-     ***
-    *****
-   *******
-      *
-     ***
-    *****
-   *******
-  *********
- ***********
-*************
-     ***
-     ***
-     ***
-     ***
-```
+El programa terminará cuando el usuario así lo decida o cuando el cajero se quede sin billetes de ningún tipo.
 
 **Ejercicio 36. Máquina tragaperras**
 
