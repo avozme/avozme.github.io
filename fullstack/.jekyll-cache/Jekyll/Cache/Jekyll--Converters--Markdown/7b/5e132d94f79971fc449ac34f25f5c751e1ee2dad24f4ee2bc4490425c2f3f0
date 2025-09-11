@@ -1,0 +1,149 @@
+I"�-<h2 class="no_toc" id="11-algunas-cosas-que-debes-saber-sobre-los-cms">1.1. Algunas cosas que debes saber sobre los CMS</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#111-inconvenientes-de-desarrollar-una-web-desde-cero" id="markdown-toc-111-inconvenientes-de-desarrollar-una-web-desde-cero">1.1.1. Inconvenientes de desarrollar una web desde cero</a></li>
+  <li><a href="#112-cómo-funciona-un-cms" id="markdown-toc-112-cómo-funciona-un-cms">1.1.2. Cómo funciona un CMS</a></li>
+  <li><a href="#113-tipos-de-cms" id="markdown-toc-113-tipos-de-cms">1.1.3. Tipos de CMS</a></li>
+  <li><a href="#114-algunos-ejemplos-de-cms-importantes" id="markdown-toc-114-algunos-ejemplos-de-cms-importantes">1.1.4. Algunos ejemplos de CMS importantes</a></li>
+  <li><a href="#115-instalación-de-un-cms" id="markdown-toc-115-instalación-de-un-cms">1.1.5. Instalación de un CMS</a></li>
+  <li><a href="#116-explotación-de-un-cms" id="markdown-toc-116-explotación-de-un-cms">1.1.6. Explotación de un CMS</a></li>
+</ul>
+
+<h3 id="111-inconvenientes-de-desarrollar-una-web-desde-cero">1.1.1. Inconvenientes de desarrollar una web desde cero</h3>
+
+<p>Desarrollar sitios web programándolos desde cero (o más o menos desde cero, porque la mayor parte de las veces se parte de librerías existentes) tiene varias <strong>ventajas</strong> como:</p>
+
+<ul>
+  <li>Nos permite sacar el máximo partido tanto del servidor como de los clientes.</li>
+  <li>Nos da un control absoluto sobre el sitio web que estamos desarrollando.</li>
+  <li>Nos posibilita ajustarnos al máximo a los requerimientos y crear aplicaciones a medida.</li>
+</ul>
+
+<p>Pero también tiene <strong>inconvenientes</strong>:</p>
+
+<ul>
+  <li>La creación de un sitio desde cero es un proceso muy largo.</li>
+  <li>Las ampliaciones y actualizaciones del sitio también resultan lentas y costosas.</li>
+  <li>Ambas tareas (creación y actualización) requieren personal altamente cualificado, con conocimientos de todas las tecnologías implicadas. Es decir, desarrolladores web. Y eso cuesta dinero.</li>
+</ul>
+
+<p>Cuando los inconvenientes superan a las ventajas, el equipo de desarrollo puede optará por <strong>no desarrollar desde cero</strong>. Esto ocurre en la inmensa mayoría de los proyectos. No es necesario inventar la rueda cada vez que tengamos que construir un coche, ¿verdad? Pues para construir una aplicación web pasa lo mismo.</p>
+
+<p>Ahora bien, ¿de qué base partimos? Podemos construir una biblioteca de clases que resuelvan las tareas más habituales de cualquier aplicación web, cosas como la autenticación de usuarios, la seguridad, el acceso a bases de datos, etc. Cosas que se repiten una y otra vez con muy pocas variaciones.</p>
+
+<p>Esa biblioteca de clases puede ser más grande o más pequeña, más elaborada o más simple, más configurable o más rígida. Pero, sea como sea, nos ahorrará tiempo y esfuerzo en el desarrollo de nuevos proyectos. A esas bibliotecas se las denomina <strong><em>frameworks</em></strong> y es rara la aplicación web que no se programa usando alguna de las muchas que hay por ahí pululando, bien se usa un framework propio creado por el propio equipo de desarrollo.</p>
+
+<p>Pero se puede ir un paso más allá y utilizar una biblioteca más grande, una que ya te lo dé casi todo hecho y a la que solo tengas que indicarle qué tipografía, qué colores y qué contenidos quieres mostrar en tu web, y ella solita se las apañe para generarte la web de forma casi automática.</p>
+
+<p>Esta solución casi mágica son los <strong>sistemas gestores de contenido (CMS)</strong> de los que estamos hablando. Sin programar una sola línea de código, puedes tener lista en unos minutos una web plenamente funcional y de aspecto profesional.</p>
+
+<p>Por suerte para nosotros, los desarrolladores/as web, la CMS no pueden hacerlo todo. Son soluciones extraordinariamente eficaces para montar sitios web convencionales, pero cuando quieres crear algo que se salga de los límites muy marcados del CMS, necesitas a un programador/a. Y entonces, ¿a quién vas a llamar?</p>
+
+<h3 id="112-cómo-funciona-un-cms">1.1.2. Cómo funciona un CMS</h3>
+
+<p><strong>Un CMS (Content Management System)</strong> es una aplicación web que se ejecuta en un servidor y se controla desde un navegador (cliente), y que nos permite:</p>
+
+<ul>
+  <li>Crear a través del navegador un sitio web completamente nuevo en muy poco tiempo.</li>
+  <li>Administrar fácilmente todo lo relacionado con el sitio web: usuarios, privilegios, contenido, apariencia, menús, etc.</li>
+  <li>Y todo ello sin tener conocimientos de HTML, CSS, PHP ni el resto de tecnologías (ojo: no es necesario, pero sí conveniente)</li>
+</ul>
+
+<p>El CMS guarda el <strong>contenido</strong> del sitio web en una <strong>base de datos</strong>.</p>
+
+<p>Cuando se solicita una página, un programa escrito en PHP (o en otro lenguaje de servidor) busca el contenido de esa página en la BD y la genera dinámicamente, entregándola al navegador web (cliente).</p>
+
+<p>Además, otro conjunto de programas permiten agregar nuevo contenido, modificar el contenido existente, crear usuarios, gestionar privilegios, etc. Todo ello altera los datos existentes en la BD, que a su vez alteran la forma en la que el usuario percibe la página cuando la visita.</p>
+
+<p>Al sitio web en sí se le denomina a veces <strong><em>front-end</em></strong>. El front-end, en este sentido, es lo que ve el visitante de la web.</p>
+
+<p>A las páginas de adminsitración del sitio se les llama a veces <strong><em>back-end</em></strong> o <strong><em>dashboard</em></strong> (panel de administración). El back-end sólo es accesible a algunos usuarios (administradores, editores, etc). El CMS siempre necesita, por ello, un control de acceso de usuarios o login.</p>
+
+<p>¡Cuidado! Los términos front-end y back-end son confusos. En términos de programación, a menudo se denomina <strong><em>front-end</em></strong> a la parte de la aplicación que se ejecuta en el navegador web y <strong><em>back-end</em></strong> a la parte de la aplicación que se ejecuta en el servidor e interactúa con los recursos del mismo (como la base de datos). En este otro sentido, el front-end está escrito en HTML, CSS, JavaScript (y cualquiera de las múltiples librerías que existen para Javascript, como jQuery, React o Vue.js) y el back-end está escrito en PHP, Java, Python u otros lenguajes del lado del servidor.</p>
+
+<p>Si encuentras por ahí una oferta de trabajo para un “desarrollador/a back-end” o “desarrollador/a front-end”, se refiere a esta última acepción de ambos términos. Es decir, están pidiendo un “desarrollador/a HTML + CSS + Javascript (y librerías de Javascrit)” o un “desarrollador/a en PHP o similar”.</p>
+
+<h3 id="113-tipos-de-cms">1.1.3. Tipos de CMS</h3>
+
+<p>Hay un montón (¡pero un montón!) de CMS, y cada uno tiene sus propias características, puntos fuertes y puntos débiles.</p>
+
+<p>Como hay tantos, resulta útil clasificarlos.</p>
+
+<p>Algunos autores los clasifican según su <strong>método de distribución</strong>:</p>
+
+<ul>
+  <li>Código abierto y software libre.</li>
+  <li>Código propietario.</li>
+</ul>
+
+<p>Pero, personalmente, creo que tiene más sentido clasificarlos por su <strong>funcionalidad</strong>. Así, nos encontramos con CMS de estos tipos (entre otros):</p>
+
+<ul>
+  <li>CMS genéricos (para cualquier tipo de sitio web)</li>
+  <li>CMS para blogs.</li>
+  <li>CMS para foros.</li>
+  <li>CMS para wikis.</li>
+  <li>CMS para e-learning (aprendizaje en línea)</li>
+  <li>CMS para e-commerce (comercio electrónico)</li>
+  <li>CMS para publicaciones digitales (periódicos, revistas…)</li>
+</ul>
+
+<p>Algo tremendamente odioso de los CMS es que <strong>son fuertemente incompatibles</strong> entre sí. Cada uno utiliza un interfaz distinto, bases de datos completamente diferentes para almacenar la información, módulos incompatibles, etc. Existen algunas iniciativas para lograr que los servicios desarrollados en un CMS puedan utilizarse en otros, pero todavía están en un estadio muy inicial.</p>
+
+<p>Lo que sí existen son familias de CMS relacionados entre sí que pueden compartir algunas características, generalmente porque unos CMS han derivado de otros.</p>
+
+<h3 id="114-algunos-ejemplos-de-cms-importantes">1.1.4. Algunos ejemplos de CMS importantes</h3>
+
+<p>Los CMS propietarios no han podido competir con los CMS libres. Por ello, han evolucionado hacia soluciones cloud computing completas, como Microsoft Azure, Google Cloud o Amazon Web Services (AWS).</p>
+
+<p>Entre los verdaderos CMS abundan las soluciones opensource o software libre. Por ejemplo:</p>
+
+<ul>
+  <li><strong>Blogs</strong>: WordPress, Jekyll, GetSimple, Umbraco…</li>
+  <li><strong>Wikis</strong>: MediaWiki, XWiki, DokuWiki…</li>
+  <li><strong>Foros</strong>: phpBB, MyBB, bbPress, Discourse…</li>
+  <li><strong>e-learning</strong>: Moodle, WebCT, Mahara, etc.</li>
+  <li><strong>e-commerce</strong>: PrestaShop, Magento, OsCommerce, OpenCart…</li>
+</ul>
+
+<p>Muchos de estos CMS desaparecerán, se fundirán con otros o se dividirán en varios proyectos desde que yo escriba estas líneas hasta que tú las leas. Lo mejor es que eches un vistazo a alguna lista actualizada de CMS, como <a href="https://en.wikipedia.org/wiki/List_of_content_management_systems">esta de Wikipedia</a>.</p>
+
+<h3 id="115-instalación-de-un-cms">1.1.5. Instalación de un CMS</h3>
+
+<p>IMPORTANTE: la instalación puede diferir de un CMS a otro, pero, más o menos, todos necesitan los mismos pasos.</p>
+
+<p>Hay que leer cuidadosamente las instrucciones de instalación, que encontrarás en la web del desarrollador.</p>
+
+<p>Los pasos que suelen ser habituales en casi todos los CMS son:</p>
+
+<ol>
+  <li>Descargar la última versión del programa de la web del desarrollador.</li>
+  <li>Asegurarse de que el servidor cumple los prerrequisitos para ejectuar el CMS (versión de Apache, PHP, MySQL u otro software necesario)</li>
+  <li>Subir el CMS por al servidor (por ftp, vía web o como tu proveedor de hosting te lo permita).</li>
+  <li>Crear la base de datos.</li>
+  <li>Lanzar la instalación del CMS. Esto suele hacerse cargando una dirección concreta en tu navegador.</li>
+  <li>Adapar el archivo de configuración (suele llamarse config.php, config.inc, o algo similar). En los CMS más elaborados este paso no es necesario, pues el programa de instalación se encarga de generar un archivo de configuración válido.</li>
+  <li>A veces, hay que modificar los permisos de algún directorio y/o archivo.</li>
+  <li>Instalar el paquete de idioma español (si está disponible)</li>
+</ol>
+
+<h3 id="116-explotación-de-un-cms">1.1.6. Explotación de un CMS</h3>
+
+<p>IMPORTANTE: la explotación puede diferir notablemente de un CMS a otro, pero, en general, todo tienen una serie de elementos en común.</p>
+
+<p>Hay que leer cuidadosamente las instrucciones de uso, que encontrarás en la web del desarrollador.</p>
+
+<p>Pasos que suelen ser habituales en casi todos los CMS, una vez realizada la instalación:</p>
+
+<ol>
+  <li>Asignar una password de alta seguridad al usuario administrador que se crea por defecto.</li>
+  <li>Crear otros usuarios y asignarles privilegios.</li>
+  <li>Editar la página de inicio del sitio web.</li>
+  <li>Cambiar la plantilla (apariencia) del sitio.</li>
+  <li>Instalar módulos de ampliación (si es necesario).</li>
+  <li>Crear el contenido y/o revisar el contenido creado por otros usuarios.</li>
+</ol>
+
+<p>En las siguientes secciones nos centraremos en la instalación y explotación de algunos de los CMS más populares del mercado.</p>
+
+:ET

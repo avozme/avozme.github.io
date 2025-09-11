@@ -1,0 +1,1325 @@
+I"��<h1 class="no_toc" id="apéndice-3-vuejs">Apéndice 3. Vue.js</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#a31-qué-es-vuejs" id="markdown-toc-a31-qué-es-vuejs">A3.1. ¿Qué es Vue.js?</a></li>
+  <li><a href="#a32-algunos-ejemplos-sencillos" id="markdown-toc-a32-algunos-ejemplos-sencillos">A3.2. Algunos ejemplos sencillos</a>    <ul>
+      <li><a href="#ejemplo-1-hola-mundo" id="markdown-toc-ejemplo-1-hola-mundo">Ejemplo 1: hola, mundo</a></li>
+      <li><a href="#ejemplo-2-pregunta-y-respuesta" id="markdown-toc-ejemplo-2-pregunta-y-respuesta">Ejemplo 2: pregunta y respuesta</a></li>
+      <li><a href="#ejemplo-3-condicional-simple" id="markdown-toc-ejemplo-3-condicional-simple">Ejemplo 3: condicional simple</a></li>
+      <li><a href="#ejemplo-4-bucle-for" id="markdown-toc-ejemplo-4-bucle-for">Ejemplo 4: bucle for</a></li>
+      <li><a href="#ejemplo-5-formularios" id="markdown-toc-ejemplo-5-formularios">Ejemplo 5: formularios</a></li>
+      <li><a href="#ejemplo-6-evento-click" id="markdown-toc-ejemplo-6-evento-click">Ejemplo 6: evento click</a></li>
+      <li><a href="#ejemplo-7-evento-key" id="markdown-toc-ejemplo-7-evento-key">Ejemplo 7: evento key</a></li>
+      <li><a href="#ejemplo-8-componente-hola-mundo" id="markdown-toc-ejemplo-8-componente-hola-mundo">Ejemplo 8: componente “Hola mundo”</a></li>
+      <li><a href="#ejemplo-9-componente-lista-de-tareas" id="markdown-toc-ejemplo-9-componente-lista-de-tareas">Ejemplo 9: componente “Lista de tareas”</a></li>
+    </ul>
+  </li>
+  <li><a href="#a33-estructurando-una-aplicación-hecha-con-vue-los-componentes" id="markdown-toc-a33-estructurando-una-aplicación-hecha-con-vue-los-componentes">A3.3. Estructurando una aplicación hecha con Vue: los componentes</a>    <ul>
+      <li><a href="#a331-qué-componentes-debería-tener-mi-aplicación" id="markdown-toc-a331-qué-componentes-debería-tener-mi-aplicación">A3.3.1. ¿Qué componentes debería tener mi aplicación?</a></li>
+      <li><a href="#a332-estructura-típica-de-una-aplicación-vue" id="markdown-toc-a332-estructura-típica-de-una-aplicación-vue">A3.3.2. Estructura típica de una aplicación Vue</a></li>
+      <li><a href="#a333-componente-principal-el-archivo-appvue" id="markdown-toc-a333-componente-principal-el-archivo-appvue">A3.3.3. Componente principal: el archivo App.vue</a></li>
+      <li><a href="#a334-componentes-de-vue" id="markdown-toc-a334-componentes-de-vue">A3.3.4. Componentes de Vue</a></li>
+      <li><a href="#a335-manejo-de-eventos-con-vue" id="markdown-toc-a335-manejo-de-eventos-con-vue">A3.3.5. Manejo de eventos con Vue</a></li>
+    </ul>
+  </li>
+  <li><a href="#a34-y-si-quiero-que-el-componente-vue-tome-sus-datos-del-servidor" id="markdown-toc-a34-y-si-quiero-que-el-componente-vue-tome-sus-datos-del-servidor">A3.4. ¿Y si quiero que el componente Vue tome sus datos del servidor?</a>    <ul>
+      <li><a href="#a341-un-ejemplo-sencillo" id="markdown-toc-a341-un-ejemplo-sencillo">A3.4.1. Un ejemplo sencillo</a></li>
+      <li><a href="#a342-un-ejemplo-completo-crud-con-vue-y-un-servidor-restful" id="markdown-toc-a342-un-ejemplo-completo-crud-con-vue-y-un-servidor-restful">A3.4.2. Un ejemplo completo: CRUD con Vue y un servidor RESTful</a></li>
+      <li><a href="#a343-otro-ejemplo-completo-un-componente-capaz-de-mostrar-cualquier-tabla" id="markdown-toc-a343-otro-ejemplo-completo-un-componente-capaz-de-mostrar-cualquier-tabla">A3.4.3. Otro ejemplo completo: un componente capaz de mostrar cualquier tabla</a></li>
+    </ul>
+  </li>
+  <li><a href="#a35-vuejs-con-laravel" id="markdown-toc-a35-vuejs-con-laravel">A3.5. Vue.js con Laravel</a>    <ul>
+      <li><a href="#a351-instalar-vue-en-laravel" id="markdown-toc-a351-instalar-vue-en-laravel">A3.5.1. Instalar Vue en Laravel</a></li>
+      <li><a href="#a352-crear-componentes-vue-con-laravel" id="markdown-toc-a352-crear-componentes-vue-con-laravel">A3.5.2. Crear componentes Vue con Laravel</a></li>
+      <li><a href="#a353-un-ejemplo-completo-crud-con-laravel-y-vue" id="markdown-toc-a353-un-ejemplo-completo-crud-con-laravel-y-vue">A3.5.3. Un ejemplo completo: CRUD con Laravel y Vue</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="a31-qué-es-vuejs">A3.1. ¿Qué es Vue.js?</h2>
+
+<p>Vue.js es un <strong>framework para Javascript</strong> orientado al <strong>diseño de interfaces de usuario</strong> para aplicaciones web y a la <strong>creación de aplicaciones OVA</strong> (One View Application) o SPA (Single Page Application).</p>
+
+<p>Es similar a otros frameworks como <strong>Angular</strong> o <strong>React</strong>, aunque más fácil de aprender (o, al menos, un poco más fácil). Al igual que estos dos, tiene licencia de software libre.</p>
+
+<p>Para usar Vue.js en un proyecto se puede optar, al menos, por tres vías diferentes:</p>
+
+<ol>
+  <li>
+    <p><strong>Incluirlo como una librería Javascript más</strong> (mejor desde un CDN). Por ejemplo:</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/vue@3/dist/vue.global.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Usarlo en combinación con un servidor Node</strong>. Hay que instalar Node.js y npm en el lado del servidor. Esto permite desarrollar toda la aplicación web con Javascript, de modo que el código sea, al menos en teoría, más fácil de desarrollar y mantener, además de más eficiente.</p>
+  </li>
+  <li>
+    <p><strong>Usarlo en combinación con Laravel</strong>. En este caso, como es lógico, hay que tener Laravel corriendo en el servidor. Laravel proporciona su propio servidor Node. De este modo, conseguimos combinar la facilidad para la construcción de interfaces de usuario que proporciona Vue con la potencia de PHP y Laravel.</p>
+  </li>
+</ol>
+
+<h2 id="a32-algunos-ejemplos-sencillos">A3.2. Algunos ejemplos sencillos</h2>
+
+<p>Antes de explicar cuál es la estructura típica de una aplicación echa con Vue, vamos a ver algunos ejemplos sencillos de entender. Así quedará luego mucho más claro cómo se escriben este tipo de aplicaciones.</p>
+
+<h3 id="ejemplo-1-hola-mundo">Ejemplo 1: hola, mundo</h3>
+
+<p>Por supuesto, tenemos que empezar por <em>Hola mundo</em>. Observa detenidamente este código:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Pruebas Vue.js<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        {{ message }}
+    <span class="nt">&lt;/div&gt;</span>
+    
+    <span class="c">&lt;!-- Scripts --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/vue@3.0.0/dist/vue.global.prod.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+        <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">Vue</span><span class="p">.</span><span class="nx">createApp</span><span class="p">({</span>
+            <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="na">message</span><span class="p">:</span> <span class="dl">'</span><span class="s1">¡Hola mundo!</span><span class="dl">'</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}).</span><span class="nx">mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">)</span>
+    <span class="nt">&lt;/script&gt;</span>
+
+<span class="nt">&lt;/body&gt;</span>
+
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Observa cómo la página consta únicamente de un &lt;div&gt; con el id “app”, y dentro solo aparece el contenido ``````. Se parece a Blade, pero no lo es: se trata de un dato de Vue.js.</p>
+
+<p>Más abajo, después de incluir Vue 3 a través de un CDN, creamos una instancia de un objeto Vue con el método estático <strong><em>createApp()</em></strong>, al que le definimos un método <strong><em>data()</em></strong> que contiene los datos de Vue.js.</p>
+
+<p>En este ejemplo, el único dato es <em>message</em>. Al establecer el valor de <em>message</em> como “Hola mundo”, automáticamente aparecerá el texto “Hola mundo” en el contenido <code class="language-plaintext highlighter-rouge">{{message}}</code> de nuestro &lt;div&gt;.</p>
+
+<p>Por último, mediante el método <strong><em>mount()</em></strong> enlazamos el objeto Vue con un elemento del árbol DOM de la página, en este caso el div <em>#app</em>.</p>
+
+<p>Por supuesto, un objeto Vue podría tener muchos más datos además de <em>message</em> (tantos como necesitemos), cuya procedencia puede ser una base de datos del servidor, por ejemplo.</p>
+
+<p>Con este sencillo ejemplo tal vez ya puedas vislumbrar la facilidad con la que pueden construirse vistas usando Vue para crear plantillas HTML y PHP para extraer datos del servidor. Pero, si aún no lo ves, no te preocupes que vamos a poner ejemplos un poco más complejos.</p>
+
+<h3 id="ejemplo-2-pregunta-y-respuesta">Ejemplo 2: pregunta y respuesta</h3>
+
+<p>En el siguiente ejemplo, puedes ver un &lt;div&gt; parecido al anterior pero que usa dos variables, llamadas <code class="language-plaintext highlighter-rouge">y </code>, cuyos valores se asignan desde Vue. Si cambiamos dinámicamente los valores de “pregunta” y “respuesta”, el código HTML también cambiará.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Pruebas Vue.js<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;</span>La pregunta es: {{ pregunta }}<span class="nt">&lt;/p&gt;</span> 
+        <span class="nt">&lt;p&gt;</span>La respuesta es: {{ respuesta }}<span class="nt">&lt;/p&gt;</span> 
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="c">&lt;!-- Scripts --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/vue@3.0.0/dist/vue.global.prod.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+        <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">Vue</span><span class="p">.</span><span class="nx">createApp</span><span class="p">({</span>
+            <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="na">pregunta</span><span class="p">:</span> <span class="dl">"</span><span class="s2">¿Cómo te llamas?</span><span class="dl">"</span><span class="p">,</span>
+                    <span class="na">respuesta</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Pepito Pérez</span><span class="dl">"</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}).</span><span class="nx">mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">)</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="ejemplo-3-condicional-simple">Ejemplo 3: condicional simple</h3>
+
+<p>Con Vue también puede hacerse una salida HTML condicional, que dependa de los valores de las variables de Vue.</p>
+
+<p>Aquí puedes ver un ejemplo sencillo. Si la variable <em>visible</em> vale <em>true</em>, se verá el texto “Ahora puedes verme”. En el momento en el que cambie el valor de <em>visible</em> a <em>false</em>, el texto despaparecerá. Ten en cuenta que esto sucede dinámicamente, es decir, con la página ya cargada.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Pruebas Vue.js<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p</span> <span class="na">v-if=</span><span class="s">"visible"</span><span class="nt">&gt;</span>Ahora puedes verme<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="c">&lt;!-- Scripts --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/vue@3.0.0/dist/vue.global.prod.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+        <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">Vue</span><span class="p">.</span><span class="nx">createApp</span><span class="p">({</span>
+            <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="na">visible</span><span class="p">:</span> <span class="kc">true</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}).</span><span class="nx">mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">)</span>
+    <span class="nt">&lt;/script&gt;</span>
+
+<span class="nt">&lt;/body&gt;</span>
+
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="ejemplo-4-bucle-for">Ejemplo 4: bucle for</h3>
+
+<p>Igual que puede hacerse una salida HTML condicional, también puede generarse una salida HTML a partir de un array recorrido con un bucle de tipo for.</p>
+
+<p>Observa el siguiente ejemplo, donde un array con nombres de animales genera la salida HTML a partir de su contenido:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Pruebas Vue.js<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p</span> <span class="na">v-for=</span><span class="s">"animal in arrayAnimales"</span><span class="nt">&gt;</span> {{ animal }} <span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="c">&lt;!-- Scripts --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/vue@3.0.0/dist/vue.global.prod.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+        <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">Vue</span><span class="p">.</span><span class="nx">createApp</span><span class="p">({</span>
+            <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="na">arrayAnimales</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">Perro</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Gato</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Oveja</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Caballo</span><span class="dl">'</span><span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}).</span><span class="nx">mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">)</span>
+    <span class="nt">&lt;/script&gt;</span>
+    
+<span class="nt">&lt;/body&gt;</span>
+
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="ejemplo-5-formularios">Ejemplo 5: formularios</h3>
+
+<p>Con Vue.js se pueden asociar campos de formulario a variables de Vue, de modo que si cambia una, cambiará también la otra dinámicamente.</p>
+
+<p>En el siguiente ejemplo hemos asociado un campo de un formulario (“nombre”) con un atributo del objeto Vue llamado también “nombre”.</p>
+
+<p>Observa que, para hacer ese enlace efectivo, hay que definir una propiedad HTML llamada <em>v-model</em> con el mismo identificador que el dato de Vue.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Pruebas Vue.js<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Nombre: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">v-model=</span><span class="s">"nombre"</span><span class="nt">&gt;&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Tu nombre es: {{ nombre }}<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="c">&lt;!-- Scripts --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/vue@3.0.0/dist/vue.global.prod.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+        <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">Vue</span><span class="p">.</span><span class="nx">createApp</span><span class="p">({</span>
+            <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="na">nombre</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Pepito</span><span class="dl">'</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}).</span><span class="nx">mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>A partir de este momento, si cambiamos dinámicamente el valor de <em>data.nombre</em>, el campo del formulario también cambiará, así como el texto “Tu nombre es: …”. Y, al contrario, si escribimos algo en el campo del formulario, cambiará el valor de la variable <em>data.nombre</em> y, en consecuencia, el texto “Tu nombre es: …”</p>
+
+<h3 id="ejemplo-6-evento-click">Ejemplo 6: evento click</h3>
+
+<p>Otra cosa que puede hacerse con Vue, como es lógico, es capturar los eventos y asociarlos a métodos.</p>
+
+<p>Vue tiene abreviaturas para todos los eventos HTML, de modo que resulta fácil asocialos a método de nuestro objeto Vue.</p>
+
+<p>Observa cómo en el siguiente ejemplo se asocia el evento “click” de un botón al método <em>saludar()</em> del objeto Vue:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Pruebas Vue.js<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Nombre: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">v-model=</span><span class="s">"nombre"</span><span class="nt">&gt;&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"saludar"</span><span class="nt">&gt;</span>Púlsame<span class="nt">&lt;/button&gt;&lt;/p&gt;</span>
+        <span class="c">&lt;!-- Sintaxis alternativa para el evento:
+            &lt;button v-on:click="saludar"&gt;Púlsame&lt;/button&gt;
+        --&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="c">&lt;!-- Scripts --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/vue@3.0.0/dist/vue.global.prod.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+        <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">Vue</span><span class="p">.</span><span class="nx">createApp</span><span class="p">({</span>
+            <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="na">nombre</span><span class="p">:</span> <span class="dl">''</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nx">saludar</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hola, </span><span class="dl">'</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">nombre</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}).</span><span class="nx">mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">)</span>
+    <span class="nt">&lt;/script&gt;</span>    
+<span class="nt">&lt;/body&gt;</span>
+
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="ejemplo-7-evento-key">Ejemplo 7: evento key</h3>
+
+<p>Otro evento habitual que conviene capturar es el de pulsación de una tecla concreta sobre un elemento HTML.</p>
+
+<p>En el siguiente ejemplo, capturaremos la pulsación de la tecla <em>Enter</em> en el campo “nombre” del formulario. Al hacerlo, se ejecutará el método <em>saludar()</em>.</p>
+
+<p>Fíjate en que el evento “pulsar la tecla <em>Enter</em>” se abrevia, en Vue, <em>@keyup.enter</em>, y mira lo fácil que resulta asociarlo a un método el objeto Vue:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Pruebas Vue.js<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Nombre: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="err">@</span><span class="na">keyup.enter=</span><span class="s">"saludar"</span> <span class="na">v-model=</span><span class="s">"nombre"</span><span class="nt">&gt;&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"saludar"</span><span class="nt">&gt;</span>Púlsame<span class="nt">&lt;/button&gt;&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="c">&lt;!-- Scripts --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/vue@3.0.0/dist/vue.global.prod.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+        <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">Vue</span><span class="p">.</span><span class="nx">createApp</span><span class="p">({</span>
+            <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="na">nombre</span><span class="p">:</span> <span class="dl">''</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nx">saludar</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hola, </span><span class="dl">'</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">nombre</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}).</span><span class="nx">mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">)</span>
+    <span class="nt">&lt;/script&gt;</span>    
+<span class="nt">&lt;/body&gt;</span>
+
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="ejemplo-8-componente-hola-mundo">Ejemplo 8: componente “Hola mundo”</h3>
+
+<p>Algo fundamental en los frameworks como Vue son los <strong>componentes</strong>.</p>
+
+<p>Un <strong>componente</strong> es un trozo de código HTML asociado a un objeto Vue y, por tanto, con sus propios datos y métodos que pueden actuar sobre el HTML.</p>
+
+<p>Los componentes pueden reutilizarse cuantas veces sea necesario. Son como las piezas que componente una web.</p>
+
+<p>Más adelante hablaremos más despacio de los componentes. Por ahora, te presento el ejemplo más sencillo posible. Se trata de un &lt;div&gt; con el típico texto “Hola mundo” en su interior. Observa cómo se registra el componente usando la expresión <strong>Vue.createApp().component</strong>. Durante ese registro se le asocia un nombre (‘hola-mundo’) y un código HTML (declarado previamente como <code class="language-plaintext highlighter-rouge">const holaMundo</code>).</p>
+
+<p>Ese componente puede usarse todas las veces que haga falta. En este ejemplo lo usamos tres veces, por lo que el texto “Hola mundo” aparecerá tres veces en la ventana del navegador.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Pruebas Vue.js<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;hola-mundo&gt;&lt;/hola-mundo&gt;</span>
+        <span class="nt">&lt;hola-mundo&gt;&lt;/hola-mundo&gt;</span>
+        <span class="nt">&lt;hola-mundo&gt;&lt;/hola-mundo&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="c">&lt;!-- Scripts --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/vue@3.0.0"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+        <span class="kd">const</span> <span class="nx">holaMundo</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="na">template</span><span class="p">:</span> <span class="s2">`&lt;div&gt;¡Hola, mundo!&lt;/div&gt;`</span>
+        <span class="p">}</span>
+        <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">Vue</span><span class="p">.</span><span class="nx">createApp</span><span class="p">({}).</span><span class="nx">component</span><span class="p">(</span><span class="dl">'</span><span class="s1">hola-mundo</span><span class="dl">'</span><span class="p">,</span> <span class="nx">holaMundo</span><span class="p">).</span><span class="nx">mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nt">&lt;/script&gt;</span>
+
+<span class="nt">&lt;/body&gt;</span>
+
+<span class="nt">&lt;/html&gt;</span>
+
+</code></pre></div></div>
+
+<h3 id="ejemplo-9-componente-lista-de-tareas">Ejemplo 9: componente “Lista de tareas”</h3>
+
+<p>Vamos a crear un componente un poco más complejo, que contenga datos y métodos.</p>
+
+<p>Se trata de un componente llamado “mis-tareas”, que servirá para añadir una lista de tareas a una persona.</p>
+
+<p>El componente dispondrá de un dato, llamado <em>tareas</em>, que será un array de strings. También tendrá un método, que llamaremos <em>crearTarea()</em>, cuyo cometido será agregar al array de tareas una tarea nueva.</p>
+
+<p>Esa tarea nueva la tomaremos de un <em>input</em> de texto de un formulario, cuyo evento <em>keyup.enter</em> asociaremos al método <em>crearTarea()</em>. También añadiremos un botón “Añadir tarea” con su evento <em>click</em> asociado al mismo método.</p>
+
+<p>En este código puedes ver cómo se haría todo esto con Vue:</p>
+
+<ul>
+  <li>Primero se declara el <strong>template HTML</strong> con y se asocia a una constante (<code class="language-plaintext highlighter-rouge">const misTareas</code>).</li>
+  <li>Después se declaran los <strong>datos</strong> del objeto Vue: <em>tareas</em>, que es un array vacío al principio, y <em>nuevaTarea</em>, que quedará enlazada con el campo de texto del formulario.</li>
+  <li>Por último se declara el <strong>método</strong> <em>crearTarea()</em>, que añade el contenido de <em>nuevaTarea</em> al array <em>tareas</em>.</li>
+</ul>
+
+<p>Observa cómo, al final del código, se registra el componente “mis-tareas” de forma muy parecida a la que usamos con “hola-mundo”.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Pruebas Vue.js<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>Tareas del equipo de trabajo<span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>Pepito Pérez<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;mis-tareas&gt;&lt;/mis-tareas&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>Susana Sánchez<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;mis-tareas&gt;&lt;/mis-tareas&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="c">&lt;!-- Scripts --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/vue@3.0.0"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+        <span class="kd">const</span> <span class="nx">misTareas</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="na">template</span><span class="p">:</span> <span class="s2">`&lt;div&gt;
+                            &lt;ul&gt;
+                                &lt;li v-for="tarea in tareas"&gt; {{ tarea }} &lt;/li&gt;
+                            &lt;/ul&gt;
+                            Nueva tarea: &lt;input type="text" v-model="nuevaTarea" @keyup.enter="crearTarea"&gt;
+                            &lt;button @click="crearTarea"&gt;Añadir tarea&lt;/button&gt;
+                      &lt;/div&gt;`</span><span class="p">,</span>
+            <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="na">nuevaTarea</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+                    <span class="na">tareas</span><span class="p">:</span> <span class="p">[]</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nx">crearTarea</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">tareas</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">nuevaTarea</span><span class="p">);</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">nuevaTarea</span> <span class="o">=</span> <span class="dl">''</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>                      
+        <span class="p">}</span>
+        <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">Vue</span><span class="p">.</span><span class="nx">createApp</span><span class="p">({}).</span><span class="nx">component</span><span class="p">(</span><span class="dl">'</span><span class="s1">mis-tareas</span><span class="dl">'</span><span class="p">,</span> <span class="nx">misTareas</span><span class="p">).</span><span class="nx">mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nt">&lt;/script&gt;</span>
+
+<span class="nt">&lt;/body&gt;</span>
+
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>El componente “mis-tareas” puede <strong>reutilizarse</strong> cuantas veces sean necesarias, y cada componente tendrá sus propios datos. Por ejemplo, podemos crear dos listas de tareas independientes, una para Juan Pérez y otra para Susana Sánchez, así:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>Tareas del equipo de trabajo<span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>Juan Pérez<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;mis-tareas&gt;&lt;/mis-tareas&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>Susana Sánchez<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;mis-tareas&gt;&lt;/mis-tareas&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<h2 id="a33-estructurando-una-aplicación-hecha-con-vue-los-componentes">A3.3. Estructurando una aplicación hecha con Vue: los componentes</h2>
+
+<p>Ahora que hemos visto y comprendido algunos ejemplos, estamos en mejores condiciones para hablar de cuál es la estructura típica de una página hecha con Vue.js y cómo se crea una jerarquía de componentes.</p>
+
+<p>Los <strong>componentes</strong> de Vue, como la lista de tareas de los últimos ejemplos, se usan típicamente para construir elementos del interfaz que sean como <strong>piezas reutilizables</strong>.</p>
+
+<p>Es decir, cada componente es una pieza del interfaz que cumple que:</p>
+
+<ul>
+  <li>Tiene sus propios datos y lógica interna</li>
+  <li>Puede manipularse independientemente del resto de piezas.</li>
+  <li>Puede contener otras piezas más pequeñas.</li>
+</ul>
+
+<p>¿Qué significa todo esto? Sigue leyendo y lo comprenderás.</p>
+
+<h3 id="a331-qué-componentes-debería-tener-mi-aplicación">A3.3.1. ¿Qué componentes debería tener mi aplicación?</h3>
+
+<p>Debes tener muy claro el <strong>interfaz de usuario</strong> de tu aplicación para poder descomponerlo en componentes. Esto es fundamental, así que saca papel y lápiz y diseña el interfaz con detalle.</p>
+
+<p>Por ejemplo, imagina que estás diseñando una web sencillita (y bastante típica) con esta distribución de elementos:</p>
+
+<p><img src="/docs/dwes/_site/assets/images/a3-vue-01.png" alt="Diseño típico de una web" /></p>
+
+<p>Arriba tenemos un encabezado (<em>Header</em>), en el centro el área principal (<em>Main</em>) que contiene dos elementos (que llamaremos <em>Articles</em>), y a la derecha hay un panel lateral (lo llamaremos <em>Aside</em>) con tres elementos (<em>Items</em>).</p>
+
+<p>Pues bien; para este diseño de interfaz tendríamos que crear estos componentes:</p>
+
+<p><img src="/docs/dwes/_site/assets/images/a3-vue-02.png" alt="Componentes típicos de una web" /></p>
+
+<p>Como ves, diseñar y relacionar los componentes Vue entre sí se parece bastante a diseñar y relacionar los elementos HTML de una web tradicional:</p>
+
+<ul>
+  <li>En HTML, hay un <strong>componente raíz</strong> que llamado <code class="language-plaintext highlighter-rouge">&lt;body&gt;</code> que contiene a todos los demás elementos HTML. Con Vue, puedes tener un componente “Root” o “App” que contenga a los demás.</li>
+  <li>En HTML, puedes tener <strong>dentro del componente raíz</strong> <code class="language-plaintext highlighter-rouge">&lt;body&gt;</code> varias capas hechas con <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code>, tales como <code class="language-plaintext highlighter-rouge">&lt;div class='header'&gt;</code> para el encabezado, <code class="language-plaintext highlighter-rouge">&lt;div class='main'&gt;</code> para el contenido principal y <code class="language-plaintext highlighter-rouge">&lt;div class='aside'&gt;</code> para la barra lateral. En Vue, puedes tener tres componentes dentro de “Root” llamados “Header”, “Main” y “Aside”</li>
+  <li>En HTML, <strong>algunos elementos pueden tener dentro otros elementos</strong>. Es decir, algunos <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code> pueden tener dentro otros <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code> o cualquier otra cosa. Por ejemplo, el <code class="language-plaintext highlighter-rouge">&lt;div class='main'&gt;</code> puede tener dentro dos <code class="language-plaintext highlighter-rouge">&lt;div class='article'&gt;</code>. En Vue ocurre lo mismo: el componente “Main” puede tener dentro dos componentes “Article”. Y así sucesivamente.</li>
+</ul>
+
+<p>En Vue, <strong>cada componente se guarda en un archivo .vue</strong> independiente con una estructura como esta:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
+  <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"count++"</span><span class="nt">&gt;</span>Has hecho click {{ count }} veces.<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">nombre del componente</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">dato1</span><span class="p">:</span> <span class="dl">'</span><span class="s1">valor-1</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">dato2</span><span class="p">:</span> <span class="dl">'</span><span class="s1">valor-2</span><span class="dl">'</span><span class="p">,</span>
+      <span class="p">...</span>
+      <span class="na">datoN</span><span class="p">:</span> <span class="dl">'</span><span class="s1">valor-n</span><span class="dl">'</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nx">metodo1</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c1">// Código del método</span>
+    <span class="p">}</span>
+    <span class="nx">metodo2</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c1">// Código del método</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+    <span class="nx">metodoN</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c1">// Código del método</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>Fíjate que <strong>el <em>template</em> con el código HTML del componente se coloca entre los tags</strong> <code class="language-plaintext highlighter-rouge">&lt;template&gt;</code> <strong>y</strong> <code class="language-plaintext highlighter-rouge">&lt;/template&gt;</code>, a diferencia de los ejemplos sencillitos del principio del tema, donde lo insertábamos como parte del objeto Vue. Eso solo se hace cuando el componente Vue no se escribe en un archivo independiente.</p>
+
+<p>Ni que decir tiene que lo más habitual es que sí se escriba en un archivo independiente, es decir, con el formato que te acabo de mostrar.</p>
+
+<h3 id="a332-estructura-típica-de-una-aplicación-vue">A3.3.2. Estructura típica de una aplicación Vue</h3>
+
+<p>Aunque, como acabamos de decir, una aplicación Vue se debe organizar en función del interfaz de usuario que hayas diseñado, generalmente constará de los siguientes elementos:</p>
+
+<ul>
+  <li>
+    <p><strong>Un archivo HTML</strong> que contiene la estructura básica de la página y un contenedor (<code class="language-plaintext highlighter-rouge">&lt;div id="app"&gt;</code>) para la aplicación Vue. Este archivo, por supuesto, se puede generar en un servidor web como una aplicación PHP.</p>
+  </li>
+  <li>
+    <p><strong>Un archivo JavaScript</strong> que contiene la lógica de la aplicación Vue, incluyendo la configuración, los componentes y los métodos. Aunque en los ejemplos hemos incluido esto en el mismo archivo que el HTML, lo normal es sacarlo a un archivo JS.</p>
+  </li>
+  <li>
+    <p><strong>Un archivo .vue</strong> con la estructura base de la aplicación Vue, donde se importen y registros otros componentes. Este sería nuestro componente “Root” o “App”.</p>
+  </li>
+  <li>
+    <p><strong>Archivos .vue</strong> independientes para cada uno de los componentes. Si tenemos muchos, podemos distribuirlos en directorios y subdirectorios.</p>
+  </li>
+  <li>
+    <p>Además, tendremos los archivos .css con los estilos para la página, como en cualquier web, y, opcionalmente, pueden usarse archivos vue adicionales para manejar rutas, para el almacenamiento de datos y o para otras funcionalidades. Veremos el enrutador de Vue al final de este apéndice.</p>
+  </li>
+</ul>
+
+<p>Por lo tanto, la estructura de archivos de una aplicación Vue puede ser más o menos así:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-index.html
+-main.js
+-App.vue
+-components/
+    -header.vue
+    -example.vue
+    -footer.vue
+-assets/
+    -css/
+        -main.css
+    -img/
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>El archivo <em>index.html</em> contiene la estructura básica de la página y un contenedor para la aplicación Vue (<code class="language-plaintext highlighter-rouge">&lt;div id="app"&gt;</code>).</p>
+  </li>
+  <li>
+    <p>El archivo <em>main.js</em> contiene la configuración de la aplicación y las funciones Javascript. Aquí se importa el archivo <em>App.vue</em>, donde estarán registrados los componentes Vue.</p>
+  </li>
+  <li>
+    <p>El archivo <em>App.vue</em> contiene la estructura base de la aplicación Vue. Aquí se importan los demás componentes, que se colocan en archivos individuales.</p>
+  </li>
+  <li>
+    <p>En la carpeta <em>components</em> se tienen todos los componentes de Vue que se usan en la aplicación (un componente por archivo, todo con extensión .vue).</p>
+  </li>
+  <li>
+    <p>En la carpeta <em>assets</em>, como es habitual, están todos los demás recursos necesarios para la aplicación, como css adicional, imágenes, audios, etc.</p>
+  </li>
+</ul>
+
+<h3 id="a333-componente-principal-el-archivo-appvue">A3.3.3. Componente principal: el archivo App.vue</h3>
+
+<p>El archivo <strong><em>App.vue</em></strong> o <strong><em>Root.vue</em></strong> del ejemplo anterior (ten en cuenta que, por convenio, suele usarse más el nombre <em>App.vue</em>) debería ser el componente que contenga la <strong>estructura base</strong> de la aplicación Vue en forma de <strong>plantilla</strong>, además de importar todos los componentes Vue que estarán almacenados en archivos independientes.</p>
+
+<p>Es decir, es el “Root” de nuestra aplicación.</p>
+
+<p>Podría ser algo como esto:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;header-component</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;example-component</span> <span class="nt">/&gt;</span> 
+    <span class="nt">&lt;footer-component</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+<span class="k">import</span> <span class="nx">HeaderComponent</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/header.vue</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">ExampleComponent</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/example.vue</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">FooterComponent</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/footer.vue</span><span class="dl">'</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">app</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">components</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">'</span><span class="s1">header-component</span><span class="dl">'</span><span class="p">:</span> <span class="nx">HeaderComponent</span><span class="p">,</span>
+    <span class="dl">'</span><span class="s1">example-component</span><span class="dl">'</span><span class="p">:</span> <span class="nx">ExampleComponent</span><span class="p">,</span>
+    <span class="dl">'</span><span class="s1">footer-component</span><span class="dl">'</span><span class="p">:</span> <span class="nx">FooterComponent</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>Observa como, en el <strong><em>template</em> o plantilla</strong>, se indica la estructura base de la aplicación, donde se usan los componentes <code class="language-plaintext highlighter-rouge">&lt;header-component&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;example-component&gt;</code> y <code class="language-plaintext highlighter-rouge">&lt;footer-component&gt;</code>. Por supuesto, podría haber más componentes, o alguno de estos podría usarse varias veces.</p>
+
+<p>Inmediatamente después, en el script, se <strong>importan</strong> los archivos que contienen esos componentes (<em>header.vue</em>, <em>example.vue</em> y <em>footer.vue</em>). Después, los componentes se <strong>registran</strong> como parte de la aplicación Vue. Esto es necesario para poder usarlos.</p>
+
+<p>En este archivo también podría incluirse el <strong>CSS</strong> u otros archivos de configuración necesarios para la aplicación. No lo hemos hecho en este ejemplo para simplificarlo.</p>
+
+<h3 id="a334-componentes-de-vue">A3.3.4. Componentes de Vue</h3>
+
+<p>Por último, necesitaríamos escribir el código Vue de los <strong>componentes</strong>.</p>
+
+<p>Mostramos a modo de ejemplo cómo podría ser el código de <strong><em>example-component</em></strong>, donde usaremos la estructura típica de un componente que vimos más arriba:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>{{ title }}<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;p&gt;</span>{{ message }}<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"changeMessage"</span><span class="nt">&gt;</span>Cambiar mensaje<span class="nt">&lt;/button&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">example-component</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Example Component</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">message</span><span class="p">:</span> <span class="dl">'</span><span class="s1">¡Hola, mundo! Soy example component</span><span class="dl">'</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nx">changeMessage</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">El mensaje ha cambiado</span><span class="dl">'</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>En el <strong><em>template</em></strong> se tiene una estructura HTML del componente, con su título, un párrafo y un botón, los cuales están ligados a las propiedades del componente <em>title</em> y <em>message</em> que aparecen más abajo. El botón se asocia al evento <em>click</em>, de manera que, cuando ocurra ese evento, se lanzará el método <em>changeMessage()</em>.</p>
+
+<p>En el <strong><em>script</em></strong> se configura todo el componente: se le asigna un <strong>nombre</strong> (<em>example-component</em>), un objeto <strong><em>data</em></strong> con las propiedades <em>title</em> y <em>message</em> y un objeto <strong><em>methods</em></strong> con el método <em>changeMessage()</em>.</p>
+
+<p>Este componente se usa en la plantilla de la aplicación (<em>App.vue</em>) pero también podría usarse como parte de otro componente más complejo.</p>
+
+<p>Y, de este modo, montando componentes, se construyen los interfaces de usuario con Vue.</p>
+
+<h3 id="a335-manejo-de-eventos-con-vue">A3.3.5. Manejo de eventos con Vue</h3>
+
+<p>En todos los ejemplos anteriores hemos utilizado eventos como <em>@click</em> o <em>@keyup</em> para enlazar métodos de Vue con eventos de usuario.</p>
+
+<p>Vue dispone de muchos otros eventos que podemos usar en nuestros interfaces de usuario. En realidad, son <strong>eventos nativos del navegador</strong> manejados al “estilo Vue”. Aunque esto no pretende ser una lista exhaustiva, te pongo aquí los más habituales:</p>
+
+<ul>
+  <li><strong>click</strong>: Se activa cuando se hace clic en un elemento.</li>
+  <li><strong>input</strong>: Se activa cuando el valor de un elemento de entrada (input, select, textarea) cambia.</li>
+  <li><strong>submit</strong>: Se activa cuando se envía un formulario.</li>
+  <li><strong>keydown</strong>: Se activa cuando se presiona una tecla en un elemento.</li>
+  <li><strong>keyup</strong>: Se activa cuando se suelta una tecla en un elemento.</li>
+  <li><strong>mouseenter</strong>: Se activa cuando el cursor entra en un elemento.</li>
+  <li><strong>mouseleave</strong>: Se activa cuando el cursor sale de un elemento.</li>
+  <li><strong>focus</strong>: Se activa cuando un elemento obtiene el foco.</li>
+  <li><strong>blur</strong>: Se activa cuando un elemento pierde el foco.</li>
+</ul>
+
+<p>Todos ellos se pueden manejar con Vue utilizando la directiva <strong><em>v-on</em></strong> o el atajo <strong><em>@</em></strong>:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- EVENTO CAPTURADO MEDIANTE LA DIRECTIVA v-on --&gt;</span>
+<span class="nt">&lt;template&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">v-on:click=</span><span class="s">"myMethod"</span><span class="nt">&gt;</span>Click me<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+
+<span class="c">&lt;!-- EVENTO CAPTURADO MEDIANTE EL ATAJO @ --&gt;</span>
+<span class="nt">&lt;template&gt;</span>
+  <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"myMethod"</span><span class="nt">&gt;</span>Click me<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+</code></pre></div></div>
+
+<h2 id="a34-y-si-quiero-que-el-componente-vue-tome-sus-datos-del-servidor">A3.4. ¿Y si quiero que el componente Vue tome sus datos del servidor?</h2>
+
+<p>La verdadera potencia de Vue.js para crear aplicaciones web de una sola vista comienza a verse si logramos <strong>alimentar los componentes con datos procedentes del servidor</strong>. Entonces estaremos cerca de lograr una OVA con una sola vista que pueda ir actualizándose de forma dinámica según los datos que se reciban de un servidor web.</p>
+
+<p>La situación habitual en este caso es tener ya una vista cargada (creada con componentes de Vue) que tenemos que actualizar con datos procedentes del servidor. Por lo tanto, <strong>todas las peticiones al servidor deben ser asíncronas</strong>.</p>
+
+<p>Como vimos en el <a href="/docs/dwes/_site/ajax/">tema 7</a>, para hacer peticiones asíncronas puedes utilizar <strong>Ajax</strong> de dos maneras diferentes:</p>
+
+<ol>
+  <li>En su forma tradicional, es decir, con el objeto <strong><em>XMLHttpResponse</em></strong>.</li>
+  <li>O bien mediante alguna libería moderna como <strong><em>fetch</em></strong> o <strong><em>axios</em></strong>.</li>
+</ol>
+
+<p>Como siempre, vamos a ver cómo se actualiza un componente Vue con datos del servidor mediante un ejemplo sencillo que puedas usar como base para tus propios desarrollos. Después veremos un ejemplo un poco más completo: un CRUD hecho con Vue.</p>
+
+<h3 id="a341-un-ejemplo-sencillo">A3.4.1. Un ejemplo sencillo</h3>
+
+<p>En el siguiente ejemplo, tendremos un <em>input</em> de tipo <em>text</em> para teclear un DNI. Cuando se introduzca algo en ese <em>input</em>, se cargará el nombre y apellidos de la persona desde el servidor, es decir, mediante una consulta a una base de datos remota, y se mostrarán en la pantalla.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">v-model=</span><span class="s">"dni"</span> <span class="err">@</span><span class="na">input=</span><span class="s">"getNameAndLastname"</span> <span class="na">placeholder=</span><span class="s">"Ingresa el DNI"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Nombre: {{ name }}<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Apellido: {{ lastname }}<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">dni</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+      <span class="na">name</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+      <span class="na">lastname</span><span class="p">:</span> <span class="dl">''</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+    <span class="k">async</span> <span class="nx">getNameAndLastname</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s2">`http://mi-servidor.com/person/</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">dni</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">lastname</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">lastname</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>Si observas el código con detenimiento, verás que el método <em>getNameAndLastName()</em> se ejecuta al introducir cualquier cosa en el campo de texto. La abreviatura para ese evento en Vue es <strong><em>@input</em></strong>, aunque un evento tradicional de Javascript también funcionaría.</p>
+
+<p>El método <em>getNameAndLastName()</em> está declarado como <strong><em>async</em></strong>, lo que significa que contiene una operación asíncrona en su interior. Un método declarado así permite utilizar el controlador <em>await</em> para esperar a que una promesa se resuelva antes de continuar la ejecución del código.</p>
+
+<p>La función <em>fetch()</em> devuelve una promesa que se resuelve cuando el servidor responde. Al usar <em>await</em>, se espera a que la promesa se resuelva antes de continuar la ejecución del código, lo que nos permite escribir el código de la función <strong>como si fuera síncrono</strong>. Esto hace que el código sea más fácil de entender y mantener.</p>
+
+<p>Si no utilizásemos la palabra <em>async</em> delante del nombre del método, el <em>await</em> se ejecutaría de forma asíncrona y tendríamos que trabajar con <em>callbacks</em> o encadenando promesas para acceder a los datos, como hicimos en los <a href="http://localhost:4000/docs/dwes/_site/ajax/#75-ajax-y-la-api-fetch">ejemplos con <em>fetch</em> del tema 7</a>.</p>
+
+<p>Una vez que se recibe la respuesta del servidor (un JSON con el nombre y el apellido de la persona a la que corresponde ese DNI), se coloca en los dos elementos &lt;p&gt; reservados para ello dentro de la plantilla.</p>
+
+<h3 id="a342-un-ejemplo-completo-crud-con-vue-y-un-servidor-restful">A3.4.2. Un ejemplo completo: CRUD con Vue y un servidor RESTful</h3>
+
+<p>Vamos a mostrar ahora un ejemplo más completo. Supongamos ahora que tenemos una base de datos con una tabla llamada <em>Libros</em> cuyos campos son <em>id, título, autor</em> y <em>editorial</em>. Supongamos también que tenemos un <strong>servidor REST</strong> programado con PHP (o con lo que sea, porque en realidad no importa) que trabaja con esa tabla.</p>
+
+<p>No es un ejemplo realista, desde luego (la tabla está horrorosamente diseñada), pero sí que nos servirá para ilustrar cómo puede interactuar Vue con un servidor RESTful.</p>
+
+<p>En el siguiente código, vamos a usar <strong><em>axios</em></strong> en lugar de <em>fetch</em>. Se trata de otra librería Javascript para hacer peticiones asíncronas al servidor. Es muy similar a <em>fetch</em> o al método <em>ajax</em> de jQuery. Como se utiliza mucho, te la muestro en este ejemplo para que veas qué aspecto tiene. Compárala con el ejemplo anterior, en el que utilizamos <em>fetch</em>, y verás que hay muy pocas diferencias prácticas.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;table&gt;</span>
+      <span class="nt">&lt;tr&gt;</span>
+        <span class="nt">&lt;th&gt;</span>ID<span class="nt">&lt;/th&gt;</span>
+        <span class="nt">&lt;th&gt;</span>Título<span class="nt">&lt;/th&gt;</span>
+        <span class="nt">&lt;th&gt;</span>Autor<span class="nt">&lt;/th&gt;</span>
+        <span class="nt">&lt;th&gt;</span>Editorial<span class="nt">&lt;/th&gt;</span>
+      <span class="nt">&lt;/tr&gt;</span>
+      <span class="nt">&lt;tr</span> <span class="na">v-for=</span><span class="s">"libro in libros"</span> <span class="na">:key=</span><span class="s">"libro.idLibro"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;td&gt;</span>{{ libro.idLibro }}<span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;td&gt;</span>{{ libro.titulo }}<span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;td&gt;</span>{{ libro.autor }}<span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;td&gt;</span>{{ libro.editorial }}<span class="nt">&lt;/td&gt;</span>
+      <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/table&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">libros</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">created</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">cargarLibros</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+    <span class="k">async</span> <span class="nx">cargarLibros</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://tu-api-rest.com/libros</span><span class="dl">'</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">libros</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>En el código anterior puedes ver cómo, usando <em>axios</em>, se puede hacer dinámicamente la carga de libros y asignarla al array <em>libros</em>, que a su vez está asociado al template HTML. El método <em>cargarLibros()</em>, como en el ejemplo anterior, se ha declarado como <em>async</em> para poder escribir el código linealmente, como si fuera síncrono, lo cual facilita mucho la labor de desarrollo.</p>
+
+<p>Añadamos ahora las <strong>funcionalidades típicas de un CRUD</strong>, como “Editar”, “Borrar”, etc. De ese modo, conseguiremos un CRUD completo que trabaje con este servidor REST.</p>
+
+<p>En el siguiente ejemplo puedes ver cómo construir ese CRUD con Vue. Observa bien cómo se etiquetan los campos de la tabla y de los formularios para enlazarlos con los datos de Vue, y qué fácil y limpio queda el código de los métodos usando <em>async</em> y una librería como <em>axios</em>:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;table&gt;</span>
+      <span class="nt">&lt;thead&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+          <span class="nt">&lt;th&gt;</span>ID<span class="nt">&lt;/th&gt;</span>
+          <span class="nt">&lt;th&gt;</span>Título<span class="nt">&lt;/th&gt;</span>
+          <span class="nt">&lt;th&gt;</span>Autor<span class="nt">&lt;/th&gt;</span>
+          <span class="nt">&lt;th&gt;</span>Editorial<span class="nt">&lt;/th&gt;</span>
+          <span class="nt">&lt;th&gt;</span>Acciones<span class="nt">&lt;/th&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+      <span class="nt">&lt;/thead&gt;</span>
+      <span class="nt">&lt;tbody&gt;</span>
+        <span class="nt">&lt;tr</span> <span class="na">v-for=</span><span class="s">"book in books"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;td&gt;</span>{{ book.id }}<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;td&gt;</span>{{ book.title }}<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;td&gt;</span>{{ book.author }}<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;td&gt;</span>{{ book.editorial }}<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;td&gt;</span>
+            <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"editBook(book)"</span><span class="nt">&gt;</span>Editar<span class="nt">&lt;/button&gt;</span>
+            <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"deleteBook(book.id)"</span><span class="nt">&gt;</span>Borrar<span class="nt">&lt;/button&gt;</span>
+          <span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+      <span class="nt">&lt;/tbody&gt;</span>
+    <span class="nt">&lt;/table&gt;</span>
+    <span class="nt">&lt;hr&gt;</span>
+    <span class="nt">&lt;h3&gt;</span>Crear un nuevo libro<span class="nt">&lt;/h3&gt;</span>
+    <span class="nt">&lt;form</span> <span class="err">@</span><span class="na">submit.prevent=</span><span class="s">"createBook"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;label&gt;</span>Título:<span class="nt">&lt;/label&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">v-model=</span><span class="s">"newBook.title"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;label&gt;</span>Autor:<span class="nt">&lt;/label&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">v-model=</span><span class="s">"newBook.author"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;label&gt;</span>Editorial:<span class="nt">&lt;/label&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">v-model=</span><span class="s">"newBook.editorial"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span><span class="nt">&gt;</span>Crear<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/form&gt;</span>
+    <span class="nt">&lt;hr&gt;</span>
+    <span class="nt">&lt;h3&gt;</span>Actualizar un libro existente<span class="nt">&lt;/h3&gt;</span>
+    <span class="nt">&lt;form</span> <span class="err">@</span><span class="na">submit.prevent=</span><span class="s">"updateBook"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">v-model=</span><span class="s">"currentBook.id"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;label&gt;</span>Título:<span class="nt">&lt;/label&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">v-model=</span><span class="s">"currentBook.title"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;label&gt;</span>Autor:<span class="nt">&lt;/label&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">v-model=</span><span class="s">"currentBook.author"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;label&gt;</span>Editorial:<span class="nt">&lt;/label&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">v-model=</span><span class="s">"currentBook.editorial"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span><span class="nt">&gt;</span>Actualizar<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/form&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+<span class="k">import</span> <span class="nx">axios</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">axios</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">books</span><span class="p">:</span> <span class="p">[],</span>
+      <span class="na">newBook</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="na">title</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+        <span class="na">author</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+        <span class="na">editorial</span><span class="p">:</span> <span class="dl">''</span>
+      <span class="p">},</span>
+      <span class="na">currentBook</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="na">title</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+        <span class="na">author</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+        <span class="na">editorial</span><span class="p">:</span> <span class="dl">''</span>
+      <span class="p">},</span>
+      <span class="na">bookIdToDelete</span><span class="p">:</span> <span class="kc">null</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">created</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">getBooks</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+    <span class="k">async</span> <span class="nx">getBooks</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://mi-servidor.com/books</span><span class="dl">'</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">books</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="k">async</span> <span class="nx">createBook</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://mi-servidor.com/books</span><span class="dl">'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">newBook</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">books</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">newBook</span> <span class="o">=</span> <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span> <span class="na">author</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span> <span class="na">editorial</span><span class="p">:</span> <span class="dl">''</span> <span class="p">};</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="k">async</span> <span class="nx">updateBook</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s2">`http://mi-servidor.com/books/</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">currentBook</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">currentBook</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">getBooks</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">currentBook</span> <span class="o">=</span> <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span> <span class="na">author</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span> <span class="na">editorial</span><span class="p">:</span> <span class="dl">''</span> <span class="p">};</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="k">async</span> <span class="nx">deleteBook</span><span class="p">(</span><span class="nx">bookId</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s2">`http://mi-servidor.com/books/</span><span class="p">${</span><span class="nx">bookId</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">getBooks</span><span class="p">();</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nx">editBook</span><span class="p">(</span><span class="nx">book</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">currentBook</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">book</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<h3 id="a343-otro-ejemplo-completo-un-componente-capaz-de-mostrar-cualquier-tabla">A3.4.3. Otro ejemplo completo: un componente capaz de mostrar cualquier tabla</h3>
+
+<p>Otro caso típico en el que los frameworks como Vue, React o Angular demuestran lo mucho que nos pueden facilitar la vida, es en el diseño de un <em>template</em> HTML capaz de mostrar los datos de <strong>cualquier tabla</strong> que un servidor REST esté dispuesto a servirnos.</p>
+
+<p>¿Te lo imaginas? Se acabó hacer una vista para cada una de las tablas que tu aplicación tenga que manejar. Ahora puedes hacer una plantilla que funcione con <em>cualquier</em> tabla y marcharte a tomar un café.</p>
+
+<p>Te muestro un ejemplo muy sencillo. El nombre de la tabla se escribe en un campo de texto, pero bien podría seleccionarse por medio de un menú o de cualquier otra forma.</p>
+
+<p>El ejemplo solo muestra el contenido de la tabla y no permite modificar, borrar ni añadir datos, pero no sería muy complicado agregarle estas funciones. Piénsalo y verás (es un excelente ejercicio).</p>
+
+<p>Ah, se supone que el servidor devuelve los datos en forma de JSON.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;label&gt;</span>Nombre de la tabla:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">v-model=</span><span class="s">"tableName"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"fetchTableData"</span><span class="nt">&gt;</span>Consultar<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;table</span> <span class="na">v-if=</span><span class="s">"tableData.length"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;thead&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+          <span class="nt">&lt;th</span> <span class="na">v-for=</span><span class="s">"key in Object.keys(tableData[0])"</span> <span class="na">:key=</span><span class="s">"key"</span><span class="nt">&gt;</span>{{ key }}<span class="nt">&lt;/th&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+      <span class="nt">&lt;/thead&gt;</span>
+      <span class="nt">&lt;tbody&gt;</span>
+        <span class="nt">&lt;tr</span> <span class="na">v-for=</span><span class="s">"row in tableData"</span> <span class="na">:key=</span><span class="s">"row.id"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;td</span> <span class="na">v-for=</span><span class="s">"key in Object.keys(row)"</span><span class="nt">&gt;</span>{{ row[key] }}<span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+      <span class="nt">&lt;/tbody&gt;</span>
+    <span class="nt">&lt;/table&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">v-else</span><span class="nt">&gt;</span>No hay datos para mostrar<span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">tableName</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+      <span class="na">tableData</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+  <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nx">fetchTableData</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">`http://mi-servidor.com/</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">tableName</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+      <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="o">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">tableData</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
+        <span class="p">})</span>
+        <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<h2 id="a35-vuejs-con-laravel">A3.5. Vue.js con Laravel</h2>
+
+<p>Laravel dispone de un servidor Node integrado (llamado <strong>Laravel Echo</strong>) para poder, entre otras cosas, usar <em>web sockets</em>, unos componentes que permiten recibir y emitir eventos entre el cliente y el servidor en tiempo real.</p>
+
+<p>En realidad, no nos importa demasiado por qué Laravel tiene un servidor Node integrado. El caso es que lo tiene. Y, si lo tiene, eso significa que podemos tener Vue, React, Angular o cualquier otra librería Javascript también integrada con Laravel.</p>
+
+<p>Así que, sí, <strong>se puede instalar Vue en nuestra aplicación Laravel a través de <em>artisan</em></strong>.</p>
+
+<p>También podemos usar Vue en una aplicación Laravel sin necesidad de instalarlo en el servidor, desde luego, pero si lo haces al “estilo Laravel” obtendrás ciertas <strong>ventajas adicionales</strong>, tales como:</p>
+
+<ul>
+  <li>Mayor control sobre la versión de Vue que estamos usando.</li>
+  <li>Mejor rendimiento.</li>
+  <li>Mayor flexibilidad de desarrollo (investiga qué es <em>vue-cli</em> para saber por qué).</li>
+  <li>Mayor seguridad (al no depender de elementos externos).</li>
+  <li>Mayores posibilidades de personalización.</li>
+</ul>
+
+<h3 id="a351-instalar-vue-en-laravel">A3.5.1. Instalar Vue en Laravel</h3>
+
+<p>El modo más sencillo de tener Vue en Laravel es instalar <strong><em>laravel/ui</em></strong> (aunque existen otras maneras). Este paquete sirve para hacer autenticación de usuarios (como Breeze o Jetstream).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ composer require laravel/ui
+</code></pre></div></div>
+
+<p>A continuación lanzamos <em>artisan</em>, instalamos las dependencias de Node y recompilamos todo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php artisan ui vue
+$ npm install
+$ npm run dev
+</code></pre></div></div>
+
+<p>Una vez hecho esto, el archivo <em>public/js/app.js</em> contendrá los contenedores de Vue. Por lo tanto, debes incluirlo en tus vistas:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"{{ mix('/js/app.js') }}"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>Ya puedes usar Vue en esa vista (asegúrate de utilizar el id “app”):</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;example-component&gt;&lt;/example-component&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>El componente “example-component” viene creado por defecto pero, por supuesto, puedes crear tus propios componentes. Vamos a ver cómo.</p>
+
+<h3 id="a352-crear-componentes-vue-con-laravel">A3.5.2. Crear componentes Vue con Laravel</h3>
+
+<p>Para <strong>crear un componente</strong>, solo tienes que crear un archivo .vue en el directorio <em>resources/js/components</em>. Allí ya encontrarás un archivo llamado <em>example-component.vue</em>. Puedes usarlo como plantilla para crear componentes adicionales.</p>
+
+<p>Después de crearlo, debes <strong>registrar el componente</strong> en <em>resources/js/app.js</em>. Nuevamente, encontrarás que ya está registrado el componente “example-component”, así que puedes usar ese registro como plantilla para los tuyos.</p>
+
+<p>Una vez creados y registrados, los componentes estarán disponibles para usarlos en cualquier vista.</p>
+
+<h3 id="a353-un-ejemplo-completo-crud-con-laravel-y-vue">A3.5.3. Un ejemplo completo: CRUD con Laravel y Vue</h3>
+
+<p>En este ejemplo vamos a seguir todos los pasos necesarios para crear un CRUD sencillo con Laravel y Vue. Lo vamos a hacer con el Vue integrado en Laravel, pero ten en cuenta que también funcionaría si cargamos la versión de Vue que queramos desde un CDN o desde nuestros propios archivos Javascript.</p>
+
+<p>Los pasos que vamos a describir para crear el CRUD son:</p>
+
+<ol>
+  <li>Crear proyecto Laravel</li>
+  <li>Configurar conexión con base de datos</li>
+  <li>Crear modelos y lanzar las migraciones</li>
+  <li>Crear al menos un controlador</li>
+  <li>Añadir las rutas</li>
+  <li>Instalar Laravel Vue UI</li>
+  <li>Iniciar Vue en Laravel</li>
+  <li>Construir los componentes Vue</li>
+  <li>Enrutamiento con Vue</li>
+</ol>
+
+<h4 id="paso-1-crear-proyecto-laravel">PASO 1. Crear proyecto Laravel</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ composer create-project laravel/laravel laravel-vue-crud --prefer-dist
+</code></pre></div></div>
+
+<h4 id="paso-2-configurar-conexión-con-bd">PASO 2. Configurar conexión con BD</h4>
+
+<p>Editamos el archivo .env:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=???
+DB_USERNAME=???
+DB_PASSWORD=???
+</code></pre></div></div>
+
+<h4 id="paso-3-crear-modelos--lanzar-migraciones">PASO 3. Crear modelos / Lanzar migraciones</h4>
+
+<p>Por ejemplo, vamos a centrarnos en una tabla llamada <em>products</em>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php artisan make:model Product -m
+$ php artisan migrate
+</code></pre></div></div>
+
+<p>(lógicamente, hay que escribir la migración antes de lanzarla)</p>
+
+<h4 id="paso-4-crear-controlador">PASO 4. Crear controlador</h4>
+
+<p>Seguimos trabajando con la tabla <em>products</em>, ahora creando su controlador:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php artisan make:controller ProductController
+</code></pre></div></div>
+
+<p>Los métodos del controlador devolverán solo datos, no vistas, puesto que van a trabajar con Vue en el lado del cliente.</p>
+
+<p>Por ejemplo, podrían ser algo así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">function</span> <span class="n">index</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$products</span> <span class="o">=</span> <span class="nc">Product</span><span class="o">::</span><span class="nf">all</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">toArray</span><span class="p">();</span>
+        <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">(</span><span class="nv">$products</span><span class="p">);</span>      
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$product</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Product</span><span class="p">([</span>
+            <span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">input</span><span class="p">(</span><span class="s1">'name'</span><span class="p">),</span>
+            <span class="s1">'detail'</span> <span class="o">=&gt;</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">input</span><span class="p">(</span><span class="s1">'detail'</span><span class="p">)</span>
+        <span class="p">]);</span>
+        <span class="nv">$product</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>
+        <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">(</span><span class="s1">'Product created!'</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">show</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$product</span> <span class="o">=</span> <span class="nc">Product</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">(</span><span class="nv">$product</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">update</span><span class="p">(</span><span class="nv">$id</span><span class="p">,</span> <span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$product</span> <span class="o">=</span> <span class="nc">Product</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+        <span class="nv">$product</span><span class="o">-&gt;</span><span class="nf">update</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">all</span><span class="p">());</span>
+        <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">(</span><span class="s1">'Product updated!'</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">destroy</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$product</span> <span class="o">=</span> <span class="nc">Product</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+        <span class="nv">$product</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">();</span>
+        <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">(</span><span class="s1">'Product deleted!'</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Observa que no hemos escrito los método <em>create()</em> ni <em>edit()</em>, puesto que no tienen sentido en una API REST controlada desde el cliente: esos formularios de creación y edición los construirá el cliente, no el servidor.</p>
+
+<h4 id="paso-5-añadir-rutas">PASO 5. Añadir rutas</h4>
+
+<p>Editamos nuestro archivo <em>routes/web.php</em>. Podría quedar como esto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">post</span><span class="p">(</span><span class="s1">'/producto'</span><span class="p">,</span>
+       <span class="p">[</span><span class="nc">App\Http\Controllers\ProductController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'store'</span><span class="p">]);</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/producto/{product_id}'</span><span class="p">,</span>
+       <span class="p">[</span><span class="nc">App\Http\Controllers\ProductController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'show'</span><span class="p">]);</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nb">delete</span><span class="p">(</span><span class="s1">'/eliminar-producto/{product_id}'</span><span class="p">,</span>
+       <span class="p">[</span><span class="nc">App\Http\Controllers\ProductController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'delete'</span><span class="p">]);</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/todos-productos'</span><span class="p">,</span>
+       <span class="p">[</span><span class="nc">App\Http\Controllers\ProductController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'all'</span><span class="p">]));</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">put</span><span class="p">(</span><span class="s1">'/actualizar-producto/{product_id}'</span><span class="p">,</span>
+       <span class="p">[</span><span class="nc">App\Http\Controllers\ProductController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'update'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<h4 id="paso-6-instalar-laravel-vue-ui">PASO 6. Instalar Laravel Vue UI</h4>
+
+<p><strong><em>laravel/ui</em></strong> es un componente de Laravel que incluye varios paquetes orientados a la creación del interfaz de usuario, entre ellos Vue.</p>
+
+<p>Si instalas <em>laravel/ui</em>, se creará la carpeta <em>resources/js/components</em> para colocar ahí los componentes de Vue.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ composer require laravel/ui
+$ php artisan ui vue
+$ npm run dev
+</code></pre></div></div>
+
+<p>Además de <em>laravel/ui</em>, en muchos casos se instala también:</p>
+
+<ul>
+  <li><strong>Vue-router</strong>: un enrutador para Vue. Facilita la selección de los componentes que hay que cargar en cada ruta.</li>
+  <li><strong>Vue-axios</strong>: un cliente HTTP para lanzar peticiones asíncronas al servidor, es decir, peticiones por Ajax. Es parecido a <em>fetch</em> y hay quien lo prefiere usar en su lugar.</li>
+</ul>
+
+<p>Para instalar estos dos componentes tendremos que recurrir a <em>npm</em>, el gestor de paquetes de Node, puesto que trabajan en el lado del cliente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ npm install vue-router vue-axios
+</code></pre></div></div>
+
+<h4 id="paso-7-iniciar-vue-en-laravel">PASO 7. Iniciar Vue en Laravel</h4>
+
+<p>Tenemos que crear un layout para nuestra aplicación en <em>resources/views/layout/app.blade.php</em>.</p>
+
+<p>Ese layout debe incluir el archivo <strong><em>js/app.js</em></strong>, que es donde estará la librería Vue.</p>
+
+<p>Un layout muy sencillito podría ser algo como esto:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"csrf-token"</span> <span class="na">value=</span><span class="s">"{{ csrf_token() }}"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Ejemplo de CRUD con Vue y Laravel<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">"{{ mix('css/app.css') }}"</span> <span class="na">type=</span><span class="s">"text/css"</span> 
+          <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"{{ mix('js/app.js') }}"</span> <span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+
+<h4 id="paso-8-construir-componentes-vue">PASO 8. Construir componentes Vue</h4>
+
+<p>Este es el paso más largo.</p>
+
+<p>Los componentes que necesitemos se crean en archivos individuales en el directorio <em>resources/js/components</em>. Por ejemplo, vamos a crear componentes como:</p>
+
+<ul>
+  <li><em>AllProduct.vue</em>: para mostrar todos los productos.</li>
+  <li><em>CreateProduct.vue</em>: formulario para creación de un nuevo producto.</li>
+  <li><em>EditProduct.vue</em>: formulario para edición de productos existentes.</li>
+</ul>
+
+<p>Una vez creados, se pueden reutilizar en cualquier punto de la aplicación.</p>
+
+<p>Cada componente de Vue en Laravel tiene esta estructura:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
+    <span class="c">&lt;!-- HTML del componente --&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+    <span class="c1">// Código del componente</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;style&gt;</span>
+    <span class="o">//</span> <span class="nt">Estilos</span> <span class="nt">del</span> <span class="nt">componente</span>
+<span class="nt">&lt;/style&gt;</span>
+</code></pre></div></div>
+
+<p>Por ejemplo, el componente <em>CreateProduct.vue</em> podría ser así:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
+   <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel panel-default"</span> <span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel-heading"</span><span class="nt">&gt;</span>Nuevo producto<span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel-body"</span><span class="nt">&gt;</span>
+         <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">""</span> <span class="na">v-on:submit.prevent=</span><span class="s">"newProduct()"</span><span class="nt">&gt;</span>                
+             <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+                 Referencia: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">name=</span><span class="s">"reference"</span> <span class="na">v-model=</span><span class="s">"reference"</span><span class="nt">&gt;</span>
+             <span class="nt">&lt;/div&gt;</span>
+             <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+                 Categoría: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">name=</span><span class="s">"category"</span> <span class="na">v-model=</span><span class="s">"category"</span><span class="nt">&gt;</span>
+             <span class="nt">&lt;/div&gt;</span>
+             <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+                 Precio: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">name=</span><span class="s">"cost"</span> <span class="na">v-model=</span><span class="s">"cost"</span><span class="nt">&gt;</span>
+             <span class="nt">&lt;/div&gt;</span>
+             <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+                 Cantidad: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">name=</span><span class="s">"quantity"</span> <span class="na">v-model=</span><span class="s">"quantity"</span><span class="nt">&gt;</span>
+             <span class="nt">&lt;/div&gt;</span>
+             <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">class=</span><span class="s">"btn btn-primary"</span><span class="nt">&gt;</span>
+                 Enviar Producto
+             <span class="nt">&lt;/button&gt;</span>
+         <span class="nt">&lt;/form&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+   <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+    <span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+        <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>   <span class="c1">// Datos que recogemos del componente</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="na">reference</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+                <span class="na">category</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+                <span class="na">cost</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+                <span class="na">quantity</span><span class="p">:</span> <span class="dl">''</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nx">newProduct</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">const</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="na">reference</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">reference</span><span class="p">,</span>
+                    <span class="na">category</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">category</span><span class="p">,</span>
+                    <span class="na">cost</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">cost</span><span class="p">,</span>
+                    <span class="na">quantity</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">quantity</span>
+                <span class="p">};</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">reference</span> <span class="o">=</span> <span class="dl">''</span><span class="p">;</span>  <span class="c1">//eliminamos los valores para que los campos del formulario se vacien</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">category</span> <span class="o">=</span> <span class="dl">''</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">cost</span> <span class="o">=</span> <span class="dl">''</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">quantity</span> <span class="o">=</span> <span class="dl">''</span><span class="p">;</span>
+                <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/producto</span><span class="dl">'</span><span class="p">,</span> <span class="nx">params</span><span class="p">)</span>
+                    <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                        <span class="kd">const</span> <span class="nx">product</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+                        <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="dl">'</span><span class="s1">new</span><span class="dl">'</span><span class="p">,</span> <span class="nx">product</span><span class="p">);</span>
+                    <span class="p">});</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>Observa que hemos asociado el método <em>newProduct()</em> con el evento <em>v-on:submit.prevent</em>. Esto hace que el evento <em>submit</em> del formulario se redirija al método que nos interesa. La palabra <em>prevent</em> se refiere a que queremos prevenir (evitar) su comportamiento por defecto, es decir, evitar que el navegador envíe directamente el formulario al servidor.</p>
+
+<p>Por lo tanto, al pulsar “submit”, se pasará el control al método <em>newProduct()</em>, que será quien se encargue de enviar el formulario al servidor de forma asíncrona mediante <em>axios</em>.</p>
+
+<h4 id="paso-9-enrutamiento-con-vue">PASO 9: enrutamiento con Vue</h4>
+
+<p>Vue dispone en Laravel de su propio enrutador en un paquete llamado <strong><em>vue-router</em></strong>. Como dijimos antes, si lo instalas puedes enrutar también en el lado del cliente.</p>
+
+<p>El enrutador de Vue con Laravel está ubicado en el archivo <em>resources/js/routes.js</em>.</p>
+
+<p>El enrutamiento con Vue permite seleccionar los componentes cuyos datos se deben cargar en cada ruta. Esto facilita mucho el trabajo en las aplicaciones OVA (<em>one view application</em>).</p>
+
+<p>El enrutador de Vue está escrito en Javascript, claro, no en PHP, y tiene un aspecto como este:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">const</span> <span class="nx">routes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">home</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">component</span><span class="p">:</span> <span class="nx">AllProduct</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">create</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/create</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">component</span><span class="p">:</span> <span class="nx">CreateProduct</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">edit</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/edit/:id</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">component</span><span class="p">:</span> <span class="nx">EditProduct</span>
+    <span class="p">}</span>
+<span class="p">];</span>
+</code></pre></div></div>
+
+<p>Observa cómo, para cada ruta, se indica un nombre (de uso interno para la aplicación), una URL y el componente (o componentes) que se cargarán en el <em>layout</em> en caso de solicitar esa ruta.</p>
+
+<p>Cada componente, a su vez, se encargará de pedir los datos al servidor mediante alguna de las rutas definidas en el enrutador de Laravel (<em>web.php</em>), por lo que el uso del enrutador de Vue no implica que dejemos de usar el enrutamiento en el servidor.</p>
+
+:ET

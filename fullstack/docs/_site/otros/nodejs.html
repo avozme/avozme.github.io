@@ -1,0 +1,262 @@
+<h2 id="87-nodejs">8.7. Node.js</h2>
+
+<p><strong>Node.js</strong> no es un lenguaje de programación, sino un entorno de ejecución en el lado del servidor (aunque puede funcionar en otros entornos) basado en el lenguaje <strong>Javascript</strong>.</p>
+
+<p>Por lo tanto, al contrario que el código Javascript convencional, Node.js ejecuta Javascript en el servidor. De este modo, pueden unificarse los lenguajes del lado del cliente y del servidor. Esa es una de las razones que explica el rápido crecimiento que Node.js está experimentando en los últimos años.</p>
+
+<p>Como es lógico, en Node.js se omiten todas las referencias a la API del navegador web y, como es lógico también, se añade soporte para las APIs del sistema operativo u otros subsistemas típicos que se encuentran en los servidores. Por ejemplo, con Node.js tenemos acceso a bases de datos o al sistema de ficheros del servidor.</p>
+
+<p>Vamos a ver una introducción muy breve a Node.js. Ten en cuenta que, además, Node.js no suele usarse de forma independiente para desarrollar aplicaciones web, sino en conjunción con algún framework como <strong>Express</strong>. De hecho, es rara la aplicación web que se programa sin Express en la actualidad.</p>
+
+<h3 id="871-características-del-lenguaje-nodejs">8.7.1. Características del lenguaje Node.js</h3>
+
+<p>Fecha de aparición: 2009</p>
+
+<p>Perspectivas:</p>
+
+<ul>
+  <li>Uso y popularidad creciente.</li>
+  <li>Posibilidad de convertirse en un estándar de desarrollo web <em>fullstack</em>.</li>
+  <li>Buena relación señal/ruido.</li>
+  <li>Node.js tiene problemas que resolver si quiere imponerse como estándar: la API cambia continuamente y no es compatible hacia atrás, la librería estándar de Javascript es minúscula comparada con otros lenguajes y las librerías de terceros son a veces poco probadas, cambiantes o directamente inexistentes para hacer ciertas cosas que en otras plataformas se dan por supuestas.</li>
+</ul>
+
+<p>Filosofía:</p>
+
+<ul>
+  <li>Usa el motor de JavaScript V8 de Chrome <em>fuera del navegador</em> para ejecutarse en el servidor.</li>
+  <li>Las operaciones de E/S son <em>sin bloqueo</em>, esto es, <em>asíncronas</em>.</li>
+  <li>El fluje de ejecución no es lineal, sino <em>dirigido por eventos</em>, como ocurre casi siempre en las aplicaciones web. Esto mejora el rendimiento, porque el programa está casi todo el tiempo ocioso, a la espera de que ocurra algún evento.</li>
+  <li>Tiene acceso nativo a bases de datos documentales como <em>MongoDB</em>. Hablaremos un poco más sobre qué significa esto más adelante.</li>
+  <li>Las aplicaciones altamente escalables.</li>
+  <li>Simplicidad y modularidad.</li>
+  <li>Gestor <strong>npm</strong> para librerías de terceros.</li>
+</ul>
+
+<h3 id="872-configuración-necesaria-en-el-servidor">8.7.2. Configuración necesaria en el servidor</h3>
+
+<p>Node.js <strong>incluye su propio servidor web</strong>. Recuerda que Node.js <em>no</em> es un lenguaje de programación, sino una plataforma de desarrollo en el lado del servidor completa.</p>
+
+<p>Así que, para lanzar un servidor web con Node.js, lo único que debemos instalar en el servidor es el propio Node.js.</p>
+
+<p>Una vez hecho esto, podemos crear un servidor HTTP básico creando un programa Javascript como este:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">http</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">peticion</span><span class="p">,</span> <span class="nx">respuesta</span><span class="p">)</span> 
+	<span class="c1">// Aquí se escribe la respuesta del servidor</span>
+<span class="p">).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">9000</span><span class="p">,</span> <span class="dl">'</span><span class="s1">127.0.0.1</span><span class="dl">'</span><span class="p">);</span> <span class="c1">// Puerto e IP donde escuchará el servidor</span>
+</code></pre></div></div>
+
+<p>Luego bastará con ejecutar este programa en el servidor desde una consola de comandos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ node nombre-del-archivo.js
+</code></pre></div></div>
+
+<h3 id="873-sintaxis-básica-de-nodejs">8.7.3. Sintaxis básica de Node.js</h3>
+
+<p>El lenguaje de programación que usa Node.js es Javascript, así que hay poco que decir sobre la sintaxis de las estructuras de control, las asignaciones o los operadores, puesto que ya la conoces.</p>
+
+<h3 id="874-entrada--salida-con-nodejs">8.7.4. Entrada / Salida con Node.js</h3>
+
+<p>La entrada y salida en un entorno Node.js es lo que más se diferencia del Javascript que manejas habitualmente, puesto que ahora estamos trabajando en un servidor, no en un navegador web.</p>
+
+<p>La salida mediante <strong>console.log()</strong> puede seguir usándose, pero no es lo habitual en aplicaciones web, puesto que esa salida se producirá en la consola de texto del servidor. Para la entrada, existe la función <strong>openStdin()</strong>, que crea un objeto sobre el que se puede agregar un evento de entrada de datos, como en este ejemplo:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Escribe tu nombre</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">stdin</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">openStdin</span><span class="p">();</span>
+
+<span class="nx">stdin</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">data</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">entradaPorTeclado</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Tu nombre es: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">entradaPorTeclado</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Aquí se puede ver <strong>qué significa que Node.js sea un entorno de ejecución dirigido por eventos</strong>: en lugar de lanzar la lectura por teclado y dejar al programa esperando hasta que esa lectura por teclado se produzca, lo que hacemos es asignar un <strong>manejador de evento</strong> o <strong>listener</strong> que se ejecutará cuando ocurra cierto evento asociado.</p>
+
+<p>En este ejemplo, asociamos un <em>listener</em> al objeto <em>stdin</em>. Cuando ocurra el evento (en este caso, el evento se llama “data”, que significa “recepción de datos” en el objeto <em>stdin</em>), se ejecutará el código de la función. Mientras tanto, el programa continuará con su ejecución normal, atendiendo a cualquier otro evento que pudiera producirse y que esté programado para atender.</p>
+
+<p>Sin embargo, en una aplicación web, raramente se hace la entrada y salida por consola, ¿verdad? <strong>La entrada debería hacerse desde un formulario web, mientras que la salida debería ser una respuesta HTTP</strong>.</p>
+
+<p>Te muestro cómo se hace esto con Node.js con otro ejemplo:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">http</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">datos_del_post</span><span class="p">;</span>
+<span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">peticion</span><span class="p">,</span> <span class="nx">respuesta</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">if</span><span class="p">(</span><span class="nx">peticion</span><span class="p">.</span><span class="nx">method</span> <span class="o">==</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">datos_del_post</span> <span class="o">=</span> <span class="dl">''</span><span class="p">;</span>
+      <span class="nx">peticion</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">trozo_de_datos</span><span class="p">){</span>
+         <span class="nx">datos_del_post</span> <span class="o">+=</span> <span class="nx">trozo_de_datos</span><span class="p">;</span>
+      <span class="p">});</span>
+      <span class="nx">peticion</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">end</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+         <span class="nx">datos_del_post</span> <span class="o">=</span> <span class="nx">querystring</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">datos_del_post</span><span class="p">);</span>
+         <span class="nx">respuesta</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">text/html</span><span class="dl">'</span><span class="p">});</span>
+         <span class="nx">respuesta</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">He recibido correctamente el formulario</span><span class="dl">"</span><span class="p">);</span>
+         <span class="nx">respuesta</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">Estos son los datos que me han llegado:</span><span class="dl">"</span><span class="p">);</span>
+         <span class="nx">respuesta</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">Nombre: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">datos_del_post</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">. Email = </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">datos_del_post</span><span class="p">.</span><span class="nx">email</span><span class="p">);</span>
+         <span class="nx">frespuesta</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
+      <span class="p">});</span>
+   <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+      <span class="nx">respuesta</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">text/html</span><span class="dl">'</span><span class="p">});</span>
+      <span class="nx">respuesta</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="dl">"</span><span class="s2">No he ha llegado ningún dato por POST</span><span class="dl">"</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">9000</span><span class="p">,</span> <span class="dl">'</span><span class="s1">127.0.0.1</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Si observas este código, verás que tiene la misma estructura que el que vimos en el apartado “Configuración necesaria en el servidor”, solo que hemos rellenado la función principal con más cosas.</p>
+
+<p>Esa función tiene dos argumentos, <strong><em>petición</em></strong> y <strong><em>respuesta</em></strong>:</p>
+
+<ul>
+  <li>En <strong><em>petición</em></strong>, el servidor coloca todos los datos de la petición que proviene del cliente. La información del formulario estará aquí, por lo tanto.</li>
+  <li>En <strong><em>respuesta</em></strong>, el servidor colocará todos los datos de la respuesta HTTP que va a enviar al cliente.</li>
+</ul>
+
+<p>Fíjate cómo en el código, en primer lugar, miramos si la petición del cliente nos llegó por POST. Si es así, creamos dos manejadores de eventos:</p>
+
+<ul>
+  <li>El manejador <strong>“data”</strong> se ejecutará cuando llegue un nuevo fragmento de información por POST.</li>
+  <li>El manejador <strong>“end”</strong> se ejecutará cuando haya terminado de recibirse información desde el cliente.</li>
+</ul>
+
+<p>Por eso, en el manejador “data” nos limitamos a ir encadenando los datos que llegan por POST en la variable <em>datos_del_post</em>, y es en el manejador “end” cuando los procesamos. Observa cómo en ese manejador generamos la respuesta HTTP mediante el método <strong><em>write()</em></strong>. La respuesta se envía al cliente cuando se ejecuta el método <strong><em>end()</em></strong>.</p>
+
+<h3 id="875-módulos-de-nodejs">8.7.5. Módulos de Node.js</h3>
+
+<p>Las bibliotecas o <strong>módulos</strong>, como se llaman en Node.js, son una parte crucial de este entorno de desarollo.</p>
+
+<p>Los módulos, como en cualquier lenguaje, permiten reutilizar código, pero gracias a <strong>npm</strong> (<em>Node Package Manager</em>), puedes insertar tus librerías dentro de otras, o bien publicarlas para ponerlas al servicio de la comunidad. Y, por supuesto, usar las librerías de otros para tus proyectos.</p>
+
+<h4 id="require">Require</h4>
+
+<p>Para utilizar un módulo, se usa <strong>require</strong>. Por ejemplo, un módulo de la librería estándar de Node.js se llama “fs” y sirve para manipular ficheros. Si lo necesitamos en nuestro programa, basta con escribir esto:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">fs</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="dl">'</span><span class="s1">./file.txt</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">utf-8</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span> <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span> <span class="p">}</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">data: </span><span class="dl">'</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>En este ejemplo, hemos importado el módulo “fs” y lo hemos asignado a una variable. A partir de esa variable, podemos usar cualquier método del módulo, como <em>readFile()</em>. La lista de funciones disponibles, como es lógico, tendrás que consultarla en la documentación del módulo.</p>
+
+<p><strong>require</strong> buscará los módulos en este orden:</p>
+
+<ol>
+  <li>Módulos de la librería estándar de Node.js</li>
+  <li>Módulos importados con <em>npm</em></li>
+  <li>Módulos locales, es decir, que hayamos descargado y almacenado manualmente en el directorio de trabajo.</li>
+</ol>
+
+<h4 id="librería-estándar-de-nodejs">Librería estándar de Node.js</h4>
+
+<p>Con solo instalar Node.js en el sistema, ya dispones de todos los módulos de la librería estándar. Algunos de los módulos más utilizados con aplicaciones web son:</p>
+
+<ul>
+  <li><strong>fs</strong>: Para manipular ficheros.</li>
+  <li><strong>path</strong>: Para trabajar con directorios.</li>
+  <li><strong>http</strong>: Para crear servidores y clientes.</li>
+  <li><strong>url</strong>: Para analizar URLs y extraer segmentos y variables de ellas.</li>
+</ul>
+
+<h4 id="módulos-instalados-con-npm">Módulos instalados con npm</h4>
+
+<p>Los módulos instalados con npm están desarrollados por terceros, es decir, no forman parte del <em>core</em> de Node.js.</p>
+
+<p>Exiten literalmente miles de módulos que puedes instalar con npm, ya que cualquier desarrollador puede publicar el suyo. Asegúrate de consultar la web del desarrollador (y, sobre todo, la página de documentación) antes de instalar un módulo.</p>
+
+<p>Algunos ejmplos de módulos npm que podrían ser útiles en una aplicación web son:</p>
+
+<ul>
+  <li><strong>lodash</strong>: Para manipular arrays, objetos, colecciones, cadenas…</li>
+  <li><strong>request</strong>: Un servidor http más simple de usar que el módulo estándar que viene con Node.js.</li>
+  <li><strong>gm</strong>: Permite manipular imágenes en el servidor: rotación, recorte, redimensionamiento, etc.</li>
+  <li><strong>pdfkit</strong>: Para importar y exportar documentos PDF.</li>
+  <li><strong>express</strong>: Un framework completo (aunque minimalista) para trabajar con Node, con soporte para <em>middlewares</em>, renderizadores de vistas y mucho más.</li>
+  <li><strong>restify</strong>: Para crear servidores REST de forma aún más minimalista que con <em>express</em>.</li>
+</ul>
+
+<p>Para instalar un módulo mediante npm, basta con teclear esto en un terminal:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ npm install pdfkit
+</code></pre></div></div>
+
+<p>Después, en nuestro código fuente, podemos usar ese módulo así:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">pdfkit</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">pdfkit</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="876-nodejs-y-mongodb">8.7.6. Node.js y MongoDB</h3>
+
+<p><strong>MongoDB</strong> es un gestor de bases de datos <strong>no relacional</strong> (o <strong>no-SQL</strong>) con una implantación creciente en el mercado profesional.</p>
+
+<p>Se dice que MongoDB está <strong>orientado a documentos</strong>. Los <em>documentos</em> en estas bases de datos son el equivalente a los <em>registros</em> de las bases de datos relacionales, pero menos rígidos. Un documento puede contener literalmente cualquier cosa, siempre que esté formateada del modo adecuado para la base de datos (lo que significa, generalmente, que esté escrito en correcto XML o JSON).</p>
+
+<p>Las bases de datos documentales son capaces de bucear en esos documentos, crear nuevos documentos, modificarlos y borrarlos, indexarlos y, como es lógico, realizar búsquedas.</p>
+
+<p>MongoDB agrupa los documentos en <strong>colecciones</strong>, de modo que si un documento es algo parecido a un registro (pero más flexible), una colección es algo parecido a una tabla (también más flexible). No existe el concepto de campo, dominio, ni nada parecido: cada documento de la colección puede tener su propia estructura.</p>
+
+<p>MongoDB y Node.js se han llevado muy bien desde siempre, hasta el punto de que parte del éxito actual de uno se debe al éxito del otro, y viceversa. No es nuestra intención (ni tenemos espacio aquí) adentrarnos en los vericuetos de las bases de datos documentales, sino presentártelas para que conozcas su existencia. Si pretendes dedicarte al desarrollo web profesionalmente, es muy posible que, antes o después, te encuentres con bases de datos no-SQL como MongoDB.</p>
+
+<h3 id="877-ejemplo-1-en-nodejs-hola-mundo">8.7.7. Ejemplo 1 en Node.js: Hola mundo</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">http</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> 
+	<span class="c1">// Cabecera http. No es imprescindible, pero sí recomendable.</span>
+	<span class="c1">// Recuerda que el código 200 significa "OK" en el protocolo http/https.</span>
+	<span class="c1">// El 'Content-type' más habitual es 'text/html' o 'application/json'. </span>
+	<span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">text/html</span><span class="dl">'</span><span class="p">);</span> 
+	<span class="nx">res</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hola, mundo!</span><span class="dl">'</span><span class="p">);</span> 
+	<span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
+<span class="p">).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">9000</span><span class="p">);</span> <span class="c1">// Puerto donde el servidor escuchará</span>
+</code></pre></div></div>
+
+<h3 id="878-ejemplo-2-en-nodejs-login-con-comprobación-de-email-por-ajax">8.7.8. Ejemplo 2 en Node.js: login con comprobación de email por Ajax</h3>
+
+<p>Como en las ocasiones anteriores, solo mostramos aquí el script del lado del servidor (login.js). Para revisar el código del lado del cliente, puedes acudir a la sección dedicada al lenguaje Perl, y sustituir la referencia al script login.pl por login.js. El resto del código permanecerá idéntico.</p>
+
+<p>Hay que destacar que, con el uso de <strong>Express</strong>, la implementación de esta respuesta del servidor se simplificaría bastante. No lo tomes, por lo tanto, como un ejemplo realista, sino como una muestra el aspecto que tiene el código fuente de Node.js.</p>
+
+<p>Observa que, al tratarse de un código dirigido por eventos, no escribimos el algoritmo de arriba a abajo, en el orden en el que se deben ejecutar las cosas, sino que vamos respondiendo a estos eventos:</p>
+
+<ul>
+  <li>Recepción de datos por GET.</li>
+  <li>Finalización de la recepción de datos por GET.</li>
+  <li>Conexión lista con la base de datos.</li>
+</ul>
+
+<p>Curiosamente, la consulta a la base de datos no lanza un evento cuando está lista, sino que la función manejadora se indica justo a continuación de la consulta. Esta función se ejecutará cuando la consulta finalice y la base de datos devuelva los resultados.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">mysql</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">mysql</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">http</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">GETdata</span><span class="p">,</span> <span class="nx">dbconnection</span><span class="p">;</span>
+
+<span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">peticion</span><span class="p">,</span> <span class="nx">respuesta</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">if</span><span class="p">(</span><span class="nx">peticion</span><span class="p">.</span><span class="nx">method</span> <span class="o">==</span> <span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">GETdata</span> <span class="o">=</span> <span class="dl">''</span><span class="p">;</span>
+      <span class="nx">peticion</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// Vamos recogiendo los datos que llegan por GET</span>
+         <span class="nx">GETdata</span> <span class="o">+=</span> <span class="nx">data</span><span class="p">;</span>
+      <span class="p">});</span>
+      <span class="nx">peticion</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">end</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>  <span class="c1">// Ha finalizado la llegada de datos. Preparamos la conexión con la BD.</span>
+         <span class="nx">GETdata</span> <span class="o">=</span> <span class="nx">querystring</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">GETdata</span><span class="p">);</span>
+         <span class="kd">var</span> <span class="nx">dbconnection</span> <span class="o">=</span> <span class="nx">mysql</span><span class="p">.</span><span class="nx">createConnection</span><span class="p">({</span><span class="na">host</span><span class="p">:</span> <span class="dl">"</span><span class="s2">localhost</span><span class="dl">"</span><span class="p">,</span> <span class="na">user</span><span class="p">:</span> <span class="dl">"</span><span class="s2">nombre-usuario</span><span class="dl">"</span><span class="p">,</span> <span class="na">password</span><span class="p">:</span> <span class="dl">"</span><span class="s2">contraseña</span><span class="dl">"</span><span class="p">,</span> <span class="na">database</span><span class="p">:</span> <span class="dl">"</span><span class="s2">nombre-base-de-datos</span><span class="dl">"</span><span class="p">});</span>
+      <span class="p">});</span>
+   <span class="p">}</span>
+   <span class="nx">dbconnection</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// La conexión con la BD ya está lista</span>
+         <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+         <span class="c1">// Lanzamos la consulta y procesamos la respuesta</span>
+         <span class="nx">dbconnection</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">`SELECT * FROM users WHERE username = '</span><span class="p">${</span><span class="nx">GETdata</span><span class="p">.</span><span class="nx">username</span><span class="p">}</span><span class="s2">' AND password = '</span><span class="p">${</span><span class="nx">GETdata</span><span class="p">.</span><span class="nx">password</span><span class="p">}</span><span class="s2">'`</span><span class="p">,</span>
+            <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="nx">fields</span><span class="p">)</span> <span class="p">{</span>
+               <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+               <span class="nx">respuesta</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">});</span>
+               <span class="k">if</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                   <span class="nx">respuesta</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Username or password not valid</span><span class="dl">"</span><span class="p">}));</span>
+               <span class="p">}</span>
+               <span class="k">else</span> <span class="p">{</span>
+                   <span class="nx">respuesta</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="dl">"</span><span class="s2">success</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Authentication OK</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">userid</span><span class="dl">"</span><span class="p">:</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">id</span><span class="p">}));</span>
+               <span class="p">}</span>
+               <span class="nx">respuesta</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
+         <span class="p">});</span>
+   <span class="p">});</span>
+<span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">9000</span><span class="p">,</span> <span class="dl">'</span><span class="s1">127.0.0.1</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>

@@ -1,0 +1,77 @@
+I"<h2 class="no_toc" id="31-cookies">3.1. Cookies</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#311-qué-son-las-cookies" id="markdown-toc-311-qué-son-las-cookies">3.1.1. ¿Qué son las cookies?</a></li>
+  <li><a href="#312-manejando-cookies-con-php" id="markdown-toc-312-manejando-cookies-con-php">3.1.2. Manejando cookies con PHP</a>    <ul>
+      <li><a href="#enviar-una-cookie-setcookie" id="markdown-toc-enviar-una-cookie-setcookie">Enviar una cookie: setcookie()</a></li>
+      <li><a href="#recuperar-una-cookie-_cookies" id="markdown-toc-recuperar-una-cookie-_cookies">Recuperar una cookie: $_COOKIES[]</a></li>
+      <li><a href="#borrar-una-cookie" id="markdown-toc-borrar-una-cookie">Borrar una cookie</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>En esta sección vamos a ver qué son las <em>cookies</em> y cómo podemos acceder a ellas para crearlas o manipularlas desde PHP.</p>
+
+<h3 id="311-qué-son-las-cookies">3.1.1. ¿Qué son las cookies?</h3>
+
+<p>Las <strong><em>cookies</em></strong> son pequeños archivos de texto enviados desde el servidor que se almacenan en el lado del cliente. Es decir, en el navegador.</p>
+
+<p>Permiten guardar información de forma persistente, de manera que se mantenga entre una petición al servidor y otra. Una <em>cookie</em> puede estar viva durante minutos, horas, días o incluso indefinidamente.</p>
+
+<p>Desde PHP, se pueden usar las <em>cookies</em> usando la función <strong><em>setcookie()</em></strong> y el array global <strong><em>$_COOKIE</em></strong>. Vamos a ver cómo.</p>
+
+<h3 id="312-manejando-cookies-con-php">3.1.2. Manejando cookies con PHP</h3>
+
+<h4 id="enviar-una-cookie-setcookie">Enviar una cookie: setcookie()</h4>
+
+<p>Esta función define una <em>cookie</em> que se enviará al cliente junto con el resto de las cabeceras de HTTP. Devuelve <em>true</em> si la cookie se envía con éxito o <em>false</em> en caso contrario.</p>
+
+<p>Su sintaxis es:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">bool</span> <span class="nb">setcookie</span> <span class="p">(</span> <span class="n">string</span> <span class="nv">$name</span> <span class="p">[,</span> <span class="n">string</span> <span class="nv">$value</span> <span class="p">[,</span> <span class="n">int</span> <span class="nv">$expire</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">[,</span> <span class="n">string</span> <span class="nv">$path</span> <span class="p">[,</span> <span class="n">string</span> <span class="nv">$domain</span> <span class="p">[,</span> <span class="n">bool</span> <span class="nv">$secure</span> <span class="o">=</span> <span class="kc">false</span> <span class="p">[,</span> <span class="n">bool</span> <span class="nv">$httponly</span> <span class="o">=</span> <span class="kc">false</span> <span class="p">]]]]]]</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<p>Las <em>cookies</em> deben enviarse <strong>antes de que el programa genere ninguna salida</strong>. Esto no es un capricho de PHP, sino una restricción del protocolo http. Por lo tanto, debes llamar a esta función antes de hacer <em>cualquier</em> salida, incluidos espacios en blanco. En caso contrario, la <em>cookie</em> no estará disponible hasta que la página se recargue.</p>
+
+<p>La función <em>setcookie()</em> admite un montón de parámetros, la mayor parte de ellos optativos:</p>
+
+<ul>
+  <li><strong>name</strong>: El nombre de la <em>cookie</em>. Este es el único obligatorio.</li>
+  <li><strong>value</strong>: El valor de la <em>cookie</em>.</li>
+  <li><strong>expire</strong>: El tiempo que la <em>cookie</em> tardará en expirar. Se trata de una fecha expresada en <a href="https://es.wikipedia.org/wiki/Tiempo_Unix">formato Unix</a>.</li>
+  <li><strong>path</strong>: La ruta del servidor para la que la <em>cookie</em> estará disponible. Si se utiliza ‘/’, la <em>cookie</em> estará disponible en la totalidad del dominio.</li>
+  <li><strong>domain</strong>: El dominio para el cual la <em>cookie</em> está disponible.</li>
+  <li><strong>secure</strong>: Si la <em>cookie</em> solo debería enviarse en caso de conexión https, pon este argument a <em>true</em>.</li>
+  <li><strong>httponly</strong>: Esta <em>cookie</em> solo será accesible a través de http. Es decir, no podrá accederse a la <em>cookie</em> desde Javascript.</li>
+</ul>
+
+<p>Aquí tienes tres ejemplos de envío de la misma cookie:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="nv">$value</span> <span class="o">=</span> <span class="s2">"I'm your father"</span><span class="p">;</span> 
+
+<span class="nb">setcookie</span><span class="p">(</span><span class="s2">"VaderQuote"</span><span class="p">,</span> <span class="nv">$value</span><span class="p">);</span> 
+<span class="nb">setcookie</span><span class="p">(</span><span class="s2">"VaderQuote"</span><span class="p">,</span> <span class="nv">$value</span><span class="p">,</span> <span class="nb">time</span><span class="p">()</span><span class="o">+</span><span class="mi">3600</span><span class="p">);</span>  <span class="c1">// la cookie expira en una hora </span>
+<span class="nb">setcookie</span><span class="p">(</span><span class="s2">"VaderQuote"</span><span class="p">,</span> <span class="nv">$value</span><span class="p">,</span> <span class="nb">time</span><span class="p">()</span><span class="o">+</span><span class="mi">3600</span><span class="p">,</span> <span class="s2">"/quotes/"</span><span class="p">,</span> <span class="s2">"bestquotes.com"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> 
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h4 id="recuperar-una-cookie-_cookies">Recuperar una cookie: $_COOKIES[]</h4>
+
+<p>Para ver el contenido de una <em>cookie</em>, simplemente hay que acceder al array global <em>$_COOKIES</em>. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="c1">// Imprimir una cookie individual </span>
+<span class="k">echo</span> <span class="nv">$_COOKIE</span><span class="p">[</span><span class="s2">"VaderQuote"</span><span class="p">];</span> 
+<span class="cp">?&gt;</span> 
+</code></pre></div></div>
+
+<h4 id="borrar-una-cookie">Borrar una cookie</h4>
+
+<p>Para forzar el borrado de una cookie en el cliente basta con enviarla con una fecha de expiración anterior a la fecha actual. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="nb">setcookie</span> <span class="p">(</span><span class="s2">"VaderQuote"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="nb">time</span><span class="p">()</span> <span class="o">-</span> <span class="mi">3600</span><span class="p">);</span>  <span class="c1">// Establece la fecha de expiración una hora en el pasado</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+:ET

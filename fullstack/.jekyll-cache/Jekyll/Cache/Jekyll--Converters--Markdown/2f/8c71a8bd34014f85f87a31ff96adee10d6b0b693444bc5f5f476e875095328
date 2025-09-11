@@ -1,0 +1,79 @@
+I"U<h2 class="no_toc" id="32-sesiones">3.2. Sesiones</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#321-qué-es-eso-de-las-variables-de-sesión" id="markdown-toc-321-qué-es-eso-de-las-variables-de-sesión">3.2.1. ¿Qué es eso de las variables de sesión?</a></li>
+  <li><a href="#322-abrir-sesiones-session_start" id="markdown-toc-322-abrir-sesiones-session_start">3.2.2. Abrir sesiones: session_start()</a></li>
+  <li><a href="#323-usar-variables-de-sesión-_session" id="markdown-toc-323-usar-variables-de-sesión-_session">3.2.3. Usar variables de sesión: $_SESSION</a></li>
+  <li><a href="#324-eliminar-variables-de-sesión-unset-y-session_destroy" id="markdown-toc-324-eliminar-variables-de-sesión-unset-y-session_destroy">3.2.4. Eliminar variables de sesión: unset() y session_destroy()</a></li>
+</ul>
+
+<p>En esta sección vamos a aprenderlo todo (bueno, o casi todo) sobre las variables de sesión en PHP.</p>
+
+<h3 id="321-qué-es-eso-de-las-variables-de-sesión">3.2.1. ¿Qué es eso de las variables de sesión?</h3>
+
+<p>Las <strong>sesiones</strong> de PHP son un mecanismo para que un script almacene variables (llamadas <strong>variables de sesión</strong>) en el servidor de manera persistente, de modo que posteriores ejecuciones de programas en el servidor solicitadas desde el mismo cliente pueden acceder a esas variables.</p>
+
+<p>Es decir: en la práctica, <strong>las variables de sesión se comportan como si fueran variables globales a toda la aplicación web</strong>.</p>
+
+<p>Seguro que te habían dicho que usar variables globales es una mala idea y una pésima práctica de programación. Eso es cierto y, al mismo tiempo, usarlas resulta inevitable. <em>Bienvenido/a al extravagante mundo de las aplicaciones web</em>.</p>
+
+<p>Por ese motivo, debe reducirse el uso de las variables de sesión a lo estrictamente imprescindible. ¿Qué cosas resulta útil guardar en variables de sesión? Cosas como el ID o el nombre de un usuario logueado en un sistema o el estado de la aplicación. Poco más. Cosas pequeñas pero tremendamente importantes.</p>
+
+<p>Cada cliente tiene su propio espacio de variables de sesión en el servidor, de manera que no se mezclan unas con otras, ni un cliente puede acceder a las variables de otro cliente.</p>
+
+<p>La forma en la que PHP logra distinguir a los clientes entre sí es enviándoles, de forma transparente, una <em>cookie</em> con un valor aleatorio distinto para cada cliente. “De forma transparente” significa que ni el programador ni el usuario se enteran de que esa <em>cookie</em> existe: PHP se encarga de hacerlo por su cuenta.</p>
+
+<p>En el archivo <em>php.ini</em> se puede configurar la manera en la que PHP almacenará las variables de sesión (en memoria, en un fichero, etc), pero esto es irrelevante de cara a su funcionamiento y compete más al administrador del sistema que al programador. Lo que a nosotros nos interesa es aprender a crear variables de sesión, asignarles valor y recuperarlo posteriormente.</p>
+
+<h3 id="322-abrir-sesiones-session_start">3.2.2. Abrir sesiones: session_start()</h3>
+
+<p>Antes de acceder a cualquier variable de sesión (ya sea para crearla, para modificarla o para eliminarla) necesitamos indicarle a PHP que queremos usar variables de sesión en ese programa.</p>
+
+<p>La función <strong><em>session_start()</em></strong> se usa para eso: habilita el acceso a las variables de sesión, es decir, crea una nueva sesión o reanuda una sesión preexistente.</p>
+
+<p>Las sesiones admiten un nombre, por si necesitas crear sesiones separadas para el mismo cliente. No obstante, la mayor parte de las veces te bastará con crear sesiones sin nombre, sin necesidad de pasar ningún argumento a <em>session_start()</em>.</p>
+
+<h3 id="323-usar-variables-de-sesión-_session">3.2.3. Usar variables de sesión: $_SESSION</h3>
+
+<p>Las variables de sesión se manipulan a través del array superglobal <strong><em>$_SESSION</em></strong>.</p>
+
+<p>Si necesitas una variable de sesión llamada, por ejemplo, <em>nombre_usuario</em>, simplemente haz esto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">session_start</span><span class="p">();</span>
+<span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'nombre_usuario'</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"valor-de-la-variable"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Por supuesto, el valor de esa posición del array $_SESSION puede consultarse o modificarse cuando lo necesitemos, porque se trata de un array como otro cualquiera… salvo que es <em>superglobal</em>, es decir, es accesible desde cualquier punto del programa.</p>
+
+<h3 id="324-eliminar-variables-de-sesión-unset-y-session_destroy">3.2.4. Eliminar variables de sesión: unset() y session_destroy()</h3>
+
+<p>La función <strong>unset()</strong> se utiliza para destruir cualquier variable, incluidas las de sesión:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">unset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'nombre_usuario'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>Si lo que deseas es destruir <em>todas</em> las variables de sesión, es preferible recurrir a <strong><em>session_destroy()</em></strong>.</p>
+
+<p>Ahora bien, session_destroy() destruye la información asociada a la sesión actual, pero no elimina realmente las variables de la memoria del servidor ni borra la <em>cookie</em> de sesión del cliente.</p>
+
+<p>Si eres un fanático de la seguridad y quieres asegurarte de destruir todas las variables de sesión, puedes usar la función <strong><em>session_unset()</em></strong>. Y, para borrar la cookie de sesión, debes usar <strong><em>setcookie()</em></strong>, como en este ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="cp">&lt;?php</span>
+<span class="nb">session_start</span><span class="p">();</span>
+
+<span class="c1">// Destruimos todas las variables de sesión (optativo)</span>
+<span class="nb">session_unset</span><span class="p">();</span>
+
+<span class="c1">// Si queremos destruir la sesión completamente, borramos también la cookie de sesión.</span>
+<span class="nv">$params</span> <span class="o">=</span> <span class="nb">session_get_cookie_params</span><span class="p">();</span>
+<span class="nb">setcookie</span><span class="p">(</span><span class="nb">session_name</span><span class="p">(),</span> <span class="s1">''</span><span class="p">,</span> <span class="nb">time</span><span class="p">()</span> <span class="o">-</span> <span class="mi">42000</span><span class="p">,</span>
+        <span class="nv">$params</span><span class="p">[</span><span class="s2">"path"</span><span class="p">],</span> <span class="nv">$params</span><span class="p">[</span><span class="s2">"domain"</span><span class="p">],</span>
+        <span class="nv">$params</span><span class="p">[</span><span class="s2">"secure"</span><span class="p">],</span> <span class="nv">$params</span><span class="p">[</span><span class="s2">"httponly"</span><span class="p">]</span>
+<span class="p">);</span>
+
+<span class="c1">// Finalmente, cerramos 0la sesión</span>
+<span class="nb">session_destroy</span><span class="p">();</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+:ET

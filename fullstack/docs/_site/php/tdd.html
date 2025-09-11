@@ -1,0 +1,519 @@
+<h2 class="no_toc" id="26-tdd-test-driven-development">2.6. TDD: test-driven development</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#261-ventajas-de-hacer-testing-automático" id="markdown-toc-261-ventajas-de-hacer-testing-automático">2.6.1. Ventajas de hacer testing automático</a></li>
+  <li><a href="#262-tipos-de-pruebas" id="markdown-toc-262-tipos-de-pruebas">2.6.2. Tipos de pruebas</a></li>
+  <li><a href="#263-qué-es-tdd" id="markdown-toc-263-qué-es-tdd">2.6.3. ¿Qué es TDD?</a>    <ul>
+      <li><a href="#flujo-de-trabajo-con-tdd" id="markdown-toc-flujo-de-trabajo-con-tdd">Flujo de trabajo con TDD</a></li>
+      <li><a href="#unit-tests-are-first" id="markdown-toc-unit-tests-are-first">Unit Tests are FIRST</a></li>
+    </ul>
+  </li>
+  <li><a href="#264-implantar-tdd-en-un-proyecto-php-con-php-unit" id="markdown-toc-264-implantar-tdd-en-un-proyecto-php-con-php-unit">2.6.4. Implantar TDD en un proyecto PHP con PHP Unit</a>    <ul>
+      <li><a href="#instalar-y-preparar-phpunit" id="markdown-toc-instalar-y-preparar-phpunit">Instalar y preparar PHPUnit</a></li>
+      <li><a href="#casos-de-prueba-de-phpunit" id="markdown-toc-casos-de-prueba-de-phpunit">Casos de prueba de PHPUnit</a></li>
+      <li><a href="#escribiendo-mi-primer-caso-de-prueba" id="markdown-toc-escribiendo-mi-primer-caso-de-prueba">Escribiendo mi primer caso de prueba</a></li>
+      <li><a href="#ejecutando-los-tests" id="markdown-toc-ejecutando-los-tests">Ejecutando los tests</a></li>
+      <li><a href="#fixtures" id="markdown-toc-fixtures">Fixtures</a></li>
+      <li><a href="#dobles-de-prueba" id="markdown-toc-dobles-de-prueba">Dobles de prueba</a></li>
+      <li><a href="#dobles-de-prueba-stubs" id="markdown-toc-dobles-de-prueba-stubs">Dobles de prueba: <em>stubs</em></a></li>
+      <li><a href="#dobles-de-prueba-mocks" id="markdown-toc-dobles-de-prueba-mocks">Dobles de prueba: <em>mocks</em></a></li>
+      <li><a href="#cobertura" id="markdown-toc-cobertura">Cobertura</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>El <strong><em>testing</em></strong> o <strong>fase de pruebas</strong> es una de las grandes olvidadas en los cursos de programación y este ciclo formativo no es una excepción. Realmente, parece que nunca hubiera tiempo para dedicarse a probar el software como es debido.</p>
+
+<p>Vamos a dedicar este apartado al <em>testing</em> y vamos a ver algunas técnicas que nos ayudarán a interiorizarlo y a integrarlo como parte de nuestra práctica profesional. En particular, nos vamos a centrar en el <strong>TDD</strong> o <strong><em>test-driven development</em></strong>, una metodología de desarrollo que toma las pruebas del software como la piedra angular del proceso de desarrollo y que, por lo tanto, permite construir aplicaciones <em>en cualquier lenguaje</em> que resultan mucho más confiables que las que se prueban a salto de mata.</p>
+
+<h3 id="261-ventajas-de-hacer-testing-automático">2.6.1. Ventajas de hacer testing automático</h3>
+
+<p>Imagina que estás desarrollando una aplicación web que tiene multitud de funcionalidades. A ti te han encargado dos: hacer la pantalla de login y el mantenimiento de los usuarios registrados (altas, bajas, modificaciones, esas cosas).</p>
+
+<p>Puede que decidas que empezar por la pantalla de login está bien, así que comienzas a desarrollarla y te centras en todas sus funcionalidades: comprobar que el usuario y la contraseña son correctas, prevenir los posibles ataques, informar al usuario de posibles errores, habilitar un mecanismo para resetear la contraseña en caso de olvido, etc.</p>
+
+<p>Cuando terminas, ¿que haces? <strong>Lo pruebas todo <em>manualmente</em></strong> una y otra vez. De hecho, lo habrás estado probando mientras lo desarrollabas. <em>Las pruebas manuales están bien, y es conveniente hacerlas, <strong>pero no son suficiente</strong></em>. Siempre hay posibilidades que se nos pasan por alto y olvidamos probar. ¿Cuántas veces no has enseñado un programa a un compañero o a tu profesor después de haberlo usado mil veces y te ha fallado a los dos segundos porque han hecho algo que a ti no se te había ocurrido comprobar?</p>
+
+<p>Por lo tanto, aquí tenemos la primera ventaja de hacer un <em>testing</em>: <strong>el <em>testing</em> bien diseñado siempre detectará más fallos que las pruebas manuales</strong>, además de consumir mucho menos tiempo por nuestra parte.</p>
+
+<p>Sigamos imaginando. Cuando terminas la pantalla de login, comienzas a desarrollar tu segunda tarea, es decir, el mantenimiento de usuarios. Te centras durante varios días en este nuevo subprograma y todas sus funciones: insertar, modificar y borrar usuarios, validar campos, impedir repeticiones, prevenir ataques, etc.</p>
+
+<p>Cuando terminas, <em>no puedes estar seguro de si algo de lo que has hecho ha podido afectar a la pantalla de login</em>. Por ejemplo, has podido añadir un nuevo campo que te hacía falta a la tabla de usuarios, y eso puede afectar a cómo se comporta el login. Conclusión: ¡tienes que volver a probar el login de nuevo!</p>
+
+<p>Con un <em>testing</em> automatizado y bien diseñado, esto no es necesario, y aquí viene la segunda gran ventaja: <strong>siempre estaremos seguros de que toda la aplicación funciona</strong>, aunque vayamos añadiendo módulos y funcionalidades.</p>
+
+<p>En resumen, hacer un buen <em>testing</em> nos asegura que estamos produciendo código de calidad y libre de errores. No libre de errores al 100%, porque eso no existe, pero sí de buena calidad. Y eso no solo dice mucho de nuestra profesionalidad, sino que te dará una tranquilidad a la hora de presentar tus proyectos a tus clientes o a tus jefes (¡o a tus profesores!) que te aseguro que no tiene precio.</p>
+
+<p>La metodología TDD es útil cuando trabajas con proyectos grandes. Para proyectos pequeños, suele dar buenos resultados hacer un <em>testing</em> más o menos manual. Pero si trabajas así en un proyecto grande, notarás que al principio desarrollas muy deprisa pero, al cabo de unas semanas o unos meses, pasas más tiempo <em>reparando</em> cosas que no funcionan de tu código antiguo que desarrollando código y funcionalidades nuevas. <em>Esta es la prueba más clara de que ese proyecto habria necesitado de un proceso de testing mucho más estricto</em>. Estos proyectos suelen acabar abandonados porque se vuelven imposibles de mantener.</p>
+
+<p>En las primeras fases de desarrollo de un proyecto grande, puede parecerte que usar TDD es una pérdida de tiempo. Pero ese tiempo se recupera con creces más adelante, cuando podemos seguir avanzando al mismo ritmo que al principio porque tenemos la seguridad de que todo sigue funcionando.</p>
+
+<p>Y así llegamos a la última gran ventaja de seguir una metodología que automatice el <em>testing</em>: los programadores que trabajan de este modo y están acostumbrados a producir código de calidad <strong>ganan más dinero</strong> que los programadores chapuceros que prueban sus aplicaciones manualmente. Y lo hacen porque, a la larga, resultan mucho más productivos para su empresa.</p>
+
+<p>Así que la decisión es tuya: <strong>¿quieres ser un programador/a que genere código de calidad o te conformas con ser un programador/a chapucero?</strong></p>
+
+<h3 id="262-tipos-de-pruebas">2.6.2. Tipos de pruebas</h3>
+
+<p>La fase de pruebas de cualquier programa incluye diferentes tipos de prueba. Este no es un manual teórico sobre ingeniería del software (¡Dios nos libre!), pero necesitas conocer al menos estos tres tipos de prueba para entender cómo actúa la metodología TDD sobre el flujo de trabajo en un proyecto:</p>
+
+<ul>
+  <li>
+    <p><strong>Test unitario</strong>: estas pruebas se dedican a comprobar que una funcionalidad muy concreta responde correctamente.</p>
+
+    <p>Por ejemplo, imagina que en tu pantalla de login quieres exigir al usuario que el campo <em>email</em> tenga formato de una dirección de correo bien escrita, así que escribes el código necesario para hacer esa comprobación. Pues bien, cuando compruebas si esa comprobación está funcionando o no, estás haciendo un test unitario.</p>
+  </li>
+  <li>
+    <p><strong>Test de integración</strong>: estas pruebas comprueban el funcionamiento de varias funcionalidades o varios componentes trabajando en conjunto.</p>
+
+    <p>Por ejemplo, cuando has terminado de escribir toda tu pantalla de login y quieres comprobar que todo funciona, estás haciendo un test de integración. Ahí están en juego no solo las distintas funciones que has programado (comprobación del email, comprobación de la contraseña, consulta a la base de datos, etc), sino varios componentes de la aplicación: javascript en el lado del cliente, una conexión con el servidor, tal vez un enrutador, etc.</p>
+  </li>
+  <li>
+    <p><strong>Test de aceptación</strong>: estas pruebas son parecidas a las de integración, pero aún más amplias, implicando a componentes dispersos que previamente habrás probado mediante test de integración y, en última instancia, a toda la aplicación en su conjunto. Es el test que se hace antes de poner la aplicación en producción o de hacer una demo ante un cliente.</p>
+  </li>
+</ul>
+
+<h3 id="263-qué-es-tdd">2.6.3. ¿Qué es TDD?</h3>
+
+<p>La metodología <strong>TDD</strong> o <strong><em>test-driven development</em></strong> es diferente del <em>testing</em> o fase de pruebas. TDD es una <strong>metodología de desarrollo</strong>, es decir, una manera de trabajar en el desarrollo de un proyecto software, con la peculiaridad de que la metodología TDD implica que el <em>testing</em> va a estar presente a lo largo de todo el desarrollo.</p>
+
+<p>Es decir, que puedes hacer <em>testing</em> sin metodología TDD, pero si trabajas con la metodología TDD, es seguro que vas a estar haciendo <em>testing</em> todo el tiempo.</p>
+
+<p>De hecho, cuando usas TDD, <strong>no escribes ni una sola línea de código sin haber diseñado antes las pruebas para ese código</strong>. El <em>testing</em> así, en general, puede hacerse en cualquier momento del desarollo, pero si usas TDD estarás haciendo <em>testing</em> de forma continua.</p>
+
+<h4 id="flujo-de-trabajo-con-tdd">Flujo de trabajo con TDD</h4>
+
+<p>Desarrollar cualquier parte de tu aplicación con TDD implica seguir siempre este orden:</p>
+
+<ol>
+  <li><strong>FASE ROJA</strong>: Consiste en <strong>diseñar las pruebas</strong> unitarias o de integración de lo que sea que vamos a desarrollar a continuación. Se llama <em>fase roja</em> porque estas pruebas siempre fallarán (y los errores, por aquello de que es un color muy llamativo, siempre se muestran en color rojo), ya que el código aún no está escrito.</li>
+  <li><strong>FASE VERDE</strong>: Consiste en <strong>escribir el código</strong> necesario para que las pruebas dejen de fallar, sin preocuparnos de si está muy bien escrito o no. Lo importante aquí es convertir esos errores en rojo en mensajes en verde.</li>
+  <li><strong>REFACTORIZACIÓN</strong>: Consiste en <strong>arreglar el código</strong> anterior para dejarlo bien legible y siguiendo las directrices de nuestra empresa o de nuestro grupo de trabajo en cuanto a calidad. Las pruebas, por supuesto, deben seguir dando un resultado verde, es decir, el código quedará vestido de domingo y seguirá sin fallar.</li>
+</ol>
+
+<h4 id="unit-tests-are-first">Unit Tests are FIRST</h4>
+
+<p>Los test unitarios pueden hacerse en cualquier momento del desarrollo, pero la metodología TDD aboga por hacerlos ANTES de escribir el código de las clases.</p>
+
+<p>“Unit Tests are FIRST” no es solo una frase para recordarnos la conveniencia de diseñar los tests antes de escribir el código, sino que la palabra FIRST es un acrónimo de las características que deben tener esos tests según la metodología TDD:</p>
+
+<ul>
+  <li>
+    <p><strong>Fast</strong> (rápido): el número de tests puede llegar a ser considerable. Si no se ejecutan con rapidez, cada vez que pasemos la batería de tests podemos tener que esperar un buen rato.</p>
+  </li>
+  <li>
+    <p><strong>Isolated</strong> (aislado): debemos diseñar cada test para que sea independiente de factores externos y también de los otros tests. Un cambio en uno de los tests no debería afectar al resto.</p>
+  </li>
+  <li>
+    <p><strong>Repeateable</strong> (repetible): los tests siempre deben ofrecer los mismos resultados ante los mismos datos de prueba.</p>
+  </li>
+  <li>
+    <p><strong>Selfverifying</strong> (autoverificable): los tests bien hechos solo pueden ofrecer dos resultados: o son un éxito o fallan. No deben quedar a la interpretación del desarrollador.</p>
+  </li>
+  <li>
+    <p><strong>Timely</strong> (oportuno): los tests deben escribirse antes que el código que se pretende verificar. Eso, que puede resultado antiintuitivo al principio, hace que tengamos mucho más claro qué comportamiento debe tener el código que vamos a escribir.</p>
+  </li>
+</ul>
+
+<h3 id="264-implantar-tdd-en-un-proyecto-php-con-php-unit">2.6.4. Implantar TDD en un proyecto PHP con PHP Unit</h3>
+
+<p>Vamos a ver cómo usar PHP Unit para automatizar las pruebas unitarias de nuestras aplicaciones. Y lo vamos a hacer mediante un ejemplo.</p>
+
+<p>Supongamos que una determinada funcionalidad de nuestra aplicación tiene el cometido de comprobar que el campo <em>email</em> de un formulario no está vacío y tiene formato de email (es decir, una @ y al menos un punto). En caso contrario, debe mostrar un mensaje de error. Podríamos escribir ese código más o menos así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$email</span> <span class="o">=</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s2">"email"</span><span class="p">];</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$email</span> <span class="o">==</span> <span class="s2">""</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">echo</span> <span class="s2">"Error: email incorrecto"</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">filter_var</span><span class="p">(</span><span class="nv">$email</span><span class="p">,</span> <span class="no">FILTER_VALIDATE_EMAIL</span><span class="p">))</span> <span class="p">{</span>
+   <span class="k">echo</span> <span class="s2">"Error: email incorrecto"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Este ejemplo tan simple será el código con el que trabajaremos para comprender cómo se usa PHPUnit.</p>
+
+<h4 id="instalar-y-preparar-phpunit">Instalar y preparar PHPUnit</h4>
+
+<p>PHPunit, como cualquier paquete adicional para PHP, puede instalarse manualmente o, mejor, con <strong><em>composer</em></strong>. Ya hablamos de cómo funciona este gestor de dependencias en el <a href="/docs/dwes/_site/php/caja-de-herramientas.html#gesti%C3%B3n-de-dependencias-con-composer">apartado 2.2.5</a>, así que vuelve a leerlo si no lo recuerdas.</p>
+
+<p>Configuraremos <strong><em>composer.json</em></strong> de este modo:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+   <span class="dl">"</span><span class="s2">autoload</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">psr-4</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span><span class="dl">"</span><span class="s2">Application</span><span class="se">\\</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">src/</span><span class="dl">"</span><span class="p">}</span>
+   <span class="p">},</span>
+   <span class="dl">"</span><span class="s2">require-dev</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">phpunit/phpunit</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^9.5</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">phpunit/php-code-coverage</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">^9.2</span><span class="dl">"</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>De este modo, le estamos indicando a <em>composer</em> que cargue automáticamente las clases que encuentre en la carpeta <em>/src</em>, que es donde deben estar los fuentes de tu aplicación (si no están ahí, cambia el archivo de configuración) y que las asigne al espacio de nombres (namespace) “Application”. También estamos declarando las dependencias de <em>phpunit</em> para que los paquetes necesarios se instalen en la carpeta <em>/vendor</em>, de manera que tengamos PHPUnit disponible durante el desarrollo.</p>
+
+<p>Para lanzar la instalación de esos paquetes y la autocarga de las clases de la aplicación, ahora tienes que teclear estos comandos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ composer install
+$ composer dump-autoload
+</code></pre></div></div>
+
+<h4 id="casos-de-prueba-de-phpunit">Casos de prueba de PHPUnit</h4>
+
+<p>Los <strong>casos de prueba</strong> son clases que contienen el código necesario para probar otras clases.</p>
+
+<p>Estos casos de prueba se suelen organizar del mismo modo que las clases reales. La costumbre es tener una carpeta llamada <em>tests</em> y, dentro de ella, reproducir la jerarquía de clases de todo el programa.</p>
+
+<p>Además, existen una serie de convenciones de nombres que debemos respetar:</p>
+
+<ul>
+  <li>Si una clase de la aplicación se llama <em>MiClase</em>, el caso de prueba de esa clase debe llamarse <em>MiClaseTest</em>.</li>
+  <li>Los casos de prueba deben heredar de <em>PHPUnit/Framework/TestCase</em>.</li>
+  <li>Los tests que haya dentro de los casos de prueba deben ser métodos públicos, sin parámetros y contener el texto <em>test</em> en su nombre.</li>
+  <li>Todos los tests deben comportarse como afirmaciones. Pueden ser como la función <em>assertTrue()</em> del ejemplo anterior. En ese caso, estaríamos afirmando que cierta condición es <em>true</em> y, en otro caso, el test fallará. O pueden ser afirmaciones de tipo <em>assertEquals()</em> (el valor de algo es igual a cierto valor esperado o, si no, el test fallará), <em>assertContains()</em> (cierta estructura de datos contiene determinado valor; si no, el test fallará), <em>assertCount()</em> (una estructura de datos contiene un cierto número de elementos; si no es así, el test fallará), etc. PHPunit tiene predefinidas un enorme número de afirmaciones como estas.</li>
+  <li>Los tests se lanzan desde la línea de comandos. Lo más cómodo es usar la consola integrada dentro de Visual Studio Code (o del editor que estés usando, si dispone de esta funcionalidad). Si no, siempre puedes abrir un terminal de texto en tu sistema operativo y moverte hasta la carpeta de tu proyecto.</li>
+</ul>
+
+<h4 id="escribiendo-mi-primer-caso-de-prueba">Escribiendo mi primer caso de prueba</h4>
+
+<p>Aunque es posible llamar a una sola clase de prueba, lo habitual es lanzar la batería completa de tests de un directorio concreto. En nuestro ejemplo no habrá diferencias porque, como es un ejemplo pequeñito, solo tendremos una clase (que llamaremos <em>CheckFormLogin</em>) y su correspondiente caso de prueba (<em>CheckFormLoginTest</em>). Esta clase contendrá las comprobaciones necesarias para saber si un formulario de login de una aplicación web ha sido cumplimentado correctamente.</p>
+
+<p>El código de <em>CheckFormLogin</em> debe estar, como el resto de la aplicación, en la carpeta <em>/src</em> (u la carpeta que hayamos preferido, siempre que se lo indiquemos a PHPUnit en <em>composer.json</em>):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">Application</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">CheckFormLogin</span> <span class="p">{</span>
+
+   <span class="k">private</span> <span class="nv">$status</span><span class="p">;</span>     <span class="c1">// Estado de la comprobación de errores. Si vale 0, es que no hay ningún error.</span>
+   <span class="k">private</span> <span class="nv">$email</span><span class="p">;</span>      <span class="c1">// Campos del formulario. Solo trabajaremos con el email, pero se pueden añadir más.</span>
+
+   <span class="cm">/* Constructor. Pone el status a 0, que significa que no se ha detectado ningún error en el formulario. */</span>
+   <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span><span class="nv">$email</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">status</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="cm">/* Comprueba si el campo email está correctamente escrito. Pone el status a 1 si el email está vacío y
+      a 2 si el email no está correctamente formado. Devuelve el valor del status */</span>
+   <span class="k">function</span> <span class="n">checkEmail</span><span class="p">()</span> <span class="p">{</span>      
+      <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="n">email</span> <span class="o">==</span> <span class="s2">""</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">status</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">filter_var</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="n">email</span><span class="p">,</span> <span class="no">FILTER_VALIDATE_EMAIL</span><span class="p">))</span> <span class="p">{</span>
+         <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">status</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">status</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="cm">/* Getter y setter para el atributo email */</span>
+   <span class="k">function</span> <span class="n">getEmail</span><span class="p">()</span> <span class="p">{</span> 
+      <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">email</span><span class="p">;</span> 
+   <span class="p">}</span>
+   <span class="k">function</span> <span class="n">setEmail</span><span class="p">(</span><span class="nv">$email</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">email</span> <span class="o">=</span> <span class="nv">$email</span><span class="p">;</span>
+      <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">email</span><span class="p">;</span>
+   <span class="p">}</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Por supuesto, esta clase puede contener otros atributos y otros métodos para comprobar que otros campos de un formulario de login se han rellenado correctamente, pero para nuestro ejemplo solo usaremos <em>$email</em> y <em>checkEmail()</em>.</p>
+
+<p>Necesitamos ahora escribir, en la carpeta <em>/test</em>, el caso de prueba correspondiente a la clase anterior:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">Test</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">PHPUnit\Framework\TestCase</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Application\CheckFormLogin</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">ChecCheckFormLoginTest</span> <span class="kd">extends</span> <span class="nc">TestCase</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="n">testEmailIsEmpty</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nv">$checkLogin</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CheckFromLogin</span><span class="p">();</span>
+      <span class="nv">$checkLogin</span><span class="o">-&gt;</span><span class="nf">setEmail</span><span class="p">(</span><span class="s2">""</span><span class="p">);</span>           <span class="c1">// Probamos un email vacío</span>
+      <span class="nv">$status</span> <span class="o">=</span> <span class="nv">$checkLogin</span><span class="o">-&gt;</span><span class="nf">checkEmail</span><span class="p">();</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">assertEquals</span><span class="p">(</span><span class="nv">$status</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+   <span class="p">}</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="n">testEmailBadFormat</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nv">$checkLogin</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CheckFromLogin</span><span class="p">();</span>  
+      <span class="nv">$checkLogin</span><span class="o">-&gt;</span><span class="nf">setEmail</span><span class="p">(</span><span class="s2">"blablabla"</span><span class="p">);</span>  <span class="c1">// Probamos un email mal formateado</span>
+      <span class="nv">$status</span> <span class="o">=</span> <span class="nv">$checkLogin</span><span class="o">-&gt;</span><span class="nf">checkEmail</span><span class="p">();</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">assertEquals</span><span class="p">(</span><span class="nv">$status</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Lo que hemos hecho en el caso de prueba es testear que la clase que estamos probando, <em>CheckFormLogin</em>, se comporta como debe en cada situación. Por ejemplo, el primer método, <em>testEmailIsEmpty()</em>, comprueba qué pasa cuando la clase <em>CheckFormLogin</em> recibe como email una cadena vacía (el atributo <em>status</em> debería pasar a valer 1, y eso es lo que comprobamos). El otro método, <em>testEmailBadFormat()</em>, comprueba qué sucede si la clase <em>CheckFormLogin</em> recibe un email mal formateado, sin arrobas ni puntos (el <em>status</em> debería valer 2).</p>
+
+<p>Por supuesto, se pueden añadir otras comprobaciones, como el caso de un email correctamente escrito (el <em>status</em> debería valer 0).</p>
+
+<p>Se hace fácil ver que construir los casos de prueba es un trabajo bastante costoso y que, en más de una ocasión, requerirá más líneas de código que la propia aplicación.</p>
+
+<h4 id="ejecutando-los-tests">Ejecutando los tests</h4>
+
+<p>Ya tenemos nuestro primer caso de prueba escrito para una de las clases de nuestra aplicación. Ha llegado el momento de lanzar el test.</p>
+
+<p>Para eso, nos salimos a la consola de texto (recuerda: si lo haces desde dentro del propio Visual Studio Code, todo resultará más fácil) y escribimos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./vendor/bin/phpunit --colors test
+</code></pre></div></div>
+
+<p>Así ejecutaremos phpunit (que está dentro de la carpeta <em>/vendor</em>, como todos los paquetes de terceros) y lanzamos el test de colores (lo mencionamos al principio: fase roja, fase verde y refactorización. Por eso se llama “test de colores”).</p>
+
+<p>PHPUnit lanzará todos los tests que encuentre y nos mostrará una pantalla de resultados, marcando en rojo los tests que hayan fallado, es decir, las afirmaciones o <em>assets</em> que no se hayan cumplido. Si pasamos los tests regularmente a toda la aplicación, podemos ir haciendo crecer nuestro código sin miedo a que los nuevos fragmentos de código rompan algo de lo que ya habíamos probado antes.</p>
+
+<h4 id="fixtures">Fixtures</h4>
+
+<p>Casi todos los métodos de los casos de prueba siguen el mismo patrón:</p>
+
+<ol>
+  <li>Preparamos la clase que queremos probar (en nuestro ejemplo anterior, <em>CheckFormLogin</em>), creando un objeto de esa clase con los valores que correspondan.</li>
+  <li>Se lanza la acción que queremos probar (en nuestro ejemplo, <em>checkEmail()</em>)</li>
+  <li>Se realiza una afirmación sobre el resultado de la acción anterior (en nuestro ejemplo, que el <em>status</em> valga 1 o 2).</li>
+</ol>
+
+<p>Hay ciertas partes de ese patrón que se repetirán una y otra vez en todos los métodos del caso de prueba. Para evitar ese copy-paste, que siempre es una pésima práctica de programación, existen las <em>fixtures</em> o características fijas que se repiten en todos los tests.</p>
+
+<p>Incluso en el ejemplo anterior, que es muy simple, podemos observar una característica fija: todos los tests empiezan crando un objeto de tipo <em>CheckFormLogin</em>. Por supuesto, en tests más realistas y complejos podría haber bastante más código repetido.</p>
+
+<p>Pues bien, PHPUnit permite evitar la duplicación de ese código mediante dos métodos que se pueden añadir al caso de prueba:</p>
+
+<ul>
+  <li><strong><em>setUp()</em></strong> - El código que pongamos en este método se ejecutará ANTES que los tests. Suele usarse para crear objetos y configurarlos.</li>
+  <li><strong><em>tearDown()</em></strong> - El código que escribamos aquí se ejecutar DESPUÉS de los tests, cuando todo haya terminado. Suele usarse para liberar la memoria o los recursos que hayan requerido los tests.</li>
+</ul>
+
+<p>En nuestro ejemplo anterior, podríamos añadir esos dos métodos así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">Test</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">PHPUnit\Framework\TestCase</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Application\CheckFormLogin</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">ChecCheckFormLoginTest</span> <span class="kd">extends</span> <span class="nc">TestCase</span> <span class="p">{</span>
+
+   <span class="k">private</span> <span class="nv">$checkLogin</span><span class="p">;</span>   <span class="c1">// Este será el objeto con el que haremos los tests   </span>
+
+   <span class="k">protected</span> <span class="k">function</span> <span class="n">setUp</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">checkLogin</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CheckLoginForm</span><span class="p">();</span>
+   <span class="p">}</span>
+
+   <span class="k">public</span> <span class="k">function</span> <span class="n">testEmailIsEmpty</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">checkLogin</span><span class="o">-&gt;</span><span class="nf">setEmail</span><span class="p">(</span><span class="s2">""</span><span class="p">);</span>           <span class="c1">// Probamos un email vacío</span>
+      <span class="nv">$status</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">checkLogin</span><span class="o">-&gt;</span><span class="nf">checkEmail</span><span class="p">();</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">assertEquals</span><span class="p">(</span><span class="nv">$status</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+   <span class="p">}</span>
+
+   <span class="k">public</span> <span class="k">function</span> <span class="n">testEmailBadFormat</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">checkLogin</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CheckFromLogin</span><span class="p">();</span>  
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">checkLogin</span><span class="o">-&gt;</span><span class="nf">setEmail</span><span class="p">(</span><span class="s2">"blablabla"</span><span class="p">);</span>  <span class="c1">// Probamos un email mal formateado</span>
+      <span class="nv">$status</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">checkLogin</span><span class="o">-&gt;</span><span class="nf">checkEmail</span><span class="p">();</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">assertEquals</span><span class="p">(</span><span class="nv">$status</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+   <span class="p">}</span>
+
+   <span class="k">protected</span> <span class="k">function</span> <span class="n">tearDown</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">unset</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="n">checkLogin</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Como puedes ver, ya no repetimos la línea <code class="language-plaintext highlighter-rouge">checkLogin = new CheckFormLogin()</code> al principio de cada método, sino que ese código repetido se escribe una sola vez, en el método <strong><em>setUp()</em></strong>. Y usamos el método <strong><em>tearDown()</em></strong> para eliminar el objeto que hemos creado. Esto último no es obligatorio (si no lo hubiéramos hecho, el recolector de basura de PHP se hubiera encargado de ello), pero mantener la simetría entre los métodos de creación y destrucción se considera una buena práctica de programación.</p>
+
+<p>Como es lógico, en un caso más complejo que el de este ejemplo, tanto <em>setUp()</em> como <em>tearDown()</em> podrían tener mucho más trabajo que hacer.</p>
+
+<h4 id="dobles-de-prueba">Dobles de prueba</h4>
+
+<p>A veces, no se puede probar bien una clase porque esta necesita otros componentes (por ejemplo, otras clases) que no se pueden usar, por ejemplo porque aún no están desarrollados o porque tienen efectos secundarios que afectarían a la propia prueba. ¡Los diferentes componentes de las aplicaciones no suelen ser completamente independientes, y eso es un engorro a la hora de plantear las pruebas!</p>
+
+<p>Esto puede hacer que nuestros tests sean muy dependientes unos de otros y, como vimos más arriba, los tests deberían ser completamente independientes entre sí.</p>
+
+<p>Para solventar este problema existen los <strong>dobles de prueba</strong>, que se denominan así por los dobles de las películas de acción que sustituyen a los actores y actrices en las escenas peligrosas.</p>
+
+<p>Si el objeto que estamos probando necesita usar otro objeto diferente, podemos usar un doble de prueba en su lugar. Se comportará como un objeto real, pero no lo será.</p>
+
+<p>Por ejemplo, supón que estamos programando una aplicación para jugar al solitario con la baraja española, y que tenemos dos clases, una llamada <em>Baraja</em> y otra llamada <em>Jugador</em>. Son dos clases relacionadas entre sí:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Baraja</span> <span class="p">{</span>
+   <span class="k">private</span> <span class="nv">$cartas</span><span class="p">;</span>
+
+   <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">cartas</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">"1-oros"</span><span class="p">,</span> <span class="s2">"2-oros"</span><span class="p">,</span> <span class="s2">"3-oros"</span><span class="p">,</span> <span class="mf">...</span><span class="p">,</span> <span class="s2">"12-oros"</span><span class="p">,</span>
+                            <span class="s2">"1-copas"</span><span class="p">,</span> <span class="s2">"2-copas"</span><span class="p">,</span> <span class="s2">"3-copas"</span><span class="p">,</span> <span class="mf">...</span> <span class="s2">"12-copas"</span><span class="p">,</span>
+                            <span class="s2">"1-espadas"</span><span class="p">,</span> <span class="s2">"2-espadas"</span><span class="p">,</span> <span class="mf">...</span><span class="p">,</span> <span class="s2">"12-espadas"</span><span class="p">,</span>
+                            <span class="s2">"1-bastos"</span><span class="p">,</span> <span class="s2">"2-bastos"</span><span class="p">,</span> <span class="mf">...</span><span class="p">,</span> <span class="s2">"12-bastos"</span><span class="p">);</span>   
+   <span class="p">}</span>
+
+   <span class="k">public</span> <span class="k">function</span> <span class="n">getCarta</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c1">// Este método devuelve la siguiente carta de la baraja</span>
+   <span class="p">}</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="n">getNumero</span><span class="p">(</span><span class="nv">$carta</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Este método recibe una carta y devuelve solo su número</span>
+   <span class="p">}</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="n">getPalo</span><span class="p">(</span><span class="nv">$carta</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Este método recibe una carta y devuelve solo su palo</span>
+   <span class="p">}</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="n">getAll</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c1">// Este método nos devuelve todas las cartas que aún faltan por salir</span>
+   <span class="p">}</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="n">getMonton</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c1">// Este método nos devuelve todas las cartas que ya han salido</span>
+   <span class="p">}</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="n">barajar</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c1">// Este método baraja las cartas (las desordena al azar)</span>
+   <span class="p">}</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="n">cartasDisponibles</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c1">// Este método nos dice cuántas cartas quedan disponibles (sin salir)</span>
+   <span class="p">}</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="n">reset</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c1">// Este método vuelve a dejar la baraja en su estado inicial (ordenado)</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Jugador</span> <span class="p">{</span>
+   <span class="k">private</span> <span class="nv">$nombre</span><span class="p">;</span>  <span class="c1">// Nombre del jugador</span>
+   <span class="k">private</span> <span class="nv">$baraja</span><span class="p">;</span>  <span class="c1">// Baraja con la que va a jugar este jugador</span>
+   <span class="k">private</span> <span class="nv">$puntos</span><span class="p">;</span>  <span class="c1">// Puntos del jugador</span>
+
+   <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">nombre</span> <span class="o">=</span> <span class="nv">$n</span><span class="p">;</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">baraja</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Baraja</span><span class="p">();</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">baraja</span><span class="o">-&gt;</span><span class="nf">barajar</span><span class="p">();</span>
+   <span class="p">}</span>
+
+   <span class="c1">// Getter y setter del atributo $nombre</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="n">getNombre</span><span class="p">():</span> <span class="kt">string</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">nombre</span><span class="p">;</span>
+   <span class="p">}</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="n">setNombre</span><span class="p">(</span><span class="kt">string</span> <span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">nombre</span> <span class="o">=</span> <span class="nv">$n</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="c1">// Getter y setter del atributo $baraja</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="n">getBaraja</span><span class="p">():</span> <span class="kt">Baraja</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">baraja</span><span class="p">;</span>
+   <span class="p">}</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="n">setBaraja</span><span class="p">(</span><span class="kt">Baraja</span> <span class="nv">$b</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">baraja</span> <span class="o">=</span> <span class="nv">$b</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="c1">// Este método extrae las dos siguientes cartas de la baraja y las devuelve en un array.</span>
+   <span class="c1">// Si no hay cartas disponibles, resetea la baraja antes de sacar las dos cartas.</span>
+   <span class="c1">// Si el número de las dos cartas es igual, incrementa en 1 los puntos del jugador.</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="n">sacarDosCartas</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="n">baraja</span><span class="o">-&gt;</span><span class="nf">cartasDisponibles</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">baraja</span><span class="o">-&gt;</span><span class="nb">reset</span><span class="p">();</span>
+         <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">baraja</span><span class="o">-&gt;</span><span class="nf">barajar</span><span class="p">();</span>
+      <span class="p">}</span>
+      <span class="nv">$carta1</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">baraja</span><span class="o">-&gt;</span><span class="nf">getCarta</span><span class="p">();</span>
+      <span class="nv">$carta2</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">baraja</span><span class="o">-&gt;</span><span class="nf">getCarta</span><span class="p">();</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nv">$baraja</span><span class="o">-&gt;</span><span class="nf">getNumero</span><span class="p">(</span><span class="nv">$carta1</span><span class="p">)</span> <span class="o">==</span> <span class="nv">$baraja</span><span class="o">-&gt;</span><span class="nf">getNumero</span><span class="p">(</span><span class="nv">$carta2</span><span class="p">))</span> <span class="p">{</span>
+         <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">puntos</span><span class="o">++</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="k">array</span><span class="p">(</span><span class="nv">$carta1</span><span class="p">,</span> <span class="nv">$carta2</span><span class="p">);</span>
+   <span class="p">}</span>
+
+   <span class="c1">// Etc. (aquí irían los demás métodos de la clase)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>En este ejemplo, cuando creamos un objeto de tipo <em>Jugador</em>, también creamos, indirectamente, un objeto de tipo <em>Baraja</em>, puesto que uno de los atributos de <em>Jugador</em> es una <em>Baraja</em> y el objeto <em>$this-&gt;baraja</em> se crea en el constructor.</p>
+
+<p>Observa también cómo el método <em>getBaraja()</em> devuelve un objeto de tipo <em>Baraja</em> y <em>setBaraja()</em> recibe un objeto de ese mismo tipo para asignarlo al atributo <em>$this-&gt;baraja</em>.</p>
+
+<p>Más abajo, el método <em>sacarDosCartas()</em> hace un uso exhaustivo del objeto <em>$this-&gt;baraja</em>, fundamental para que la clase <em>Jugador</em> funcione bien.</p>
+
+<p>Pues bien, ¿qué pasa cuando queremos escribir los tests de la clase <em>Jugador</em>? Porque si los tests deben ser independientes unos de otros, el test de <em>Jugador</em> no debería verse afectado por lo que ocurra en la clase <em>Baraja</em>. Por ejemplo, podría suceder que la clase <em>Baraja</em> aún no esté implementada completamente, o que contenga errores porque no haya sido depurada. En esos casos, los tests de la clase <em>Jugador</em> fallarían, pero no por errores en <em>Jugador</em>, sino por errores aún no resueltos en <em>Baraja</em>, que no es el componente que estamos probando ahora.</p>
+
+<h4 id="dobles-de-prueba-stubs">Dobles de prueba: <em>stubs</em></h4>
+
+<p>Para solventar situación como la que acabamos de describir (que es muy habitual en sistemas complejos) se utilizan los <strong>dobles de prueba</strong>, que a veces se llaman <em>stubs</em> y a veces se llaman <em>mocks</em>. En concreto, <strong>necesitamos un doble de la clase <em>Baraja</em> que simule un comportamiento aceptable de esta clase para poder probar la clase <em>Jugador</em></strong>, que es lo que ahora nos interesa.</p>
+
+<p>Puedes ver cómo se crean esos dobles en este caso de prueba de la clase <em>Jugador</em>, que llamaremos <em>JugadorTest</em>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">Test</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">PHPUnit\Framework\TestCase</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Application\Jugador</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">JugadorTest</span> <span class="kd">extends</span> <span class="nc">TestCase</span> <span class="p">{</span>
+   <span class="k">private</span> <span class="nv">$jugador</span><span class="p">;</span>
+   <span class="k">private</span> <span class="nv">$baraja</span><span class="p">;</span>
+
+   <span class="k">protected</span> <span class="k">function</span> <span class="n">setUp</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">persona</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Persona</span><span class="p">(</span><span class="s2">"John Doe"</span><span class="p">);</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">baraja</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">createMock</span><span class="p">(</span><span class="err">\</span><span class="nc">Application\Baraja</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">persona</span><span class="o">-&gt;</span><span class="nf">setBaraja</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="n">baraja</span><span class="p">);</span>
+   <span class="p">}</span>
+
+   <span class="c1">// Aquí irían los métodos de los tests de la clase Jugador</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Observa con detenimiento el método <em>setUp()</em>. Verás que hemos construido un objeto <em>Jugador</em> (al que queremos hacer los tests) y también un objeto <em>Baraja</em>. Pero esa no es la clase que queremos probar, y por eso no creamos un objeto real, sino un <strong>doble de prueba</strong>.</p>
+
+<p>Eso se consigue con <strong><em>createMock()</em></strong>, un método de PHPUNit heredado de <em>TestCase</em>. Este método solo necesita que le pasemos el nombre de una clase (que se obtiene con la expresión <em>\Application\Baraja::class</em>) para crear el doble de prueba. Para <em>Jugador</em>, este será como un objeto <em>Baraja</em> real. De hecho, inmediatamente después se lo pasamos a <em>setBaraja()</em> para que el objeto <em>Jugador</em> lo asuma como su baraja de cartas.</p>
+
+<p><strong>Pero el doble de prueba no es una <em>Baraja</em> de verdad, solo debe parecerlo y se debe comportar como si lo fuera</strong>. De modo que, en el test de <em>Jugador</em>, debemos especificar cuál debería ser un comportamiento apropiado con el único fin de testear la clase <em>Jugador</em>.</p>
+
+<p>La forma más simple de hacer esto sería forzando a que los métodos de <em>Baraja</em> devuelvan a <em>Jugador</em> un valor cualquiera, siempre que tenga sentido. Esto se hace cuando solo necesitamos que los métodos del doble nos devuelvan algo sin importar el valor concreto que, en realidad, no afecta al funcionamiento de la clase que estamos testeando.</p>
+
+<p>Cuando un doble de prueba se comporta así, devolviendo valores a lo loco (pero con sentido), se le suele llamar <strong><em>stub</em></strong>.</p>
+
+<p>Por ejemplo, si te fijas en el método <em>sacarDosCartas()</em> de la clase <em>Jugador</em>, verás que fallará porque los métodos de <em>Baraja</em> que se usan allí aún no están implementados (<em>cartasDisponibles()</em>, <em>reset()</em>, <em>barajar()</em> o <em>getCarta()</em>). Esto provocará un fallo en el test, pero no es un error de <em>Jugador</em>.</p>
+
+<p>Por lo tanto, para probar el funcionamiento del método <em>sacarDosCartas()</em>, usaremos un <em>stub</em> añadiendo en <em>sacarDosCartasTest()</em>, de este modo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="c1">// Test para el método sacarDosCartas()</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="n">sacarDosCartasTest</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">baraja</span><span class="o">-&gt;</span><span class="nf">method</span><span class="p">(</span><span class="s1">'cartasDisponibles'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">willReturn</span><span class="p">(</span><span class="mi">40</span><span class="p">);</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">baraja</span><span class="o">-&gt;</span><span class="nf">method</span><span class="p">(</span><span class="s1">'reset'</span><span class="p">);</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">baraja</span><span class="o">-&gt;</span><span class="nf">method</span><span class="p">(</span><span class="s1">'barajar'</span><span class="p">);</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">baraja</span><span class="o">-&gt;</span><span class="nf">method</span><span class="p">(</span><span class="s1">'getCarta'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">willReturn</span><span class="p">(</span><span class="s1">'3-bastos'</span><span class="p">);</span>
+      <span class="c1">// Aquí iría el resto del código del test.</span>
+   <span class="p">}</span>
+</code></pre></div></div>
+
+<p>¡Y listo! Aunque los métodos <em>cartasDisponibles(), reset()</em> y compañía aún no existan en <em>Baraja</em>, podemos llamarlos en nuestro test y se comportarán como si existieran. De hecho, <em>cartasDisponibles()</em> nos devolverá el valor 40 y <em>getCarta()</em> nos devolverá “3-bastos”, que son valores correctos y perfectamente válidos para hacer nuestras pruebas. El valor que nos devolverá el <em>stub</em> se indica, como puedes ver en el ejemplo, con <em>willReturn()</em>. Por su parte, los métodos <em>reset()</em> y <em>barajar()</em> no devolverán nada, porque realmente no tienen que hacerlo.</p>
+
+<h4 id="dobles-de-prueba-mocks">Dobles de prueba: <em>mocks</em></h4>
+
+<p>A veces, el doble de prueba no puede comportarse de forma tan simplona (devolver siempre el mismo valor para el mismo método), sino que necesitamos “simular” un comportamiento un poco más complejo. Por ejemplo, hacer varias llamadas consecutivas al método y que este nos devuelva valores diferentes cada vez.</p>
+
+<p>Cuando un doble de prueba tiene un comportamiento como este último, se denomina <strong><em>mock</em></strong> en lugar de <em>stub</em>. Y el objeto <em>Baraja</em> (que, recuerda, no es un objeto de la clase <em>Baraja</em> real, sino un doble) dispone de muchos métodos para ello, como:</p>
+
+<ul>
+  <li><strong><em>method()</em></strong>: para indicar qué método vamos a simular.</li>
+  <li><strong><em>expects()</em></strong>: para especificar el número de veces que ese método debería ser llamado durante las pruebas.</li>
+  <li><strong><em>with()</em></strong>: para especificar los parámetros que se le van a pasar al método en cada llamada.</li>
+  <li><strong><em>will()</em></strong>: para especificar los valores que el método devolverá en cada llamada.</li>
+</ul>
+
+<p>Estos métodos, a su vez, tienen multitud de variantes. Por ejemplo, <em>will()</em> tiene una variante llamada <em>willReturnOnConsecutive()</em>, que permite especificar una lista de valores que el <em>mock</em> devolverá en las sucesivas invocaciones. La lista de posibilidades es realmente grande y aquí no tenemos espacio para verla entera, pero puedes encontrarla en la <a href="https://phpunit.readthedocs.io/es/latest/test-doubles.html">documentación oficial de PHPUnit</a>.</p>
+
+<p>En el siguiente ejemplo, vamos a extender el método <em>sacarDosCartasTest()</em> para que compruebe una de las cosas que tiene que hacer esa función: incrementar los puntos del jugador en caso de que el número de dos cartas consecutivas sea el mismo. Para ello, forzaremos al <em>mock</em> para que nos devuelva unos valores concretos en las sucesivas llamadas. Observa cómo se hace eso usando <em>willReturnOnConsecutive()</em> en el método <em>getCarta()</em> del <em>mock</em>, que ahora devolverá “3-bastos” en la primera llamada y “3-oros” en la segunda.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="c1">// Test para el método sacarDosCartas()</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="n">sacarDosCartasTest</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">baraja</span><span class="o">-&gt;</span><span class="nf">method</span><span class="p">(</span><span class="s1">'cartasDisponibles'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">willReturn</span><span class="p">(</span><span class="mi">40</span><span class="p">);</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">baraja</span><span class="o">-&gt;</span><span class="nf">method</span><span class="p">(</span><span class="s1">'reset'</span><span class="p">);</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">baraja</span><span class="o">-&gt;</span><span class="nf">method</span><span class="p">(</span><span class="s1">'barajar'</span><span class="p">);</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">baraja</span><span class="o">-&gt;</span><span class="nf">method</span><span class="p">(</span><span class="s1">'getCarta'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">willReturnOnConsecutive</span><span class="p">(</span><span class="s1">'3-bastos'</span><span class="p">,</span> <span class="s1">'3-oros'</span><span class="p">);</span>
+      <span class="c1">// Aquí iría el resto del código del test. Por ejemplo, vamos a comprobar si</span>
+      <span class="c1">// el método sacarDosCartas() incrementa los puntos del jugador cuando salen dos</span>
+      <span class="c1">// cartas del mismo número</span>
+      <span class="nv">$puntos_ini</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">jugador</span><span class="o">-&gt;</span><span class="nf">getPuntos</span><span class="p">();</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">baraja</span><span class="o">-&gt;</span><span class="nf">sacarDosCartas</span><span class="p">();</span>                  <span class="c1">// Este método llamará dos veces a getCarta()</span>
+      <span class="nv">$puntos_fin</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">jugador</span><span class="o">-&gt;</span><span class="nf">getPuntos</span><span class="p">();</span>
+      <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">assertEquals</span><span class="p">(</span><span class="nv">$puntos_fin</span> <span class="o">-</span> <span class="nv">$puntos_ini</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>  <span class="c1">// Los puntos deberían haberse incrementado en 1</span>
+   <span class="p">}</span>
+</code></pre></div></div>
+
+<p>El resto de cosas que hubiera que comprobar de <em>sacarDosCartas()</em> se pueden programar también con ayuda de <em>mocks</em> y <em>stubs</em> de la clase <em>Baraja</em>, igual que hemos comprobado que los puntos se incrementan al sacar dos cartas consecutivas del mismo número. Y eso mismo habría que hacerlo con todos los métodos de la clase <em>Jugador</em>. Recuerda que, en la metodología TDD, las pruebas se diseñan ANTES de escribir el código de las clases. Puede parecer engorroso (y, de hecho, lo es) pero el código resultante es muchísimo más robusto.</p>
+
+<p>Tal vez el sistema de dobles de prueba de PHPUnit te haya parecido un poco difícil de usar. Es cierto: los dobles de prueba no son la mayor fortaleza de PHPUnit. Existen, por suerte o por desgracia, otras bibliotecas para hacer pruebas basadas completamente en la creación de dobles que tal vez te apetezca explorar, como <a href="https://github.com/mockery/mockery">Mockery</a> o Phake (https://github.com/mlively/phake).</p>
+
+<h4 id="cobertura">Cobertura</h4>
+
+<p>La <strong>cobertura</strong> de los tests es una medida de la cantidad de código que está siendo comprobada por los casos de prueba que hayamos escrito.</p>
+
+<p>Una cobertura del 100% no indica necesariamente que hayamos escrito tests para todos los posibles comportamientos de nuestro código o todos los flujos de ejecución, pero sí es un indicador de que nos estamos aproximando a ello. Por el contrario, una cobertura baja siempre nos dice que nuestros casos de prueba son aún muy mejorables.</p>
+
+<p>PHPUnit proporciona una herramienta para generar informes muy intuitivos acerca de la cobertura de nuestros tests. Para obtener ese informe en formato HTML, simplemente teclea esto en la consola de Visual Studio Code (o de tu IDE preferido):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ XDEBUG_MODE = coverage ./vendor/bin/phpunit --coverage-filter test --coverage-html coverage test
+</code></pre></div></div>
+
+<p>Este comando generará una página HTML que se ubicará en el directorio <em>coverage</em> y que puede abrirse con cualquier navegador web.</p>
+

@@ -1,0 +1,109 @@
+I"�<h2 class="no_toc" id="55-artisan-la-consola-que-mola">5.5. Artisan, la consola que mola</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#551-qué-es-artisan-y-cómo-se-utiliza" id="markdown-toc-551-qué-es-artisan-y-cómo-se-utiliza">5.5.1. ¿Qué es Artisan y cómo se utiliza?</a></li>
+  <li><a href="#552-un-ejemplo-práctico-crear-un-controlador" id="markdown-toc-552-un-ejemplo-práctico-crear-un-controlador">5.5.2. Un ejemplo práctico: crear un controlador</a></li>
+  <li><a href="#553-artisan-con-docker" id="markdown-toc-553-artisan-con-docker">5.5.3. Artisan con Docker</a></li>
+  <li><a href="#554-comandos-principales-de-artisan" id="markdown-toc-554-comandos-principales-de-artisan">5.5.4. Comandos principales de Artisan</a></li>
+</ul>
+
+<p>Laravel viene de serie con una utilidad de consola de comandos llamada <strong><em>Artisan</em></strong>. Con <em>Artisan</em> se automatizan montones de tareas habituales del trabajo con Laravel, así que acostúmbrate a tener siempre abierto un terminal de texto en el directorio raíz de tu aplicación.</p>
+
+<p>En esta sección vamos a aprender a utilizar los comandos básicos de Artisan.</p>
+
+<h3 id="551-qué-es-artisan-y-cómo-se-utiliza">5.5.1. ¿Qué es Artisan y cómo se utiliza?</h3>
+
+<p>Como hemos dicho, <strong>Artisan</strong> es una herramienta de consola, escrita en PHP, que viene con Laravel para <strong>ayudarte a realizar tareas cotidianas en tu aplicación de forma automatizada</strong>.</p>
+
+<p>Algunas de esas tareas que automatiza Artisan son:</p>
+
+<ul>
+  <li>Generar esqueletos de controladores y modelos.</li>
+  <li>Crear migraciones de bases de datos (para manipular la estructura de las tablas, como enseguida veremos).</li>
+  <li>Rellenar la BD con datos de prueba.</li>
+  <li>Hacer el enrutamiento.</li>
+  <li>Configurar la aplicación.</li>
+  <li>Crear baterías de pruebas.</li>
+  <li>Gestionar la caché de Laravel (una memoria intermedia generada por Laravel que hace que tu aplicación se cargue más rápido).</li>
+</ul>
+
+<p>Y así otro montón de cosas.</p>
+
+<p>No te preocupes si aún no entiendes qué significan algunas de estas cosas. Lo iremos viendo todo poco a poco. Lo importante ahora es que comprendas la tremenda utilidad de Artisan en el trabajo cotidiano con Laravel y que aprendas lo básico de su sintaxis.</p>
+
+<h3 id="552-un-ejemplo-práctico-crear-un-controlador">5.5.2. Un ejemplo práctico: crear un controlador</h3>
+
+<p>Veamos cómo funciona Artisan con un ejemplo.</p>
+
+<p>Supongamos que quieres crear un controlador. Para ello, existen dos maneras:</p>
+
+<ol>
+  <li>
+    <p><strong>A mano</strong>. Nos vamos al directorio /app/Http/Controllers y creamos un archivo llamado, digamos, <em>HolaController.php</em>. Luego lo rellenamos con el esqueleto de un controlador vacío, copiando y pegando de otro controlador existente y eliminando todo lo que no nos haga falta.</p>
+
+    <p>Este método, obviamente, es lento, farragoso y resulta fácil que cometamos algún error.</p>
+  </li>
+  <li>
+    <p><strong>Con Artisan</strong>. Simplemente, tecleamos este comando en el directorio raíz de nuestra aplicación:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php artisan make:controller HolaController
+</code></pre></div>    </div>
+
+    <p>¡Hemos terminado! Artisan creará por nosotros el archivo /app/Http/Controllers/HolaController.php y lo rellenará con el esqueleto de un controlador vacío y sintácticamente correcto.</p>
+  </li>
+</ol>
+
+<h3 id="553-artisan-con-docker">5.5.3. Artisan con Docker</h3>
+
+<p>Si utilizas Laravel con una máquina virtual Docker, es importante que recuerdes esto: <em>Artisan solo se puede ejecutar dentro de tu máquina virtual</em>. No es un comando que exista <em>fuera</em> de tu servidor.</p>
+
+<p>Las primeras veces se te olvidará. Intentarás ejecutar comandos de Artisan en tu máquina real y te dará un error. No te apures: nos ha ocurrido a todos.</p>
+
+<p>Con <strong>Docker</strong> puedes abrir un terminal en tu máquina virtual con este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker exec -it &lt;id-del-contenedor&gt; bash
+</code></pre></div></div>
+
+<p>(Si desconoces el id de tu contenedor, puedes averiguarlo con el comando <code class="language-plaintext highlighter-rouge">$ docker container ls</code>)</p>
+
+<p>A partir de ahí, puedes lanzar comandos <code class="language-plaintext highlighter-rouge">php artisan</code> sin problemas</p>
+
+<p><strong>Si trabajas con Sail, esto es aún más sencillo</strong>, porque <em>sail</em> permite ejecutar comandos directamente en la máquina virtual Docker Sail.</p>
+
+<p>Simplemente escribe:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sail php artisan &lt;comando-de-artisan&gt;
+</code></pre></div></div>
+
+<p>O más sencillo aún con esta abreviatura:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sail artisan &lt;comando-de-artisan&gt;
+</code></pre></div></div>
+
+<p>De ahora en adelante, cuando veas un comando de artisan en este manual, <strong>recuerda que debes sustituir “php” por “sail” si estás trabajando con Docker Sail</strong>.</p>
+
+<h3 id="554-comandos-principales-de-artisan">5.5.4. Comandos principales de Artisan</h3>
+
+<p><em>(Recuerda: sustituye <code class="language-plaintext highlighter-rouge">php artisan</code> por <code class="language-plaintext highlighter-rouge">sail artisan</code> si estás usando Docker Sail)</em></p>
+
+<p>Una buena forma de empezar con Artisan es teclear este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php artisan list
+</code></pre></div></div>
+
+<p>Ya te imaginas lo que hace, ¿verdad?</p>
+
+<p>Por si acaso andas un poco despistado/a hoy, te lo cuento yo: Artisan te mostrará una lista con todos los comandos válidos en tu instalación de Laravel. Esto puede variar según tu versión de Laravel y los componentes que tengas instalados.</p>
+
+<p>En un primer momento, estos son los comandos que más vas a utilizar (cuando te conviertas en un experto/a en Laravel, irán llegando otros por pura necesidad):</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">php artisan db:migrate</code> –&gt; Para hacer migraciones (crear la estructura de nuestra base de datos).</li>
+  <li><code class="language-plaintext highlighter-rouge">php artisan db:seed</code> –&gt; Para llenar de datos predefinidos nuestra base de datos.</li>
+  <li><code class="language-plaintext highlighter-rouge">php artisan make:migration</code> –&gt; Crea una migración (para crear la estructura de la base de datos).</li>
+  <li><code class="language-plaintext highlighter-rouge">php artisan make:seeder</code> –&gt; Crea un seeder (para rellenar con datos las tablas).</li>
+  <li><code class="language-plaintext highlighter-rouge">php artisan make:controller</code> –&gt; Para crear un controlador.</li>
+  <li><code class="language-plaintext highlighter-rouge">php artisan make:model</code> –&gt; Para crear un modelo.</li>
+  <li><code class="language-plaintext highlighter-rouge">php artisan route:list</code> –&gt; Muestra todas las rutas definidas en el enrutador.</li>
+</ul>
+:ET

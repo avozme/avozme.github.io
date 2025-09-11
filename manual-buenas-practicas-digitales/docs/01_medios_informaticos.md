@@ -19,7 +19,7 @@ En esta sección presentamos un resumen de las características de los medios in
 
 ### ¿Qué son los carritos de portátiles?
 
-Son carritos móviles con capacidad entre 12 y 30 ordenadores portátiles cada uno. 
+Son carritos móviles con capacidad entre 10 y 30 ordenadores portátiles cada uno. 
 
 El centro dispone de 6 carritos de estas características distribuidos de la siguiente forma:
 
@@ -30,7 +30,9 @@ SÓTANO
 <tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
 </thead>
 <tbody>
-<tr><td>F</td><td>24 portátiles</td><td>Ateca</td></tr>
+<tr><td>D</td><td>12 portátiles</td><td>Aula Ateca</td></tr>
+<tr><td>E</td><td>10 tablets Android (en preparación)</td><td>Aula Ateca</td></tr>
+<tr><td>F</td><td>30 portátiles</td><td>Taller de tecnología</td></tr>
 </tbody>
 </table>
 
@@ -41,7 +43,8 @@ PLANTA BAJA
 <tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
 </thead>
 <tbody>
-<tr><td>G</td><td>24 portátiles</td><td>Junto a secretaría</td></tr>
+<tr><td>C</td><td>24 portátiles</td><td>Junto a secretaría</td></tr>
+<tr><td>G</td><td>30 portátiles</td><td>Junto a secretaría</td></tr>
 </tbody>
 </table>
 
@@ -52,7 +55,7 @@ PLANTA PRIMERA
 <tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
 </thead>
 <tbody>
-<tr><td>A</td><td>20 portátiles</td><td>Dpto. de Física y Química</td></tr>
+<tr><td>A</td><td>30 portátiles</td><td>Dpto. de Física y Química</td></tr>
 <tr><td>I</td><td>30 portátiles</td><td>Biblioteca</td></tr>
 </tbody>
 </table>
@@ -65,7 +68,7 @@ PLANTA SEGUNDA
 </thead>
 <tbody>
 <tr><td>B</td><td>20 portátiles</td><td>Lab. de Ciencias Naturales</td></tr>
-<tr><td>H</td><td>24 portátiles</td><td>Aula 22</td></tr>
+<tr><td>H</td><td>26 portátiles</td><td>Aula 22</td></tr>
 </tbody>
 </table>
 
@@ -137,79 +140,72 @@ En caso de dudas con este procemiento, no dudes en contactar con nosotros a trav
 
 ## 1.2. Equipos del profesorado en aulas generales
 
-Todas las aulas del centro están equipadas con, al menos, un ordenador de sobremesa y un cañón/proyector con pizarra interactiva (PDI) o una TV de gran formato. Algunas tienen otra equipación adicional que se describe más abajo.
+Las aulas del centro están equipadas con, al menos, un ordenador para uso del profesorado durante el ejercicio de su docencia y un televisor de gran formato y/o panel digital interactivo (PDI).
 
-Estos ordenadores están destinados al uso del profesorado durante el ejercicio de su docencia.
+**Aulas con televisor convencional**
 
-Actualmente, hay muchas modalidades de aula con pizarra interactiva diferentes en el centro. Aunque todos tienen la misma funcionalidad, varían ligeramente en su forma de uso. Además, los proyectores que se van averiando están siendo sustituidos por televisores de gran formato.
+En estas aulas, el televisor sirve para proyectar la imagen y el sonido del ordenador que se encuentra ubicado en la mesa del profesor/a. 
 
-**Aulas con pizarras Promethean**
-
-Estas PDI están obsoletas y no funcionan correctamente como tales con los sistemas operativos recientes. Solo es posible utilizarlas como proyectores.
-
-El procedimiento de puesta en marcha de estas prizarras es el siguiente:
-
-* Encender el proyector.
-* Encender el ordenador.
-* Si es necesario, encender los altavoces. El interruptor está en un lateral de la pizarra. Si están apagados, el interruptor lucirá en rojo. Si están encendidos, lo hará en verde.
-* Introducir el usuario y contraseña para usar el ordenador. Para más información sobre este punto, véase el apartado “Usuarios y contraseñas”
-
-![PDI Promethean](../assets/medios-tic/pdi-promethean.jpg)
-
-**Aulas con pizarras blancas y cañones Optoma**
-
-Todos estos ordenadores se encienden pulsando el interruptor del mismo. Puede ser necesario conectar la electricidad encendiendo una regleta que suele estar acoplada a la mesa o situada en el suelo.
-
-Estas PDI necesitan el uso de un puntero específico que puede solicitarse al equipo de coordinación TDE.
-
-Para utilizarlas, el procedimiento es el siguiente:
-
-1. Encender el proyector.
-2. Encender el ordenador.
-3. Si es necesario, encender los altavoces.
-    * En algunas aulas, el interruptor de los altavoces está situado en un cajetín blanco en la pared. El cajetín dispone de tres botones: on/off, subir volumen y bajar volumen. Manteniendo pulsado el botón on/off, los altavoces se encienden y se apagan, pero, si se pulsa solo un instante, se cambia de canal. Los ordenadores están conectados en el canal 1 (por el canal 2 no se escuchará nada).
-    * En otras aulas, el interruptor es un mando giratorio situado tras uno de los altavoces. Ese mando también controla el volumen. Lo normal (que no lo recomendable) es que siempre estén encendidos. Si los apagamos al finalizar la clase, aumentaremos la vida útil de los altavoces.
-4. Introducir el usuario y contraseña para usar el ordenador. Para más información sobre este punto, véase el apartado “Usuarios y contraseñas”
-
-![Proyector Optoma con pizarra blanca](../assets/medios-tic/pdi-optoma.jpg)
-
-**Aulas con pizarras Smartboard**
-
-Estas pizarras están controladas por un miniordenador llamado NUC incorporado bajo la misma. Puede accionarse con el dedo, sin ningún puntero.
-
-En estas aulas existe un segundo ordenador, situado en la mesa del profesor, que solo sirve para proyectar imágenes (no como pizarra interactiva), y que puede manejarse con el teclado y el ratón convencionales.
-
-Para usar estas pizarras con el miniordenador NUC, el procedimiento es:
-
-1. Encender el proyector.
-2. Cuando la imagen azul se vea claramente en la pizarra y aparezca la leyenda “HDMI” sobreimpresionada, encender el ordenador NUC. El NUC es la cajita negra que hay bajo la pizarra, casi a ras de suelo.
-3. Encender el tablero táctil con el interruptor grueso que hay en la botonera la pizarra.
-4. Encender, si es necesario, los altavoces (sobre la pizarra). Tienen dos canales, y se cambia de uno a otro pulsando el botón de encendido un instante. Si se mantiene pulsado, los altavoces se apagan. La luz roja indica “altavoz apagado”. La luz verde es el “canal 1”, al que está conectado este ordenador.
-
-Observa que este ordenador se usa exclusivamente con la pizarra interactiva (como si fuera una tableta gigante), pero es posible conectarle un teclado y/o un ratón en los puertos USB que hay en el NUC.
-
-![PDI Smartboard con NUC](../assets/medios-tic/pdi-smartboard.jpg)
-
-Si prefieres usar esta PDI como simple proyector con el ordenador de sobremesa, el procedimiento es:
-
-1. Encender el proyector.
-2. Encender el ordenador.
-3. Encender, si es necesario, los altavoces (sobre la pizarra). Tienen dos canales, y se cambia de uno a otro pulsando el botón de encendido un instante. Si se mantiene pulsado, los altavoces se apagan. La luz roja indica “altavoz apagado”. La luz naranja es “canal 2”, al que está conectado este ordenador.
-
-Fíjate que la botonera de la pizarra y las funciones táctiles no están contectadas con este ordenador. Para hacer uso de esas funciones, hay que utilizar el NUC (véase más arriba, “Modelo 3 con la PDI Smartboard”)
-
-![PDI Smartboard con PC sobremesa](../assets/medios-tic/pdi-smartboard-2.jpg)
-
-**Aulas con televisiones de gran formato**
-
-Los proyectores que se averían se están sustituyendo, cuando es posible, por televisores de gran formato (65 y 75 pulgadas). Esto también se está haciendo en los departamentos que se usan para impartir clases.
-
-Estos televisores sirven para proyectar la imagen y el sonido del ordenador del profesorado. Para usarlos, el procedimiento es:
+Para usar esta equipación, el procedimiento es el siguiente:
 
 1. Encender el ordenador y el televisor (da igual el orden). El televisor puede encenderse con el mando a distancia o pulsando directamente el botón de la carcasa, que suele ubicarse en el marco inferior.
-2. Ajustar el nivel de volumen del ordenador y/o del televisor.
+2. Ajustar el nivel de volumen desde el ordenador y/o en el televisor.
+3. Apagar el televisor al finalizar la clase con el fin de prolongar su vida útil. 
 
-Es importante que recordemos apagar el televisor al finalizar la clase con el fin de prolongar su vida útil.
+*IMPORTANTE: El alumnado tiene terminantemente prohibido hacer uso de este equipo salvo permiso expreso de un profesor/a y siempre bajo su supervisión*.
+
+<div style="position: relative; display: inline-block;">
+<img src="../assets/medios-tic/tv-antiguo.jpg" style="display: block;" />
+<div style="position: absolute; bottom: 0; left: 0; width: 100%; background-color: rgba(0, 0, 0, 0.6); color: white; font-size: 75%; text-align: center; padding: 0.5em;">
+Uno de los televisores convencionales de 65 o 75", normalmente instalados encima de la pizarra blanca
+</div>
+</div>
+
+<div style="position: relative; display: inline-block;">
+<img src="../assets/medios-tic/ordenador-tv-antiguo.jpg" style="display: block;" />
+<div style="position: absolute; bottom: 0; left: 0; width: 100%; background-color: rgba(0, 0, 0, 0.6); color: white; font-size: 75%; text-align: center; padding: 0.5em;">
+Los televisores convencionales están conectados al PC de la mesa del profesor
+</div>
+</div>
+
+**Aulas con panel digital interactivo (PDI)**
+
+En estas aulas, en lugar de un televisor encontraremos un panel digital interactivo (PDI) o pantalla táctil. 
+
+Externamente, un PDI parece un televisor convencional, pero consta de una pantalla táctil de 75" y dos ordenadores integrados, uno con Android y otro con EducandOS (la distribución Linux de la Junta de Andalucía).
+
+Estas aulas se pueden usar de tres maneras diferentes:
+
+MANERA 1: ANDROID
+
+1. Encender el PDI. Automáticamente, entrará en modo Android.
+2. El dispositivo, en este modo, se manipula exclusivamente desde su pantalla táctil.
+
+MANERA 2: EDUCANDOS
+
+1. Encender el PDI.
+2. Usando la botonera que hay abajo y a la derecha del dispositivo, cambiar la entrada de "Android" a **"OPS"**
+3. A partir de ahora, el dispositivo puede usarse tanto desde su pantalla táctil como desde el teclado y ratón situados en la mesa del profesor/a (como si fuera un ordenador convencional).
+
+MANERA 3: CONECTANDO NUESTRO PROPIO EQUIPO
+
+* Podemos conectar nuestro equipo de uso personal mediante un cable HDMI o inalámbricamente al PDI. La forma exacta de hacerlo dependerá del dispositivo, por lo que tendrás que investigar un poco cómo hacerlo o preguntar al equipo de coordinación TDE.
+
+*IMPORTANTE: El alumnado tiene terminantemente prohibido hacer uso de la pantalla táctil salvo permiso expreso de un profesor/a y siempre bajo su supervisión*.
+
+<div style="position: relative; display: inline-block;">
+<img src="../assets/medios-tic/pdi-optoma-nuevas.jpg" style="display: block;" />
+<div style="position: absolute; bottom: 0; left: 0; width: 100%; background-color: rgba(0, 0, 0, 0.6); color: white; font-size: 75%; text-align: center; padding: 0.5em;">
+Una de las PDI Optoma de 75"
+</div>
+</div>
+
+<div style="position: relative; display: inline-block;">
+<img src="../assets/medios-tic/pdi-optoma-nuevas-botonera.jpg" style="display: block;" />
+<div style="position: absolute; bottom: 0; left: 0; width: 100%; background-color: rgba(0, 0, 0, 0.6); color: white; font-size: 75%; text-align: center; padding: 0.5em;">
+Botonera de la PDI Optoma. El primer botón nos permite seleccionar la entrada (OPS, Android, HDMI, etc). También se controla desde aquí el volumen del audio o se puede pausar la visualización
+</div>
+</div>
 
 **Aulas de los ciclos formativos**
 
@@ -317,9 +313,9 @@ Si ninguna de estas tres soluciones funciona, por favor, contacta con el Coordin
 
 Comprueba que el monitor está encendido.
 
-Comprueba la conexión del cable VGA al ordenador y al monitor.
+Comprueba la conexión del cable HDMI o VGA al ordenador y al monitor.
 
-Asegúrate de que el splitter VGA (la cajita metálica que está conectada al ordenador y al monitor) está encendido.
+Asegúrate de que el splitter VGA, si lo hay (la cajita metálica que está conectada al ordenador y al monitor) está encendido.
 
 Si todas estas comprobaciones son correctas y el monitor sigue sin mostrar la imagen, por favor, contacta con el Coordinador TDE (véase "Gestión de incidencias")
 
@@ -331,11 +327,11 @@ El único usuario existente en los ordenadores es el estándar (usuario/usuario)
 
 Probablemente se quedaron desconectados y se les ha agotado la batería. Asegúrate de que quedan conectados al cargador tras su uso, y no te olvides de enchufar el carrito completo a una toma de corriente.
 
-**El ordenador NUC de las PDI Promethean Smart no proyecta nada en la pantalla**
+**Me he encontrado una sesión abierta de Google, Moodle, Netflix, etc.**
 
-Con estos ordenadores es especialmente importante encender en primer lugar el proyector y, solo cuando aparezca la leyenda "HDMI" en la pantalla, encender el NUC. Hacerlo en otro momento provoca que el equipo no reconozca el proyector y, por lo tanto, no emita ninguna imagen.
+Esto es un problema relativamente frecuente. Lo más sensato es cerrar de inmediato cualquier sesión, en cualquier servicio online, que nos encontremos abierta, sea nuestra o de cualquier otra persona, y avisar inmediatamente a la persona afectada (si la hemos identificado) para que revise si se han producido accesos no deseados a su cuenta.
 
-Si ya te ha sucedido, puedes apagar el NUC manteniendo el botón de Power pulsado durante cinco segundos, hasta que la luz azul se apague. Luego, prueba a encenderlo de nuevo (¡cuando la leyenda "HDMI" apareza proyectada!)
+Como usuarios de dispositivos compartidos, es nuestra responsabilidad no dejar ninguna sesión abierta en ninguno de ellos cuando hayamos finalizado su uso.
 
 **Necesito instalar un programa**
 
@@ -343,9 +339,13 @@ Los usuarios convencionales no tienen privilegios para instalar software adicion
 
 **Error de seguridad al conectar con Séneca o con Moodle Centros**
 
-Esto no es un problema de Linux ni del navegador web, sino una anomalía debida al certificado de seguridad que utilizan Séneca y Moodle Centros (así como otros organismos oficiales de la Junta de Andalucía y de otras administraciones públicas). Estos certificados están emitidos por la Fábrica Nacional de Moneda y Timbre, que no es un organismo reconocido por versiones antiguas de Firefox o Chrome.
+Esto no es un problema de Linux, ni de Android ni del navegador web, sino una anomalía debida al certificado de seguridad que utilizan Séneca y Moodle Centros. 
 
-Este problema se solventa actualizando el navegador web. Si te ocurre en alguno de los ordenadores del instituto, por favor, contacta con el coordinador TDE para comunicarle el problema.
+El problema puede darse porque las versiones antiguas de Firefox o Chrome no reconocen los certificados emitidos por la Fábrica Nacional de Moneda y Timbre. En ese caso, bastará con actualizar el navegador web para solucionarlo. 
+
+Otra posible causa de este problema es que la fecha y la hora del reloj interno del ordenador se haya desajustado.
+
+Si te ocurre en alguno de los ordenadores del instituto, por favor, contacta con el coordinador TDE para comunicarle el problema.
 
 **Mis archivos han desaparecido**
 

@@ -1,0 +1,414 @@
+I"3�<h2 class="no_toc" id="58-vistas-y-plantillas-blade">5.8. Vistas y plantillas. Blade</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#581-master-layout" id="markdown-toc-581-master-layout">5.8.1. Master layout</a></li>
+  <li><a href="#582-vistas-que-heredan-del-master-layout" id="markdown-toc-582-vistas-que-heredan-del-master-layout">5.8.2. Vistas que heredan del master layout</a></li>
+  <li><a href="#583-cómo-pasar-variables-a-las-vistas" id="markdown-toc-583-cómo-pasar-variables-a-las-vistas">5.8.3. Cómo pasar variables a las vistas</a></li>
+  <li><a href="#584-cómo-usar-las-variables-en-las-vistas" id="markdown-toc-584-cómo-usar-las-variables-en-las-vistas">5.8.4. Cómo usar las variables en las vistas</a></li>
+  <li><a href="#585-condiciones-en-las-vistas" id="markdown-toc-585-condiciones-en-las-vistas">5.8.5. Condiciones en las vistas</a></li>
+  <li><a href="#586-bucles-en-las-vistas" id="markdown-toc-586-bucles-en-las-vistas">5.8.6. Bucles en las vistas</a></li>
+  <li><a href="#587-invocación-de-funciones-php" id="markdown-toc-587-invocación-de-funciones-php">5.8.7. Invocación de funciones PHP</a></li>
+  <li><a href="#588-otras-directivas-blade" id="markdown-toc-588-otras-directivas-blade">5.8.8. Otras directivas Blade</a></li>
+  <li><a href="#589-tratamiento-de-formularios-con-blade" id="markdown-toc-589-tratamiento-de-formularios-con-blade">5.8.9. Tratamiento de formularios con Blade</a></li>
+  <li><a href="#5810-validación-de-formularios-con-blade" id="markdown-toc-5810-validación-de-formularios-con-blade">5.8.10. Validación de formularios con Blade</a></li>
+  <li><a href="#5811-añadir-css-y-javascript-a-nuestras-vistas" id="markdown-toc-5811-añadir-css-y-javascript-a-nuestras-vistas">5.8.11. Añadir CSS y Javascript a nuestras vistas</a></li>
+  <li><a href="#5812-vistas-de-error-personalizadas" id="markdown-toc-5812-vistas-de-error-personalizadas">5.8.12. Vistas de error personalizadas</a></li>
+</ul>
+
+<p><strong>Blade es un poderoso y sencillo sub-lenguaje</strong> que nos permitirá <strong>generar plantillas de vistas</strong> para minimizar el código que necesitaremos para nuestras vistas.</p>
+
+<p>Las plantillas Blade admiten condiciones y bucles para operar con las variables PHP, de modo que la misma plantilla se comporta de forma diferente con diferentes conjuntos de datos. ¡Y se acabó la pesadilla de abrir y cerrar comillas en las instrucciones <code class="language-plaintext highlighter-rouge">echo</code>!</p>
+
+<p>Con Blade, tampoco será necesario abrir y cerrar php (<code class="language-plaintext highlighter-rouge">&lt;?php ... ?&gt;</code>) para operar con las variables del servidor y generar la salida.</p>
+
+<p>El código escrito con Blade no solo es más limpio y fácil de depurar que con PHP básico, sino también más seguro, porque Blade impide cualquier ataque con XSS.</p>
+
+<p>Pero es no es todo. Además, unas plantillas pueden heredar de otras para reutilizar mejor el código.</p>
+
+<p>Así que Blade tiene un montón de ventajas y ningún inconveniente. Bueno, sí que tiene un inconveniente: que tienes que aprender a usarlo. Pero es tan sencillo que, cuando hayas trabajado con Blade un par de semanas, te preguntarás cómo habías podido sobrevivir hasta ahora sin él.</p>
+
+<h3 id="581-master-layout">5.8.1. Master layout</h3>
+
+<p><strong><em>Layout</em></strong> es una forma genérica de referirse al diseño de capas del interfaz de usuario de una aplicación. Es decir, el <em>layout</em> de una aplicación es el diseño de los elementos de su interfaz de usuario.</p>
+
+<p><img src="/docs/dwes/_site/assets/images/07-ejemplos-de-layout.png" alt="Ejemplos de layout" />
+<em>(Ejemplos de layout adaptados a diferentes tamaños de pantalla. Imagen tomada de <a href="https://www.seobility.net/en/wiki/Media_Queries">Seobility.net</a> y publicada con licencia <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>)</em></p>
+
+<p>El <strong><em>master layout</em></strong> es el diseño maestro del que derivan todas las vistas. Las aplicaciones web suelen tener un <em>master layout</em> muy definido, y todas las vistas de la aplicación lo respetan.</p>
+
+<p>Ese <em>master layout</em> suele almacenarse, por convenio, en un archivo llamado <em>/resources/views/layouts/master.blade.php</em></p>
+
+<p>Vamos a construir un <em>master layout</em> de ejemplo. Será muy simple, pero más adelante puedes complicarlo todo lo que quieras, y cada modificación afectará automáticamente a todas las vistas de tu aplicación.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;html&gt;</span>
+     <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>@yield('Titulo')<span class="nt">&lt;/title&gt;</span>
+     <span class="nt">&lt;/head&gt;</span>
+     <span class="nt">&lt;body&gt;</span>
+        @section('sidebar')
+            Este es mi master sidebar.
+        @show
+
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+            @yield('content')
+        <span class="nt">&lt;/div&gt;</span>
+     <span class="nt">&lt;/body&gt;</span>
+  <span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Aquí nos encontramos con varias <strong>directivas</strong> importantes de Blade:</p>
+
+<ul>
+  <li><strong>@yield(‘Titulo’)</strong> –&gt; Esto define una sección llamada ‘Título’, que en el master layout está vacía. Las vistas que hereden del master layout tendrán que definir cuál es el valor de ‘Título’, y ese valor aparecerá escrito aquí.</li>
+  <li><strong>@section(‘sidebar’)</strong> –&gt; Esto define una sección llamada ‘sidebar’ que NO está vacía (contiene el texto “Este es mi master sidebar”, pero podría contener cualquier otra cosa). Las vistas que hereden del master layout podrán AÑADIR contenido a esta sección.</li>
+  <li><strong>@show</strong> –&gt; Hace que el contenido de la sección se muestre en ese punto del documento.</li>
+  <li><strong>@yield(‘content’)</strong> –&gt; De nuevo, una sección que está vacía en el master layout y cuyo contenido tendrá que definirse en las vistas que hereden de esta.</li>
+</ul>
+
+<h3 id="582-vistas-que-heredan-del-master-layout">5.8.2. Vistas que heredan del master layout</h3>
+
+<p>Después de crear nuestro <em>master layout</em>, lo siguiente es empezar a construir vistas que lo utilicen.</p>
+
+<p>Es decir, que <strong>hereden</strong> de él todos sus componentes y añadan nuevos elementos, respetando la configuración básica establecida por el <em>master layout</em>.</p>
+
+<p>El aspecto de una vista que herede del <em>master layout</em> de nuestro ejemplo anterior debería ser este:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@extends('master')
+
+@section('title', 'Titulo de la página')
+
+@section('sidebar')
+    <span class="nt">&lt;p&gt;</span>Esto se añadirá al master sidebar.<span class="nt">&lt;/p&gt;</span>
+@endsection
+
+@section('content')
+    <span class="nt">&lt;p&gt;</span>Aquí va el contenido de mi página.<span class="nt">&lt;/p&gt;</span>
+@endsection
+</code></pre></div></div>
+
+<p>De nuevo tenemos varias <em>directivas</em> de Blade muy importantes:</p>
+
+<ul>
+  <li><strong>@extends(‘master’)</strong> –&gt; Esto indica que esta vista hereda del master layout.</li>
+  <li><strong>@section(‘title, ‘Título de la página’)</strong> –&gt; Aquí se define el contenido de la sección ‘Título’ que en el master layout estaba vacía.</li>
+  <li><strong>@section(‘sidebar’)</strong> –&gt; Aquí añade contenido a la sección ‘sidebar’, que en el master layout no estaba vacía.</li>
+  <li><strong>@ensection</strong> –&gt; Se emplea cuando el contenido de una sección ocupa varias líneas de código y no es posible escribirlo dentro de la propia directiva.</li>
+</ul>
+
+<h3 id="583-cómo-pasar-variables-a-las-vistas">5.8.3. Cómo pasar variables a las vistas</h3>
+
+<p>Las <strong>variables</strong> a las vistas deben enviarse <strong>empaquetadas en un array</strong>.</p>
+
+<p>Hay varias formas de lograr esto, todas ellas correctas. Puedes emplear la que te resulte más cómoda o más elegante:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Forma 1: crear el array antes de llamar a la vista</span>
+<span class="nv">$data</span><span class="p">[</span><span class="s1">'variable1'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'valor'</span><span class="p">;</span>
+<span class="nv">$data</span><span class="p">[</span><span class="s1">'variable2'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'valor'</span><span class="p">;</span>
+<span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'vista'</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+
+<span class="c1">// Forma 2: crear un array con el constructor array()</span>
+<span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'vista'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'variable1'</span><span class="o">=&gt;</span><span class="s1">'valor'</span><span class="p">,</span> <span class="s1">'variable2'</span><span class="o">=&gt;</span><span class="s1">'valor'</span><span class="p">));</span>
+
+<span class="c1">// Forma 3: crear un array con corchetes [] </span>
+<span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'vista'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'variable1'</span><span class="o">=&gt;</span><span class="s1">'valor'</span><span class="p">,</span> <span class="s1">'variable2'</span><span class="o">=&gt;</span><span class="s1">'valor'</span><span class="p">]);</span>
+
+<span class="c1">// Forma 4: usar el método with()</span>
+<span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'vista'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">with</span><span class="p">([</span><span class="s1">'variable1'</span><span class="o">=&gt;</span><span class="s1">'valor'</span><span class="p">,</span> <span class="s1">'variable2'</span><span class="o">=&gt;</span><span class="s1">'valor'</span><span class="p">]);</span>
+
+<span class="c1">// Forma 5: usar la función compact()</span>
+<span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'vista'</span><span class="p">,</span> <span class="nb">compact</span><span class="p">(</span><span class="s1">'variable1'</span><span class="p">,</span> <span class="s1">'variable2'</span><span class="p">));</span>
+</code></pre></div></div>
+
+<h3 id="584-cómo-usar-las-variables-en-las-vistas">5.8.4. Cómo usar las variables en las vistas</h3>
+
+<p>Vale, ya hemos enviado algunas variables a las vistas. Ahora, ¿cómo las usamos?</p>
+
+<p>La vista no recibe el array con las variables, sino <strong>las variables ya extraídas del array</strong>. Esto significa que, si le pasas a una vista un par de variables como <code class="language-plaintext highlighter-rouge">['variable1'=&gt;'valor', 'variable2'=&gt;'valor']</code>, en la vista existirán dos variables llamadas <em>$variable1</em> y <em>$variable2</em>, y no encontrarás ni rastro del array que las contenía.</p>
+
+<p>Veámoslo con un ejemplo. Supongamos que tenemos este método en un controlador:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">show</span><span class="p">()</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'page'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'Manolo Escobar'</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>En la vista <em>/resources/views/page.blade.php</em> tendrás disponible una variable <em>$name</em>, y la puedes usar de este modo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@extends('layouts.master')
+   @section('title', 'Page Title')
+   @section('sidebar')
+      <span class="nt">&lt;p&gt;</span>Esto se añadirá al sidebar del master layout.<span class="nt">&lt;/p&gt;</span>
+   @endsection
+
+   @section('content')
+     <span class="nt">&lt;h2&gt;</span>{{$name}}<span class="nt">&lt;/h2&gt;</span>   
+     <span class="nt">&lt;p&gt;</span>Este es el contenido de mi página.<span class="nt">&lt;/p&gt;</span>
+   @endsection
+</code></pre></div></div>
+
+<p>Observa que hemos respetado el <em>master layout</em> de ejemplo que creamos más arriba. Observa también cómo se hace el <em>echo</em> de la variable: nada de abrir y cerrar PHP (<code class="language-plaintext highlighter-rouge">&lt;?php ... ?&gt;</code>) ni de abrir y cerrar comillas: simplemente, se encierra la variable entre llaves dobles (<code class="language-plaintext highlighter-rouge">{{$variable}}</code>), y Laravel se encargará de traducir eso al <em>echo</em> correspondiente.</p>
+
+<p>La vista queda de ese modo mucho más limpia y, por lo tanto, es más fácil de escribir, leer y depurar.</p>
+
+<h3 id="585-condiciones-en-las-vistas">5.8.5. Condiciones en las vistas</h3>
+
+<p>Blade admite <strong>expresiones condicionales</strong> para modificar el aspecto de una vista dependiendo del valor de una variable o del estado de la aplicación.</p>
+
+<p>Por supuesto, eso también puede hacerse sin Blade: solo hay que usar un <em>if</em> de PHP. Pero con Blade es más fácil y limpio porque, nuevamente, no tendremos que andar abriendo y cerrando PHP ni peleándonos con las comillas del <em>echo</em>.</p>
+
+<p>En el siguiente ejemplo, el contenido de la vista depende de la variable <em>$day</em> enviada desde el controlador. Observa como el <em>if</em> de PHP se sustituye por la directiva <em>@if</em> de Blade.</p>
+
+<p>Controlador:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">show</span><span class="p">()</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'page'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'Manolo'</span><span class="p">,</span><span class="s1">'day'</span> <span class="o">=&gt;</span> <span class="s1">'Viernes'</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Vista <em>/resources/views/page.blade.php</em>:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@extends('layouts.master')
+   @section('title', 'Page Title')
+   @section('sidebar')
+      <span class="nt">&lt;p&gt;</span>Esto se añadirá al sidebar del master layout.<span class="nt">&lt;/p&gt;</span>
+   @endsection
+
+   @section('content')
+     <span class="nt">&lt;h2&gt;</span>{{$name}}<span class="nt">&lt;/h2&gt;</span>    
+      <span class="nt">&lt;p&gt;</span>Este es el contenido de mi página.<span class="nt">&lt;/p&gt;</span>
+      @if ($day == 'Viernes')
+          <span class="nt">&lt;p&gt;</span>Hoy me roban el carro<span class="nt">&lt;/p&gt;</span>
+      @else
+          <span class="nt">&lt;p&gt;</span>Hoy me dedico a cantar<span class="nt">&lt;/p&gt;</span>
+      @endif
+   @endsection
+</code></pre></div></div>
+
+<h3 id="586-bucles-en-las-vistas">5.8.6. Bucles en las vistas</h3>
+
+<p>Igual que existen condiciones, Blade también permite hacer <strong>bucles</strong> para simplificar la generación de visas.</p>
+
+<p>Por ejemplo, en la siguiente vista recorremos un array llamado <em>$bebidas</em> y mostramos su contenido.</p>
+
+<p>Controlador:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">show</span><span class="p">()</span> <span class="p">{</span>
+   <span class="nv">$bebidas</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">'Cerveza'</span><span class="p">,</span><span class="s1">'Agua'</span><span class="p">,</span><span class="s1">'Zumo'</span><span class="p">);</span>
+   <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'page'</span><span class="p">,</span><span class="k">array</span><span class="p">(</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'Manolo'</span><span class="p">,</span><span class="s1">'day'</span> <span class="o">=&gt;</span> <span class="s1">'Lunes'</span><span class="p">,</span>
+                            <span class="s1">'bebidas'</span> <span class="o">=&gt;</span> <span class="nv">$bebidas</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Vista <em>/resources/views/page.blade.php</em>:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@extends('layouts.master')
+   @section('title', 'Page Title')
+   @section('sidebar')
+      <span class="nt">&lt;p&gt;</span>Esto se añadirá al sidebar del master layout.<span class="nt">&lt;/p&gt;</span>
+   @endsection
+
+   @section('content')
+     <span class="nt">&lt;h2&gt;</span>{{$name}}<span class="nt">&lt;/h2&gt;</span>    
+      <span class="nt">&lt;p&gt;</span>Este es el contenido de mi página.<span class="nt">&lt;/p&gt;</span>
+      @if ($day == 'Viernes')
+          <span class="nt">&lt;p&gt;</span>Hoy me roban el carro<span class="nt">&lt;/p&gt;</span>
+      @else
+          <span class="nt">&lt;p&gt;</span>Hoy me dedico a cantar<span class="nt">&lt;/p&gt;</span>
+      @endif
+      <span class="nt">&lt;h2&gt;</span>Estas son las bebidas disponibles:<span class="nt">&lt;/h2&gt;</span>
+      @foreach ($bebidas as $bebida)
+         {{$bebida}} <span class="nt">&lt;br&gt;</span>
+      @endforeach
+   @endsection
+</code></pre></div></div>
+
+<p>Observa que, nuevamente, esto mismo podría hacerse con PHP clásico, pero con Blade el código queda mucho más limpio y resulta menos propenso a errores.</p>
+
+<h3 id="587-invocación-de-funciones-php">5.8.7. Invocación de funciones PHP</h3>
+
+<p>Desde una vista Blade se puede <strong>invocar cualquier función de PHP</strong> sin necesidad de abrirlo y cerrarlo (ya sabes: nada de <code class="language-plaintext highlighter-rouge">&lt;?php ... ?&gt;</code> en las vistas).</p>
+
+<p>Por ejemplo, si necesitamos usar la función <em>date()</em>, la invocamos así:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;h2&gt;</span>Ejemplo de llamada a función estándar de PHP<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;p&gt;</span>La fecha del servidor es: {{date(' D M, Y')}}<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<p>Esto no solo es más limpio, sino también más seguro, porque Blade filtra posibles ataques por XSS.</p>
+
+<p>(Por cierto: si alguna vez necesitas saltarte la protección contra XSS, puedes usar {!! … !!} en lugar de  {{ … }}).</p>
+
+<h3 id="588-otras-directivas-blade">5.8.8. Otras directivas Blade</h3>
+
+<p>Blade dispone de multitud de directivas para hacer prácticamente cualquier cosa en la vista sin tener que recurrir a PHP. En esta lista mostramos solo las directivas más habituales.</p>
+
+<ul>
+  <li><strong>@section</strong> → Marca el inicio de una sección de contenido.</li>
+  <li><strong>@endsection</strong> → Marca el final de una sección.</li>
+  <li><strong>@show</strong> → Marca el final de una sección y la muestra.</li>
+  <li><strong>@yield(‘section’)</strong> → Muestra el contenido de una sección (si existe, claro).</li>
+  <li><strong>@extends(‘view’)</strong> → Hereda de una plantilla padre.</li>
+  <li><strong>@parent</strong> → Muestra el contenido de la sección del mismo nombre en la plantilla padre.</li>
+  <li><strong>@include(‘view’)</strong> → Incluye una subvista.</li>
+  <li><strong>@if - @else - @endif</strong> → Condicional.</li>
+  <li><strong>@for - @endfor</strong> → Bucle for clásico.</li>
+  <li><strong>@foreach - @endforeach</strong> → Buche foreach.</li>
+  <li><strong>@forelse - @empty - @endforelse</strong> → Como foreach, pero con tratamiento de arrays que vienen vacíos.</li>
+  <li><strong>@break - @continue</strong> → Para usar en los bucles.</li>
+  <li><strong>@switch - @case - @break</strong> → Condicional múltiple.</li>
+  <li><strong>@isset($variable) - @endisset</strong> → Comprueba si la variable existe.</li>
+  <li><strong>@auth - @endauth</strong> → La sección solo se muestra si hay un usuario autenticado en la aplicación.</li>
+  <li><strong>@php - @endphp</strong> → Para añadir código PHP plano. Usar con moderación.</li>
+  <li><strong>{{- Comment -}}</strong> → Comentarios (no serán renderizados).</li>
+  <li><strong>{{ $variable }}</strong> → Equivalente a echo $variable, pero no es necesario abrir y cerrar PHP, y nos protegemos contra inyección de JS.</li>
+  <li><strong>{{ $variable ?? texto-por-defecto }}</strong> → Como el anterior, pero chequea si la variable existe. Si existe, muestra su valor. Si no, muestra 
+texto-por-defecto.</li>
+  <li><strong>$loop</strong> →  Es una variable muy útil para usar en y/o depurar un foreach. Nos dice si estamos en el primer elemento, en el último, cuántos loops llevamos, etc.</li>
+</ul>
+
+<h3 id="589-tratamiento-de-formularios-con-blade">5.8.9. Tratamiento de formularios con Blade</h3>
+
+<p>Blade también facilita un montón el <strong>tratamiento de los formularios</strong>. Y, por supuesto, filtra por nosotros cualquier código malicioso que traten de colarnos a través de ellos.</p>
+
+<p>Vamos a verlo con un ejemplo.</p>
+
+<p>Imaginemos una vista con este formulario (fíjate cómo indicamos la ruta en el <em>action</em>):</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">"POST"</span> <span class="na">action=</span><span class="s">"{{ route('mi-ruta') }}"</span><span class="nt">&gt;</span>
+      @csrf   <span class="c">&lt;!-- Para evitar ataques CSRF --&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"email"</span> <span class="na">name=</span><span class="s">"email"</span><span class="nt">&gt;&lt;br&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"asunto"</span><span class="nt">&gt;&lt;br&gt;</span>
+      <span class="nt">&lt;textarea</span> <span class="na">name=</span><span class="s">"contenido"</span><span class="nt">&gt;&lt;/textarea&gt;&lt;br&gt;</span>
+      <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span><span class="nt">&gt;</span>Enviar<span class="nt">&lt;/button&gt;</span>
+   <span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>Recuerda que los métodos PUT, PATCH y DELETE no existen aún en HTML y que Laravel los simula con un campo oculto en el formulario que se crea con la directiva <strong>@method(‘PUT’)</strong> (o PATCH o DELETE). En este formulario no la hemos usado porque se envía por POST.</p>
+
+<p>Lo que sí hemos usado es la directiva <strong>@csrf</strong>. Todos los formularios deberían llevarla. Impide los ataques por CSRF, incrustado un token aleatorio en el formulario que Laravel se encargará de comprobar cuando los datos del formulario regresen al servidor. No te preocupes si no entiendes bien como funciona, por Laravel se encarga de hacerlo todo. Tú solo tienes que colocar la directiva @csrf en todos tus formularios.</p>
+
+<p>En el enrutador, definiremos la ruta “mi-ruta” del action del formulario:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">post</span><span class="p">(</span><span class="s1">'mi-ruta'</span><span class="p">,</span> <span class="s1">'MiControlador@store'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Y, en el controlador, creamos el método <em>store()</em>. Observa cómo recuperamos los datos del formulario a través de la variable $r:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$r</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nv">$email</span> <span class="o">=</span> <span class="nv">$r</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">(</span><span class="s2">"email"</span><span class="p">);</span>
+      <span class="nv">$asunto</span> <span class="o">=</span> <span class="nv">$r</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">(</span><span class="s2">"asunto"</span><span class="p">);</span>
+      <span class="mf">...</span><span class="n">etc</span><span class="mf">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Esta es una forma alternativa para el controlador:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nv">$email</span> <span class="o">=</span> <span class="nf">request</span><span class="p">(</span><span class="s2">"email"</span><span class="p">);</span>
+    <span class="nv">$asunto</span> <span class="o">=</span> <span class="nf">request</span><span class="p">(</span><span class="s2">"asunto"</span><span class="p">);</span>
+    <span class="mf">...</span><span class="n">etc</span><span class="mf">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="5810-validación-de-formularios-con-blade">5.8.10. Validación de formularios con Blade</h3>
+
+<p>Otra cosa que Blade facilita muchísimo es la <strong>validación de formularios en el lado del servidor</strong>.</p>
+
+<div style="font-size: 80%; margin-left: 5%; margin-right: 5%; background: #eee; color: #666">
+<p>Aquí toca hacer un paréntesis para responder a esta pregunta: ¿dónde deberían validarse los formularios? ¿En el cliente (con HTML y Javascript) o en el servidor (con PHP y Laravel)?</p>
+
+<p>La respuesta es: en los dos sitios. Sobre todo si es un formulario con información sensible.</p>
+
+<p>La validación en el cliente es más sencilla de hacer. Comprobar que un campo de texto de un formulario no se envía vacío, por ejemplo, es algo trivial con HTML. Y con Javascript es solo un poquito más complicado.</p>
+
+<p>Hacer esas comprobaciones en el servidor resulta más trabajoso: hay que recibir el formulario, comprobar los valores de los campos y, si hay un error, tenemos que volver a enviar el formulario, pero respetando los datos que el usuario ya hubiera tecleado, todo ello junto con un mensaje informando del error.</p>
+
+<p>Sí, en el servidor es más complicado. Pero también más seguro. Las validaciones en el cliente pueden desactivarse (puedo usar un navegador antiguo para evitar las comprobaciones por HTML, y puedo deshabilitar temporalmente el motor de Javascript), así que son una primera barrera defensiva muy convieniente pero poco segura.</p>
+
+<p>Las comprobaciones en el servidor son imposibles de saltar para un atacante. Así que deberíamos hacer los dos conjuntos de comprobaciones en todos nuestros formularios.</p>
+
+<p>Y aquí es donde Laravel nos ayuda.</p>
+</div>
+
+<p>Vamos a retomar <strong>la vista</strong> del ejemplo anterior y a modificar el formulario para que se valide en el servidor. Tendríamos que añadirle algunas cositas:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">"POST"</span> <span class="na">action=</span><span class="s">"{{ route('mi-ruta') }}"</span><span class="nt">&gt;</span>
+      @if ($errors-&gt;any()) 
+         @foreach ($errors-&gt;all() as $error)
+             {{ $error }}<span class="nt">&lt;br&gt;</span>
+         @endforeach
+      @endif
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"email"</span> <span class="na">name=</span><span class="s">"email"</span><span class="nt">&gt;&lt;br&gt;</span>
+      ...resto del formulario igual... 
+   <span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>Fíjate en cómo mostramos los errores -si los hay- con un bucle. El objeto <em>$errors</em> (disponible en todas las vistas) tiene muchos más métodos útiles que puedes consultar en la documentación de Laravel.</p>
+
+<p>Y el <strong>controlador</strong> quedaría así. Observa cómo definimos varias <strong>reglas de validación</strong> para campos del formulario:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">()</span> <span class="p">{</span>
+      <span class="n">request</span><span class="o">-&gt;</span><span class="nf">validate</span><span class="p">([</span>
+         <span class="s1">'email'</span> <span class="o">=&gt;</span> <span class="s1">'required|email'</span><span class="p">,</span>
+         <span class="s1">'asunto'</span> <span class="o">=&gt;</span> <span class="s1">'required'</span>
+      <span class="p">]);</span>
+      <span class="c1">// A partir de aquí, se procesa el formulario igual que antes</span>
+</code></pre></div></div>
+
+<p>Puedes consultar todas las reglas de validación admitidas en <a href="https://laravel.com/docs/validation">https://laravel.com/docs/validation</a>.</p>
+
+<p>Cuando vuelve a cargarse el formulario que contenía un error, suele ser apropiado hacerlo con los datos que el usuario ya había tecleado. A esto se le llama <strong>“repopular” el formulario</strong>, y con Blade se hace así (observa el atributo <em>value</em> del campo <em>email</em>):</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">"POST"</span> <span class="na">action=</span><span class="s">"{{ route('mi-ruta') }}"</span><span class="nt">&gt;</span>
+      @if ($errors-&gt;any()) 
+         @foreach ($errors-&gt;all() as $error)
+              {{ $error }}<span class="nt">&lt;br&gt;</span>
+         @endforeach
+      @endif
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"email"</span> <span class="na">name=</span><span class="s">"email"</span> <span class="na">value=</span><span class="s">"{{ old('email') }}"</span><span class="nt">&gt;&lt;br&gt;</span>
+      ...resto del formulario igual... 
+   <span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<h3 id="5811-añadir-css-y-javascript-a-nuestras-vistas">5.8.11. Añadir CSS y Javascript a nuestras vistas</h3>
+
+<p>Laravel ya trae dos archivos (<em>app.css</em> y <em>app.js</em>) basados en <strong>Bootstrap</strong> para empezar a trabajar. Para usarlos, basta con añadir esto a la cabecera de nuestras vistas:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"/css/app.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/app.js"</span> <span class="na">defer</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>Si queremos <strong>añadir reglas CSS</strong>, <em>NO debemos editar /public/app.css</em>, porque es un CSS compilado y minimizado con <strong><em>SASS</em></strong>. Lo correcto para añadir nuestro CSS a ese archivo es:</p>
+
+<ol>
+  <li>Editar <em>/resources/sass/app.css</em></li>
+  <li>Recompilar este archivo con <em>SASS</em> (o con <em>less</em> o con <em>stylus</em>)</li>
+</ol>
+
+<p>La recompilación se hace con este comando</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ npm run dev
+</code></pre></div></div>
+
+<p>O también con:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ yarn dev
+</code></pre></div></div>
+
+<p>Si no tienes ni idea de lo que estamos hablando con esto de <em>less</em>, <em>SASS</em> y demás zarandajas, tienes dos opciones: o te empapas un poco de ello antes de continuar (lamentablemente, en este manual no tenemos espacio para verlo TODO), o te olvidas de ellos y colocas tu CSS y tu Javascript en un directorio púbico sin compilar ni nada.</p>
+
+<p>Para lograr esto último, simplemente, guarda tu CSS y tu Javascript en el <strong>directorio /public</strong> de Laravel. En ese caso, los archivos no estarían optimizados (tendríamos que optimizarlos a mano, si queremos) y serían accesibles de forma pública. Pero es una solución lo suficientemente buena para empezar.</p>
+
+<p>Un consejo: si vas a colocar tu CSS y tu Javascript en /public, al menos crea subcarpetas para organizarlo un poco. Por ejemplo, /public/css y /public/js.</p>
+
+<h3 id="5812-vistas-de-error-personalizadas">5.8.12. Vistas de error personalizadas</h3>
+
+<p>Por último, te menciono un pequeño truco para darle a tu aplicación un toque más profesional: <strong>personalizar las vistas de error</strong>.</p>
+
+<p>Simplemente, crea una carpeta <em>/resources/views/errors</em>. Todas las vistas que metas ahí dentro se considerarán pantallas de error.</p>
+
+<p>Ahora solo tienes que ponerles los nombres adecuados.</p>
+
+<p>Por ejemplo, si creas un archivo llamado <em>/resources/views/errors/404.blade.php</em>, esa vista se mostrará cada vez que ocurra un error 404 (página no encontrada). Fácil, ¿no?</p>
+
+:ET
