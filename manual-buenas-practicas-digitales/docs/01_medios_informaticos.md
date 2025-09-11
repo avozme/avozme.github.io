@@ -233,7 +233,7 @@ Además, hay una impresora de alta capacidad en la Sala de Profesorado, donde se
 
 Asimismo, las fotocopiadores admiten archivos en formato PDF que el personal de conserjería podrá imprimir fácilmente si se los facilitamos en una memoria USB.
 
-## 1.5. Otros medios
+## 1.6. Otros medios
 
 El IES Celia Viñas dispone de otros muchos medios relacionados con las TIC. Sus características son tan variadas que enumerarlas aquí no tiene sentido. Nos limitaremos a dar una lista de los medios con los que contamos.
 
@@ -251,7 +251,7 @@ Para cualquier consulta o incidencia relacionada con su uso, por favor, recurre 
 * Servidor TIC y toda la infraestructura de red cableada e inalámbrica.
 * Equipación propia del Aula de Tecnología Aplicada (Ateca).
 
-## 1.6. Gestión de incidencias
+## 1.7. Gestión de incidencias
 
 **Procedimiento general**
 
@@ -292,7 +292,7 @@ Por ello rogamos la máxima colaboración en el uso de esta equipación. Es la �
 
 Con esta simple precaución, podremos atender las incidencias con celeridad, mantener los carritos en un estado razonable de funcionamiento y atajar los actos de vandalismo.
 
-## 1.7. Preguntas frecuentes
+## 1.8. Preguntas frecuentes
 
 En esta sección enumeraremos las preguntas más habituales y sus posibles respuestas.
 
