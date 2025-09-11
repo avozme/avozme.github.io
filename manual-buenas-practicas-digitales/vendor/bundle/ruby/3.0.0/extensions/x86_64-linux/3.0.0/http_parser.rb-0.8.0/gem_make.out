@@ -1,5 +1,5 @@
 current directory: /home/alfredo/repos/avozme.github.io/manual-buenas-practicas-digitales/vendor/bundle/ruby/3.0.0/gems/http_parser.rb-0.8.0/ext/ruby_http_parser
-/usr/bin/ruby3.0 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20250314-22277-dv8gb1.rb extconf.rb
+/usr/bin/ruby3.0 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20250911-14337-xti9pu.rb extconf.rb
 creating Makefile
 
 current directory: /home/alfredo/repos/avozme.github.io/manual-buenas-practicas-digitales/vendor/bundle/ruby/3.0.0/gems/http_parser.rb-0.8.0/ext/ruby_http_parser
@@ -13,4 +13,4 @@ linking shared-object ruby_http_parser.so
 
 current directory: /home/alfredo/repos/avozme.github.io/manual-buenas-practicas-digitales/vendor/bundle/ruby/3.0.0/gems/http_parser.rb-0.8.0/ext/ruby_http_parser
 make DESTDIR\= install
-/usr/bin/install -c -m 0755 ruby_http_parser.so ./.gem.20250314-22277-kev10m
+/usr/bin/install -c -m 0755 ruby_http_parser.so ./.gem.20250911-14337-7g4hjy

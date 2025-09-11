@@ -31,8 +31,8 @@ rubyhdrdir = $(includedir)/$(RUBY_VERSION_NAME)
 vendorarchdir = $(rubysitearchprefix)/vendor_ruby/$(ruby_version)
 vendorlibdir = $(vendordir)/$(ruby_version)
 vendordir = $(rubylibprefix)/vendor_ruby
-sitearchdir = $(DESTDIR)./.gem.20250314-22277-gj6un2
-sitelibdir = $(DESTDIR)./.gem.20250314-22277-gj6un2
+sitearchdir = $(DESTDIR)./.gem.20250911-14337-zlavpq
+sitelibdir = $(DESTDIR)./.gem.20250911-14337-zlavpq
 sitedir = $(DESTDIR)/usr/local/lib/site_ruby
 rubyarchdir = $(rubyarchprefix)/$(ruby_version)
 rubylibdir = $(rubylibprefix)/$(ruby_version)
@@ -84,12 +84,12 @@ debugflags = -ggdb3
 warnflags = 
 cppflags = 
 CCDLFLAGS = -fPIC
-CFLAGS   = $(CCDLFLAGS) -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC $(ARCH_FLAG)
-INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir)
+CFLAGS   = $(CCDLFLAGS) -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  $(ARCH_FLAG)
+INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir) 
 DEFS     = 
 CPPFLAGS = -DRUBY_EXTCONF_H=\"$(RUBY_EXTCONF_H)\" -Wdate-time -D_FORTIFY_SOURCE=2 $(DEFS) $(cppflags)
-CXXFLAGS = $(CCDLFLAGS) -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security $(ARCH_FLAG)
-ldflags  = -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--exclude-libs,ALL -pthread
+CXXFLAGS = $(CCDLFLAGS) -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security  $(ARCH_FLAG)
+ldflags  = -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic  -pthread
 dldflags = -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now 
 ARCH_FLAG = 
 DLDFLAGS = $(ldflags) $(dldflags) $(ARCH_FLAG)
@@ -137,7 +137,7 @@ extout =
 extout_prefix = 
 target_prefix = 
 LOCAL_LIBS = 
-LIBS = $(LIBRUBYARG_SHARED)  -lm   -lc
+LIBS = $(LIBRUBYARG_SHARED) -lffi  -lffi -lm   -lc
 ORIG_SRCS = AbstractMemory.c ArrayType.c Buffer.c Call.c ClosurePool.c DynamicLibrary.c Function.c FunctionInfo.c LastError.c LongDouble.c MappedType.c MemoryPointer.c MethodHandle.c Platform.c Pointer.c Struct.c StructByValue.c StructLayout.c Thread.c Type.c Types.c Variadic.c ffi.c
 SRCS = $(ORIG_SRCS) 
 OBJS = AbstractMemory.o ArrayType.o Buffer.o Call.o ClosurePool.o DynamicLibrary.o Function.o FunctionInfo.o LastError.o LongDouble.o MappedType.o MemoryPointer.o MethodHandle.o Platform.o Pointer.o Struct.o StructByValue.o StructLayout.o Thread.o Type.o Types.o Variadic.o ffi.o
@@ -264,5 +264,3 @@ $(TARGET_SO): $(OBJS) Makefile
 
 
 $(OBJS): $(HDRS) $(ruby_headers)
-LIBFFI_HOST=--host=x86_64-linux-gnu
-include ${srcdir}/libffi.mk

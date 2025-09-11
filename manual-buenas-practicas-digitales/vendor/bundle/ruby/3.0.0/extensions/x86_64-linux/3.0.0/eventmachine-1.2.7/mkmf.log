@@ -1,7 +1,7 @@
-package configuration for openssl is not found
-have_library: checking for -lcrypto... -------------------- no
-
-"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0  -lm   -lc"
+"pkg-config --exists openssl"
+| pkg-config --libs openssl
+=> "-lssl -lcrypto\n"
+"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0  -lm   -lc"
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -12,9 +12,32 @@ checked program was:
 6: }
 /* end */
 
-"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0  -lcrypto -lm   -lc"
-/usr/bin/ld: no se puede encontrar -lcrypto: No existe el archivo o el directorio
-collect2: error: ld returned 1 exit status
+"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0 -lssl -lcrypto -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+| pkg-config --cflags-only-I openssl
+=> "\n"
+| pkg-config --cflags-only-other openssl
+=> "\n"
+| pkg-config --libs-only-l openssl
+=> "-lssl -lcrypto\n"
+package configuration for openssl
+incflags: 
+cflags: 
+ldflags: 
+libs: -lssl -lcrypto
+
+have_library: checking for -lcrypto... -------------------- yes
+
+"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lruby-3.0  -lssl -lcrypto -lcrypto -lm   -lc"
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -36,13 +59,33 @@ checked program was:
 
 --------------------
 
-have_header: checking for openssl/ssl.h... -------------------- no
+have_library: checking for -lssl... -------------------- yes
 
-"x86_64-linux-gnu-gcc -E -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c -o conftest.i"
-conftest.c:3:10: fatal error: openssl/ssl.h: No existe el archivo o el directorio
-    3 | #include <openssl/ssl.h>
-      |          ^~~~~~~~~~~~~~~
-compilation terminated.
+"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lruby-3.0  -lssl -lcrypto -lcrypto -lssl -lm   -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: 
+15: int t(void) { ; return 0; }
+/* end */
+
+--------------------
+
+have_header: checking for openssl/ssl.h... -------------------- yes
+
+"x86_64-linux-gnu-gcc -E -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC   conftest.c -o conftest.i"
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -52,9 +95,21 @@ checked program was:
 
 --------------------
 
+have_header: checking for openssl/err.h... -------------------- yes
+
+"x86_64-linux-gnu-gcc -E -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC   conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <openssl/err.h>
+/* end */
+
+--------------------
+
 have_var: checking for rb_trap_immediate in ruby.h,rubysig.h... -------------------- no
 
-"x86_64-linux-gnu-gcc -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC   -c conftest.c"
+"x86_64-linux-gnu-gcc -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC    -c conftest.c"
 conftest.c:4:10: fatal error: rubysig.h: No existe el archivo o el directorio
     4 | #include <rubysig.h>
       |          ^~~~~~~~~~~
@@ -84,7 +139,7 @@ checked program was:
 
 have_func: checking for rb_thread_blocking_region()... -------------------- no
 
-"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0  -lm   -lc"
+"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0  -lssl -lcrypto -lcrypto -lssl -lm   -lc"
 conftest.c: In function ‘t’:
 conftest.c:14:57: error: ‘rb_thread_blocking_region’ undeclared (first use in this function)
    14 | int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_thread_blocking_region; return !p; }
@@ -108,8 +163,8 @@ checked program was:
 14: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_thread_blocking_region; return !p; }
 /* end */
 
-"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0  -lm   -lc"
-/usr/bin/ld: /tmp/ccQdNJlZ.o: en la función `t':
+"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0  -lssl -lcrypto -lcrypto -lssl -lm   -lc"
+/usr/bin/ld: /tmp/ccnLTTHG.o: en la función `t':
 /home/alfredo/repos/avozme.github.io/manual-buenas-practicas-digitales/vendor/bundle/ruby/3.0.0/gems/eventmachine-1.2.7/ext/conftest.c:15: referencia a `rb_thread_blocking_region' sin definir
 collect2: error: ld returned 1 exit status
 checked program was:
@@ -135,7 +190,7 @@ checked program was:
 
 have_func: checking for rb_thread_call_without_gvl() in ruby/thread.h... -------------------- yes
 
-"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0  -lm   -lc"
+"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0  -lssl -lcrypto -lcrypto -lssl -lm   -lc"
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -160,7 +215,7 @@ checked program was:
 
 have_func: checking for rb_thread_fd_select()... -------------------- yes
 
-"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0  -lm   -lc"
+"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0  -lssl -lcrypto -lcrypto -lssl -lm   -lc"
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -183,7 +238,7 @@ checked program was:
 
 have_type: checking for rb_fdset_t in ruby/intern.h... -------------------- yes
 
-"x86_64-linux-gnu-gcc -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC   -c conftest.c"
+"x86_64-linux-gnu-gcc -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC    -c conftest.c"
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -199,7 +254,7 @@ checked program was:
 
 have_func: checking for rb_wait_for_single_fd()... -------------------- yes
 
-"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0  -lm   -lc"
+"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0  -lssl -lcrypto -lcrypto -lssl -lm   -lc"
 conftest.c: In function ‘t’:
 conftest.c:14:57: error: ‘rb_wait_for_single_fd’ undeclared (first use in this function)
    14 | int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_wait_for_single_fd; return !p; }
@@ -223,7 +278,7 @@ checked program was:
 14: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_wait_for_single_fd; return !p; }
 /* end */
 
-"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0  -lm   -lc"
+"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0  -lssl -lcrypto -lcrypto -lssl -lm   -lc"
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -247,7 +302,7 @@ checked program was:
 
 have_func: checking for rb_enable_interrupt()... -------------------- no
 
-"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0  -lm   -lc"
+"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0  -lssl -lcrypto -lcrypto -lssl -lm   -lc"
 conftest.c: In function ‘t’:
 conftest.c:14:57: error: ‘rb_enable_interrupt’ undeclared (first use in this function); did you mean ‘rb_eInterrupt’?
    14 | int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_enable_interrupt; return !p; }
@@ -272,8 +327,8 @@ checked program was:
 14: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_enable_interrupt; return !p; }
 /* end */
 
-"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0  -lm   -lc"
-/usr/bin/ld: /tmp/cc3pGoim.o: en la función `t':
+"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0  -lssl -lcrypto -lcrypto -lssl -lm   -lc"
+/usr/bin/ld: /tmp/ccmEygj3.o: en la función `t':
 /home/alfredo/repos/avozme.github.io/manual-buenas-practicas-digitales/vendor/bundle/ruby/3.0.0/gems/eventmachine-1.2.7/ext/conftest.c:15: referencia a `rb_enable_interrupt' sin definir
 collect2: error: ld returned 1 exit status
 checked program was:
@@ -299,7 +354,7 @@ checked program was:
 
 have_func: checking for rb_time_new()... -------------------- yes
 
-"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0  -lm   -lc"
+"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0  -lssl -lcrypto -lcrypto -lssl -lm   -lc"
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -322,7 +377,7 @@ checked program was:
 
 have_func: checking for inotify_init() in sys/inotify.h... -------------------- yes
 
-"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0  -lm   -lc"
+"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0  -lssl -lcrypto -lcrypto -lssl -lm   -lc"
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -347,7 +402,7 @@ checked program was:
 
 have_func: checking for writev() in sys/uio.h... -------------------- yes
 
-"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0  -lm   -lc"
+"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0  -lssl -lcrypto -lcrypto -lssl -lm   -lc"
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -372,7 +427,7 @@ checked program was:
 
 have_func: checking for pipe2() in unistd.h... -------------------- yes
 
-"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0  -lm   -lc"
+"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0  -lssl -lcrypto -lcrypto -lssl -lm   -lc"
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -397,7 +452,7 @@ checked program was:
 
 have_func: checking for accept4() in sys/socket.h... -------------------- yes
 
-"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0  -lm   -lc"
+"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0  -lssl -lcrypto -lcrypto -lssl -lm   -lc"
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -422,7 +477,7 @@ checked program was:
 
 have_const: checking for SOCK_CLOEXEC in sys/socket.h... -------------------- yes
 
-"x86_64-linux-gnu-gcc -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC   -c conftest.c"
+"x86_64-linux-gnu-gcc -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC    -c conftest.c"
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -438,7 +493,7 @@ checked program was:
 
 have_header: checking for sys/event.h... -------------------- no
 
-"x86_64-linux-gnu-gcc -E -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c -o conftest.i"
+"x86_64-linux-gnu-gcc -E -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC   conftest.c -o conftest.i"
 conftest.c:3:10: fatal error: sys/event.h: No existe el archivo o el directorio
     3 | #include <sys/event.h>
       |          ^~~~~~~~~~~~~
@@ -454,7 +509,7 @@ checked program was:
 
 have_func: checking for epoll_create() in sys/epoll.h... -------------------- yes
 
-"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0  -lm   -lc"
+"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0  -lssl -lcrypto -lcrypto -lssl -lm   -lc"
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -479,7 +534,7 @@ checked program was:
 
 have_func: checking for clock_gettime()... -------------------- yes
 
-"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0  -lm   -lc"
+"x86_64-linux-gnu-gcc -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0  -lssl -lcrypto -lcrypto -lssl -lm   -lc"
 checked program was:
 /* begin */
  1: #include "ruby.h"
@@ -502,7 +557,7 @@ checked program was:
 
 have_const: checking for CLOCK_MONOTONIC_RAW in time.h... -------------------- yes
 
-"x86_64-linux-gnu-gcc -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC   -c conftest.c"
+"x86_64-linux-gnu-gcc -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC    -c conftest.c"
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -518,7 +573,7 @@ checked program was:
 
 have_const: checking for CLOCK_MONOTONIC in time.h... -------------------- yes
 
-"x86_64-linux-gnu-gcc -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC   -c conftest.c"
+"x86_64-linux-gnu-gcc -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC    -c conftest.c"
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -532,7 +587,7 @@ checked program was:
 
 --------------------
 
-"x86_64-linux-gnu-g++ -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0 -Wall -lm   -lc"
+"x86_64-linux-gnu-g++ -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0 -Wall -lm   -lc"
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -540,7 +595,7 @@ checked program was:
 3: int main() {return 0;}
 /* end */
 
-"x86_64-linux-gnu-g++ -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0 -Wextra -lm   -lc"
+"x86_64-linux-gnu-g++ -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0 -Wextra -lm   -lc"
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -548,7 +603,7 @@ checked program was:
 3: int main() {return 0;}
 /* end */
 
-"x86_64-linux-gnu-g++ -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0 -Wno-deprecated-declarations -lm   -lc"
+"x86_64-linux-gnu-g++ -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0 -Wno-deprecated-declarations -lm   -lc"
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -556,7 +611,7 @@ checked program was:
 3: int main() {return 0;}
 /* end */
 
-"x86_64-linux-gnu-g++ -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0 -Wno-ignored-qualifiers -lm   -lc"
+"x86_64-linux-gnu-g++ -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0 -Wno-ignored-qualifiers -lm   -lc"
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -564,7 +619,7 @@ checked program was:
 3: int main() {return 0;}
 /* end */
 
-"x86_64-linux-gnu-g++ -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0 -Wno-unused-result -lm   -lc"
+"x86_64-linux-gnu-g++ -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0 -Wno-unused-result -lm   -lc"
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -572,7 +627,7 @@ checked program was:
 3: int main() {return 0;}
 /* end */
 
-"x86_64-linux-gnu-g++ -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0 -Wno-address -lm   -lc"
+"x86_64-linux-gnu-g++ -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0 -Wno-address -lm   -lc"
 checked program was:
 /* begin */
 1: #include "ruby.h"
@@ -580,7 +635,7 @@ checked program was:
 3: int main() {return 0;}
 /* end */
 
-"x86_64-linux-gnu-g++ -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I. -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-hqtKTz/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -lruby-3.0 -lstdc++ -lm   -lc"
+"x86_64-linux-gnu-g++ -o conftest -I/usr/include/x86_64-linux-gnu/ruby-3.0.0 -I/usr/include/ruby-3.0.0/ruby/backward -I/usr/include/ruby-3.0.0 -I.  -Wdate-time -D_FORTIFY_SOURCE=2   -g -O2 -ffile-prefix-map=/build/ruby3.0-IyvJLJ/ruby3.0-3.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC  conftest.c  -L. -L/usr/lib/x86_64-linux-gnu -L. -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -lcrypto -lssl -lruby-3.0 -lstdc++ -lm   -lc"
 checked program was:
 /* begin */
 1: #include "ruby.h"

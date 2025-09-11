@@ -1,5 +1,5 @@
 current directory: /home/alfredo/repos/avozme.github.io/manual-buenas-practicas-digitales/vendor/bundle/ruby/3.0.0/gems/sassc-2.4.0/ext
-/usr/bin/ruby3.0 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20250314-22277-mjpxy.rb extconf.rb
+/usr/bin/ruby3.0 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20250911-14337-lb46f7.rb extconf.rb
 creating Makefile
 
 current directory: /home/alfredo/repos/avozme.github.io/manual-buenas-practicas-digitales/vendor/bundle/ruby/3.0.0/gems/sassc-2.4.0/ext
@@ -77,4 +77,4 @@ linking shared-object sassc/libsass.so
 
 current directory: /home/alfredo/repos/avozme.github.io/manual-buenas-practicas-digitales/vendor/bundle/ruby/3.0.0/gems/sassc-2.4.0/ext
 make DESTDIR\= install
-/usr/bin/install -c -m 0755 libsass.so ./.gem.20250314-22277-enlwz3/sassc
+/usr/bin/install -c -m 0755 libsass.so ./.gem.20250911-14337-aa79ah/sassc
