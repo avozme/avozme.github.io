@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:manual-buenas-practicas-digitales/.jekyll-cache/Jekyll/Cache/Jekyll--Converters--Markdown/a7/38c1d462a65c9b3abbd4af92c7d66e6d7cef5875cc69eef47032f5ce44bd72
-I"ec<h1 class="no_toc" id="1-medios-informáticos-del-centro">1. Medios informáticos del centro</h1>
-========
-I"�k<h1 class="no_toc" id="1-medios-informáticos-del-centro">1. Medios informáticos del centro</h1>
->>>>>>>> eb720139888796d61e2ca7c6f16d161d3dd2ecca:manual-buenas-practicas-digitales/.jekyll-cache/Jekyll/Cache/Jekyll--Converters--Markdown/98/e330d56bd837c2166a30d3915d500f546f501c8889a6577aa267db31b467eb
+I">d<h1 class="no_toc" id="1-medios-informáticos-del-centro">1. Medios informáticos del centro</h1>
 
 <ul id="markdown-toc">
   <li><a href="#11-carritos-de-portátiles" id="markdown-toc-11-carritos-de-portátiles">1.1. Carritos de portátiles</a>    <ul>
@@ -37,14 +33,9 @@
 <tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
 </thead>
 <tbody>
-<<<<<<<< HEAD:manual-buenas-practicas-digitales/.jekyll-cache/Jekyll/Cache/Jekyll--Converters--Markdown/a7/38c1d462a65c9b3abbd4af92c7d66e6d7cef5875cc69eef47032f5ce44bd72
-<tr><td>D</td><td>12 portátiles</td><td>Aula Ateca</td></tr>
-<tr><td>E</td><td>10 tablets Android (en preparación)</td><td>Aula Ateca</td></tr>
-<tr><td>F</td><td>30 portátiles</td><td>Taller de tecnología</td></tr>
-========
-<tr><td>D (en preparación)</td><td>10 portátiles</td><td>Ateca</td></tr>
+<tr><td>D</td><td>12 portátiles</td><td>Ateca</td></tr>
+<tr><td>E</td><td>10 tablets Android</td><td>Ateca</td></tr>
 <tr><td>F</td><td>30 portátiles</td><td>Taller tecnología</td></tr>
->>>>>>>> eb720139888796d61e2ca7c6f16d161d3dd2ecca:manual-buenas-practicas-digitales/.jekyll-cache/Jekyll/Cache/Jekyll--Converters--Markdown/98/e330d56bd837c2166a30d3915d500f546f501c8889a6577aa267db31b467eb
 </tbody>
 </table>
 
@@ -55,13 +46,8 @@
 <tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
 </thead>
 <tbody>
-<<<<<<<< HEAD:manual-buenas-practicas-digitales/.jekyll-cache/Jekyll/Cache/Jekyll--Converters--Markdown/a7/38c1d462a65c9b3abbd4af92c7d66e6d7cef5875cc69eef47032f5ce44bd72
-<tr><td>C</td><td>24 portátiles</td><td>Junto a secretaría</td></tr>
-<tr><td>G</td><td>30 portátiles</td><td>Junto a secretaría</td></tr>
-========
 <tr><td>C</td><td>24 portátiles</td><td>Secretaría</td></tr>
 <tr><td>G</td><td>30 portátiles</td><td>Secretaría</td></tr>
->>>>>>>> eb720139888796d61e2ca7c6f16d161d3dd2ecca:manual-buenas-practicas-digitales/.jekyll-cache/Jekyll/Cache/Jekyll--Converters--Markdown/98/e330d56bd837c2166a30d3915d500f546f501c8889a6577aa267db31b467eb
 </tbody>
 </table>
 
@@ -84,24 +70,8 @@
 <tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
 </thead>
 <tbody>
-<<<<<<<< HEAD:manual-buenas-practicas-digitales/.jekyll-cache/Jekyll/Cache/Jekyll--Converters--Markdown/a7/38c1d462a65c9b3abbd4af92c7d66e6d7cef5875cc69eef47032f5ce44bd72
-<tr><td>B</td><td>20 portátiles</td><td>Lab. de Ciencias Naturales</td></tr>
-<tr><td>H</td><td>26 portátiles</td><td>Aula 22</td></tr>
-========
 <tr><td>B</td><td>24 portátiles</td><td>Lab. de Ciencias Naturales</td></tr>
 <tr><td>H</td><td>26 portátiles</td><td>Aula 22</td></tr>
-</tbody>
-</table>
-
-<p>USO RESERVADO</p>
-
-<table>
-<thead>
-<tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
-</thead>
-<tbody>
-<tr><td>E</td><td>10 portátiles</td><td>Taller TIC</td></tr>
->>>>>>>> eb720139888796d61e2ca7c6f16d161d3dd2ecca:manual-buenas-practicas-digitales/.jekyll-cache/Jekyll/Cache/Jekyll--Converters--Markdown/98/e330d56bd837c2166a30d3915d500f546f501c8889a6577aa267db31b467eb
 </tbody>
 </table>
 
