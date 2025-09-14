@@ -30,7 +30,10 @@
   <span class="na">mariadb</span><span class="pi">:</span>
     <span class="na">image</span><span class="pi">:</span> <span class="s">mariadb:10.6</span>
     <span class="na">environment</span><span class="pi">:</span>
-      <span class="na">MYSQL_ROOT_PASSWORD</span><span class="pi">:</span> <span class="s">bitnami</span>
+      <span class="na">MYSQL_ROOT_PASSWORD</span><span class="pi">:</span> <span class="m">1234</span>
+      <span class="na">MYSQL_DATABASE</span><span class="pi">:</span> <span class="s">pruebas</span>
+      <span class="na">MYSQL_USER</span><span class="pi">:</span> <span class="s">user</span>
+      <span class="na">MYSQL_PASSWORD</span><span class="pi">:</span> <span class="m">1234</span>
     <span class="na">volumes</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">mariadb_data:/var/lib/mysql</span>
 

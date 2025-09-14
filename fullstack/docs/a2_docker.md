@@ -120,7 +120,10 @@ services:
   mariadb:
     image: mariadb:10.6
     environment:
-      MYSQL_ROOT_PASSWORD: bitnami
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: pruebas
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 1234
     volumes:
       - mariadb_data:/var/lib/mysql
 
