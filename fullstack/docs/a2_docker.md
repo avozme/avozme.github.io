@@ -105,6 +105,7 @@ services:
     image: php:8.2-fpm
     volumes:
       - ./app:/app
+      - ./custom.ini:/usr/local/etc/php/conf.d/custom.ini
 
   apache:
     image: httpd:2.4
@@ -234,7 +235,64 @@ Crea el archivo ***myapp.conf*** dentro del directorio *apache-custom* con este 
 </VirtualHost>
 ```
 
-### Paso 4. Levantar los contenedores con docker-compose up
+### Paso 4. Crear el archivo custom.ini
+
+Este archivo contiene las **opciones de configuración adicionales para PHP**.
+
+PHP se configura dentro del contenedor correspondiente, en un archivo llamado *php.ini*. Podemos agregar configuraciones adicionales sin necesidad de tocar el contenedor con un archivo de configuración adicional que mapearemos al interior del contenedor.
+
+Crea un archivo llamado ***custom.ini*** en tu directorio de trabajo con este contenido:
+
+```
+display_errors = On
+error_reporting = E_ALL
+opcache.enable = 0
+extension=pdo
+extension=pdo_mysql
+```
+
+Esto habilitará la extensión PDO para MySQL y las opciones de depuración de errores. En un entorno de producción, estas opciones se cambiarían, claro.
+
+Si necesitas configuraciones adicionales para PHP (como incrementar el tamaño máximo de archivos subidos al servidor o el tiempo de procesamiento de un script), puedes hacerlo en este custom.ini y volver a levantar el servidor.
+
+### Paso 5. Crear un Dockerfile personalizado para PHP
+
+La extensión PDO para MySQL no viene instalada por defecto en la imagen oficial de PHP-FPM. Debemos modificar la imagen para poder usar esta extensión.
+
+Lo más adecuado para ello es crear un archivo ***Dockerfile*** con este contenido:
+
+```
+# 1. Base PHP-FPM oficial
+FROM php:8.2-fpm
+
+# 2. Instalar dependencias necesarias para pdo_mysql
+RUN apt-get update && apt-get install -y \
+        default-mysql-client \
+        libzip-dev \
+        unzip \
+    && docker-php-ext-install pdo pdo_mysql \
+    && rm -rf /var/lib/apt/lists/*
+
+# 3. Copiar el código PHP al contenedor
+COPY app/ /var/www/html/
+
+# 4. Copiar el custom.ini
+COPY custom.ini /usr/local/etc/php/conf.d/custom.ini
+
+# 5. Establecer el directorio de trabajo
+WORKDIR /var/www/html
+
+# 6. Opcional: exponer puerto (necesario para acceder desde localhost)
+EXPOSE 9000
+```
+
+Después de esto, reconstruye el contenedor ejecutando este comando en el directorio donde tengas el Dockerfile:
+
+```
+$ docker build -t mi-php-pdo .
+```
+
+### Paso 6. Levantar los contenedores con docker-compose up
 
 Ya podemos **poner en marcha los cuatro contenedores** tecleando (en el directorio de trabajo):
 
@@ -254,14 +312,14 @@ También podemos lanzarlo en segundo plano, para que la consola no se quede bloq
 $ docker-compose up -d
 ```
 
-### Paso 5. Probar los contenedores
+### Paso 7. Probar los contenedores
 
 Si todo ha ido bien, deberías tener estos servicios activos:
 
 * **http://localhost:8080** -> Aquí debería estar escuchando Apache/PHP. Si pones un archivo .php en la carpeta ./app de tu proyecto, tendría que verse el resultado.
-* **http://localhost:8000** -> Aquí debería estar escuchando PHPMyAdmin.
+* **http://localhost:8000** -> Aquí debería estar escuchando PHPMyAdmin. El usuario y contraseña de la base de datos están en el docker-compose.yml (los puedes cambiar allí si no te gustan).
 
-### Paso 6. Detener los contenedores
+### Paso 8. Detener los contenedores
 
 Para detener los contenedores, tan solo teclea:
 
@@ -270,60 +328,3 @@ docker-compose down
 ```
 
 O bien pulsa **CTRL + C** si inciaste docker-compose en segundo plano (con la opción -d).
-
-
-## A2.5. Cómo editar el archivo php.ini de un contenedor Docker
-
-Lo normal es que tengas que tocar ligeramente algunas de las directivas de **pnp.ini**, el archivo de configuración del PHP de tu servidor.
-
-Si trabajas con un servidor nativo local, es tan fácil como buscar el archivo *php.ini* en tu disco duro, editarlo, cambiar lo que necesites y volver a poner en marcha tu servidor.
-
-Pero si trabajas con un servidor virtualizado con Docker, el archivo *php.ini* formará parte de la imagen que estés usando, por lo que no sirve de nada hacer cambios en el archivo: cada vez que reinicies tu contenedor, *php.ini* volverá a estar en su estado original.
-
-#### Cosas que (probablemente) tendrás que modificar en php.ini
-
-Cada aplicación tiene sus propias necesidades, pero, en general, las directivas que un desarrollador está siempre manoseando son: 
-
-* Habilitar la depuración de errores: directivas *display_errors* (poner a "On") y *error_reporting* (poner a "E_ALL")
-* Deshabilitar la caché del servidor para que los cambios en tu código se reflejen de inmediato: directiva *opcache.enable* (poner a 0)
-* Incrementar el tamaño de los archivos de subida y el tiempo de procesamiento de los *requests*: directivas *upload_max_filesize* y *max_input_time*.
-* Incrementar el tiempo de ejecución de los scripts y la memoria que pueden consumir: directivas *max_execution_time* y *memory_limit*.
-* Habilitar el complemento *xdebug* para poder depurar tu código PHP. Esto necesita varias directivas que te muestro más abajo, en el ejemplo del archivo de configuración de la siguiente sección.
-
-Ten en cuenta que los valores que pongas en estas u otras directivas en un entorno de desarrollo no tienen por qué ser (ni *deben* ser) los mismos que establezcas en el entorno de producción. Por ejemplo, en producción te interesará volver a poner *diplay_errors* a *Off*.
-
-#### Modificando el php.ini de la imagen bitnami/php-fpm
-
-Cada imagen Docker de PHP lo hará a su manera, pero todas deben proporcionar una forma de manipular el archivo *php.ini* con más o menos facilidad. Por seguir con nuestro ejemplo, nos vamos a centrar en la imagen **bitnami/php-fpm**, que es la que recomendamos para montar nuestro servidor por su (relativa) facilidad de uso.
-
-En el caso de esta imagen, lo que debemos hacer es construir con archivo *.ini* adicional, con la configuración de *php.ini* que necesitemos cambiar. El intérprete PHP tomará todas las directivas de *php.ini* y, si encuentra un archivo *.ini* adicional, lo procesará justo después, sobreescribiendo todas las directivas que encuentre en él.
-
-Por ejemplo, podemos crear en nuestra carpeta de trabajo un archivo llamado ***custom.ini*** con este contenido:
-
-```
-display_errors = On
-error_reporting = E_ALL
-opcache.enable = 0
-
-[xdebug]
-zend_extension="/opt/bitnami/php/lib/php/extensions/xdebug.so"
-xdebug.remote_enable=1
-xdebug.remote_host=127.0.0.1
-xdebug.remote_port=9000
-```
-
-Este archivo hará que nuestro PHP funcione en modo de desarrollo, mostrando los mensajes de error, deshabilitando el caché y activando el depurador.
-
-Ahora bastará con añadir esto a la sección "php" de nuestro ***docker-compose.yml***:
-
-```
-  php:
-    ...
-    volumes:
-      - /ruta/hasta/custom.ini:/opt/bitnami/php/etc/conf.d/custom.ini
-```
-
-Por supuesto, debes sustituir "/ruta/hasta" por la ruta que dirija a tu archivo *custom.ini*. Esto colocará nuestro *custom.ini* en un directorio concreto de la imagen (*opt/bitnami/php/etc/conf.d/*), que es donde el PHP de Bitnami mirará en busca de configuraciones adicionales para su servidor.
-
-La próxima vez que iniciemos nuestro contenedor, la nueva configuración de *php.ini* ya estará disponible. No dejes de comprobarlo haciendo una llamada a ***phpinfo()*** y revisando la información que te mostrará esa función.
-
