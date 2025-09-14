@@ -13,4 +13,4 @@ Laravel es un **framework PHP MVC diseñado para agilizar el desarrollo de aplic
 
 Empezaremos por aprender qué es un framework PHP MVC, qué frameworks existen y en qué circunstancias resulta interesante utilizar una de estas herramientas para desarrollar una aplicación. Dedicaremos el resto del tema a estudiar muchas de las peculiaridades de Laravel para aprender a desarrollar aplicaciones web con este poderoso framework.
 
-**MATERIAL EN PREPARACIÓN**
+<div style="color: red; font-size: 120%"><strong>MATERIAL EN PREPARACIÓN</strong></div>

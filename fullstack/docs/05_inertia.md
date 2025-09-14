@@ -21,4 +21,4 @@ Gracias a Inertia tendremos a nuestro alcance **las ventajas de las aplicaciones
 
 Esto facilita enormemente el **desarrollo full stack moderno**, pues **no hay que separar completamente el frontend y el backend**, siempre conservando  una experiencia de usuario comparable a una SPA completa.
 
-**MATERIAL EN PREPARACIÓN**
+<div style="color: red; font-size: 120%"><strong>MATERIAL EN PREPARACIÓN</strong></div>

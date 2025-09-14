@@ -26,7 +26,7 @@ Este ejercicio lo usaremos para probar la correcta puesta en marcha de nuestro s
 Lo ideal es que trates de hacerlo con un servidor nativo y con un servidor virtualizado mediante Docker.
 
 1. **Con un servidor nativo**: instala un paquete como XAMPP o instala manualmente Apache y MariaDB en tu sistema operativo. Luego ve al directorio *htdocs* de tu Apache y escribe un programa "holamundo.php"
-2. **Con un servidor virtualizado con Docker (RECOMENDADO)**: baja y configura las imágenes de Bitnami para Apache, MariaDB y PHP. Lánzalas y pruébalas con un programa "holamundo.php". Tienes toda la información sobre cómo hacerlo en el [Apéndice II](../docker/#a24-un-ejemplo-montando-un-servidor-web-con-persistencia-de-datos).
+2. **Con un servidor virtualizado con Docker (RECOMENDADO)**: baja y configura las imágenes de Bitnami para Apache, MariaDB y PHP. Lánzalas y pruébalas con un programa "holamundo.php". Tienes toda la información sobre cómo hacerlo en el [Apéndice II](../docker/#a24-montando-con-docker-un-servidor-web-con-persistencia-de-datos).
 
 Para hacer el resto de ejercicios y prácticas, puedes usar cualquiera de esos dos servidores.
 

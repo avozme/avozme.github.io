@@ -59,9 +59,9 @@ No vamos a repetir aquí lo que ya pone en esa guía, porque además corresponde
 
 ### A3.2.1. Caso 1: mi aplicación está escrita en PHP clásico
 
-Asegúrate de que has seguido correctamente los pasos previos expuestos en el [apartado A4.2](../openstack/#a42-creando-servidores-en-openstack-para-desplegar-aplicaciones-web) antes de continuar por aquí.
+Asegúrate de que has seguido correctamente los pasos previos expuestos en el [apartado A3.2](../openstack/#a32-creando-servidores-en-openstack-para-desplegar-aplicaciones-web) antes de continuar por aquí.
 
-1. **Monta los contenedores Docker necesarios para crear un servidor web**. Para ello, puedes seguir los pasos que detallamos en el ejemplo del [Apéndice 2](../docker/#a24-un-ejemplo-montando-un-servidor-web-con-persistencia-de-datos), donde montamos un servidor con Apache, PHP, MariaDB y PHPMyAdmin. Por supuesto, estos pasos los tienes que ejecutar en tu máquina virtual de Openstack, conectándote a ella por SSH, no en tu máquina local.
+1. **Monta los contenedores Docker necesarios para crear un servidor web**. Para ello, puedes seguir los pasos que detallamos en el ejemplo del [Apéndice 2](../docker/#a24-montando-con-docker-un-servidor-web-con-persistencia-de-datos), donde montamos un servidor con Apache, PHP, MariaDB y PHPMyAdmin. Por supuesto, estos pasos los tienes que ejecutar en tu máquina virtual de Openstack, conectándote a ella por SSH, no en tu máquina local.
 
 2. **Lanza los contenedores con *docker-compose***. Si has seguido correctamente los pasos para montar el servidor que detallamos en el Apéndice 2, con esto tu servidor estará escuchando en la IP flotante que hayas asignado a tu máquina virtual.
 
@@ -71,7 +71,7 @@ Asegúrate de que has seguido correctamente los pasos previos expuestos en el [a
 
 ### A3.2.2. Caso 2: mi aplicación está escrita con Laravel
 
-Asegúrate de que has seguido correctamente los pasos previos expuestos en el [apartado A4.2](../openstack/#a42-creando-servidores-en-openstack-para-desplegar-aplicaciones-web) antes de continuar por aquí.
+Asegúrate de que has seguido correctamente los pasos previos expuestos en el [apartado A3.2](../openstack/#a32-creando-servidores-en-openstack-para-desplegar-aplicaciones-web) antes de continuar por aquí.
 
 Para usar Laravel, debes instalar todas las dependencias en el servidor. Esto puede ser complicado, porque Laravel requiere de bastantes componentes. Por eso es recomendable instalarlo también con **Docker** (es decir, instalar **Laravel Sail**).
 

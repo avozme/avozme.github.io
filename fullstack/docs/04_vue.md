@@ -17,7 +17,7 @@ Es similar a otros frameworks como **Angular** o **React**, aunque más fácil d
 
 En este tema vamos a aprender a usar Vue.js para consumir los API REST que ya sabemos construir, de modo que podamos crear una aplicación de tipo OVA o SPA de forma rápida, eficiente y flexible.
 
-**MATERIAL EN PREPARACIÓN**
+<div style="color: red; font-size: 120%"><strong>MATERIAL EN PREPARACIÓN</strong></div>
 
 <!--
 

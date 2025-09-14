@@ -1,0 +1,146 @@
+I"-<h1 class="no_toc" id="apéndice-3-despliegue-con-openstack">Apéndice 3. Despliegue con Openstack</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#a31-qué-es-openstack" id="markdown-toc-a31-qué-es-openstack">A3.1. ¿Qué es Openstack?</a></li>
+  <li><a href="#a32-creando-servidores-en-openstack-para-desplegar-aplicaciones-web" id="markdown-toc-a32-creando-servidores-en-openstack-para-desplegar-aplicaciones-web">A3.2. Creando servidores en Openstack para desplegar aplicaciones web</a>    <ul>
+      <li><a href="#a321-caso-1-mi-aplicación-está-escrita-en-php-clásico" id="markdown-toc-a321-caso-1-mi-aplicación-está-escrita-en-php-clásico">A3.2.1. Caso 1: mi aplicación está escrita en PHP clásico</a></li>
+      <li><a href="#a322-caso-2-mi-aplicación-está-escrita-con-laravel" id="markdown-toc-a322-caso-2-mi-aplicación-está-escrita-con-laravel">A3.2.2. Caso 2: mi aplicación está escrita con Laravel</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="a31-qué-es-openstack">A3.1. ¿Qué es Openstack?</h2>
+
+<p><strong>OpenStack</strong> es un proyecto <em>open source</em> que permite gestionar recursos virtuales de computación, redes, almacenamiento e imágenes, para diseñar y gestionar nubes privadas y públicas. Proporciona una virtualización de “infraestructura como servicio” o <em>IaaS</em> (Infraestructure as a Service).</p>
+
+<p>En palabras más simples, Openstack nos permite desplegar una nube en la que virtualizar cualquier infraestructura hardware razonablemente concebible: ordenadores, redes, dispositivos de almacenamiento, etc. Y, además, nos permite interconectar todos esos componentes entre sí.</p>
+
+<p>Por lo tanto, Openstack es perfecto para montar servidores web y de bases de datos adaptados a nuestras necesidades, de manera que podamos desplegar en ellos nuestras aplicaciones web.</p>
+
+<p>Como son servidores virtuales, es fácil crearlos, replicarlos, eliminarlos o modificarlos, incluso en caliente. Por ejemplo, puedes añadir más memoria RAM a un servidor sin necesidad siquiera de apagarlo.</p>
+
+<h2 id="a32-creando-servidores-en-openstack-para-desplegar-aplicaciones-web">A3.2. Creando servidores en Openstack para desplegar aplicaciones web</h2>
+
+<p>José Juan Sánchez ha elaborado una completísima documentación sobre Openstack. La podéis encontrar aquí:</p>
+
+<p><a href="https://josejuansanchez.org/openstack-celia/">https://josejuansanchez.org/openstack-celia/</a></p>
+
+<p>No vamos a repetir aquí lo que ya pone en esa guía, porque además corresponde al módulo de “Despliegue de Aplicaciones Web”. Aquí solo resumiremos los pasos necesarios para crear un servidor en Openstack adecuado para desplegar tus aplicaciones:</p>
+
+<ol>
+  <li>
+    <p><strong>Accede a Openstack</strong> en <a href="https://172.16.0.11">https://172.16.0.11</a>. Lógicamente, necesitarás una cuenta de usuario en vigor.</p>
+  </li>
+  <li>
+    <p><strong>Crea una instancia nueva</strong> (por ejemplo, un Ubuntu 22.04 con 10 GB de disco y 1 GB de RAM debería ser suficiente para un servidor normalito).</p>
+  </li>
+  <li>
+    <p><strong>Asocia una IP flotante</strong> a la instancia. Es la única forma de poder entrar a tu máquina virtual posteriormente.</p>
+  </li>
+  <li>
+    <p><strong>Lanza la instancia y conéctate por SSH</strong> con ella. Necesitarás crear un par de claves SSH y guardar tu clave privada en un archivo llamado “id_rsa” de tu usuario (la ubicación de este archivo depende del sistema operativo; tendrás que consultar dónde hacerlo según que sistema uses):</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ssh ubuntu@dirección_IP
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Añade una regla al grupo de seguridad de Openstack para poder acceder al servidor por http</strong>. Esto se hace desde el panel de administración  de Openstack, siguiendo esta ruta: <em>Red -&gt; Grupos de seguridad -&gt; Administrar reglas -&gt; Agregar regla</em>. Después, elije la regla predefinida que se llama “HTTP”.</p>
+  </li>
+  <li>
+    <p><strong>Añade una regla al grupo de seguridad de Openstack para poder acceder a MySQL</strong>. Como antes, se hace desde el panel de administración de Openstack (<em>Red -&gt; Grupos de seguridad -&gt; Administrar reglas -&gt; Agregar regla</em>). En esta ocasión, elije la regla predefinida “MySQL”.</p>
+  </li>
+  <li>
+    <p><strong>Instala docker, docker-compose, git y composer</strong> en la máquina virtual (bueno, y cualquier otra cosa que te sea necesaria para tu aplicación). Para ello, <em>recuerda conectarte antes a tu máquina virtual por SSH</em> y teclea esto:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ sudo apt install docker docker-compose git composer
+ $ sudo adduser ubuntu docker  (Añadir usuario "ubuntu" al grupo "docker")
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Instala el software necesario para que tu aplicación web funcione</strong>. Esto se puede hacer de forma nativa, instalado Apache, MySQL y todo lo que tu aplicación necesite, o virtualizando todos esos componentes con Docker, que es más fácil, escalable y recomendable.</p>
+
+    <p>Como es diferente desplegar una aplicación web escrita en PHP clásico que hacerlo con una escrita con Laravel, vamos a mostrar los siguientes pasos de forma diferenciada para cada situación.</p>
+  </li>
+</ol>
+
+<h3 id="a321-caso-1-mi-aplicación-está-escrita-en-php-clásico">A3.2.1. Caso 1: mi aplicación está escrita en PHP clásico</h3>
+
+<p>Asegúrate de que has seguido correctamente los pasos previos expuestos en el <a href="../openstack/#a42-creando-servidores-en-openstack-para-desplegar-aplicaciones-web">apartado A4.2</a> antes de continuar por aquí.</p>
+
+<ol>
+  <li>
+    <p><strong>Monta los contenedores Docker necesarios para crear un servidor web</strong>. Para ello, puedes seguir los pasos que detallamos en el ejemplo del <a href="../docker/#a24-montando-con-docker-un-servidor-web-con-persistencia-de-datos">Apéndice 2</a>, donde montamos un servidor con Apache, PHP, MariaDB y PHPMyAdmin. Por supuesto, estos pasos los tienes que ejecutar en tu máquina virtual de Openstack, conectándote a ella por SSH, no en tu máquina local.</p>
+  </li>
+  <li>
+    <p><strong>Lanza los contenedores con <em>docker-compose</em></strong>. Si has seguido correctamente los pasos para montar el servidor que detallamos en el Apéndice 2, con esto tu servidor estará escuchando en la IP flotante que hayas asignado a tu máquina virtual.</p>
+  </li>
+  <li>
+    <p><strong>Despliega tu código</strong>. Si usas <em>git</em> (como deberías estar haciendo), es tan simple como hacer <code class="language-plaintext highlighter-rouge">git clone</code> en el directorio donde hayas lanzado Docker.</p>
+  </li>
+</ol>
+
+<p>¡Listo! Tu aplicación estará respondiendo en la IP flotante que hayas configurado. Compruébalo con tu navegador web preferido.</p>
+
+<h3 id="a322-caso-2-mi-aplicación-está-escrita-con-laravel">A3.2.2. Caso 2: mi aplicación está escrita con Laravel</h3>
+
+<p>Asegúrate de que has seguido correctamente los pasos previos expuestos en el <a href="../openstack/#a42-creando-servidores-en-openstack-para-desplegar-aplicaciones-web">apartado A4.2</a> antes de continuar por aquí.</p>
+
+<p>Para usar Laravel, debes instalar todas las dependencias en el servidor. Esto puede ser complicado, porque Laravel requiere de bastantes componentes. Por eso es recomendable instalarlo también con <strong>Docker</strong> (es decir, instalar <strong>Laravel Sail</strong>).</p>
+
+<p>Los pasos para lograrlo serían los siguientes (recuerda que debes ejecutarlos en tu servidor, conectándote a él por SSH):</p>
+
+<ol>
+  <li>
+    <p><strong>Si queremos una instalación de Laravel limpia</strong> haremos esto en la máquina virtual:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ curl -s https://laravel.build/mi-app | bash   (cambiar "mi-app" por otro nombre para la app)
+ $ cd mi-app (o el directorio que hayas elegido en la instrucción anterior)
+ $ ./vendor/bin/sail up -d
+</code></pre></div>    </div>
+
+    <p>En cambio, <strong>si ya tienes una aplicación Laravel funcionando</strong> (por ejemplo, en tu localhost), bastará con que la clones con <code class="language-plaintext highlighter-rouge">git clone</code> o, si no usas <em>git</em> (mal hecho), que copies el código manualmente a tu máquina virtual con <em>scp</em>.</p>
+  </li>
+  <li>
+    <p><strong>Instalar las dependencias de PHP y lanzar migraciones</strong>. Si tu aplicación Laravel no tiene directorio “vendor”, tendrás que generarlo con <em>composer</em>. Y crear la estructura de la base de datos lanzando tus migraciones:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ ./vendor/bin/sail composer update    (necesitas tener al menos "sail" dentro de "vendor")
+ $ php artisan migrate:fresh --seed     (necesitarás configurar antes el .env)
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Resolver problemas de permisos</strong>. Si la aplicación Laravel da un error de acceso al directorio “storage”, concédele permisos 777:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ sudo chmod -R 777 storage
+ $ ./vendor/bin/sail artisan cache:clear
+ $ ./vendor/bin/sail artisan config:clear
+ $ ./vendor/bin/sail artisan config:cache
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Resolver problemas con sesiones, caché y vistas</strong>. Si la aplicación Laravel da errores con la sesiones, la caché o las vistas, asegúrate de que dentro del directorio <em>/storage/framework</em> existen los subdirectorios <em>cache</em>, <em>sessions</em> y <em>views</em>, los tres con permisos 777. Si no existen, créalos.</p>
+  </li>
+  <li>
+    <p><strong>Lanzar Node</strong> (si es necesario). Si tu aplicación Laravel usa Node (por ejemplo, porque hayas instalado Laravel Breeze), tendrás que lanzar Node en el servidor:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ ./vendor/bin/sail npm install
+ $ ./vendor/bin/sail npm run dev
+</code></pre></div>    </div>
+
+    <p>Eso dejará el servidor Node corriendo. No lo detengas: necesitará estár permanentemente activo (como Sail) para que la aplicación Laravel funcione bien.</p>
+
+    <p>Hemos observado que, en el servidor Ubuntu de Openstack, el comando <code class="language-plaintext highlighter-rouge">npm run dev</code> puede dar el error “ENOSPC: System limit for number of file watchers reached”. Si te sucede esto, haz lo siguiente:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ sudo nano /etc/sysctl.conf
+</code></pre></div>    </div>
+
+    <p>Ahora añade esta línea al final de archivo:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> fs.inotify.max_user_watches = 524288
+</code></pre></div>    </div>
+
+    <p>Con eso, <code class="language-plaintext highlighter-rouge">npm run dev</code> debería funcionar bien.</p>
+  </li>
+</ol>
+
+<p>¡Listo! Con esto, deberías tener tu servidor escuchando en la IP flotante que hayas asignado a tu máquina virtual.</p>
+:ET

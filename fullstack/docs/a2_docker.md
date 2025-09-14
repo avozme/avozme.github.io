@@ -80,104 +80,196 @@ Con este archivo de configuración se lanzará un contenedor de *mysql* en cuant
 
 Así, los datos persisten en */var/lib/mysql* aunque detengas o elimines el contenedor.
 
-## A2.4. Un ejemplo: montar con Docker un servidor web con persistencia de datos
+## A2.4. Montando con Docker un servidor web con persistencia de datos
 
 En esta sección vamos a mostrar cómo montar un servidor web con imágenes Docker y levantarlo o apagarlo con docker-compose.
 
-Usaremos las imágenes de Bitnami, un desarrollador español recientemente adquirido por VMWare. Sus imágenes son fáciles de configurar (dentro de lo que cabe) y bastante confiables.
+Usaremos las imágenes oficiales de cada desarrollador, y necesitaremos poner en marcha **cuatro contenedores** simultáneamente, por lo que será mucho más cómodo hacerlo con docker-compose para poder levantarlas todas a la vez y no de una en una:
 
-Vamos a poner en marcha **cuatro contenedores** simultáneamente:
-
-1. **Servidor Apache** (imagen bitnami/apache)
-2. **Intérprete PHP** (image bitnami/phpfpm)
-3. **Servidor MariaDB** (imagen bitnami/mariadb)
-4. **PHPMyAdmin** (imagen bitnami/phpmyadmin)
+1. **Servidor Apache**
+2. **Intérprete PHP**
+3. **Servidor MariaDB**
+4. **PHPMyAdmin**
 
 Además, necesitamos que los datos de MariaDB sean persistentes, es decir, que no se pierdan cuando detengamos los contenedores.
 
-Si buscamos en DockerHub cada una de esas imágenes, encontraremos un archivo de configuración *docker-compose.yml* para cada una de ellas. 
+Para lograr todo esto, sigue estos pasos:
 
-Tenemos que construir un ***docker-compose.yml*** único combinando todos los archivos de configuración de todas las imágenes y ubicarlo en el directorio raíz de nuestro proyecto. Nos debe quedar algo así:
+### Paso 1. Crear ./docker-compose.yml
+
+Crea un archivo ***docker-compose.yml*** en tu directorio de trabajo con este contenido exacto, para trabajar con las imágenes oficiales de nuestros cuatro servicios:
 
 ```yaml
-version: '2'
 services:
   php:
-    image: bitnami/php-fpm:latest
-    ports:
-      - 9000:9000
+    image: php:8.2-fpm
     volumes:
-      - .:/app
+      - ./app:/app
+
   apache:
-    image: bitnami/apache:latest
+    image: httpd:2.4
     ports:
-      - 80:8080
+      - "8080:80"
     volumes:
-      - ./apache-vhost/myapp.conf:/vhosts/myapp.conf:ro
-      - .:/app
+      - ./app:/app
+      - ./apache-custom/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+      - ./apache-custom/myapp.conf:/usr/local/apache2/conf/extra/myapp.conf:ro
     depends_on:
       - php
+
   mariadb:
-    image: docker.io/bitnami/mariadb:10.6
+    image: mariadb:10.6
     environment:
-      - MARIADB_ROOT_PASSWORD=bitnami
+      MYSQL_ROOT_PASSWORD: bitnami
     volumes:
-      - 'mariadb_data:/bitnami'
+      - mariadb_data:/var/lib/mysql
+
   phpmyadmin:
-    image: docker.io/bitnami/phpmyadmin:5
+    image: phpmyadmin/phpmyadmin
     ports:
-      - '8000:8080'
+      - "8000:80"
+    environment:
+      PMA_HOST: mariadb
     depends_on:
       - mariadb
 
 volumes:
   mariadb_data:
-    driver: local
 ```
 
-Además, necesitamos crear un subdirectorio llamado ***apache-vhost*** y, dentro de él, colocar un archivo *myapp.conf* con este contenido:
+### Paso 2. Crear ./apache-custom/httpd.conf
+
+Por defecto, la imagen oficial de Apache no interpreta el código PHP, sino que lo sirve en texto plano, como si fuera HTML.
+
+Para reconfigurar esa imagen sin tener que meter mano al Dockerfile (algo que aprenderás a hacer en otros módulos) tienes que:
+
+1. Crear el directorio ***apache-custom*** en tu carpeta de trabajo.
+2. Crear el archivo ***httpd.conf*** dentro de *apache-custom* con este contenido:
 
 ```
+# httpd.conf mínimo preparado para usar Apache httpd:2.4 + PHP-FPM
+
+ServerRoot "/usr/local/apache2"
+
+# Puerto en el que Apache escuchará dentro del contenedor
+Listen 80
+
+# Módulos esenciales
+LoadModule mpm_event_module modules/mod_mpm_event.so
+LoadModule authn_core_module modules/mod_authn_core.so
+LoadModule authz_core_module modules/mod_authz_core.so
+LoadModule unixd_module modules/mod_unixd.so
+LoadModule dir_module modules/mod_dir.so
+LoadModule mime_module modules/mod_mime.so
+LoadModule log_config_module modules/mod_log_config.so
+LoadModule env_module modules/mod_env.so
+LoadModule setenvif_module modules/mod_setenvif.so
+LoadModule alias_module modules/mod_alias.so
+LoadModule negotiation_module modules/mod_negotiation.so
+LoadModule autoindex_module modules/mod_autoindex.so
+LoadModule headers_module modules/mod_headers.so
+
+# Módulos necesarios para proxying a PHP-FPM
+LoadModule proxy_module modules/mod_proxy.so
 LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so
-<VirtualHost *:8080>
-  DocumentRoot "/app"
-  ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://php:9000/app/$1
-  <Directory "/app">
+
+# Información del servidor
+ServerAdmin you@example.com
+ServerName localhost:80
+
+# Archivos de tipos mime
+TypesConfig conf/mime.types
+
+# Logs: enviar a stdout/stderr para que docker-compose logs funcione bien
+ErrorLog /proc/self/fd/2
+CustomLog /proc/self/fd/1 common
+
+# Seguridad por defecto
+<Directory />
+    AllowOverride none
+    Require all denied
+</Directory>
+
+# DocumentRoot por defecto
+DocumentRoot "/usr/local/apache2/htdocs"
+<Directory "/usr/local/apache2/htdocs">
     Options Indexes FollowSymLinks
-    AllowOverride All
+    AllowOverride None
     Require all granted
-    DirectoryIndex index.php
-  </Directory>
+</Directory>
+
+# Índices (queremos que index.php tenga preferencia sobre index.html)
+<IfModule dir_module>
+    DirectoryIndex index.php index.html
+</IfModule>
+
+# Incluimos el virtualhost personalizado que defines en apache-custom/myapp.conf
+Include conf/extra/myapp.conf
+
+# Fin del archivo
+```
+
+### Paso 3. Crear ./apache-custom/myapp.conf
+
+En este archivo de configuración adicional redirigiremos todas las peticiones de archivos .php hacia el contenedor con el intérprete PHP. El resto de archivos serán servidos por Apache.
+
+Crea el archivo ***myapp.conf*** dentro del directorio *apache-custom* con este contenido:
+
+```
+<VirtualHost *:80>
+    DocumentRoot "/app"
+
+    <Directory "/app">
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+        DirectoryIndex index.php
+    </Directory>
+
+    # Enviar todas las peticiones a .php al FPM del contenedor `php`
+    ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://php:9000/app/$1
 </VirtualHost>
 ```
 
-Esto hace que todas las peticiones de scripts PHP que lleguen al servidor se pasen automáticamente al contenedor de PHP para que las interprete.
+### Paso 4. Levantar los contenedores con docker-compose up
 
 Ya podemos **poner en marcha los cuatro contenedores** tecleando (en el directorio de trabajo):
+
+```
+$ docker-compose up --build
+```
+
+O bien, si no hemos tocado la configuración de los contenedores recientemente:
+
+```
+$ docker-compose up
+```
+
+También podemos lanzarlo en segundo plano, para que la consola no se quede bloqueada:
 
 ```
 $ docker-compose up -d
 ```
 
-Para **detener los contenedores**, teclearemos:
+### Paso 5. Probar los contenedores
+
+Si todo ha ido bien, deberías tener estos servicios activos:
+
+* **http://localhost:8080** -> Aquí debería estar escuchando Apache/PHP. Si pones un archivo .php en la carpeta ./app de tu proyecto, tendría que verse el resultado.
+* **http://localhost:8000** -> Aquí debería estar escuchando PHPMyAdmin.
+
+### Paso 6. Detener los contenedores
+
+Para detener los contenedores, tan solo teclea:
 
 ```
 docker-compose down
 ```
 
-El servidor estará respondiendo en la dirección http://localhost. Es muy importante que no tengas otro proceso usando el puerto 80 (el típico de http), o de lo contrario el contenedor de Apache no arrancará. Esto puede suceder si tienes un Apache nativo corriendo en tu máquina.
+O bien pulsa **CTRL + C** si inciaste docker-compose en segundo plano (con la opción -d).
 
-En cuanto a PHPMyAdmin, lo encontrarás eh http://localhost:8000.
 
-Esos puertos (el 80 y el 8000) se pueden cambiar trasteando un poco con el archivo docker-compose.yml. Recuerda detener y volver a lanzar los contenedores cada vez que cambies la configuración.
-
-Por último, si necesitas instalar dependencias de PHP con **composer**, puedes hacerlo creando un archivo *composer.json* en el directorio raíz del proyecto y ejecutando *composer install* dentro del contenedor de PHP:
-
-```
-$ docker exec php composer install
-```
-
-### A2.4.1. Cómo editar el archivo php.ini de un contenedor Docker
+## A2.5. Cómo editar el archivo php.ini de un contenedor Docker
 
 Lo normal es que tengas que tocar ligeramente algunas de las directivas de **pnp.ini**, el archivo de configuración del PHP de tu servidor.
 

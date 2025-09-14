@@ -323,6 +323,6 @@ Docker es una herramienta de consola (aunque existe un **Docker Desktop**) que p
 Por lo tanto, basta con encontrar en DockerHub las imágenes del software que necesitemos (Apache2, MySQL, PHPMyAdmin, etc) y lanzarlas en nuestro entorno de desarrollo. Para ello, debemos instalar previamente un **cliente de docker**, disponible de forma gratuita en [https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/).
 
 <div style='background-color: #fd0; font-size: 115%; text-align: center'>
-<p><strong>Puedes seguir las instrucciones para montar tu servidor con Docker en el <a href='../docker/#a24-un-ejemplo-montar-con-docker-un-servidor-web-con-persistencia-de-datos'>Apéndice II</a>.</strong></p>
+<p><strong>Puedes seguir las instrucciones para montar tu servidor con Docker en el <a href='../docker/#a24-montando-con-docker-un-servidor-web-con-persistencia-de-datos'>Apéndice II</a>.</strong></p>
 <p>Allí te explico cómo montar un servidor virtualizado que use Apache, MariaDB, PHP y PHPMyAdmin y ponerlo en marcha con un solo comando.</p>
 </div>

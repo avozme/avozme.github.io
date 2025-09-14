@@ -17,7 +17,7 @@ Hay varios estándares de facto para crear servicios web. El más extendido es *
 
 Nosotros nos centraremos en REST. Una aplicación web que implemente este estándar se suele denominar **API REST**. En este tema, vamos a aprender a construir una aplicación API REST usando Laravel.
 
-**MATERIAL EN PREPARACIÓN**
+<div style="color: red; font-size: 120%"><strong>MATERIAL EN PREPARACIÓN</strong></div>
 
 <!--
 
