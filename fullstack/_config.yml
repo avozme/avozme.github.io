@@ -19,10 +19,10 @@
 # in the templates via {{ site.myvariable }}.
 
 
-title: DESARROLLO FULLSTACK
+title: DESARROLLO WEB FULL STACK
 email: alfredomoreno@iescelia.org
 description: >- # this means to ignore newlines until "baseurl:"
-  Apuntes del módulo optativo de "Desarrollo fullstack", de 2º curso
+  Apuntes del módulo optativo de "Desarrollo web full stack", de 2º curso
   del Ciclo Formativo de Grado Superior de Desarrollo de Aplicaciones Web/Multiplataforma
   impartido en el IES Celia Viñas de Almería (España)
 baseurl: "/docs/fullstack/_site" # the subpath of your site, e.g. /blog

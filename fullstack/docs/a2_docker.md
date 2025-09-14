@@ -1,10 +1,10 @@
 ---
 layout: page
-title: Apéndice II. Virtualización con Docker
+title: Apéndice 2. Virtualización con Docker
 permalink: /docker/
-nav_order: 10
+nav_order: 7
 has_children: false
-parent: Desarrollo Web en Entorno Servidor
+parent: Desarrollo web full stack
 ---
 # Apéndice 2. Virtualización con Docker
 {: .no_toc }
@@ -47,11 +47,40 @@ Esto no es un manual de Docker, pero sí vamos a enumerar aquí los comandos pri
 
 Cualquier cosa que guardes en un contenedor de Docker se perderá cuando el contenedor se detenga. Por ejemplo, si estás haciendo una aplicación web que usa una base de datos MySQL, y tu servidor MySQL está en un contenedor Docker, toda la información de esa base de datos se perderá cada vez que destruyas el contenedor.
 
-Es posible evitar eso usando la persistencia de datos.
+Es posible evitar eso usando la persistencia de datos. Consiste en pedirle a Docker que guarde datos *fuera* del contenedor, para que estos no se pierdan al reiniciarlo o eliminarlo. Por ejemplo, los datos de la base de datos.
 
-XXX completar esta sección XXX
+La persistencia se puede habilitar con **docker run**. Por ejemplo:
 
-## A2.4. Un ejemplo: montando un servidor web con persistencia de datos
+```
+$ docker run -d --name mysql-container -e MYSQL_ROOT_PASSWORD=clave123 -v mysql-data:/var/lib/mysql mysql:latest
+```
+
+La persistencia se habilita con *-v mysql-data:/var/lib/mysql*, que crea (o usa) un volumen llamado *mysql-data* y lo monta en la ruta */var/lib/mysql* de la máquina real, que es donde MySQL suele guardar los datos.
+
+Personalmente, encuentro más sencillo hacerlo todo a través de **docker-compose**. Por ejemplo, mira este archivo de configuración docker-compose.yml:
+
+```yaml
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql-container
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+volumes:
+  mysql-data:
+```
+
+Con este archivo de configuración se lanzará un contenedor de *mysql* en cuanto tecleemos *docker-compose up*. Observa estas dos líneas:
+
+* La línea *volumes* dentro del servicio *mysql* monta el volumen virtual *mysql-data* en */var/lib/mysql*, el lugar de la máquina real donde MySQL suele guardar los datos.
+* La línea *volumes* al final del archivo declara el volumen llamado *mysql-data*, que Docker creará si no existe.
+
+Así, los datos persisten en */var/lib/mysql* aunque detengas o elimines el contenedor.
+
+## A2.4. Un ejemplo: montar con Docker un servidor web con persistencia de datos
 
 En esta sección vamos a mostrar cómo montar un servidor web con imágenes Docker y levantarlo o apagarlo con docker-compose.
 

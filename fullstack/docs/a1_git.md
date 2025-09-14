@@ -1,10 +1,10 @@
 ---
 layout: page
-title: Apéndice I. Sistemas de control de versiones. Git
+title: Apéndice 1. Sistemas de control de versiones. Git
 permalink: /scv-git/
-nav_order: 9
+nav_order: 6
 has_children: false
-parent: Desarrollo Web en Entorno Servidor
+parent: Desarrollo web full stack
 ---
 # Apéndice 1. Sistemas de control de versiones. Git
 {: .no_toc }

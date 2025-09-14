@@ -1,0 +1,9 @@
+I"�<h1 id="1-introducción-a-php">1. Introducción a PHP</h1>
+
+<p>En este capítulo vamos presentar <strong>el lenguaje PHP</strong>. Veremos la sintaxis básica y cómo este lenguaje trabaja <strong>en el lado del servidor</strong> para crear aplicaciones web dinámicas, es decir, aplicaciones que generan un HTML distinto según los datos de entrada y el estado del servidor.</p>
+
+<p>Conoceremos el <strong>kit de herramientas</strong> básico que vamos a necesitar para convertirnos en desarrolladores/as web y nos conectaremos a una base de datos remota para enviar y recuperar información.</p>
+
+<p>También hablaremos de <strong>cookies</strong> y <strong>variables de sesión</strong> tal y como las maneja PHP, dos elementos imprescindibles para el desarrollo web, e introduciremos el <strong>patrón de arquitectura MVC</strong>, que son los “planos” con los que se construyen la gran mayoría de las aplicaciones web.</p>
+
+:ET

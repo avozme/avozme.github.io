@@ -1,0 +1,197 @@
+I"�G<h2 class="no_toc" id="16-cookies-y-sesiones">1.6. Cookies y sesiones</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#161-qué-son-las-cookies" id="markdown-toc-161-qué-son-las-cookies">1.6.1. ¿Qué son las cookies?</a></li>
+  <li><a href="#162-manejando-cookies-con-php" id="markdown-toc-162-manejando-cookies-con-php">1.6.2. Manejando cookies con PHP</a></li>
+  <li><a href="#163-variables-de-sesión" id="markdown-toc-163-variables-de-sesión">1.6.3. Variables de sesión</a></li>
+  <li><a href="#164-abrir-sesiones-session_start" id="markdown-toc-164-abrir-sesiones-session_start">1.6.4. Abrir sesiones: session_start()</a></li>
+  <li><a href="#165-usar-variables-de-sesión-_session" id="markdown-toc-165-usar-variables-de-sesión-_session">1.6.5. Usar variables de sesión: $_SESSION</a></li>
+  <li><a href="#166-eliminar-variables-de-sesión-unset-y-session_destroy" id="markdown-toc-166-eliminar-variables-de-sesión-unset-y-session_destroy">1.6.6. Eliminar variables de sesión: unset() y session_destroy()</a></li>
+  <li><a href="#167-control-de-acceso-a-las-aplicaciones-web" id="markdown-toc-167-control-de-acceso-a-las-aplicaciones-web">1.6.7. Control de acceso a las aplicaciones web</a></li>
+  <li><a href="#168-autenticación-mediante-acl" id="markdown-toc-168-autenticación-mediante-acl">1.6.8. Autenticación mediante ACL</a></li>
+</ul>
+
+<p>En esta sección vamos a ver qué son las <em>cookies</em> y cómo podemos acceder a ellas para crearlas o manipularlas desde PHP.</p>
+
+<h3 id="161-qué-son-las-cookies">1.6.1. ¿Qué son las cookies?</h3>
+
+<p>Las <strong><em>cookies</em></strong> son pequeños archivos de texto enviados desde el servidor que se almacenan en el lado del cliente. Es decir, en el navegador.</p>
+
+<p>Permiten guardar información de forma persistente, de manera que se mantenga entre una petición al servidor y otra. Una <em>cookie</em> puede estar viva durante minutos, horas, días o incluso indefinidamente.</p>
+
+<p>Desde PHP, se pueden usar las <em>cookies</em> usando la función <strong><em>setcookie()</em></strong> y el array global <strong><em>$_COOKIE</em></strong>. Vamos a ver cómo.</p>
+
+<h3 id="162-manejando-cookies-con-php">1.6.2. Manejando cookies con PHP</h3>
+
+<h4 id="enviar-una-cookie-setcookie">Enviar una cookie: setcookie()</h4>
+
+<p>Esta función define una <em>cookie</em> que se enviará al cliente junto con el resto de las cabeceras de HTTP. Devuelve <em>true</em> si la cookie se envía con éxito o <em>false</em> en caso contrario.</p>
+
+<p>Su sintaxis es:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">bool</span> <span class="nb">setcookie</span> <span class="p">(</span> <span class="n">string</span> <span class="nv">$name</span> <span class="p">[,</span> <span class="n">string</span> <span class="nv">$value</span> <span class="p">[,</span> <span class="n">int</span> <span class="nv">$expire</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">[,</span> <span class="n">string</span> <span class="nv">$path</span> <span class="p">[,</span> <span class="n">string</span> <span class="nv">$domain</span> <span class="p">[,</span> <span class="n">bool</span> <span class="nv">$secure</span> <span class="o">=</span> <span class="kc">false</span> <span class="p">[,</span> <span class="n">bool</span> <span class="nv">$httponly</span> <span class="o">=</span> <span class="kc">false</span> <span class="p">]]]]]]</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<p>Las <em>cookies</em> deben enviarse <strong>antes de que el programa genere ninguna salida</strong>. Esto no es un capricho de PHP, sino una restricción del protocolo http. Por lo tanto, debes llamar a esta función antes de hacer <em>cualquier</em> salida, incluidos espacios en blanco. En caso contrario, la <em>cookie</em> no estará disponible hasta que la página se recargue.</p>
+
+<p>La función <em>setcookie()</em> admite un montón de parámetros, la mayor parte de ellos optativos:</p>
+
+<ul>
+  <li><strong>name</strong>: El nombre de la <em>cookie</em>. Este es el único obligatorio.</li>
+  <li><strong>value</strong>: El valor de la <em>cookie</em>.</li>
+  <li><strong>expire</strong>: El tiempo que la <em>cookie</em> tardará en expirar. Se trata de una fecha expresada en <a href="https://es.wikipedia.org/wiki/Tiempo_Unix">formato Unix</a>.</li>
+  <li><strong>path</strong>: La ruta del servidor para la que la <em>cookie</em> estará disponible. Si se utiliza ‘/’, la <em>cookie</em> estará disponible en la totalidad del dominio.</li>
+  <li><strong>domain</strong>: El dominio para el cual la <em>cookie</em> está disponible.</li>
+  <li><strong>secure</strong>: Si la <em>cookie</em> solo debería enviarse en caso de conexión https, pon este argument a <em>true</em>.</li>
+  <li><strong>httponly</strong>: Esta <em>cookie</em> solo será accesible a través de http. Es decir, no podrá accederse a la <em>cookie</em> desde Javascript.</li>
+</ul>
+
+<p>Aquí tienes tres ejemplos de envío de la misma cookie:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="nv">$value</span> <span class="o">=</span> <span class="s2">"I'm your father"</span><span class="p">;</span> 
+
+<span class="nb">setcookie</span><span class="p">(</span><span class="s2">"VaderQuote"</span><span class="p">,</span> <span class="nv">$value</span><span class="p">);</span> 
+<span class="nb">setcookie</span><span class="p">(</span><span class="s2">"VaderQuote"</span><span class="p">,</span> <span class="nv">$value</span><span class="p">,</span> <span class="nb">time</span><span class="p">()</span><span class="o">+</span><span class="mi">3600</span><span class="p">);</span>  <span class="c1">// la cookie expira en una hora </span>
+<span class="nb">setcookie</span><span class="p">(</span><span class="s2">"VaderQuote"</span><span class="p">,</span> <span class="nv">$value</span><span class="p">,</span> <span class="nb">time</span><span class="p">()</span><span class="o">+</span><span class="mi">3600</span><span class="p">,</span> <span class="s2">"/quotes/"</span><span class="p">,</span> <span class="s2">"bestquotes.com"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> 
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h4 id="recuperar-una-cookie-_cookies">Recuperar una cookie: $_COOKIES[]</h4>
+
+<p>Para ver el contenido de una <em>cookie</em>, simplemente hay que acceder al array global <em>$_COOKIES</em>. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="c1">// Imprimir una cookie individual </span>
+<span class="k">echo</span> <span class="nv">$_COOKIE</span><span class="p">[</span><span class="s2">"VaderQuote"</span><span class="p">];</span> 
+<span class="cp">?&gt;</span> 
+</code></pre></div></div>
+
+<h4 id="borrar-una-cookie">Borrar una cookie</h4>
+
+<p>Para forzar el borrado de una cookie en el cliente basta con enviarla con una fecha de expiración anterior a la fecha actual. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="nb">setcookie</span> <span class="p">(</span><span class="s2">"VaderQuote"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="nb">time</span><span class="p">()</span> <span class="o">-</span> <span class="mi">3600</span><span class="p">);</span>  <span class="c1">// Establece la fecha de expiración una hora en el pasado</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h3 id="163-variables-de-sesión">1.6.3. Variables de sesión</h3>
+
+<p>Las <strong>sesiones</strong> de PHP son un mecanismo para que un script almacene variables (llamadas <strong>variables de sesión</strong>) en el servidor de manera persistente, de modo que posteriores ejecuciones de programas en el servidor solicitadas desde el mismo cliente pueden acceder a esas variables.</p>
+
+<p>Es decir: en la práctica, <strong>las variables de sesión se comportan como si fueran variables globales a toda la aplicación web</strong>.</p>
+
+<p>Seguro que te habían dicho que usar variables globales es una mala idea y una pésima práctica de programación. Eso es cierto y, al mismo tiempo, usarlas resulta inevitable. <em>Bienvenido/a al extravagante mundo de las aplicaciones web</em>.</p>
+
+<p>Por ese motivo, debe reducirse el uso de las variables de sesión a lo estrictamente imprescindible. ¿Qué cosas resulta útil guardar en variables de sesión? Cosas como el ID o el nombre de un usuario logueado en un sistema o el estado de la aplicación. Poco más. Cosas pequeñas pero tremendamente importantes.</p>
+
+<p>Cada cliente tiene su propio espacio de variables de sesión en el servidor, de manera que no se mezclan unas con otras, ni un cliente puede acceder a las variables de otro cliente.</p>
+
+<p>La forma en la que PHP logra distinguir a los clientes entre sí es enviándoles, de forma transparente, una <em>cookie</em> con un valor aleatorio distinto para cada cliente. “De forma transparente” significa que ni el programador ni el usuario se enteran de que esa <em>cookie</em> existe: PHP se encarga de hacerlo por su cuenta.</p>
+
+<p>En el archivo <em>php.ini</em> se puede configurar la manera en la que PHP almacenará las variables de sesión (en memoria, en un fichero, etc), pero esto es irrelevante de cara a su funcionamiento y compete más al administrador del sistema que al programador. Lo que a nosotros nos interesa es aprender a crear variables de sesión, asignarles valor y recuperarlo posteriormente.</p>
+
+<h3 id="164-abrir-sesiones-session_start">1.6.4. Abrir sesiones: session_start()</h3>
+
+<p>Antes de acceder a cualquier variable de sesión (ya sea para crearla, para modificarla o para eliminarla) necesitamos indicarle a PHP que queremos usar variables de sesión en ese programa.</p>
+
+<p>La función <strong><em>session_start()</em></strong> se usa para eso: habilita el acceso a las variables de sesión, es decir, crea una nueva sesión o reanuda una sesión preexistente.</p>
+
+<p>Las sesiones admiten un nombre, por si necesitas crear sesiones separadas para el mismo cliente. No obstante, la mayor parte de las veces te bastará con crear sesiones sin nombre, sin necesidad de pasar ningún argumento a <em>session_start()</em>.</p>
+
+<h3 id="165-usar-variables-de-sesión-_session">1.6.5. Usar variables de sesión: $_SESSION</h3>
+
+<p>Las variables de sesión se manipulan a través del array superglobal <strong><em>$_SESSION</em></strong>.</p>
+
+<p>Si necesitas una variable de sesión llamada, por ejemplo, <em>nombre_usuario</em>, simplemente haz esto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">session_start</span><span class="p">();</span>
+<span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'nombre_usuario'</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"valor-de-la-variable"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Por supuesto, el valor de esa posición del array $_SESSION puede consultarse o modificarse cuando lo necesitemos, porque se trata de un array como otro cualquiera… salvo que es <em>superglobal</em>, es decir, es accesible desde cualquier punto del programa.</p>
+
+<h3 id="166-eliminar-variables-de-sesión-unset-y-session_destroy">1.6.6. Eliminar variables de sesión: unset() y session_destroy()</h3>
+
+<p>La función <strong>unset()</strong> se utiliza para destruir cualquier variable, incluidas las de sesión:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">unset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'nombre_usuario'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>Si lo que deseas es destruir <em>todas</em> las variables de sesión, es preferible recurrir a <strong><em>session_destroy()</em></strong>.</p>
+
+<p>Ahora bien, session_destroy() destruye la información asociada a la sesión actual, pero no elimina realmente las variables de la memoria del servidor ni borra la <em>cookie</em> de sesión del cliente.</p>
+
+<p>Si eres un fanático de la seguridad y quieres asegurarte de destruir todas las variables de sesión, puedes usar la función <strong><em>session_unset()</em></strong>. Y, para borrar la cookie de sesión, debes usar <strong><em>setcookie()</em></strong>, como en este ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="cp">&lt;?php</span>
+<span class="nb">session_start</span><span class="p">();</span>
+
+<span class="c1">// Destruimos todas las variables de sesión (optativo)</span>
+<span class="nb">session_unset</span><span class="p">();</span>
+
+<span class="c1">// Si queremos destruir la sesión completamente, borramos también la cookie de sesión.</span>
+<span class="nv">$params</span> <span class="o">=</span> <span class="nb">session_get_cookie_params</span><span class="p">();</span>
+<span class="nb">setcookie</span><span class="p">(</span><span class="nb">session_name</span><span class="p">(),</span> <span class="s1">''</span><span class="p">,</span> <span class="nb">time</span><span class="p">()</span> <span class="o">-</span> <span class="mi">42000</span><span class="p">,</span>
+        <span class="nv">$params</span><span class="p">[</span><span class="s2">"path"</span><span class="p">],</span> <span class="nv">$params</span><span class="p">[</span><span class="s2">"domain"</span><span class="p">],</span>
+        <span class="nv">$params</span><span class="p">[</span><span class="s2">"secure"</span><span class="p">],</span> <span class="nv">$params</span><span class="p">[</span><span class="s2">"httponly"</span><span class="p">]</span>
+<span class="p">);</span>
+
+<span class="c1">// Finalmente, cerramos 0la sesión</span>
+<span class="nb">session_destroy</span><span class="p">();</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h3 id="167-control-de-acceso-a-las-aplicaciones-web">1.6.7. Control de acceso a las aplicaciones web</h3>
+
+<p><em>Cookies</em> y variables de sesión se usan a menudo, por separado o de forma combinada, para controlar el acceso a una aplicación web. Es decir, para hacer el <em>login</em>.</p>
+
+<p>En este punto conviene que te hagas esta pregunta: ¿qué significa “loguearse” en una aplicación?</p>
+
+<p>Piénsalo un momento. ¿Qué significa eso <em>realmente</em>?</p>
+
+<p>Por supuesto, implica superar un formulario donde se nos pregunta nuestro nombre de usuario (o nuestro email, o alguna otra identificación) y una contraseña. Pero, si lo superamos, ¿qué sucede entonces?</p>
+
+<p><strong>Autenticarse o “loguearse” en una aplicación significa que esa aplicación <em>cambia de estado</em> y pasa a reconocernos como usuarios registrados</strong>. <em>Algo</em> tiene que cambiar dentro de la aplicación, porque a partir de ese momento, y solo para nosotros, se comportará de un modo distinto.</p>
+
+<p>Ese “algo” implica que la aplicación recordará quiénes somos nosotros y cuales son nuestros privilegios en la aplicación hasta que cerremos la sesión. Y sobre nosotros puede recordar muchas cosas: el nombre, los apellidos, nuestra foto de perfil… Pero, sobre todas esas cosas, hay una fundamental: nuestro ID de usuario.</p>
+
+<p>Todos los usuarios registrados tienen un ID en todos los sistemas. A la aplicación le basta con conocer nuestro ID para recordar quiénes somos.</p>
+
+<p>¿Y cómo “recuerda” una aplicación web un dato como ese? Muy fácil: almacenándolo en una <em>cookie</em> o en una variable de sesión, que son persistentes hasta que el programa decide destruirlas. Es decir, cuando el usuario abandona la aplicación, el programa debe destruir la <em>cookie</em> o destruir la sesión.</p>
+
+<p>Justo en este momento hay una cosa que tiene que quedarte muy clara: <strong>¡ninguno de estos métodos es completamente seguro!</strong>.</p>
+
+<p>Las <em>cookies</em> pueden rastrearse o modificarse en el ordenador del cliente. Además, algunos clientes las tienen desactivadas. ¡No te puedes fiar de ellas!</p>
+
+<p>Las variables de sesión, en principio más seguras, pueden ser atacadas capturando el ID de sesión, como veremos más adelante.</p>
+
+<p>El método más seguro, y el más complicado de programar, es el que combina:</p>
+
+<ul>
+  <li>Cookies y/o variables de sesión.</li>
+  <li>Variables guardadas en una tabla de la BD.</li>
+</ul>
+
+<p>El uso de <em>frameworks</em> solventes (como Laravel, que estudiaremos más adelante) hace innecesario tomarse este trabajo, puesto que todos habilitan un mecanismo de sesiones seguras que mejora notablemente las prestaciones de las sesiones nativas de PHP.</p>
+
+<p>No obstante, en las actividades resueltas y propuestas del final del tema plantearemos una solución para la autenticación de usuarios desarrollada por nosotros mismos y que resultará razonablemente segura.</p>
+
+<h3 id="168-autenticación-mediante-acl">1.6.8. Autenticación mediante ACL</h3>
+
+<p>Casi todas las aplicaciones web, como hemos visto, tienen un subsistema de autenticación de usuarios. El más completo de esos subsistemas es el de las <strong>listas de control de acceso</strong> (ACL = Access Control List).</p>
+
+<p>Ese subsistema suele estar basado en este diseño de base de datos:</p>
+
+<p><img src="../assets/images/03-acl.jpg" alt="Tablas ACL" /></p>
+
+<p>Esto significa que necesitas <strong>cinco tablas</strong> para implementar un ACL completo.</p>
+
+<p>Sin embargo, muchas veces tendremos suficiente con solo tres tablas (users, roles y roles-users), o incluso solo con una (users, añadiendo quizá un campo “type”).</p>
+
+<p><strong>Optar por una solución más o menos compleja dependerá del tipo de sistema que estemos implementando.</strong></p>
+
+<p>En cualquier caso, es conveniente que conozcas el esquema ACL completo (es decir, el de 5 tablas) para que lo pongas en práctica cuando lo necesites. Por eso te lo he presentado. Ahora ya sois oficialmente amigos.</p>
+:ET
