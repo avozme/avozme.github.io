@@ -93,7 +93,9 @@ Usaremos las imágenes oficiales de cada desarrollador, y necesitaremos poner en
 
 Además, necesitamos que los datos de MariaDB sean persistentes, es decir, que no se pierdan cuando detengamos los contenedores.
 
-Para lograr todo esto, sigue estos pasos:
+Lograr esto es complicadillo, pero trabajar con los servidores siempre lo es. A cambio, tendremos un entorno fácilmente transportable a otros servidores.
+
+Te dejo las instrucciones paso a paso para que lo consigas sin desesperarte demasiado:
 
 ### Paso 1. Crear ./docker-compose.yml
 
@@ -102,7 +104,7 @@ Crea un archivo ***docker-compose.yml*** en tu directorio de trabajo con este co
 ```yaml
 services:
   php:
-    image: php:8.2-fpm
+    image: mi-php-pdo
     volumes:
       - ./app:/app
       - ./custom.ini:/usr/local/etc/php/conf.d/custom.ini
@@ -265,7 +267,7 @@ Lo más adecuado para ello es crear un archivo ***Dockerfile*** con este conteni
 # 1. Base PHP-FPM oficial
 FROM php:8.2-fpm
 
-# 2. Instalar dependencias necesarias para pdo_mysql
+# 2. Instala dependencias necesarias para pdo_mysql
 RUN apt-get update && apt-get install -y \
         default-mysql-client \
         libzip-dev \
@@ -273,24 +275,26 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo pdo_mysql \
     && rm -rf /var/lib/apt/lists/*
 
-# 3. Copiar el código PHP al contenedor
+# 3. Copia el código PHP al contenedor
 COPY app/ /var/www/html/
 
-# 4. Copiar el custom.ini
+# 4. Copia el custom.ini al interior del contenedor
 COPY custom.ini /usr/local/etc/php/conf.d/custom.ini
 
-# 5. Establecer el directorio de trabajo
+# 5. Establece el directorio de trabajo
 WORKDIR /var/www/html
 
-# 6. Opcional: exponer puerto (necesario para acceder desde localhost)
+# 6. Expone puerto (necesario para acceder desde localhost)
 EXPOSE 9000
 ```
 
 Después de esto, reconstruye el contenedor ejecutando este comando en el directorio donde tengas el Dockerfile:
 
 ```
-$ docker build -t mi-php-pdo .
+docker build --no-cache -t mi-php-pdo .
 ```
+
+Como en *docker-compose.yml* le hemos dicho a docker que use una imagen llamada *mi-php-pdo* en lugar de la oficial de PHP, cuando levantemos los contenedores usará nuestra imagen modificada (con PDO MySQL) en lugar de la oficial (que no lo lleva).
 
 ### Paso 6. Levantar los contenedores con docker-compose up
 

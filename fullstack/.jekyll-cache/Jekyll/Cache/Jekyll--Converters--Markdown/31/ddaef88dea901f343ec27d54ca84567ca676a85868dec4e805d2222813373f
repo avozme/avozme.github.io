@@ -1,0 +1,337 @@
+I"�T<h1 class="no_toc" id="apéndice-2-virtualización-con-docker">Apéndice 2. Virtualización con Docker</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#a21-qué-es-docker" id="markdown-toc-a21-qué-es-docker">A2.1. ¿Qué es Docker?</a></li>
+  <li><a href="#a22-comandos-usuales-de-docker" id="markdown-toc-a22-comandos-usuales-de-docker">A2.2. Comandos usuales de Docker</a></li>
+  <li><a href="#a23-persistencia-de-datos" id="markdown-toc-a23-persistencia-de-datos">A2.3. Persistencia de datos</a></li>
+  <li><a href="#a24-montando-con-docker-un-servidor-web-con-persistencia-de-datos" id="markdown-toc-a24-montando-con-docker-un-servidor-web-con-persistencia-de-datos">A2.4. Montando con Docker un servidor web con persistencia de datos</a>    <ul>
+      <li><a href="#paso-1-crear-docker-composeyml" id="markdown-toc-paso-1-crear-docker-composeyml">Paso 1. Crear ./docker-compose.yml</a></li>
+      <li><a href="#paso-2-crear-apache-customhttpdconf" id="markdown-toc-paso-2-crear-apache-customhttpdconf">Paso 2. Crear ./apache-custom/httpd.conf</a></li>
+      <li><a href="#paso-3-crear-apache-custommyappconf" id="markdown-toc-paso-3-crear-apache-custommyappconf">Paso 3. Crear ./apache-custom/myapp.conf</a></li>
+      <li><a href="#paso-4-crear-el-archivo-customini" id="markdown-toc-paso-4-crear-el-archivo-customini">Paso 4. Crear el archivo custom.ini</a></li>
+      <li><a href="#paso-5-crear-un-dockerfile-personalizado-para-php" id="markdown-toc-paso-5-crear-un-dockerfile-personalizado-para-php">Paso 5. Crear un Dockerfile personalizado para PHP</a></li>
+      <li><a href="#paso-6-levantar-los-contenedores-con-docker-compose-up" id="markdown-toc-paso-6-levantar-los-contenedores-con-docker-compose-up">Paso 6. Levantar los contenedores con docker-compose up</a></li>
+      <li><a href="#paso-7-probar-los-contenedores" id="markdown-toc-paso-7-probar-los-contenedores">Paso 7. Probar los contenedores</a></li>
+      <li><a href="#paso-8-detener-los-contenedores" id="markdown-toc-paso-8-detener-los-contenedores">Paso 8. Detener los contenedores</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="a21-qué-es-docker">A2.1. ¿Qué es Docker?</h2>
+
+<p><strong>Docker</strong> es una herramienta de virtualización basada en <em>contenedores</em>.</p>
+
+<p>Un <strong>contenedor</strong> es un paquete de software completamente independiente del sistema donde se ejecuta. Recibe ese nombre por los contenedores que se utilizan en el transporte marítimo, que tienen unas medidas y una forma estandarizada y que aislan por completo la carga que llevan dentro del exterior.</p>
+
+<p>Un contenedor Docker hace lo mismo, pero con un conjunto de software: lo aisla por completo del exterior. El software que hay dentro del contenedor se puede ejecutar en cualquier máquina gracias al <em>runtime</em> de Docker, que se comporta como un mini-sistema operativo virtualizado que corre sobre la máquina anfitrión.</p>
+
+<p>Un contenedor puede contener cualquier cosa. Por ejemplo, Apache. De ese modo, podemos ejecutar Apache en cualquier máquina (siempre que tenga previamente instalado Docker) sin necesidad de instalarlo realmente, con todo lo que ello conlleva de configuración de la máquina, consumo de recursos, etc. El contenedor Docker puede ponerse en marcha cuando queramos y detenerse en cualquier momento, sin dejar ningún rastro en la máquina anfitriona.</p>
+
+<p>En definitiva, puedes usar y/o testear <em>cualquier</em> programa sin tener que instalarlo realmente en tu máquina.</p>
+
+<p>Los contenedores Docker vienen empaquetados en <strong>imágenes</strong>, a partir de los cuales pueden lanzarse todos los contenedores que necesitemos. Es decir, las imágenes con como las <em>clases</em> en programación orientada a objetos, y los contenedores son como los objetos que se instancian a partir de esas clases.</p>
+
+<p>Cada cual puede construir las imágenes que necesite o usar imágenes ya hechas, con todo lo necesario en su interior para ejecutar cualquier software sin necesidad de instalarlo ni configurarlo. Hay repositorios públicos de imágenes, como <strong>DockerHub</strong>, donde uno puede encontrar imágenes de prácticamente cualquier cosa.</p>
+
+<h2 id="a22-comandos-usuales-de-docker">A2.2. Comandos usuales de Docker</h2>
+
+<p>Aunque Docker puede usarse desde un interfaz gráfico (como <strong>Docker Desktop</strong>), lo habitual es hacerlo desde la línea de comandos.</p>
+
+<p>Esto no es un manual de Docker, pero sí vamos a enumerar aquí los comandos principales que nos serán útiles como desarrolladores web para que puedas usarlos como referencia rápida cuando tengas que trabajar con Docker.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">docker run [nombre-imagen]</code> - Lanza un contenedor a partir de la imagen especificada. Si la imagen no está descargada en el ordenador, la buscará en el repositorio configurado (por defecto, <em>DockerHub</em>).</li>
+  <li><code class="language-plaintext highlighter-rouge">docker ps</code> - Muestra un listado con los contenedores que hay actualmente en el sistema. Un contenedor no tiene por qué estar necesariamente corriendo, sino que existen otros estados (detenido, preparado, finalizado, etc). Con <code class="language-plaintext highlighter-rouge">docker ps -a</code> podemos ver todos los contenedores, también los detenidos.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker stop [id-del-contenedor]</code> - Detiene un contenedor. Su id puede obtenerse con <code class="language-plaintext highlighter-rouge">docker ps</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker start [id-del-contenedor]</code> - Reanuda un contenedor.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker exec -it [id-del-contenedor] bash</code> - Abrir un terminal en el contenedor.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker-compose up -d</code> - Inicia todos los contenedores especificados en el archivo <em>docker-compose.yml</em> del directorio actual. Necesitas tener instalado, además de Docker, el programa <em>docker-compose</em>.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker-compose down</code> - Detiene todos los contenedores especificados en el archivo <em>docker-compose.yml</em> del directorio actual.</li>
+</ul>
+
+<h2 id="a23-persistencia-de-datos">A2.3. Persistencia de datos</h2>
+
+<p>Cualquier cosa que guardes en un contenedor de Docker se perderá cuando el contenedor se detenga. Por ejemplo, si estás haciendo una aplicación web que usa una base de datos MySQL, y tu servidor MySQL está en un contenedor Docker, toda la información de esa base de datos se perderá cada vez que destruyas el contenedor.</p>
+
+<p>Es posible evitar eso usando la persistencia de datos. Consiste en pedirle a Docker que guarde datos <em>fuera</em> del contenedor, para que estos no se pierdan al reiniciarlo o eliminarlo. Por ejemplo, los datos de la base de datos.</p>
+
+<p>La persistencia se puede habilitar con <strong>docker run</strong>. Por ejemplo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run -d --name mysql-container -e MYSQL_ROOT_PASSWORD=clave123 -v mysql-data:/var/lib/mysql mysql:latest
+</code></pre></div></div>
+
+<p>La persistencia se habilita con <em>-v mysql-data:/var/lib/mysql</em>, que crea (o usa) un volumen llamado <em>mysql-data</em> y lo monta en la ruta <em>/var/lib/mysql</em> de la máquina real, que es donde MySQL suele guardar los datos.</p>
+
+<p>Personalmente, encuentro más sencillo hacerlo todo a través de <strong>docker-compose</strong>. Por ejemplo, mira este archivo de configuración docker-compose.yml:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">mysql</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">mysql:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">mysql-container</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">mysql-data:/var/lib/mysql</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">3306:3306"</span>
+
+<span class="na">volumes</span><span class="pi">:</span>
+  <span class="na">mysql-data</span><span class="pi">:</span>
+</code></pre></div></div>
+
+<p>Con este archivo de configuración se lanzará un contenedor de <em>mysql</em> en cuanto tecleemos <em>docker-compose up</em>. Observa estas dos líneas:</p>
+
+<ul>
+  <li>La línea <em>volumes</em> dentro del servicio <em>mysql</em> monta el volumen virtual <em>mysql-data</em> en <em>/var/lib/mysql</em>, el lugar de la máquina real donde MySQL suele guardar los datos.</li>
+  <li>La línea <em>volumes</em> al final del archivo declara el volumen llamado <em>mysql-data</em>, que Docker creará si no existe.</li>
+</ul>
+
+<p>Así, los datos persisten en <em>/var/lib/mysql</em> aunque detengas o elimines el contenedor.</p>
+
+<h2 id="a24-montando-con-docker-un-servidor-web-con-persistencia-de-datos">A2.4. Montando con Docker un servidor web con persistencia de datos</h2>
+
+<p>En esta sección vamos a mostrar cómo montar un servidor web con imágenes Docker y levantarlo o apagarlo con docker-compose.</p>
+
+<p>Usaremos las imágenes oficiales de cada desarrollador, y necesitaremos poner en marcha <strong>cuatro contenedores</strong> simultáneamente, por lo que será mucho más cómodo hacerlo con docker-compose para poder levantarlas todas a la vez y no de una en una:</p>
+
+<ol>
+  <li><strong>Servidor Apache</strong></li>
+  <li><strong>Intérprete PHP</strong></li>
+  <li><strong>Servidor MariaDB</strong></li>
+  <li><strong>PHPMyAdmin</strong></li>
+</ol>
+
+<p>Además, necesitamos que los datos de MariaDB sean persistentes, es decir, que no se pierdan cuando detengamos los contenedores.</p>
+
+<p>Lograr esto es complicadillo, pero trabajar con los servidores siempre lo es. A cambio, tendremos un entorno fácilmente transportable a otros servidores.</p>
+
+<p>Te dejo las instrucciones paso a paso para que lo consigas sin desesperarte demasiado:</p>
+
+<h3 id="paso-1-crear-docker-composeyml">Paso 1. Crear ./docker-compose.yml</h3>
+
+<p>Crea un archivo <strong><em>docker-compose.yml</em></strong> en tu directorio de trabajo con este contenido exacto, para trabajar con las imágenes oficiales de nuestros cuatro servicios:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">php</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">mi-php-pdo</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./app:/app</span>
+      <span class="pi">-</span> <span class="s">./custom.ini:/usr/local/etc/php/conf.d/custom.ini</span>
+
+  <span class="na">apache</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">httpd:2.4</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8080:80"</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./app:/app</span>
+      <span class="pi">-</span> <span class="s">./apache-custom/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro</span>
+      <span class="pi">-</span> <span class="s">./apache-custom/myapp.conf:/usr/local/apache2/conf/extra/myapp.conf:ro</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">php</span>
+
+  <span class="na">mariadb</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">mariadb:10.6</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">MYSQL_ROOT_PASSWORD</span><span class="pi">:</span> <span class="m">1234</span>
+      <span class="na">MYSQL_DATABASE</span><span class="pi">:</span> <span class="s">pruebas</span>
+      <span class="na">MYSQL_USER</span><span class="pi">:</span> <span class="s">user</span>
+      <span class="na">MYSQL_PASSWORD</span><span class="pi">:</span> <span class="m">1234</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">mariadb_data:/var/lib/mysql</span>
+
+  <span class="na">phpmyadmin</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">phpmyadmin/phpmyadmin</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8000:80"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">PMA_HOST</span><span class="pi">:</span> <span class="s">mariadb</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">mariadb</span>
+
+<span class="na">volumes</span><span class="pi">:</span>
+  <span class="na">mariadb_data</span><span class="pi">:</span>
+</code></pre></div></div>
+
+<h3 id="paso-2-crear-apache-customhttpdconf">Paso 2. Crear ./apache-custom/httpd.conf</h3>
+
+<p>Por defecto, la imagen oficial de Apache no interpreta el código PHP, sino que lo sirve en texto plano, como si fuera HTML.</p>
+
+<p>Para reconfigurar esa imagen sin tener que meter mano al Dockerfile (algo que aprenderás a hacer en otros módulos) tienes que:</p>
+
+<ol>
+  <li>Crear el directorio <strong><em>apache-custom</em></strong> en tu carpeta de trabajo.</li>
+  <li>Crear el archivo <strong><em>httpd.conf</em></strong> dentro de <em>apache-custom</em> con este contenido:</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># httpd.conf mínimo preparado para usar Apache httpd:2.4 + PHP-FPM
+
+ServerRoot "/usr/local/apache2"
+
+# Puerto en el que Apache escuchará dentro del contenedor
+Listen 80
+
+# Módulos esenciales
+LoadModule mpm_event_module modules/mod_mpm_event.so
+LoadModule authn_core_module modules/mod_authn_core.so
+LoadModule authz_core_module modules/mod_authz_core.so
+LoadModule unixd_module modules/mod_unixd.so
+LoadModule dir_module modules/mod_dir.so
+LoadModule mime_module modules/mod_mime.so
+LoadModule log_config_module modules/mod_log_config.so
+LoadModule env_module modules/mod_env.so
+LoadModule setenvif_module modules/mod_setenvif.so
+LoadModule alias_module modules/mod_alias.so
+LoadModule negotiation_module modules/mod_negotiation.so
+LoadModule autoindex_module modules/mod_autoindex.so
+LoadModule headers_module modules/mod_headers.so
+
+# Módulos necesarios para proxying a PHP-FPM
+LoadModule proxy_module modules/mod_proxy.so
+LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so
+
+# Información del servidor
+ServerAdmin you@example.com
+ServerName localhost:80
+
+# Archivos de tipos mime
+TypesConfig conf/mime.types
+
+# Logs: enviar a stdout/stderr para que docker-compose logs funcione bien
+ErrorLog /proc/self/fd/2
+CustomLog /proc/self/fd/1 common
+
+# Seguridad por defecto
+&lt;Directory /&gt;
+    AllowOverride none
+    Require all denied
+&lt;/Directory&gt;
+
+# DocumentRoot por defecto
+DocumentRoot "/usr/local/apache2/htdocs"
+&lt;Directory "/usr/local/apache2/htdocs"&gt;
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Require all granted
+&lt;/Directory&gt;
+
+# Índices (queremos que index.php tenga preferencia sobre index.html)
+&lt;IfModule dir_module&gt;
+    DirectoryIndex index.php index.html
+&lt;/IfModule&gt;
+
+# Incluimos el virtualhost personalizado que defines en apache-custom/myapp.conf
+Include conf/extra/myapp.conf
+
+# Fin del archivo
+</code></pre></div></div>
+
+<h3 id="paso-3-crear-apache-custommyappconf">Paso 3. Crear ./apache-custom/myapp.conf</h3>
+
+<p>En este archivo de configuración adicional redirigiremos todas las peticiones de archivos .php hacia el contenedor con el intérprete PHP. El resto de archivos serán servidos por Apache.</p>
+
+<p>Crea el archivo <strong><em>myapp.conf</em></strong> dentro del directorio <em>apache-custom</em> con este contenido:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;VirtualHost *:80&gt;
+    DocumentRoot "/app"
+
+    &lt;Directory "/app"&gt;
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+        DirectoryIndex index.php
+    &lt;/Directory&gt;
+
+    # Enviar todas las peticiones a .php al FPM del contenedor `php`
+    ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://php:9000/app/$1
+&lt;/VirtualHost&gt;
+</code></pre></div></div>
+
+<h3 id="paso-4-crear-el-archivo-customini">Paso 4. Crear el archivo custom.ini</h3>
+
+<p>Este archivo contiene las <strong>opciones de configuración adicionales para PHP</strong>.</p>
+
+<p>PHP se configura dentro del contenedor correspondiente, en un archivo llamado <em>php.ini</em>. Podemos agregar configuraciones adicionales sin necesidad de tocar el contenedor con un archivo de configuración adicional que mapearemos al interior del contenedor.</p>
+
+<p>Crea un archivo llamado <strong><em>custom.ini</em></strong> en tu directorio de trabajo con este contenido:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>display_errors = On
+error_reporting = E_ALL
+opcache.enable = 0
+extension=pdo
+extension=pdo_mysql
+</code></pre></div></div>
+
+<p>Esto habilitará la extensión PDO para MySQL y las opciones de depuración de errores. En un entorno de producción, estas opciones se cambiarían, claro.</p>
+
+<p>Si necesitas configuraciones adicionales para PHP (como incrementar el tamaño máximo de archivos subidos al servidor o el tiempo de procesamiento de un script), puedes hacerlo en este custom.ini y volver a levantar el servidor.</p>
+
+<h3 id="paso-5-crear-un-dockerfile-personalizado-para-php">Paso 5. Crear un Dockerfile personalizado para PHP</h3>
+
+<p>La extensión PDO para MySQL no viene instalada por defecto en la imagen oficial de PHP-FPM. Debemos modificar la imagen para poder usar esta extensión.</p>
+
+<p>Lo más adecuado para ello es crear un archivo <strong><em>Dockerfile</em></strong> con este contenido:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 1. Base PHP-FPM oficial
+FROM php:8.2-fpm
+
+# 2. Instala dependencias necesarias para pdo_mysql
+RUN apt-get update &amp;&amp; apt-get install -y \
+        default-mysql-client \
+        libzip-dev \
+        unzip \
+    &amp;&amp; docker-php-ext-install pdo pdo_mysql \
+    &amp;&amp; rm -rf /var/lib/apt/lists/*
+
+# 3. Copia el código PHP al contenedor
+COPY app/ /var/www/html/
+
+# 4. Copia el custom.ini al interior del contenedor
+COPY custom.ini /usr/local/etc/php/conf.d/custom.ini
+
+# 5. Establece el directorio de trabajo
+WORKDIR /var/www/html
+
+# 6. Expone puerto (necesario para acceder desde localhost)
+EXPOSE 9000
+</code></pre></div></div>
+
+<p>Después de esto, reconstruye el contenedor ejecutando este comando en el directorio donde tengas el Dockerfile:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker build --no-cache -t mi-php-pdo .
+</code></pre></div></div>
+
+<p>Como en <em>docker-compose.yml</em> le hemos dicho a docker que use una imagen llamada <em>mi-php-pdo</em> en lugar de la oficial de PHP, cuando levantemos los contenedores usará nuestra imagen modificada (con PDO MySQL) en lugar de la oficial (que no lo lleva).</p>
+
+<h3 id="paso-6-levantar-los-contenedores-con-docker-compose-up">Paso 6. Levantar los contenedores con docker-compose up</h3>
+
+<p>Ya podemos <strong>poner en marcha los cuatro contenedores</strong> tecleando (en el directorio de trabajo):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker-compose up --build
+</code></pre></div></div>
+
+<p>O bien, si no hemos tocado la configuración de los contenedores recientemente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker-compose up
+</code></pre></div></div>
+
+<p>También podemos lanzarlo en segundo plano, para que la consola no se quede bloqueada:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker-compose up -d
+</code></pre></div></div>
+
+<h3 id="paso-7-probar-los-contenedores">Paso 7. Probar los contenedores</h3>
+
+<p>Si todo ha ido bien, deberías tener estos servicios activos:</p>
+
+<ul>
+  <li><strong>http://localhost:8080</strong> -&gt; Aquí debería estar escuchando Apache/PHP. Si pones un archivo .php en la carpeta ./app de tu proyecto, tendría que verse el resultado.</li>
+  <li><strong>http://localhost:8000</strong> -&gt; Aquí debería estar escuchando PHPMyAdmin. El usuario y contraseña de la base de datos están en el docker-compose.yml (los puedes cambiar allí si no te gustan).</li>
+</ul>
+
+<h3 id="paso-8-detener-los-contenedores">Paso 8. Detener los contenedores</h3>
+
+<p>Para detener los contenedores, tan solo teclea:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose down
+</code></pre></div></div>
+
+<p>O bien pulsa <strong>CTRL + C</strong> si inciaste docker-compose en segundo plano (con la opción -d).</p>
+:ET
