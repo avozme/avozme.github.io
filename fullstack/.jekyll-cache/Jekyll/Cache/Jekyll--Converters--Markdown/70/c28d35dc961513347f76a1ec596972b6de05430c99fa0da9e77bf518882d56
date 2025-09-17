@@ -1,4 +1,4 @@
-I"h<h2 class="no_toc" id="18-ejercicios-resueltos">1.8. Ejercicios resueltos</h2>
+I"�f<h2 class="no_toc" id="18-ejemplos-resueltos">1.8. Ejemplos resueltos</h2>
 
 <ul id="markdown-toc">
   <li><a href="#181-tabla-de-multiplicar" id="markdown-toc-181-tabla-de-multiplicar">1.8.1. Tabla de multiplicar</a></li>
@@ -6,13 +6,11 @@
   <li><a href="#183-biblioteca" id="markdown-toc-183-biblioteca">1.8.3. Biblioteca</a></li>
 </ul>
 
-<p>Ya hemos visto cómo es el lenguaje PHP y cómo se puede acceder desde él a una base de datos externa para almacenar o recuperar información de ella. También cómo se puede estructurar el código con la arquitectura MVC. Ahora nos queda poner eso en práctica antes de poder profundizar más en herramientas web más complejas.</p>
-
-<p><strong>En esta sección vamos a mostrar algunos ejemplos de aplicaciones web programadas con PHP, sin nada más.</strong></p>
+<p>Ya hemos visto cómo es el lenguaje PHP y cómo se puede acceder desde él a una base de datos externa para almacenar o recuperar información de ella. También cómo se puede estructurar el código con la arquitectura MVC. Aquí encontrarás todo eso aplicado a algunos supuestos prácticos, es decir, <strong>ejemplos de aplicaciones web programadas con PHP sin niguna librería ni framework adicional.</strong></p>
 
 <p>Mira con detenimiento el código y asegúrate de comprenderlo. Para empezar a programar con PHP, no hay nada mejor que echar un vistazo a algunos programas fáciles que luego puedas utilizar como plantilla para los tuyos.</p>
 
-<p>Eso sí, es imprescindible que, después, dediques un tiempo a tratar de escribir tú mismo/a tus propios programas sencillos. Al final de esta sección te propondremos algunos, aunque tú puedes cambiarlos por otros que te apetezcan más. Lo importante es que recuerdes siempre algo que parece obvio pero que, a menudo, la gente olvida: <em>a programar solo puede aprenderse programando</em>.</p>
+<p>Eso sí, es imprescindible que, después, dediques un tiempo a tratar de escribir tú mismo/a tus propios programas sencillos. Al final de este tema te propondremos algunos, aunque tú puedes cambiarlos por otros que te apetezcan más. Lo importante es que recuerdes siempre algo que parece obvio pero que, a menudo, la gente olvida: <em>a programar solo puede aprenderse programando</em>.</p>
 
 <h3 id="181-tabla-de-multiplicar">1.8.1. Tabla de multiplicar</h3>
 
@@ -277,12 +275,6 @@
 
 <p>Al leer el código, observa cómo utilizamos una variable muy especial llamada <strong><em>$action</em></strong> para saber qué tiene que hacer la aplicación en cada momento. Esa variable es el germen de la <em>arquitectura modelo-vista-controlador</em> con la que trabajaremos una y otra vez más adelante.</p>
 
-<p>Haz clic en los siguientes enlaces para acceder al código fuente de la biblioteca:</p>
-
-<ul>
-  <li><a href="../php/mvc/#1751-biblioteca-v1">Versión 1</a>: código MVC, pero sin capa de abstracción de datos ni seguridad</li>
-  <li><a href="../php/mvc/#1752-biblioteca-v2">Versión 2</a>: como el anterior, pero añadiendo una capa de abstracción de datos</li>
-  <li><a href="../php/mvc/#1753-biblioteca-v3">Versión 3</a>: como el anterior, pero con controladores múltiples y capa de seguridad</li>
-</ul>
+<p><strong>Haz <a href="../php/mvc/#175-una-implementación-completa-biblioteca">clic aquí para acceder al código fuente de la biblioteca</a></strong></p>
 
 :ET
