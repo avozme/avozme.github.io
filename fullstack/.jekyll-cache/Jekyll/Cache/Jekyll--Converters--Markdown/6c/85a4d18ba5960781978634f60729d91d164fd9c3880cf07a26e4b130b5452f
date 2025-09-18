@@ -1,4 +1,4 @@
-I"�T<h1 class="no_toc" id="apéndice-2-virtualización-con-docker">Apéndice 2. Virtualización con Docker</h1>
+I"�N<h1 class="no_toc" id="apéndice-2-virtualización-con-docker">Apéndice 2. Virtualización con Docker</h1>
 
 <ul id="markdown-toc">
   <li><a href="#a21-qué-es-docker" id="markdown-toc-a21-qué-es-docker">A2.1. ¿Qué es Docker?</a></li>
@@ -9,10 +9,9 @@
       <li><a href="#paso-2-crear-apache-customhttpdconf" id="markdown-toc-paso-2-crear-apache-customhttpdconf">Paso 2. Crear ./apache-custom/httpd.conf</a></li>
       <li><a href="#paso-3-crear-apache-custommyappconf" id="markdown-toc-paso-3-crear-apache-custommyappconf">Paso 3. Crear ./apache-custom/myapp.conf</a></li>
       <li><a href="#paso-4-crear-el-archivo-customini" id="markdown-toc-paso-4-crear-el-archivo-customini">Paso 4. Crear el archivo custom.ini</a></li>
-      <li><a href="#paso-5-crear-un-dockerfile-personalizado-para-php" id="markdown-toc-paso-5-crear-un-dockerfile-personalizado-para-php">Paso 5. Crear un Dockerfile personalizado para PHP</a></li>
-      <li><a href="#paso-6-levantar-los-contenedores-con-docker-compose-up" id="markdown-toc-paso-6-levantar-los-contenedores-con-docker-compose-up">Paso 6. Levantar los contenedores con docker-compose up</a></li>
-      <li><a href="#paso-7-probar-los-contenedores" id="markdown-toc-paso-7-probar-los-contenedores">Paso 7. Probar los contenedores</a></li>
-      <li><a href="#paso-8-detener-los-contenedores" id="markdown-toc-paso-8-detener-los-contenedores">Paso 8. Detener los contenedores</a></li>
+      <li><a href="#paso-5-levantar-los-contenedores-con-docker-compose-up" id="markdown-toc-paso-5-levantar-los-contenedores-con-docker-compose-up">Paso 5. Levantar los contenedores con docker-compose up</a></li>
+      <li><a href="#paso-6-probar-los-contenedores" id="markdown-toc-paso-6-probar-los-contenedores">Paso 6. Probar los contenedores</a></li>
+      <li><a href="#paso-7-detener-los-contenedores" id="markdown-toc-paso-7-detener-los-contenedores">Paso 7. Detener los contenedores</a></li>
     </ul>
   </li>
 </ul>
@@ -107,11 +106,13 @@
 
 <h3 id="paso-1-crear-docker-composeyml">Paso 1. Crear ./docker-compose.yml</h3>
 
-<p>Crea un archivo <strong><em>docker-compose.yml</em></strong> en tu directorio de trabajo con este contenido exacto, para trabajar con las imágenes oficiales de nuestros cuatro servicios:</p>
+<p>Crea un archivo <strong><em>docker-compose.yml</em></strong> en tu directorio de trabajo con este contenido exacto, para trabajar con las imágene de nuestros cuatro servicios.</p>
+
+<p>Usaremos solo las imágenes oficiales, excepto la de <em>php</em>. Para esa usaremos la imagen de <em>Bitnami</em>, una división de <em>VMWare</em>, porque ya trae activadas ciertas extensiones de PHP (como <em>PDO</em>) que nos conviene tener a mano. Así nos evitamos tener que hacer complicadas configuraciones posteriores:</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
   <span class="na">php</span><span class="pi">:</span>
-    <span class="na">image</span><span class="pi">:</span> <span class="s">mi-php-pdo</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">bitnamilegacy/php-fpm</span>
     <span class="na">volumes</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">./app:/app</span>
       <span class="pi">-</span> <span class="s">./custom.ini:/usr/local/etc/php/conf.d/custom.ini</span>
@@ -255,52 +256,13 @@ Include conf/extra/myapp.conf
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>display_errors = On
 error_reporting = E_ALL
 opcache.enable = 0
-extension=pdo
-extension=pdo_mysql
 </code></pre></div></div>
 
-<p>Esto habilitará la extensión PDO para MySQL y las opciones de depuración de errores. En un entorno de producción, estas opciones se cambiarían, claro.</p>
+<p>Esto <strong>habilitará las opciones de depuración de errores</strong> de PHP. En un entorno de producción, estas opciones se deshabilitarían, claro.</p>
 
-<p>Si necesitas configuraciones adicionales para PHP (como incrementar el tamaño máximo de archivos subidos al servidor o el tiempo de procesamiento de un script), puedes hacerlo en este custom.ini y volver a levantar el servidor.</p>
+<p>Si más adelante necesitas <strong>configuraciones adicionales para PHP</strong> (como incrementar el tamaño máximo de archivos subidos al servidor o el tiempo de procesamiento de un script), puedes hacerlo fácilmente en este custom.ini.</p>
 
-<h3 id="paso-5-crear-un-dockerfile-personalizado-para-php">Paso 5. Crear un Dockerfile personalizado para PHP</h3>
-
-<p>La extensión PDO para MySQL no viene instalada por defecto en la imagen oficial de PHP-FPM. Debemos modificar la imagen para poder usar esta extensión.</p>
-
-<p>Lo más adecuado para ello es crear un archivo <strong><em>Dockerfile</em></strong> con este contenido:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 1. Base PHP-FPM oficial
-FROM php:8.2-fpm
-
-# 2. Instala dependencias necesarias para pdo_mysql
-RUN apt-get update &amp;&amp; apt-get install -y \
-        default-mysql-client \
-        libzip-dev \
-        unzip \
-    &amp;&amp; docker-php-ext-install pdo pdo_mysql \
-    &amp;&amp; rm -rf /var/lib/apt/lists/*
-
-# 3. Copia el código PHP al contenedor
-COPY app/ /var/www/html/
-
-# 4. Copia el custom.ini al interior del contenedor
-COPY custom.ini /usr/local/etc/php/conf.d/custom.ini
-
-# 5. Establece el directorio de trabajo
-WORKDIR /var/www/html
-
-# 6. Expone puerto (necesario para acceder desde localhost)
-EXPOSE 9000
-</code></pre></div></div>
-
-<p>Después de esto, reconstruye el contenedor ejecutando este comando en el directorio donde tengas el Dockerfile:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker build --no-cache -t mi-php-pdo .
-</code></pre></div></div>
-
-<p>Como en <em>docker-compose.yml</em> le hemos dicho a docker que use una imagen llamada <em>mi-php-pdo</em> en lugar de la oficial de PHP, cuando levantemos los contenedores usará nuestra imagen modificada (con PDO MySQL) en lugar de la oficial (que no lo lleva).</p>
-
-<h3 id="paso-6-levantar-los-contenedores-con-docker-compose-up">Paso 6. Levantar los contenedores con docker-compose up</h3>
+<h3 id="paso-5-levantar-los-contenedores-con-docker-compose-up">Paso 5. Levantar los contenedores con docker-compose up</h3>
 
 <p>Ya podemos <strong>poner en marcha los cuatro contenedores</strong> tecleando (en el directorio de trabajo):</p>
 
@@ -317,7 +279,7 @@ EXPOSE 9000
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker-compose up -d
 </code></pre></div></div>
 
-<h3 id="paso-7-probar-los-contenedores">Paso 7. Probar los contenedores</h3>
+<h3 id="paso-6-probar-los-contenedores">Paso 6. Probar los contenedores</h3>
 
 <p>Si todo ha ido bien, deberías tener estos servicios activos:</p>
 
@@ -326,7 +288,7 @@ EXPOSE 9000
   <li><strong>http://localhost:8000</strong> -&gt; Aquí debería estar escuchando PHPMyAdmin. El usuario y contraseña de la base de datos están en el docker-compose.yml (los puedes cambiar allí si no te gustan).</li>
 </ul>
 
-<h3 id="paso-8-detener-los-contenedores">Paso 8. Detener los contenedores</h3>
+<h3 id="paso-7-detener-los-contenedores">Paso 7. Detener los contenedores</h3>
 
 <p>Para detener los contenedores, tan solo teclea:</p>
 

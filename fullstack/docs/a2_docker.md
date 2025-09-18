@@ -99,12 +99,14 @@ Te dejo las instrucciones paso a paso para que lo consigas sin desesperarte dema
 
 ### Paso 1. Crear ./docker-compose.yml
 
-Crea un archivo ***docker-compose.yml*** en tu directorio de trabajo con este contenido exacto, para trabajar con las imágenes oficiales de nuestros cuatro servicios:
+Crea un archivo ***docker-compose.yml*** en tu directorio de trabajo con este contenido exacto, para trabajar con las imágene de nuestros cuatro servicios. 
+
+Usaremos solo las imágenes oficiales, excepto la de *php*. Para esa usaremos la imagen de *Bitnami*, una división de *VMWare*, porque ya trae activadas ciertas extensiones de PHP (como *PDO*) que nos conviene tener a mano. Así nos evitamos tener que hacer complicadas configuraciones posteriores:
 
 ```yaml
 services:
   php:
-    image: mi-php-pdo
+    image: bitnamilegacy/php-fpm
     volumes:
       - ./app:/app
       - ./custom.ini:/usr/local/etc/php/conf.d/custom.ini
@@ -249,54 +251,13 @@ Crea un archivo llamado ***custom.ini*** en tu directorio de trabajo con este co
 display_errors = On
 error_reporting = E_ALL
 opcache.enable = 0
-extension=pdo
-extension=pdo_mysql
 ```
 
-Esto habilitará la extensión PDO para MySQL y las opciones de depuración de errores. En un entorno de producción, estas opciones se cambiarían, claro.
+Esto **habilitará las opciones de depuración de errores** de PHP. En un entorno de producción, estas opciones se deshabilitarían, claro.
 
-Si necesitas configuraciones adicionales para PHP (como incrementar el tamaño máximo de archivos subidos al servidor o el tiempo de procesamiento de un script), puedes hacerlo en este custom.ini y volver a levantar el servidor.
+Si más adelante necesitas **configuraciones adicionales para PHP** (como incrementar el tamaño máximo de archivos subidos al servidor o el tiempo de procesamiento de un script), puedes hacerlo fácilmente en este custom.ini.
 
-### Paso 5. Crear un Dockerfile personalizado para PHP
-
-La extensión PDO para MySQL no viene instalada por defecto en la imagen oficial de PHP-FPM. Debemos modificar la imagen para poder usar esta extensión.
-
-Lo más adecuado para ello es crear un archivo ***Dockerfile*** con este contenido:
-
-```
-# 1. Base PHP-FPM oficial
-FROM php:8.2-fpm
-
-# 2. Instala dependencias necesarias para pdo_mysql
-RUN apt-get update && apt-get install -y \
-        default-mysql-client \
-        libzip-dev \
-        unzip \
-    && docker-php-ext-install pdo pdo_mysql \
-    && rm -rf /var/lib/apt/lists/*
-
-# 3. Copia el código PHP al contenedor
-COPY app/ /var/www/html/
-
-# 4. Copia el custom.ini al interior del contenedor
-COPY custom.ini /usr/local/etc/php/conf.d/custom.ini
-
-# 5. Establece el directorio de trabajo
-WORKDIR /var/www/html
-
-# 6. Expone puerto (necesario para acceder desde localhost)
-EXPOSE 9000
-```
-
-Después de esto, reconstruye el contenedor ejecutando este comando en el directorio donde tengas el Dockerfile:
-
-```
-docker build --no-cache -t mi-php-pdo .
-```
-
-Como en *docker-compose.yml* le hemos dicho a docker que use una imagen llamada *mi-php-pdo* en lugar de la oficial de PHP, cuando levantemos los contenedores usará nuestra imagen modificada (con PDO MySQL) en lugar de la oficial (que no lo lleva).
-
-### Paso 6. Levantar los contenedores con docker-compose up
+### Paso 5. Levantar los contenedores con docker-compose up
 
 Ya podemos **poner en marcha los cuatro contenedores** tecleando (en el directorio de trabajo):
 
@@ -316,14 +277,14 @@ También podemos lanzarlo en segundo plano, para que la consola no se quede bloq
 $ docker-compose up -d
 ```
 
-### Paso 7. Probar los contenedores
+### Paso 6. Probar los contenedores
 
 Si todo ha ido bien, deberías tener estos servicios activos:
 
 * **http://localhost:8080** -> Aquí debería estar escuchando Apache/PHP. Si pones un archivo .php en la carpeta ./app de tu proyecto, tendría que verse el resultado.
 * **http://localhost:8000** -> Aquí debería estar escuchando PHPMyAdmin. El usuario y contraseña de la base de datos están en el docker-compose.yml (los puedes cambiar allí si no te gustan).
 
-### Paso 8. Detener los contenedores
+### Paso 7. Detener los contenedores
 
 Para detener los contenedores, tan solo teclea:
 
