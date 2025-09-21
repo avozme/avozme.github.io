@@ -1,0 +1,25 @@
+I"�<h2 class="no_toc" id="214-flujo-de-trabajo-típico-con-laravel">2.14. Flujo de trabajo típico con Laravel</h2>
+
+
+<p>Lo que vas a encontrar aquí es solo <strong>un posible flujo de trabajo con Laravel</strong>, es decir, una propuesta del orden en el que debes hacer las cosas para desarrollar una aplicación con este framework.</p>
+
+<p>No es el único flujo de trabajo posible, y sin duda no es el mejor, pero puede resultarte <strong>útil en tus primeros desarrollos</strong>, como si alguien te llevara de la mano a lo largo de un camino sinuoso.</p>
+
+<p>Más adelante, cuando vayas adquiriendo experiencia, tú mismo/a crearás tu propio flujo de trabajo ideal.</p>
+
+<p>El flujo que te propongo tiene los siguientes pasos (los cuatro primeros son solo para aplicaciones nuevas):</p>
+
+<ol>
+  <li>Instalar y configurar el proyecto.</li>
+  <li>Diseñar la base de datos (si no lo has hecho antes).</li>
+  <li>Crear migraciones. Lanzarlos para crear la BD.</li>
+  <li>(opcional) Crear seeders y lanzarlos para rellenar las tablas.</li>
+  <li>Crear las rutas de la funcionalidad que vayas a programar.</li>
+  <li>Crear los métodos del controlador para la funcionalidad que vayas a programar.</li>
+  <li>Crear las funciones del controlador necesarias.</li>
+  <li>Crear las funciones del modelo necesarias (si no existen ya).</li>
+  <li>Crear las vistas necesarias con Blade.</li>
+  <li>Probar la funcionalidad nueva (con el navegador o con PHP Unit).</li>
+  <li>Repetir los pasos 5-10 para cada funcionalidad adicional.</li>
+</ol>
+:ET

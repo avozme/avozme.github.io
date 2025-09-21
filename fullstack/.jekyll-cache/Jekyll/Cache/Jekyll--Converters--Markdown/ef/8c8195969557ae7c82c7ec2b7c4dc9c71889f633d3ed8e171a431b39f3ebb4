@@ -1,0 +1,378 @@
+I"��<h2 class="no_toc" id="210-usando-la-bd-con-eloquent">2.10. Usando la BD con Eloquent</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#2101-qué-es-el-mapeo-objeto-relacional" id="markdown-toc-2101-qué-es-el-mapeo-objeto-relacional">2.10.1. ¿Qué es el mapeo objeto-relacional?</a></li>
+  <li><a href="#2102-cómo-puedo-usar-eloquent-en-mi-aplicación" id="markdown-toc-2102-cómo-puedo-usar-eloquent-en-mi-aplicación">2.10.2. ¿Cómo puedo usar Eloquent en mi aplicación?</a></li>
+  <li><a href="#2103-pero-cómo-sabe-laravel-qué-tabla-está-asociada-a-ese-modelo" id="markdown-toc-2103-pero-cómo-sabe-laravel-qué-tabla-está-asociada-a-ese-modelo">2.10.3. Pero ¿cómo sabe Laravel qué tabla está asociada a ese modelo?</a></li>
+  <li><a href="#2104-consultas-con-eloquent" id="markdown-toc-2104-consultas-con-eloquent">2.10.4. Consultas con Eloquent</a></li>
+  <li><a href="#2105-inserciones-y-borrados-con-eloquent" id="markdown-toc-2105-inserciones-y-borrados-con-eloquent">2.10.5. Inserciones y borrados con Eloquent</a></li>
+  <li><a href="#2106-chuleta-con-los-métodos-más-habituales-de-eloquent" id="markdown-toc-2106-chuleta-con-los-métodos-más-habituales-de-eloquent">2.10.6. Chuleta con los métodos más habituales de Eloquent</a></li>
+  <li><a href="#2107-colecciones-eloquent" id="markdown-toc-2107-colecciones-eloquent">2.10.7. Colecciones Eloquent</a></li>
+  <li><a href="#2108-relaciones-entre-tablas-con-eloquent" id="markdown-toc-2108-relaciones-entre-tablas-con-eloquent">2.10.8. Relaciones entre tablas con Eloquent</a></li>
+</ul>
+
+<p>Eloquent uno de los componentes de Laravel que permiten al desarrollador manipular los datos de la BD sin rebajarse a escribir sucio SQL. Y lo consigue mediante un mecanismo simple y elegante: el <strong>mapeo objeto-relacional</strong>.</p>
+
+<p>En esta sección vamos a ver qué es eso del mapeo y cómo sacarle a Eloquent el máximo partido para que nuestros modelos se programen prácticamente solos.</p>
+
+<h3 id="2101-qué-es-el-mapeo-objeto-relacional">2.10.1. ¿Qué es el mapeo objeto-relacional?</h3>
+
+<p>Eloquent no es más que una librería incluida con Laravel que utiliza un patrón de software llamado <strong>ORM (Object-Relational Mapping)</strong> para abstraer aún más el acceso a la base de datos, de manera que no tengamos que escribir y depurar SQL.</p>
+
+<p><strong><em>Mapear</em></strong> los objetos de nuestra aplicación con una BD relacional significa que Eloquent convierte los registros de tus tablas en objetos de tu aplicación para que los manipules con mayor facilidad.</p>
+
+<p>Sí, lo has entendido bien: podrás manejar los datos de tu base de datos como si fueran objetos de tu aplicación. Y, cuando los modifiques, borras o crees, se ejecutará el código SQL necesario (sin que tú te enteres) para traducir esas operaciones en sentencias para la base de datos.</p>
+
+<p>Te lo muestro con un ejemplo.</p>
+
+<p>Imagina que tenemos una tabla de artículos de un blog. La llamaremos <em>Articles</em>, y tendrá 3 campos: el <em>id</em> (entero), el <em>title</em> (cadena de caracteres) y el <em>body</em> (cadena de caracteres). Con Eloquent, usar esa tabla es tan fácil como hacer algo así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$art</span> <span class="o">=</span> <span class="nc">Article</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="s1">'7'</span><span class="p">);</span>        <span class="c1">// Buscamos un artículo por su id</span>
+<span class="k">echo</span> <span class="nv">$art</span><span class="o">-&gt;</span><span class="n">title</span><span class="p">;</span>                 <span class="c1">// Ahora podemos acceder a los campos de ese artículo</span>
+<span class="nv">$art</span><span class="o">-&gt;</span><span class="n">body</span> <span class="o">=</span> <span class="s2">"Texto del cuerpo"</span><span class="p">;</span>  <span class="c1">// O también podemos modificar los campos del artículo</span>
+<span class="nv">$art</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>                     <span class="c1">// Si hacemos save(), los cambios se guardan en la BD</span>
+</code></pre></div></div>
+
+<h3 id="2102-cómo-puedo-usar-eloquent-en-mi-aplicación">2.10.2. ¿Cómo puedo usar Eloquent en mi aplicación?</h3>
+
+<p>Tienes que <strong>crear un modelo</strong>. Con Artisan es así de fácil:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php artisan make:model &lt;Mi-modelo&gt;
+</code></pre></div></div>
+
+<p>Por ejemplo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php artisan make:model Article
+</code></pre></div></div>
+
+<p>El modelo se creará en <em>/app/Models/Article.php</em> (¡cuidado! En versiones más antiguas de Laravel, el modelo se creará en <em>/app/Article.php</em>)</p>
+
+<p><em>Truco: si creas el modelo con la <strong>opción -m</strong>, se creará atomáticamente su migración, lo cual resulta tremendamente práctico:</em></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   $ php artisan make:model Article -m
+</code></pre></div></div>
+
+<p>Ya tienes tu modelo. Si no puedes contener tu curiosidad insaciable y lo abres, verás un archivo bastante decepcionante con este aspecto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="kn">namespace</span> <span class="nn">App\Models</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">Illuminate\Database\Eloquent\Factories\HasFactory</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Illuminate\Database\Eloquent\Model</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Article</span> <span class="kd">extends</span> <span class="nc">Model</span>
+<span class="p">{</span>
+    <span class="kn">use</span> <span class="nc">HasFactory</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>¿Y eso es todo?</p>
+
+<p>Pues sí, eso es todo. La gracia está en ese <strong><em>extends Model</em></strong> de la definición de la clase: aunque tu modelo Article parezca vacío, en realidad acaba de heredar un mogollón de características útiles de la clase <em>Model</em>. Entre otras, todos los métodos de Eloquent.</p>
+
+<h3 id="2103-pero-cómo-sabe-laravel-qué-tabla-está-asociada-a-ese-modelo">2.10.3. Pero ¿cómo sabe Laravel qué tabla está asociada a ese modelo?</h3>
+
+<p>Buena pregunta.</p>
+
+<p>Laravel supondrá que <strong>la tabla se llama igual que el modelo</strong>, solo que en <strong>minúscula y plural</strong>. Es decir, la tabla de la base de datos asociada al modelo <em>Article</em> se debería llamar <em>articles</em>.</p>
+
+<p>Recuerda que en Laravel existen un montón de convenciones sobre los nombres de las cosas que conviene respetar, más que nada porque te facilitan mucho la vida y hacen que te centres en lo verdaderamente importante (crear el código de tu aplicación) en lugar de en lo accesorio (pelearte con los nombres).</p>
+
+<p>No obstante, si quieres ponerle otro nombre a la tabla, puedes hacerlo. También puedes cambiar otras muchas cosas, como el nombre del campo clave (Laravel supondrá que se llama id) o los campos sobre los que se puede hacer una asignación masiva, algo muy útil que veremos un poco más adelante.</p>
+
+<p>Por ejemplo, podemos editar el modelo <em>/app/Articles.php</em> y añadir estas líneas dentro de nuestra clase:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">protected</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">'articulos'</span><span class="p">;</span>   <span class="c1">// El nombre de la tabla no será "articles" sino "articulos"</span>
+<span class="k">protected</span> <span class="nv">$primaryKey</span> <span class="o">=</span> <span class="s1">'id_art'</span><span class="p">;</span> <span class="c1">// La clave primaria no será "id" sino "id_art"</span>
+<span class="k">protected</span> <span class="nv">$fillable</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span><span class="s1">'titulo'</span><span class="p">,</span><span class="s1">'cuerpo'</span><span class="p">);</span> <span class="c1">// Campos de la tabla en los que se permite la ASIGNACIÓN MASIVA (más adelante veremos qué es esto) </span>
+</code></pre></div></div>
+
+<h3 id="2104-consultas-con-eloquent">2.10.4. Consultas con Eloquent</h3>
+
+<p>Solo con construir el modelo (y asignarlo a la tabla adecuada) ya tenemos detrás a Eloquent haciendo el mapeo objeto-relacional.</p>
+
+<p>Ahora podemos ir a nuestro controlador (que, por respetar las convenciones de Laravel, debería llamarse <em>ArticlesController</em>) y <strong>lanzar consultas</strong> con expresiones como estas:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Articulo</span><span class="p">;</span>  <span class="c1">// Poner al principio del controlador para importar el modelo</span>
+
+<span class="mf">...</span>
+
+<span class="nv">$articlesList</span> <span class="o">=</span> <span class="nc">Article</span><span class="o">::</span><span class="nf">all</span><span class="p">();</span>        <span class="c1">// Devuelve todos los artículos</span>
+<span class="nv">$myArticle</span> <span class="o">=</span> <span class="nc">Article</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>       <span class="c1">// Devuelve el artículo con ese $id</span>
+<span class="nv">$myArticle</span> <span class="o">=</span> <span class="nc">Article</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span> <span class="c1">// Error 404 si el artículo no existe</span>
+<span class="nv">$articlesList</span> <span class="o">=</span> <span class="nc">Article</span><span class="o">::</span><span class="nf">where</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span> <span class="s1">'&gt;'</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">();</span>  <span class="c1">// Select con where</span>
+<span class="nv">$articlesList</span> <span class="o">=</span> <span class="nc">Article</span><span class="o">::</span><span class="nf">where</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span> <span class="s1">'&gt;'</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">take</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">();</span>  <span class="c1">// Select con where y take</span>
+<span class="nv">$maxId</span> <span class="o">=</span> <span class="nc">Article</span><span class="o">::</span><span class="nb">max</span><span class="p">(</span><span class="s1">'id'</span><span class="p">);</span>           <span class="c1">// Devuelve el último id asignado</span>
+</code></pre></div></div>
+
+<p>A lo mejor hay algo que te está chirriando. Si escribimos cosas como estas en el controlador, ¿no significa eso que estamos lanzando consultas desde el controlador? Y eso está prohibidísimo en la arquitectura MVC. ¿Es que Laravel no respeta la arquitectura MVC?</p>
+
+<p>Hay quien dice que sí, hay quien dice que no y hay quien dice que psé, psé.</p>
+
+<p>En realidad, no estamos escribiendo SQL en el controlador, ni estamos accediendo a la base de datos de ninguna manera explícita. Cuando lanzamos un <code class="language-plaintext highlighter-rouge">Article::find($id)</code> desde el controlador, por ejemplo, no sabemos qué ocurre por debajo ni de dónde se extrae la información: nos limitamos a acceder a una de nuestras clases y obtener de ella un objeto de tipo <em>Article</em>.</p>
+
+<h3 id="2105-inserciones-y-borrados-con-eloquent">2.10.5. Inserciones y borrados con Eloquent</h3>
+
+<p>También podemos usar Eloquent para <strong>insertar</strong> un nuevo artículo desde nuestro controlador:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nv">$art</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Article</span><span class="p">;</span>
+   <span class="nv">$art</span><span class="o">-&gt;</span><span class="n">title</span> <span class="o">=</span> <span class="s1">'Los Chitauri invaden Nueva York'</span><span class="p">;</span>
+   <span class="nv">$art</span><span class="o">-&gt;</span><span class="n">body</span> <span class="o">=</span> <span class="s1">'Bla, bla, bla'</span><span class="p">;</span>
+   <span class="nv">$art</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Si los datos del artículo vienen de un formulario, fíjate en lo alucinantemente fácil que es recoger todos esos datos, crear un objeto Article con ellos y guardar el artículo en la BD:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nc">Article</span><span class="o">::</span><span class="nf">create</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">all</span><span class="p">());</span>  <span class="c1">// Esto es una ASIGNACIÓN MASIVA de las que hablábamos más arriba!!</span>
+      <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'la-vista-que-sea'</span><span class="p">);</span>
+   <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Ojo: solo los campos que hayas indicado como <em>fillables</em> en el modelo se podrán asignar al artículo de este modo. Eso es lo que significa <strong>asignación masiva</strong>.</p>
+
+<p>Y, por supuesto, también podemos <strong>modificar y borrar</strong> artículos de la base de datos:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nv">$art</span> <span class="o">=</span> <span class="nc">Article</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="mi">18</span><span class="p">);</span>     <span class="c1">// MODIFICAR</span>
+   <span class="nv">$art</span><span class="o">-&gt;</span><span class="n">body</span> <span class="o">=</span> <span class="s1">'Nuevo cuerpo'</span><span class="p">;</span>
+   <span class="nv">$art</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>
+   <span class="nv">$art</span> <span class="o">=</span> <span class="nc">Article</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="mi">13</span><span class="p">);</span>     <span class="c1">// BORRAR</span>
+   <span class="nv">$art</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h3 id="2106-chuleta-con-los-métodos-más-habituales-de-eloquent">2.10.6. Chuleta con los métodos más habituales de Eloquent</h3>
+
+<p>Hemos visto en los últimos ejemplos <strong>algunos métodos de Eloquent</strong> por separado. Te los reúno en esta sección para que los puedas consultar cuando lo necesites.</p>
+
+<p>Aviso: no están todos, solo los de uso más habitual. Si quieres una lista completa, ya sabes: acude a la <a href="https://laravel.com/docs/8.x/eloquent">documentación oficial</a>.</p>
+
+<ul>
+  <li><strong>all()</strong> → Recupera todos los registros de una tabla.</li>
+  <li><strong>where(“campo”, valor)</strong> → Aplica claúsula <em>where</em>.</li>
+  <li><strong>orderBy(“campo”, “asc|desc”)</strong> → Aplica claúsula <em>order by</em>.</li>
+  <li><strong>get()</strong> → Recupera registros seleccionados. Se suele usar con <em>where</em> y/o <em>order by</em>:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ciudades::where("ciudad", "Madrid")-&gt;orderBy("id", "asc")-&gt;get();
+</code></pre></div>    </div>
+  </li>
+  <li><strong>first()</strong> → Recupera el primer registro.</li>
+  <li><strong>latest()</strong> → Recupera el último registro.</li>
+  <li><strong>find(valor)</strong> → Busca registros con ese valor en el campo <em>id</em>.</li>
+  <li><strong>findOrFail(valor)</strong> → Lanza un error 404 si no encuentra el registro.</li>
+  <li><strong>count(), max(), min()…</strong> → Utiliza funciones de agregado de SQL.</li>
+  <li><strong>save()</strong> →  Inserta o actualiza registros.</li>
+  <li><strong>update()</strong> → Actualiza registros.</li>
+  <li><strong>delete()</strong> → Elimina registros.</li>
+</ul>
+
+<h3 id="2107-colecciones-eloquent">2.10.7. Colecciones Eloquent</h3>
+
+<p>Las consultas con Eloquent siempre nos devuelven <strong>colecciones</strong> de tipo <em>Illuminate\Database\Eloquent\Collection</em>, que tienen varias ventajas con respecto de los arrays de objetos convencionales:</p>
+
+<ul>
+  <li>Cada elemento es un objeto del modelo correspondiente (como User)</li>
+  <li>Cada elemento tiene métodos <code class="language-plaintext highlighter-rouge">save()</code>, <code class="language-plaintext highlighter-rouge">delete()</code>, etc.</li>
+  <li>Cada elemento tiene sus propias relaciones (ej: <code class="language-plaintext highlighter-rouge">$user-&gt;posts</code>)</li>
+  <li>La colección tiene métodos como <code class="language-plaintext highlighter-rouge">map()</code>, <code class="language-plaintext highlighter-rouge">filter()</code>, <code class="language-plaintext highlighter-rouge">first()</code>, <code class="language-plaintext highlighter-rouge">sortBy()</code>…</li>
+  <li>Se puede hacer encadenamiento de métodos: <code class="language-plaintext highlighter-rouge">$users-&gt;where('active',1)-&gt;sortBy('name')</code></li>
+  <li>La colección o sus elementos se convierten a JSON con <code class="language-plaintext highlighter-rouge">-&gt;toJson()</code>. Se conservan las relaciones.</li>
+</ul>
+
+<p>Aquí tienes un ejemplo de una consulta Eloquent sobre la tabla <em>users</em> seguida de varias operaciones sobre la colección resultante:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Obtenemos todos los usuarios activos. $usuariosActivos será una Collection de Eloquent</span>
+<span class="nv">$usuariosActivos</span> <span class="o">=</span> <span class="nc">User</span><span class="o">::</span><span class="nf">where</span><span class="p">(</span><span class="s1">'active'</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">();</span>  
+
+<span class="c1">// Recorremos la colección y mostramos los usuarios</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$usuariosActivos</span> <span class="k">as</span> <span class="nv">$usuario</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$usuario</span><span class="o">-&gt;</span><span class="n">name</span> <span class="mf">.</span> <span class="s2">" - "</span> <span class="mf">.</span> <span class="nv">$usuario</span><span class="o">-&gt;</span><span class="n">email</span> <span class="mf">.</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Extraemos solo el campo 'name' a un array $nombre, que será algo así: ["Ana", "Luis", "María", ...]</span>
+<span class="nv">$nombres</span> <span class="o">=</span> <span class="nv">$usuariosActivos</span><span class="o">-&gt;</span><span class="nf">pluck</span><span class="p">(</span><span class="s1">'name'</span><span class="p">);</span>
+
+<span class="c1">// Filtramos la colección</span>
+<span class="nv">$mayoresDe30</span> <span class="o">=</span> <span class="nv">$usuariosActivos</span><span class="o">-&gt;</span><span class="nf">filter</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="nv">$user</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="n">birth_date</span> <span class="o">&lt;=</span> <span class="nf">now</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">subYears</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">format</span><span class="p">(</span><span class="s1">'Y-m-d'</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Ordenamos la colección por nombre</span>
+<span class="nv">$ordenadosPorNombre</span> <span class="o">=</span> <span class="nv">$usuariosActivos</span><span class="o">-&gt;</span><span class="nf">sortBy</span><span class="p">(</span><span class="s1">'name'</span><span class="p">);</span>
+
+<span class="c1">// Transformamos los datos de la colección poniendo todos los emails en minúscula</span>
+<span class="nv">$emailsMayuscula</span> <span class="o">=</span> <span class="nv">$usuariosActivos</span><span class="o">-&gt;</span><span class="nf">map</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="nv">$user</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">strtolower</span><span class="p">(</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="n">email</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="2108-relaciones-entre-tablas-con-eloquent">2.10.8. Relaciones entre tablas con Eloquent</h3>
+
+<p><em>NOTA: Esta sección puede considerarse material avanzado de Laravel</em></p>
+
+<p>Las <strong>relaciones entre tablas</strong> también se pueden manejar con Eloquent sin necesidad de andar escribiendo larguísimos INNER JOIN y otros miembros de su nutrida familia, con todos los errores de escritura que suelen hacernos perder el tiempo depurando SQL.</p>
+
+<p>Aunque al principio te parezca que definir las relaciones entre tablas con Eloquent necesita mucho trabajo previo, te garantizo que después te alegrarás de haberlo hecho. Porque las relaciones, una vez definidas, se comportan como consultas y se puede operar con ellas como si lo fueran.</p>
+
+<p>Lo comprenderemos mejor, como siempre, con ejemplos. En los siguientes apartados, vamos a suponer que tenemos estas tablas:</p>
+
+<ul>
+  <li><strong>usuarios</strong>(id#, nombre, passwd)</li>
+  <li><strong>emails</strong>(id#, email, usuario_id) → Esta tabla tiene una relación 1:1 con usuarios</li>
+  <li><strong>articulos</strong>(id#, titulo, texto, idUsuario) → Esta tabla tiene una relación 1:N con usuarios</li>
+  <li><strong>roles</strong>(id#, nombre) → Esta tabla tiene una relación N:N con usuarios</li>
+</ul>
+
+<p><strong>ATENCIÓN</strong>: en la tabla <em>artículos</em> hemos usado a propósito un nombre no estándar para la clave foránea. Para respetar la convención de Laravel, debería llamarse <em>usuario_id</em> en lugar de <em>idUsuario</em>, como en la tabla <em>emails</em>.</p>
+
+<h4 id="21081-relaciones-11-usuarios---emails">2.10.8.1. Relaciones 1:1 (usuarios &lt;-&gt; emails)</h4>
+
+<p>Para definir un <strong>relación 1:1</strong> con Eloquent debes hacer lo siguiente:</p>
+
+<p><strong>Paso 1</strong>. En el modelo de la tabla maestra (clase <em>Usuario</em>, en nuestro ejemplo) añadimos este método:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">email</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">hasOne</span><span class="p">(</span><span class="s1">'App\Email'</span><span class="p">);</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Paso 2</strong>. En el modelo de la tabla relacionada (clase <em>Email</em>) añadimos este método:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">function</span> <span class="n">usuario</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">belongsTo</span><span class="p">(</span><span class="s1">'App\Usuario'</span><span class="p">);</span> 
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>A partir de ahora, se puede recuperar el email de un usuario como si fuera un miembro de la clase <em>Usuario</em>, tan sencilla como esto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$email</span> <span class="o">=</span> <span class="nc">Usuario</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">email</span><span class="p">;</span>
+    <span class="nv">$user</span> <span class="o">=</span> <span class="nc">Email</span><span class="o">::</span><span class="nf">all</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">first</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">user</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Y también funciona al revés. Es decir, a partir de un objeto de tipo <em>Email</em>, podemos acceder a su usuario como si fuera un atributo de la clase <em>Email</em>.</p>
+
+<h4 id="21082-relaciones-1n-usuarios---artículos">2.10.8.2. Relaciones 1:N (usuarios &lt;-&gt; artículos)</h4>
+
+<p>Si tienes una <strong>relación 1:N</strong> (como la que hay entre las tablas de <em>usuarios</em> y <em>artículos</em> de nuestro ejemplo), para definirla en Eloquent tienes que hacer esto:</p>
+
+<p><strong>Paso 1</strong>. En el modelo de la tabla maestra (clase <em>Usuario</em>), añade este método:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">articulos</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">hasMany</span><span class="p">(</span><span class="s1">'App\Articulo'</span><span class="p">,</span> <span class="s1">'idUsuario'</span><span class="p">);</span> 
+<span class="p">}</span>
+<span class="c1">// ATENCIÓN: hemos tenido que indicar el nombre de la clave foránea</span>
+<span class="c1">// (idUsuario) porque no habíamos respetado la convención de Laravel</span>
+<span class="c1">// (usuario_id) al crear la tabla de artículos</span>
+</code></pre></div></div>
+
+<p><strong>Paso 2</strong>. En el modelo de la tabla relacionada (class Articulo), añade este otro método:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">function</span> <span class="n">usuario</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">belongsTo</span><span class="p">(</span><span class="s1">'App\Usuario'</span><span class="p">);</span> 
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>¡Y listo! Ya puedes recuperar los artículos a partir del usuario, como si fueran atributos de esa clase. Y a la inversa también funciona.</p>
+
+<p>Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$articulos</span> <span class="o">=</span> <span class="nc">Usuario</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">articulos</span><span class="p">;</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$articulos</span> <span class="k">as</span> <span class="nv">$articulo</span><span class="p">)</span> <span class="p">{</span>
+       <span class="c1">// Procesar cada artículo</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="21083-relaciones-nn-usuarios---roles">2.10.8.3. Relaciones N:N (usuarios &lt;-&gt; roles)</h4>
+
+<p>Si lo que tienes es una <strong>relación N:N</strong> (como la que hay entre <em>usuarios</em> y <em>roles</em> en nuestro ejemplo), los pasos a seguir para construirla con Eloquent son estos:</p>
+
+<p><strong>Paso 1</strong>. En el modelo de una de las tablas (clase <em>Usuario</em>) añadimos este método:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">roles</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">belongsToMany</span><span class="p">(</span><span class="s1">'App\Rol'</span><span class="p">);</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Paso 2</strong>. En el modelo de la otra tabla (clase <em>Rol</em>) añadimos este método:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">function</span> <span class="n">usuarios</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">belongsToMany</span><span class="p">(</span><span class="s1">'App\Usuario'</span><span class="p">);</span> 
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Ahora, ya se pueden recuperar los roles a partir del usuario o a la inversa. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$roles</span> <span class="o">=</span> <span class="nc">Usuario</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">roles</span><span class="p">;</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$roles</span> <span class="k">as</span> <span class="nv">$rol</span><span class="p">)</span> <span class="p">{</span>
+       <span class="c1">// Procesar cada rol</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+<h4 id="21084-la-tabla-pivote-insertar-modificar-y-borrar-en-relaciones-nn">2.10.8.4. La tabla pivote: insertar, modificar y borrar en relaciones N:N</h4>
+
+<p>Insertar, modificar y borrar en relaciones N:N implica escribir datos (normalmente, ids) en la <strong>tabla intermedia</strong> o <strong>tabla pivote</strong>, lo cual suele suponer un engorro cuando se hace <em>a mano</em> con SQL.</p>
+
+<p>Ese tedioso proceso también se puede automatizar con Eloquent. Lo vemos con un ejemplo entre nuestras tablas <em>usuarios</em> y <em>roles</em>.</p>
+
+<p><strong>Para insertar</strong> un usuario y sus roles se usa el método <em>attach()</em>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$r</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">User</span><span class="p">(</span><span class="nv">$r</span><span class="o">-&gt;</span><span class="nf">all</span><span class="p">());</span>
+    <span class="nv">$user</span><span class="o">-&gt;</span><span class="nf">roles</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">attach</span><span class="p">(</span><span class="nv">$r</span><span class="o">-&gt;</span><span class="n">roles</span><span class="p">);</span>
+    <span class="nv">$user</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Para actualizar</strong> un usuario y sus roles se usa el método <em>sync()</em>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">function</span> <span class="n">update</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$r</span><span class="p">,</span> <span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$user</span> <span class="o">=</span> <span class="nc">User</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+        <span class="nv">$user</span><span class="o">-&gt;</span><span class="nf">fill</span><span class="p">(</span><span class="nv">$r</span><span class="o">-&gt;</span><span class="nf">all</span><span class="p">());</span> 
+        <span class="nv">$user</span><span class="o">-&gt;</span><span class="nf">roles</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">sync</span><span class="p">(</span><span class="nv">$r</span><span class="o">-&gt;</span><span class="n">roles</span><span class="p">);</span> 
+        <span class="nv">$user</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>  
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Para eliminar</strong> un usuario y sus roles se usa el método <em>detach()</em>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">function</span> <span class="n">destroy</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$user</span> <span class="o">=</span> <span class="nc">User</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+        <span class="nv">$user</span><span class="o">-&gt;</span><span class="nf">roles</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">detach</span><span class="p">();</span> 
+        <span class="nv">$user</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">();</span> 
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="21085-problemas-frecuentes-en-relaciones-nn">2.10.8.5. Problemas frecuentes en relaciones N:N</h4>
+
+<p>Eloquent supondrá que <strong>el nombre de la tabla de la relación</strong> se ha formado con los nombres de las dos tablas maestras en snake case y ordenadas alfabéticamente.</p>
+
+<p>Por ejemplo, en la relación N:N entre <em>usuarios</em> y <em>roles</em>, Eloquent supondrá que existe una tabla llamada <em>roles_usuarios</em>. Si no se llama así, la relación fallará.</p>
+
+<p>Se puede indicar otro nombre de tabla al definir la relación. Por ejemplo, en el modelo de usuarios (clase <em>Usuario</em>):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">roles</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">belongsToMany</span><span class="p">(</span><span class="s1">'App\Rol'</span><span class="p">,</span> <span class="s1">'usuarios_roles'</span><span class="p">);</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>También se pueden indicar los nombres de las claves foráneas si no siguen las convenciones (que, según Laravel, son <em>usuario_id</em>, <em>rol_id</em>, etc)</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">function</span> <span class="n">roles</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">belongsToMany</span><span class="p">(</span><span class="s1">'App\Rol'</span><span class="p">,</span> <span class="s1">'usuarios_roles'</span><span class="p">,</span>
+                                    <span class="s1">'id_usuario'</span><span class="p">,</span> <span class="s1">'id_rol'</span><span class="p">);</span> 
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>¿Te has fijado en que hemos creado un método para acceder a la tabla relacionada, pero estamos usando un atributo en su lugar?</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">articulos</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">hasMany</span><span class="p">(</span><span class="s1">'App\Articulo'</span><span class="p">);</span> 
+<span class="p">}</span>
+<span class="k">public</span> <span class="k">function</span> <span class="n">loQueSea</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nv">$arts</span> <span class="o">=</span> <span class="nc">Usuario</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">articulos</span><span class="p">;</span>  <span class="c1">// articulos, no articulos()</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Pues bien, el atributo <em>articulo</em> es un <strong>atributo virtual</strong> creado por Eloquent. Pero el método <em>articulos()</em> también existe, y puede usarse como una consulta, extendiéndola como necesitemos. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$arts</span> <span class="o">=</span> <span class="nc">Usuario</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">articulos</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">where</span><span class="p">(</span><span class="s1">'titulo'</span><span class="p">,</span><span class="s1">'foo'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">first</span><span class="p">();</span> 
+</code></pre></div></div>
+:ET
