@@ -1,4 +1,4 @@
-I"�<h2 class="no_toc" id="17-arquitectura-mvc">1.7. Arquitectura MVC</h2>
+I"7�<h2 class="no_toc" id="17-arquitectura-mvc">1.7. Arquitectura MVC</h2>
 
 <ul id="markdown-toc">
   <li><a href="#171-arquitectura-de-aplicaciones" id="markdown-toc-171-arquitectura-de-aplicaciones">1.7.1. Arquitectura de aplicaciones</a></li>
@@ -47,6 +47,8 @@
 <p>Antes de pasar a la parte práctica de todo esto, permíteme un breve apunte: por supuesto, nada impide construir arquitecturas con más de 3 capas. De hecho, nosotros vamos a usar una variante del MVC en el que se añade una capa adicional por debajo del modelo, es decir, una arquitectura con 4 capas. Pero ya llegaremos a eso.</p>
 
 <h3 id="173-mvc-en-la-práctica-una-implementación-incremental">1.7.3. MVC en la práctica: una implementación incremental</h3>
+
+<div style="color:red"><i>ATENCIÓN: esta sección es solo para quien esté interesado en comprender más profundamente el patrón MVC. Léela atentamente si es tu caso. Si no, puedes saltar sin problemas al <a href="../mvc/#174-el-patr%C3%B3n-mvc-en-la-teor%C3%ADa">Apartado 1.7.4</a></i>.</div>
 
 <p>Tras esta introducción al MVC, vamos a estudiar a fondo este patrón. Y lo vamos a hacer por medio de un ejemplo, que es como mejor suelen comprenderse estas cosas. Una vez terminado y comprendido el ejemplo, daremos una definición más teórica.</p>
 
@@ -567,7 +569,9 @@ http://mi-servidor/index.php?controller=ArticlesController&amp;action=showAll
 
 <h2 id="174-el-patrón-mvc-en-la-teoría">1.7.4. El patrón MVC en la teoría</h2>
 
-<p>Ahora que hemos aprendido a manejarnos con el patrón MVC por medio de un ejemplo, estamos en condiciones de definirlo de manera más teórica. E incluso entender esa definición, no te vayas a creer.</p>
+<p>Ahora que hemos aprendido a manejarnos con el patrón MVC por medio de un ejemplo, estamos en condiciones de definirlo de manera más teórica y entender mejor esa defición.</p>
+
+<p><em>(Si no has leído el ejemplo práctico del <a href="../mvc/#173-mvc-en-la-práctica-una-implementación-incremental">Apartado 1.7.3</a>, es posible que las siguientes definiciones no acaben de tener sentido para ti. No te preocupes, lo irás pillando más adelante conforme practiques con el patrón MVC).</em></p>
 
 <p>El patrón MVC consiste, pues, en dividir la aplicación en tres capas:</p>
 
@@ -795,8 +799,8 @@ http://mi-servidor/index.php?controller=ArticlesController&amp;action=showAll
     <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">()</span>
     <span class="p">{</span>
         <span class="nv">$dsn</span> <span class="o">=</span> <span class="s2">"mysql:host=mariadb;dbname=biblioteca;charset=utf8mb4"</span><span class="p">;</span>
-        <span class="nv">$usuario</span> <span class="o">=</span> <span class="s2">"root"</span><span class="p">;</span>
-        <span class="nv">$clave</span> <span class="o">=</span> <span class="s2">"bitnami"</span><span class="p">;</span>
+        <span class="nv">$usuario</span> <span class="o">=</span> <span class="s2">"user"</span><span class="p">;</span>
+        <span class="nv">$clave</span> <span class="o">=</span> <span class="s2">"1234"</span><span class="p">;</span>
 
         <span class="k">try</span> <span class="p">{</span>
             <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PDO</span><span class="p">(</span><span class="nv">$dsn</span><span class="p">,</span> <span class="nv">$usuario</span><span class="p">,</span> <span class="nv">$clave</span><span class="p">);</span>

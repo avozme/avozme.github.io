@@ -125,7 +125,7 @@ return [
 * **En *Database.php*, usa *require "config.php"*** para obtener el array, y conéctate a la base de datos usando esas credenciales.
 * **Comprueba que cambiando el archivo de configuración** (por ejemplo, otra contraseña) la aplicación sigue funcionando sin tocar los modelos.
 
-### 1.10.7. Paso 9. Enrutador
+### 1.10.7. Enrutador
 
 (Este paso es optativo)
 
