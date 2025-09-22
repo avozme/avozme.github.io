@@ -43,7 +43,6 @@ PLANTA BAJA
 <tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
 </thead>
 <tbody>
-<tr><td>C</td><td>24 portátiles</td><td>Secretaría</td></tr>
 <tr><td>G</td><td>30 portátiles</td><td>Secretaría</td></tr>
 </tbody>
 </table>
@@ -56,7 +55,8 @@ PLANTA PRIMERA
 </thead>
 <tbody>
 <tr><td>A</td><td>30 portátiles</td><td>Dpto. de Física y Química</td></tr>
-<tr><td>I</td><td>30 portátiles</td><td>Biblioteca</td></tr>
+<tr><td>C</td><td>24 portátiles</td><td>Biblioteca (secundario)</td></tr>
+<tr><td>I</td><td>30 portátiles</td><td>Biblioteca (principal)</td></tr>
 </tbody>
 </table>
 
