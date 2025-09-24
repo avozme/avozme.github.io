@@ -1,10 +1,13 @@
-I"7�<h2 class="no_toc" id="17-arquitectura-mvc">1.7. Arquitectura MVC</h2>
+I"�<h2 class="no_toc" id="17-arquitectura-mvc">1.7. Arquitectura MVC</h2>
 
 <ul id="markdown-toc">
   <li><a href="#171-arquitectura-de-aplicaciones" id="markdown-toc-171-arquitectura-de-aplicaciones">1.7.1. Arquitectura de aplicaciones</a></li>
   <li><a href="#172-qué-es-la-arquitectura-mvc" id="markdown-toc-172-qué-es-la-arquitectura-mvc">1.7.2. ¿Qué es la arquitectura MVC?</a></li>
   <li><a href="#173-mvc-en-la-práctica-una-implementación-incremental" id="markdown-toc-173-mvc-en-la-práctica-una-implementación-incremental">1.7.3. MVC en la práctica: una implementación incremental</a></li>
-  <li><a href="#174-el-patrón-mvc-en-la-teoría" id="markdown-toc-174-el-patrón-mvc-en-la-teoría">1.7.4. El patrón MVC en la teoría</a></li>
+  <li><a href="#174-el-patrón-mvc-en-la-teoría" id="markdown-toc-174-el-patrón-mvc-en-la-teoría">1.7.4. El patrón MVC en la teoría</a>    <ul>
+      <li><a href="#endpoints" id="markdown-toc-endpoints">Endpoints</a></li>
+    </ul>
+  </li>
   <li><a href="#175-una-implementación-completa-biblioteca" id="markdown-toc-175-una-implementación-completa-biblioteca">1.7.5. Una implementación completa: Biblioteca</a>    <ul>
       <li><a href="#controlador-indexphp" id="markdown-toc-controlador-indexphp">Controlador (index.php)</a></li>
       <li><a href="#modelo-de-libros-modelslibrophp" id="markdown-toc-modelo-de-libros-modelslibrophp">Modelo de libros (models/libro.php)</a></li>
@@ -604,14 +607,24 @@ http://mi-servidor/index.php?controller=ArticlesController&amp;action=showAll
     <p>Es decir: en una aplicación MVC como las que hemos visto hasta ahora, tendremos una ruta como esta para, por ejemplo, consultar el artículo con id 37:</p>
 
     <p><code>https://mi-servidor/index.php?action=showArticle&amp;idArticle=37</code></p>
-
-    <p>En cambio, en un <em>framework</em> avanzado, la ruta tendrá un aspecto más limpio para hacer lo mismo. Algo así como:</p>
-
-    <p><code>https://mi-servidor/articles/show/37</code></p>
-
-    <p>Y el enrutador se encargará trocear esa URL y extraer de ella la información para instanciar el controlador adecuado y llamar al método correcto.</p>
   </li>
 </ul>
+
+<h3 id="endpoints">Endpoints</h3>
+
+<p>Los <strong><em>endpoints</em></strong> son las URLs a las que una aplicación o servicio web responde. Hay un número limitado de maneras de invocar a la aplicación web de manera que esta responda adecuadamente. El resto de peticiones al servidor provocarán (o deberían provocar) un error de “página no encontrada”.</p>
+
+<p>Esto es un endpoint de nuestra aplicación MVC “casera”:</p>
+
+<p><code>https://mi-servidor/index.php?action=showArticle&amp;idArticle=37</code></p>
+
+<p>Pero los endpoints no suelen tener un aspecto tan feo como ese. Esto es propio de aplicaciones web antiguas, hechas con PHP clásico y, aunque todavía encontrarás muchas aplicaciones así, la mayor parte de las aplicaciones y servicios web modernos usar <strong>endpoints limpios</strong> y con significado por sí mismos, lo que no solo es una mejora estética, sino que resulta más flexible y escalable, además de beneficiar el posicionamiento del sitio web.</p>
+
+<p>De hecho, existen maneras estandarizadas de construir los endpoints. Cuando aprendamos a usar un <em>framework</em> avanzado (como <strong>Laravel</strong>), nuestros endpoints tendrán un aspecto mucho más limpio para hacer lo mismo. Algo así como:</p>
+
+<p><code>https://mi-servidor/articles/show/37</code></p>
+
+<p>Y el enrutador del framework se encargará trocear esa URL y extraer de ella la información para instanciar el controlador adecuado y llamar al método correcto.</p>
 
 <h2 id="175-una-implementación-completa-biblioteca">1.7.5. Una implementación completa: Biblioteca</h2>
 
