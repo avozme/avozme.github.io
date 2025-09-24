@@ -58,12 +58,20 @@ El ejercicio consiste en escribir un programa en PHP que pida al usuario dos pal
 4. Inserta datos desde PHP con una consulta preparada. Necesitarás, por un lado, un formulario HTML para pedirle los datos al usuario y, por otro, un pequeño programa PHP que procese el envío del formulario y proceda a insertar los datos en la BD.
 5. Haz después un SELECT * de la tabla que muestre el resultado en una tabla HTML, para asegurarte de que la inserción ha funcionado.
 
-#### Ejercicio 4: CRUD sencillo
+#### Ejercicio 4: CRUD sencillo MVC
 
 Utiliza la misma base de datos del ejercicio anterior para:
 
 1. Implementar un listado de usuarios que, además, incluya las opciones de insertar, modificar y borrar usuarios (CRUD = Create, Read, Update, Delete).
-2. Divide el CRUD en diferentes archivos PHP (list.php, create.php, edit.php, delete.php, etc).
+2. Estructura todo el código en tres carpetas:
+
+    * **/** (carpeta raíz): coloca aquí tu controlador/enrutador (index.php)
+    * **models/** (consultas a la base de datos)
+    * **views/** (HTML/PHP para mostrar datos)
+
+    El archivo index.php debe recibir la acción (?action=...) y redirigir al método correspondiente.
+
+    ***Puedes, y te aconsejo que así lo hagas, usar el [código fuente de la Biblioteca](../php/mvc/#175-una-implementaci%C3%B3n-completa) que hemos visto en clase para hacer este ejercicio.***
 
 #### Ejercicio 5: Autenticación con login básico
 
@@ -86,15 +94,3 @@ Modifica la aplicación que estamos construyendo para que:
 1. Solo los usuarios de tipo administrador (rol = admin) puedan acceder a todas las funciones del CRUD.
 2. Otros usuarios registrados pero no administradores podrán ver la tabla de usuarios pero no operar con ella (ni insertar, ni borrar ni modificar). Si lo intentan, debe aparecer un mensaje de tipo "Acción prohibida".
 3. Centraliza la lógica de los permisos en un archivo común (security.php).
-
-#### Ejercicio 8. Aproximación a MVC en PHP
-
-Reestructura todo el código que has construido hasta ahora en tres carpetas:
-
-* **models/** (consultas a la base de datos)
-* **views/** (HTML/PHP para mostrar datos)
-* **controllers/** (reciben la petición y deciden qué hacer).
-
-Configura un único index.php que reciba la acción (?action=...) y redirija al controlador correspondiente.
-
-***Puedes, y te aconsejo que así lo hagas, fijarte en el [código fuente de la Biblioteca](../php/mvc/#175-una-implementaci%C3%B3n-completa) que hemos visto en clase para hacer este último ejercicio.***

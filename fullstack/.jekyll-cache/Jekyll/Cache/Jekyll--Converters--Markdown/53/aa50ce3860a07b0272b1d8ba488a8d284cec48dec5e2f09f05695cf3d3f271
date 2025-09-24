@@ -1,4 +1,4 @@
-I"?<h2 class="no_toc" id="19-prácticas">1.9. Prácticas</h2>
+I"�<h2 class="no_toc" id="19-prácticas">1.9. Prácticas</h2>
 
 
 <p>Los siguientes son una colección de prácticas de programación que funcionan exactamente igual que los ejercicios en el gimnasio: para fortalecer tu musculatura como programador o programadora.</p>
@@ -52,13 +52,25 @@
   <li>Haz después un SELECT * de la tabla que muestre el resultado en una tabla HTML, para asegurarte de que la inserción ha funcionado.</li>
 </ol>
 
-<h4 id="ejercicio-4-crud-sencillo">Ejercicio 4: CRUD sencillo</h4>
+<h4 id="ejercicio-4-crud-sencillo-mvc">Ejercicio 4: CRUD sencillo MVC</h4>
 
 <p>Utiliza la misma base de datos del ejercicio anterior para:</p>
 
 <ol>
   <li>Implementar un listado de usuarios que, además, incluya las opciones de insertar, modificar y borrar usuarios (CRUD = Create, Read, Update, Delete).</li>
-  <li>Divide el CRUD en diferentes archivos PHP (list.php, create.php, edit.php, delete.php, etc).</li>
+  <li>
+    <p>Estructura todo el código en tres carpetas:</p>
+
+    <ul>
+      <li><strong>/</strong> (carpeta raíz): coloca aquí tu controlador/enrutador (index.php)</li>
+      <li><strong>models/</strong> (consultas a la base de datos)</li>
+      <li><strong>views/</strong> (HTML/PHP para mostrar datos)</li>
+    </ul>
+
+    <p>El archivo index.php debe recibir la acción (?action=…) y redirigir al método correspondiente.</p>
+
+    <p><strong><em>Puedes, y te aconsejo que así lo hagas, usar el <a href="../php/mvc/#175-una-implementaci%C3%B3n-completa">código fuente de la Biblioteca</a> que hemos visto en clase para hacer este ejercicio.</em></strong></p>
+  </li>
 </ol>
 
 <h4 id="ejercicio-5-autenticación-con-login-básico">Ejercicio 5: Autenticación con login básico</h4>
@@ -88,18 +100,4 @@
   <li>Otros usuarios registrados pero no administradores podrán ver la tabla de usuarios pero no operar con ella (ni insertar, ni borrar ni modificar). Si lo intentan, debe aparecer un mensaje de tipo “Acción prohibida”.</li>
   <li>Centraliza la lógica de los permisos en un archivo común (security.php).</li>
 </ol>
-
-<h4 id="ejercicio-8-aproximación-a-mvc-en-php">Ejercicio 8. Aproximación a MVC en PHP</h4>
-
-<p>Reestructura todo el código que has construido hasta ahora en tres carpetas:</p>
-
-<ul>
-  <li><strong>models/</strong> (consultas a la base de datos)</li>
-  <li><strong>views/</strong> (HTML/PHP para mostrar datos)</li>
-  <li><strong>controllers/</strong> (reciben la petición y deciden qué hacer).</li>
-</ul>
-
-<p>Configura un único index.php que reciba la acción (?action=…) y redirija al controlador correspondiente.</p>
-
-<p><strong><em>Puedes, y te aconsejo que así lo hagas, fijarte en el <a href="../php/mvc/#175-una-implementaci%C3%B3n-completa">código fuente de la Biblioteca</a> que hemos visto en clase para hacer este último ejercicio.</em></strong></p>
 :ET
