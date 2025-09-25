@@ -101,15 +101,17 @@ Te dejo las instrucciones paso a paso para que lo consigas sin desesperarte dema
 
 Crea un archivo ***docker-compose.yml*** en tu directorio de trabajo con este contenido exacto, para trabajar con las imágene de nuestros cuatro servicios. 
 
-Usaremos solo las imágenes oficiales, excepto la de *php*. Para esa usaremos la imagen de *Bitnami*, una división de *VMWare*, porque ya trae activadas ciertas extensiones de PHP (como *PDO*) que nos conviene tener a mano. Así nos evitamos tener que hacer complicadas configuraciones posteriores:
+Usaremos solo las imágenes oficiales. Algunas las tendremos que modificar un poco para que sirvan a nuestros propósitos: para eso montaremos los archivos *custom.ini* (en la imagen de PHP) y *httpd.conf* y *myapp.conf* (en la imagen de Apache).
 
 ```yaml
 services:
   php:
-    image: bitnamilegacy/php-fpm
+    build: .  
     volumes:
       - ./app:/app
       - ./custom.ini:/usr/local/etc/php/conf.d/custom.ini
+    depends_on:
+      - mariadb
 
   apache:
     image: httpd:2.4
@@ -145,14 +147,37 @@ volumes:
   mariadb_data:
 ```
 
-### Paso 2. Crear ./apache-custom/httpd.conf
+### Paso 2. Crear un ./Dockerfile para PHP
+
+La imagen oficial de PHP-FPM es muy minimalista y viene con muy pocas extensiones instaladas. Tenemos que instalar algunas librerías adicionales en ese contenedor (como *pdo_mysql* para acceso a bases de datos MySQL con PDO).
+
+Esto se logra creando un archivo llamado ***Dockerfile*** en el directorio raíz (en la misma carpeta donde tengas *docker-compose.yml*) con este contenido:
+
+```
+FROM php:8.2-fpm
+
+# Instalar dependencias necesarias
+RUN apt-get update && apt-get install -y \
+        default-mysql-client \
+        libzip-dev \
+        unzip \
+        git \
+    && docker-php-ext-install pdo pdo_mysql mysqli zip \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+```
+
+Así informamos a Docker de que:
+* a) Queremos usar *php:8.2-fpm*, la imagen oficial de PHP (versión 8.2) como base para el contenedor.
+* b) Queremos instalar (con el comando *RUN apt-get*) varias extensiones útiles al levantar el contenedor por primera vez (puede tardar un poco).
+
+### Paso 3. Crear ./apache-custom/httpd.conf
 
 Por defecto, la imagen oficial de Apache no interpreta el código PHP, sino que lo sirve en texto plano, como si fuera HTML.
 
-Para reconfigurar esa imagen sin tener que meter mano al Dockerfile (algo que aprenderás a hacer en otros módulos) tienes que:
+Podemos reconfigurar esta imagen sin tener que meter mano también a este contenedor:
 
-1. Crear el directorio ***apache-custom*** en tu carpeta de trabajo.
-2. Crear el archivo ***httpd.conf*** dentro de *apache-custom* con este contenido:
+1. Crea el directorio ***apache-custom*** en tu carpeta de trabajo.
+2. Crea el archivo ***./apache-custom/httpd.conf*** con este contenido:
 
 ```
 # httpd.conf mínimo preparado para usar Apache httpd:2.4 + PHP-FPM
@@ -217,11 +242,11 @@ Include conf/extra/myapp.conf
 # Fin del archivo
 ```
 
-### Paso 3. Crear ./apache-custom/myapp.conf
+### Paso 4. Crear ./apache-custom/myapp.conf
 
 En este archivo de configuración adicional redirigiremos todas las peticiones de archivos .php hacia el contenedor con el intérprete PHP. El resto de archivos serán servidos por Apache.
 
-Crea el archivo ***myapp.conf*** dentro del directorio *apache-custom* con este contenido:
+Crea el archivo ***./apache-custom/myapp.conf*** con este contenido:
 
 ```
 <VirtualHost *:80>
@@ -239,7 +264,7 @@ Crea el archivo ***myapp.conf*** dentro del directorio *apache-custom* con este 
 </VirtualHost>
 ```
 
-### Paso 4. Crear el archivo custom.ini
+### Paso 5. Crear el archivo custom.ini
 
 Este archivo contiene las **opciones de configuración adicionales para PHP**.
 
@@ -249,47 +274,54 @@ Crea un archivo llamado ***custom.ini*** en tu directorio de trabajo con este co
 
 ```
 display_errors = On
+display_startup_errors = On
 error_reporting = E_ALL
 opcache.enable = 0
+opcache.enable_cli = 0
+output_buffering = Off
 ```
 
 Esto **habilitará las opciones de depuración de errores** de PHP. En un entorno de producción, estas opciones se deshabilitarían, claro.
 
+También deshabilitará la caché, imprescindible para que, al desarrollar, nuestros cambios se vean inmediatamente en el servidor.
+
 Si más adelante necesitas **configuraciones adicionales para PHP** (como incrementar el tamaño máximo de archivos subidos al servidor o el tiempo de procesamiento de un script), puedes hacerlo fácilmente en este custom.ini.
 
-### Paso 5. Levantar los contenedores con docker-compose up
+### Paso 6. Levantar los contenedores con docker-compose up
 
-Ya podemos **poner en marcha los cuatro contenedores** tecleando (en el directorio de trabajo):
+Ya lo tenemos todo preparado.
 
-```
-$ docker-compose up --build
+Ahora podemos **poner en marcha los cuatro contenedores** tecleando (en el directorio de trabajo):
+
+```bash
+$ docker-compose up --build   # Lanzar contenedores la primera vez (o después cambiar docker-compose.yml o Dockerfile)
 ```
 
 O bien, si no hemos tocado la configuración de los contenedores recientemente:
 
-```
-$ docker-compose up
+```bash
+$ docker-compose up   # Lanzar contenedores habitualmente
 ```
 
 También podemos lanzarlo en segundo plano, para que la consola no se quede bloqueada:
 
-```
-$ docker-compose up -d
+```bash
+$ docker-compose up -d   # Lanzar contenedores en segundo plano
 ```
 
-### Paso 6. Probar los contenedores
+### Paso 7. Probar los contenedores
 
 Si todo ha ido bien, deberías tener estos servicios activos:
 
 * **http://localhost:8080** -> Aquí debería estar escuchando Apache/PHP. Si pones un archivo .php en la carpeta ./app de tu proyecto, tendría que verse el resultado.
-* **http://localhost:8000** -> Aquí debería estar escuchando PHPMyAdmin. El usuario y contraseña de la base de datos están en el docker-compose.yml (los puedes cambiar allí si no te gustan).
+* **http://localhost:8000** -> Aquí debería estar escuchando PHPMyAdmin. El usuario y contraseña de la base de datos están en el *docker-compose.yml* (los puedes cambiar allí si no te gustan).
 
-### Paso 7. Detener los contenedores
+### Paso 8. Detener los contenedores
 
 Para detener los contenedores, tan solo teclea:
 
-```
-docker-compose down
+```bash
+$ docker-compose down
 ```
 
 O bien pulsa **CTRL + C** si inciaste docker-compose en segundo plano (con la opción -d).
