@@ -1,9 +1,10 @@
-I"�f<h2 class="no_toc" id="18-ejemplos-resueltos">1.8. Ejemplos resueltos</h2>
+I"y<h2 class="no_toc" id="18-ejemplos-resueltos">1.8. Ejemplos resueltos</h2>
 
 <ul id="markdown-toc">
   <li><a href="#181-tabla-de-multiplicar" id="markdown-toc-181-tabla-de-multiplicar">1.8.1. Tabla de multiplicar</a></li>
   <li><a href="#182-juego-del-número-secreto" id="markdown-toc-182-juego-del-número-secreto">1.8.2. Juego del número secreto</a></li>
-  <li><a href="#183-biblioteca" id="markdown-toc-183-biblioteca">1.8.3. Biblioteca</a></li>
+  <li><a href="#183-lista-de-libros" id="markdown-toc-183-lista-de-libros">1.8.3. Lista de libros</a></li>
+  <li><a href="#184-biblioteca" id="markdown-toc-184-biblioteca">1.8.4. Biblioteca</a></li>
 </ul>
 
 <p>Ya hemos visto cómo es el lenguaje PHP y cómo se puede acceder desde él a una base de datos externa para almacenar o recuperar información de ella. También cómo se puede estructurar el código con la arquitectura MVC. Aquí encontrarás todo eso aplicado a algunos supuestos prácticos, es decir, <strong>ejemplos de aplicaciones web programadas con PHP sin niguna librería ni framework adicional.</strong></p>
@@ -254,7 +255,53 @@
 	<span class="cp">?&gt;</span>
 </code></pre></div></div>
 
-<h3 id="183-biblioteca">1.8.3. Biblioteca</h3>
+<h3 id="183-lista-de-libros">1.8.3. Lista de libros</h3>
+
+<p>Aquí tienes un ejemplo sencillo de conexión con una base de datos MySQL o MariaDB para: a) consultar datos y b) insertar datos.</p>
+
+<p>Puedes usarlo como modelo para construir tus primeras interacciones con la base de datos mediante PDO:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="nv">$dsn</span> <span class="o">=</span> <span class="s2">"mysql:host=mariadb;dbname=pruebas;charset=utf8mb4"</span><span class="p">;</span>
+<span class="nv">$usuario</span> <span class="o">=</span> <span class="s2">"user"</span><span class="p">;</span>
+<span class="nv">$clave</span> <span class="o">=</span> <span class="s2">"1234"</span><span class="p">;</span>
+
+<span class="c1">// Conexión con la BD</span>
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$bd</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PDO</span><span class="p">(</span><span class="nv">$dsn</span><span class="p">,</span> <span class="nv">$usuario</span><span class="p">,</span> <span class="nv">$clave</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nc">PDOException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">die</span><span class="p">(</span><span class="s2">"Error en la conexión: "</span> <span class="mf">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="nf">getMessage</span><span class="p">());</span>
+<span class="p">}</span>
+
+<span class="c1">// Consulta</span>
+<span class="nv">$sql</span> <span class="o">=</span> <span class="s2">"SELECT * FROM libros"</span><span class="p">;</span>
+<span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$bd</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="nv">$sql</span><span class="p">);</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nv">$libro</span> <span class="o">=</span> <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="nf">fetch</span><span class="p">(</span><span class="no">PDO</span><span class="o">::</span><span class="no">FETCH_ASSOC</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$libro</span><span class="p">[</span><span class="s2">"titulo"</span><span class="p">]</span><span class="mf">.</span><span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Inserción (modificación o borrado se harían de forma parecida)</span>
+<span class="nv">$sql_insert</span> <span class="o">=</span> <span class="s2">"INSERT INTO libros (titulo, genero, numPaginas, pais, ano) VALUES (:titulo, :genero, :numPaginas, :pais, :ano)"</span><span class="p">;</span>
+<span class="nv">$stmt_insert</span> <span class="o">=</span> <span class="nv">$bd</span><span class="o">-&gt;</span><span class="nf">prepare</span><span class="p">(</span><span class="nv">$sql_insert</span><span class="p">);</span>
+
+<span class="nv">$valores</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'titulo'</span>     <span class="o">=&gt;</span> <span class="s1">'Nuevo libro'</span><span class="p">,</span>
+    <span class="s1">'genero'</span>     <span class="o">=&gt;</span> <span class="s1">'Género desconocido'</span><span class="p">,</span>
+    <span class="s1">'numPaginas'</span> <span class="o">=&gt;</span> <span class="mi">900</span><span class="p">,</span>
+    <span class="s1">'pais'</span>       <span class="o">=&gt;</span> <span class="s1">'España'</span><span class="p">,</span>
+    <span class="s1">'ano'</span>        <span class="o">=&gt;</span> <span class="mi">2025</span>
+<span class="p">];</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$stmt_insert</span><span class="o">-&gt;</span><span class="nf">execute</span><span class="p">(</span><span class="nv">$valores</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"Libro insertado correctamente."</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"Error al insertar el libro."</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="184-biblioteca">1.8.4. Biblioteca</h3>
 
 <p>Este caso práctico es muy importante por dos razones:</p>
 

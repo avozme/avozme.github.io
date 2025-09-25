@@ -52,11 +52,21 @@ El ejercicio consiste en escribir un programa en PHP que pida al usuario dos pal
 
 #### Ejercicio 3: conexión básica a una base de datos
 
-1. Crea una base de datos MySQL o MariaDB con una tabla *usuarios(id#, nombre, email, password)*.
-2. Inserta algunos datos de prueba en la tabla.
-3. Conéctate desde PHP a esa base de datos.
-4. Inserta datos desde PHP con una consulta preparada. Necesitarás, por un lado, un formulario HTML para pedirle los datos al usuario y, por otro, un pequeño programa PHP que procese el envío del formulario y proceda a insertar los datos en la BD.
-5. Haz después un SELECT * de la tabla que muestre el resultado en una tabla HTML, para asegurarte de que la inserción ha funcionado.
+1. **Crea una base de datos** MySQL o MariaDB con una **tabla *usuarios(id#, nombre, email, password)***.
+2. **Inserta** algunos datos de prueba en la tabla con PHPMyAdmin o MySQL Workbench.
+3. **Conéctate desde PHP** a esa base de datos.
+4. **Inserta datos desde PHP** con una consulta preparada. 
+   * Necesitarás, por un lado, un formulario HTML para pedirle los datos al usuario
+   * Y, por otro lado, un pequeño programa PHP que procese el envío del formulario y proceda a insertar los datos en la BD.
+5. **Consulta** la tabla de usuarios desde PHP y muestra todo su contenido en una salida HTML.
+
+Si te sobra algo de tiempo, intenta completar este pequeño programa para que, además:
+* Pueda **eliminar** usuarios de la tabla.
+* Pueda **modificar** usuarios existentes en la tabla.
+
+Intenta organizar el código lo mejor posible. El objetivo no es necesariamente minimizar el número de archivos, sino lograr una organización de archivos racional y que te permita depurar y modificar el código con relativa facilidad.
+
+Echa un vistazo a este [ejemplo de código](../php/ejemplos-resueltos.html#183-lista-de-libros) para saber cómo empezar.
 
 #### Ejercicio 4: CRUD sencillo MVC
 

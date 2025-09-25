@@ -1,4 +1,4 @@
-I"�<h2 class="no_toc" id="19-prácticas">1.9. Prácticas</h2>
+I"�<h2 class="no_toc" id="19-prácticas">1.9. Prácticas</h2>
 
 
 <p>Los siguientes son una colección de prácticas de programación que funcionan exactamente igual que los ejercicios en el gimnasio: para fortalecer tu musculatura como programador o programadora.</p>
@@ -45,12 +45,27 @@
 <h4 id="ejercicio-3-conexión-básica-a-una-base-de-datos">Ejercicio 3: conexión básica a una base de datos</h4>
 
 <ol>
-  <li>Crea una base de datos MySQL o MariaDB con una tabla <em>usuarios(id#, nombre, email, password)</em>.</li>
-  <li>Inserta algunos datos de prueba en la tabla.</li>
-  <li>Conéctate desde PHP a esa base de datos.</li>
-  <li>Inserta datos desde PHP con una consulta preparada. Necesitarás, por un lado, un formulario HTML para pedirle los datos al usuario y, por otro, un pequeño programa PHP que procese el envío del formulario y proceda a insertar los datos en la BD.</li>
-  <li>Haz después un SELECT * de la tabla que muestre el resultado en una tabla HTML, para asegurarte de que la inserción ha funcionado.</li>
+  <li><strong>Crea una base de datos</strong> MySQL o MariaDB con una <strong>tabla <em>usuarios(id#, nombre, email, password)</em></strong>.</li>
+  <li><strong>Inserta</strong> algunos datos de prueba en la tabla con PHPMyAdmin o MySQL Workbench.</li>
+  <li><strong>Conéctate desde PHP</strong> a esa base de datos.</li>
+  <li><strong>Inserta datos desde PHP</strong> con una consulta preparada.
+    <ul>
+      <li>Necesitarás, por un lado, un formulario HTML para pedirle los datos al usuario</li>
+      <li>Y, por otro lado, un pequeño programa PHP que procese el envío del formulario y proceda a insertar los datos en la BD.</li>
+    </ul>
+  </li>
+  <li><strong>Consulta</strong> la tabla de usuarios desde PHP y muestra todo su contenido en una salida HTML.</li>
 </ol>
+
+<p>Si te sobra algo de tiempo, intenta completar este pequeño programa para que, además:</p>
+<ul>
+  <li>Pueda <strong>eliminar</strong> usuarios de la tabla.</li>
+  <li>Pueda <strong>modificar</strong> usuarios existentes en la tabla.</li>
+</ul>
+
+<p>Intenta organizar el código lo mejor posible. El objetivo no es necesariamente minimizar el número de archivos, sino lograr una organización de archivos racional y que te permita depurar y modificar el código con relativa facilidad.</p>
+
+<p>Echa un vistazo a este <a href="../php/ejemplos-resueltos.html#183-lista-de-libros">ejemplo de código</a> para saber cómo empezar.</p>
 
 <h4 id="ejercicio-4-crud-sencillo-mvc">Ejercicio 4: CRUD sencillo MVC</h4>
 

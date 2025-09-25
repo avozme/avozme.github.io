@@ -266,7 +266,54 @@ Observa detenidamente cómo se usan las variables de sesión con PHP mediante el
 	?>
 ```
 
-### 1.8.3. Biblioteca
+### 1.8.3. Lista de libros
+
+Aquí tienes un ejemplo sencillo de conexión con una base de datos MySQL o MariaDB para: a) consultar datos y b) insertar datos.
+
+Puedes usarlo como modelo para construir tus primeras interacciones con la base de datos mediante PDO:
+
+```php
+<?php
+
+$dsn = "mysql:host=mariadb;dbname=pruebas;charset=utf8mb4";
+$usuario = "user";
+$clave = "1234";
+
+// Conexión con la BD
+try {
+    $bd = new PDO($dsn, $usuario, $clave);
+} catch (PDOException $e) {
+    die("Error en la conexión: " . $e->getMessage());
+}
+
+// Consulta
+$sql = "SELECT * FROM libros";
+$stmt = $bd->query($sql);
+
+while ($libro = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    echo $libro["titulo"]."<br>";
+}
+
+// Inserción (modificación o borrado se harían de forma parecida)
+$sql_insert = "INSERT INTO libros (titulo, genero, numPaginas, pais, ano) VALUES (:titulo, :genero, :numPaginas, :pais, :ano)";
+$stmt_insert = $bd->prepare($sql_insert);
+
+$valores = [
+    'titulo'     => 'Nuevo libro',
+    'genero'     => 'Género desconocido',
+    'numPaginas' => 900,
+    'pais'       => 'España',
+    'ano'        => 2025
+];
+
+if ($stmt_insert->execute($valores)) {
+    echo "Libro insertado correctamente.";
+} else {
+    echo "Error al insertar el libro.";
+}
+```
+
+### 1.8.4. Biblioteca
 
 Este caso práctico es muy importante por dos razones:
 
