@@ -227,13 +227,13 @@ Para implementar un API REST con Laravel debes:
 
 Ya estamos en condiciones de construir nuestro primer API REST con Laravel. En este ejemplo, serviremos los siguientes datos:
 
-* **Productos**: los productos de una tienda online ficticia que constarán de id, nombre del producto, descripción, precio y unidades en stock.
-* **Clientes**: los clientes de la tienda online (id, nombre, apellido1, apellido2, domicilio y email).
-* **Compran**: la relación N:N entre Productos y Clientes. Añadirá los campos fecha, hora y número de unidades compradas.
+* **Productos** (id, nombre, descripcion, precio, stock): son los productos de una tienda online ficticia.
+* **Clientes** (id, nombre, apellido1, apellido2 y email): son los clientes de la tienda online.
+* **Compras** (cliente_id, producto_id, fecha, hora, unidades): es la relación N:N entre Productos y Clientes.
 
 #### Migraciones
 
-Lo primero es crear las migraciones con ```php artisan make:migration nombre_migracion.php```. Aquí te ofrezco un ejemplo de cómo podrían quedar: 
+Lo primero es crear las migraciones con ```$ php artisan make:migration nombre_migracion```. Aquí te ofrezco un ejemplo de cómo podrían quedar: 
 
 **Migración de Productos:** *database/migrations/\<timestamp\>_create_productos_table.php*
 
@@ -429,7 +429,7 @@ Los controladores de clientes (*ClienteController*) y compras (*CompraController
 
 Como estamos construyendo una API pura, editaremos el enrutador ***routes/api.php*** en lugar de *routes/web.php*.
 
-<div style='background-color: #ddd'><strong>¡¡OJO!!</strong> Si trabajas con Laravel 12 o posterior, el archivo *routes/api.php* no existirá. Debes instalar primero el soporte para APIs de Laravel con el comando <i>$ php artisan install:api</i></div>
+<div style='background-color: #ddd'><strong>¡¡OJO!!</strong> Si trabajas con Laravel 12 o posterior, el archivo <i>routes/api.php</i> no existirá. Debes instalar primero el soporte para APIs de Laravel con el comando <i>$ php artisan install:api</i></div>
 
 ```php
 <?php
@@ -448,7 +448,7 @@ El enrutador *routes/web.php* usa el ***middleware web***, que sí controla el e
 
 #### Ejemplo de llamadas REST
 
-Laravel está configurado para **usar el enrutador *api.php*** en lugar de *web.php* en todas las rutas que empiecen por /api (este comportamiento se puede cambiar, pero no hay necesidad de hacerlo en este ejemplo).
+Laravel está configurado para **usar el enrutador *api.php*** en lugar de *web.php* **en todos los *enpoints* que empiecen por /api**. Este comportamiento se puede cambiar, pero no hay necesidad de hacerlo en este ejemplo.
 
 Nuestra API, por tanto, responderá con JSON a cualquier solicitud HTTP con el prefijo /api. Por ejemplo:
 
@@ -563,7 +563,7 @@ Esto se logra así en Postman:
 
 7. Pulsar el **botón "Send"**.
 
-El servidor responderá con un estado 200 (si todo va bien) o con un error (estados 401, 403, 404, 500 o cualquier otro). Además, puede enviarnos datos adicionales, como el id del recurso que acaba de crear o incluso un JSON con todos los datos del recurso que acaba de crear, como ocurre en el siguiente pantallazo:
+El servidor responderá con un estado http 200 o 201 (si todo va bien) o con un error (estados 403, 404, 500 o cualquier otro). Además, puede enviarnos datos adicionales, como el id del recurso que acaba de crear o incluso **un JSON con todos los datos del recurso que acaba de crear**, como ocurre en el siguiente pantallazo:
 
 ![Postman - Request POST](../assets/images/postman-request-post.jpg)
 
@@ -605,7 +605,180 @@ Nosotros no vamos a ver mucho más en esta introducción, pero si quieres profun
 
 * **Autenticación**: también puedes gestionar la autenticación por múltiples medios en aquellas APIs que la exijan antes de responder a *requests*.
 
-## 3.6. Práctica: construir un API REST sobre la Tierra Media
+## 3.6. Consumir el API REST con Javascript
+
+Un API como el que hemos construido de ejemplo en esta unidad didáctica también **se puede consumir desde una web estática HTML por medio de Javascript**.
+
+La idea es que Javascript puede llamar al servidor REST y recibir la respuesta JSON, y después crear dinámicamente los elementos HTML necesarios para mostrar esa respuesta JSON en la página que ya estaba cargada.
+
+Te muestro a continuación un código que hace exactamente eso. Es decir, lo que vas a ver a continuación es **un frontend minimalista para el API REST** que hemos creado más arriba (Productos, Clientes y Compras), pero está hecho con Javascript clásico, sin apoyo de ningún framework. Es decir, como se hacía hasta el año 2010, más o menos.
+
+**No es necesario que entiendas todo el código** que te presento aquí, basta con que lo comprendas genéricamente. Ten en cuenta, además, que este modo de programar los frontends cayó en desuso desde la aparición de frameworks como *Angular*.
+
+**ARCHIVO index.html**
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Tienda SPA (JS clásico)</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    nav a { margin-right: 1em; cursor: pointer; color: blue; text-decoration: underline; }
+    table { border-collapse: collapse; width: 100%; margin-top: 1em; }
+    th, td { border: 1px solid #ccc; padding: .5em; text-align: left; }
+    input, textarea { width: 100%; margin-bottom: .5em; }
+    button { padding: .4em .8em; margin-right: .5em; }
+  </style>
+</head>
+<body>
+
+  <h1>Tienda online (SPA sin framework)</h1>
+  <nav>
+    <a data-view="list">📋 Listar productos</a>
+    <a data-view="create">➕ Nuevo producto</a>
+  </nav>
+
+  <div id="view"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+```
+
+**ARCHIVO app.js**
+
+```javascript
+const API_URL = "http://localhost/compras/api/productos";
+const view = document.getElementById("view");
+
+// --- Navegación SPA ---
+document.querySelectorAll("nav a").forEach(link => {
+  link.addEventListener("click", () => showView(link.dataset.view));
+});
+
+// Vista inicial
+showView("list");
+
+// --- Controlador de vistas ---
+function showView(viewName, id = null) {
+  if (viewName === "list") listProducts();
+  if (viewName === "create") renderForm();
+  if (viewName === "edit") loadProduct(id);
+}
+
+// --- Listar productos ---
+async function listProducts() {
+  view.innerHTML = "<h2>Lista de productos</h2><p>Cargando...</p>";
+  try {
+    const res = await fetch(API_URL);
+    const productos = await res.json();
+    view.innerHTML = `
+      <h2>Lista de productos</h2>
+      <table>
+        <thead><tr><th>ID</th><th>Nombre</th><th>Precio</th><th>Stock</th><th>Acciones</th></tr></thead>
+        <tbody>
+          ${productos.map(p => `
+            <tr>
+              <td>${p.id}</td>
+              <td>${p.nombre}</td>
+              <td>${p.precio.toFixed(2)}</td>
+              <td>${p.stock}</td>
+              <td>
+                <button onclick="showView('edit', ${p.id})">Editar</button>
+                <button onclick="deleteProduct(${p.id})">Eliminar</button>
+              </td>
+            </tr>`).join("")}
+        </tbody>
+      </table>
+    `;
+  } catch (err) {
+    view.innerHTML = `<p>Error al cargar productos: ${err}</p>`;
+  }
+}
+
+// --- Formulario de creación / edición ---
+function renderForm(producto = {}) {
+  view.innerHTML = `
+    <h2>${producto.id ? "Editar producto" : "Nuevo producto"}</h2>
+    <form id="productForm">
+      <input type="hidden" name="id" value="${producto.id || ""}">
+      <label>Nombre:</label>
+      <input name="nombre" value="${producto.nombre || ""}" required>
+      <label>Descripción:</label>
+      <textarea name="descripcion">${producto.descripcion || ""}</textarea>
+      <label>Precio:</label>
+      <input name="precio" type="number" step="0.01" value="${producto.precio || ""}" required>
+      <label>Stock:</label>
+      <input name="stock" type="number" value="${producto.stock || ""}" required>
+      <button type="submit">${producto.id ? "Actualizar" : "Crear"}</button>
+      <button type="button" onclick="showView('list')">Cancelar</button>
+    </form>
+  `;
+
+  document.getElementById("productForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+    data.precio = parseFloat(data.precio);
+    data.stock = parseInt(data.stock);
+
+    try {
+      if (data.id) {
+        await fetch(`${API_URL}/${data.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+      } else {
+        await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+      }
+      showView("list");
+    } catch (err) {
+      alert("Error al guardar: " + err);
+    }
+  });
+}
+
+// --- Cargar un producto para editar ---
+async function loadProduct(id) {
+  view.innerHTML = "<p>Cargando producto...</p>";
+  try {
+    const res = await fetch(`${API_URL}/${id}`);
+    const producto = await res.json();
+    renderForm(producto);
+  } catch (err) {
+    view.innerHTML = `<p>Error al cargar producto: ${err}</p>`;
+  }
+}
+
+// --- Eliminar producto ---
+async function deleteProduct(id) {
+  if (!confirm("¿Seguro que quieres eliminar este producto?")) return;
+  try {
+    await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+    listProducts();
+  } catch (err) {
+    alert("Error al eliminar: " + err);
+  }
+}
+```
+
+Observa que, con esto, hemos construido nuestra primera **aplicación SPA** o *single page application*. Pero hacerlo de este modo tiene varios problemas:
+
+* **No es escalable**. Imagina lo que habría que montar para añadir clientes, compras y otras entidades de datos: necesitaríamos decenas de vistas, cientos de eventos, validaciones, etc. El código se volvería rápidamente inmanejable.
+* **No es reactivo**. Hay que re-renderizar manualmente la página tras cada cambio en los datos.
+* **No tiene código reutilizable**. Todo está en funciones y cadenas HTML, diferentes para cada recurso.
+* **Enrutamiento manual**. El *routing* se hace cambiando el contenido del *div "view"*.
+
+Para solventar estos problemas existen los frameworks como **Angular, Vue.js o React**, entre otros. Nos adentraremos en ellos en la próxima unidad didáctica y construiremos un frontend SPA como se hace en la actualidad.
+
+## 3.7. Práctica: construir un API REST sobre la Tierra Media
 
 En esta práctica vamos a crear una base de datos con información sobre la **Tierra Media** (el universo ficticio de Tolkien). Posteriormente escribiremos una API REST con Laravel que acceda a esos datos y probaremos a consumirlos con Postman.
 
