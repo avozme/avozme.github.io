@@ -315,22 +315,13 @@ if ($stmt_insert->execute($valores)) {
 
 ### 1.8.4. Biblioteca
 
-Este caso práctico es muy importante por dos razones:
+Este es un caso práctico importante porque es la primera aplicación web “de verdad”, con una base de datos detrás y una estructura MVC, que vamos a ver.
 
-1. Porque es nuestra primera aplicación web "de verdad", con una base de datos detrás.
-2. Porque volveremos sobre ella varias veces a lo largo de las siguientes secciones para hacerle sucesivas mejoras, hasta dejarla presentable.
+La aplicación web gestiona, de forma muy simplificada, una biblioteca. Trabaja con una base de datos compuesta de tres tablas (ya dije que estaría muy simplificada): *libros*, *autores* y *escriben*. Esta última es una tabla pivote, es decir, es la tabla que implementa la relación N:N entre *libros* y *autores*.
 
-El código fuente lo hemos visto en los apuntes del tema. Es más largo, pero fácil de seguir. Está dividido en tres versiones de la misma aplicación, sucesivamente más completas.
+La aplicación permite ver la lista de todos los libros disponibles, así como dar de alta libros nuevos y modificar o borrar los libros existentes. Lo mismo sucede con los autores. Por último, permite asociar autores a los libros (es decir, insertar datos en la tabla pivote *escriben*).
 
-No te desesperes ni intentes leerlo en dos minutos para marcharte a hacer otra cosa. Tómatelo con calma, como si leer el código fuente fuera como leer un manual de instrucciones de un electrodoméstico nuevo que aún no tienes ni idea de cómo se usa.
+El código tiene una arquitectura modelo-vista-controlador MVC mejorable, pero que sirve como primera aproximación válida a este patrón de diseño de software. Hemos usado un solo controlador (que también hace labores de enrutamiento), pero sería fácil dividirlo en varios.
 
-**Se trata de escribir una aplicación web en PHP que gestione, de forma muy simplificada, una biblioteca**.
-
-La aplicación trabajará con una base de datos compuesta de solo dos tablas (ya te dije que estaría muy simplificada): *libros* y *autores*.
-
-Esta aplicación nos permitirá, en principio, ver la lista de todos los libros disponibles, así como dar de alta libros nuevos y modificar o borrar los libros existentes. De momento no trabajaremos con los autores, pero sería fácil extenderla para que también nos dejase hacer altas, bajas y modificaciones de los autores.
-
-Al leer el código, observa cómo utilizamos una variable muy especial llamada ***$action*** para saber qué tiene que hacer la aplicación en cada momento. Esa variable es el germen de la *arquitectura modelo-vista-controlador* con la que trabajaremos una y otra vez más adelante.
-
-**Haz [clic aquí para acceder al código fuente de la biblioteca](../php/mvc/#175-una-implementación-completa-biblioteca)**
+**Haz [clic aquí para acceder al código fuente de la biblioteca](https://github.com/avozme/biblioteca.git)**
 

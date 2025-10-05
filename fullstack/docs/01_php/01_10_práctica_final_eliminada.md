@@ -5,7 +5,7 @@ permalink: /php/practica.html
 nav_order: 10
 has_children: false
 parent: 1 Programación web con PHP
-grand_parent: Desarrollo web full stack
+grand_parent: Desarrollo web full stack XXX
 ---
 
 

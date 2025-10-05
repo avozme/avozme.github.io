@@ -31,7 +31,7 @@ SÓTANO
 </thead>
 <tbody>
 <tr><td>D</td><td>12 portátiles</td><td>Ateca</td></tr>
-<tr><td>E</td><td>10 tablets Android</td><td>Ateca</td></tr>
+<tr><td>E (en preparación)</td><td>10 tablets Android</td><td>Ateca</td></tr>
 <tr><td>F</td><td>30 portátiles</td><td>Taller tecnología</td></tr>
 </tbody>
 </table>
@@ -67,8 +67,8 @@ PLANTA SEGUNDA
 <tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
 </thead>
 <tbody>
-<tr><td>B</td><td>24 portátiles</td><td>Lab. de Ciencias Naturales</td></tr>
-<tr><td>H</td><td>26 portátiles</td><td>Aula 22</td></tr>
+<tr><td>B</td><td>30 portátiles</td><td>Lab. de Ciencias Naturales</td></tr>
+<tr><td>H</td><td>26 portátiles (en proceso de ampliación a 30)</td><td>Aula 22</td></tr>
 </tbody>
 </table>
 
