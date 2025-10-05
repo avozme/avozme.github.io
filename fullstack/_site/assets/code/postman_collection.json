@@ -1,0 +1,181 @@
+{
+  "info": {
+    "name": "Laravel API - Tienda Online",
+    "_postman_id": "f12a3a8c-1a2b-4e2b-9c0b-7e123456abcd",
+    "description": "Colección de endpoints REST para la API Laravel de tienda online (Productos, Clientes y Compran).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Productos",
+      "item": [
+        {
+          "name": "Listar productos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/productos"
+          }
+        },
+        {
+          "name": "Ver producto (por ID)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/productos/1"
+          }
+        },
+        {
+          "name": "Crear producto",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Teclado mecánico\",\n  \"descripcion\": \"Teclado retroiluminado RGB\",\n  \"precio\": 79.99,\n  \"stock\": 50\n}"
+            },
+            "url": "{{base_url}}/productos"
+          }
+        },
+        {
+          "name": "Actualizar producto",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Teclado mecánico (actualizado)\",\n  \"descripcion\": \"Versión 2025\",\n  \"precio\": 89.99,\n  \"stock\": 40\n}"
+            },
+            "url": "{{base_url}}/productos/1"
+          }
+        },
+        {
+          "name": "Eliminar producto",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{base_url}}/productos/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Clientes",
+      "item": [
+        {
+          "name": "Listar clientes",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/clientes"
+          }
+        },
+        {
+          "name": "Ver cliente (por ID)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/clientes/1"
+          }
+        },
+        {
+          "name": "Crear cliente",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Ana\",\n  \"apellido1\": \"López\",\n  \"apellido2\": \"Martín\",\n  \"domicilio\": \"Calle Mayor 45\",\n  \"email\": \"ana.lopez@example.com\"\n}"
+            },
+            "url": "{{base_url}}/clientes"
+          }
+        },
+        {
+          "name": "Actualizar cliente",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Ana María\",\n  \"apellido1\": \"López\",\n  \"apellido2\": \"Martín\",\n  \"domicilio\": \"Calle Nueva 12\",\n  \"email\": \"ana.maria@example.com\"\n}"
+            },
+            "url": "{{base_url}}/clientes/1"
+          }
+        },
+        {
+          "name": "Eliminar cliente",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/clientes/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Compran",
+      "item": [
+        {
+          "name": "Listar compras",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/compran"
+          }
+        },
+        {
+          "name": "Ver compra (por ID)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/compran/1"
+          }
+        },
+        {
+          "name": "Crear compra",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"producto_id\": 1,\n  \"cliente_id\": 1,\n  \"fecha\": \"2025-10-05\",\n  \"hora\": \"12:30:00\",\n  \"unidades\": 2\n}"
+            },
+            "url": "{{base_url}}/compran"
+          }
+        },
+        {
+          "name": "Actualizar compra",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"producto_id\": 1,\n  \"cliente_id\": 1,\n  \"fecha\": \"2025-10-06\",\n  \"hora\": \"14:45:00\",\n  \"unidades\": 3\n}"
+            },
+            "url": "{{base_url}}/compran/1"
+          }
+        },
+        {
+          "name": "Eliminar compra",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/compran/1"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000/api"
+    }
+  ]
+}

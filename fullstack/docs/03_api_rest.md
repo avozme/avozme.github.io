@@ -184,11 +184,21 @@ Por todo ello, para la mayor parte de las aplicaciones REST es más que suficien
 
 ## 3.4. Implementar un API REST con Laravel
 
-### 3.4.1. Algunos consejos de entrada
+### 3.4.1. Tips importantes antes de empezar...
 
-Para implementar un API REST con Laravel recuerda que debes:
+Antes de lanzarte a implementar un API REST en Laravel, lee esta sección, por favor.
 
-1. **Crear una arquitectura MVC para los recursos/datos que tengas que servir.**
+Para implementar un API REST con Laravel debes:
+
+1. **Instalar el complemento para APIs de Laravel**. Esto solo es necesario a partir de Laravel 12 (en versiones anteriores ya venía "de serie"):
+
+    ```bash
+    $ php artisan install:api
+    ```
+
+2. **Crear la infraestructura de la base de datos**, como en cualquier aplicación web. La base de datos son los cimientos, así que tendrás que empezar por crear tus migraciones y, opcionalmente, tus *seeders*.
+
+3. **Crear una arquitectura MVC para los recursos/datos que tengas que servir.**
 
    Con Laravel, esto se consigue con uno de estos comandos:
 
@@ -201,21 +211,21 @@ Para implementar un API REST con Laravel recuerda que debes:
 
     * **api** creará solo 5 de las 7 rutas REST, junto con los 5 métodos del controlador. Está pensado para construir una API REST con la que interactuarán otras aplicaciones, pero no humanos, por lo que no ofrece las operaciones *create* ni *edit*, que muestran formularios.
 
-2. **Devolver al cliente los datos formateados como JSON** en lugar de mostrarlos en una vista HTML. Puede usarse también XML, pero JSON es más habitual.
+4. **Devolver al cliente los datos formateados como JSON** en lugar de mostrarlos en una vista HTML. Puede usarse también XML, pero JSON es más habitual.
 
    Con Laravel, en lugar de hacer ```return view()``` al final de cada método del controlador, usaremos ```return response()->json(<datos>)```. Laravel se encargará de enviar ese valor devuelto al cliente.
 
-3. **Respetar los nombres de los verbos y de las peticiones HTTP**, puesto que serán los que el cliente utilice. Recuerda que en una API RESTful estos son:
+5. **Respetar los nombres de los verbos y de las peticiones HTTP**, puesto que serán los que el cliente utilice. Recuerda que en una API RESTful estos son:
 
     * Verbos: *GET, POST, PUT, PATCH, DELETE*.
 
     * Peticiones: *index (GET), show (GET), create (GET), store (POST), edit (GET), update (PUT/PATCH), destroy (DELETE)*.
 
-    
-
 ### 3.4.2. Un ejemplo completo
 
-Vamos a construir una API REST con Laravel para servir los siguientes datos:
+[(Haz clic aquí para acceder al código fuente completo de este ejemplo)](https://github.com/avozme/compras)
+
+Ya estamos en condiciones de construir nuestro primer API REST con Laravel. En este ejemplo, serviremos los siguientes datos:
 
 * **Productos**: los productos de una tienda online ficticia que constarán de id, nombre del producto, descripción, precio y unidades en stock.
 * **Clientes**: los clientes de la tienda online (id, nombre, apellido1, apellido2, domicilio y email).
@@ -223,9 +233,12 @@ Vamos a construir una API REST con Laravel para servir los siguientes datos:
 
 #### Migraciones
 
+Lo primero es crear las migraciones con ```php artisan make:migration nombre_migracion.php```. Aquí te ofrezco un ejemplo de cómo podrían quedar: 
+
 **Migración de Productos:** *database/migrations/\<timestamp\>_create_productos_table.php*
 
 ```php
+<?php
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -250,6 +263,7 @@ return new class extends Migration {
 **Migración de Clientes:** *database/migrations/\<timestamp\>_create_clientes_table.php*
 
 ```php
+<?php
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -275,6 +289,7 @@ return new class extends Migration {
 **Migración de Compras** (pivote con atributos): *database/migrations/\<timestamp\>_create_compras_table.php*
 
 ```php
+<?php
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -299,9 +314,12 @@ return new class extends Migration {
 
 #### Modelos
 
+Lo siguiente sería crear los modelos con ```php artisan make:model NombreModelo```. Aquí te muestro cómo podrían quedar para que reflejasen las relaciones entre las tablas mediante Eloquent.
+
 **Modelo de Producto:** *app/Models/Producto.php*
 
 ```php
+<?php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -320,6 +338,7 @@ class Producto extends Model {
 **Modelo de Cliente:** *app/Models/Cliente.php*
 
 ```php
+<?php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -338,6 +357,7 @@ class Cliente extends Model {
 **Modelo de Compra** (pivote): *app/Models/Compra.php*
 
 ```php
+<?php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -357,7 +377,7 @@ class Compra extends Model {
 
 #### Controladores RESTful
 
-Los controladores los generamos con estos comandos:
+El siguiente paso es crear los controladores. Los generaremos con estos comandos:
 
 ```bash
 $ php artisan make:controller ProductoController --api
@@ -365,11 +385,12 @@ $ php artisan make:controller ClienteController --api
 $ php artisan make:controller CompraController --api
 ```
 
-Fíjate que usamos la opción ***api*** en lugar de ***resource*** para que nos genere 5 métodos REST, no los 7 RESTful, puesto que no necesitaremos los formularios de creación ni de edición (se trata de una API para que la usen otras aplicaciones, no un usuario humano).
+Recuerda que usamos la opción ***api*** en lugar de ***resource*** para que nos genere 5 métodos REST, no los 7 RESTful, puesto que no necesitaremos los formularios de creación ni de edición (se trata de una API para que la usen otras aplicaciones, no un usuario humano).
 
 Por ejemplo, así quedaría el **controlador de Productos:** *app/Http/Controllers/ProductoController.php*
 
 ```php
+<?php
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
@@ -406,9 +427,12 @@ Los controladores de clientes (*ClienteController*) y compras (*CompraController
 
 #### Enrutador (Rutas API)
 
-Como estamos construyendo una API pura, editaremos el enrutador ***routes/api.php*** en lugar de *routes/web.php*:
+Como estamos construyendo una API pura, editaremos el enrutador ***routes/api.php*** en lugar de *routes/web.php*.
+
+<div style='background-color: #ddd'><strong>¡¡OJO!!</strong> Si trabajas con Laravel 12 o posterior, el archivo *routes/api.php* no existirá. Debes instalar primero el soporte para APIs de Laravel con el comando <i>$ php artisan install:api</i></div>
 
 ```php
+<?php
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CompraController;
@@ -424,15 +448,17 @@ El enrutador *routes/web.php* usa el ***middleware web***, que sí controla el e
 
 #### Ejemplo de llamadas REST
 
-Esta API responderá con JSON a cualquier solicitud HTTP. Por ejemplo:
+Laravel está configurado para **usar el enrutador *api.php*** en lugar de *web.php* en todas las rutas que empiecen por /api (este comportamiento se puede cambiar, pero no hay necesidad de hacerlo en este ejemplo).
 
-* **GET /api/productos/1** → solicita los datos del producto con id 1. Recibirá como respuesta un JSON con este aspecto: 
+Nuestra API, por tanto, responderá con JSON a cualquier solicitud HTTP con el prefijo /api. Por ejemplo:
+
+* **GET http://servidor/api/productos/1** → solicita los datos del producto con id 1. Recibirá como respuesta un JSON con este aspecto: 
   
   ```json
   { "id": 1, "nombre": "Teclado", "descripcion": "Mecánico", "precio": 29.99, "stock": 20 }
   ```
 
-* **POST /api/productos** → en este caso, el servidor esperará recibir en el cuerpo de la petición HTTP los datos del producto que tiene que almacenar. 
+* **POST http://servidor/api/productos** → en este caso, el servidor esperará recibir en el cuerpo de la petición HTTP los datos del producto que tiene que almacenar. 
 
   El servidor desempaquetará esos datos y los guardará en la base de datos; y, si todo va bien, responderá con un JSON con los datos del producto que acaba de almacenar (parecido al JSON del ejemplo anterior)
 
@@ -475,7 +501,7 @@ Para ello, puedes escribir algo como "Quiero ir al interfaz clásico de Postman"
 
 Entonces obtendrás una pantalla como esta:
 
-![XXXpantallazo](../assets/images/postman-new-window.jpg)
+![Postman - Nueva ventana](../assets/images/postman-new-window.jpg)
 
 ### 3.5.3. Cómo probar nuestro API REST
 
@@ -491,7 +517,7 @@ En Postman puedes crear una colección llamada, por ejemplo, **Tienda API**, o b
 
 **Todo ello se hace en el panel izquierdo de Postman**.
    
-![XXXpantallazo](../assets/images/postman-crear-coleccion.jpg)
+![Postman - Crear colección](../assets/images/postman-crear-coleccion.jpg)
 
 
 #### Requests GET
@@ -509,7 +535,7 @@ Pues bien: para hacer un **GET /productos** y guardar el request en nuestra cole
 
 El servidor nos debería devolver todos los productos empaquetados en un JSON:
 
-![XXXpantallazo](../assets/images/xxx.jpg)
+![Postman - Request GET](../assets/images/postman-request-get.jpg)
 
 #### Requests POST con datos
 
@@ -537,30 +563,19 @@ Esto se logra así en Postman:
 
 7. Pulsar el **botón "Send"**.
 
-El servidor responderá con un estado 200 (si todo va bien) o con un error (estados 401, 403, 404, 500 o cualquier otro). Además, puede enviarnos datos adicionales, como el id del recurso que acaba de crear o un json con todos los datos del recurso que acaba de crear.
+El servidor responderá con un estado 200 (si todo va bien) o con un error (estados 401, 403, 404, 500 o cualquier otro). Además, puede enviarnos datos adicionales, como el id del recurso que acaba de crear o incluso un JSON con todos los datos del recurso que acaba de crear, como ocurre en el siguiente pantallazo:
 
-![XXXpantallazo](../assets/images/XXX.jpg)
+![Postman - Request POST](../assets/images/postman-request-post.jpg)
 
 #### Requests PUT, PATCH o DELETE
 
 Del mismo modo que con POST podemos enviar *requests* con los verbos PUT, PATCH o DELETE, puesto que en el selector del método de envío encontraremos todos esos verbos.
 
-#### Utilizar colecciones para pruebas masivas
+### 3.5.4. Archivo de colección .json
 
-Postman permite que, una vez creada una colección de *requests*, puedas usarla para probar una API de forma masiva, es decir, para probar todos los *endpoints* de la colección.
+Probablemente una de las formas más útiles de usar Postman como **herramienta de testeo de un API** es disponer de un archivo .json con todos los datos para lanzar los tests. 
 
-Hay varias maneras de hacerlo. Esta que te cuento, la que utiliza el ***collection runner*** de Postman, es solo una de ellas.
-
-1. Haz clic en la colección.
-2. Haz clic en el botón "Run" (ícono de "play").
-3. Se abrirá el Collection Runner. Aquí puedes configurar iteraciones, variables de entorno o usar archivos de datos (CSV o JSON para pruebas con múltiples datos)
-4. Haz clic en "Start Run".
-
-### 3.5.5. Archivo de colección .json
-
-Probablemente lo más útil para usar Postman como **herramienta de testeo de un API** es disponer de un archivo .json con todos los datos para lanzar los tests. 
-
-Esto te permite hacer utilizar cargar la batería de pruebas de una sola vez y utilizarla todas las veces que lo necesites. También es fácil hacer pequeños retoques en las pruebas y volver a cargar el .json en Postman.
+Esto te permite preparar la batería de pruebas de una sola vez y utilizarla todas las veces que lo necesites. También es fácil hacer pequeños retoques en las pruebas y volver a cargar el .json en Postman.
 
 Para usar Postman de este modo, debes:
 
@@ -570,7 +585,9 @@ Para usar Postman de este modo, debes:
 
 Y listo: solo con esto ya tendrás todos los *endpoints* listos para probar.
 
-### 3.5.6. ¿Y qué más puede hacer Postman?
+![Postman - Importar json en colección](../assets/images/postman-coleccion-json.jpg)
+
+### 3.5.5. ¿Y qué más puede hacer Postman?
 
 Postman es mucho más que una herramienta para probar endpoints; es una **plataforma completa de colaboración y automatización para APIs**.
 
