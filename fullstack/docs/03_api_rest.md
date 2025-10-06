@@ -609,164 +609,179 @@ Nosotros no vamos a ver mucho más en esta introducción, pero si quieres profun
 
 Un API como el que hemos construido de ejemplo en esta unidad didáctica también **se puede consumir desde una web estática HTML por medio de Javascript**.
 
-La idea es que Javascript puede llamar al servidor REST y recibir la respuesta JSON, y después crear dinámicamente los elementos HTML necesarios para mostrar esa respuesta JSON en la página que ya estaba cargada.
+La idea es que Javascript puede llamar al servidor REST y recibir la respuesta JSON, y después crear dinámicamente los elementos HTML necesarios para mostrar esa respuesta en la página que ya estaba cargada.
 
-Te muestro a continuación un código que hace exactamente eso. Es decir, lo que vas a ver a continuación es **un frontend minimalista para el API REST** que hemos creado más arriba (Productos, Clientes y Compras), pero está hecho con Javascript clásico, sin apoyo de ningún framework. Es decir, como se hacía hasta el año 2010, más o menos.
+Te muestro un pequeño ejemplo de código que hace exactamente eso. Es decir, lo que vas a ver a continuación es **un frontend minimalista para el API REST** que hemos creado más arriba (Productos, Clientes y Compras), programado con HTML y Javascript clásico, sin apoyo de ningún framework. O, lo que es lo mismo, **programado como se hacía entre los años 2000 y 2010**, más o menos.
 
-**No es necesario que entiendas todo el código** que te presento aquí, basta con que lo comprendas genéricamente. Ten en cuenta, además, que este modo de programar los frontends cayó en desuso desde la aparición de frameworks como *Angular*.
-
-**ARCHIVO index.html**
+<div style='background-color: #ddd'><i>Por favor, ten en cuenta que este modo de programar se considera anticuado. Solo te lo muestro aquí con propósitos didácticos, para que veas por qué son necesarios los frameworks Javascript como Angular.</i></div>
 
 ```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Tienda SPA (JS clásico)</title>
+  <title>Tienda online - Frontend SPA sin frameworks</title>
   <style>
-    body { font-family: sans-serif; margin: 2em; }
-    nav a { margin-right: 1em; cursor: pointer; color: blue; text-decoration: underline; }
+    body { font-family: Arial; margin: 2em; }
     table { border-collapse: collapse; width: 100%; margin-top: 1em; }
-    th, td { border: 1px solid #ccc; padding: .5em; text-align: left; }
+    th, td { border: 1px solid #ccc; padding: 4px; text-align: left; }
     input, textarea { width: 100%; margin-bottom: .5em; }
-    button { padding: .4em .8em; margin-right: .5em; }
+    button { margin-right: .5em; }
   </style>
 </head>
 <body>
 
-  <h1>Tienda online (SPA sin framework)</h1>
-  <nav>
-    <a data-view="list">📋 Listar productos</a>
-    <a data-view="create">➕ Nuevo producto</a>
-  </nav>
+  <h1>Tienda online - Frontend SPA sin frameworks</h1>
+
+  <div>
+    <button onclick="mostrarLista()">Ver productos</button>
+    <button onclick="mostrarFormulario()">Nuevo producto</button>
+  </div>
 
   <div id="view"></div>
 
-  <script src="app.js"></script>
+  <script>
+    var API_URL = "http://localhost/api/productos";
+
+    // Mostrar lista de productos
+    function mostrarLista() {
+      var view = document.getElementById("view");
+      view.innerHTML = "<p>Cargando productos...</p>";
+
+      fetch(API_URL)   // Javascript pide los datos al servidor sin recargar la página
+        .then(function(respuesta) {   // Cuando el servidor responde, convertimos la respuesta en un objeto JSON
+          return respuesta.json();
+        })
+        .then(function(datos) {       // Cuando el objeto JSON está listo, lo procesamos para crear el nuevo HTML
+          var html = "<h2>Lista de productos</h2>";
+          html += "<table><tr><th>ID</th><th>Nombre</th><th>Precio</th><th>Stock</th><th>Acciones</th></tr>";
+          for (var i = 0; i < datos.length; i++) {
+            var p = datos[i];
+            html += "<tr>";
+            html += "<td>" + p.id + "</td>";
+            html += "<td>" + p.nombre + "</td>";
+            html += "<td>" + p.precio + "</td>";
+            html += "<td>" + p.stock + "</td>";
+            html += "<td>"
+              + "<button onclick='editarProducto(" + p.id + ")'>Editar</button>"
+              + "<button onclick='eliminarProducto(" + p.id + ")'>Eliminar</button>"
+              + "</td>";
+            html += "</tr>";
+          }
+          html += "</table>";
+          view.innerHTML = html;
+        })
+        .catch(function(error) {       // Si ocurre cualquier error en la secuecia anterior de acciones, damos un mensaje de error
+          view.innerHTML = "<p>Error al cargar los productos: " + error + "</p>";
+        });
+    }
+
+    // Mostrar formulario vacío para crear productos
+    function mostrarFormulario() {
+      var view = document.getElementById("view");
+      var html = "<h2>Nuevo producto</h2>";
+      html += "<form id='formulario'>";
+      html += "<label>Nombre:</label><input name='nombre'><br>";
+      html += "<label>Descripción:</label><textarea name='descripcion'></textarea><br>";
+      html += "<label>Precio:</label><input name='precio' type='number' step='0.01'><br>";
+      html += "<label>Stock:</label><input name='stock' type='number'><br>";
+      html += "<button type='button' onclick='guardarProducto()'>Guardar</button>";
+      html += "<button type='button' onclick='mostrarLista()'>Cancelar</button>";
+      html += "</form>";
+      view.innerHTML = html;
+    }
+
+    // Guardar producto nuevo
+    function guardarProducto() {
+      var f = document.getElementById("formulario");
+      var datos = {
+        nombre: f.nombre.value,
+        descripcion: f.descripcion.value,
+        precio: parseFloat(f.precio.value),
+        stock: parseInt(f.stock.value)
+      };
+
+      fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(datos)
+      })
+        .then(function(res) { return res.json(); })
+        .then(function() {
+          alert("Producto creado correctamente.");
+          mostrarLista();
+        })
+        .catch(function(error) {
+          alert("Error al crear producto: " + error);
+        });
+    }
+
+    // Formulario para editar producto (versión muy simplificada)
+    function editarProducto(id) {
+      var view = document.getElementById("view");
+      view.innerHTML = "<p>Cargando producto...</p>";
+
+      fetch(API_URL + "/" + id)
+        .then(function(res) { return res.json(); })
+        .then(function(p) {
+          var html = "<h2>Editar producto</h2>";
+          html += "<form id='formulario'>";
+          html += "<input type='hidden' name='id' value='" + p.id + "'>";
+          html += "<label>Nombre:</label><input name='nombre' value='" + p.nombre + "'><br>";
+          html += "<label>Descripción:</label><textarea name='descripcion'>" + p.descripcion + "</textarea><br>";
+          html += "<label>Precio:</label><input name='precio' type='number' value='" + p.precio + "' step='0.01'><br>";
+          html += "<label>Stock:</label><input name='stock' type='number' value='" + p.stock + "'><br>";
+          html += "<button type='button' onclick='actualizarProducto()'>Actualizar</button>";
+          html += "<button type='button' onclick='mostrarLista()'>Cancelar</button>";
+          html += "</form>";
+          view.innerHTML = html;
+        });
+    }
+
+    // Actualizar producto
+    function actualizarProducto() {
+      var f = document.getElementById("formulario");
+      var datos = {
+        id: f.id.value,
+        nombre: f.nombre.value,
+        descripcion: f.descripcion.value,
+        precio: parseFloat(f.precio.value),
+        stock: parseInt(f.stock.value)
+      };
+
+      fetch(API_URL + "/" + datos.id, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(datos)
+      })
+        .then(function() {
+          alert("Producto actualizado.");
+          mostrarLista();
+        })
+        .catch(function(error) {
+          alert("Error al actualizar: " + error);
+        });
+    }
+
+    // Eliminar producto
+    function eliminarProducto(id) {
+      if (!confirm("¿Seguro que quieres eliminar el producto " + id + "?")) return;
+
+      fetch(API_URL + "/" + id, { method: "DELETE" })
+        .then(function() {
+          alert("Producto eliminado.");
+          mostrarLista();
+        })
+        .catch(function(error) {
+          alert("Error al eliminar: " + error);
+        });
+    }
+
+    // Mostrar lista al cargar la página
+    mostrarLista();
+  </script>
 </body>
 </html>
-```
-
-**ARCHIVO app.js**
-
-```javascript
-const API_URL = "http://localhost/compras/api/productos";
-const view = document.getElementById("view");
-
-// --- Navegación SPA ---
-document.querySelectorAll("nav a").forEach(link => {
-  link.addEventListener("click", () => showView(link.dataset.view));
-});
-
-// Vista inicial
-showView("list");
-
-// --- Controlador de vistas ---
-function showView(viewName, id = null) {
-  if (viewName === "list") listProducts();
-  if (viewName === "create") renderForm();
-  if (viewName === "edit") loadProduct(id);
-}
-
-// --- Listar productos ---
-async function listProducts() {
-  view.innerHTML = "<h2>Lista de productos</h2><p>Cargando...</p>";
-  try {
-    const res = await fetch(API_URL);
-    const productos = await res.json();
-    view.innerHTML = `
-      <h2>Lista de productos</h2>
-      <table>
-        <thead><tr><th>ID</th><th>Nombre</th><th>Precio</th><th>Stock</th><th>Acciones</th></tr></thead>
-        <tbody>
-          ${productos.map(p => `
-            <tr>
-              <td>${p.id}</td>
-              <td>${p.nombre}</td>
-              <td>${p.precio.toFixed(2)}</td>
-              <td>${p.stock}</td>
-              <td>
-                <button onclick="showView('edit', ${p.id})">Editar</button>
-                <button onclick="deleteProduct(${p.id})">Eliminar</button>
-              </td>
-            </tr>`).join("")}
-        </tbody>
-      </table>
-    `;
-  } catch (err) {
-    view.innerHTML = `<p>Error al cargar productos: ${err}</p>`;
-  }
-}
-
-// --- Formulario de creación / edición ---
-function renderForm(producto = {}) {
-  view.innerHTML = `
-    <h2>${producto.id ? "Editar producto" : "Nuevo producto"}</h2>
-    <form id="productForm">
-      <input type="hidden" name="id" value="${producto.id || ""}">
-      <label>Nombre:</label>
-      <input name="nombre" value="${producto.nombre || ""}" required>
-      <label>Descripción:</label>
-      <textarea name="descripcion">${producto.descripcion || ""}</textarea>
-      <label>Precio:</label>
-      <input name="precio" type="number" step="0.01" value="${producto.precio || ""}" required>
-      <label>Stock:</label>
-      <input name="stock" type="number" value="${producto.stock || ""}" required>
-      <button type="submit">${producto.id ? "Actualizar" : "Crear"}</button>
-      <button type="button" onclick="showView('list')">Cancelar</button>
-    </form>
-  `;
-
-  document.getElementById("productForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
-    data.precio = parseFloat(data.precio);
-    data.stock = parseInt(data.stock);
-
-    try {
-      if (data.id) {
-        await fetch(`${API_URL}/${data.id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
-        });
-      } else {
-        await fetch(API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
-        });
-      }
-      showView("list");
-    } catch (err) {
-      alert("Error al guardar: " + err);
-    }
-  });
-}
-
-// --- Cargar un producto para editar ---
-async function loadProduct(id) {
-  view.innerHTML = "<p>Cargando producto...</p>";
-  try {
-    const res = await fetch(`${API_URL}/${id}`);
-    const producto = await res.json();
-    renderForm(producto);
-  } catch (err) {
-    view.innerHTML = `<p>Error al cargar producto: ${err}</p>`;
-  }
-}
-
-// --- Eliminar producto ---
-async function deleteProduct(id) {
-  if (!confirm("¿Seguro que quieres eliminar este producto?")) return;
-  try {
-    await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-    listProducts();
-  } catch (err) {
-    alert("Error al eliminar: " + err);
-  }
-}
 ```
 
 Observa que, con esto, hemos construido nuestra primera **aplicación SPA** o *single page application*. Pero hacerlo de este modo tiene varios problemas:
