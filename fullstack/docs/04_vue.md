@@ -718,9 +718,7 @@ export default {
 
 ### 4.4.5. Enrutamiento en el cliente
 
-YYY revisar esta parte, es algo confusa
-
-Aunque no vamos a verlo en profundidad, te cuento que otra de las cosas que puede hacer Vue es **enrutar en el lado del cliente**. Es decir, en lugar de ser Laravel (o quien sea que esté en el lado del servidor) quien haga el enrutamiento de cada *endpoint* hacia un controlador y un método para generar una nueva vista, es el propio navegador quien se encarga de decidir qué hay que hacer con cada ruta, sin llamar al servidor.
+Otra de las cosas que puede hacer Vue es **enrutar en el lado del cliente**. Es decir, en lugar de ser Laravel (o quien sea que esté en el lado del servidor) quien haga el enrutamiento de cada *endpoint* hacia un controlador y un método para generar una nueva vista, es el propio navegador quien se encarga de decidir qué hay que hacer con cada ruta, sin llamar al servidor.
 
 Generalmente, con este tipo de enrutamiento, cada ruta provocará la carga de un nuevo componente de Vue, con lo cual la página cambia ante los ojos del usuario sin que haya intervenido el servidor.
 
@@ -748,15 +746,15 @@ Por supuesto, algunos componentes pueden requerir datos del servidor. Esos compo
 
 Por defecto, Vue no hará enrutamiento en el frontend, pero puedes activar ese enrutamiento fácilmente:
 
-1. **Carga el enrutador en tu *main.js***, antes de montar la app:
+1. **Instala en enrutador** de Vue (si aún no lo has hecho).
 
-    ```javascript
-    createApp(App).use(router).mount(#app);
+    ```bash
+    $ npm install vue-router
     ```
 
-2. Define las rutas y los componentes a los que corresponden en un archivo de rutas. Este archivo puedes llamarlo como quieras, pero generalmente se denomina ***src/router.js*** y tiene este aspecto:
+2. **Define las rutas y los componentes** a los que cada ruta corresponde en un archivo de rutas. Este archivo puedes llamarlo como quieras, como por ejemplo ***src/router.js***. Debe tener un aspecto como este:
 
-    ```vue
+    ```javascript
     import { createRouter, createWebHistory } from 'vue-router'
     // Importamos todos los componentes que vayamos a direccionar desde en enrutador
     import ProductosList from './components/ProductosList.vue'
@@ -777,7 +775,15 @@ Por defecto, Vue no hará enrutamiento en el frontend, pero puedes activar ese e
     export default router
     ```
 
-3. **Usa *router-links* en los enlaces a los componentes** en lugar de links normales con "a href...". Por ejemplo:
+3. **Carga el enrutador en tu *main.js***, antes de montar la app:
+
+    ```javascript
+    import router from './router'
+
+    createApp(App).use(router).mount(#app);
+    ```
+
+4. **Usa `<router-link>` en los enlaces a los componentes** en lugar de links normales con `<a href...>`. Por ejemplo, en tu ***App.vue*** podría aparecer algo como esto:
 
     ```vue
     <template>
@@ -790,12 +796,12 @@ Por defecto, Vue no hará enrutamiento en el frontend, pero puedes activar ese e
       etc...
     </template>
     ```
-
-    El elemento ***router-view*** que ves en el código anterior es un componente especial de Vue donde se renderizan los componentes que corresponden con la vista actual.
     
-    Vue decidirá qué componente debe mostrar ahí, en el lugar donde aparece ***router-view***, según lo que tú hayas puesto en archivo de rutas ***src/router.js***.
+    Observa como cada `<router-link>` te lleva a una de las rutas que hemos definido en ***routes.js***, que a su vez provocan la carga de un componente Vue
 
-### 4.4.6. Un ejemplo completo de frontend hecho con Vue
+    El elemento `<router-view>` que aparece justo después de los `<router-link>` indica a Vue que ahí, justo en ese punto, debe renderizar el componenten que se corresponda con la ruta actual.
+
+### 4.4.6. Ejemplo completo: frontend con Vue v1 - solo mostrar datos
 
 Para asimilar mejor toda esta sección e ilustrar bien cómo se usa Vue para construir frontends independientes del backend, vamos a crear un frontend con Vue para consumir [el API «Compras» que programamos como ejemplo en el tema anterior](https://github.com/avozme/compras).
 
@@ -811,9 +817,7 @@ Vamos a programar **3 versiones** sucesivamente más complejas de este frontend:
 * **Versión 2**: añadiremos funcionalidades CRUD a la versión 1, por lo que ya tendremos una aplicación 100% funcional, aunque aún hará enrutamiento en el servidor.
 * **Versión 3**: añadiremos enrutamiento en el cliente a la versión 2, por lo que tendremos una verdadera aplicación SPA que minimiza las recargas y los accesos al servidor.
 
-#### VERSIÓN 1: solo mostrar datos
-
-En esta primera versión, crearemos los tres componentes para que tan solo *muestren los datos disponibles en la base de datos*, pero no permitan manipularlos (ni insertar, ni modificar, ni borrar).
+En la primera versión, crearemos los tres componentes para que tan solo *muestren los datos disponibles en la base de datos*, pero no permitan manipularlos (ni insertar, ni modificar, ni borrar).
 
 La app principal de Vue (#app) estará dividida, pues, en 3 componentes:
 
@@ -821,10 +825,13 @@ La app principal de Vue (#app) estará dividida, pues, en 3 componentes:
 * **clientes-list** → lista de clientes
 * **compras-list** → lista de compras
 
-
 [ACCEDE AQUÍ AL CÓDIGO COMPLETO DE ESTA VERSIÓN](https://github.com/avozme/frontend-compras-v1)
 
+#### Código más importante de la versión 1
+ 
 **Archivo *main.js***
+
+Como siempre, este será el punto de entrada de la aplicación. Se encargará tan solo de montar el elemento *app*:
 
 ```javascript
 import { createApp } from 'vue'
@@ -837,7 +844,7 @@ createApp(App).mount('#app')
 
 Este componente contiene la plantilla (template) principal de la aplicación. 
 
-Observa cómo se usan los *v-if* para renderizar un componente *productos-list*, *clientes-list* o *compras-list* según qué vista esté activa en este momento. Esto no será necesario cuando usemos enrutamiento en el cliente en la versión 3 de la aplicación.
+Observa cómo se usan los ***v-if*** y ***v-else*** para renderizar un componente `<productos-list>`, `<clientes-list>` o `<compras-list>` según qué vista esté activa en este momento. Esto no será necesario cuando usemos enrutamiento en el cliente en la versión 3 de la aplicación.
 
 ```html
 <template>
@@ -894,7 +901,7 @@ export default {
 
 Este componente prepara los datos de los productos para mostarlos en una tabla HTML. Observa dos cosas:
 
-* Cómo se hace un *v-for* sobre el array de productos para generar la tabla HTML con los datos.
+* Cómo se hace un ***v-for*** sobre el array de productos para generar la tabla HTML con los datos.
 * Cómo se hace la llamada al servidor con ***fetch()*** en cuanto está montado en el DOM de la página para recibir como respuesta un JSON con los datos de los productos.
 
 ```vue
@@ -953,7 +960,7 @@ Fíjate que a Vue le da igual si esta tabla es una **tabla maestra** o una **tab
 
 Tampoco mostraremos el código aquí, porque es casi idéntico al de *ProductosList.vue*. Recuerda que tienes el código completo disponible en [https://github.com/avozme/frontend-compras-v1](https://github.com/avozme/frontend-compras-v1) 
 
-#### VERSIÓN 2: CRUD completo, enrutamiento en servidor
+### 4.4.7. Ejemplo completo: frontend con Vue v2 - CRUD completo, enrutamiento en servidor
 
 El frontend anterior consume el API Compras, pero lo hace solo para consultar los listados de datos.
 
@@ -961,7 +968,11 @@ Podemos mejorarlo **añadiendo funcionalidades de CRUD** a cada uno de los compo
 
 Puedes echar un vistazo al código de esta versión más completa aquí. Solo vamos a mostrar el CRUD de Productos, pero los otros dos (Clientes y Compras) se resuelven de forma muy similar:
 
-[ACCEDE AL CÓDIGO FUENTE COMPLETO DE LA VERSIÓN 2](https://github.com/avozme/frontend-compras-v2)
+[ACCEDE AQUÍ AL CÓDIGO FUENTE COMPLETO DE LA VERSIÓN 2](https://github.com/avozme/frontend-compras-v2)
+
+#### Código más importante de la Versión 2
+
+Los archivos *index.js* y *App.vue* serían idénticos a los de la versión anterior. Lo único que cambia en esta versión son los componentes *ProductosList.vue*, *ClientesList.vue* y *ComprasList.vue*, que se vuelven más complejos al incorporar todas las funcionalidades de un CRUD.
 
 **Archivo *components/ProductosList.vue* con CRUD completo**
 
@@ -1114,7 +1125,11 @@ export default {
 </style>
 ```
 
-#### VERSIÓN 3: CRUD completo, enrutamiento en cliente
+**Archivos *src/components/ClientesList.vue*** y ***src/components/ComprasList.vue***
+
+Estos archivos son muy semejantes a *ProductosList.vue*, pero adaptados a la estrucura de Clientes y Compras, así que no los mostraremos aquí. Puedes consultar el código completo en [https://github.com/avozme/frontend-compras-v2](https://github.com/avozme/frontend-compras-v2)
+
+### 4.4.8. Ejemplo completo: frontend con Vue v3 - CRUD completo, enrutamiento en cliente
 
 La versión más completa de este frontend no solo haría un CRUD completo de cada recurso, sino que **enrutaría en el cliente** para minimizar los accesos al servidor y agilizar la ejecución.
 
@@ -1125,11 +1140,70 @@ Además, lo lógico es dividir los componentes como ***ProductosList.vue*** en d
 
 Esta misma división debería hacerse con Clientes y con Compras. Obtendríamos así una aplicación frontend **bien diseñada y fácilmente escalable**. 
 
-Aquí solo te mostraré el código de Productos, pero puedes ver el código completo de los otros componentes (Clientes y Compras) en el siguiente link.
+Aquí solo te mostraré el código de Productos, además de los cambios necesarios en *main.js* y del archivo de rutas, pero puedes ver el código completo de los otros componentes (Clientes y Compras) en el siguiente link.
 
 [ACCEDE AQUÍ AL CÓDIGO FUENTE COMPLETO DE ESTA VERSIÓN](https://github.com/avozme/frontend-compras-v3)
 
+#### Código más importante de la versión 3
+
+**Archivo *src/router.js***
+
+Este es el **archivo de enrutamiento** (no tiene una ubicación estándar y puedes encontrarlo en otros lugares del proyecto). Define qué componente se va a cargar con cada ruta.
+
+Por ejemplo, en el código de aquí abajo (recuerda: está incompleto; el código completo lo tienes [aquí](https://github.com/avozme/frontend-compras-v3)), la ruta `/productos` producirá la carga del componente *ProductosList.vue*, mientras que la ruta `/productos/nuevo` cargará el componente *ProductoForm.vue*. 
+
+```javascript
+import { createRouter, createWebHistory } from 'vue-router'
+import ProductosList from './components/ProductosList.vue'
+import ProductoForm from './components/ProductoForm.vue'
+
+const routes = [
+  { path: '/', redirect: '/productos' },
+  { path: '/productos', component: ProductosList },
+  { path: '/productos/nuevo', component: ProductoForm },
+]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes
+})
+
+export default router
+```
+
+Hay que modificar el archivo principal de Vue (***src/main.js***) para que importe el router y lo use antes de montar la app. Algo así:
+
+**Archivo *src/main.js***
+
+```javascript
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+
+createApp(App).use(router).mount('#app')
+```
+
+**Archivo *src/App.vue***
+
+En el componente principal de Vue (***src/App.vue***) hay que colocar un `<router-view />` en el punto donde queremos que se muestren los componentes asociados a las rutas. También es habitual mostrar links construidos con `<router-link>` en lugar de `<a href...>`.
+
+Por ejemplo, en el ejemplo de aquí abajo (recuerda, está incompleto) hacemos que el texto "Lista de productos" enlace con la ruta "/productos", que a su vez provoca la carga del componente *ProductosList.vue* según se definió en el archivo *routes.js*.
+
+```vue
+<template>
+  <div>
+    <nav style="margin-bottom: 1rem;">
+      <router-link to="/productos">Lista de productos</router-link> |
+      <router-link to="/productos/nuevo">Producto nuevo</router-link> |
+    </nav>
+    <router-view />
+  </div>
+</template>
+```
+
 **Archivo *components/ProductosList.vue***
+
+Este componente muestra la lista de productos.
 
 ```vue
 <template>
@@ -1212,15 +1286,11 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.search-bar {
-  margin-bottom: 1rem;
-}
-</style>
 ```
 
 **Archivo *components/ProductoForm.vue***
+
+Este componente gestiona el formulario para añadir/editar un producto.
 
 ```vue
 <template>
@@ -1286,10 +1356,6 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  /* Aquí iría el CSS */
-</style>
 ```
 
 ## 4.5. Vue.js integrado en Laravel para aplicaciones full stack
