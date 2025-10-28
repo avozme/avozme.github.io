@@ -22,7 +22,7 @@
       <span class="k">return</span> <span class="s2">"Hola, mundo"</span><span class="p">;</span>
    <span class="p">}</span>
    <span class="k">public</span> <span class="k">function</span> <span class="n">show</span><span class="p">(</span><span class="nv">$nombre</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'hola'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'nombre'</span><span class="p">,</span> <span class="nv">$nombre</span><span class="p">]);</span>
+      <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'hola'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'nombre'</span> <span class="o">=&gt;</span> <span class="nv">$nombre</span><span class="p">]);</span>
    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div> <p>Como ves, estamos <strong>invocando una vista llamada <em>hola</em></strong> (<code class="language-plaintext highlighter-rouge">return view('hola')</code>) y le estamos pasando un array con los datos necesarios (el nombre del usuario, en este caso).</p> <p><strong>VISTA BLADE (/resources/views/hola.blade.php)</strong></p> <p>El archivo con la vista debe crearse en <em>/resources/views/hola.blade.php</em> y puede un aspecto como este:</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
