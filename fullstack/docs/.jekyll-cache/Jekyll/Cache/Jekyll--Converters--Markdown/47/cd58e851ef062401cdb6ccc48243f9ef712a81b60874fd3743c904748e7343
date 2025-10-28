@@ -1,0 +1,106 @@
+I"	<h2 class="no_toc" id="22-instalación-de-laravel">2.2. Instalación de Laravel</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#221-instalación-con-docker-recomendado" id="markdown-toc-221-instalación-con-docker-recomendado">2.2.1. Instalación con Docker (RECOMENDADO)</a></li>
+  <li><a href="#222-instalación-con-composer" id="markdown-toc-222-instalación-con-composer">2.2.2. Instalación con composer</a></li>
+</ul>
+
+<p>En esta sección vamos a describir el proceso de instalación de Laravel en un servidor local para desarrollo.</p>
+
+<p>Tienes dos posibilidades:</p>
+
+<ol>
+  <li><strong>Usar composer</strong>.</li>
+  <li><strong>Usar sail</strong>.</li>
+</ol>
+
+<p>En ambos casos, se trata de mecanismos oficiales de instalación recomendados por Laravel, así que puedes optar por el que quieras. Aunque, por supuesto, siempre eres libre de instalarlo manualmente y por tu cuenta sobre un servidor Apache, nginx o similar.</p>
+
+<h3 id="221-instalación-con-docker-recomendado">2.2.1. Instalación con Docker (RECOMENDADO)</h3>
+
+<p><strong>Docker</strong>, como ya sabes, es una tecnología que solo virtualiza los servicios de software que nuestra aplicación necesita para funcionar en lugar de la máquina completa, como haría VirtualBox, por ejemplo.</p>
+
+<p>Los servicios virtualizados se agrupan en conjuntos llamados <strong><em>images</em></strong>. Cuando una <em>image</em> se instancia (como quien instancia una clase en programación orientada a objetos), pasan de denominarse <strong><em>containers</em></strong>.</p>
+
+<p>Laravel proporciona una herramienta llamada <strong><em>sail</em></strong> que permite desplegar un Laravel basado en Docker en cuestión de segundos con modificaciones mínimas en tu sistema nativo.</p>
+
+<ul>
+  <li>
+    <p><strong>PASO 1. Instala <em>docker</em> y <em>docker-compose</em> en tu ordenador</strong>. Si trabajas con Windows, asegúrate de instalar también <em>Docker desktop</em> para iniciar y detener Docker con comodidad.</p>
+
+    <p>Si trabajas con Linux, Docker Desktop no es necesario, pero puede resultarte cómodo.</p>
+  </li>
+  <li>
+    <p><strong>PASO 2. Instala las imágenes oficiales de Laravel</strong></p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="nt">-s</span> https://laravel.build/mi-app | bash
+</code></pre></div>    </div>
+
+    <p>(Cambiar “mi-app” por el nombre que tú quieras).</p>
+
+    <p>Esto puede tomar un rato. Ten en cuenta que Laravel es un framework muy, muy grande.</p>
+
+    <div style="background-color: #ddd">
+<strong>¡Ojo!</strong> Si utilizas Windows esto no funcionará en el <i>cmd</i> ni el <i>PowerShell</i>. Necesitarás instalar WSL y, dentro de WSL, instalar una distribución Linux como Ubuntu. Esto te permitirá tener un Linux corriendo dentro de tu Windows de forma segura. <br /><br />Para lograrlo, debes ejecutar el comando <code>wsl --install -d Ubuntu</code> en tu PowerShell. Luego ejecuta el comando <code>wsl</code> y tendrás un terminal con un Linux completo.
+</div>
+  </li>
+  <li>
+    <p><strong>PASO 3. Levanta el servidor de desarrollo con <em>sail</em></strong></p>
+  </li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd </span>mi-app    <span class="c"># O el directorio que hayas elegido en el paso anterior</span>
+<span class="nv">$ </span>./vendor/bin/sail up <span class="nt">-d</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p><strong>PASO 4. Comprueba que el servidor funciona</strong>. Visita <a href="http://localhost">http://localhost</a></p>
+  </li>
+  <li>
+    <p><strong>PASO 5. Comprueba que funciona el servidor MySQL</strong>. Haz <code class="language-plaintext highlighter-rouge">./vendor/bin/sail mysql</code> para acceder al cliente en modo texto de MySQL. Los datos de la conexión los puedes consultar (y cambiar) en el archivo <code class="language-plaintext highlighter-rouge">docker-compose.yml</code></p>
+  </li>
+  <li>
+    <p><strong>PASO 6. Al terminar, no olvides apargar el servidor virtual</strong>.</p>
+  </li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>./vendor/bin/sail down
+</code></pre></div></div>
+
+<h3 id="222-instalación-con-composer">2.2.2. Instalación con composer</h3>
+
+<p><em>composer</em> es un gestor de dependencias para PHP, es decir, puede instalar librerías adicionales a los que vienen con PHP de fábrica. Eso incluye Laravel y todas las librerías que Laravel necesita.</p>
+
+<ul>
+  <li>
+    <p><strong>PASO 1: Instala <em>PHP</em> y <em>composer</em> en tu sistema</strong>. <em>composer</em> es un gestor de dependencias para PHP, es decir, instala librerías y paquetes adicionales necesarios para que los programas (como Laravel) funcionen.</p>
+  </li>
+  <li>
+    <p><strong>PASO 2: Descarga Laravel usando <em>composer</em></strong>. Esto no solo descargará Laravel, sino también todas sus dependencias, que son muchas.</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>composer create-project laravel/laravel nombre-app   
+</code></pre></div>    </div>
+
+    <p>(Cambia «nombre-app» por el nombre de tu aplicación)</p>
+  </li>
+  <li>
+    <p><strong>PASO 3: Accede al directorio de tu aplicación</strong></p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd </span>nombre-app  <span class="c"># O el nombre que hayas elegido en el paso anterior</span>
+</code></pre></div>    </div>
+
+    <p>No olvides dar los permisos necesarios a tus archivos y directorios.</p>
+  </li>
+  <li>
+    <p><strong>PASO 4: Pon en marcha el servidor</strong>. Laravel viene con su propio servidor web para desarrollo (para producción, habría que sustituirlo por un Apache, nginx o similar bien configurado).</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan serve
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>PASO 5: Comprueba que el servidor funciona</strong>. Visita la URL <a href="http://localhost:8000">http://localhost:8000</a></p>
+  </li>
+</ul>
+
+:ET

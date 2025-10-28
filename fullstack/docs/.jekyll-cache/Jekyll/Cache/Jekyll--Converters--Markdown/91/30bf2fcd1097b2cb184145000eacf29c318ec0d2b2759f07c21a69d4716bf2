@@ -1,0 +1,129 @@
+I"�#<h2 class="no_toc" id="28-controladores">2.8. Controladores</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#281-cuatro-cosas-importantes-sobre-los-controladores-en-laravel" id="markdown-toc-281-cuatro-cosas-importantes-sobre-los-controladores-en-laravel">2.8.1. Cuatro cosas importantes sobre los controladores en Laravel</a></li>
+  <li><a href="#282-tres-formas-de-crear-un-controlador" id="markdown-toc-282-tres-formas-de-crear-un-controlador">2.8.2. Tres formas de crear un controlador</a></li>
+  <li><a href="#283-buenas-prácticas-de-programación-de-controladores" id="markdown-toc-283-buenas-prácticas-de-programación-de-controladores">2.8.3. Buenas prácticas de programación de controladores</a></li>
+</ul>
+
+<p>Los <strong>controladores</strong> son un elemento clave de la <strong>arquitectura MVC</strong>. En Laravel, los controladores funcionan exactamente igual que en las aplicaciones MVC hechas con PHP clásico.</p>
+
+<p>Es decir: son los puntos de entrada a la aplicación desde el enrutador.</p>
+
+<p>Los controladores deberían permanecer lo más sencillos posible: nada de accesos a la base de datos ni de generación de HTML. Esas acciones se derivarán a los modelos y las vistas. El controlador es un organizador del flujo de la aplicación: decide qué componente tiene que trabajar y el orden en el que lo debe hacer.</p>
+
+<p>En esta sección, vamos a aprender a construir controladores con Laravel. Vas a ver que es algo extremadamente sencillo.</p>
+
+<h3 id="281-cuatro-cosas-importantes-sobre-los-controladores-en-laravel">2.8.1. Cuatro cosas importantes sobre los controladores en Laravel</h3>
+
+<ol>
+  <li>
+    <p>Los <strong>controladores</strong> en Laravel siempre <strong>heredan de la clase <em>Controller</em></strong> o de una subclase de <em>Controller</em>.</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">MiControlador</span> <span class="kd">extends</span> <span class="nc">Controller</span> <span class="p">{</span>
+   <span class="mf">...</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Su nombre debería escribirse en singular, CamelCase y terminando en la palabra Controller. Por ejemplo: <em>UserController</em>, <em>LoginController</em>, <em>ArticleController</em>…</p>
+  </li>
+  <li>
+    <p><strong>Cada método del controlador debe terminar en un <em>return</em></strong>. Lo que el método devuelva será convertido automáticamente en una <em>HTTP response 200</em>, es decir, en una respuesta válida http, excepto si es un array, en cuyo caso Laravel lo convertirá automáticamente en JSON (perfecto para responder a peticiones Ajax, como veremos más adelante).</p>
+  </li>
+  <li>
+    <p>Si lo necesitas, puedes actuar sobre la <em>HTTP response</em> devolviendo algo como esto:</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">return</span> <span class="nf">response</span><span class="p">(</span><span class="s1">'contenido'</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
+         <span class="o">-&gt;</span><span class="nb">header</span><span class="p">(</span><span class="s1">'mi-cabecera'</span><span class="p">,</span> <span class="s1">'contenido'</span><span class="p">)</span>
+         <span class="o">-&gt;</span><span class="nb">header</span><span class="p">(</span><span class="s1">'otra-cabecera'</span><span class="p">,</span> <span class="s1">'más-contenido'</span><span class="p">)</span>
+         <span class="o">-&gt;</span><span class="nf">cookie</span><span class="p">(</span><span class="s1">'mi-cookie'</span><span class="p">,</span> <span class="s1">'valor'</span><span class="p">);</span>
+         <span class="p">(</span><span class="n">etc</span><span class="p">)</span>
+</code></pre></div>    </div>
+
+    <p>(Pero no nos engañemos: no lo necesitarás hacer demasiado a menudo).</p>
+  </li>
+</ol>
+
+<h3 id="282-tres-formas-de-crear-un-controlador">2.8.2. Tres formas de crear un controlador</h3>
+
+<p>Los controladores se pueden crear a mano: vas al directorio <em>/app/http/controllers</em>, creas allí un archivo vacío y empiezas a escribir código como una fiera.</p>
+
+<p>Pero nadie lo hace así porque <strong>Artisan</strong> ya crea el esqueleto del archivo por ti. Así que es mejor que vayas a lo práctico: abre una consola en tu servidor web y ponte a escribir.</p>
+
+<p><strong>Forma 1. Crear un controlador vacío.</strong></p>
+
+<p>Por ejemplo, para crear un controlador para la tabla de usuarios:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   $ php artisan make:controller UserController
+</code></pre></div></div>
+
+<p><strong>Forma 2. Crear un controlador de tipo resource.</strong></p>
+
+<p>Estos controladores se generan automáticamente con un andamiaje para construir recursos <strong>REST</strong>. Es decir, la clase ya llevará incorporados los métodos <em>index(), create(), store(), show(), edit(), update()</em> y <em>destroy()</em> del estándar REST.</p>
+
+<p>(Si no sabes de qué estamos hablando, revisa la sección que dedicamos al enrutamiento en Laravel)</p>
+
+<p>Para crear un controlador RESTful:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   $ php artisan make:controller UserController --resource
+</code></pre></div></div>
+
+<p>No te olvides de añadir al enrutador (<em>/routes/web.php</em>) las rutas REST para este tipo controlador. Te recuerdo que se pueden resumir las siete rutas en esta sola entrada del enrutador:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Route::resource('nombreRecurso', RecursoController::class);
+</code></pre></div></div>
+
+<p>En nuestro ejemplo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Route::resource('usuarios', UserController::class);
+</code></pre></div></div>
+
+<p><strong>Forma 3. Crear un controlador tipo API.</strong></p>
+
+<p>Una <strong>API</strong> (<em>Application Programming Interface</em>) es un interfaz entre programas. Es decir, es la forma en la que unos programas interaccionan con otros.</p>
+
+<p>Algunas aplicaciones web se diseñan para que otros programas las utilicen, no para que las utilicen seres humanos. En estos casos, el interfaz de usuario no existe (o es mínimo) y lo importante es el API. Y los métodos del controlador no devuelven vistas, sino datos formateados en JSON.</p>
+
+<p>Se puede construir con Laravel un controlador tipo API de forma muy simple, porque es parecido a un <em>resource</em>, pero sin <em>create()</em> ni <em>edit()</em>, porque una API no necesita mostrar los formularios de inserción/modificación.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   $ php artisan make:controller UserController --api
+</code></pre></div></div>
+
+<p>De nuevo, no te olvides de las entradas en el enrutador. Puedes englobarlas todas en una sola entrada con este aspecto:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Route::apiResource('usuarios', UserController::class);
+</code></pre></div></div>
+
+<h3 id="283-buenas-prácticas-de-programación-de-controladores">2.8.3. Buenas prácticas de programación de controladores</h3>
+
+<ol>
+  <li>
+    <p>Usa <em>namespacings</em> en el archivo de rutas para referirte a los controladores.</p>
+
+    <p><strong><em>/routes/web.php</em></strong></p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Htpp\Controllers\UserController</span><span class="p">;</span>
+</code></pre></div>    </div>
+
+    <p>Y también usa <em>namespacing</em> en los controladores.</p>
+
+    <p><strong><em>/app/Http/controllers/MyController.php</em></strong></p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">App\Http\Controllers</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Si el método del controlador recibe datos, recupéralos así:</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">Illuminate\Http\Request</span><span class="p">;</span>
+<span class="mf">...</span>
+<span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span> <span class="p">{</span> <span class="mf">...</span> <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Usa nombres estándar para los métodos del controlador: <em>index(), store(), edit()</em>, etc. Sobre todo si estás construyendo un API estándar (ver tema siguiente).</p>
+  </li>
+</ol>
+
+:ET

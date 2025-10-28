@@ -1,0 +1,177 @@
+I"�'<h2 class="no_toc" id="110-práctica-final-del-tema-1">1.10. Práctica final del tema 1</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#1101-control-de-acceso-de-usuarios-con-sesiones" id="markdown-toc-1101-control-de-acceso-de-usuarios-con-sesiones">1.10.1. Control de acceso de usuarios con sesiones</a></li>
+  <li><a href="#1102-capa-de-abstracción-de-datos" id="markdown-toc-1102-capa-de-abstracción-de-datos">1.10.2. Capa de abstracción de datos</a></li>
+  <li><a href="#1103-crud-completo-de-autores" id="markdown-toc-1103-crud-completo-de-autores">1.10.3. CRUD completo de Autores</a></li>
+  <li><a href="#1104-modelo-genérico-base" id="markdown-toc-1104-modelo-genérico-base">1.10.4. Modelo genérico base</a></li>
+  <li><a href="#1105-controladores-múltiples" id="markdown-toc-1105-controladores-múltiples">1.10.5. Controladores múltiples</a></li>
+  <li><a href="#1106-archivo-de-configuración" id="markdown-toc-1106-archivo-de-configuración">1.10.6. Archivo de configuración</a></li>
+  <li><a href="#1107-enrutador" id="markdown-toc-1107-enrutador">1.10.7. Enrutador</a></li>
+</ul>
+
+<p>Para terminar la unidad didáctica de PHP vamos a proponer un caso prácticos más completo para que pongas manos a la obra.</p>
+
+<p>Se trata de modificar y mejorar, paso a paso, <a href="../php/mvc/#175-una-implementación-completa-biblioteca">la aplicación de la Biblioteca</a>.</p>
+
+<h3 id="1101-control-de-acceso-de-usuarios-con-sesiones">1.10.1. Control de acceso de usuarios con sesiones</h3>
+
+<p>Objetivo: Añadir a la <a href="../php/mvc/#175-una-implementación-completa-biblioteca">Biblioteca</a> un sistema básico de autenticación y autorización.</p>
+
+<p>Tareas:</p>
+
+<ul>
+  <li><strong>Crear tabla <em>usuarios</em> en la BD</strong>: crea una tabla con campos idUsuario, nombreUsuario y password (encriptado con password_hash de PHP).</li>
+  <li><strong>Crear formulario de login</strong>: vista <em>views/usuario/login.php</em> con campos usuario y contraseña.</li>
+  <li><strong>Crar modelo <em>Usuario</em></strong>:
+    <ul>
+      <li>Método <em>checkLogin</em>(<em>$nombreUsuario, $password</em>) que verifique las credenciales.</li>
+    </ul>
+  </li>
+  <li><strong>Iniciar sesiones</strong>:
+    <ul>
+      <li>En <em>index.php</em>, inicia la sesión con session_start().</li>
+      <li>Si el usuario está logueado, guarda su id y nombre en $_SESSION.</li>
+    </ul>
+  </li>
+  <li><strong>Proteger acciones</strong>:
+    <ul>
+      <li>Sólo permitir insertar, modificar o borrar libros/autores si el usuario está logueado.</li>
+      <li>En caso contrario, redirigir a la vista de login con un mensaje de error.</li>
+    </ul>
+  </li>
+  <li><strong>Cerrar sesión</strong>: añade un enlace “Cerrar sesión” en el menú de navegación.</li>
+</ul>
+
+<h3 id="1102-capa-de-abstracción-de-datos">1.10.2. Capa de abstracción de datos</h3>
+
+<p>Objetivo: Que los modelos no dependan de PDO ni de la base de datos concreta.</p>
+
+<p>Tareas:</p>
+
+<ul>
+  <li><strong>Crea una clase Database</strong> en <em>core/Database.php</em> que:
+    <ul>
+      <li>Tenga un constructor que establezca la conexión con la base de datos.</li>
+      <li>Defina métodos genéricos como <em>query($sql, $params = [])</em> y <em>fetchAll()</em>, <em>fetch()</em>. Estos últimos devolverán un array con los datos de la consulta (o <em>null</em> si la consulta no devolvió nada).</li>
+    </ul>
+  </li>
+  <li><strong>Modifica el modelo <em>Libro</em></strong> para que use la clase <em>Database</em> en lugar de crear su propio objeto PDO.</li>
+  <li><strong>Comprueba que la aplicación sigue funcionando igual</strong>.</li>
+</ul>
+
+<h3 id="1103-crud-completo-de-autores">1.10.3. CRUD completo de Autores</h3>
+
+<p>Objetivo: Poder crear, leer, actualizar y borrar autores.</p>
+
+<p>Tareas: Añadir a la aplicación el mantenimiento de Autores de libros:</p>
+
+<ul>
+  <li><strong>Crear nuevo modelo <em>Autor</em></strong> con los métodos: <em>insert(), update(), delete(), getAll(), get($id)</em>.</li>
+  <li><strong>Añadir métodos necesarios al controlador <em>index.php</em></strong>:
+    <ul>
+      <li><em>mostrarListaAutores()</em></li>
+      <li><em>formularioInsertarAutor()</em></li>
+      <li><em>insertarAutor()</em></li>
+      <li><em>formularioModificarAutor()</em></li>
+      <li><em>modificarAutor()</em></li>
+      <li><em>borrarAutor()</em></li>
+    </ul>
+  </li>
+  <li><strong>Crear las vistas necesarias</strong> en views/autor/:
+    <ul>
+      <li><em>all.php</em> para listar y enlazar a modificar/borrar, igual que en libros.</li>
+      <li><em>form.php</em> para insertar o editar, igual que en libros.</li>
+    </ul>
+  </li>
+  <li><strong>Añadir el enlace “Autores” en el menú de navegación</strong> (ya existe, pero ahora tendrá funcionalidad).</li>
+</ul>
+
+<h3 id="1104-modelo-genérico-base">1.10.4. Modelo genérico base</h3>
+
+<p>Objetivo: Evitar duplicar código en los modelos.</p>
+
+<p>Tareas:</p>
+
+<ul>
+  <li><strong>Crea una clase abstracta <em>BaseModel</em></strong> en <em>models/BaseModel.php</em> con métodos comunes como:
+    <ul>
+      <li>Constructor que reciba el nombre de la tabla y el nombre de la columna clave primaria.</li>
+      <li><em>get($id)</em></li>
+      <li><em>getAll()</em></li>
+      <li><em>delete($id)</em></li>
+    </ul>
+  </li>
+  <li><strong>Haz que los modelos <em>Libro</em> y <em>Autor</em> hereden de <em>BaseModel</em></strong> y utilicen estos métodos en lugar de reescribirlos.</li>
+  <li><strong>Adapta las consultas específicas</strong> (por ejemplo, <em>search</em> de <em>Libro</em>) para que convivan con esta herencia.</li>
+</ul>
+
+<h3 id="1105-controladores-múltiples">1.10.5. Controladores múltiples</h3>
+
+<p>Objetivo: Separar las responsabilidades de cada entidad.</p>
+
+<p>Tareas:</p>
+
+<ul>
+  <li><strong>Crea los controladores</strong> <em>controllers/LibrosController.php</em> y <em>controllers/AutoresController.php</em>.</li>
+  <li><strong>Mueve a cada uno de ellos</strong> los metodos correspondientes (listar, insertar, modificar, borrar).</li>
+  <li><strong>Crea un <em>index.php</em></strong> nuevo que llame al controlador adecuado a partir de la variable <em>controller</em> que vendrá, junto con <em>action</em> en la petición POST o GET. Algo así:</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$controller</span> <span class="o">=</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'controller'</span><span class="p">]</span> <span class="o">??</span> <span class="s1">'Libros'</span><span class="p">;</span>
+<span class="nv">$action</span> <span class="o">=</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'action'</span><span class="p">]</span> <span class="o">??</span> <span class="s1">'index'</span><span class="p">;</span>
+<span class="nv">$controllerClass</span> <span class="o">=</span> <span class="nv">$controller</span> <span class="mf">.</span> <span class="s1">'Controller'</span><span class="p">;</span>
+<span class="k">require</span> <span class="s2">"controllers/</span><span class="nv">$controllerClass</span><span class="s2">.php"</span><span class="p">;</span>
+<span class="p">(</span><span class="k">new</span> <span class="nv">$controllerClass</span><span class="p">())</span><span class="o">-&gt;</span><span class="nv">$action</span><span class="p">();</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>Ajusta todos los enlaces en las vistas</strong> para pasar el nombre del controlador como parámetro, no solo la acción (<em>?controller=Autores&amp;action=mostrarListaAutores</em>).</li>
+</ul>
+
+<h3 id="1106-archivo-de-configuración">1.10.6. Archivo de configuración</h3>
+
+<p>Objetivo: Posibilitar el cambio de las credenciales de la base de datos sin tocar el código.</p>
+
+<p>Tareas:</p>
+
+<ul>
+  <li><strong>Crea un archivo <em>config.php</em></strong> que contenga el <em>return</em> de un array como este:</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">return</span> <span class="p">[</span>
+    <span class="s1">'db'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'host'</span> <span class="o">=&gt;</span> <span class="s1">'mariadb'</span><span class="p">,</span>
+        <span class="s1">'dbname'</span> <span class="o">=&gt;</span> <span class="s1">'nombre-base-de-datos'</span><span class="p">,</span>
+        <span class="s1">'user'</span> <span class="o">=&gt;</span> <span class="s1">'tu-usuario'</span><span class="p">,</span>
+        <span class="s1">'pass'</span> <span class="o">=&gt;</span> <span class="s1">'tu-contraseña'</span><span class="p">,</span>
+        <span class="s1">'charset'</span> <span class="o">=&gt;</span> <span class="s1">'utf8mb4'</span>
+    <span class="p">]</span>
+<span class="p">];</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>En <em>Database.php</em>, usa <em>require “config.php”</em></strong> para obtener el array, y conéctate a la base de datos usando esas credenciales.</li>
+  <li><strong>Comprueba que cambiando el archivo de configuración</strong> (por ejemplo, otra contraseña) la aplicación sigue funcionando sin tocar los modelos.</li>
+</ul>
+
+<h3 id="1107-enrutador">1.10.7. Enrutador</h3>
+
+<p>(Este paso es optativo)</p>
+
+<p><em>Advertencia: ¡este paso puede resultar complicadillo!</em></p>
+
+<p>Objetivo: crear un enrutador como el de los frameworks avanzados para construir rutas limpias.</p>
+
+<p>Recuerda que un enrutador moderno debería ser capaz de coger una URL limpia, como esta:</p>
+
+<p><code>
+https://mi-servidor/book/delete/37
+</code></p>
+
+<p>…y deducir de ahí que hay que invocar el método <em>borrarLibro(37)</em> del controlador de libros.</p>
+
+<p>Debería funcionar con cualquier ruta construida de ese modo y cualquier cantidad de controladores. A ver si se te ocurre algo para incorporar un enrutador como este a la aplicación.</p>
+
+<p>(No sé si te has dado cuenta, pero, poco a poco, hemos ido construyendo nuestro porpio <em>mini-framework</em> casero para programar aplicaciones MVC)</p>
+:ET

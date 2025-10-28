@@ -1138,9 +1138,23 @@ Además, lo lógico es dividir los componentes como ***ProductosList.vue*** en d
 * ***ProductosList.vue*** solo mostrará la lista de productos y los botones de acción.
 * ***ProductosForm.vue*** mostrará el formulario de insertar/modificar producto.
 
-Esta misma división debería hacerse con Clientes y con Compras. Obtendríamos así una aplicación frontend **bien diseñada y fácilmente escalable**. 
+Esta misma división debería hacerse con Clientes y con Compras. Obtendríamos así una aplicación frontend **bien diseñada y fácilmente escalable** con esta estructura de directorios:
 
-Aquí solo te mostraré el código de Productos, además de los cambios necesarios en *main.js* y del archivo de rutas, pero puedes ver el código completo de los otros componentes (Clientes y Compras) en el siguiente link.
+```
+src/
+├─ main.js    ➔ prepara el createApp de Vue y la monta
+├─ routes.js  ➔ enrutador
+├─ App.vue    ➔ componente principal
+└─ components/
+   ├─ ProductosList.vue ➔ listado de productos con acciones CRUD
+   ├─ ProductoForm.vue  ➔ formulario añadir/editar productos
+   ├─ ClientesList.vue  ➔ listado de clientes con acciones CRUD
+   ├─ ClienteForm.vue   ➔ formulario añadir/editar clientes
+   ├─ ComprasList.vue   ➔ listado de compras con acciones CRUD
+   └─ ComprasForm.vue   ➔ formulario añadir/editar compras
+```
+
+Aquí solo te mostraré el código de ***ProductosForm*** y ***ProductosList***, además de los cambios necesarios en los archivos ***main.js***, ***routes.js*** y ***App.vue***, pero puedes ver el código completo de los otros componentes (Clientes y Compras) en el siguiente link.
 
 [ACCEDE AQUÍ AL CÓDIGO FUENTE COMPLETO DE ESTA VERSIÓN](https://github.com/avozme/frontend-compras-v3)
 
@@ -1854,7 +1868,7 @@ A partir de aquí, puedes **desplegar** la aplicación en cualquier servidor web
 
 ## 4.6. Práctica final: CRUD de cursos y estudiantes
 
-Para practicar todo esto vamos a construir un CRUD completo en modo fullstack, es decir, **con Vue integrado en Laravel** para el siguiente caso:
+Para practicar todo esto vamos a construir un **CRUD completo usando Vue y Laravel** para el siguiente caso:
 
 Crea una aplicación web con Laravel (backend) y Vue (frontend) que nos permita:
 
@@ -1883,4 +1897,6 @@ Los pasos que debes seguir para construir esta aplicación son los mismos que he
 
 8. **Crear las vistas Blade**. No olvides dirigir la ruta raíz (/) a alguna de tus vistas (la que quieras que haga de "home" de la aplicación).
 9. **Desplegar, compilar, probar**
+10. (Optativo) **Enrutar en el cliente**. Puedes modificar tus componentes para que el enrutamiento se haga en el cliente y así construir una aplicación 100% SPA.
+
 

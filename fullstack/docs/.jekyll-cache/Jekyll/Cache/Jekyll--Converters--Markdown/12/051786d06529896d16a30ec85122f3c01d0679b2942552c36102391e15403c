@@ -1,0 +1,122 @@
+I"H$<h2 class="no_toc" id="25-hola-mundo">2.5. Hola mundo</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#solución-1-saludar-en-el-enrutador" id="markdown-toc-solución-1-saludar-en-el-enrutador">Solución 1: saludar en el enrutador</a></li>
+  <li><a href="#solución-2-saludar-en-un-controlador" id="markdown-toc-solución-2-saludar-en-un-controlador">Solución 2: saludar en un controlador</a></li>
+  <li><a href="#solución-3-saludar-en-una-vista" id="markdown-toc-solución-3-saludar-en-una-vista">Solución 3: saludar en una vista</a></li>
+</ul>
+
+<p>En esta sección vamos a crear nuestra primera aplicación funcional con Laravel: <strong>el tradicional “Hola mundo”</strong>.</p>
+
+<p>Vale, ya sé que no es gran cosa, pero nos servirá para aprender la dinámica de trabajo con Laravel y para construir un esqueleto de aplicación sobre el que montar algo más grande más adelante.</p>
+
+<p>Vamos a crear esta aplicación de tres formas diferentes, para que veas diferentes componentes de Laravel en acción en cada una de las soluciones. Tal vez te parezca un poco exagerado, pero recuerda que <strong>la curva de aprendizaje de Laravel es muy pronunciada al principio</strong>. Es decir: los primeros pasos son los que más cuestan.</p>
+
+<h3 id="solución-1-saludar-en-el-enrutador">Solución 1: saludar en el enrutador</h3>
+
+<p>Vamos a empezar probando algo sencillo: capturar una ruta y hacer una salida HTML desde ella. <strong><em>Esto no es lo habitual en una aplicación: solo se trata de una prueba rápida</em></strong>.</p>
+
+<p>Edita el archivo <strong>ENRUTADOR (<em>/routes/web.php</em>)</strong> y añade esto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/hola'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="s2">"Hola, mundo"</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Esto significa que, cuando escribas <em>la ruta “hola”</em> en la barra de direcciones del navegador, se ejecutará esta función anónima (denominadas <strong><em>closures</em></strong>) y, como resultado, se recibirá el texto “Hola, mundo” en la ventana del navegador.</p>
+
+<p>Pruébalo en la URL <em>http://tu-servidor/hola</em></p>
+
+<h3 id="solución-2-saludar-en-un-controlador">Solución 2: saludar en un controlador</h3>
+
+<p><strong><em>Esta solución tampoco es ideal: solo se trata de otra prueba rápida</em></strong>.</p>
+
+<p>Los <em>closures</em> o funciones sin nombre, como la que acabamos de usar, raramente se usan en el enrutador. Lo que suele hacer el enrutador es <strong>redirigir la ejecución hacia un controlador</strong>. Es justo lo que vamos ahora.</p>
+
+<p><strong>ENRUTADOR (/routes/web.php)</strong></p>
+
+<p>Sustituye la ruta anterior por esto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Http\Controllers\HolaController</span><span class="p">;</span>
+
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/hola'</span><span class="p">,</span> <span class="p">[</span><span class="nc">HolaController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'index'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>Esto indica al enrutador que, al recibir la ruta “hola”, se debe ejecutar el método <em>index()</em> del controlador <em>HolaController</em>.</p>
+
+<p><strong>CONTROLADOR (/app/Http/Controllers/HolaController.php)</strong></p>
+
+<p>El controlador <em>HolaController</em> aún no existe, así que vamos a crearlo con este comando de Artisan:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">php</span> <span class="n">artisan</span> <span class="n">make</span><span class="o">:</span><span class="n">controller</span> <span class="nc">HolaController</span>
+</code></pre></div></div>
+
+<p>Por último, edita el controlador (<em>/app/Http/Controllers/HolaController.php</em>) y añádele el método <em>index()</em>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">App\Http\Controllers</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">HolaController</span> <span class="kd">extends</span> <span class="nc">Controller</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="n">index</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="s2">"Hola, mundo"</span><span class="p">;</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Comprueba que funciona en tu navegador: <em>http://tu-servidor/hola</em></p>
+
+<h3 id="solución-3-saludar-en-una-vista">Solución 3: saludar en una vista</h3>
+
+<p><strong><em>Esta es la solución adecuada, puesto que: 1) Captura una ruta, 2) El enrutador redirige la ejecución a un controlador, y 3) El enrutador renderiza una vista</em></strong></p>
+
+<p>Parece mucho follón para un “Hola, mundo”, pero recuerda que solo es un ejemplo.</p>
+
+<p>En la arquitectura MVC, el controlador no debería producir ninguna salida HTML. Pues bien, nuestro controlador anterior la está produciendo, así que vamos a modificarlo para que no genere directamente el texto “Hola, mundo”, sino que renderice una <strong>vista</strong> que se encargue de ello.</p>
+
+<p>Además, vamos a <strong>inyectar en la URL una variable</strong> con el nombre del usuario para mostrar cómo se capturan esos valores y cómo se pasan a las vistas en Laravel.</p>
+
+<p><strong>ENRUTADOR (/routes/web.php)</strong></p>
+
+<p>Observa cómo se usan <strong>las llaves { y }</strong> para indicar la presencia de una <strong>variable</strong> en la ruta:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Http\Controllers\HolaController</span><span class="p">;</span>
+
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/hola/{nombre}'</span><span class="p">,</span> <span class="p">[</span><span class="nc">HolaController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'show'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p><strong>CONTROLADOR (/app/Http/Controllers/HolaController.php)</strong></p>
+
+<p>Vamos a añadir un método <em>show()</em> al controlador:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">App\Http\Controllers</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">HolaController</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="n">index</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="s2">"Hola, mundo"</span><span class="p">;</span>
+   <span class="p">}</span>
+   <span class="k">public</span> <span class="k">function</span> <span class="n">show</span><span class="p">(</span><span class="nv">$nombre</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'hola'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'nombre'</span><span class="p">,</span> <span class="nv">$nombre</span><span class="p">]);</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Como ves, estamos <strong>invocando una vista llamada <em>hola</em></strong> (<code class="language-plaintext highlighter-rouge">return view('hola')</code>) y le estamos pasando un array con los datos necesarios (el nombre del usuario, en este caso).</p>
+
+<p><strong>VISTA BLADE (/resources/views/hola.blade.php)</strong></p>
+
+<p>El archivo con la vista debe crearse en <em>/resources/views/hola.blade.php</em> y puede un aspecto como este:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+   Saludos, {{$nombre}}.
+   ¿Le apetece una partidita de ajedrez?
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+
+<p>Puedes probar esta nueva ruta cargando en el navegador una URL como: <em>http://tu-servidor/hola/ProfesorFalken</em></p>
+
+<p>La respuesta debería ser esta:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Saludos, ProfesorFalken. ¿Le apetece una partidita de ajedrez?
+</code></pre></div></div>
+
+<p>(Solo pillarás la referencia si has visto <em>Juegos de guerra</em> (John Badham, 1983))</p>
+:ET

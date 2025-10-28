@@ -1,0 +1,800 @@
+<h2 class="no_toc" id="13-la-sintaxis-de-php">1.3. La sintaxis de PHP</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#131-cómo-incrustar-php-dentro-de-html" id="markdown-toc-131-cómo-incrustar-php-dentro-de-html">1.3.1. Cómo incrustar PHP dentro de HTML</a></li>
+  <li><a href="#132-comentarios" id="markdown-toc-132-comentarios">1.3.2. Comentarios</a></li>
+  <li><a href="#133-variables-y-constantes" id="markdown-toc-133-variables-y-constantes">1.3.3. Variables y constantes</a></li>
+  <li><a href="#134-operadores" id="markdown-toc-134-operadores">1.3.4. Operadores</a></li>
+  <li><a href="#135-arrays" id="markdown-toc-135-arrays">1.3.5. Arrays</a></li>
+  <li><a href="#136-estructuras-de-control" id="markdown-toc-136-estructuras-de-control">1.3.6. Estructuras de control</a>    <ul>
+      <li><a href="#condicionales" id="markdown-toc-condicionales">Condicionales</a></li>
+      <li><a href="#bucle-while" id="markdown-toc-bucle-while">Bucle while</a></li>
+      <li><a href="#bucle-repeat" id="markdown-toc-bucle-repeat">Bucle repeat</a></li>
+      <li><a href="#bucles-for-y-foreach" id="markdown-toc-bucles-for-y-foreach">Bucles for y foreach</a></li>
+      <li><a href="#break-y-continue" id="markdown-toc-break-y-continue">break y continue</a></li>
+      <li><a href="#sintaxis-alternativa-con-dos-puntos" id="markdown-toc-sintaxis-alternativa-con-dos-puntos">Sintaxis alternativa con dos puntos</a></li>
+    </ul>
+  </li>
+  <li><a href="#137-funciones-y-procedimientos" id="markdown-toc-137-funciones-y-procedimientos">1.3.7. Funciones y procedimientos</a>    <ul>
+      <li><a href="#definir-el-tipo-de-los-argumentos" id="markdown-toc-definir-el-tipo-de-los-argumentos">Definir el tipo de los argumentos</a></li>
+      <li><a href="#definir-el-tipo-de-la-función" id="markdown-toc-definir-el-tipo-de-la-función">Definir el tipo de la función</a></li>
+      <li><a href="#argumentos-con-valor-predefinido" id="markdown-toc-argumentos-con-valor-predefinido">Argumentos con valor predefinido</a></li>
+      <li><a href="#include-y-require" id="markdown-toc-include-y-require">include y require</a></li>
+    </ul>
+  </li>
+  <li><a href="#138-funciones-anónimas-funciones-lambda-o-closures" id="markdown-toc-138-funciones-anónimas-funciones-lambda-o-closures">1.3.8. Funciones anónimas, funciones lambda o <em>closures</em></a></li>
+  <li><a href="#139-clases-y-objetos" id="markdown-toc-139-clases-y-objetos">1.3.9. Clases y objetos</a>    <ul>
+      <li><a href="#declaración-de-clases" id="markdown-toc-declaración-de-clases">Declaración de clases</a></li>
+      <li><a href="#instanciación-de-objetos" id="markdown-toc-instanciación-de-objetos">Instanciación de objetos</a></li>
+      <li><a href="#this-y-parent" id="markdown-toc-this-y-parent">$this y parent</a></li>
+      <li><a href="#miembros-públicos-privados-y-protegidos" id="markdown-toc-miembros-públicos-privados-y-protegidos">Miembros públicos, privados y protegidos</a></li>
+      <li><a href="#getters-y-setters" id="markdown-toc-getters-y-setters">Getters y setters</a></li>
+      <li><a href="#clases-abstractas-e-interfaces" id="markdown-toc-clases-abstractas-e-interfaces">Clases abstractas e interfaces</a></li>
+      <li><a href="#métodos-estáticos" id="markdown-toc-métodos-estáticos">Métodos estáticos</a></li>
+    </ul>
+  </li>
+  <li><a href="#1310-salida-de-datos" id="markdown-toc-1310-salida-de-datos">1.3.10. Salida de datos</a>    <ul>
+      <li><a href="#abreviatura-para-echo" id="markdown-toc-abreviatura-para-echo">Abreviatura para echo</a></li>
+    </ul>
+  </li>
+  <li><a href="#1311-paso-de-parámetros-por-la-url" id="markdown-toc-1311-paso-de-parámetros-por-la-url">1.3.11. Paso de parámetros por la URL</a></li>
+  <li><a href="#1312-entrada-de-datos-a-través-de-formulario" id="markdown-toc-1312-entrada-de-datos-a-través-de-formulario">1.3.12. Entrada de datos a través de formulario</a></li>
+  <li><a href="#1313-validación-y-saneamiento-de-formularios" id="markdown-toc-1313-validación-y-saneamiento-de-formularios">1.3.13. Validación y saneamiento de formularios</a></li>
+  <li><a href="#1314-namespaces" id="markdown-toc-1314-namespaces">1.3.14. Namespaces</a></li>
+  <li><a href="#1315-extensiones-de-php-y-referencia-del-lenguaje-cómo-usar-la-biblioteca-del-lenguaje-sin-volverse-loco" id="markdown-toc-1315-extensiones-de-php-y-referencia-del-lenguaje-cómo-usar-la-biblioteca-del-lenguaje-sin-volverse-loco">1.3.15. Extensiones de PHP y referencia del lenguaje: cómo usar la biblioteca del lenguaje sin volverse loco</a></li>
+</ul>
+
+<h3 id="131-cómo-incrustar-php-dentro-de-html">1.3.1. Cómo incrustar PHP dentro de HTML</h3>
+
+<p>El código PHP se escribe incrustado dentro de un documento de texto mediante estas etiquetas:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php .... ?&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Este archivo debe tener <em>SIEMPRE</em> extensión .php, <em>NO</em> .html</strong></p>
+
+<p>Cuando el servidor web encuentre un archivo con extensión .html, lo enviará al cliente sin mirar ni siquiera lo que hay en su interior.</p>
+
+<p>En cambio, cuando el servidor web encuentre un archivo con extensión .php, lo abrirá y buscará las etiquetas &lt;?php … ?&gt;, y ejecutará el código que haya dentro antes de enviar el resultado al cliente. El resto del archivo, es decir, lo que esté fuera de las etiquetas de PHP, se enviará al cliente sin modificar.</p>
+
+<h3 id="132-comentarios">1.3.2. Comentarios</h3>
+
+<p>Los comentarios de PHP se pueden escribir de varias formas:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Comentario de una línea</span>
+<span class="c1">#  Comentario de una línea</span>
+<span class="cm">/* Comentario de una o varias líneas */</span>
+</code></pre></div></div>
+
+<h3 id="133-variables-y-constantes">1.3.3. Variables y constantes</h3>
+
+<p>Las <strong>variables</strong> de una función/clase/método PHP son siempre <strong>locales</strong>, es decir, sólo están disponibles en esa función/clase/método, salvo que se indique otra cosa.</p>
+
+<p>Si se definen variables fuera de una función, serán <strong>globales</strong> a todo el fichero actual, pero no pueden usarse en el código ubicado en otros ficheros. Existen maneras de lograr que una variable sea global a todo el código, pero, vamos… ¿en serio quieres hacer eso?</p>
+
+<p>(Nota anticipatoria: hay ciertas situaciones en las que una aplicación web <em>necesita</em> variables globales, pero ya lo veremos en su momento. Por ahora, solo recuerda que usar variables globales es una pésima práctica de programación).</p>
+
+<p>El <strong>identificador</strong> de variable siempre debe empezar por $. Esta es una peculiaridad de PHP que al principio descoloca un poco.</p>
+
+<p>En PHP, no es necesario declarar las variables: al inicializarlas queda especificado el tipo. A partir de PHP7 pueden indicarse los tipos predefinidos (int, float, string…), pero solo es algo optativo.</p>
+
+<p>Ejemplos:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$a</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>                  <span class="c1">// Variable entera (PHP5+)</span>
+<span class="n">int</span> <span class="nv">$a</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>              <span class="c1">// Variable entera (PHP7+)</span>
+<span class="nv">$media</span> <span class="o">=</span> <span class="mf">52.75</span><span class="p">;</span>          <span class="c1">// Variable real</span>
+<span class="nv">$texto</span> <span class="o">=</span> <span class="s2">"Hoy es lunes"</span><span class="p">;</span> <span class="c1">// Variable string</span>
+</code></pre></div></div>
+
+<p>Cualquier variable puede <strong>cambiarse de tipo</strong> con funciones como <strong>intval(), floatval()</strong> o <strong>strval()</strong>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$a</span> <span class="o">=</span> <span class="s2">"10"</span><span class="p">;</span>          <span class="c1">// $a es una cadena</span>
+<span class="nv">$b</span> <span class="o">=</span> <span class="nb">intval</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>    <span class="c1">// $a se convierte a entero y se asigna a $b</span>
+</code></pre></div></div>
+
+<p>Como no hay que declarar las variables, a veces no estaremos seguros de si una variable existe y tiene un valor válido (no nulo) asignado. Para averiguarlo existe la función <strong>isset()</strong>, que nos devuelve <em>true</em> si la variable existe y <em>false</em> en caso contrario. Del mismo modo, hay otra función muy útil, <strong>unset()</strong>, que hace desaparecer a una variable ya definida y libera la memoria que ocupaba:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$nombre</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$nombre</span><span class="p">;</span>    <span class="c1">// Solo muestra el nombre si la variable tiene algún valor</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"El nombre no está definido"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>El tipado de PHP es débil</strong>, así que puedes encontrarte expresiones donde <strong>se mezclen tipos</strong>. PHP hará las conversiones que le parezca oportunas, con resultados a veces imprevisibles, por lo que no es buena idea recurrir a estas estratagemas a menos que sepas muy bien lo que estás haciendo y el resultado que obtendrás. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>                <span class="c1">// a es un integer</span>
+<span class="nv">$b</span> <span class="o">=</span> <span class="s2">"Hoy es lunes"</span><span class="p">;</span>   <span class="c1">// b es un string</span>
+<span class="nv">$c</span> <span class="o">=</span> <span class="nv">$a</span> <span class="o">+</span> <span class="nv">$b</span><span class="p">;</span>          <span class="c1">// ¡Esto funciona, pero ¿a que no predices bien el resultado?</span>
+</code></pre></div></div>
+
+<p>Los <strong>tipos de datos</strong> predefinidos en PHP son:</p>
+
+<ul>
+  <li>integer (entero)</li>
+  <li>double (real)</li>
+  <li>bool (booleano)</li>
+  <li>string (cadena)</li>
+  <li>array (pues eso)</li>
+</ul>
+
+<p>En cuanto a las <strong>constantes</strong>, se crean con la función <strong>define()</strong>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">define</span><span class="p">(</span><span class="s2">"NOMBRE"</span><span class="p">,</span> <span class="s2">"Pepito Pérez"</span><span class="p">);</span>  <span class="c1">// NOMBRE es una constante</span>
+<span class="k">echo</span> <span class="no">NOMBRE</span><span class="p">;</span>    <span class="c1">// Muestra el valor de la constante. ¡Fíjate en que no lleva el símbolo $!</span>
+</code></pre></div></div>
+
+<p>Las constantes, por convenio, suelen nombrarse en MAYÚSCULAS. El propio PHP tiene muchas constantes predefinidas (todas en mayúsculas) de ámbito global, como PHP_VERSION o PHP_OS.</p>
+
+<p>Algunas de estas constantes predefinidas empiezan y terminan por un doble subrayado, como __LINE__ o __FILE__. Estas constantes se llaman <strong>constantes mágicas</strong> y nos van a resultar muy útiles más adelante.</p>
+
+<h3 id="134-operadores">1.3.4. Operadores</h3>
+
+<p>Los operadores en PHP son iguales que los de Java, que, a su vez, los heredó de C/C++:</p>
+
+<ul>
+  <li>Asignación: $a = 3;</li>
+  <li>Comparación:  ==, &lt;=, &gt;=, !=, &lt;=&gt;, etc.</li>
+  <li>Operadores aritméticos: +, -, *, /, %…</li>
+  <li>Operadores lógicos: &amp;&amp;, ||, !</li>
+  <li>Operadores de asignación combinados: +=, -=, ++, –, *=, /=, etc</li>
+</ul>
+
+<p>Existen operadores más esotéricos, como el operador ternario o los operadores a nivel de bit, que no usaremos demasiado. Sin embargo, PHP cuenta con algunos operadores curiosos que a lo mejor no conoces y que te pueden ahorrar mucho trabajo. Te los cuento brevemente:</p>
+
+<p><strong>Operador de coalescencia nulo</strong>. Con ese nombre tan rebuscado se conoce al operador ?? (doble interrogante). Simplemente, asigna a una variable valor u otro dependiendo de si está definida o no:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$user</span> <span class="o">=</span> <span class="nv">$nombreUsuario</span> <span class="o">??</span> <span class="s2">"sin-nombre"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>La variable $user del ejemplo anterior tomará el valor $nombreUsuario si y solo si esa variable, $nombreUsuario, existe y tiene un valor asignado. En caso contrario, tomará el valor “sin-nombre”.</p>
+
+<p><strong>Operador nave espacial</strong>. Así se conoce el operador &lt;==&gt;. ¡Otro bonito chiste de informáticos! Se usa para comparar dos expresiones y decidir cuál es la menor. Devuelve -1 (si la primera expresión es menor que la segunda), 0 (si son iguales) o 1 (si la primera expresión es mayor que la segunda):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$resultado</span> <span class="o">=</span> <span class="nv">$var1</span> <span class="o">&lt;==&gt;</span> <span class="nv">$var2</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nv">$resultado</span><span class="p">;</span>   <span class="c1">// Mostrará -1, 0 o 1, dependiendo de los valores de $var1 y $var2</span>
+</code></pre></div></div>
+
+<h3 id="135-arrays">1.3.5. Arrays</h3>
+
+<p>Los arrays en PHP son colecciones de variables del mismo o de distinto tipo identificadas por un índice. Se parecen más a los ArrayList de Java que a los arrays clásicos propiamente dichos.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"lunes"</span><span class="p">;</span>
+<span class="nv">$a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>        <span class="c1">// El array de PHP puede contener datos de diferente tipo en cada elemento</span>
+<span class="nv">$a</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"martes"</span><span class="p">;</span>
+<span class="nv">$a</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="n">etc</span><span class="mf">.</span>
+</code></pre></div></div>
+
+<p>El índice no tiene por qué ser un número entero: puede ser un String (array asociativo):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$a</span><span class="p">[</span><span class="s2">"ESP"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"España"</span><span class="p">;</span>
+<span class="nv">$a</span><span class="p">[</span><span class="s2">"FRA"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Francia"</span><span class="p">;</span>
+<span class="nv">$a</span><span class="p">[</span><span class="s2">"POR"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Portugal"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Como los arrays son objetos, dispones de un montón de métodos y atributos para consultarlos y manipularlos. No es mi intención proporcionarte aquí una lista exhaustiva, porque son muchos y para eso ya está la documentación oficial, pero sí te voy a mostrar algunos que te permitan hacerte una idea:</p>
+
+<ul>
+  <li><strong>count($a)</strong>: devuelve el número de elementos del array $a.</li>
+  <li><strong>in_array(“valor”, $a)</strong>: busca el elemento “valor” en el array $a. Devuelve <em>true</em> o <em>false</em>.</li>
+  <li><strong>unset($a[4])</strong>: elimina un elemento (el 4, en este ejemplo) del array $a.</li>
+  <li><strong>next($a)</strong>: devuelve el siguiente elemento de un array (el primero, si es la primera vez que se invoca).</li>
+  <li><strong>prev($a)</strong>: devuelve el elemento anterior de un array (el último si es la primera vez que se invoca).</li>
+  <li><strong>array_push($a, $elemento)</strong>: añade el $elemento al final del array $a.</li>
+  <li><strong>$elemento = array_pop($a)</strong>: elimina el último elemento del array $a (y lo asigna a la variable $elemento).</li>
+  <li><strong>sort($a)</strong> y <strong>asort($a)</strong>: ordena el array $a. <em>sort()</em> se utiliza con arrays convencionales y <em>asort()</em> con arrays asociativos.</li>
+</ul>
+
+<h3 id="136-estructuras-de-control">1.3.6. Estructuras de control</h3>
+
+<p>Vamos a hacer un repaso muy rápido por las estructuras de control de PHP. Si ya conoces otros lenguajes como Java, todas te resultarán familiares.</p>
+
+<h4 id="condicionales">Condicionales</h4>
+
+<p>El condicional doble tiene la sintaxis habitual:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">condición</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="n">acciones</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+<span class="n">acciones</span><span class="o">-</span><span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Por supuesto, la parte del <code class="language-plaintext highlighter-rouge">else</code> puede eliminarse si no la necesitas, y obtendrías un condicional simple.</p>
+
+<h4 id="bucle-while">Bucle while</h4>
+
+<p>El bucle de <em>tipo while</em> tiene este aspecto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> <span class="p">(</span><span class="n">condición</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="n">acciones</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="bucle-repeat">Bucle repeat</h4>
+
+<p>El bucle de <em>tipo repeat</em>, es decir, con la condición al final, tiene esta sintaxis:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">do</span>
+<span class="p">{</span>
+<span class="n">acciones</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">condición</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="bucles-for-y-foreach">Bucles for y foreach</h4>
+
+<p>El bucle <em>for</em> controlado por contador es idéntico a C/C++ y Java:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="n">inicialización</span><span class="p">;</span> <span class="n">condición</span><span class="p">;</span> <span class="n">incremento</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="n">acciones</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Hay una variedad de bucle <em>for</em> muy interesante: el bucle <em>foreach</em> para recorrido de arrays asociativos:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">foreach</span> <span class="p">(</span><span class="nv">$array</span> <span class="k">as</span> <span class="nv">$índice</span><span class="o">=&gt;</span><span class="nv">$var</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="n">acciones</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>El bucle <em>foreach</em> se repite una vez para cada valor guardado en el array. Ese valor se asigna a la variable <em>$var</em> en cada repetición.</p>
+
+<p>Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$a</span><span class="p">[</span><span class="s2">"ESP"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"España"</span><span class="p">;</span>
+<span class="nv">$a</span><span class="p">[</span><span class="s2">"FRA"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Francia"</span><span class="p">;</span>
+<span class="nv">$a</span><span class="p">[</span><span class="s2">"POR"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Portugal"</span><span class="p">;</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$a</span> <span class="k">as</span> <span class="nv">$pais</span><span class="o">=&gt;</span><span class="nv">$codigo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"Nombre del país: </span><span class="nv">$pais</span><span class="s2"> - Código: </span><span class="nv">$codigo</span><span class="s2">&lt;br&gt;"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>La salida de este programa será:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Nombre del país: España - Código: ESP
+Nombre del país: Francia - Código: FRA
+Nombre del país: Portugal - Código: POR
+</code></pre></div></div>
+
+<h4 id="break-y-continue">break y continue</h4>
+
+<p>Como en muchos otros lenguajes, las instrucciones <strong>break</strong> y <strong>continue</strong> pueden usarse en el interior del cuerpo de los bucles para lograr este comportamiento:</p>
+
+<ul>
+  <li><strong>break</strong>. “Rompe” el bucle, es decir, se sale del bucle y continúa ejecutando el programa por la instrucción que haya inmediatamente después del mismo.</li>
+  <li><strong>continue</strong>. Deja de ejecutar la iteración actual y vuelve al comienzo del bucle para iniciar una nueva iteración.</li>
+</ul>
+
+<h4 id="sintaxis-alternativa-con-dos-puntos">Sintaxis alternativa con dos puntos</h4>
+
+<p>Las estructuras de control de PHP tienen una sintaxis alternativa que elimina el uso de las llaves, muy denostadas por algunos programadores. Por ejemplo, una instrucción <em>if</em> puede escribirse de forma tradicional:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"La variable es menor que cero"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>…o bien con la “sintaxis dos puntos”:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">:</span>
+    <span class="k">echo</span> <span class="s2">"La variable es menor que cero"</span><span class="p">;</span>
+<span class="k">endif</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Puedes elegir la sintaxis con la que te sientas más cómodo/a. Nosotros, en este manual, usaremos la primera por estar más extendida, pero las dos son igualmente válidas.</p>
+
+<h3 id="137-funciones-y-procedimientos">1.3.7. Funciones y procedimientos</h3>
+
+<p>Los subprogramas (funciones y procedimientos) se escriben en PHP del mismo modo: con la palabra <em>function</em>.</p>
+
+<ul>
+  <li>Las <strong>funciones</strong> deben devolver un valor en su última línea con <em>return</em>. Si necesitas devolver varios valores, puedes empaquetarlos en un array o en un objeto.
+ Ten en cuenta que, después de un <em>return</em>, la función terminará de forma inmediata y devolverá el control de ejecución al código desde la que fue invocada. Es decir: cualquier línea de código de la función que esté por debajo del <em>return</em> nunca se ejecutará.</li>
+  <li>Los <strong>procedimientos</strong> no tienen <em>return</em>. Realizan su función y terminan.</li>
+</ul>
+
+<p>Los <strong>argumentos</strong> de las funciones o procedimientos en PHP siembre se pasan <strong><em>por valor</em></strong>.</p>
+
+<p>Por si hay algún despistado/a: pasar argumentos por valor significa que PHP copiará en el parámetro de la función el <em>valor</em> de la variable con la que se invoca a dicha función, pero serán dos variables distintas. Si modificamos un parámetro dentro del código de la función, la variable con la que fue invocada no se verá afectada.</p>
+
+<p>Veámoslo con un ejempolo. Esta es una función con dos argumentos:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">calcular_iva</span><span class="p">(</span><span class="nv">$base</span><span class="p">,</span> <span class="nv">$porcentaje</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="nv">$total</span> <span class="o">=</span> <span class="nv">$base</span> <span class="o">*</span> <span class="nv">$porcentaje</span> <span class="o">/</span> <span class="mi">100</span><span class="p">;</span>
+   <span class="k">return</span> <span class="nv">$total</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Para invocar a esta función, haremos algo como esto en algún otro punto del código fuente:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$iva</span> <span class="o">=</span> <span class="nv">$calcular_iva</span><span class="p">(</span><span class="nv">$precio_del_articulo</span><span class="p">,</span> <span class="mi">21</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>En esta ocasión, hemos invocado a la función $calcular_iva() con dos parámetros: una variable ($precio_del_articulo) y una constante literal (21). Ambos parámetros se pasan por valor a la función. Eso significa que el valor de $precio_del_articulo se copia en el parámetro $base, y el valor del literal 21 se copia en $porcentaje. Cualquier modificación de $base o $porcentaje que pudiera producirse dentro del código de la función, no afectaría para nada a las variables originales ($precio_del_articulo y el literal 21). Por último, la función devuelve un valor mediante su <em>return</em> y ese valor se asigna a la varible $iva.</p>
+
+<p>Si esto del paso de parámetros por valor sigue sonándote a chino, quizá deberías repasar tus conocimientos sobre fundamentos de programación. Busca en internet algo como “paso de parametros por valor y por referencia” y dedica un rato a desentrañar los misterios del paso de parámetros antes de continuar.</p>
+
+<h4 id="definir-el-tipo-de-los-argumentos">Definir el tipo de los argumentos</h4>
+
+<p>Desde PHP7, se puede definir el tipo de los argumentos de cualquier función:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">calcular_iva</span><span class="p">(</span><span class="kt">float</span> <span class="nv">$base</span><span class="p">,</span> <span class="kt">float</span> <span class="nv">$porcentaje</span><span class="p">)</span> <span class="p">{</span>
+    <span class="mf">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Esto es completamente optativo. Ahora bien, si defines el tipo de los argumentos y luego le pasas a la función un argumento de otro tipo, obtendrás un error de ejecución <em>TypeError</em>, como es lógico.</p>
+
+<h4 id="definir-el-tipo-de-la-función">Definir el tipo de la función</h4>
+
+<p>Desde PHP7 también se puede, optativamente, definir el tipo de datos que devolverá la función en el <em>return</em>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">calcular_iva</span><span class="p">(</span><span class="kt">float</span> <span class="nv">$base</span><span class="p">,</span> <span class="kt">float</span> <span class="nv">$porcentaje</span><span class="p">):</span> <span class="kt">float</span> <span class="p">{</span>
+    <span class="mf">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Esto provocará que se evalúe de forma estricta el tipo de datos durante la invocación a la función y que se puedan producir errores de tipo (<em>TypeError</em>) en tiempo de ejecución, como es natural.</p>
+
+<h4 id="argumentos-con-valor-predefinido">Argumentos con valor predefinido</h4>
+
+<p>Algo muy útil que nos ofrece PHP es la posibilidad de asignar un valor por defecto a los argumentos de las funciones. Observa este ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">calcular_iva</span><span class="p">(</span><span class="nv">$base</span><span class="p">,</span> <span class="nv">$porcentaje</span> <span class="o">=</span> <span class="mf">0.21</span><span class="p">)</span> <span class="p">{</span>
+    <span class="mf">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>El argumento <em>$porcentaje</em> tiene un valor por defecto, 0.21. Eso significa que podemos invocar esta función de dos maneras:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$a</span> <span class="o">=</span> <span class="nf">calcular_iva</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">);</span> <span class="c1">// Calculará el IVA de 1000 euros con un porcentaje del 4%</span>
+<span class="nv">$b</span> <span class="o">=</span> <span class="nf">calcular_iva</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>       <span class="c1">// Calculará el IVA de 1000 euros con un porcentaje del 21%</span>
+</code></pre></div></div>
+
+<p>Como ves, en la primera invocación pasamos un valor para el argumento <em>$porcentaje</em> (0.04), por lo que ese argumento tomará ese valor. En cambio, en la segunda invocación nos olvidamos del segundo parámetro. Eso provocaría un error de ejecución en muchos lenguajes de programación, ¿verdad? Bueno, pues PHP lo ejecutará sin problemas, porque le hemos asignado un valor por defecto a <em>$porcentaje</em>.</p>
+
+<p>Eso significa que, si no le pasamos ningún valor, el argumento tomará su valor por defecto (0.21), y la función se ejecutará con ese valor asignado a esa variable.</p>
+
+<h4 id="include-y-require">include y require</h4>
+
+<p>Cuando desarrollamos mucho código, a menudo colocamos colecciones de funciones (llamadas <strong>bibliotecas</strong>) en archivos diferentes que el resto del código.</p>
+
+<p>Para usar una función definida en otro archivo, necesitamos incluir ese código en nuestro archivo actual. Eso se hace con <strong>include</strong> y <strong>require</strong>:</p>
+
+<ul>
+  <li><strong>include</strong> se utiliza para incluir el código fuente de la biblioteca en nuestro archivo actual. Si la biblioteca no se encuentra, se produce un error de ejecución, pero el script actual continúa ejecutándose.</li>
+  <li><strong>require</strong> también se utiliza para incluir el código fuente de la biblioteca en nuestro archivo actual. Pero si la biblioteca no se encuentra, se produce un error de ejecución y el script actual se detiene.</li>
+</ul>
+
+<p>Las variantes <strong>include_once</strong> y <strong>require_once</strong> se utilizan para evitar las inclusiones repetidas de código. Estas suelen ocurrir cuando nuestro programa es muy grande y varios scripts incluyen las mismas bibliotecas. Para prevenir errores por redefinición de funciones, se usa <strong>include_once</strong> o <strong>require_once</strong>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">include_once</span> <span class="s2">"mi_biblioteca.php"</span><span class="p">;</span>    <span class="c1">// Incluye las funciones del archivo mi_biblioteca.php</span>
+</code></pre></div></div>
+
+<p>El uso de <em>include</em> y <em>require</em> está en retroceso gracias a los <strong>espacios con nombre</strong> de las versiones recientes de PHP. Más adelante hablaremos de ellos.</p>
+
+<h3 id="138-funciones-anónimas-funciones-lambda-o-closures">1.3.8. Funciones anónimas, funciones lambda o <em>closures</em></h3>
+
+<p>En muchos lenguajes modernos es habitual el uso de las <strong>funciones anónimas, funciones lambda o <em>closures</em></strong>. Aunque no son exactamente lo mismo, se parecen mucho y por ahora no entraremos en detalles sobre sus diferencias.</p>
+
+<p>Se trata de funciones que no tienen nombre y que se usan directamente en una asignación a una variable o como parámetro de otra función.</p>
+
+<p>Las funciones anónimas suelen usarse en estos contextos:</p>
+
+<ul>
+  <li><strong>Cuando necesitas una función pequeña, con lógica breve</strong>, que no va a ser usada en ningún otro lugar. En este caso es más limpio crear una función anónima en el sitio donde la necesitas, y no una función aparte con su declaración, devolución de resultados y toda la parafernalia.</li>
+  <li><strong>Si necesitas pasar una función como argumento</strong> a otra función.</li>
+  <li><strong>Si necesitas una función que capture el valor de variables externas</strong> a la propia función.</li>
+  <li><strong>Si necesitas asociar una función a un callback, un evento o una promesa</strong> (ya aprenderás que son estas cosas).</li>
+</ul>
+
+<p>En cambio, cuando la lógica de una función sea compleja, o bien su código se necesite invocar desde muchos lugares de la aplicación, <strong>es mejor que uses funciones tradicionales</strong>, con su nombre, su declaración y su cuerpo bien definido.</p>
+
+<p>Ten en cuenta que, si se usan mal, la funciones anónimas <strong>pueden volver incomprensible el código</strong>.</p>
+
+<p>Aquí puedes ver un ejemplo sencillo de función anónima:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$numero</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
+<span class="nv">$doble</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="kt">int</span> <span class="nv">$numero</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$numero</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">echo</span> <span class="nv">$doble</span><span class="p">;</span>   <span class="c1">// Imprimirá 16</span>
+</code></pre></div></div>
+
+<p>Hemos asignado la función anónima a una variable, llamada $doble. Por eso, al tratar de imprimir la variable, se invocará la función automáticamente.</p>
+
+<p>En este es otro ejemplo, una función sin nombre se pasa como parámetro:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">procesar</span><span class="p">(</span><span class="kt">array</span> <span class="nv">$datos</span><span class="p">,</span> <span class="kt">callable</span> <span class="nv">$callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$datos</span> <span class="k">as</span> <span class="nv">$d</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">echo</span> <span class="nv">$callback</span><span class="p">(</span><span class="nv">$d</span><span class="p">)</span> <span class="mf">.</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nf">procesar</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nv">$n</span> <span class="o">*</span> <span class="nv">$n</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>La función <em>procesar()</em> recibe dos parámetros: el primero es un array con datos y, el segundo, es una función anónima que <strong>le indica cómo procesar</strong> esos datos. En este caso, se calculará el cuadrado de cada uno de los datos del array, pero podría ser cualquier otra cosa.</p>
+
+<p>Piensa en lo flexible que se vuelve la función <em>procesar()</em> al utilizarla de este modo: ¡ahora el mismo código puede servir para hacer casi cualquier cosa con el array!</p>
+
+<h3 id="139-clases-y-objetos">1.3.9. Clases y objetos</h3>
+
+<p>A partir de la versión 5, PHP incluyó un completo soporte para orientación a objetos. Las clases, métodos y atributos se declaran de forma muy semejante a C++ y Java.</p>
+
+<h4 id="declaración-de-clases">Declaración de clases</h4>
+
+<p>En este ejemplo puedes ver cómo se declara una clase en PHP. Observa cómo se indica la <strong>herencia</strong> (<em>extends</em>) y cómo se declara el <strong>constructor</strong>  (<em>__construct()</em>):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">MiClase</span> <span class="kd">extends</span> <span class="nc">ClaseMadre</span>
+<span class="p">{</span>
+    <span class="c1">// Declaración de propiedades (atributos)</span>
+    <span class="k">public</span>  <span class="nv">$var1</span> <span class="o">=</span> <span class="s1">'soy una variable pública de instancia'</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$var2</span> <span class="o">=</span> <span class="s1">'y yo soy otra variable de instancia, pero privada'</span><span class="p">;</span>
+
+    <span class="c1">// Método constructor (siempre se llama __construct)</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span><span class="nv">$valor</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">var2</span> <span class="o">=</span> <span class="nv">$valor</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Declaración de un método público</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">mostrarVar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">var2</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Declaración de un método privado</span>
+    <span class="k">private</span> <span class="k">function</span> <span class="n">resetVar</span><span class="p">()</span> <span class="p">{</span>
+       <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">var2</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">otroMetodo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...etc...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Algo que suele llamar la atención de los programadores que vienen de Java u otros lenguajes semejantes es que PHP <strong>no utiliza la notación punto</strong> para acceder a los miembros de una clase, sino la <strong>notación flecha (-&gt;)</strong>. Por eso en el ejemplo anterior ves cosas como <em>$this-&gt;var</em> en lugar de <em>this.var</em></p>
+
+<h4 id="instanciación-de-objetos">Instanciación de objetos</h4>
+
+<p>Para <strong>instanciar</strong> un objeto de una clase, se usa la palabra <strong><em>new</em></strong>. El constructor puede llevar parámetros o no, como en Java. En el ejemplo anterior, el constructor tenía un argumento, así que <em>new</em> se usará así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$miObjeto</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">miClase</span><span class="p">(</span><span class="s1">'Estoy aprendiendo PHP'</span><span class="p">);</span>
+<span class="nv">$miObjeto</span><span class="o">-&gt;</span><span class="nf">mostrarVar</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>La salida de este programa sería “Estoy aprendiendo PHP”.</p>
+
+<h4 id="this-y-parent">$this y parent</h4>
+
+<p>Como ya habrás supuesto, la variable <strong>$this</strong> se refiere siempre al objeto que está ejecutando el código, exactamente igual que en Java, Javascript y muchos otros lenguajes orientados a objeto.</p>
+
+<p>A veces, cuando tenemos una jerarquía de clases y unas heredan de otras, necesitamos invocar algún método de la clase madre o superclase. En ese caso, usaremos la palabra <strong>parent</strong> seguida de la <strong>notación cuatro puntos (::)</strong>. Observa cómo se hace en este ejemplo, en el que el constructor de la subclase invoca al constructor de la superclase:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">MiClase</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$var1</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span><span class="nv">$param</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">var1</span> <span class="o">=</span> <span class="nv">$param</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">MiSubclase</span> <span class="kd">extends</span> <span class="nc">MiClase</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$var2</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span><span class="nv">$param1</span><span class="p">,</span> <span class="nv">$param2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">var2</span> <span class="o">=</span> <span class="nv">$param2</span><span class="p">;</span>
+        <span class="k">parent</span><span class="o">::</span><span class="nf">__construct</span><span class="p">(</span><span class="nv">$param1</span><span class="p">);</span>   <span class="c1">// Llamada a un método de la superclase</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="miembros-públicos-privados-y-protegidos">Miembros públicos, privados y protegidos</h4>
+
+<p>En PHP, mientras no se indique otra cosa, todos los miembros de una clase se considerarán públicos (<em>public</em>). Como en Java, existen tres niveles de visibilidad que podemos escoger para cada atributo y cada método:</p>
+
+<ul>
+  <li><strong>public</strong>: ese método o atributo es accesible desde el exterior de la clase.</li>
+  <li><strong>private</strong>: ese método o atributo solo puede usarse desde dentro de la clase.</li>
+  <li><strong>protected</strong>: ese método o atributo puede usarse desde dentro de la clase o desde cualquier clase hija.</li>
+</ul>
+
+<h4 id="getters-y-setters">Getters y setters</h4>
+
+<p>En PHP también es habitual, como en muchos lenguajes de programación, que los atributos sean a menudo privados y que existan métodos <strong><em>getters</em></strong> y <strong><em>setters</em></strong> que se encarguen de manipularlos adecuadamente, sin que se acceda a los datos de los objetos desde el exterior. Esto es esencial para que los objetos funcionen como “cajas negras”.</p>
+
+<p>Los <em>getters</em> suelen devolver el valor de un atributo, pero los <em>setters</em>, en otros lenguajes, no devuelven nada. Sin embargo, en PHP es costumbre que los <em>setters</em> devuelvan el objeto completo, es decir, que terminen con un <strong><em>return $this</em></strong>. Así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">MiClase</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$var1</span> <span class="o">=</span> <span class="s2">"Esto es un atributo privado"</span><span class="p">;</span>
+    <span class="c1">// Getter</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">getVar1</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$var1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// Setter</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">setVar1</span><span class="p">(</span><span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$var1</span> <span class="o">=</span> <span class="nv">$value</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>   <span class="c1">// Devolvemos el objeto al terminar</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Si lo hacemos así, estaremos creando lo que se llama un <strong>fluent interface</strong> o interfaz fluido, que es una forma rebuscada de decir que podremos encadenar varias invocaciones a métodos del objeto en una sola instrucción, algo que permite que el código se vea más organizado y legible.</p>
+
+<p>Para que veas en qué consiste el <em>fluent interface</em>, vamos a poner un ejemplo. Imagina que la clase anterior tuviera más atributos (<em>$var1, $var2, $var3</em>, etc), cada uno con sus respectivos <em>setters</em>. La forma tradicional de invocarlos todos sería algo así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MiClase</span><span class="p">();</span>
+<span class="nv">$obj</span><span class="o">-&gt;</span><span class="nf">setVar1</span><span class="p">(</span><span class="nv">$valor1</span><span class="p">);</span>
+<span class="nv">$obj</span><span class="o">-&gt;</span><span class="nf">setVar2</span><span class="p">(</span><span class="nv">$valor2</span><span class="p">);</span>
+<span class="nv">$obj</span><span class="o">-&gt;</span><span class="nf">setVar3</span><span class="p">(</span><span class="nv">$valor3</span><span class="p">);</span>
+<span class="c1">// etc.</span>
+</code></pre></div></div>
+
+<p>En cambio, si los <em>setters</em> devuelven <em>this</em> podemos usar un <em>fluent interface</em> y escribirlo así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MiClase</span><span class="p">();</span>
+<span class="nv">$obj</span><span class="o">-&gt;</span><span class="nf">setVar1</span><span class="p">(</span><span class="nv">$valor1</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="nf">setVar2</span><span class="p">(</span><span class="nv">$valor2</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="nf">setVar3</span><span class="p">(</span><span class="nv">$valor2</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Puede parecer un cambio insignificante, pero cuando los objetos son muy complejos, el código <em>fluent</em> se hace mucho más legible que el código tradicional. ¡Además, es gratis!</p>
+
+<h4 id="clases-abstractas-e-interfaces">Clases abstractas e interfaces</h4>
+
+<p>Como en Java y otros lenguajes orientados a objetos, PHP también permite construir <strong>clases abstractas</strong>, que son clases que no se pueden instanciar. El objetivo de estas clases, como recordarás, es crear un molde a partir del cual puedan heredar otras clases que sí sean instanciables.</p>
+
+<p>Una clase abstracta se crea añadiendo la palabra <em>abstract</em> a la definición de la clase:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">abstract</span> <span class="kd">class</span> <span class="nc">MiClase</span> <span class="p">{</span>
+    <span class="mf">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>También existen los <strong>interfaces</strong>, que son parecidos a las clases abstractas pero no pueden incorporar nada de código a los métodos. Es decir, se trata de una mera definición de métodos. Todas las clases que usen ese interfaz deben respetar e implementar esos métodos. Esto se hace cuando queremos que una colección de clases independientes proporcionen un conjunto de métodos homogéneos.</p>
+
+<p>Los interfaces se definen así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">interface</span> <span class="nc">MiInterface</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">unMetodo</span><span class="p">();</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">otroMetodo</span><span class="p">(</span><span class="nv">$parametro1</span><span class="p">,</span> <span class="nv">$parametro2</span><span class="p">);</span>
+    <span class="n">etc</span><span class="mf">.</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Posteriormente, todas las clases que vayan a usar ese interface deben declararse de este modo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">MiClase</span> <span class="kd">implements</span> <span class="nc">MiInterface</span> <span class="p">{</span>
+    <span class="mf">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="métodos-estáticos">Métodos estáticos</h4>
+
+<p>Los métodos estáticos en PHP funcionan igual que en Java: se usan cuando una clase no tiene estado (es decir, no tiene atributos), o bien cuando ese método no tiene nada que ver con el estado de los objetos, sino que responde exactamente igual para todas las instancias.</p>
+
+<p>Los métodos estáticos se declaran así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">MiClase</span> <span class="p">{</span>
+    <span class="c1">// Esto es un método estático</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="n">miMetodo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="mf">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Para invocar un método estático, como es lógico, no es necesario instanciar ningún objeto. De hecho, si intentamos invocarlo a través de un objeto, fallará. Estos métodos se invocan a través del nombre de la clase directamente, usando la <strong>notación cuatro puntos (::)</strong>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Esto invocará el método estático del ejemplo anterior</span>
+<span class="nc">MiClase</span><span class="o">::</span><span class="nf">miMetodo</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h3 id="1310-salida-de-datos">1.3.10. Salida de datos</h3>
+
+<p>PHP puede hacer salidas de datos como cualquier otro lenguaje de programación: puede enviar texto a una impresora o datos a un fichero. O puede dibujar ventanas y componentes en un entorno gráfico de usuario.</p>
+
+<p>Pero cuando PHP se ejecuta como parte de una aplicación web, nada de eso tiene sentido: esa salida se produciría en el servidor, y nosotros no estamos allí para verla. Nosotros estamos en nuestro cliente (navegador web), pidiendo al servidor que ejecute un programa PHP.</p>
+
+<p>En este contexto, la salida PHP <em>tiene que ser siempre código HTML válido</em>. Ese código HTML será recibido por tu navegador, interpretado y mostrado.</p>
+
+<p>Observa el uso de <em>echo</em> para producir una salida HTML desde este pequeño script PHP:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+ <span class="cp">&lt;?php 
+     echo "Soy un script de PHP y estoy generando 
+               código HTML. Para demostrarlo
+               voy a escribir &lt;strong&gt;esto en negrita&lt;/strong&gt;"
+  ?&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+
+<p>Si guardas este archivo en tu servidor web y lo cargas desde un navegador web (escribiendo la dirección https://tu-servidor/nombre-del-archivo.php), encontrarás que el navegador web recibe el siguiente código como resultado:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+     Soy un script de PHP y estoy generando código HTML.
+     Para demostrarlo voy a escribir <span class="nt">&lt;strong&gt;</span>esto en negrita<span class="nt">&lt;/strong&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+
+<p>Es decir, han desaparecido las etiquetas de PHP, así como el <em>echo</em>, y lo que recibe el navegador es código HTML limpio e impoluto. De hecho, el navegador no sabe si ese código HTML lo ha escrito una persona o lo ha generado un programa en PHP, como es el caso.</p>
+
+<p>Y ese será tu objetivo: escribir programas capaces de generar código HTML que el navegador pueda recibir e interpretar.</p>
+
+<h4 id="abreviatura-para-echo">Abreviatura para echo</h4>
+
+<p>En PHP moderno, hay una abreviatura para <em>echo()</em> que se usa muchísimo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Estas dos líneas son equivalentes:
+<span class="cp">&lt;?php echo("Hola mundo"); ?&gt;</span>
+<span class="cp">&lt;?=</span> <span class="s2">"Hola mundo"</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>Esta abreviatura solo se usa para hacer <em>echo()</em>. Si tienes una lógica PHP más compleja, debes usar los tags &lt;?php … ?&gt; habituales.</p>
+
+<h3 id="1311-paso-de-parámetros-por-la-url">1.3.11. Paso de parámetros por la URL</h3>
+
+<p>Las aplicaciones web pueden recibir parámetros a través de la propia URL de invocación del servidor.</p>
+
+<p>Imagina que tenemos este link en un documento HTML:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"pagina.php?variable1=valor1&amp;variable2=valor2&amp;etc…"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>Al hacer clic en él, pediremos al servidor que ejecute el programa cuyo código fuente está en el archivo <em>pagina.php</em>, ¿verdad?</p>
+
+<p>Pues bien, ese programa <em>pagina.php</em> tendrá a su disposición unas variables llamadas <em>“</em>variable1<em>, *variable2</em>, etc, que son las que han viajado hasta el servidor en la URL.</p>
+
+<p>Para acceder a esas variables, PHP utiliza un array global llamado <strong>$_GET</strong>, que se indexa con el nombre de las variables. Así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">echo</span> <span class="s2">"La variable 2 vale:"</span><span class="mf">.</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'variable2'</span><span class="p">]</span><span class="mf">.</span><span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>Observa el uso del carácter punto (.) para concatenar strings en la salida de <em>echo</em>. Esto, en Java y muchos otros lenguajes, se haría con el carácter más (+). PHP es un poquito especial en este detalle.</p>
+
+<h3 id="1312-entrada-de-datos-a-través-de-formulario">1.3.12. Entrada de datos a través de formulario</h3>
+
+<p>Como PHP se ejecuta dentro de HTML, sólo puede recibir datos del usuario de la aplicación a través del navegador web.</p>
+
+<p>Y sólo hay una forma de introducir datos en una página web: <em>a través de un formulario</em>.</p>
+
+<p>Veámoslo con un ejemplo. Supongamos que hemos definido en HTML este sencillo formulario:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">"post"</span> <span class="na">action=</span><span class="s">"destino.php"</span><span class="nt">&gt;</span>
+Nombre<span class="nt">&lt;br/&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"nombre"</span><span class="nt">&gt;&lt;br/&gt;</span>
+Apellidos<span class="nt">&lt;br&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"apellidos"</span><span class="nt">&gt;&lt;br/&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+
+<p>Al pulsar el botón “Enviar”, se cargará el script <em>destino.php</em> en el servidor.</p>
+
+<p>Ese script recibirá dos variables HTML llamadas <em>nombre</em> y <em>apellido</em>, con el valor que el usuario haya introducido en el formulario.</p>
+
+<p>Para acceder a las variables HTML, se usa el array del sistema <strong>$_POST</strong>, indexándolo con el nombre de la variable:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+     <span class="k">echo</span> <span class="s2">"La variable nombre vale"</span><span class="mf">.</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'nombre'</span><span class="p">]</span><span class="mf">.</span><span class="s2">"&lt;br&gt;"</span> 
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>Observa que <em>$_POST</em> es una variable semejante a <em>$_GET</em>. Puedes utilizar una u otra según el valor del atributo <em>method</em> de tu formulario HTML.</p>
+
+<p>La variable <strong>$_REQUEST</strong> sirve tanto para POST como para GET. <strong>Por eso será la que nosotros usaremos preferentemente en nuestros programas</strong>.</p>
+
+<h3 id="1313-validación-y-saneamiento-de-formularios">1.3.13. Validación y saneamiento de formularios</h3>
+
+<p>Los datos que llegan desde un formulario son una fuente inagotable de quebraderos de cabeza. Para empezar, casi todos los ataques a las aplicaciones web provienen de intentos de los atacantes de usar los formularios como puerta de entrada al servidor. Y no hay que menospreciar el caos que puede provocar en una aplicación un usuario bienintencionado pero torpe que envía al servidor cosas totalmente imprevistas a través de un formulario.</p>
+
+<p>Por lo tanto, todo lo que los usuarios de la aplicación escriban en un formulario debe filtrarse:</p>
+
+<ol>
+  <li>En el cliente, usando los atributos HTML5 necesarios y, si hace falta, recurriendo a Javascript.</li>
+  <li>En el servidor, mediante PHP o el lenguaje de servidor que estemos usando.</li>
+</ol>
+
+<p>Ese filtro puede ser algo muy simple, como eliminar todos los caracteres no alfabéticos que provengan del formulario, o algo más complejo, como comprobar que el usuario ha escrito una dirección de email bien formada.</p>
+
+<p>Ese proceso de filtrado se denomina <strong>validación y saneamiento</strong>.</p>
+
+<p>Para ayudarnos en esta validación, PHP proporciona la función <strong><em>filter_var()</em></strong>, que limpia diferentes conjuntos de caracteres sospechosos de cualquier dato que provenga del formulario. Esta función recibe como parámetro un string y permite tanto sanearlo como validarlo.</p>
+
+<p>Por ejemplo, supongamos que tenemos un sencillo formulario con dos campos, <em>nombre</em> y <em>email</em>:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">'procesa_formulario.php'</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">'text'</span> <span class="na">name=</span><span class="s">'nombre'</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">'text'</span> <span class="na">name=</span><span class="s">'email'</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">'submit'</span><span class="nt">&gt;</span>Enviar<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>El script <em>procesa_formulario.php</em> recibirá los datos enviados por este formulario (nombre y email) en las variables <em>$_REQUEST[“nombre”]</em> y <em>$_REQUEST[“email”]</em>. Pues bien, si queremos sanear (limpiar) cualquier carácter sospechoso que pueda venir en esas variables, podemos hacerlo así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">isset</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s2">"nombre"</span><span class="p">]))</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"Error: el campo nombre es obligatorio"</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">isset</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s2">"email"</span><span class="p">]))</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"Error: el campo email es obligatorio"</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nv">$nombre</span> <span class="o">=</span> <span class="nb">filter_var</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s2">"nombre"</span><span class="p">],</span> <span class="no">FILTER_SANITIZE_STRING</span><span class="p">);</span>
+<span class="nv">$email</span> <span class="o">=</span> <span class="nb">filter_var</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s2">"email"</span><span class="p">],</span> <span class="no">FILTER_SANITIZE_EMAIL</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Tras la ejecución de este código nos habremos asegurado de que el usuario ha rellenado los dos campos y que esos campos no contienen ningún carácter sospechoso de ataque.</p>
+
+<p><em>filter_var()</em> admite otros valores como segundo parámetro. Son estos:</p>
+
+<ul>
+  <li><strong>FILTER_SANITIZE_STRING</strong>: elimina cualquier etiqueta HTML que encuentre en el string.</li>
+  <li><strong>FILTER_SANITIZE_NUMBER_INT</strong>: elimina cualquier carácter que no sea numérico (solo respeta los caracteres “+” y “-“)</li>
+  <li><strong>FILTER_SANITIZE_URL</strong>: elimina cualquier carácter que no forme parte de una URL. El decir, solo deja las letras, los números y algunos caracteres especiales como _, : o ?</li>
+  <li><strong>FILTER_SANITIZE_EMAIL</strong>: elimina cualquier carácter que no forme parte de una dirección de email típica.</li>
+</ul>
+
+<p>Si solo queremos validar un string procedente de un formulario, podemos cambiar los valores anteriores por FILTER_VALIDATE_STRING, FILTER_VALIDATE_NUMBER_INT, etc. Es decir, cambiaremos la palabra SANITIZE por VALIDATE. De ese modo, la función <em>filter_var()</em> no cambiará el string, sino que comprobará si pasa el filtro o no y nos devolverá <em>true</em> o <em>false</em>.</p>
+
+<p>Existen otros filtros más complejos que puedes consultar en la referencia oficial del lenguaje.</p>
+
+<p>Y, por supuesto, para construir validaciones más específicas, siempre puede programarlas por tu cuenta y riesgo, usando las funciones de procesamiento de strings que te ofrece PHP y currándotelo un poco.</p>
+
+<h3 id="1314-namespaces">1.3.14. Namespaces</h3>
+
+<p>Cuando las aplicaciones se hacen muy complejas pueden llegar a usar muchísimas clases (tanto nuestras como de librerías) y antes o después nos encontramos con problemas de redefinición. Es decir: dos clases, dos métodos o dos funciones que se llaman igual pero que pertenecen a librerías diferentes.</p>
+
+<p>Los <strong>namespaces</strong> o <strong>espacios con nombre</strong> permiten organizar clases mediante nombres descriptivos, igual que los archivos se organizan en carpetas. ¿Verdad que puedes tener dos archivos que se llamen igual en dos lugares distintos de tu disco duro? Pues eso mismo.</p>
+
+<p>Por ejemplo, podemos tener una clase llamada <em>Planta</em> para manejar las existencias de plantas vegetales de un centro comercial, y una clase diferente llamada también <em>Planta</em> que se refiera a los diferentes pisos del centro comercial. Cada clase estaría dentro de un <em>namespace</em> diferente, y así no se confundirían.</p>
+
+<p>Para asignar una clase (o lo que sea) a un espacio con nombres, basta con indicarlo al principio del archivo que contiene esa clase, así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">vegetales</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Cualquier clase o función que se declare en este archivo pertenecerá al <em>namespace</em> “vegetales”.</p>
+
+<p>Para mantener un <strong>código limpio y bien organizado</strong>, lo habitual es escribir una sola clase en cada archivo, y colocar esos archivos en subcarpetas que tengan el mismo nombre que el <em>namespace</em>. De hecho, los <em>namespaces</em> de los sistemas complejos suelen incluir una jerarquía de carpetas que se indica así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">Persona\Empleado</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>El archivo que comience de ese modo debería contener el código fuente de una clase llamada también <em>Empleado</em>, y el propio archivo debería llamarse <em>empleado.php</em> y localizarse en una subcarpeta llamada <em>persona/empleado</em>.</p>
+
+<p>¿Y cómo se usa una clase localizada en un <em>namespace</em>? Muy sencillo: indicaremos el <em>namespace</em> que queremos utilizar mediante la instrucción <strong><em>use</em></strong>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">include_once</span><span class="p">(</span><span class="s2">"Persona/Empleado/empleado.php"</span><span class="p">);</span>   <span class="c1">// Esto incluye el código fuente de la clase Empleado</span>
+<span class="kn">use</span> <span class="nc">Persona</span><span class="o">/</span><span class="nc">Empleado</span><span class="o">/</span><span class="nc">Empleado</span><span class="p">;</span>                   <span class="c1">// Esto indica el namespace que queremos utilizar</span>
+<span class="nv">$emp</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Empleado</span><span class="p">();</span>                           <span class="c1">// ¡Y ya tenemos disponible la clase Empleado!</span>
+</code></pre></div></div>
+
+<h3 id="1315-extensiones-de-php-y-referencia-del-lenguaje-cómo-usar-la-biblioteca-del-lenguaje-sin-volverse-loco">1.3.15. Extensiones de PHP y referencia del lenguaje: cómo usar la biblioteca del lenguaje sin volverse loco</h3>
+
+<p>Para terminar con esta introducción a PHP, no podemos dejar de hablar de las <strong>bibliotecas de clases y funciones</strong> que vienen con cualquier distribución del lenguaje.</p>
+
+<p>PHP dispone, literalmente, de miles de funciones y métodos disponibles para usar con nuestros programas. Estas funciones y métodos resuelven casi cualquier problema común concebible.</p>
+
+<p>Como la biblioteca de PHP es tan grande, los administradores del servidor deben decidir qué funciones y clases están disponibles activando o desactivando <strong>extensiones de PHP</strong>, que es una forma rebuscada de referirse a las bibliotecas del lenguaje. Cuando un servidor tiene activada una determinada extensión de PHP, todas sus funciones y métodos están disponibles para nuestros programas.</p>
+
+<p>Es imposible conocer toda esa vasta colección de funciones, clases y métodos. Para eso está la referencia oficial del lenguaje, que puedes encontrar en <a href="https://www.php.net/manual">https://www.php.net/manual</a></p>
+
+<p>Por ejemplo, existen muchas funciones para manipular strings. Imagina que un día necesitas convertir todos los caracteres de un string a mayúsculas. Parece razonable suponer que, si las bibliotecas de PHP son tan grandes, exitirá una función que pueda hacer eso por nosotros. ¿Cómo la localizamos?</p>
+
+<p>Mi consejo es que acudas siempre a <a href="https://www.php.net/manual">https://www.php.net/manual</a> y allí utilices el buscador. Por ejemplo, teclea en la caja de búsqueda la palabra “strings”. En la página de resultados obtendrás una lista con todas las funciones relativas a strings. La función que estamos buscando debe incluir la palabra “upper”. Una rápida búsqueda por la página de resultados te conducirá a la función <em>strtoupper()</em>, que es justo la que estábamos buscando.</p>
+
+<p>Si accedes a la página de <em>strtoupper()</em> encontrarás una completa descripción de la función y, lo que es más importante, algunos ejemplos de código que puedes copiar, pegar y adaptar a tu caso concreto.</p>
+
+<p>Si, por alguna razón, decides buscar información sobre las biblioteca de PHP fuera de la web oficial, asegúrate que el sitio es de confianza y que la información que ofrece está actualizada: hay muchos sitios web que proporcionan soluciones obsoletas, inseguras o directamente erróneas.</p>
+
+<p>Por supuesto, también está la opción de recurrir a una IA generativa. Pero hazte un favor a ti y a tu cerebro de programador en formación: no te fíes al 100% de su respuesta y, sobre todo, <strong>nunca, nunca jamás le pidas a una IA que resuelva tu problema</strong>. Pídele mejor que <em>te explique</em> cómo podrías resolver el problema, y después trata de resolverlo por ti mismo. Si no, no habrás aprendido nada por el camino y, aunque tu programa funcione bien, habrás perdido el tiempo miserablemente.</p>

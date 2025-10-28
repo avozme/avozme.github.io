@@ -1,0 +1,118 @@
+<h2 class="no_toc" id="11-programación-cliente-servidor">1.1. Programación cliente-servidor</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#111-un-poco-de-jerga-informática" id="markdown-toc-111-un-poco-de-jerga-informática">1.1.1. Un poco de jerga informática</a></li>
+  <li><a href="#112-una-petición-web-10" id="markdown-toc-112-una-petición-web-10">1.1.2. Una petición web 1.0</a></li>
+  <li><a href="#113-una-petición-web-20" id="markdown-toc-113-una-petición-web-20">1.1.3. Una petición web 2.0</a></li>
+  <li><a href="#114-desarrollo-web-clásico-años-2000-2010" id="markdown-toc-114-desarrollo-web-clásico-años-2000-2010">1.1.4. Desarrollo web clásico (años 2000-2010)</a></li>
+  <li><a href="#115-la-revolución-spa-años-2010-2020" id="markdown-toc-115-la-revolución-spa-años-2010-2020">1.1.5. La revolución SPA (años 2010-2020)</a></li>
+  <li><a href="#116-retorno-al-full-stack-simplificado-2020-actualidad" id="markdown-toc-116-retorno-al-full-stack-simplificado-2020-actualidad">1.1.6. Retorno al full stack simplificado (2020-actualidad)</a></li>
+</ul>
+
+<p>En los primeros tiempos de Internet, no se ejecutaban programas en el servidor. Solo se pedían páginas estáticas (escritas en HTML) más o menos elaboradas que había sido guardadas en el servidor por un administrador de sistemas. A esto se le denominó <strong>web 1.0</strong>.</p>
+
+<p>A alguien se le ocurrió la idea de que <strong>los propios visitantes podrían también crear contenido</strong>. Ese contenido se guardaría en el servidor (en archivos o en una base de datos) y posteriormente podría recuperarse para generar con él páginas dinámicas, generadas sobre la marcha. Es decir, documentos HTML que no existieran previamente y que nadie, en realidad, hubiera tecleado, sino que se creasen a partir del contenido almacenado en esos archivos o esa base de datos.</p>
+
+<p>Esa web dinámica estaría generada por un programa ejecutado en el servidor, un programa cuya salida sería HTML válido, comprensible por el navegador que la reciba. A esto se le denominó <strong>web 2.0</strong> y supuso una revolución tan grande como el propio nacimiento de Internet.</p>
+
+<h3 id="111-un-poco-de-jerga-informática">1.1.1. Un poco de jerga informática</h3>
+
+<p>Antes de continuar, tienes que asegurarte de que comprendes bien el significado de algunos términos básicos:</p>
+
+<ul>
+  <li>
+    <p>Un <strong>servidor</strong> es <strong>un programa</strong> que se ejecuta en una máquina conectada a una red y que permanece dormido hasta que una petición procedente de la red lo despierta. Entonces, el programa hace algo (consulta datos, elabora un cálculo, lo que sea) y devuelve su resultado por la red.</p>
+
+    <p>Por extensión, un servidor también es <strong>cualquier ordenador donde se ejecute un programa servidor</strong>. Es decir, usamos la misma palabra para referirnos a un programa y al ordenador donde se ejecuta ese programa. Mala idea, ya lo sé, pero es lo que hay.</p>
+  </li>
+  <li>
+    <p>El <strong>cliente</strong> es <strong>un programa</strong> que envía peticiones al servidor para despertarlo. También es el programa que recoge el resultado devuelto por el servidor.</p>
+
+    <p>¿Y sabes qué? Que, por extensión, <strong>la máquina</strong> donde se ejecuta un programa cliente también se llama cliente.</p>
+  </li>
+</ul>
+
+<p>Pues bien, en programación web, nuestro cliente es el <strong>navegador web</strong> (también llamado cliente web). Cualquier navegador del universo conocido entra en esta categoría. Excepto, tal vez, Internet Explorer (sí, esto es un chiste informático).</p>
+
+<p>Y un servidor es cualquier máquina de la red donde se esté ejecutando un programa servidor web como Apache, Nginx, Tomcat, IIS y otros cuando viejos amigos que irás conociendo a lo largo de este curso.</p>
+
+<h3 id="112-una-petición-web-10">1.1.2. Una petición web 1.0</h3>
+
+<p>Ahora que tienes claro qué es un servidor y un cliente web, puedes comprender el siguiente esquema.</p>
+
+<p>En él, se ilustra lo que ocurre cuando un cliente web (recuerda: tu navegador) envía al servidor la petición de una <strong>página estática</strong>.</p>
+
+<p>El servidor, en este caso, se limita a enviar al cliente el documento HTML tal cual está almacenado en su disco duro, sin cambiar una sola coma.</p>
+
+<p><img src="../assets/images/01-servicio-www-1.jpg" alt="Ejemplo de servicio www" /></p>
+
+<h3 id="113-una-petición-web-20">1.1.3. Una petición web 2.0</h3>
+
+<p>Con la web 2.0 la cosa cambia bastante porque aparecen las <strong>páginas dinámicas</strong>, aunque tendrás que fijarte bien en el esquema para apreciar la diferencia.</p>
+
+<p>Quédate con lo importante: en este esquema, el cliente web no pide un documento HTML, sino <em>un programa</em>, que puede estar escrito en PHP o algún otro lenguaje. Eso es lo de menos.</p>
+
+<p>Ese programa se ejecuta en el servidor, y <em>el resultado de esa ejecución</em> es lo que recibe el cliente, <em>no el programa en sí</em>.</p>
+
+<p><img src="../assets/images/01-servicio-www-2.jpg" alt="Ejemplo de servicio www" /></p>
+
+<p>Pues bien: si un sitio web funciona del primer modo, no es una aplicación web, sino una página web estática. Para que sea considerado una aplicación web, debe funcionar del segundo modo.</p>
+
+<h3 id="114-desarrollo-web-clásico-años-2000-2010">1.1.4. Desarrollo web clásico (años 2000-2010)</h3>
+
+<p>Cuando comenzaron a crearse las primeras aplicaciones web siguiendo el esquema cliente-servidor anterior, se usaron los lenguajes que en ese momento estaban disponibles en los servidores web (que, en su mayoría, como en la actualidad, estaban basados en Unix/Linux).</p>
+
+<p>Por eso las primeras aplicaciones se programaron en lenguajes como <strong>Perl</strong>, <strong>PHP</strong>, <strong>Python</strong>, <strong>Java</strong> (JSP) o <strong>Visual Basic</strong> (con ASP.NET). Con el tiempo, algunos de esos lenguaje evolucionaron y se adaptaron a los nuevos tiempos, por lo que han seguido usándose (como PHP, Java o Python), mientras que otros se quedaron desfasados (como Perl).</p>
+
+<p>En estas aplicaciones, <strong>el servidor contenía toda la lógica del programa</strong> y <strong>generaba una salida llamada “vista” o “view”</strong> que se podía visualizar en un navegador web, puesto que estaba codificada como HTML. Esta salida podía incluir CSS para mejorar la visualización y algo de Javascript para dinamizar la vista, pero poco más.</p>
+
+<p>Poco después surgieron los primeros <strong>frameworks MVC</strong> como <strong>Symfony</strong> (para PHP), <strong>Ruby on Rails</strong> (para Ruby) o <strong>Django</strong> (para Python). Estos frameworks eran librerías que facilitaban el desarrollo web y automatizaban muchas tareas comunes.</p>
+
+<p><img src="../assets/images/01-desarrollo-web-clasico.jpg" alt="Desarrollo web clásico" /></p>
+
+<h3 id="115-la-revolución-spa-años-2010-2020">1.1.5. La revolución SPA (años 2010-2020)</h3>
+
+<p>A finales de la década del 2000 aparecieron las <strong>aplicaciones SPA</strong> (Sigle Page Application), también llamadas OVA (One View Application). Se caracterizaban porque, cuando el usuario hacia algo en la página, esta no se recargaba completamente, sino que solo se modificaba una parte.</p>
+
+<p>Esto fue posible gracias a que Javascript desarrolló la <strong>tecnología Ajax</strong> o de peticiones asíncronas, capaz de pedir datos al servidor en segundo plano, es decir, mientras el navegador continuaba funcionando. El usuario no se daba cuenta de que el navegador estaba solicitando datos al servidor ni de que el servidor estaba respondiendo.</p>
+
+<p>El resultado fueron <strong>aplicaciones web mucho más dinámicas e interactivas</strong> que las que se habían visto hasta entonces, puesto que la página no tenía que recargarse (es decir, pedirse de nuevo al servidor) continuamente.</p>
+
+<p>Muy pronto, todo el mundo quiso tener su propia aplicación SPA, pero esto planteaba un desafío a los desarrolladores: <strong><em>las aplicaciones SPA son mucho más difíciles de escribir que las aplicaciones web tradicionales</em></strong>, puesto que la lógica del programa está repartida de forma bastante caótica entre el cliente y el servidor.</p>
+
+<p>De repente, Javascript había dejado de ser un “juguete” y se encontraba gestionando gran parte de la lógica de las aplicaciones, mientras que los lenguajes más maduros y consistentes, como PHP o Java, se limitaban a implementar una API que consultaba la base de datos y devolvía los resultados como JSON o XML al cliente; es decir, ya no producían vistas complejas en HTML.</p>
+
+<p>Por eso aparecieron <strong>frameworks para Javascript</strong> como <strong>Angular</strong>, en primer lugar, y más tarde <strong>React</strong>, <strong>Vue</strong> o <strong>Svelte</strong>. Estos frameworks facilitaban la tarea del desarrollo en el lado del cliente.</p>
+
+<p>Para complicar aún más la cosa, en el lado del servidor también hubo una explosión de frameworks fuertemente incompatibles entre sí. Cada lenguaje tenía uno o varios frameworks para elegir (PHP tenía Laravel, Symfony o Zend; Python tenía Django, Flask o FastAPI; Java tenía Spring Boot o Jakarta; etc.)</p>
+
+<p>El resultado de esta explosión de nuevas tecnologías fue que los desarrolladores web no podían especializarse en todas y, en la práctica, el mercado laboral acabó por dividirse en dos categorías:</p>
+<ul>
+  <li>Los <strong>desarrolladores frontend</strong>, que trabajaban con Javascript y uno o varios de sus frameworks (Angular, sobre todo)</li>
+  <li>Los <strong>desarrolladores backend</strong>, que trabajaban con los lenguajes de servidor y algunos de sus frameworks (PHP con Laravel, sobre todo).</li>
+</ul>
+
+<p>También existía el perfil de <strong>desarrollador full stack</strong>, que era una persona que conocía las tecnologías del frontend y del backend, pero no se esperaba que realmente las controlase en profundidad.</p>
+
+<p><img src="../assets/images/01-desarrollo-web-spa.jpg" alt="Desarrollo web SPA" /></p>
+
+<h3 id="116-retorno-al-full-stack-simplificado-2020-actualidad">1.1.6. Retorno al full stack simplificado (2020-actualidad)</h3>
+
+<p>La solución de construir cada aplicación web como si fueran dos proyectos casi independientes (SPA en el fronend y API en el backend) es demasiado compleja para muchos desarrollos. Esto ha sido un secreto a voces en la industria durante años.</p>
+
+<p>La solución apareció a principios de esta década, cuando comenzaron a surgir <strong>frameworks híbridos</strong> que integran frontend y
+backend, como <strong>Next.js</strong>, y simplifican en desarrollo. El front y el back ya no son dos mundos separados en cada proyecto, sino que todo vuelve a conformar una única aplicación.</p>
+
+<p>Además de frameworks nuevos como Next.js, basado en Node, algunos frameworks clásicos han sabido reinventarse como híbridos:</p>
+
+<ul>
+  <li><strong>Laravel con Inertia o con Livewire</strong></li>
+  <li><strong>Django con HTMX</strong></li>
+  <li><strong>Ruby on Rails con Hotwire</strong></li>
+</ul>
+
+<p>Con estas soluciones, <strong>la lógica de la aplicación regresa al servidor</strong>, con lo que todo el sistema es más fácil de construir y de mantener, pero <strong>seguimos teniendo una SPA en el cliente</strong>, lo que hace que la experiencia del usuario no se resienta. Se unen así las ventajas de los dos mundos.</p>
+
+<p>Aunque siguen existiendo desarrolladores frontend y desarrolladores backend, <strong>el perfil de desarrollador full stack</strong> está teniendo un gran crecimiento gracias a estos nuevos frameworks.</p>
+
+<p><img src="../assets/images/01-desarrollo-web-full-stack.jpg" alt="Desarrollo web full stack moderno" /></p>

@@ -1,5 +1,145 @@
-<!DOCTYPE html> <html lang="en-US"> <head> <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=Edge"> <title>4 Vue.js - DESARROLLO WEB FULL STACK</title> <link rel="shortcut icon" href="/docs/fullstack/_site/favicon.ico" type="image/x-icon"> <link rel="stylesheet" href="/docs/fullstack/_site/assets/css/just-the-docs-default.css"> <script type="text/javascript" src="/docs/fullstack/_site/assets/js/vendor/lunr.min.js"></script> <script type="text/javascript" src="/docs/fullstack/_site/assets/js/just-the-docs.js"></script> <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Begin Jekyll SEO tag v2.8.0 --> <title>4 Vue.js | DESARROLLO WEB FULL STACK</title> <meta name="generator" content="Jekyll v4.2.2" /> <meta property="og:title" content="4 Vue.js" /> <meta property="og:locale" content="en_US" /> <meta name="description" content="Apuntes del módulo optativo de “Desarrollo web full stack”, de 2º curso del Ciclo Formativo de Grado Superior de Desarrollo de Aplicaciones Web/Multiplataforma impartido en el IES Celia Viñas de Almería (España)" /> <meta property="og:description" content="Apuntes del módulo optativo de “Desarrollo web full stack”, de 2º curso del Ciclo Formativo de Grado Superior de Desarrollo de Aplicaciones Web/Multiplataforma impartido en el IES Celia Viñas de Almería (España)" /> <link rel="canonical" href="https://iescelia.org/docs/fullstack/_site/vue-js/" /> <meta property="og:url" content="https://iescelia.org/docs/fullstack/_site/vue-js/" /> <meta property="og:site_name" content="DESARROLLO WEB FULL STACK" /> <meta property="og:type" content="website" /> <meta name="twitter:card" content="summary" /> <meta property="twitter:title" content="4 Vue.js" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo optativo de “Desarrollo web full stack”, de 2º curso del Ciclo Formativo de Grado Superior de Desarrollo de Aplicaciones Web/Multiplataforma impartido en el IES Celia Viñas de Almería (España)","headline":"4 Vue.js","url":"https://iescelia.org/docs/fullstack/_site/vue-js/"}</script> <!-- End Jekyll SEO tag --> </head> <body> <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"> <symbol id="svg-link" viewBox="0 0 24 24"> <title>Link</title> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"> <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path> </svg> </symbol> <symbol id="svg-search" viewBox="0 0 24 24"> <title>Search</title> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"> <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line> </svg> </symbol> <symbol id="svg-menu" viewBox="0 0 24 24"> <title>Menu</title> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"> <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line> </svg> </symbol> <symbol id="svg-arrow-right" viewBox="0 0 24 24"> <title>Expand</title> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"> <polyline points="9 18 15 12 9 6"></polyline> </svg> </symbol> <symbol id="svg-doc" viewBox="0 0 24 24"> <title>Document</title> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"> <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline> </svg> </symbol> </svg> <div class="side-bar"> <div class="site-header"> <a href="https://iescelia.org/docs/fullstack/_site/" class="site-title lh-tight"> DESARROLLO WEB FULL STACK </a> <a href="#" id="menu-button" class="site-button"> <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-menu"></use></svg> </a> </div> <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav"> <ul class="nav-list"><li class="nav-list-item active"><a href="#" class="nav-list-expander"><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a><a href="https://iescelia.org/docs/fullstack/_site/" class="nav-list-link">Desarrollo web full stack</a><ul class="nav-list "><li class="nav-list-item "><a href="#" class="nav-list-expander"><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a><a href="https://iescelia.org/docs/fullstack/_site/php/" class="nav-list-link">1 Programación web con PHP</a><ul class="nav-list"><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/php/frontend-backend-fullstack.html" class="nav-list-link">1.1 Frontend vs backend vs full stack</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/php/caja-de-herramientas.html" class="nav-list-link">1.2 Caja de herramientas</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/php/sintaxis-de-php.html" class="nav-list-link">1.3 Sintaxis de PHP</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/php/interaccion-con-mysql.html" class="nav-list-link">1.4 Interacción con la base de datos</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/php/depuracion-php-xdebug.html" class="nav-list-link">1.5 Depurando el código PHP con xdebug</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/php/cookies-y-sesiones.html" class="nav-list-link">1.6 Cookies y variables de sesión</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/php/mvc/" class="nav-list-link">1.7 Arquitectura MVC</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/php/ejemplos-resueltos.html" class="nav-list-link">1.8 Ejemplos resueltos</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/php/ejercicios-propuestos.html" class="nav-list-link">1.9 Prácticas</a> </li></ul></li><li class="nav-list-item "><a href="#" class="nav-list-expander"><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a><a href="https://iescelia.org/docs/fullstack/_site/laravel/" class="nav-list-link">2 Laravel</a><ul class="nav-list"><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/laravel/caracteristicas.html" class="nav-list-link">2.1 Características de Laravel</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/laravel/instalacion.html" class="nav-list-link">2.2 Instalación de Laravel</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/laravel/configuracion.html" class="nav-list-link">2.3 Configuración de Laravel</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/laravel/artisan.html" class="nav-list-link">2.4 Artisan</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/laravel/hola-mundo-con-laravel.html" class="nav-list-link">2.5 Hola mundo</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/laravel/enrutamiento.html" class="nav-list-link">2.6 Enrutamiento</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/laravel/vistas-blade.html" class="nav-list-link">2.7 Vistas y plantillas con Blade</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/laravel/controladores.html" class="nav-list-link">2.8 Controladores</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/laravel/migraciones.html" class="nav-list-link">2.9 Migraciones</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/laravel/eloquent.html" class="nav-list-link">2.10 Usando la BD con Eloquent</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/laravel/querybuilder.html" class="nav-list-link">2.11 Usando la BD con QueryBuilder</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/laravel/sesiones.html" class="nav-list-link">2.12 Sesiones con Laravel</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/laravel/helpers.html" class="nav-list-link">2.13 Helpers de Laravel</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/laravel/flujo-de-trabajo-con-laravel.html" class="nav-list-link">2.14 Flujo de trabajo típico con Laravel</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/laravel/aspectos-avanzados.html" class="nav-list-link">2.15 Aspectos avanzados de Laravel</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/laravel/crud-con-laravel.html" class="nav-list-link">2.16 CRUD desarrollado con Laravel</a> </li><li class="nav-list-item "> <a href="https://iescelia.org/docs/fullstack/_site/laravel/practicas.html" class="nav-list-link">2.17 Prácticas</a> </li></ul></li><li class="nav-list-item "><a href="https://iescelia.org/docs/fullstack/_site/api-rest/" class="nav-list-link">3 Desarrollo de un API REST</a></li><li class="nav-list-item active"><a href="https://iescelia.org/docs/fullstack/_site/vue-js/" class="nav-list-link active">4 Vue.js</a></li><li class="nav-list-item "><a href="https://iescelia.org/docs/fullstack/_site/inertia/" class="nav-list-link">5 Intertia.js</a></li><li class="nav-list-item "><a href="https://iescelia.org/docs/fullstack/_site/scv-git/" class="nav-list-link">Apéndice 1. Sistemas de control de versiones. Git</a></li><li class="nav-list-item "><a href="https://iescelia.org/docs/fullstack/_site/docker/" class="nav-list-link">Apéndice 2. Virtualización con Docker</a></li><li class="nav-list-item "><a href="https://iescelia.org/docs/fullstack/_site/openstack/" class="nav-list-link">Apéndice 3. Despliegue con Openstack</a></li></ul></li><li class="nav-list-item"><a href="https://iescelia.org/docs/fullstack/_site/about/" class="nav-list-link">About</a></li></ul> </nav> <footer class="site-footer"> This site uses <a href="https://github.com/pmarsceill/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll. </footer> </div> <div class="main" id="top"> <div id="main-header" class="main-header"> <div class="search"> <div class="search-input-wrap"> <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search DESARROLLO WEB FULL STACK" aria-label="Search DESARROLLO WEB FULL STACK" autocomplete="off"> <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label> </div> <div id="search-results" class="search-results"></div> </div> </div> <div id="main-content-wrap" class="main-content-wrap"> <nav aria-label="Breadcrumb" class="breadcrumb-nav"> <ol class="breadcrumb-nav-list"> <li class="breadcrumb-nav-list-item"><a href="https://iescelia.org/docs/fullstack/_site/">Desarrollo web full stack</a></li> <li class="breadcrumb-nav-list-item"><span>4 Vue.js</span></li> </ol> </nav> <div id="main-content" class="main-content" role="main"> <h1 class="no_toc" id="4-vuejs"> <a href="#4-vuejs" class="anchor-heading" aria-labelledby="4-vuejs"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4. Vue.js </h1> <ul id="markdown-toc"> <li><a href="#41-introducción-a-vuejs" id="markdown-toc-41-introducción-a-vuejs">4.1. Introducción a Vue.js</a></li> <li><a href="#42-cómo-se-usa-vuejs" id="markdown-toc-42-cómo-se-usa-vuejs">4.2. Cómo se usa Vue.js</a></li> <li><a href="#43-vuejs-como-librería-javascript" id="markdown-toc-43-vuejs-como-librería-javascript">4.3. Vue.js como librería JavaScript</a></li> <li><a href="#44-vuejs-con-npm-para-aplicaciones-frontend" id="markdown-toc-44-vuejs-con-npm-para-aplicaciones-frontend">4.4. Vue.js con npm para aplicaciones frontend</a> <ul> <li><a href="#441-pasos-para-desarrollar-un-frontend-con-vue" id="markdown-toc-441-pasos-para-desarrollar-un-frontend-con-vue">4.4.1. Pasos para desarrollar un frontend con Vue</a></li> <li><a href="#442-pasos-para-desplegar-un-frontend-con-vue" id="markdown-toc-442-pasos-para-desplegar-un-frontend-con-vue">4.4.2. Pasos para desplegar un frontend con Vue</a></li> <li><a href="#443-pedir-datos-al-servidor-fetch-y-axios" id="markdown-toc-443-pedir-datos-al-servidor-fetch-y-axios">4.4.3. Pedir datos al servidor: fetch y axios</a></li> <li><a href="#444-estructura-típica-de-un-componente-vue" id="markdown-toc-444-estructura-típica-de-un-componente-vue">4.4.4. Estructura típica de un componente vue</a></li> <li><a href="#445-enrutamiento-en-el-cliente" id="markdown-toc-445-enrutamiento-en-el-cliente">4.4.5. Enrutamiento en el cliente</a></li> <li><a href="#446-ejemplo-completo-frontend-con-vue-v1---solo-mostrar-datos" id="markdown-toc-446-ejemplo-completo-frontend-con-vue-v1---solo-mostrar-datos">4.4.6. Ejemplo completo: frontend con Vue v1 - solo mostrar datos</a></li> <li><a href="#447-ejemplo-completo-frontend-con-vue-v2---crud-completo-enrutamiento-en-servidor" id="markdown-toc-447-ejemplo-completo-frontend-con-vue-v2---crud-completo-enrutamiento-en-servidor">4.4.7. Ejemplo completo: frontend con Vue v2 - CRUD completo, enrutamiento en servidor</a></li> <li><a href="#448-ejemplo-completo-frontend-con-vue-v3---crud-completo-enrutamiento-en-cliente" id="markdown-toc-448-ejemplo-completo-frontend-con-vue-v3---crud-completo-enrutamiento-en-cliente">4.4.8. Ejemplo completo: frontend con Vue v3 - CRUD completo, enrutamiento en cliente</a></li> </ul> </li> <li><a href="#45-vuejs-integrado-en-laravel-para-aplicaciones-full-stack" id="markdown-toc-45-vuejs-integrado-en-laravel-para-aplicaciones-full-stack">4.5. Vue.js integrado en Laravel para aplicaciones full stack</a> <ul> <li><a href="#451-cómo-instalar-vue-dentro-de-laravel-paso-a-paso" id="markdown-toc-451-cómo-instalar-vue-dentro-de-laravel-paso-a-paso">4.5.1. Cómo instalar Vue dentro de Laravel paso a paso</a></li> <li><a href="#452-estructura-de-directorios-de-un-proyecto-laravel--vue" id="markdown-toc-452-estructura-de-directorios-de-un-proyecto-laravel--vue">4.5.2. Estructura de directorios de un proyecto Laravel + Vue</a></li> <li><a href="#453-ejemplo-completo-crud-con-vuejs-y-laravel" id="markdown-toc-453-ejemplo-completo-crud-con-vuejs-y-laravel">4.5.3. Ejemplo completo: CRUD con Vue.js y Laravel</a></li> </ul> </li> <li><a href="#46-práctica-final-crud-de-cursos-y-estudiantes" id="markdown-toc-46-práctica-final-crud-de-cursos-y-estudiantes">4.6. Práctica final: CRUD de cursos y estudiantes</a></li> </ul> <p>Vue.js es un <strong>framework para Javascript</strong> orientado al <strong>diseño de interfaces de usuario</strong> para aplicaciones web y a la <strong>creación de aplicaciones OVA</strong> (One View Application) o SPA (Single Page Application).</p> <p>Es similar a otros frameworks como <strong>Angular</strong>, <strong>React</strong> o <strong>Svelte</strong>, aunque con una curva de aprendizaje menos empinada, y tiene licencia de software libre.</p> <p>En este tema vamos a aprender los fundamentos de Vue.js para consumir los API REST que ya sabemos construir, de modo que podamos crear una aplicación de tipo OVA o SPA de forma rápida, eficiente y flexible, y lo haremos con dos enfoques diferentes: usando Vue para crear un frontend independiente del API (que sería nuestro backend) e integrando las dos partes en una sola aplicación (full stack).</p> <h2 id="41-introducción-a-vuejs"> <a href="#41-introducción-a-vuejs" class="anchor-heading" aria-labelledby="41-introducción-a-vuejs"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.1. Introducción a Vue.js </h2> <p>Vue.js es lo que se llama un <strong>framework JavaScript progresivo</strong> diseñado para construir interfaces de usuario modernas y dinámicas. Se centra en la creación de <strong>Single Page Applications (SPA)</strong>, es decir, aplicaciones web que cargan una única página HTML y actualizan su contenido de forma dinámica sin necesidad de recargar todo el sitio cada vez que el usuario realiza una acción.</p> <h4 id="ventajas-principales"> <a href="#ventajas-principales" class="anchor-heading" aria-labelledby="ventajas-principales"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Ventajas principales </h4> <ul> <li><strong>Evita recargar la página completa</strong> con cada petición al servidor.</li> <li><strong>Permite crear componentes reutilizables</strong>, lo que hace el desarrollo más limpio y modular.</li> <li><strong>Incluye enrutamiento en cliente</strong>, lo que mejora la experiencia del usuario al navegar sin interrupciones.</li> <li><strong>Se integra fácilmente con Laravel</strong>, ya que este framework lo incluye preinstalado.</li> <li>Es <strong>open source</strong> y cuenta con una comunidad muy activa.</li> </ul> <h4 id="otros-frameworks-similares"> <a href="#otros-frameworks-similares" class="anchor-heading" aria-labelledby="otros-frameworks-similares"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Otros frameworks similares </h4> <ul> <li><strong>Angular</strong> (Google, desde 2010)</li> <li><strong>React</strong> (Facebook/Meta, desde 2013)</li> <li><strong>Vue.js</strong> (open source, desde 2014)</li> <li><strong>Svelte</strong> (open source, desde 2016)</li> </ul> <h2 id="42-cómo-se-usa-vuejs"> <a href="#42-cómo-se-usa-vuejs" class="anchor-heading" aria-labelledby="42-cómo-se-usa-vuejs"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.2. Cómo se usa Vue.js </h2> <p>Vue.js se puede utilizar de <strong>tres formas diferentes</strong>, según lo que necesites construir:</p> <p><strong>Opción 1: Como una librería JavaScript más</strong></p> <p>Puedes incluir Vue directamente desde un CDN dentro de un archivo HTML. Es la manera más simple de empezar a experimentar.</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/vue@3/dist/vue.global.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-</code></pre></div></div> <p>A partir de aquí, puedes usar Vue dentro de esta página. Es ideal para probar ejemplos pequeños o hacer prototipos rápidos, pero no podrás hacer uso de características importantes de Vue como usar <code class="language-plaintext highlighter-rouge">import/export</code> para cargar otros componentes o para diseñar soluciones escalables.</p> <p><em>Veremos esta forma de trabajar con Vue en el <a href="../vue-js/#43-vuejs-como-librer%C3%ADa-javascript">apartado 4.3</a> de este tema.</em></p> <p><strong>Opción 2: Con npm para proyectos frontend</strong></p> <p>Instalando <em>Node.js</em> y <em>npm</em>, puedes crear proyectos Vue completos exprimiendo toda su potencia: componentes, build tools, dependencias, etc.</p> <p>Esta opción se usa cuando queremos escribir una aplicación web de tipo <strong>frontend</strong>, es decir, que se ejecute en el cliente web consumiendo los datos producidos por el <strong>backend</strong> (que se ejecuta en el servidor).</p> <p>Este tipo de división frontend/backend, como ya sabes, ha sido y sigue siendo muy común en la industria, porque independiza por completo un proyecto de otro, aunque complica y encarece el desarrollo de todo el conjunto.</p> <p><em>Veremos esta forma de trabajar con Vue en el <a href="../vue-js/#44-vuejs-con-npm-para-aplicaciones-frontend">apartado 4.4</a> de este tema.</em></p> <p><strong>Opción 3: Integrado en Laravel</strong></p> <p>Si ya usas Laravel, puedes trabajar con Vue directamente dentro del proyecto Laravel.</p> <p>Así conseguiríamos un verdader desarrollo <strong>full stack</strong> (backend con Laravel + frontend con Vue), todo en el mismo entorno.</p> <p><em>Veremos esta forma de trabajar con Vue en el <a href="../vue-js/#45-vuejs-integrado-en-laravel-para-aplicaciones-full-stack">apartado 4.5</a> de este tema.</em></p> <h2 id="43-vuejs-como-librería-javascript"> <a href="#43-vuejs-como-librería-javascript" class="anchor-heading" aria-labelledby="43-vuejs-como-librería-javascript"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.3. Vue.js como librería JavaScript </h2> <p>La forma más sencilla de empezar con Vue es usarlo como una librería directamente en tu HTML. El aspecto que tendría ese HTML sería algo así:</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<h1 class="no_toc" id="4-vuejs">4. Vue.js</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#41-introducción-a-vuejs" id="markdown-toc-41-introducción-a-vuejs">4.1. Introducción a Vue.js</a>    <ul>
+      <li><a href="#ventajas-principales" id="markdown-toc-ventajas-principales">Ventajas principales</a></li>
+      <li><a href="#otros-frameworks-similares" id="markdown-toc-otros-frameworks-similares">Otros frameworks similares</a></li>
+    </ul>
+  </li>
+  <li><a href="#42-cómo-se-usa-vuejs" id="markdown-toc-42-cómo-se-usa-vuejs">4.2. Cómo se usa Vue.js</a></li>
+  <li><a href="#43-vuejs-como-librería-javascript" id="markdown-toc-43-vuejs-como-librería-javascript">4.3. Vue.js como librería JavaScript</a>    <ul>
+      <li><a href="#ejemplo-1--hola-mundo" id="markdown-toc-ejemplo-1--hola-mundo">Ejemplo 1 – Hola mundo</a></li>
+      <li><a href="#ejemplo-2--pregunta-y-respuesta" id="markdown-toc-ejemplo-2--pregunta-y-respuesta">Ejemplo 2 – Pregunta y respuesta</a></li>
+      <li><a href="#ejemplo-3--condicional-simple" id="markdown-toc-ejemplo-3--condicional-simple">Ejemplo 3 – Condicional simple</a></li>
+      <li><a href="#ejemplo-4--bucle" id="markdown-toc-ejemplo-4--bucle">Ejemplo 4 – Bucle</a></li>
+      <li><a href="#ejemplo-5--formulario" id="markdown-toc-ejemplo-5--formulario">Ejemplo 5 – Formulario</a></li>
+      <li><a href="#ejemplo-6--evento-click" id="markdown-toc-ejemplo-6--evento-click">Ejemplo 6 – Evento click</a></li>
+      <li><a href="#ejemplo-7--evento-key" id="markdown-toc-ejemplo-7--evento-key">Ejemplo 7 – Evento key</a></li>
+      <li><a href="#ejemplo-8--componente-hola-mundo" id="markdown-toc-ejemplo-8--componente-hola-mundo">Ejemplo 8 – Componente “Hola mundo”</a></li>
+      <li><a href="#ejemplo-9--componente-mis-tareas" id="markdown-toc-ejemplo-9--componente-mis-tareas">Ejemplo 9 – Componente “mis-tareas”</a></li>
+      <li><a href="#ejemplo-10--reutilizar-el-componente-mis-tareas" id="markdown-toc-ejemplo-10--reutilizar-el-componente-mis-tareas">Ejemplo 10 – Reutilizar el componente “mis-tareas”</a></li>
+    </ul>
+  </li>
+  <li><a href="#44-vuejs-con-npm-para-aplicaciones-frontend" id="markdown-toc-44-vuejs-con-npm-para-aplicaciones-frontend">4.4. Vue.js con npm para aplicaciones frontend</a>    <ul>
+      <li><a href="#441-pasos-para-desarrollar-un-frontend-con-vue" id="markdown-toc-441-pasos-para-desarrollar-un-frontend-con-vue">4.4.1. Pasos para desarrollar un frontend con Vue</a>        <ul>
+          <li><a href="#paso-1-instala-node-npm-y-vite" id="markdown-toc-paso-1-instala-node-npm-y-vite">PASO 1. Instala Node, npm y Vite</a></li>
+          <li><a href="#paso-2-crea-un-nuevo-proyecto-vue" id="markdown-toc-paso-2-crea-un-nuevo-proyecto-vue">PASO 2. Crea un nuevo proyecto Vue</a></li>
+          <li><a href="#paso-3-revisa-la-estructura-de-directorios" id="markdown-toc-paso-3-revisa-la-estructura-de-directorios">PASO 3. Revisa la estructura de directorios</a></li>
+          <li><a href="#paso-4-instala-las-dependencias-necesarias" id="markdown-toc-paso-4-instala-las-dependencias-necesarias">PASO 4. Instala las dependencias necesarias</a></li>
+          <li><a href="#paso-5-lanzadetén-el-servidor-de-desarrollo" id="markdown-toc-paso-5-lanzadetén-el-servidor-de-desarrollo">PASO 5. Lanza/detén el servidor de desarrollo</a></li>
+          <li><a href="#paso-6-lanza-tu-backend" id="markdown-toc-paso-6-lanza-tu-backend">PASO 6. Lanza tu backend</a></li>
+          <li><a href="#paso-7-revisa-posibles-errores-de-cors" id="markdown-toc-paso-7-revisa-posibles-errores-de-cors">PASO 7. Revisa posibles errores de CORS</a></li>
+        </ul>
+      </li>
+      <li><a href="#442-pasos-para-desplegar-un-frontend-con-vue" id="markdown-toc-442-pasos-para-desplegar-un-frontend-con-vue">4.4.2. Pasos para desplegar un frontend con Vue</a></li>
+      <li><a href="#443-pedir-datos-al-servidor-fetch-y-axios" id="markdown-toc-443-pedir-datos-al-servidor-fetch-y-axios">4.4.3. Pedir datos al servidor: fetch y axios</a></li>
+      <li><a href="#444-estructura-típica-de-un-componente-vue" id="markdown-toc-444-estructura-típica-de-un-componente-vue">4.4.4. Estructura típica de un componente vue</a></li>
+      <li><a href="#445-enrutamiento-en-el-cliente" id="markdown-toc-445-enrutamiento-en-el-cliente">4.4.5. Enrutamiento en el cliente</a>        <ul>
+          <li><a href="#cambios-que-hay-que-hacer-para-enrutar-en-el-cliente" id="markdown-toc-cambios-que-hay-que-hacer-para-enrutar-en-el-cliente">Cambios que hay que hacer para enrutar en el cliente</a></li>
+        </ul>
+      </li>
+      <li><a href="#446-ejemplo-completo-frontend-con-vue-v1---solo-mostrar-datos" id="markdown-toc-446-ejemplo-completo-frontend-con-vue-v1---solo-mostrar-datos">4.4.6. Ejemplo completo: frontend con Vue v1 - solo mostrar datos</a>        <ul>
+          <li><a href="#código-más-importante-de-la-versión-1" id="markdown-toc-código-más-importante-de-la-versión-1">Código más importante de la versión 1</a></li>
+        </ul>
+      </li>
+      <li><a href="#447-ejemplo-completo-frontend-con-vue-v2---crud-completo-enrutamiento-en-servidor" id="markdown-toc-447-ejemplo-completo-frontend-con-vue-v2---crud-completo-enrutamiento-en-servidor">4.4.7. Ejemplo completo: frontend con Vue v2 - CRUD completo, enrutamiento en servidor</a>        <ul>
+          <li><a href="#código-más-importante-de-la-versión-2" id="markdown-toc-código-más-importante-de-la-versión-2">Código más importante de la Versión 2</a></li>
+        </ul>
+      </li>
+      <li><a href="#448-ejemplo-completo-frontend-con-vue-v3---crud-completo-enrutamiento-en-cliente" id="markdown-toc-448-ejemplo-completo-frontend-con-vue-v3---crud-completo-enrutamiento-en-cliente">4.4.8. Ejemplo completo: frontend con Vue v3 - CRUD completo, enrutamiento en cliente</a>        <ul>
+          <li><a href="#código-más-importante-de-la-versión-3" id="markdown-toc-código-más-importante-de-la-versión-3">Código más importante de la versión 3</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#45-vuejs-integrado-en-laravel-para-aplicaciones-full-stack" id="markdown-toc-45-vuejs-integrado-en-laravel-para-aplicaciones-full-stack">4.5. Vue.js integrado en Laravel para aplicaciones full stack</a>    <ul>
+      <li><a href="#451-cómo-instalar-vue-dentro-de-laravel-paso-a-paso" id="markdown-toc-451-cómo-instalar-vue-dentro-de-laravel-paso-a-paso">4.5.1. Cómo instalar Vue dentro de Laravel paso a paso</a></li>
+      <li><a href="#452-estructura-de-directorios-de-un-proyecto-laravel--vue" id="markdown-toc-452-estructura-de-directorios-de-un-proyecto-laravel--vue">4.5.2. Estructura de directorios de un proyecto Laravel + Vue</a></li>
+      <li><a href="#453-ejemplo-completo-crud-con-vuejs-y-laravel" id="markdown-toc-453-ejemplo-completo-crud-con-vuejs-y-laravel">4.5.3. Ejemplo completo: CRUD con Vue.js y Laravel</a>        <ul>
+          <li><a href="#pasos-generales" id="markdown-toc-pasos-generales">Pasos generales</a></li>
+          <li><a href="#paso-1-crear-proyecto-de-laravel" id="markdown-toc-paso-1-crear-proyecto-de-laravel">PASO 1. Crear proyecto de Laravel</a></li>
+          <li><a href="#paso-2-preparación-de-vue-dentro-de-laravel" id="markdown-toc-paso-2-preparación-de-vue-dentro-de-laravel">PASO 2. Preparación de Vue dentro de Laravel</a></li>
+          <li><a href="#paso-3-configurar-la-conexión-con-la-base-de-datos" id="markdown-toc-paso-3-configurar-la-conexión-con-la-base-de-datos">PASO 3. Configurar la conexión con la base de datos</a></li>
+          <li><a href="#paso-4-modelos-migraciones-seeders" id="markdown-toc-paso-4-modelos-migraciones-seeders">PASO 4. Modelos, migraciones, seeders</a></li>
+          <li><a href="#paso-5-crear-el-controlador-restful" id="markdown-toc-paso-5-crear-el-controlador-restful">PASO 5: Crear el controlador RESTful</a></li>
+          <li><a href="#paso-6-rutas-api" id="markdown-toc-paso-6-rutas-api">PASO 6. Rutas API</a></li>
+          <li><a href="#paso-7-crear-los-componentes-de-vue" id="markdown-toc-paso-7-crear-los-componentes-de-vue">PASO 7. Crear los componentes de Vue</a></li>
+          <li><a href="#paso-8-crear-las-vistas-blade" id="markdown-toc-paso-8-crear-las-vistas-blade">PASO 8: Crear las vistas Blade</a></li>
+          <li><a href="#paso-9-desplegar-compilar-probar" id="markdown-toc-paso-9-desplegar-compilar-probar">PASO 9: Desplegar, compilar, probar</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#46-práctica-final-crud-de-cursos-y-estudiantes" id="markdown-toc-46-práctica-final-crud-de-cursos-y-estudiantes">4.6. Práctica final: CRUD de cursos y estudiantes</a></li>
+</ul>
+
+<p>Vue.js es un <strong>framework para Javascript</strong> orientado al <strong>diseño de interfaces de usuario</strong> para aplicaciones web y a la <strong>creación de aplicaciones OVA</strong> (One View Application) o SPA (Single Page Application).</p>
+
+<p>Es similar a otros frameworks como <strong>Angular</strong>, <strong>React</strong> o <strong>Svelte</strong>, aunque con una curva de aprendizaje menos empinada, y tiene licencia de software libre.</p>
+
+<p>En este tema vamos a aprender los fundamentos de Vue.js para consumir los API REST que ya sabemos construir, de modo que podamos crear una aplicación de tipo OVA o SPA de forma rápida, eficiente y flexible, y lo haremos con dos enfoques diferentes: usando Vue para crear un frontend independiente del API (que sería nuestro backend) e integrando las dos partes en una sola aplicación (full stack).</p>
+
+<h2 id="41-introducción-a-vuejs">4.1. Introducción a Vue.js</h2>
+
+<p>Vue.js es lo que se llama un <strong>framework JavaScript progresivo</strong> diseñado para construir interfaces de usuario modernas y dinámicas. Se centra en la creación de <strong>Single Page Applications (SPA)</strong>, es decir, aplicaciones web que cargan una única página HTML y actualizan su contenido de forma dinámica sin necesidad de recargar todo el sitio cada vez que el usuario realiza una acción.</p>
+
+<h4 id="ventajas-principales">Ventajas principales</h4>
+
+<ul>
+  <li><strong>Evita recargar la página completa</strong> con cada petición al servidor.</li>
+  <li><strong>Permite crear componentes reutilizables</strong>, lo que hace el desarrollo más limpio y modular.</li>
+  <li><strong>Incluye enrutamiento en cliente</strong>, lo que mejora la experiencia del usuario al navegar sin interrupciones.</li>
+  <li><strong>Se integra fácilmente con Laravel</strong>, ya que este framework lo incluye preinstalado.</li>
+  <li>Es <strong>open source</strong> y cuenta con una comunidad muy activa.</li>
+</ul>
+
+<h4 id="otros-frameworks-similares">Otros frameworks similares</h4>
+
+<ul>
+  <li><strong>Angular</strong> (Google, desde 2010)</li>
+  <li><strong>React</strong> (Facebook/Meta, desde 2013)</li>
+  <li><strong>Vue.js</strong> (open source, desde 2014)</li>
+  <li><strong>Svelte</strong> (open source, desde 2016)</li>
+</ul>
+
+<h2 id="42-cómo-se-usa-vuejs">4.2. Cómo se usa Vue.js</h2>
+
+<p>Vue.js se puede utilizar de <strong>tres formas diferentes</strong>, según lo que necesites construir:</p>
+
+<p><strong>Opción 1: Como una librería JavaScript más</strong></p>
+
+<p>Puedes incluir Vue directamente desde un CDN dentro de un archivo HTML. Es la manera más simple de empezar a experimentar.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/vue@3/dist/vue.global.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>A partir de aquí, puedes usar Vue dentro de esta página. Es ideal para probar ejemplos pequeños o hacer prototipos rápidos, pero no podrás hacer uso de características importantes de Vue como usar <code class="language-plaintext highlighter-rouge">import/export</code> para cargar otros componentes o para diseñar soluciones escalables.</p>
+
+<p><em>Veremos esta forma de trabajar con Vue en el <a href="../vue-js/#43-vuejs-como-librer%C3%ADa-javascript">apartado 4.3</a> de este tema.</em></p>
+
+<p><strong>Opción 2: Con npm para proyectos frontend</strong></p>
+
+<p>Instalando <em>Node.js</em> y <em>npm</em>, puedes crear proyectos Vue completos exprimiendo toda su potencia: componentes, build tools, dependencias, etc.</p>
+
+<p>Esta opción se usa cuando queremos escribir una aplicación web de tipo <strong>frontend</strong>, es decir, que se ejecute en el cliente web consumiendo los datos producidos por el <strong>backend</strong> (que se ejecuta en el servidor).</p>
+
+<p>Este tipo de división frontend/backend, como ya sabes, ha sido y sigue siendo muy común en la industria, porque independiza por completo un proyecto de otro, aunque complica y encarece el desarrollo de todo el conjunto.</p>
+
+<p><em>Veremos esta forma de trabajar con Vue en el <a href="../vue-js/#44-vuejs-con-npm-para-aplicaciones-frontend">apartado 4.4</a> de este tema.</em></p>
+
+<p><strong>Opción 3: Integrado en Laravel</strong></p>
+
+<p>Si ya usas Laravel, puedes trabajar con Vue directamente dentro del proyecto Laravel.</p>
+
+<p>Así conseguiríamos un verdader desarrollo <strong>full stack</strong> (backend con Laravel + frontend con Vue), todo en el mismo entorno.</p>
+
+<p><em>Veremos esta forma de trabajar con Vue en el <a href="../vue-js/#45-vuejs-integrado-en-laravel-para-aplicaciones-full-stack">apartado 4.5</a> de este tema.</em></p>
+
+<h2 id="43-vuejs-como-librería-javascript">4.3. Vue.js como librería JavaScript</h2>
+
+<p>La forma más sencilla de empezar con Vue es usarlo como una librería directamente en tu HTML. El aspecto que tendría ese HTML sería algo así:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;head&gt;</span>
   <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
@@ -15,7 +155,27 @@
   <span class="nt">&lt;/script&gt;</span>
 <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
-</code></pre></div></div> <p>Esto te permitirá experimentar con la sintaxis de Vue y entender su reactividad.</p> <p>Esta modalidad <strong>no es recomendable para proyectos grandes</strong>, pero la emplearemos ahora para que conozcas de forma práctica las principales características de Vue a través de <strong>un puñado de ejemplos</strong>.</p> <p><em><a href="https://github.com/avozme/vue-examples">Puedes descargar el código fuente completo de todos los ejemplos desde aquí</a></em>.</p> <h4 id="ejemplo-1--hola-mundo"> <a href="#ejemplo-1--hola-mundo" class="anchor-heading" aria-labelledby="ejemplo-1--hola-mundo"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Ejemplo 1 – Hola mundo </h4> <p>Observa cómo se extrae la propiedad <strong><em>createApp</em></strong> del objeto <strong><em>Vue</em></strong> y se usa para construir otro objeto (<strong><em>app</em></strong>).</p> <p>Este objeto, que puede llamarse de otro modo aunque suele denominarse así, <em>app</em>, se utiliza para asignarle datos (con <strong><em>data()</em></strong>) o, como veremos en otros ejemplos, métodos, templates, eventos, etc.</p> <p>Finalmente, el objeto <em>app</em> <strong>se monta</strong>, es decir, se renderiza dentro del árbol DOM de la página.</p> <p>Observa asimismo que, dentro del bloque HTML, <strong>hay un div con el id=”app”</strong>. Ese <em>id</em> tiene que coincidir con el nombre de la variable donde se montó Vue. El resultado final será que el texto <strong><em>{{ message }}</em></strong> se sustituirá por el valor que se le dio en la función <em>data()</em>.</p> <p>No dudes en analizar el código detenidamente y probarlo en tu navegador web para comprobar que funcione.</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</code></pre></div></div>
+
+<p>Esto te permitirá experimentar con la sintaxis de Vue y entender su reactividad.</p>
+
+<p>Esta modalidad <strong>no es recomendable para proyectos grandes</strong>, pero la emplearemos ahora para que conozcas de forma práctica las principales características de Vue a través de <strong>un puñado de ejemplos</strong>.</p>
+
+<p><em><a href="https://github.com/avozme/vue-examples">Puedes descargar el código fuente completo de todos los ejemplos desde aquí</a></em>.</p>
+
+<h4 id="ejemplo-1--hola-mundo">Ejemplo 1 – Hola mundo</h4>
+
+<p>Observa cómo se extrae la propiedad <strong><em>createApp</em></strong> del objeto <strong><em>Vue</em></strong> y se usa para construir otro objeto (<strong><em>app</em></strong>).</p>
+
+<p>Este objeto, que puede llamarse de otro modo aunque suele denominarse así, <em>app</em>, se utiliza para asignarle datos (con <strong><em>data()</em></strong>) o, como veremos en otros ejemplos, métodos, templates, eventos, etc.</p>
+
+<p>Finalmente, el objeto <em>app</em> <strong>se monta</strong>, es decir, se renderiza dentro del árbol DOM de la página.</p>
+
+<p>Observa asimismo que, dentro del bloque HTML, <strong>hay un div con el id=”app”</strong>. Ese <em>id</em> tiene que coincidir con el nombre de la variable donde se montó Vue. El resultado final será que el texto <strong><em>{{ message }}</em></strong> se sustituirá por el valor que se le dio en la función <em>data()</em>.</p>
+
+<p>No dudes en analizar el código detenidamente y probarlo en tu navegador web para comprobar que funcione.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;head&gt;</span>
     <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
@@ -42,7 +202,13 @@
     <span class="nt">&lt;/script&gt;</span>
   <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
-</code></pre></div></div> <h4 id="ejemplo-2--pregunta-y-respuesta"> <a href="#ejemplo-2--pregunta-y-respuesta" class="anchor-heading" aria-labelledby="ejemplo-2--pregunta-y-respuesta"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Ejemplo 2 – Pregunta y respuesta </h4> <p>En este ejemplo vamos a ver cómo <em>data()</em> puede preparar múltiples datos para que sean renderizados en el árbol DOM.</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</code></pre></div></div>
+
+<h4 id="ejemplo-2--pregunta-y-respuesta">Ejemplo 2 – Pregunta y respuesta</h4>
+
+<p>En este ejemplo vamos a ver cómo <em>data()</em> puede preparar múltiples datos para que sean renderizados en el árbol DOM.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;head&gt;</span>
     <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
@@ -72,7 +238,15 @@
     <span class="nt">&lt;/script&gt;</span>
   <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
-</code></pre></div></div> <h4 id="ejemplo-3--condicional-simple"> <a href="#ejemplo-3--condicional-simple" class="anchor-heading" aria-labelledby="ejemplo-3--condicional-simple"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Ejemplo 3 – Condicional simple </h4> <p>Vue también permite hacer salidas HTML condicionadas a los valores de los datos, como puedes ver en este ejemplo.</p> <p>Cambia el valor del <em>data</em> <strong><em>visible</em></strong> dentro de Vue para ver qué efecto tiene en la página final.</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</code></pre></div></div>
+
+<h4 id="ejemplo-3--condicional-simple">Ejemplo 3 – Condicional simple</h4>
+
+<p>Vue también permite hacer salidas HTML condicionadas a los valores de los datos, como puedes ver en este ejemplo.</p>
+
+<p>Cambia el valor del <em>data</em> <strong><em>visible</em></strong> dentro de Vue para ver qué efecto tiene en la página final.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;head&gt;</span>
     <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
@@ -100,7 +274,15 @@
     <span class="nt">&lt;/script&gt;</span>
   <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
-</code></pre></div></div> <h4 id="ejemplo-4--bucle"> <a href="#ejemplo-4--bucle" class="anchor-heading" aria-labelledby="ejemplo-4--bucle"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Ejemplo 4 – Bucle </h4> <p>Igual que podemos hacer salidas HTML condicionadas por los datos, también podemos <strong><em>iterar</em></strong> sobre los datos para hacer salidas múltiples.</p> <p>Observa este código y ejecútalo en tu navegador web:</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</code></pre></div></div>
+
+<h4 id="ejemplo-4--bucle">Ejemplo 4 – Bucle</h4>
+
+<p>Igual que podemos hacer salidas HTML condicionadas por los datos, también podemos <strong><em>iterar</em></strong> sobre los datos para hacer salidas múltiples.</p>
+
+<p>Observa este código y ejecútalo en tu navegador web:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;head&gt;</span>
     <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
@@ -127,7 +309,13 @@
     <span class="nt">&lt;/script&gt;</span>
   <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
-</code></pre></div></div> <h4 id="ejemplo-5--formulario"> <a href="#ejemplo-5--formulario" class="anchor-heading" aria-labelledby="ejemplo-5--formulario"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Ejemplo 5 – Formulario </h4> <p>En este ejemplo puedes ver cómo Vue posibilida <strong>el mapeo o emparejamiento de campos de un formulario HTML</strong> con variables declaradas en el <em>data()</em> de Vue, de modo que, si cambia una, cambia automáticamente la otra:</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</code></pre></div></div>
+
+<h4 id="ejemplo-5--formulario">Ejemplo 5 – Formulario</h4>
+
+<p>En este ejemplo puedes ver cómo Vue posibilida <strong>el mapeo o emparejamiento de campos de un formulario HTML</strong> con variables declaradas en el <em>data()</em> de Vue, de modo que, si cambia una, cambia automáticamente la otra:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;head&gt;</span>
     <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
@@ -155,7 +343,13 @@
     <span class="nt">&lt;/script&gt;</span>
   <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
-</code></pre></div></div> <h4 id="ejemplo-6--evento-click"> <a href="#ejemplo-6--evento-click" class="anchor-heading" aria-labelledby="ejemplo-6--evento-click"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Ejemplo 6 – Evento click </h4> <p>Introducimos aquí los <strong><em>methods</em></strong> de Vue para que veas cómo puedes <strong>capturar un evento</strong> de tipo <strong><em>click()</em></strong> (observa el <strong><em>@click</em></strong> en la sección HTML) y asociarlo a código Vue.</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</code></pre></div></div>
+
+<h4 id="ejemplo-6--evento-click">Ejemplo 6 – Evento click</h4>
+
+<p>Introducimos aquí los <strong><em>methods</em></strong> de Vue para que veas cómo puedes <strong>capturar un evento</strong> de tipo <strong><em>click()</em></strong> (observa el <strong><em>@click</em></strong> en la sección HTML) y asociarlo a código Vue.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;head&gt;</span>
     <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
@@ -186,7 +380,15 @@
     <span class="nt">&lt;/script&gt;</span>
   <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
-</code></pre></div></div> <h4 id="ejemplo-7--evento-key"> <a href="#ejemplo-7--evento-key" class="anchor-heading" aria-labelledby="ejemplo-7--evento-key"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Ejemplo 7 – Evento key </h4> <p>Otro evento que a menudo nos interesa capturar (hay más, pero se manejan de forma parecida) es el <strong>evento de “tecla pulsada”</strong>.</p> <p>En el siguiente ejemplo vemos cómo asociar ese evento (<strong><em>@key</em></strong>) a un elemento HTML y disparar con él un método declarado en Vue.</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</code></pre></div></div>
+
+<h4 id="ejemplo-7--evento-key">Ejemplo 7 – Evento key</h4>
+
+<p>Otro evento que a menudo nos interesa capturar (hay más, pero se manejan de forma parecida) es el <strong>evento de “tecla pulsada”</strong>.</p>
+
+<p>En el siguiente ejemplo vemos cómo asociar ese evento (<strong><em>@key</em></strong>) a un elemento HTML y disparar con él un método declarado en Vue.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;head&gt;</span>
     <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
@@ -217,7 +419,15 @@
     <span class="nt">&lt;/script&gt;</span>
   <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
-</code></pre></div></div> <h4 id="ejemplo-8--componente-hola-mundo"> <a href="#ejemplo-8--componente-hola-mundo" class="anchor-heading" aria-labelledby="ejemplo-8--componente-hola-mundo"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Ejemplo 8 – Componente “Hola mundo” </h4> <p>Un elemento fundamental de Vue son los componentes. Se trata de bloques reutilizables que pueden contener, entre otras cosas, un <strong>template</strong> o fragmento de código HTML con datos de Vue en su interior, además de <em>data()</em>, <em>methods()</em>, etc.</p> <p>El siguiente componente de Vue es el más simple posible: apenas un fragmento de HTML estático. Pero en este ejemplo puedes ver cómo reutilizamos el componente todas las veces que lo necesitemos sin tener que volver a escribirlo.</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</code></pre></div></div>
+
+<h4 id="ejemplo-8--componente-hola-mundo">Ejemplo 8 – Componente “Hola mundo”</h4>
+
+<p>Un elemento fundamental de Vue son los componentes. Se trata de bloques reutilizables que pueden contener, entre otras cosas, un <strong>template</strong> o fragmento de código HTML con datos de Vue en su interior, además de <em>data()</em>, <em>methods()</em>, etc.</p>
+
+<p>El siguiente componente de Vue es el más simple posible: apenas un fragmento de HTML estático. Pero en este ejemplo puedes ver cómo reutilizamos el componente todas las veces que lo necesitemos sin tener que volver a escribirlo.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;head&gt;</span>
     <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
@@ -246,7 +456,13 @@
     <span class="nt">&lt;/script&gt;</span>
   <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
-</code></pre></div></div> <h4 id="ejemplo-9--componente-mis-tareas"> <a href="#ejemplo-9--componente-mis-tareas" class="anchor-heading" aria-labelledby="ejemplo-9--componente-mis-tareas"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Ejemplo 9 – Componente “mis-tareas” </h4> <p>El siguiente ejemplo muestra un componente un poquito más elaborado que “Hola mundo” (ejemplo 8). En este caso, tenemos un componente llamado “<strong><em>mis-tareas</em></strong>” con un HTML algo más complejo, que incluye datos (se itera sobre ellos con <em>v-for</em>), eventos (como <em>@click</em>), así como sus propios <em>data()</em> y <em>methods</em>.</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</code></pre></div></div>
+
+<h4 id="ejemplo-9--componente-mis-tareas">Ejemplo 9 – Componente “mis-tareas”</h4>
+
+<p>El siguiente ejemplo muestra un componente un poquito más elaborado que “Hola mundo” (ejemplo 8). En este caso, tenemos un componente llamado “<strong><em>mis-tareas</em></strong>” con un HTML algo más complejo, que incluye datos (se itera sobre ellos con <em>v-for</em>), eventos (como <em>@click</em>), así como sus propios <em>data()</em> y <em>methods</em>.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;head&gt;</span>
     <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
@@ -295,7 +511,15 @@
     <span class="nt">&lt;/script&gt;</span>
   <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
-</code></pre></div></div> <h4 id="ejemplo-10--reutilizar-el-componente-mis-tareas"> <a href="#ejemplo-10--reutilizar-el-componente-mis-tareas" class="anchor-heading" aria-labelledby="ejemplo-10--reutilizar-el-componente-mis-tareas"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Ejemplo 10 – Reutilizar el componente “mis-tareas” </h4> <p>En este último ejemplo de introducción vamos a ver cómo se puede reutilizar el componente “mis-tareas” para ilustrar que cada ocurrencia del componente <strong>tiene su propio estado</strong>, es decir, su propio conjunto de datos.</p> <p>Lee el código y ejecútalo luego en tu navegador web, para ver qué pasa.</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</code></pre></div></div>
+
+<h4 id="ejemplo-10--reutilizar-el-componente-mis-tareas">Ejemplo 10 – Reutilizar el componente “mis-tareas”</h4>
+
+<p>En este último ejemplo de introducción vamos a ver cómo se puede reutilizar el componente “mis-tareas” para ilustrar que cada ocurrencia del componente <strong>tiene su propio estado</strong>, es decir, su propio conjunto de datos.</p>
+
+<p>Lee el código y ejecútalo luego en tu navegador web, para ver qué pasa.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;head&gt;</span>
     <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
@@ -344,10 +568,57 @@
     <span class="nt">&lt;/script&gt;</span>
   <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
-</code></pre></div></div> <h2 id="44-vuejs-con-npm-para-aplicaciones-frontend"> <a href="#44-vuejs-con-npm-para-aplicaciones-frontend" class="anchor-heading" aria-labelledby="44-vuejs-con-npm-para-aplicaciones-frontend"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.4. Vue.js con npm para aplicaciones frontend </h2> <p>Cuando quieres desarrollar una SPA completa, Vue se puede usar para <strong>construir un <em>frontend</em></strong> que ataque a un <em>backend</em> escrito en cualquier otro lenguaje (puede ser PHP con Laravel o cualquier otra cosa).</p> <p>En esta situación estaremos hablando de <strong>dos proyectos completamente independientes</strong>: uno para el front y otro para el back. De hecho, pueden existir varios front atacando al mismo back, cada uno de ellos ofreciendo una solución distinta.</p> <p>Si lo usamos de este modo, Vue se utiliza junto con <strong>Node.js</strong>, <strong>npm</strong> y herramientas modernas de compilación como <strong>Vite</strong>. También usará el <strong>API fetch</strong> o <strong>Axios</strong> para lanzar las peticiones de datos al servidor.</p> <h3 id="441-pasos-para-desarrollar-un-frontend-con-vue"> <a href="#441-pasos-para-desarrollar-un-frontend-con-vue" class="anchor-heading" aria-labelledby="441-pasos-para-desarrollar-un-frontend-con-vue"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.4.1. Pasos para desarrollar un frontend con Vue </h3> <h4 id="paso-1-instala-node-npm-y-vite"> <a href="#paso-1-instala-node-npm-y-vite" class="anchor-heading" aria-labelledby="paso-1-instala-node-npm-y-vite"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> PASO 1. Instala Node, npm y Vite </h4> <p>La noticia rara es que no necesitamos <em>Node.js</em>, pero lo instalaremos porque viene con <em>npm</em> y <em>vite</em>, que son las herramientas que realmente nos harán falta. Pero ¿qué diferencia hay entre estos tres elementos?</p> <ul> <li><strong>Node.js</strong> es un entorno de ejecución de JavaScript para servidores web. Añade al JavaScript convencional soporte para acceso a bases de datos, gestión de sesiones, etc. Por tanto, no lo usaremos directamente, pero sí nos harán falta <em>npm</em> y <em>vite</em>, que forman parte de Node.</li> <li><strong>npm</strong> (Node Package Manager) es el gestor de paquetes de Node. Nos resultará imprescindible para gestionar las dependencias de Vue y para <strong>traducir Vue a JavaScript</strong> comprensible por los navegadores web. Ten en cuenta que Vue no puede ser comprendido por ningún navegador, por lo que su código debe convertirse a JavaScript convencional.</li> <li><strong>Vite</strong> es un servidor rápido de desarrollo que traduce en tiempo real nuestro código Vue a JavaScript convencional para que podamos ir probando nuestro código conforme lo desarrollamos.</li> </ul> <p>Después de instalar Node, comprueba que tanto Node como npm funcionan:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>node <span class="nt">-v</span>
+</code></pre></div></div>
+
+<h2 id="44-vuejs-con-npm-para-aplicaciones-frontend">4.4. Vue.js con npm para aplicaciones frontend</h2>
+
+<p>Cuando quieres desarrollar una SPA completa, Vue se puede usar para <strong>construir un <em>frontend</em></strong> que ataque a un <em>backend</em> escrito en cualquier otro lenguaje (puede ser PHP con Laravel o cualquier otra cosa).</p>
+
+<p>En esta situación estaremos hablando de <strong>dos proyectos completamente independientes</strong>: uno para el front y otro para el back. De hecho, pueden existir varios front atacando al mismo back, cada uno de ellos ofreciendo una solución distinta.</p>
+
+<p>Si lo usamos de este modo, Vue se utiliza junto con <strong>Node.js</strong>, <strong>npm</strong> y herramientas modernas de compilación como <strong>Vite</strong>. También usará el <strong>API fetch</strong> o <strong>Axios</strong> para lanzar las peticiones de datos al servidor.</p>
+
+<h3 id="441-pasos-para-desarrollar-un-frontend-con-vue">4.4.1. Pasos para desarrollar un frontend con Vue</h3>
+
+<h4 id="paso-1-instala-node-npm-y-vite">PASO 1. Instala Node, npm y Vite</h4>
+
+<p>La noticia rara es que no necesitamos <em>Node.js</em>, pero lo instalaremos porque viene con <em>npm</em> y <em>vite</em>, que son las herramientas que realmente nos harán falta. Pero ¿qué diferencia hay entre estos tres elementos?</p>
+
+<ul>
+  <li><strong>Node.js</strong> es un entorno de ejecución de JavaScript para servidores web. Añade al JavaScript convencional soporte para acceso a bases de datos, gestión de sesiones, etc. Por tanto, no lo usaremos directamente, pero sí nos harán falta <em>npm</em> y <em>vite</em>, que forman parte de Node.</li>
+  <li><strong>npm</strong> (Node Package Manager) es el gestor de paquetes de Node. Nos resultará imprescindible para gestionar las dependencias de Vue y para <strong>traducir Vue a JavaScript</strong> comprensible por los navegadores web. Ten en cuenta que Vue no puede ser comprendido por ningún navegador, por lo que su código debe convertirse a JavaScript convencional.</li>
+  <li><strong>Vite</strong> es un servidor rápido de desarrollo que traduce en tiempo real nuestro código Vue a JavaScript convencional para que podamos ir probando nuestro código conforme lo desarrollamos.</li>
+</ul>
+
+<p>Después de instalar Node, comprueba que tanto Node como npm funcionan:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>node <span class="nt">-v</span>
 <span class="nv">$ </span>npm <span class="nt">-v</span>
-</code></pre></div></div> <p>Esto te devolverá la versión de cada uno de ellos. Necesitarás la versión 20 de Node o superior.</p> <h4 id="paso-2-crea-un-nuevo-proyecto-vue"> <a href="#paso-2-crea-un-nuevo-proyecto-vue" class="anchor-heading" aria-labelledby="paso-2-crea-un-nuevo-proyecto-vue"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> PASO 2. Crea un nuevo proyecto Vue </h4> <p>Crearemos un proyecto vacío de Vue con este comando de npm:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>npm create vue@latest
-</code></pre></div></div> <p>Durante la creación del proyecto, npm te hará varias preguntas, como:</p> <ul> <li><strong>Project name</strong>: escribe el que quieras (te sugerirá algo como “frontend-vue”).</li> <li><strong>TypTypeScript, JSX Support, etc</strong>: No marques nada, no lo lo necesitas por ahora.</li> <li><strong>Experimental features</strong>: No marques ninguna.</li> <li><strong>Skip example code</strong>: Puedes responder «yes» para que no te cree ningún archivo .vue de ejemplo.</li> </ul> <h4 id="paso-3-revisa-la-estructura-de-directorios"> <a href="#paso-3-revisa-la-estructura-de-directorios" class="anchor-heading" aria-labelledby="paso-3-revisa-la-estructura-de-directorios"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> PASO 3. Revisa la estructura de directorios </h4> <p>Tras la creación del proyecto se debe haber desplegado una estructura de directorios como esta:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>src/
+</code></pre></div></div>
+
+<p>Esto te devolverá la versión de cada uno de ellos. Necesitarás la versión 20 de Node o superior.</p>
+
+<h4 id="paso-2-crea-un-nuevo-proyecto-vue">PASO 2. Crea un nuevo proyecto Vue</h4>
+
+<p>Crearemos un proyecto vacío de Vue con este comando de npm:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>npm create vue@latest
+</code></pre></div></div>
+
+<p>Durante la creación del proyecto, npm te hará varias preguntas, como:</p>
+
+<ul>
+  <li><strong>Project name</strong>: escribe el que quieras (te sugerirá algo como “frontend-vue”).</li>
+  <li><strong>TypTypeScript, JSX Support, etc</strong>: No marques nada, no lo lo necesitas por ahora.</li>
+  <li><strong>Experimental features</strong>: No marques ninguna.</li>
+  <li><strong>Skip example code</strong>: Puedes responder «yes» para que no te cree ningún archivo .vue de ejemplo.</li>
+</ul>
+
+<h4 id="paso-3-revisa-la-estructura-de-directorios">PASO 3. Revisa la estructura de directorios</h4>
+
+<p>Tras la creación del proyecto se debe haber desplegado una estructura de directorios como esta:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>src/
 ├─ main.js
 ├─ App.vue
 └─ components/
@@ -355,7 +626,17 @@
    ├─ Componente2.vue
    ├─ Componente3.vue
    └─ Etc.
-</code></pre></div></div> <ul> <li><strong>main.js</strong> es el punto de entrada de la aplicación. Se encarga de hacer el <strong><em>createApp()</em></strong> y montar la aplicación en un div de HTML (típicamente, un div con <strong><em>id=”#app”</em></strong>).</li> <li><strong>App.vue</strong> es el componente raíz de la aplicación. Funciona como contenedor principal donde se renderizan todos los demás componentes. Generalmente incluye la estructura base de la app: encabezado, navegación, etc.</li> <li>En la carpeta <em>components</em> se añaden todos los componentes que vayamos a necesitar.</li> </ul> <p>Los componentes de Vue suelen tener todos esta estructura (profundizaremos en ello más adelante):</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>main.js</strong> es el punto de entrada de la aplicación. Se encarga de hacer el <strong><em>createApp()</em></strong> y montar la aplicación en un div de HTML (típicamente, un div con <strong><em>id=”#app”</em></strong>).</li>
+  <li><strong>App.vue</strong> es el componente raíz de la aplicación. Funciona como contenedor principal donde se renderizan todos los demás componentes. Generalmente incluye la estructura base de la app: encabezado, navegación, etc.</li>
+  <li>En la carpeta <em>components</em> se añaden todos los componentes que vayamos a necesitar.</li>
+</ul>
+
+<p>Los componentes de Vue suelen tener todos esta estructura (profundizaremos en ello más adelante):</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
     HTML del componente
 <span class="nt">&lt;/template&gt;</span>
 <span class="nt">&lt;script&gt;</span>
@@ -364,11 +645,79 @@
 <span class="nt">&lt;style&gt;</span>
     <span class="nt">Estilos</span> <span class="nt">CSS</span> <span class="nt">del</span> <span class="nt">componente</span>
 <span class="nt">&lt;/style&gt;</span>
-</code></pre></div></div> <h4 id="paso-4-instala-las-dependencias-necesarias"> <a href="#paso-4-instala-las-dependencias-necesarias" class="anchor-heading" aria-labelledby="paso-4-instala-las-dependencias-necesarias"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> PASO 4. Instala las dependencias necesarias </h4> <p>npm se encargará de instalar todo lo necesario para que Vue funcione. Simplemente teclea:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd </span>frontend-vue   <span class="c"># O el nombre de la carpeta de tu proyecto</span>
+</code></pre></div></div>
+
+<h4 id="paso-4-instala-las-dependencias-necesarias">PASO 4. Instala las dependencias necesarias</h4>
+
+<p>npm se encargará de instalar todo lo necesario para que Vue funcione. Simplemente teclea:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd </span>frontend-vue   <span class="c"># O el nombre de la carpeta de tu proyecto</span>
 <span class="nv">$ </span>npm <span class="nb">install</span>
-</code></pre></div></div> <h4 id="paso-5-lanzadetén-el-servidor-de-desarrollo"> <a href="#paso-5-lanzadetén-el-servidor-de-desarrollo" class="anchor-heading" aria-labelledby="paso-5-lanzadetén-el-servidor-de-desarrollo"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> PASO 5. Lanza/detén el servidor de desarrollo </h4> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>npm run dev
-</code></pre></div></div> <p>Esto hace que <em>vite</em> traduzca todo el código Vue a JavaScript para que puedas ver el resultado en un navegador web. La traducción se hará en tiempo real, es decir, cualquier cambio en Vue se podrá revisar inmediatamente en el navegador.</p> <p>El servidor de desarrollo suele dejar disponible tu frontend en <strong><em>http://localhost:5173</em></strong></p> <p>Cuando termines la sesión de trabajo, <strong>detén el servidor</strong> de desarrollo pulsando <strong>CTRL + C</strong>.</p> <h4 id="paso-6-lanza-tu-backend"> <a href="#paso-6-lanza-tu-backend" class="anchor-heading" aria-labelledby="paso-6-lanza-tu-backend"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> PASO 6. Lanza tu backend </h4> <p>Asegúrate de que tu backend está corriendo también, o si no el frontend no tendrá de dónde sacar los datos para trabajar.</p> <p>El backend puede estar funcionando en tu servidor local o en cualquier servidor remoto. Esto es indiferente, porque el front y el back son por completo independientes en este tipo de aplicaciones.</p> <h4 id="paso-7-revisa-posibles-errores-de-cors"> <a href="#paso-7-revisa-posibles-errores-de-cors" class="anchor-heading" aria-labelledby="paso-7-revisa-posibles-errores-de-cors"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> PASO 7. Revisa posibles errores de CORS </h4> <p>Cuando empieces a desarrollar el frontend puedes obtener <strong>errores de CORS</strong> al pedir datos al servidor.</p> <p>En ese caso, deberás configurar el CORS en tu backend.</p> <p><strong>CORS</strong> (Cross Origin Resource Sharing) es un mecanismo de seguridad del servidor que impide que un frontend alojado en otro lugar acceda a sus datos, salvo que le indiquemos al servidor que ese frontend es de confianza.</p> <p>El CORS se configura de forma diferente según el backend que hayas montado. Por ejemplo, con Laravel se hace editando el archivo <code class="language-plaintext highlighter-rouge">config/cors.php</code>.</p> <h3 id="442-pasos-para-desplegar-un-frontend-con-vue"> <a href="#442-pasos-para-desplegar-un-frontend-con-vue" class="anchor-heading" aria-labelledby="442-pasos-para-desplegar-un-frontend-con-vue"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.4.2. Pasos para desplegar un frontend con Vue </h3> <p>Cuando tu frontend esté terminado y listo para desplegar en un servidor de internet, sigue estos pasos:</p> <ol> <li> <p><strong>Genera y optimiza todo el código</strong> del frontend:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>npm run build
-</code></pre></div> </div> <p>Esto creará código JavaScript minimizado y optimizado, comprensible por los navegadores web. El código optimizado se guardará en la carpeta <strong><em>dist</em></strong></p> </li> <li> <p><strong>Copia el contenido de <em>dist</em> a tu carpeta <em>public</em></strong> de Laravel o a una carpeta de acceso público vía web de tu servidor (<em>htdocs</em> o algo así; dependerá del servidor).</p> </li> <li> <p><strong>Configura el CORS en tu servidor</strong> si es necesario. Esto tendrás que hacerlo si el front y el back están ubicados en servidores diferentes.</p> </li> </ol> <h3 id="443-pedir-datos-al-servidor-fetch-y-axios"> <a href="#443-pedir-datos-al-servidor-fetch-y-axios" class="anchor-heading" aria-labelledby="443-pedir-datos-al-servidor-fetch-y-axios"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.4.3. Pedir datos al servidor: fetch y axios </h3> <p>El frontend de Vue suele pedir datos al backend usando el <em>API fetch</em> o la librería <em>Axios</em>:</p> <ul> <li>El <strong>API fetch</strong> es una interfaz nativa de JavaScript que permite hacer solicitudes HTTP (como GET, POST, etc.) desde el navegador web en segundo plano, sin recargar la página ni detener la ejecución de la misma. Es decir, permite enviar y recibir datos de servidores sin que el usuario de la web se percate de ello.</li> <li>La <strong>librería Axios</strong> es una librería de JavaScript que hace lo mismo que el API fetch, pero ofrece algunas funcionalidades adicionales, como conversión automática a JSON.</li> </ul> <p>Nosotros usaremos el API fetch en los próximos ejemplos, pero no entraremos en muchos detalles porque la estudiaréis en el módulo de “Desarrollo web en entorno cliente”.</p> <h3 id="444-estructura-típica-de-un-componente-vue"> <a href="#444-estructura-típica-de-un-componente-vue" class="anchor-heading" aria-labelledby="444-estructura-típica-de-un-componente-vue"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.4.4. Estructura típica de un componente vue </h3> <p>Los componentes de Vue suelen tener todos esta estructura:</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
+</code></pre></div></div>
+
+<h4 id="paso-5-lanzadetén-el-servidor-de-desarrollo">PASO 5. Lanza/detén el servidor de desarrollo</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>npm run dev
+</code></pre></div></div>
+
+<p>Esto hace que <em>vite</em> traduzca todo el código Vue a JavaScript para que puedas ver el resultado en un navegador web. La traducción se hará en tiempo real, es decir, cualquier cambio en Vue se podrá revisar inmediatamente en el navegador.</p>
+
+<p>El servidor de desarrollo suele dejar disponible tu frontend en <strong><em>http://localhost:5173</em></strong></p>
+
+<p>Cuando termines la sesión de trabajo, <strong>detén el servidor</strong> de desarrollo pulsando <strong>CTRL + C</strong>.</p>
+
+<h4 id="paso-6-lanza-tu-backend">PASO 6. Lanza tu backend</h4>
+
+<p>Asegúrate de que tu backend está corriendo también, o si no el frontend no tendrá de dónde sacar los datos para trabajar.</p>
+
+<p>El backend puede estar funcionando en tu servidor local o en cualquier servidor remoto. Esto es indiferente, porque el front y el back son por completo independientes en este tipo de aplicaciones.</p>
+
+<h4 id="paso-7-revisa-posibles-errores-de-cors">PASO 7. Revisa posibles errores de CORS</h4>
+
+<p>Cuando empieces a desarrollar el frontend puedes obtener <strong>errores de CORS</strong> al pedir datos al servidor.</p>
+
+<p>En ese caso, deberás configurar el CORS en tu backend.</p>
+
+<p><strong>CORS</strong> (Cross Origin Resource Sharing) es un mecanismo de seguridad del servidor que impide que un frontend alojado en otro lugar acceda a sus datos, salvo que le indiquemos al servidor que ese frontend es de confianza.</p>
+
+<p>El CORS se configura de forma diferente según el backend que hayas montado. Por ejemplo, con Laravel se hace editando el archivo <code class="language-plaintext highlighter-rouge">config/cors.php</code>.</p>
+
+<h3 id="442-pasos-para-desplegar-un-frontend-con-vue">4.4.2. Pasos para desplegar un frontend con Vue</h3>
+
+<p>Cuando tu frontend esté terminado y listo para desplegar en un servidor de internet, sigue estos pasos:</p>
+
+<ol>
+  <li>
+    <p><strong>Genera y optimiza todo el código</strong> del frontend:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>npm run build
+</code></pre></div>    </div>
+    <p>Esto creará código JavaScript minimizado y optimizado, comprensible por los navegadores web. El código optimizado se guardará en la carpeta <strong><em>dist</em></strong></p>
+  </li>
+  <li>
+    <p><strong>Copia el contenido de <em>dist</em> a tu carpeta <em>public</em></strong> de Laravel o a una carpeta de acceso público vía web de tu servidor (<em>htdocs</em> o algo así; dependerá del servidor).</p>
+  </li>
+  <li>
+    <p><strong>Configura el CORS en tu servidor</strong> si es necesario. Esto tendrás que hacerlo si el front y el back están ubicados en servidores diferentes.</p>
+  </li>
+</ol>
+
+<h3 id="443-pedir-datos-al-servidor-fetch-y-axios">4.4.3. Pedir datos al servidor: fetch y axios</h3>
+
+<p>El frontend de Vue suele pedir datos al backend usando el <em>API fetch</em> o la librería <em>Axios</em>:</p>
+
+<ul>
+  <li>El <strong>API fetch</strong> es una interfaz nativa de JavaScript que permite hacer solicitudes HTTP (como GET, POST, etc.) desde el navegador web en segundo plano, sin recargar la página ni detener la ejecución de la misma. Es decir, permite enviar y recibir datos de servidores sin que el usuario de la web se percate de ello.</li>
+  <li>La <strong>librería Axios</strong> es una librería de JavaScript que hace lo mismo que el API fetch, pero ofrece algunas funcionalidades adicionales, como conversión automática a JSON.</li>
+</ul>
+
+<p>Nosotros usaremos el API fetch en los próximos ejemplos, pero no entraremos en muchos detalles porque la estudiaréis en el módulo de “Desarrollo web en entorno cliente”.</p>
+
+<h3 id="444-estructura-típica-de-un-componente-vue">4.4.4. Estructura típica de un componente vue</h3>
+
+<p>Los componentes de Vue suelen tener todos esta estructura:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
     HTML del componente
 <span class="nt">&lt;/template&gt;</span>
 <span class="nt">&lt;script&gt;</span>
@@ -377,7 +726,22 @@
 <span class="nt">&lt;style&gt;</span>
     <span class="nt">Estilos</span> <span class="nt">CSS</span> <span class="nt">del</span> <span class="nt">componente</span>
 <span class="nt">&lt;/style&gt;</span>
-</code></pre></div></div> <p>Dentro de la sección <strong><em>script</em></strong>, un componente puede llevar muchas cosas. Las más habituales son:</p> <ul> <li><strong>data()</strong> → código JS que devuelve un objeto con el estado actual del componente.</li> <li><strong>mounted()</strong> → código JS que se ejecuta cuando el componente se ha desplegado en el árbol DOM de la página.</li> <li><strong>created()</strong> → código JS que se ejecuta al crear el componente, antes de que esté en el DOM.</li> <li><strong>methods</strong> → contiene funciones JS que se pueden invocar desde el template (con los eventos @click, @submit, etc)</li> <li><strong>computed</strong> → define propiedades calculadas a partir de otras propiedades. Se recalculan automáticamente si alguna cambia.</li> <li><strong>template</strong> → estructura visual (HTML) del componente.</li> </ul> <p>Por ejemplo, en este sencillo componente puedes ver cómo se escriben muchos de los elementos Vue de la lista anterior:</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
+</code></pre></div></div>
+
+<p>Dentro de la sección <strong><em>script</em></strong>, un componente puede llevar muchas cosas. Las más habituales son:</p>
+
+<ul>
+  <li><strong>data()</strong> → código JS que devuelve un objeto con el estado actual del componente.</li>
+  <li><strong>mounted()</strong> → código JS que se ejecuta cuando el componente se ha desplegado en el árbol DOM de la página.</li>
+  <li><strong>created()</strong> → código JS que se ejecuta al crear el componente, antes de que esté en el DOM.</li>
+  <li><strong>methods</strong> → contiene funciones JS que se pueden invocar desde el template (con los eventos @click, @submit, etc)</li>
+  <li><strong>computed</strong> → define propiedades calculadas a partir de otras propiedades. Se recalculan automáticamente si alguna cambia.</li>
+  <li><strong>template</strong> → estructura visual (HTML) del componente.</li>
+</ul>
+
+<p>Por ejemplo, en este sencillo componente puedes ver cómo se escriben muchos de los elementos Vue de la lista anterior:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
     <span class="nt">&lt;h2&gt;</span>Contador: 8<span class="nt">&lt;/h2&gt;</span>
     <span class="nt">&lt;p&gt;</span>Doble del contador (computado): <span class="nt">&lt;/p&gt;</span>
     <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"increment"</span><span class="nt">&gt;</span>Incrementar<span class="nt">&lt;/button&gt;</span>
@@ -409,12 +773,50 @@
   <span class="p">}</span>
 <span class="p">};</span>
 <span class="nt">&lt;/script&gt;</span>
-</code></pre></div></div> <h3 id="445-enrutamiento-en-el-cliente"> <a href="#445-enrutamiento-en-el-cliente" class="anchor-heading" aria-labelledby="445-enrutamiento-en-el-cliente"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.4.5. Enrutamiento en el cliente </h3> <p>Otra de las cosas que puede hacer Vue es <strong>enrutar en el lado del cliente</strong>. Es decir, en lugar de ser Laravel (o quien sea que esté en el lado del servidor) quien haga el enrutamiento de cada <em>endpoint</em> hacia un controlador y un método para generar una nueva vista, es el propio navegador quien se encarga de decidir qué hay que hacer con cada ruta, sin llamar al servidor.</p> <p>Generalmente, con este tipo de enrutamiento, cada ruta provocará la carga de un nuevo componente de Vue, con lo cual la página cambia ante los ojos del usuario sin que haya intervenido el servidor.</p> <p>Por ejemplo, la ruta <strong><em>/home</em></strong> puede cargar un componente llamado <strong><em>Home.vue</em></strong> y la ruta /<strong><em>about</em></strong> puede cargar un componente llamado <strong><em>About.vue</em></strong>. Esto se indica así en Vue, en un archivo especial de rutas:</p> <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">routes</span> <span class="o">=</span> <span class="p">[</span>
+</code></pre></div></div>
+
+<h3 id="445-enrutamiento-en-el-cliente">4.4.5. Enrutamiento en el cliente</h3>
+
+<p>Otra de las cosas que puede hacer Vue es <strong>enrutar en el lado del cliente</strong>. Es decir, en lugar de ser Laravel (o quien sea que esté en el lado del servidor) quien haga el enrutamiento de cada <em>endpoint</em> hacia un controlador y un método para generar una nueva vista, es el propio navegador quien se encarga de decidir qué hay que hacer con cada ruta, sin llamar al servidor.</p>
+
+<p>Generalmente, con este tipo de enrutamiento, cada ruta provocará la carga de un nuevo componente de Vue, con lo cual la página cambia ante los ojos del usuario sin que haya intervenido el servidor.</p>
+
+<p>Por ejemplo, la ruta <strong><em>/home</em></strong> puede cargar un componente llamado <strong><em>Home.vue</em></strong> y la ruta /<strong><em>about</em></strong> puede cargar un componente llamado <strong><em>About.vue</em></strong>. Esto se indica así en Vue, en un archivo especial de rutas:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">routes</span> <span class="o">=</span> <span class="p">[</span>
   <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/home</span><span class="dl">'</span><span class="p">,</span> <span class="na">component</span><span class="p">:</span> <span class="nx">Home</span> <span class="p">},</span>
   <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/about</span><span class="dl">'</span><span class="p">,</span> <span class="na">component</span><span class="p">:</span> <span class="nx">About</span> <span class="p">}</span>
 <span class="p">]</span>
-</code></pre></div></div> <p>Ninguno de esos dos <em>endpoints</em> (/home o /about) llama realmente al servidor, sino que los componentes ya existen en el cliente, por lo que la carga es mucho más rápida que en una aplicación web tradicional.</p> <p>Por supuesto, algunos componentes pueden requerir datos del servidor. Esos componentes lanzarán una petición en segundo plano al servidor desde su propio código, normalmente usando <strong><em>fetch</em></strong> o <strong><em>axios</em></strong>, y esperarán una respuesta JSON para actualizar lo que el usuario está viendo. En estos casos sí intervendrá, además del enrutador del cliente, el enrutador del servidor.</p> <p><strong>Enrutar en el cliente</strong>, por lo tanto, tiene algunas <strong>ventajas</strong> sobre el enrutamiento en el servidor:</p> <ul> <li>El usuario puede usar atrás/adelante del navegador y todo funciona sin recargar ni reenviar datos al servidor.</li> <li>Los «megacomponentes» pueden dividirse con más facilidad en componentes más pequeños.</li> <li>El backend se simplifica (aunque el frontend se complica en la misma medida).</li> <li>La navegación es más fluida porque hay menos accesos al servidor.</li> </ul> <h4 id="cambios-que-hay-que-hacer-para-enrutar-en-el-cliente"> <a href="#cambios-que-hay-que-hacer-para-enrutar-en-el-cliente" class="anchor-heading" aria-labelledby="cambios-que-hay-que-hacer-para-enrutar-en-el-cliente"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Cambios que hay que hacer para enrutar en el cliente </h4> <p>Por defecto, Vue no hará enrutamiento en el frontend, pero puedes activar ese enrutamiento fácilmente:</p> <ol> <li> <p><strong>Instala en enrutador</strong> de Vue (si aún no lo has hecho).</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>npm <span class="nb">install </span>vue-router
-</code></pre></div> </div> </li> <li> <p><strong>Define las rutas y los componentes</strong> a los que cada ruta corresponde en un archivo de rutas. Este archivo puedes llamarlo como quieras, como por ejemplo <strong><em>src/router.js</em></strong>. Debe tener un aspecto como este:</p> <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">import</span> <span class="p">{</span> <span class="nx">createRouter</span><span class="p">,</span> <span class="nx">createWebHistory</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-router</span><span class="dl">'</span>
+</code></pre></div></div>
+
+<p>Ninguno de esos dos <em>endpoints</em> (/home o /about) llama realmente al servidor, sino que los componentes ya existen en el cliente, por lo que la carga es mucho más rápida que en una aplicación web tradicional.</p>
+
+<p>Por supuesto, algunos componentes pueden requerir datos del servidor. Esos componentes lanzarán una petición en segundo plano al servidor desde su propio código, normalmente usando <strong><em>fetch</em></strong> o <strong><em>axios</em></strong>, y esperarán una respuesta JSON para actualizar lo que el usuario está viendo. En estos casos sí intervendrá, además del enrutador del cliente, el enrutador del servidor.</p>
+
+<p><strong>Enrutar en el cliente</strong>, por lo tanto, tiene algunas <strong>ventajas</strong> sobre el enrutamiento en el servidor:</p>
+
+<ul>
+  <li>El usuario puede usar atrás/adelante del navegador y todo funciona sin recargar ni reenviar datos al servidor.</li>
+  <li>Los «megacomponentes» pueden dividirse con más facilidad en componentes más pequeños.</li>
+  <li>El backend se simplifica (aunque el frontend se complica en la misma medida).</li>
+  <li>La navegación es más fluida porque hay menos accesos al servidor.</li>
+</ul>
+
+<h4 id="cambios-que-hay-que-hacer-para-enrutar-en-el-cliente">Cambios que hay que hacer para enrutar en el cliente</h4>
+
+<p>Por defecto, Vue no hará enrutamiento en el frontend, pero puedes activar ese enrutamiento fácilmente:</p>
+
+<ol>
+  <li>
+    <p><strong>Instala en enrutador</strong> de Vue (si aún no lo has hecho).</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>npm <span class="nb">install </span>vue-router
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Define las rutas y los componentes</strong> a los que cada ruta corresponde en un archivo de rutas. Este archivo puedes llamarlo como quieras, como por ejemplo <strong><em>src/router.js</em></strong>. Debe tener un aspecto como este:</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">import</span> <span class="p">{</span> <span class="nx">createRouter</span><span class="p">,</span> <span class="nx">createWebHistory</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-router</span><span class="dl">'</span>
  <span class="c1">// Importamos todos los componentes que vayamos a direccionar desde en enrutador</span>
  <span class="k">import</span> <span class="nx">ProductosList</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/ProductosList.vue</span><span class="dl">'</span>
  <span class="k">import</span> <span class="nx">ProductoForm</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/ProductoForm.vue</span><span class="dl">'</span>
@@ -432,10 +834,20 @@
  <span class="p">})</span>
 
  <span class="k">export</span> <span class="k">default</span> <span class="nx">router</span>
-</code></pre></div> </div> </li> <li> <p><strong>Carga el enrutador en tu <em>main.js</em></strong>, antes de montar la app:</p> <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">import</span> <span class="nx">router</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./router</span><span class="dl">'</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Carga el enrutador en tu <em>main.js</em></strong>, antes de montar la app:</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">import</span> <span class="nx">router</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./router</span><span class="dl">'</span>
 
  <span class="nx">createApp</span><span class="p">(</span><span class="nx">App</span><span class="p">).</span><span class="nx">use</span><span class="p">(</span><span class="nx">router</span><span class="p">).</span><span class="nx">mount</span><span class="p">(</span><span class="err">#</span><span class="nx">app</span><span class="p">);</span>
-</code></pre></div> </div> </li> <li> <p><strong>Usa <code class="language-plaintext highlighter-rouge">&lt;router-link&gt;</code> en los enlaces a los componentes</strong> en lugar de links normales con <code class="language-plaintext highlighter-rouge">&lt;a href...&gt;</code>. Por ejemplo, en tu <strong><em>App.vue</em></strong> podría aparecer algo como esto:</p> <div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Usa <code class="language-plaintext highlighter-rouge">&lt;router-link&gt;</code> en los enlaces a los componentes</strong> en lugar de links normales con <code class="language-plaintext highlighter-rouge">&lt;a href...&gt;</code>. Por ejemplo, en tu <strong><em>App.vue</em></strong> podría aparecer algo como esto:</p>
+
+    <div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
    <span class="nt">&lt;div&gt;</span>
      <span class="nt">&lt;h1&gt;</span>Mi App de Productos<span class="nt">&lt;/h1&gt;</span>
      <span class="nt">&lt;router-link</span> <span class="na">to=</span><span class="s">"/productos"</span><span class="nt">&gt;</span>Productos<span class="nt">&lt;/router-link&gt;</span>
@@ -444,11 +856,65 @@
    <span class="nt">&lt;/div&gt;</span>    
    etc...
  <span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
-</code></pre></div> </div> <p>Observa como cada <code class="language-plaintext highlighter-rouge">&lt;router-link&gt;</code> te lleva a una de las rutas que hemos definido en <strong><em>routes.js</em></strong>, que a su vez provocan la carga de un componente Vue</p> <p>El elemento <code class="language-plaintext highlighter-rouge">&lt;router-view&gt;</code> que aparece justo después de los <code class="language-plaintext highlighter-rouge">&lt;router-link&gt;</code> indica a Vue que ahí, justo en ese punto, debe renderizar el componenten que se corresponda con la ruta actual.</p> </li> </ol> <h3 id="446-ejemplo-completo-frontend-con-vue-v1---solo-mostrar-datos"> <a href="#446-ejemplo-completo-frontend-con-vue-v1---solo-mostrar-datos" class="anchor-heading" aria-labelledby="446-ejemplo-completo-frontend-con-vue-v1---solo-mostrar-datos"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.4.6. Ejemplo completo: frontend con Vue v1 - solo mostrar datos </h3> <p>Para asimilar mejor toda esta sección e ilustrar bien cómo se usa Vue para construir frontends independientes del backend, vamos a crear un frontend con Vue para consumir <a href="https://github.com/avozme/compras">el API «Compras» que programamos como ejemplo en el tema anterior</a>.</p> <p>Recuerda que este API servía los datos de tres tablas:</p> <ul> <li><strong>Productos</strong>(id, nombre, descripcion, precio, stock) → son los productos de una tienda online ficticia.</li> <li><strong>Clientes</strong>(id, nombre, apellido1, apellido2 y email) → son los clientes de la tienda online.</li> <li><strong>Compras</strong>(cliente_id, producto_id, fecha, hora, unidades) → es la relación N:N entre Productos y Clientes.</li> </ul> <p>Vamos a programar <strong>3 versiones</strong> sucesivamente más complejas de este frontend:</p> <ul> <li><strong>Versión 1</strong>: solo mostrará los listados de datos y no permitirá modificarlos. Es la más sencilla y por donde debes empezar a leer el código.</li> <li><strong>Versión 2</strong>: añadiremos funcionalidades CRUD a la versión 1, por lo que ya tendremos una aplicación 100% funcional, aunque aún hará enrutamiento en el servidor.</li> <li><strong>Versión 3</strong>: añadiremos enrutamiento en el cliente a la versión 2, por lo que tendremos una verdadera aplicación SPA que minimiza las recargas y los accesos al servidor.</li> </ul> <p>En la primera versión, crearemos los tres componentes para que tan solo <em>muestren los datos disponibles en la base de datos</em>, pero no permitan manipularlos (ni insertar, ni modificar, ni borrar).</p> <p>La app principal de Vue (#app) estará dividida, pues, en 3 componentes:</p> <ul> <li><strong>productos-list</strong> → lista de productos</li> <li><strong>clientes-list</strong> → lista de clientes</li> <li><strong>compras-list</strong> → lista de compras</li> </ul> <p><a href="https://github.com/avozme/frontend-compras-v1">ACCEDE AQUÍ AL CÓDIGO COMPLETO DE ESTA VERSIÓN</a></p> <h4 id="código-más-importante-de-la-versión-1"> <a href="#código-más-importante-de-la-versión-1" class="anchor-heading" aria-labelledby="código-más-importante-de-la-versión-1"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Código más importante de la versión 1 </h4> <p><strong>Archivo <em>main.js</em></strong></p> <p>Como siempre, este será el punto de entrada de la aplicación. Se encargará tan solo de montar el elemento <em>app</em>:</p> <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">createApp</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span>
+</code></pre></div>    </div>
+
+    <p>Observa como cada <code class="language-plaintext highlighter-rouge">&lt;router-link&gt;</code> te lleva a una de las rutas que hemos definido en <strong><em>routes.js</em></strong>, que a su vez provocan la carga de un componente Vue</p>
+
+    <p>El elemento <code class="language-plaintext highlighter-rouge">&lt;router-view&gt;</code> que aparece justo después de los <code class="language-plaintext highlighter-rouge">&lt;router-link&gt;</code> indica a Vue que ahí, justo en ese punto, debe renderizar el componenten que se corresponda con la ruta actual.</p>
+  </li>
+</ol>
+
+<h3 id="446-ejemplo-completo-frontend-con-vue-v1---solo-mostrar-datos">4.4.6. Ejemplo completo: frontend con Vue v1 - solo mostrar datos</h3>
+
+<p>Para asimilar mejor toda esta sección e ilustrar bien cómo se usa Vue para construir frontends independientes del backend, vamos a crear un frontend con Vue para consumir <a href="https://github.com/avozme/compras">el API «Compras» que programamos como ejemplo en el tema anterior</a>.</p>
+
+<p>Recuerda que este API servía los datos de tres tablas:</p>
+
+<ul>
+  <li><strong>Productos</strong>(id, nombre, descripcion, precio, stock) → son los productos de una tienda online ficticia.</li>
+  <li><strong>Clientes</strong>(id, nombre, apellido1, apellido2 y email) → son los clientes de la tienda online.</li>
+  <li><strong>Compras</strong>(cliente_id, producto_id, fecha, hora, unidades) → es la relación N:N entre Productos y Clientes.</li>
+</ul>
+
+<p>Vamos a programar <strong>3 versiones</strong> sucesivamente más complejas de este frontend:</p>
+
+<ul>
+  <li><strong>Versión 1</strong>: solo mostrará los listados de datos y no permitirá modificarlos. Es la más sencilla y por donde debes empezar a leer el código.</li>
+  <li><strong>Versión 2</strong>: añadiremos funcionalidades CRUD a la versión 1, por lo que ya tendremos una aplicación 100% funcional, aunque aún hará enrutamiento en el servidor.</li>
+  <li><strong>Versión 3</strong>: añadiremos enrutamiento en el cliente a la versión 2, por lo que tendremos una verdadera aplicación SPA que minimiza las recargas y los accesos al servidor.</li>
+</ul>
+
+<p>En la primera versión, crearemos los tres componentes para que tan solo <em>muestren los datos disponibles en la base de datos</em>, pero no permitan manipularlos (ni insertar, ni modificar, ni borrar).</p>
+
+<p>La app principal de Vue (#app) estará dividida, pues, en 3 componentes:</p>
+
+<ul>
+  <li><strong>productos-list</strong> → lista de productos</li>
+  <li><strong>clientes-list</strong> → lista de clientes</li>
+  <li><strong>compras-list</strong> → lista de compras</li>
+</ul>
+
+<p><a href="https://github.com/avozme/frontend-compras-v1">ACCEDE AQUÍ AL CÓDIGO COMPLETO DE ESTA VERSIÓN</a></p>
+
+<h4 id="código-más-importante-de-la-versión-1">Código más importante de la versión 1</h4>
+
+<p><strong>Archivo <em>main.js</em></strong></p>
+
+<p>Como siempre, este será el punto de entrada de la aplicación. Se encargará tan solo de montar el elemento <em>app</em>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">createApp</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span>
 <span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./App.vue</span><span class="dl">'</span>
 
 <span class="nx">createApp</span><span class="p">(</span><span class="nx">App</span><span class="p">).</span><span class="nx">mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">)</span>
-</code></pre></div></div> <p><strong>Archivo <em>App.vue</em></strong></p> <p>Este componente contiene la plantilla (template) principal de la aplicación.</p> <p>Observa cómo se usan los <strong><em>v-if</em></strong> y <strong><em>v-else</em></strong> para renderizar un componente <code class="language-plaintext highlighter-rouge">&lt;productos-list&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;clientes-list&gt;</code> o <code class="language-plaintext highlighter-rouge">&lt;compras-list&gt;</code> según qué vista esté activa en este momento. Esto no será necesario cuando usemos enrutamiento en el cliente en la versión 3 de la aplicación.</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Archivo <em>App.vue</em></strong></p>
+
+<p>Este componente contiene la plantilla (template) principal de la aplicación.</p>
+
+<p>Observa cómo se usan los <strong><em>v-if</em></strong> y <strong><em>v-else</em></strong> para renderizar un componente <code class="language-plaintext highlighter-rouge">&lt;productos-list&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;clientes-list&gt;</code> o <code class="language-plaintext highlighter-rouge">&lt;compras-list&gt;</code> según qué vista esté activa en este momento. Esto no será necesario cuando usemos enrutamiento en el cliente en la versión 3 de la aplicación.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
   <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;h1&gt;</span>Tienda Online - Panel de gestión<span class="nt">&lt;/h1&gt;</span>
 
@@ -496,7 +962,18 @@
 <span class="nt">&lt;style&gt;</span>
    <span class="c">/* Aquí irían los estilos CSS */</span>
 <span class="nt">&lt;/style&gt;</span>
-</code></pre></div></div> <p><strong>Archivo <em>components/ProductosList.vue</em></strong></p> <p>Este componente prepara los datos de los productos para mostarlos en una tabla HTML. Observa dos cosas:</p> <ul> <li>Cómo se hace un <strong><em>v-for</em></strong> sobre el array de productos para generar la tabla HTML con los datos.</li> <li>Cómo se hace la llamada al servidor con <strong><em>fetch()</em></strong> en cuanto está montado en el DOM de la página para recibir como respuesta un JSON con los datos de los productos.</li> </ul> <div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Archivo <em>components/ProductosList.vue</em></strong></p>
+
+<p>Este componente prepara los datos de los productos para mostarlos en una tabla HTML. Observa dos cosas:</p>
+
+<ul>
+  <li>Cómo se hace un <strong><em>v-for</em></strong> sobre el array de productos para generar la tabla HTML con los datos.</li>
+  <li>Cómo se hace la llamada al servidor con <strong><em>fetch()</em></strong> en cuanto está montado en el DOM de la página para recibir como respuesta un JSON con los datos de los productos.</li>
+</ul>
+
+<div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
   <span class="nt">&lt;div&gt;</span>
     <span class="nt">&lt;h2&gt;</span>Productos<span class="nt">&lt;/h2&gt;</span>
     <span class="nt">&lt;table</span> <span class="na">border=</span><span class="s">"1"</span><span class="nt">&gt;</span>
@@ -535,7 +1012,39 @@
   <span class="p">}</span>
 <span class="p">}</span>
 <span class="nt">&lt;/</span><span class="k">script</span><span class="nt">&gt;</span>
-</code></pre></div></div> <p><strong>Archivo <em>components/ClientesList.vue</em></strong></p> <p>Este componente es como <em>productos-list</em>, pero aplicado a los clientes. No mostraremos el código aquí para no alargar esto innecesariamente.</p> <p>Recuerda que puedes ver y descargar el código completo de este ejemplo en <a href="https://github.com/avozme/frontend-compras-v1">https://github.com/avozme/frontend-compras-v1</a></p> <p><strong>Archivo <em>components/ComprasList.vue</em></strong></p> <p>Este componente es como <em>productos-list</em>, pero con los datos de las compras.</p> <p>Fíjate que a Vue le da igual si esta tabla es una <strong>tabla maestra</strong> o una <strong>tabla pivote</strong> (relación N:N): para el frontend se trata tan solo de otra colección de datos que se van a mostrar en un componente <em>data-table</em>.</p> <p>Tampoco mostraremos el código aquí, porque es casi idéntico al de <em>ProductosList.vue</em>. Recuerda que tienes el código completo disponible en <a href="https://github.com/avozme/frontend-compras-v1">https://github.com/avozme/frontend-compras-v1</a></p> <h3 id="447-ejemplo-completo-frontend-con-vue-v2---crud-completo-enrutamiento-en-servidor"> <a href="#447-ejemplo-completo-frontend-con-vue-v2---crud-completo-enrutamiento-en-servidor" class="anchor-heading" aria-labelledby="447-ejemplo-completo-frontend-con-vue-v2---crud-completo-enrutamiento-en-servidor"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.4.7. Ejemplo completo: frontend con Vue v2 - CRUD completo, enrutamiento en servidor </h3> <p>El frontend anterior consume el API Compras, pero lo hace solo para consultar los listados de datos.</p> <p>Podemos mejorarlo <strong>añadiendo funcionalidades de CRUD</strong> a cada uno de los componentes con datos (<em>productos-list</em>, <em>clientes-list</em> y <em>compras-list</em>). Eso complicará el código de cada componente, claro, pero nos ofrecerá una aplicación mucho más completa.</p> <p>Puedes echar un vistazo al código de esta versión más completa aquí. Solo vamos a mostrar el CRUD de Productos, pero los otros dos (Clientes y Compras) se resuelven de forma muy similar:</p> <p><a href="https://github.com/avozme/frontend-compras-v2">ACCEDE AQUÍ AL CÓDIGO FUENTE COMPLETO DE LA VERSIÓN 2</a></p> <h4 id="código-más-importante-de-la-versión-2"> <a href="#código-más-importante-de-la-versión-2" class="anchor-heading" aria-labelledby="código-más-importante-de-la-versión-2"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Código más importante de la Versión 2 </h4> <p>Los archivos <em>index.js</em> y <em>App.vue</em> serían idénticos a los de la versión anterior. Lo único que cambia en esta versión son los componentes <em>ProductosList.vue</em>, <em>ClientesList.vue</em> y <em>ComprasList.vue</em>, que se vuelven más complejos al incorporar todas las funcionalidades de un CRUD.</p> <p><strong>Archivo <em>components/ProductosList.vue</em> con CRUD completo</strong></p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Archivo <em>components/ClientesList.vue</em></strong></p>
+
+<p>Este componente es como <em>productos-list</em>, pero aplicado a los clientes. No mostraremos el código aquí para no alargar esto innecesariamente.</p>
+
+<p>Recuerda que puedes ver y descargar el código completo de este ejemplo en <a href="https://github.com/avozme/frontend-compras-v1">https://github.com/avozme/frontend-compras-v1</a></p>
+
+<p><strong>Archivo <em>components/ComprasList.vue</em></strong></p>
+
+<p>Este componente es como <em>productos-list</em>, pero con los datos de las compras.</p>
+
+<p>Fíjate que a Vue le da igual si esta tabla es una <strong>tabla maestra</strong> o una <strong>tabla pivote</strong> (relación N:N): para el frontend se trata tan solo de otra colección de datos que se van a mostrar en un componente <em>data-table</em>.</p>
+
+<p>Tampoco mostraremos el código aquí, porque es casi idéntico al de <em>ProductosList.vue</em>. Recuerda que tienes el código completo disponible en <a href="https://github.com/avozme/frontend-compras-v1">https://github.com/avozme/frontend-compras-v1</a></p>
+
+<h3 id="447-ejemplo-completo-frontend-con-vue-v2---crud-completo-enrutamiento-en-servidor">4.4.7. Ejemplo completo: frontend con Vue v2 - CRUD completo, enrutamiento en servidor</h3>
+
+<p>El frontend anterior consume el API Compras, pero lo hace solo para consultar los listados de datos.</p>
+
+<p>Podemos mejorarlo <strong>añadiendo funcionalidades de CRUD</strong> a cada uno de los componentes con datos (<em>productos-list</em>, <em>clientes-list</em> y <em>compras-list</em>). Eso complicará el código de cada componente, claro, pero nos ofrecerá una aplicación mucho más completa.</p>
+
+<p>Puedes echar un vistazo al código de esta versión más completa aquí. Solo vamos a mostrar el CRUD de Productos, pero los otros dos (Clientes y Compras) se resuelven de forma muy similar:</p>
+
+<p><a href="https://github.com/avozme/frontend-compras-v2">ACCEDE AQUÍ AL CÓDIGO FUENTE COMPLETO DE LA VERSIÓN 2</a></p>
+
+<h4 id="código-más-importante-de-la-versión-2">Código más importante de la Versión 2</h4>
+
+<p>Los archivos <em>index.js</em> y <em>App.vue</em> serían idénticos a los de la versión anterior. Lo único que cambia en esta versión son los componentes <em>ProductosList.vue</em>, <em>ClientesList.vue</em> y <em>ComprasList.vue</em>, que se vuelven más complejos al incorporar todas las funcionalidades de un CRUD.</p>
+
+<p><strong>Archivo <em>components/ProductosList.vue</em> con CRUD completo</strong></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
   <span class="nt">&lt;div&gt;</span>
     <span class="c">&lt;!-- Barra de búsqueda --&gt;</span>
     <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"search-bar"</span><span class="nt">&gt;</span>
@@ -681,7 +1190,26 @@
 <span class="nt">&lt;style </span><span class="na">scoped</span><span class="nt">&gt;</span>
    <span class="c">/* Aquí iría el CSS */</span>
 <span class="nt">&lt;/style&gt;</span>
-</code></pre></div></div> <p><strong>Archivos <em>src/components/ClientesList.vue</em></strong> y <strong><em>src/components/ComprasList.vue</em></strong></p> <p>Estos archivos son muy semejantes a <em>ProductosList.vue</em>, pero adaptados a la estrucura de Clientes y Compras, así que no los mostraremos aquí. Puedes consultar el código completo en <a href="https://github.com/avozme/frontend-compras-v2">https://github.com/avozme/frontend-compras-v2</a></p> <h3 id="448-ejemplo-completo-frontend-con-vue-v3---crud-completo-enrutamiento-en-cliente"> <a href="#448-ejemplo-completo-frontend-con-vue-v3---crud-completo-enrutamiento-en-cliente" class="anchor-heading" aria-labelledby="448-ejemplo-completo-frontend-con-vue-v3---crud-completo-enrutamiento-en-cliente"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.4.8. Ejemplo completo: frontend con Vue v3 - CRUD completo, enrutamiento en cliente </h3> <p>La versión más completa de este frontend no solo haría un CRUD completo de cada recurso, sino que <strong>enrutaría en el cliente</strong> para minimizar los accesos al servidor y agilizar la ejecución.</p> <p>Además, lo lógico es dividir los componentes como <strong><em>ProductosList.vue</em></strong> en dos piezas:</p> <ul> <li><strong><em>ProductosList.vue</em></strong> solo mostrará la lista de productos y los botones de acción.</li> <li><strong><em>ProductosForm.vue</em></strong> mostrará el formulario de insertar/modificar producto.</li> </ul> <p>Esta misma división debería hacerse con Clientes y con Compras. Obtendríamos así una aplicación frontend <strong>bien diseñada y fácilmente escalable</strong> con esta estructura de directorios:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>src/
+</code></pre></div></div>
+
+<p><strong>Archivos <em>src/components/ClientesList.vue</em></strong> y <strong><em>src/components/ComprasList.vue</em></strong></p>
+
+<p>Estos archivos son muy semejantes a <em>ProductosList.vue</em>, pero adaptados a la estrucura de Clientes y Compras, así que no los mostraremos aquí. Puedes consultar el código completo en <a href="https://github.com/avozme/frontend-compras-v2">https://github.com/avozme/frontend-compras-v2</a></p>
+
+<h3 id="448-ejemplo-completo-frontend-con-vue-v3---crud-completo-enrutamiento-en-cliente">4.4.8. Ejemplo completo: frontend con Vue v3 - CRUD completo, enrutamiento en cliente</h3>
+
+<p>La versión más completa de este frontend no solo haría un CRUD completo de cada recurso, sino que <strong>enrutaría en el cliente</strong> para minimizar los accesos al servidor y agilizar la ejecución.</p>
+
+<p>Además, lo lógico es dividir los componentes como <strong><em>ProductosList.vue</em></strong> en dos piezas:</p>
+
+<ul>
+  <li><strong><em>ProductosList.vue</em></strong> solo mostrará la lista de productos y los botones de acción.</li>
+  <li><strong><em>ProductosForm.vue</em></strong> mostrará el formulario de insertar/modificar producto.</li>
+</ul>
+
+<p>Esta misma división debería hacerse con Clientes y con Compras. Obtendríamos así una aplicación frontend <strong>bien diseñada y fácilmente escalable</strong> con esta estructura de directorios:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>src/
 ├─ main.js    ➔ prepara el createApp de Vue y la monta
 ├─ routes.js  ➔ enrutador
 ├─ App.vue    ➔ componente principal
@@ -692,7 +1220,21 @@
    ├─ ClienteForm.vue   ➔ formulario añadir/editar clientes
    ├─ ComprasList.vue   ➔ listado de compras con acciones CRUD
    └─ ComprasForm.vue   ➔ formulario añadir/editar compras
-</code></pre></div></div> <p>Aquí solo te mostraré el código de <strong><em>ProductosForm</em></strong> y <strong><em>ProductosList</em></strong>, además de los cambios necesarios en los archivos <strong><em>main.js</em></strong>, <strong><em>routes.js</em></strong> y <strong><em>App.vue</em></strong>, pero puedes ver el código completo de los otros componentes (Clientes y Compras) en el siguiente link.</p> <p><a href="https://github.com/avozme/frontend-compras-v3">ACCEDE AQUÍ AL CÓDIGO FUENTE COMPLETO DE ESTA VERSIÓN</a></p> <h4 id="código-más-importante-de-la-versión-3"> <a href="#código-más-importante-de-la-versión-3" class="anchor-heading" aria-labelledby="código-más-importante-de-la-versión-3"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Código más importante de la versión 3 </h4> <p><strong>Archivo <em>src/router.js</em></strong></p> <p>Este es el <strong>archivo de enrutamiento</strong> (no tiene una ubicación estándar y puedes encontrarlo en otros lugares del proyecto). Define qué componente se va a cargar con cada ruta.</p> <p>Por ejemplo, en el código de aquí abajo (recuerda: está incompleto; el código completo lo tienes <a href="https://github.com/avozme/frontend-compras-v3">aquí</a>), la ruta <code class="language-plaintext highlighter-rouge">/productos</code> producirá la carga del componente <em>ProductosList.vue</em>, mientras que la ruta <code class="language-plaintext highlighter-rouge">/productos/nuevo</code> cargará el componente <em>ProductoForm.vue</em>.</p> <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">createRouter</span><span class="p">,</span> <span class="nx">createWebHistory</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-router</span><span class="dl">'</span>
+</code></pre></div></div>
+
+<p>Aquí solo te mostraré el código de <strong><em>ProductosForm</em></strong> y <strong><em>ProductosList</em></strong>, además de los cambios necesarios en los archivos <strong><em>main.js</em></strong>, <strong><em>routes.js</em></strong> y <strong><em>App.vue</em></strong>, pero puedes ver el código completo de los otros componentes (Clientes y Compras) en el siguiente link.</p>
+
+<p><a href="https://github.com/avozme/frontend-compras-v3">ACCEDE AQUÍ AL CÓDIGO FUENTE COMPLETO DE ESTA VERSIÓN</a></p>
+
+<h4 id="código-más-importante-de-la-versión-3">Código más importante de la versión 3</h4>
+
+<p><strong>Archivo <em>src/router.js</em></strong></p>
+
+<p>Este es el <strong>archivo de enrutamiento</strong> (no tiene una ubicación estándar y puedes encontrarlo en otros lugares del proyecto). Define qué componente se va a cargar con cada ruta.</p>
+
+<p>Por ejemplo, en el código de aquí abajo (recuerda: está incompleto; el código completo lo tienes <a href="https://github.com/avozme/frontend-compras-v3">aquí</a>), la ruta <code class="language-plaintext highlighter-rouge">/productos</code> producirá la carga del componente <em>ProductosList.vue</em>, mientras que la ruta <code class="language-plaintext highlighter-rouge">/productos/nuevo</code> cargará el componente <em>ProductoForm.vue</em>.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">createRouter</span><span class="p">,</span> <span class="nx">createWebHistory</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-router</span><span class="dl">'</span>
 <span class="k">import</span> <span class="nx">ProductosList</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/ProductosList.vue</span><span class="dl">'</span>
 <span class="k">import</span> <span class="nx">ProductoForm</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/ProductoForm.vue</span><span class="dl">'</span>
 
@@ -708,12 +1250,26 @@
 <span class="p">})</span>
 
 <span class="k">export</span> <span class="k">default</span> <span class="nx">router</span>
-</code></pre></div></div> <p>Hay que modificar el archivo principal de Vue (<strong><em>src/main.js</em></strong>) para que importe el router y lo use antes de montar la app. Algo así:</p> <p><strong>Archivo <em>src/main.js</em></strong></p> <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">createApp</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span>
+</code></pre></div></div>
+
+<p>Hay que modificar el archivo principal de Vue (<strong><em>src/main.js</em></strong>) para que importe el router y lo use antes de montar la app. Algo así:</p>
+
+<p><strong>Archivo <em>src/main.js</em></strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">createApp</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span>
 <span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./App.vue</span><span class="dl">'</span>
 <span class="k">import</span> <span class="nx">router</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./router</span><span class="dl">'</span>
 
 <span class="nx">createApp</span><span class="p">(</span><span class="nx">App</span><span class="p">).</span><span class="nx">use</span><span class="p">(</span><span class="nx">router</span><span class="p">).</span><span class="nx">mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">)</span>
-</code></pre></div></div> <p><strong>Archivo <em>src/App.vue</em></strong></p> <p>En el componente principal de Vue (<strong><em>src/App.vue</em></strong>) hay que colocar un <code class="language-plaintext highlighter-rouge">&lt;router-view /&gt;</code> en el punto donde queremos que se muestren los componentes asociados a las rutas. También es habitual mostrar links construidos con <code class="language-plaintext highlighter-rouge">&lt;router-link&gt;</code> en lugar de <code class="language-plaintext highlighter-rouge">&lt;a href...&gt;</code>.</p> <p>Por ejemplo, en el ejemplo de aquí abajo (recuerda, está incompleto) hacemos que el texto “Lista de productos” enlace con la ruta “/productos”, que a su vez provoca la carga del componente <em>ProductosList.vue</em> según se definió en el archivo <em>routes.js</em>.</p> <div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Archivo <em>src/App.vue</em></strong></p>
+
+<p>En el componente principal de Vue (<strong><em>src/App.vue</em></strong>) hay que colocar un <code class="language-plaintext highlighter-rouge">&lt;router-view /&gt;</code> en el punto donde queremos que se muestren los componentes asociados a las rutas. También es habitual mostrar links construidos con <code class="language-plaintext highlighter-rouge">&lt;router-link&gt;</code> en lugar de <code class="language-plaintext highlighter-rouge">&lt;a href...&gt;</code>.</p>
+
+<p>Por ejemplo, en el ejemplo de aquí abajo (recuerda, está incompleto) hacemos que el texto “Lista de productos” enlace con la ruta “/productos”, que a su vez provoca la carga del componente <em>ProductosList.vue</em> según se definió en el archivo <em>routes.js</em>.</p>
+
+<div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
   <span class="nt">&lt;div&gt;</span>
     <span class="nt">&lt;nav</span> <span class="na">style=</span><span class="s">"margin-bottom: 1rem;"</span><span class="nt">&gt;</span>
       <span class="nt">&lt;router-link</span> <span class="na">to=</span><span class="s">"/productos"</span><span class="nt">&gt;</span>Lista de productos<span class="nt">&lt;/router-link&gt;</span> |
@@ -722,7 +1278,13 @@
     <span class="nt">&lt;router-view</span> <span class="nt">/&gt;</span>
   <span class="nt">&lt;/div&gt;</span>
 <span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
-</code></pre></div></div> <p><strong>Archivo <em>components/ProductosList.vue</em></strong></p> <p>Este componente muestra la lista de productos.</p> <div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Archivo <em>components/ProductosList.vue</em></strong></p>
+
+<p>Este componente muestra la lista de productos.</p>
+
+<div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
   <span class="nt">&lt;div&gt;</span>
     <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"search-bar"</span><span class="nt">&gt;</span>
       <span class="nt">&lt;input</span>
@@ -802,7 +1364,13 @@
   <span class="p">}</span>
 <span class="p">}</span>
 <span class="nt">&lt;/</span><span class="k">script</span><span class="nt">&gt;</span>
-</code></pre></div></div> <p><strong>Archivo <em>components/ProductoForm.vue</em></strong></p> <p>Este componente gestiona el formulario para añadir/editar un producto.</p> <div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Archivo <em>components/ProductoForm.vue</em></strong></p>
+
+<p>Este componente gestiona el formulario para añadir/editar un producto.</p>
+
+<div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
   <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"formulario"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;h3&gt;</span><span class="si">{{</span> <span class="nx">esEdicion</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">Editar producto</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">Nuevo producto</span><span class="dl">'</span> <span class="si">}}</span><span class="nt">&lt;/h3&gt;</span>
     <span class="nt">&lt;form</span> <span class="err">@</span><span class="na">submit.prevent=</span><span class="s">"guardarProducto"</span><span class="nt">&gt;</span>
@@ -865,9 +1433,47 @@
   <span class="p">}</span>
 <span class="p">}</span>
 <span class="nt">&lt;/</span><span class="k">script</span><span class="nt">&gt;</span>
-</code></pre></div></div> <h2 id="45-vuejs-integrado-en-laravel-para-aplicaciones-full-stack"> <a href="#45-vuejs-integrado-en-laravel-para-aplicaciones-full-stack" class="anchor-heading" aria-labelledby="45-vuejs-integrado-en-laravel-para-aplicaciones-full-stack"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.5. Vue.js integrado en Laravel para aplicaciones full stack </h2> <p>Hay dos formas de combinar Laravel y Vue:</p> <ol> <li> <p><strong>Frontend separado:</strong> Vue consume una API REST creada con Laravel, como hemos visto en la sección anterior.</p> <p>Esto es ideal si quieres mantener la independencia entre front y back. Tendrías dos aplicaciones separadas que puedes desarrollar, escalar o versionar independientemente una de la otra.</p> </li> <li> <p><strong>Integrado en Laravel:</strong> Vue se ejecuta dentro del propio proyecto Laravel.</p> <p>Esto es perfecto si buscas un desarrollo full stack unificado. Tendrías <em>un solo proyecto</em> (más complejo, pero solo uno).</p> </li> </ol> <h3 id="451-cómo-instalar-vue-dentro-de-laravel-paso-a-paso"> <a href="#451-cómo-instalar-vue-dentro-de-laravel-paso-a-paso" class="anchor-heading" aria-labelledby="451-cómo-instalar-vue-dentro-de-laravel-paso-a-paso"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.5.1. Cómo instalar Vue dentro de Laravel paso a paso </h3> <ol> <li> <p><strong>Instala Vue y el plugin de Vite</strong></p> <p>Si has instalado Laravel con compose:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>npm <span class="nb">install </span>vue @vitejs/plugin-vue
-</code></pre></div> </div> <p>Si has instalado Laravel con Sail:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>./vendor/bin/sail npm <span class="nb">install </span>vue @vitejs/plugin-vue<span class="sb">`</span>
-</code></pre></div> </div> <p>Recuerda que <strong><em>Vite</em></strong> sirve para traducir Vue a JavaScript estándar <em>en caliente</em>, es decir, durante el desarrollo, para poder ver el efecto de los cambios inmediatamente.</p> </li> <li> <p><strong>Edita <code class="language-plaintext highlighter-rouge">vite.config.js</code>:</strong> añade los imports y activa Vue.</p> <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">import</span> <span class="p">{</span> <span class="nx">defineConfig</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vite</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="45-vuejs-integrado-en-laravel-para-aplicaciones-full-stack">4.5. Vue.js integrado en Laravel para aplicaciones full stack</h2>
+
+<p>Hay dos formas de combinar Laravel y Vue:</p>
+
+<ol>
+  <li>
+    <p><strong>Frontend separado:</strong> Vue consume una API REST creada con Laravel, como hemos visto en la sección anterior.</p>
+
+    <p>Esto es ideal si quieres mantener la independencia entre front y back. Tendrías dos aplicaciones separadas que puedes desarrollar, escalar o versionar independientemente una de la otra.</p>
+  </li>
+  <li>
+    <p><strong>Integrado en Laravel:</strong> Vue se ejecuta dentro del propio proyecto Laravel.</p>
+
+    <p>Esto es perfecto si buscas un desarrollo full stack unificado. Tendrías <em>un solo proyecto</em> (más complejo, pero solo uno).</p>
+  </li>
+</ol>
+
+<h3 id="451-cómo-instalar-vue-dentro-de-laravel-paso-a-paso">4.5.1. Cómo instalar Vue dentro de Laravel paso a paso</h3>
+
+<ol>
+  <li>
+    <p><strong>Instala Vue y el plugin de Vite</strong></p>
+
+    <p>Si has instalado Laravel con compose:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>npm <span class="nb">install </span>vue @vitejs/plugin-vue
+</code></pre></div>    </div>
+
+    <p>Si has instalado Laravel con Sail:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>./vendor/bin/sail npm <span class="nb">install </span>vue @vitejs/plugin-vue<span class="sb">`</span>
+</code></pre></div>    </div>
+
+    <p>Recuerda que <strong><em>Vite</em></strong> sirve para traducir Vue a JavaScript estándar <em>en caliente</em>, es decir, durante el desarrollo, para poder ver el efecto de los cambios inmediatamente.</p>
+  </li>
+  <li>
+    <p><strong>Edita <code class="language-plaintext highlighter-rouge">vite.config.js</code>:</strong> añade los imports y activa Vue.</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">import</span> <span class="p">{</span> <span class="nx">defineConfig</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vite</span><span class="dl">'</span><span class="p">;</span>
  <span class="k">import</span> <span class="nx">laravel</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">laravel-vite-plugin</span><span class="dl">'</span><span class="p">;</span>
  <span class="k">import</span> <span class="nx">vue</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@vitejs/plugin-vue</span><span class="dl">'</span><span class="p">;</span>  <span class="c1">// Importamos plugin de Vue</span>
  <span class="k">import</span> <span class="nx">tailwindcss</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@tailwindcss/vite</span><span class="dl">'</span><span class="p">;</span>
@@ -890,22 +1496,48 @@
          <span class="p">},</span>
      <span class="p">},</span>    
  <span class="p">});</span>
-</code></pre></div> </div> </li> <li> <p><strong>Edita <code class="language-plaintext highlighter-rouge">resources/js/app.js</code>:</strong> este es el archivo de entrada a Vue, así que debes añadir aquí los componentes Vue que tu aplicación vaya a usar. Por ejemplo, para registrar un componente <strong><em>Productos.vue</em></strong>:</p> <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">import</span> <span class="dl">'</span><span class="s1">./bootstrap</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Edita <code class="language-plaintext highlighter-rouge">resources/js/app.js</code>:</strong> este es el archivo de entrada a Vue, así que debes añadir aquí los componentes Vue que tu aplicación vaya a usar. Por ejemplo, para registrar un componente <strong><em>Productos.vue</em></strong>:</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">import</span> <span class="dl">'</span><span class="s1">./bootstrap</span><span class="dl">'</span><span class="p">;</span>
  <span class="k">import</span> <span class="p">{</span> <span class="nx">createApp</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span><span class="p">;</span>
  <span class="k">import</span> <span class="nx">Productos</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/Productos.vue</span><span class="dl">'</span><span class="p">;</span>
 
  <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">createApp</span><span class="p">({});</span>
  <span class="nx">app</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="dl">'</span><span class="s1">productos</span><span class="dl">'</span><span class="p">,</span> <span class="nx">Productos</span><span class="p">);</span>
  <span class="nx">app</span><span class="p">.</span><span class="nx">mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">);</span>
-</code></pre></div> </div> </li> <li> <p><strong>Inicia el servidor de desarrollo:</strong></p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>npm <span class="nb">install</span>   <span class="c"># Solo la primera vez!!</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Inicia el servidor de desarrollo:</strong></p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>npm <span class="nb">install</span>   <span class="c"># Solo la primera vez!!</span>
 <span class="nv">$ </span>npm run dev
-</code></pre></div> </div> <p>O, si trabajas con Sail:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>./vendor/bin/sail npm <span class="nb">install</span>   <span class="c"># Solo la primera vez!!</span>
+</code></pre></div>    </div>
+
+    <p>O, si trabajas con Sail:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>./vendor/bin/sail npm <span class="nb">install</span>   <span class="c"># Solo la primera vez!!</span>
 <span class="nv">$ </span>./vendor/bin/sail npm run dev
-</code></pre></div> </div> </li> </ol> <p>A partir de ahora, ya puedes usar Vue en tus vistas de Blade. Por ejemplo:</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@vite('resources/js/app.js')   <span class="c">&lt;!-- Habilita Vue en esta vista--&gt;</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>A partir de ahora, ya puedes usar Vue en tus vistas de Blade. Por ejemplo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@vite('resources/js/app.js')   <span class="c">&lt;!-- Habilita Vue en esta vista--&gt;</span>
 <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;example-component&gt;&lt;/example-component&gt;</span>
 <span class="nt">&lt;/div&gt;</span>
-</code></pre></div></div> <h3 id="452-estructura-de-directorios-de-un-proyecto-laravel--vue"> <a href="#452-estructura-de-directorios-de-un-proyecto-laravel--vue" class="anchor-heading" aria-labelledby="452-estructura-de-directorios-de-un-proyecto-laravel--vue"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.5.2. Estructura de directorios de un proyecto Laravel + Vue </h3> <p>Como has podido observar en los ejemplos anteriores, cuando usas Vue con Laravel, los archivos de Vue se colocan en el directorio <strong><em>resources/js</em></strong> de Laravel:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>laravel-project/
+</code></pre></div></div>
+
+<h3 id="452-estructura-de-directorios-de-un-proyecto-laravel--vue">4.5.2. Estructura de directorios de un proyecto Laravel + Vue</h3>
+
+<p>Como has podido observar en los ejemplos anteriores, cuando usas Vue con Laravel, los archivos de Vue se colocan en el directorio <strong><em>resources/js</em></strong> de Laravel:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>laravel-project/
 ├─ resources/
 │  ├─ js/
 │  │  ├─ app.js      ←---- punto de entrada Vue
@@ -918,16 +1550,70 @@
 │  └─ web.php
 │
 └─resto del proyecto Laravel...
-</code></pre></div></div> <h3 id="453-ejemplo-completo-crud-con-vuejs-y-laravel"> <a href="#453-ejemplo-completo-crud-con-vuejs-y-laravel" class="anchor-heading" aria-labelledby="453-ejemplo-completo-crud-con-vuejs-y-laravel"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.5.3. Ejemplo completo: CRUD con Vue.js y Laravel </h3> <p>Como siempre hacemos, vamos a ilustrar cómo se usa Vue dentro de Laravel mediante un ejemplo sencillo pero completo, puesto que es la mejor forma de comprenderlo.</p> <p>Vamos a crear una aplicación CRUD completa (Create, Read, Update, Delete) para gestionar la tabla de Productos con la que hemos venido trabajando desde el tema 3.</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Productos(id#, nombre, descripcion, precio, stock)
-</code></pre></div></div> <p>Tendremos a Laravel en el backend y a Vue en el frontend, pero trabajando en modo full stack y no como dos aplicaciones independientes.</p> <p><strong>TIENES EL CÓDIGO FUENTE COMPLETO DE ESTE EJEMPLO EN: <a href="https://github.com/avozme/crud-laravel-vue">github.com/avozme/crud-laravel-vue</a></strong></p> <h4 id="pasos-generales"> <a href="#pasos-generales" class="anchor-heading" aria-labelledby="pasos-generales"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Pasos generales </h4> <ol> <li>Crear el proyecto Laravel.</li> <li>Activar Vue dentro de Laravel.</li> <li>Configurar la base de datos.</li> <li>Crear modelos, migraciones y seeders.</li> <li>Crear el controlador RESTful.</li> <li>Añadir las rutas API.</li> <li>Crear los componentes Vue.</li> <li>Crear las vistas Blade.</li> <li>Compilar y desplegar.</li> </ol> <h4 id="paso-1-crear-proyecto-de-laravel"> <a href="#paso-1-crear-proyecto-de-laravel" class="anchor-heading" aria-labelledby="paso-1-crear-proyecto-de-laravel"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> PASO 1. Crear proyecto de Laravel </h4> <p>Recuerda que hay dos formas «oficiales» de crear un proyecto Laravel nuevo:</p> <p>A) <strong>Con composer:</strong></p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>composer create-project laravel/laravel tienda
+</code></pre></div></div>
+
+<h3 id="453-ejemplo-completo-crud-con-vuejs-y-laravel">4.5.3. Ejemplo completo: CRUD con Vue.js y Laravel</h3>
+
+<p>Como siempre hacemos, vamos a ilustrar cómo se usa Vue dentro de Laravel mediante un ejemplo sencillo pero completo, puesto que es la mejor forma de comprenderlo.</p>
+
+<p>Vamos a crear una aplicación CRUD completa (Create, Read, Update, Delete) para gestionar la tabla de Productos con la que hemos venido trabajando desde el tema 3.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Productos(id#, nombre, descripcion, precio, stock)
+</code></pre></div></div>
+
+<p>Tendremos a Laravel en el backend y a Vue en el frontend, pero trabajando en modo full stack y no como dos aplicaciones independientes.</p>
+
+<p><strong>TIENES EL CÓDIGO FUENTE COMPLETO DE ESTE EJEMPLO EN: <a href="https://github.com/avozme/crud-laravel-vue">github.com/avozme/crud-laravel-vue</a></strong></p>
+
+<h4 id="pasos-generales">Pasos generales</h4>
+
+<ol>
+  <li>Crear el proyecto Laravel.</li>
+  <li>Activar Vue dentro de Laravel.</li>
+  <li>Configurar la base de datos.</li>
+  <li>Crear modelos, migraciones y seeders.</li>
+  <li>Crear el controlador RESTful.</li>
+  <li>Añadir las rutas API.</li>
+  <li>Crear los componentes Vue.</li>
+  <li>Crear las vistas Blade.</li>
+  <li>Compilar y desplegar.</li>
+</ol>
+
+<h4 id="paso-1-crear-proyecto-de-laravel">PASO 1. Crear proyecto de Laravel</h4>
+
+<p>Recuerda que hay dos formas «oficiales» de crear un proyecto Laravel nuevo:</p>
+
+<p>A) <strong>Con composer:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>composer create-project laravel/laravel tienda
 <span class="nv">$ </span><span class="nb">cd </span>nombre-app
 <span class="nv">$ </span>php artisan serve   <span class="c"># El servidor estará en http://localhost:8080</span>
-</code></pre></div></div> <p>B) <strong>Con Sail (docker):</strong></p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="nt">-s</span> https://laravel.build/mi-app | bash
+</code></pre></div></div>
+
+<p>B) <strong>Con Sail (docker):</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="nt">-s</span> https://laravel.build/mi-app | bash
 <span class="nv">$ </span><span class="nb">cd </span>mi-app
 <span class="nv">$ </span>./vendor/bin/sail up   <span class="c"># El servidor estará en http://localhost</span>
-</code></pre></div></div> <h4 id="paso-2-preparación-de-vue-dentro-de-laravel"> <a href="#paso-2-preparación-de-vue-dentro-de-laravel" class="anchor-heading" aria-labelledby="paso-2-preparación-de-vue-dentro-de-laravel"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> PASO 2. Preparación de Vue dentro de Laravel </h4> <p>A partir de Laravel 12, Vue no viene activado por defecto con Laravel, pero es fácil ponerlo en marcha:</p> <p>Con composer:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>npm <span class="nb">install </span>vue @vitejs/plugin-vue
-</code></pre></div></div> <p>Con Sail:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>./vendor/bin/sail npm <span class="nb">install </span>vue @vitejs/plugin-vue
-</code></pre></div></div> <p>A continación, edita el archivo <strong><em>vite.config.js</em></strong> del directorio raíz:</p> <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Añadir este import:</span>
+</code></pre></div></div>
+
+<h4 id="paso-2-preparación-de-vue-dentro-de-laravel">PASO 2. Preparación de Vue dentro de Laravel</h4>
+
+<p>A partir de Laravel 12, Vue no viene activado por defecto con Laravel, pero es fácil ponerlo en marcha:</p>
+
+<p>Con composer:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>npm <span class="nb">install </span>vue @vitejs/plugin-vue
+</code></pre></div></div>
+
+<p>Con Sail:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>./vendor/bin/sail npm <span class="nb">install </span>vue @vitejs/plugin-vue
+</code></pre></div></div>
+
+<p>A continación, edita el archivo <strong><em>vite.config.js</em></strong> del directorio raíz:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Añadir este import:</span>
 <span class="k">import</span> <span class="nx">vue</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@vitejs/plugin-vue</span><span class="dl">'</span><span class="p">;</span>
 <span class="k">export</span> <span class="k">default</span> <span class="nx">defineConfig</span><span class="p">({</span>
   <span class="na">plugins</span><span class="p">:</span> 
@@ -941,22 +1627,42 @@
     <span class="p">},</span>
   <span class="p">},</span>   
 <span class="p">});</span>
-</code></pre></div></div> <p>También tienes que editar el archivo <strong><em>resources/js/app.js</em></strong>, es decir, el punto de entrada de Vue, para registrar el componente que vamos a usar (<em>Productos.vue</em>):</p> <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="dl">'</span><span class="s1">./bootstrap</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>También tienes que editar el archivo <strong><em>resources/js/app.js</em></strong>, es decir, el punto de entrada de Vue, para registrar el componente que vamos a usar (<em>Productos.vue</em>):</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="dl">'</span><span class="s1">./bootstrap</span><span class="dl">'</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">createApp</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span><span class="p">;</span>
 <span class="k">import</span> <span class="nx">Productos</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/Productos.vue</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">createApp</span><span class="p">({});</span>
 <span class="nx">app</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="dl">'</span><span class="s1">productos</span><span class="dl">'</span><span class="p">,</span> <span class="nx">Productos</span><span class="p">);</span>
 <span class="nx">app</span><span class="p">.</span><span class="nx">mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">);</span>
-</code></pre></div></div> <h4 id="paso-3-configurar-la-conexión-con-la-base-de-datos"> <a href="#paso-3-configurar-la-conexión-con-la-base-de-datos" class="anchor-heading" aria-labelledby="paso-3-configurar-la-conexión-con-la-base-de-datos"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> PASO 3. Configurar la conexión con la base de datos </h4> <p>Como con cualquier aplicación Laravel, debes editar el <strong><em>archivo .env</em></strong> para configurar la conexión con la BD. Los siguientes parámetros son los apropiados si usas Sail. En otro caso, sustitúyelos por los tuyos:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DB_CONNECTION=mysql
+</code></pre></div></div>
+
+<h4 id="paso-3-configurar-la-conexión-con-la-base-de-datos">PASO 3. Configurar la conexión con la base de datos</h4>
+
+<p>Como con cualquier aplicación Laravel, debes editar el <strong><em>archivo .env</em></strong> para configurar la conexión con la BD. Los siguientes parámetros son los apropiados si usas Sail. En otro caso, sustitúyelos por los tuyos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
 DB_DATABASE=laravel
 DB_USERNAME=sail
 DB_PASSWORD=password
-</code></pre></div></div> <h4 id="paso-4-modelos-migraciones-seeders"> <a href="#paso-4-modelos-migraciones-seeders" class="anchor-heading" aria-labelledby="paso-4-modelos-migraciones-seeders"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> PASO 4. Modelos, migraciones, seeders </h4> <p>En este ejemplo solo tendremos un <strong>modelo</strong>, el de Productos. Lo creamos con la <strong>opción -m</strong> para que al mismo tiempo se cree la migración:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan make:model Producto <span class="nt">-m</span>                <span class="c"># Con composer</span>
+</code></pre></div></div>
+
+<h4 id="paso-4-modelos-migraciones-seeders">PASO 4. Modelos, migraciones, seeders</h4>
+
+<p>En este ejemplo solo tendremos un <strong>modelo</strong>, el de Productos. Lo creamos con la <strong>opción -m</strong> para que al mismo tiempo se cree la migración:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan make:model Producto <span class="nt">-m</span>                <span class="c"># Con composer</span>
 <span class="nv">$ </span>./vendor/bin/sail artisan make:model Producto <span class="nt">-m</span>  <span class="c"># Con sail</span>
-</code></pre></div></div> <p>Edita el modelo <strong><em>app/Models/Producto.php</em></strong> para hacer <em>fillables</em> todos los campos. Así podremos hacer asignación de datos masiva desde un formulario:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">App\Models</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Edita el modelo <strong><em>app/Models/Producto.php</em></strong> para hacer <em>fillables</em> todos los campos. Así podremos hacer asignación de datos masiva desde un formulario:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">App\Models</span><span class="p">;</span>
 
 <span class="kn">use</span> <span class="nc">Illuminate\Database\Eloquent\Model</span><span class="p">;</span>
 <span class="kn">use</span> <span class="nc">HasFactory</span><span class="p">;</span>
@@ -966,7 +1672,11 @@ DB_PASSWORD=password
     <span class="c1">// Campos que se pueden asignar masivamente</span>
     <span class="k">protected</span> <span class="nv">$fillable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'nombre'</span><span class="p">,</span> <span class="s1">'descripcion'</span><span class="p">,</span> <span class="s1">'precio'</span><span class="p">,</span> <span class="s1">'stock'</span><span class="p">];</span>
 <span class="p">}</span>
-</code></pre></div></div> <p>Edita también el <strong><em>método up()</em></strong> de la <strong>migración</strong> <strong><em>database/migrations/xx_create_productos_table.php:</em></strong></p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Schema</span><span class="o">::</span><span class="nf">create</span><span class="p">(</span><span class="s1">'productos'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="kt">Blueprint</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
+</code></pre></div></div>
+
+<p>Edita también el <strong><em>método up()</em></strong> de la <strong>migración</strong> <strong><em>database/migrations/xx_create_productos_table.php:</em></strong></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Schema</span><span class="o">::</span><span class="nf">create</span><span class="p">(</span><span class="s1">'productos'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="kt">Blueprint</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
   <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">id</span><span class="p">();</span>
   <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">string</span><span class="p">(</span><span class="s1">'nombre'</span><span class="p">);</span>
   <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">text</span><span class="p">(</span><span class="s1">'descripcion'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">nullable</span><span class="p">();</span>
@@ -974,10 +1684,26 @@ DB_PASSWORD=password
   <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">integer</span><span class="p">(</span><span class="s1">'stock'</span><span class="p">);</span>
   <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">timestamps</span><span class="p">();</span>
 <span class="p">});</span>
-</code></pre></div></div> <p>Por último, lanza la migración para crear la tabla:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan migrate                <span class="c"># Con composer</span>
+</code></pre></div></div>
+
+<p>Por último, lanza la migración para crear la tabla:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan migrate                <span class="c"># Con composer</span>
 <span class="nv">$ </span>./vendor/bin/sail artisan migrate  <span class="c"># Con sail</span>
-</code></pre></div></div> <p>Optativamente, por supuesto, puedes crear un <em>Seeder</em> para llenar con datos de prueba la tabla de Productos.</p> <h4 id="paso-5-crear-el-controlador-restful"> <a href="#paso-5-crear-el-controlador-restful" class="anchor-heading" aria-labelledby="paso-5-crear-el-controlador-restful"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> PASO 5: Crear el controlador RESTful </h4> <p>Crea el controlador de productos con la opción <strong><em>- -api</em></strong> para convertirlo en controlador RESTful:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:controller ProductoController <span class="nt">--api</span>
-</code></pre></div></div> <p>Los métodos del controlador <strong><em>app/Http/Controllers/ProductoController.php</em></strong> devolverán solo datos JSON, no vistas completas:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+</code></pre></div></div>
+
+<p>Optativamente, por supuesto, puedes crear un <em>Seeder</em> para llenar con datos de prueba la tabla de Productos.</p>
+
+<h4 id="paso-5-crear-el-controlador-restful">PASO 5: Crear el controlador RESTful</h4>
+
+<p>Crea el controlador de productos con la opción <strong><em>- -api</em></strong> para convertirlo en controlador RESTful:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:controller ProductoController <span class="nt">--api</span>
+</code></pre></div></div>
+
+<p>Los métodos del controlador <strong><em>app/Http/Controllers/ProductoController.php</em></strong> devolverán solo datos JSON, no vistas completas:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
 <span class="kn">namespace</span> <span class="nn">App\Http\Controllers</span><span class="p">;</span>
 
 <span class="kn">use</span> <span class="nc">App\Models\Producto</span><span class="p">;</span>
@@ -1008,11 +1734,29 @@ DB_PASSWORD=password
         <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="mi">204</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div></div> <h4 id="paso-6-rutas-api"> <a href="#paso-6-rutas-api" class="anchor-heading" aria-labelledby="paso-6-rutas-api"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> PASO 6. Rutas API </h4> <p>Instala los componentes API de Laravel (necesario a partir de Laravel 12):</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan <span class="nb">install</span>:api                <span class="c"># Con composer</span>
+</code></pre></div></div>
+
+<h4 id="paso-6-rutas-api">PASO 6. Rutas API</h4>
+
+<p>Instala los componentes API de Laravel (necesario a partir de Laravel 12):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan <span class="nb">install</span>:api                <span class="c"># Con composer</span>
 <span class="nv">$ </span>./vendor/bin/sail artisan <span class="nb">install</span>:api  <span class="c"># Con sail</span>
-</code></pre></div></div> <p>Ya puedes editar <strong><em>routes/api.php</em></strong>:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Http\Controllers\ProductoController</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Ya puedes editar <strong><em>routes/api.php</em></strong>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Http\Controllers\ProductoController</span><span class="p">;</span>
 <span class="nc">Route</span><span class="o">::</span><span class="nf">apiResource</span><span class="p">(</span><span class="s1">'productos'</span><span class="p">,</span> <span class="nc">ProductoController</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
-</code></pre></div></div> <p>Esto hará accesible nuestra API en <em>http://servidor/api/productos</em>. Por ejemplo: <em>http://servidor/api/productos/destroy/1</em></p> <h4 id="paso-7-crear-los-componentes-de-vue"> <a href="#paso-7-crear-los-componentes-de-vue" class="anchor-heading" aria-labelledby="paso-7-crear-los-componentes-de-vue"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> PASO 7. Crear los componentes de Vue </h4> <p>Como en este ejemplo solo trabajamos con productos, el único componente que necesitamos es <code class="language-plaintext highlighter-rouge">Productos.vue</code>, que crearemos en <strong><em>resources/js/components/Productos.vue</em></strong>. Podría ser algo así:</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+
+<p>Esto hará accesible nuestra API en <em>http://servidor/api/productos</em>. Por ejemplo: <em>http://servidor/api/productos/destroy/1</em></p>
+
+<h4 id="paso-7-crear-los-componentes-de-vue">PASO 7. Crear los componentes de Vue</h4>
+
+<p>Como en este ejemplo solo trabajamos con productos, el único componente que necesitamos es <code class="language-plaintext highlighter-rouge">Productos.vue</code>, que crearemos en <strong><em>resources/js/components/Productos.vue</em></strong>. Podría ser algo así:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 <span class="nt">&lt;template&gt;</span>
   <span class="nt">&lt;div&gt;</span>
     <span class="nt">&lt;h2&gt;</span>Gestión de productos<span class="nt">&lt;/h2&gt;</span>
@@ -1112,7 +1856,13 @@ DB_PASSWORD=password
   <span class="p">},</span>
 <span class="p">};</span>
 <span class="nt">&lt;/script&gt;</span>
-</code></pre></div></div> <h4 id="paso-8-crear-las-vistas-blade"> <a href="#paso-8-crear-las-vistas-blade" class="anchor-heading" aria-labelledby="paso-8-crear-las-vistas-blade"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> PASO 8: Crear las vistas Blade </h4> <p>De nuevo, solo necesitaremos la vista de productos para este ejemplo. La crearemos en <strong><em>resources/views/productos.blade.php:</em></strong> y en ella cargaremos el componente <em>productos</em> que hemos creado con Vue:</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</code></pre></div></div>
+
+<h4 id="paso-8-crear-las-vistas-blade">PASO 8: Crear las vistas Blade</h4>
+
+<p>De nuevo, solo necesitaremos la vista de productos para este ejemplo. La crearemos en <strong><em>resources/views/productos.blade.php:</em></strong> y en ella cargaremos el componente <em>productos</em> que hemos creado con Vue:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;head&gt;</span>
   <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
@@ -1125,11 +1875,82 @@ DB_PASSWORD=password
   <span class="nt">&lt;/div&gt;</span>
 <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
-</code></pre></div></div> <div style="background-color: #ddd"><strong>Ten en cuenta que esta vista no se generará en el back, como ocurriría con una aplicación backend, sino que la utilizará Vue para renderizar su frontend SPA.</strong></div> <p>Debes dirigir el <strong><em>endpoint /</em></strong> a la nueva vista para que Vue tome el control nada más entrar en la aplicación. Para ello, edita el archivo <strong><em>routes/web.php</em></strong> y dirige la ruta raíz a nuestra vista:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+</code></pre></div></div>
+
+<div style="background-color: #ddd"><strong>Ten en cuenta que esta vista no se generará en el back, como ocurriría con una aplicación backend, sino que la utilizará Vue para renderizar su frontend SPA.</strong></div>
+
+<p>Debes dirigir el <strong><em>endpoint /</em></strong> a la nueva vista para que Vue tome el control nada más entrar en la aplicación. Para ello, edita el archivo <strong><em>routes/web.php</em></strong> y dirige la ruta raíz a nuestra vista:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'productos'</span><span class="p">);</span>
 <span class="p">});</span>
-</code></pre></div></div> <h4 id="paso-9-desplegar-compilar-probar"> <a href="#paso-9-desplegar-compilar-probar" class="anchor-heading" aria-labelledby="paso-9-desplegar-compilar-probar"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> PASO 9: Desplegar, compilar, probar </h4> <p>Durante el desarrollo debes ejecutar npm en modo dev:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>npm run dev                      <span class="c"># Para Laravel con compose</span>
+</code></pre></div></div>
+
+<h4 id="paso-9-desplegar-compilar-probar">PASO 9: Desplegar, compilar, probar</h4>
+
+<p>Durante el desarrollo debes ejecutar npm en modo dev:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>npm run dev                      <span class="c"># Para Laravel con compose</span>
 <span class="nv">$ </span>./vendor/bin/sail npm run dev    <span class="c"># Para Laravel con sail</span>
-</code></pre></div></div> <p>Así Vite traducirá cualquier cambio que hagas en Vue a un JavaScript comprensible por el navegador en tiempo real, y podrás ir viendo el resultado inmediatamente en <em>http://localhost:8000</em> (si trabajas con compose y has levantado el back con <code class="language-plaintext highlighter-rouge">php artisan serve</code>) o en <em>http://localhost</em> (si trabajas con Sail y has levantado el back con <code class="language-plaintext highlighter-rouge">./vendor/bin/sail up</code>).</p> <p>Sin embargo, para construir el build final debes ejecutar npm así:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>npm run build                    <span class="c"># Para Laravel con compose</span>
+</code></pre></div></div>
+
+<p>Así Vite traducirá cualquier cambio que hagas en Vue a un JavaScript comprensible por el navegador en tiempo real, y podrás ir viendo el resultado inmediatamente en <em>http://localhost:8000</em> (si trabajas con compose y has levantado el back con <code class="language-plaintext highlighter-rouge">php artisan serve</code>) o en <em>http://localhost</em> (si trabajas con Sail y has levantado el back con <code class="language-plaintext highlighter-rouge">./vendor/bin/sail up</code>).</p>
+
+<p>Sin embargo, para construir el build final debes ejecutar npm así:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>npm run build                    <span class="c"># Para Laravel con compose</span>
 <span class="nv">$ </span>./vendor/bin/sail npm run build  <span class="c"># Para Laravel con sail</span>
-</code></pre></div></div> <p>Esto convertirá Vue en unos archivos JavaScript estándar minimizados y optimizados en la carpeta <strong><em>/public</em></strong> de Laravel que se servirán junto con el resto de Laravel.</p> <p>A partir de aquí, puedes <strong>desplegar</strong> la aplicación en cualquier servidor web como harías con cualquier proyecto de Laravel. Lo mejor sería:</p> <ul> <li>Clonar todo en el servidor web de producción (mejor con git)</li> <li>Reconfigurar el archivo .env para el nuevo servidor</li> <li>Lanzar el servidor y probarlo todo</li> </ul> <p><strong>Recuerda que tienes el código fuente completo de este ejemplo en <a href="https://github.com/avozme/crud-laravel-vue">github.com/avozme/crud-laravel-vue</a></strong></p> <h2 id="46-práctica-final-crud-de-cursos-y-estudiantes"> <a href="#46-práctica-final-crud-de-cursos-y-estudiantes" class="anchor-heading" aria-labelledby="46-práctica-final-crud-de-cursos-y-estudiantes"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.6. Práctica final: CRUD de cursos y estudiantes </h2> <p>Para practicar todo esto vamos a construir un <strong>CRUD completo usando Vue y Laravel</strong> para el siguiente caso:</p> <p>Crea una aplicación web con Laravel (backend) y Vue (frontend) que nos permita:</p> <ul> <li>Crear, ver, editar y eliminar Cursos</li> <li>Crear, ver, editar y eliminar Estudiantes</li> <li>Relacionar Estudiantes con un Curso (relación 1:N)</li> </ul> <p>Las <strong>tablas de la base de datos</strong> tendrán esta estructura:</p> <ul> <li><strong>courses</strong>(id#, name, description)</li> <li><strong>students</strong>(id#, name, email, course_id)</li> </ul> <p>Como ves, un curso puede tener muchos estudiantes pero cada estudiante solo pertenece a un curso.</p> <p>Los pasos que debes seguir para construir esta aplicación son los mismos que hemos seguido en el <a href="../vue-js/#45-vuejs-integrado-en-laravel-para-aplicaciones-full-stack">ejemplo del apartado anterior</a>:</p> <ol> <li><strong>Crear el proyecto Laravel</strong></li> <li><strong>Preparar Vue dentro de Laravel</strong></li> <li><strong>Configurar la conexión con la base de datos</strong></li> <li><strong>Crear modelos y migraciones</strong> y, optativamente, seeders</li> <li><strong>Crear el controlador API RESTful</strong></li> <li><strong>Añadir las rutas API</strong></li> <li> <p><strong>Construir los componentes Vue</strong>. ¡Este es el paso más costoso!</p> <p>Puedes crear un megacomponente para cada recurso (Courses.vue y Students.vue) o dividirlos en componentes más sencillos (CoursesList.vue + CoursesForm.vue y StudentsList.vue + StudentsForm.vue). Tendrás que estudiar cómo gestionar la relación entre las dos tablas a nivel del interfaz de usuario.</p> </li> <li><strong>Crear las vistas Blade</strong>. No olvides dirigir la ruta raíz (/) a alguna de tus vistas (la que quieras que haga de “home” de la aplicación).</li> <li><strong>Desplegar, compilar, probar</strong></li> <li>(Optativo) <strong>Enrutar en el cliente</strong>. Puedes modificar tus componentes para que el enrutamiento se haga en el cliente y así construir una aplicación 100% SPA.</li> </ol> </div> </div> <div class="search-overlay"></div> </div> </body> </html>
+</code></pre></div></div>
+
+<p>Esto convertirá Vue en unos archivos JavaScript estándar minimizados y optimizados en la carpeta <strong><em>/public</em></strong> de Laravel que se servirán junto con el resto de Laravel.</p>
+
+<p>A partir de aquí, puedes <strong>desplegar</strong> la aplicación en cualquier servidor web como harías con cualquier proyecto de Laravel. Lo mejor sería:</p>
+
+<ul>
+  <li>Clonar todo en el servidor web de producción (mejor con git)</li>
+  <li>Reconfigurar el archivo .env para el nuevo servidor</li>
+  <li>Lanzar el servidor y probarlo todo</li>
+</ul>
+
+<p><strong>Recuerda que tienes el código fuente completo de este ejemplo en <a href="https://github.com/avozme/crud-laravel-vue">github.com/avozme/crud-laravel-vue</a></strong></p>
+
+<h2 id="46-práctica-final-crud-de-cursos-y-estudiantes">4.6. Práctica final: CRUD de cursos y estudiantes</h2>
+
+<p>Para practicar todo esto vamos a construir un <strong>CRUD completo usando Vue y Laravel</strong> para el siguiente caso:</p>
+
+<p>Crea una aplicación web con Laravel (backend) y Vue (frontend) que nos permita:</p>
+
+<ul>
+  <li>Crear, ver, editar y eliminar Cursos</li>
+  <li>Crear, ver, editar y eliminar Estudiantes</li>
+  <li>Relacionar Estudiantes con un Curso (relación 1:N)</li>
+</ul>
+
+<p>Las <strong>tablas de la base de datos</strong> tendrán esta estructura:</p>
+
+<ul>
+  <li><strong>courses</strong>(id#, name, description)</li>
+  <li><strong>students</strong>(id#, name, email, course_id)</li>
+</ul>
+
+<p>Como ves, un curso puede tener muchos estudiantes pero cada estudiante solo pertenece a un curso.</p>
+
+<p>Los pasos que debes seguir para construir esta aplicación son los mismos que hemos seguido en el <a href="../vue-js/#45-vuejs-integrado-en-laravel-para-aplicaciones-full-stack">ejemplo del apartado anterior</a>:</p>
+
+<ol>
+  <li><strong>Crear el proyecto Laravel</strong></li>
+  <li><strong>Preparar Vue dentro de Laravel</strong></li>
+  <li><strong>Configurar la conexión con la base de datos</strong></li>
+  <li><strong>Crear modelos y migraciones</strong> y, optativamente, seeders</li>
+  <li><strong>Crear el controlador API RESTful</strong></li>
+  <li><strong>Añadir las rutas API</strong></li>
+  <li>
+    <p><strong>Construir los componentes Vue</strong>. ¡Este es el paso más costoso!</p>
+
+    <p>Puedes crear un megacomponente para cada recurso (Courses.vue y Students.vue) o dividirlos en componentes más sencillos (CoursesList.vue + CoursesForm.vue y StudentsList.vue + StudentsForm.vue). Tendrás que estudiar cómo gestionar la relación entre las dos tablas a nivel del interfaz de usuario.</p>
+  </li>
+  <li><strong>Crear las vistas Blade</strong>. No olvides dirigir la ruta raíz (/) a alguna de tus vistas (la que quieras que haga de “home” de la aplicación).</li>
+  <li><strong>Desplegar, compilar, probar</strong></li>
+  <li>(Optativo) <strong>Enrutar en el cliente</strong>. Puedes modificar tus componentes para que el enrutamiento se haga en el cliente y así construir una aplicación 100% SPA.</li>
+</ol>
+

@@ -1,0 +1,159 @@
+I"@<h2 class="no_toc" id="15-depurando-el-código-php-con-xdebug">1.5. Depurando el código PHP con xdebug</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#151-herramientas-estándar-de-php-para-depuración" id="markdown-toc-151-herramientas-estándar-de-php-para-depuración">1.5.1. Herramientas estándar de PHP para depuración</a></li>
+  <li><a href="#152-xdebug" id="markdown-toc-152-xdebug">1.5.2. xdebug</a></li>
+  <li><a href="#153-instalación-de-xdebug-en-el-servidor" id="markdown-toc-153-instalación-de-xdebug-en-el-servidor">1.5.3. Instalación de xdebug en el servidor</a>    <ul>
+      <li><a href="#cómo-instalar-xdebug-en-un-servidor-nativo" id="markdown-toc-cómo-instalar-xdebug-en-un-servidor-nativo">Cómo instalar xdebug en un servidor nativo</a></li>
+      <li><a href="#cómo-instalar-xdebug-en-el-servidor-docker-de-bitnami" id="markdown-toc-cómo-instalar-xdebug-en-el-servidor-docker-de-bitnami">Cómo instalar xdebug en el servidor Docker de bitnami</a></li>
+    </ul>
+  </li>
+  <li><a href="#154-instalación-de-xdebug-en-el-ide" id="markdown-toc-154-instalación-de-xdebug-en-el-ide">1.5.4. Instalación de xdebug en el IDE</a></li>
+  <li><a href="#155-cómo-usar-xdebug" id="markdown-toc-155-cómo-usar-xdebug">1.5.5. Cómo usar xdebug</a></li>
+</ul>
+
+<p>Depurar el código PHP es, en principio, una tarea ardua, porque el programa se ejecuta en un servidor y nosotros solo podemos ver el resultado de esa ejecución en un cliente web. Esto significa que, si ocurre un error, nos lo encontraremos mucho después de que haya ocurrido. Es algo así como cuando la policía encuentra los restos de un crimen (el cadáver, algunas huellas y unos cuantos cristales rotos en la habitación) mucho después de que el asesinato haya ocurrido. Hay que ejercer de auténticos detectives para, a partir de esas pistas, tratar de recomponer qué es lo que ha podido suceder en el servidor que ha provocado ese error.</p>
+
+<p>PHP ofrece varias funciones estándar para ayudarnos en la depuración pero, como vamos a ver, son bastante primitivas y poco funcionales, aunque pueden servirte en casos sencillos. Cuando la cosa se complica y el origen del error es difícil de rastrear, tendremos que recurrir a métodos más elaborados. Ahí entra en juego <strong>xdebug</strong>, el depurador más extendido en PHP.</p>
+
+<h3 id="151-herramientas-estándar-de-php-para-depuración">1.5.1. Herramientas estándar de PHP para depuración</h3>
+
+<p>Como te decía, el propio lenguaje te ofrece varias funciones estándar para depurar errores. Las dos más utilizadas son:</p>
+
+<ul>
+  <li>
+    <p><strong><em>echo()</em></strong>: La función de salida estándar de PHP también se usa con propósitos de depuración. De hecho, esto se ha hecho siempre en todos los lenguajes.</p>
+
+    <p>Simplemente, si un fragmento de tu código PHP está fallando (una función, un método, un módulo o lo que sea), coloca unos cuantos <em>echo()</em> estratégicos para mostrar el valor de tus variables clave, las que pueden estar tomando valores incorrectos. Verás el resultado de esos <em>echo()</em> en tu navegador web y te puede proporcionar información valiosa sobre lo que puede estar sucediendo.</p>
+  </li>
+  <li>
+    <p><strong><em>print_r()</em></strong>: La función <em>echo()</em> solo muestra variables simples, pero no objetos o arrays. Si necesitas mostrar el contenido de algo más complejo que una variable simple, puedes usar <em>print_r()</em>, que enviará el contenido de cualquier variable a la salida estándar, por lo que podrás verla en tu navegador web.</p>
+  </li>
+  <li>
+    <p><strong><em>var_dump()</em></strong>: Esta función es como <em>print_r()</em>, pero muestra aún más información sobre tu variable, como su tamaño.</p>
+  </li>
+</ul>
+
+<p>Además de estas funciones, los <strong>archivos de registro (<em>logs</em>)</strong> de tu servidor pueden mostrarte información importante sobre el error que se haya podido producir. La ubicación de los archivos <em>log</em> es diferente según tu sistema operativo, por lo que tendrás que investigar un poco acerca de qué archivos consultar.</p>
+
+<p>En general, hay un montón de archivos <em>log</em> que tu sistema operativo podría estar produciendo, así que lo primero sería averiguar cómo se llaman los archivos de <em>log</em> que produce tu servidor web en concreto. Por ejemplo, <strong>Apache</strong> en Ubuntu Linux tiene su registro de errores en <em>/var/log/httpd/error_log</em>.</p>
+
+<p>Como es imposible proporcionarte una lista de todos los archivos de registro de todos los servidores web en todos los sistemas operativos, tendrás que bichear un poco por Internet para localizar el <em>log</em> de tu servidor en concreto.</p>
+
+<h3 id="152-xdebug">1.5.2. xdebug</h3>
+
+<p>Todo eso está muy bien, pero tanto las funciones estándar de PHP como los archivos <em>log</em> del servidor nos proporcionan una imagen <em>a posteriori</em> de lo que ha sucedido en el servidor. Es decir, vemos lo que ha ocurrido cuando el programa ya ha finalizado su ejecución, lo que a menudo dificultad localizar los errores.</p>
+
+<p>Además, usar funciones como <em>print_r()</em> o <em>var_dump()</em> implica introducir líneas de código de depuración dentro de mi programa. Ese código de depuración, poco a poco, va dejando <em>basura</em> que a veces se nos olvida eliminar. Nada hace peor efecto ante los usuarios que una aplicación web que de pronto muestra la salida de un <em>var_dump()</em> en mitad de una de sus vistas. Bueno, sí: un error de ejecución de PHP hace todavía peor efecto.</p>
+
+<p>Por todo ello, sería estupendo poder depurar el código PHP como si se estuviera ejecutando en nuestra máquina, igual que con cualquier otro lenguaje de programación. Eso es posible gracias a <strong><em>xdebug</em></strong>.</p>
+
+<p><strong><em>xdebug</em></strong> es una extensión de PHP que permite al cliente y al servidor comunicarse mediante un protocolo especial para depurar el código que se ejecuta en el servidor.</p>
+
+<p>Es decir: nuestro código seguirá ejecutándose en el servidor, pero nuestro cliente (normalmente, nuestro editor de texto o nuestro IDE) podrá pedirle al servidor que lo ejecute paso a paso o que le comunique el valor de cualquier variable en ese momento.</p>
+
+<h3 id="153-instalación-de-xdebug-en-el-servidor">1.5.3. Instalación de xdebug en el servidor</h3>
+
+<h4 id="cómo-instalar-xdebug-en-un-servidor-nativo">Cómo instalar xdebug en un servidor nativo</h4>
+
+<p>Como es una extensión, <strong><em>xdebug</em></strong> no viene de serie y necesita ser instalada en el servidor.</p>
+
+<p>La configuración más habitual del servidor web, es decir, un <strong>Apache bajo Linux</strong> (supondremos que es Debian o Ubuntu), necesita estos pasos para lograr la instalación de xdebug:</p>
+
+<ol>
+  <li>Instalar <strong><em>php-dev</em></strong>, un paquete de herramientas de desarrollo para PHP: <code class="language-plaintext highlighter-rouge">$ sudo apt install php-dev</code></li>
+  <li>Instalar <strong><em>xdebug</em></strong> a través de <em>composer</em>: <code class="language-plaintext highlighter-rouge">$ composer install xdebug</code></li>
+  <li>Habilitar el módulo <em>xdebug</em> en nuestro servidor: <code class="language-plaintext highlighter-rouge">$ sudo phpenmod xdebug</code></li>
+  <li>Reiniciar el servidor: <code class="language-plaintext highlighter-rouge">$ sudo service apache2 restart</code></li>
+</ol>
+
+<p>Obviamente, estos pasos son diferentes en otros servidores y otros sistemas operativos, incluso en otros sistemas Linux. Es imposible mostrar aquí todas las configuraciones posibles de todos los sistemas, por lo que, nuevamente, tendrás que buscar cuál es la manera de instalar <em>xdebug</em> en tu servidor dependiendo de cuál sea tu configuración exacta.</p>
+
+<p>(Incluso es posible que tengas suerte y tu servidor ya tenga <em>xdebug</em> instalado)</p>
+
+<p>Después de habilitar <em>xdebug</em> en tu servidor, puedes comprobar que está funcionando ejecutando <em>phpinfo()</em> en cualquier script o escribiendo <code class="language-plaintext highlighter-rouge">$php -i</code> en tu servidor. En ambos casos debería aparecer una sección dedicada a <em>xdebug</em> con información sobre la configuración de esta extensión.</p>
+
+<h4 id="cómo-instalar-xdebug-en-el-servidor-docker-de-bitnami">Cómo instalar xdebug en el servidor Docker de bitnami</h4>
+
+<p>Si estás usando las imágenes Docker de bitnami (<a href="/docs/dwes/_site/docker/">ver Apéndice 2</a>), la instalación de la extensión <em>xdebug</em> es aún más simple.</p>
+
+<p>Solo tienes que añadir estas líneas a tu archivo <em>custom.ini</em>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[xdebug]
+zend_extension="/opt/bitnami/php/lib/php/extensions/xdebug.so"
+xdebug.mode=debug
+xdebug.idekey=docker
+xdebug.start_with_request=yes
+xdebug.log=/dev/stdout
+xdebug.log_level=0
+xdebug.client_port=9003
+xdebug.client_host=&lt;pon-aquí-la-IP-de-tu-ordenador&gt;
+</code></pre></div></div>
+
+<p>Esto lanzará la extensión xdebug dentro del contenedor y la conectará con tu cliente (tu Visual Studio Code o el IDE que estés usando) en el puerto 9003, que es el estándar de Xdebug.</p>
+
+<p>Reinicia los contenedores y listo. No dejes de comprobar que <em>xdebug</em> está funcionando haciendo un  <code class="language-plaintext highlighter-rouge">echo phpinfo()</code> o <code class="language-plaintext highlighter-rouge">echo xdebug_info()</code>.</p>
+
+<h3 id="154-instalación-de-xdebug-en-el-ide">1.5.4. Instalación de xdebug en el IDE</h3>
+
+<p>Una vez instalada la extensión <em>xdebug</em>, llega el momento de usarla.</p>
+
+<p><em>xdebug</em> puede integrarse prácticamente con cualquier IDE medianamente decente. Nosotros vamos a ver cómo integrarla con <strong><em>Visual Studio Code</em></strong>, que es probablemente el IDE más utilizado en la actualidad. Si utilizas otro entorno de desarrollo, tendrás que buscar por ahí cómo habilitar <em>xdebug</em> en tu IDE, pero los pasos serán bastante similares a estos:</p>
+
+<ol>
+  <li><strong>Instalar una <em>extensión</em></strong> adecuada para la integración de <em>xdebug</em> con VS Code. La más utilizada es una llamada <strong><em>PHP Debug</em></strong>.</li>
+  <li><strong>Editar el archivo <em>.vscode/launch.json</em></strong>. Este archivo contiene la configuración de <em>debugging</em>, es decir, la conexión con el componente <em>xdebug</em> de nuestro servidor.</li>
+</ol>
+
+<p>El archivo <em>launch.json</em> se crea automáticamente al lanzar la extensión <em>PHP Debug</em> en VS Code. Simplemente, haz clic en el botón “Run and Debug” de tu barra izquierda:</p>
+
+<p><img src="/docs/dwes/_site/assets/images/02-run-and-debug-create-launch.png" alt="Crear lauch.json" /></p>
+
+<p>Haz clic en “Create a launch.json file”. VSCode te sugerirá algunas plantillas para <em>launch.json</em>.</p>
+
+<p>Yo te recomiendo que no utilices ninguna de ellas y que, en su lugar, pongas esto en <em>launch.json</em>:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.2.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"configurations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Listen for XDebug on Docker"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"php"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"request"</span><span class="p">:</span><span class="w"> </span><span class="s2">"launch"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"port"</span><span class="p">:</span><span class="w"> </span><span class="mi">9003</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"pathMappings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"/app"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${workspaceFolder}"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Esto le indica a VS Code en qué puerto debe comunicarse con Xdebug (el 9003) y en qué directorio del servidor está la aplicación (<em>/app</em> si usas las imágenes de Bitnami, pero tendrás que cambiarlo si usas otras imágenes).</p>
+
+<p><em>${workspaceFolder}</em> se refiere al directorio local donde está la aplicación. Tendrás que tener abierto VS Code en el directorio raíz de la misma para que funcione. Si algo falla, prueba a poner aquí una ruta absoluta al directorio de tu aplicación.</p>
+
+<p>A partir de ahí, podrás depurar tu programa desde el menú “Run”, aunque es conveniente que te aprendas los atajos de teclado para ir más rápido (por ejemplo, <strong>F5</strong> lanza el depurador de forma automática).</p>
+
+<p>Coloca un <em>breakpoint</em> en algún lugar de tu código. Luego, lanza tu aplicación desde tu navegador web preferido y haz que ejecute ese código. Verás que la ejecución se detiene justo en el <em>breakpoint</em> y VS Code pasa a primer plano, marcándote la línea en la que el programa se ha detenido. Eso significará que el depurador está funcionando perfectamente.</p>
+
+<p><img src="/docs/dwes/_site/assets/images/02-running-debugger.png" alt="El debugger en acción" /></p>
+
+<h3 id="155-cómo-usar-xdebug">1.5.5. Cómo usar xdebug</h3>
+
+<p>Si ya tenemos instalado <em>xdebug</em> en el servidor y lo hemos activado correctamente en nuestro IDE preferido, el proceso de depuración es bastante parecido al de cualquier otro lenguaje de programación.</p>
+
+<p>Nuevamente, nos referiremos a VS Code, pero el funcionamiento de <em>xdebug</em> será muy semejante en otros entornos de desarrollo.</p>
+
+<ul>
+  <li>Al ejecutar el código, VS Code nos mostrará las opciones para avanzar paso a paso, entrar dentro de funciones, saltar la ejecución de una función, continuar la ejecución sin parar o detener el programa.</li>
+  <li>Podemos crear <strong>puntos de ruptura</strong> o <strong><em>breakpoints</em></strong> haciendo click a la izquierda de la línea de código donde queremos detener la ejecución de la aplicación.</li>
+  <li>Podemos visualizar el valor de cualquier variable en ese instante poniendo el ratón encima de la variable en el propio código fuente.</li>
+  <li>En el panel izquierdo, podemos acceder a las variables del programa (tanto locales como globales y superglobales) y definir cualquier expresión que queramos que se vaya evaluando en tiempo real (<em>watches</em>).</li>
+  <li>Desde el mismo panel también se ve cuántas instancias de la aplicación que se está depurando están en marcha. Podemos pararlas, reiniciarlas o continuar la depuración de cada una de ellas de manera independiente.</li>
+</ul>
+
+<p>Además de estas funciones comunes de depuración, <em>xdebug</em> ofrece muchas funciones avanzadas que nosotros no vamos a ver, pero que puede que te interese usar en el futuro. Por ejemplo, puedes crear diferentes configuraciones de la sesión de <em>debugging</em> en el archivo <em>launch.json</em> para depurar diferentes aplicaciones (no es lo mismo depurar una aplicación web que una aplicación de línea de comandos). Otra función muy interesante de <em>xdebug</em> es la posibilidad de hacer <em>profiling</em>, es decir, un análisis del rendimiento de la aplicación web para detectar posibles problemas de rendimiento o cuellos de botella.</p>
+
+<p>Si quieres ampliar la información sobre <em>xdebug</em>, <a href="https://xdebug.org/docs/">aquí tienes la documentación oficial</a>.</p>
+:ET
