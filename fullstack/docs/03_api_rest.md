@@ -817,7 +817,7 @@ Basaremos nuestra API en la siguiente base de datos (respeta escrupulosamente lo
 
 **TABLAS PIVOTE** (relaciones N:N):
 
-* **artifact_hero**: relación N:N entre *heroe* y *artifact* (hero_id, mission_id)
+* **artifact_hero**: relación N:N entre *heroe* y *artifact* (hero_id, artifact_id)
 
 #### Migraciones
 
@@ -978,7 +978,7 @@ Te dejo aquí algunos Seeders por si quieres rellenar tus tablas con algunos dat
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class RegionsSeeder extends Seeder {
+class RegionSeeder extends Seeder {
     public function run() {
         DB::table('regions')->insert([
             ['name' => 'Eriador'],
@@ -997,7 +997,7 @@ class RegionsSeeder extends Seeder {
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class RealmsSeeder extends Seeder {
+class RealmSeeder extends Seeder {
     public function run() {
         DB::table('realms')->insert([
             ['name' => 'Gondor', 'ruler' => 'Aragorn', 'alignment' => 'Bien', 'region_id' => 4],
@@ -1015,7 +1015,7 @@ class RealmsSeeder extends Seeder {
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class HeroesSeeder extends Seeder {
+class HeroeSeeder extends Seeder {
     public function run() {
         DB::table('heroes')->insert([
             ['name' => 'Aragorn', 'race' => 'Humano', 'rank' => 'Rey', 'realm_id' => 1, 'alive' => true],
@@ -1033,7 +1033,7 @@ class HeroesSeeder extends Seeder {
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CreaturesSeeder extends Seeder {
+class CreatureSeeder extends Seeder {
     public function run() {
         DB::table('creatures')->insert([
             ['name' => 'Balrog', 'species' => 'Demonio', 'threat_level' => 10, 'region_id' => 2],
@@ -1051,7 +1051,7 @@ class CreaturesSeeder extends Seeder {
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ArtifactsSeeder extends Seeder {
+class ArtifactSeeder extends Seeder {
     public function run() {
         DB::table('artifacts')->insert([
             ['name' => 'Anillo Único', 'type' => 'Anillo', 'origin_realm_id' => 3, 'power_level' => 100, 'description' => 'Poder absoluto de Sauron'],
@@ -1119,19 +1119,27 @@ class ArtifactHeroSeeder extends Seeder {
 
 * GET	/artifacts --> Listar todos los artefactos
 * GET	/artifacts/{id} --> Mostrar detalles de un artefacto, incluyendo reino y héroes que lo poseen
-* POST	/artifacts --> Crear un nuevo artefacto
+* POST	/artifacts --> Crear un nuevo artefacto, incluyendo héroe que lo posee
 * PUT	/artifacts/{id} --> Actualizar un artefacto existente
 * DELETE	/artifacts/{id} --> Eliminar un artefacto
 
 
-**Asignación de artefactos a héroes (artifact_hero)**
+**OPCIONAL 1: Asignación de artefactos a héroes (artifact_hero)**
+
+Estos endpoints son opcionales porque no forman parte de un API REST estándar, sino que son adicionales.
+
+La relación entre Artifacts y Heroes se puede manejar así, con endpoints propios fuera del API REST estándar, pero ten en cuenta que también se puede manejar con el API REST estándar: puedes hacer que, en el POST de Heroes, se cree un Héroe y, al mismo tiempo, se le asignen uno o varios artefactos, o al revés: puedes hacer que el POST de Artifacts cree un Artefacto y, al mismo tiempo, le asigne un héroe en la tabla pivote (de hecho, esto último es lo que te pido hacer en el POST de Artifact más arriba).
+
+No obstante, te propongo que, opcionalmente y para subir nota, crees estos endpoints adicionales:
 
 * POST	/artifact-hero --> Asignar un artefacto a un héroe (insert en pivot)
 * DELETE	/artifact-hero --> Retirar un artefacto de un héroe
 * GET	/heroes/{id}/artifacts --> Listar todos los artefactos de un héroe
 * GET	/artifacts/{id}/heroes --> Listar todos los héroes que poseen un artefacto
 
-**Endpoints adicionales (opcionales)**
+**OPCIONAL 2: Endpoints adicionales**
+
+Algunos otros endpoints que pueden resultar interesantes en esta API son estos (puedes crearlos para subir nota):
 
 * /realms/{id}/heroes --> listar héroes de un reino específico
 * /regions/{id}/creatures --> listar criaturas de una región específica
@@ -1145,6 +1153,11 @@ Vamos a terminar comprobando si el API que hemos construido realmente funciona.
 
 1. **Prueba algunos de los endpoints** anteriores creando *manualmente* algunas peticiones en una colección de Postman.
 2. **Prueba todos los endpoints**:
-    * Genera, con ayuda de ChatGPT u otra IA generativa, un archivo .json para probar *todos* los endpoints anteriores.
-    * Importa el .json en Postman.
-    * Lanza todos los *requests* para comprobar si tu API funciona con todas las peticiones.
+    * **2.A) Usa mi colección**: Te dejaré en Moodle un archivo .json con una colección para probar los *endpoints* genéricos de esta API. 
+    
+        ***¡OJO! Usaré esa colección para corregir la práctica***, así que es importante que tu API responda correctamente a todas las peticiones de esa colección (o al mayor número posible).
+
+    * **2.B) Diseña tu propia colección**: Genera, con ayuda de una IA generativa, un archivo .json para probar *todos* tus endpoints. Ten en cuenta que la IA es posible que no pueda generar el archivo correctamente de una sola vez y tendrás que ir pidiéndole que lo cree poco a poco, probándolo a cada paso.
+
+        ***¡OJO! Con tu colección puedes probar los endpoints no estándar (los opcionales)***. Esto es importante si quieres que te sean tenidos en cuenta en la corrección, porque yo usaré tu colección para probarlos.
+

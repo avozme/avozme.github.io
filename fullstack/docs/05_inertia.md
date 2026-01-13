@@ -2,7 +2,7 @@
 layout: page
 title: 5 Intertia.js
 permalink: /inertia/
-parent: Desarrollo web full stack
+parent: None
 nav_order: 5
 ---
 # 5. Inertia.js
