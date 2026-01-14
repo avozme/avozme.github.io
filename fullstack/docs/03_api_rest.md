@@ -1081,71 +1081,74 @@ class ArtifactHeroSeeder extends Seeder {
 
 ### Paso 2: escribir el API
 
-**Crea con Laravel un API REST** para acceder a los datos de las tablas anteriores. Los ***endpoints*** a los que debería responder este API son estos:
+#### Paso 2.A. ENDPOINTS MÍNIMOS (ESTÁNDAR REST)
 
-**Regiones (regions)**
+   **Crea con Laravel un API REST** para acceder a los datos de las tablas anteriores. Los ***endpoints*** a los que debería responder este API son estos:
 
-* GET	/regions --> Listar todas las regiones
-* GET	/regions/{id} --> Obtener los datos de una región concreta
-* POST	/regions --> Crear una nueva región
-* PUT	/regions/{id} --> Actualizar una región existente
-* DELETE	/regions/{id} --> Eliminar una región
+   **Regiones (regions)**
 
-**Reinos (realms)**
+   * GET	/regions --> Listar todas las regiones
+   * GET	/regions/{id} --> Obtener los datos de una región concreta
+   * POST	/regions --> Crear una nueva región
+   * PUT	/regions/{id} --> Actualizar una región existente
+   * DELETE	/regions/{id} --> Eliminar una región
 
-* GET	/realms --> Listar todos los reinos
-* GET	/realms/{id} --> Mostrar detalles de un reino, incluyendo región, héroes y artefactos
-* POST	/realms --> Crear un nuevo reino
-* PUT	/realms/{id} --> Actualizar un reino existente
-* DELETE	/realms/{id} --> Eliminar un reino
+   **Reinos (realms)**
 
-**Héroes (heroes)**
+   * GET	/realms --> Listar todos los reinos
+   * GET	/realms/{id} --> Mostrar detalles de un reino, incluyendo región, héroes y artefactos
+   * POST	/realms --> Crear un nuevo reino
+   * PUT	/realms/{id} --> Actualizar un reino existente
+   * DELETE	/realms/{id} --> Eliminar un reino
 
-* GET	/heroes --> Listar todos los héroes
-* GET	/heroes/{id} --> Mostrar detalles de un héroe, incluyendo reino y artefactos
-* POST	/heroes --> Crear un nuevo héroe
-* PUT	/heroes/{id} --> Actualizar un héroe existente
-* DELETE	/heroes/{id} --> Eliminar un héroe
+   **Héroes (heroes)**
 
-**Criaturas (creatures)**
+   * GET	/heroes --> Listar todos los héroes
+   * GET	/heroes/{id} --> Mostrar detalles de un héroe, incluyendo reino y artefactos
+   * POST	/heroes --> Crear un nuevo héroe
+   * PUT	/heroes/{id} --> Actualizar un héroe existente
+   * DELETE	/heroes/{id} --> Eliminar un héroe
 
-* GET	/creatures --> Listar todas las criaturas
-* GET	/creatures/{id} --> Mostrar detalles de una criatura, incluyendo región
-* POST	/creatures --> Crear una nueva criatura
-* PUT	/creatures/{id} --> Actualizar una criatura existente
-* DELETE	/creatures/{id} --> Eliminar una criatura
+   **Criaturas (creatures)**
 
-**Artefactos (artifacts)**
+   * GET	/creatures --> Listar todas las criaturas
+   * GET	/creatures/{id} --> Mostrar detalles de una criatura, incluyendo región
+   * POST	/creatures --> Crear una nueva criatura
+   * PUT	/creatures/{id} --> Actualizar una criatura existente
+   * DELETE	/creatures/{id} --> Eliminar una criatura
 
-* GET	/artifacts --> Listar todos los artefactos
-* GET	/artifacts/{id} --> Mostrar detalles de un artefacto, incluyendo reino y héroes que lo poseen
-* POST	/artifacts --> Crear un nuevo artefacto, incluyendo héroe que lo posee
-* PUT	/artifacts/{id} --> Actualizar un artefacto existente
-* DELETE	/artifacts/{id} --> Eliminar un artefacto
+   **Artefactos (artifacts)**
 
+   * GET	/artifacts --> Listar todos los artefactos
+   * GET	/artifacts/{id} --> Mostrar detalles de un artefacto, incluyendo reino y héroes que lo poseen
+   * POST	/artifacts --> Crear un nuevo artefacto, incluyendo héroe que lo posee
+   * PUT	/artifacts/{id} --> Actualizar un artefacto existente
+   * DELETE	/artifacts/{id} --> Eliminar un artefacto
 
-**OPCIONAL 1: Asignación de artefactos a héroes (artifact_hero)**
+#### Paso 2.B. ENDPOINTS OPCIONALES (para mejorar tu nota)
 
-Estos endpoints son opcionales porque no forman parte de un API REST estándar, sino que son adicionales.
+   **ENDPOINTS OPCIONALES 1 para asignación de artefactos a héroes (artifact_hero)**
 
-La relación entre Artifacts y Heroes se puede manejar así, con endpoints propios fuera del API REST estándar, pero ten en cuenta que también se puede manejar con el API REST estándar: puedes hacer que, en el POST de Heroes, se cree un Héroe y, al mismo tiempo, se le asignen uno o varios artefactos, o al revés: puedes hacer que el POST de Artifacts cree un Artefacto y, al mismo tiempo, le asigne un héroe en la tabla pivote (de hecho, esto último es lo que te pido hacer en el POST de Artifact más arriba).
+   Estos endpoints son opcionales porque no forman parte de un API REST estándar, sino que son adicionales.
 
-No obstante, te propongo que, opcionalmente y para subir nota, crees estos endpoints adicionales:
+   La relación entre Artifacts y Heroes se puede manejar así, con endpoints propios fuera del API REST estándar, pero ten en cuenta que también se puede manejar con el API REST estándar: puedes hacer que, en el POST de Heroes, se cree un Héroe y, al mismo tiempo, se le asignen uno o varios artefactos, o al revés: puedes hacer que el POST de Artifacts cree un Artefacto y, al mismo tiempo, le asigne un héroe en la tabla pivote (de hecho, esto último es lo que te pido hacer en el POST de Artifact más arriba).
 
-* POST	/artifact-hero --> Asignar un artefacto a un héroe (insert en pivot)
-* DELETE	/artifact-hero --> Retirar un artefacto de un héroe
-* GET	/heroes/{id}/artifacts --> Listar todos los artefactos de un héroe
-* GET	/artifacts/{id}/heroes --> Listar todos los héroes que poseen un artefacto
+   No obstante, te propongo que, opcionalmente y para subir nota, crees estos endpoints adicionales:
 
-**OPCIONAL 2: Endpoints adicionales**
+   * POST	/artifact-hero --> Asignar un artefacto a un héroe (insert en pivot)
+   * DELETE	/artifact-hero --> Retirar un artefacto de un héroe
+   * GET	/heroes/{id}/artifacts --> Listar todos los artefactos de un héroe
+   * GET	/artifacts/{id}/heroes --> Listar todos los héroes que poseen un artefacto
 
-Algunos otros endpoints que pueden resultar interesantes en esta API son estos (puedes crearlos para subir nota):
+   **ENDPOINTS OPCIONALES 2**
 
-* /realms/{id}/heroes --> listar héroes de un reino específico
-* /regions/{id}/creatures --> listar criaturas de una región específica
-* /heroes/alive --> listar héroes vivos
-* /creatures/dangerous?level=8 --> listar criaturas con amenaza alta
-* /artifacts/top --> listar artefactos con power_level mayor a 90
+   Algunos otros endpoints que pueden resultar interesantes en esta API son estos:
+
+   * /realms/{id}/heroes --> listar héroes de un reino específico
+   * /regions/{id}/creatures --> listar criaturas de una región específica
+   * /heroes/alive --> listar héroes vivos
+   * /creatures/dangerous?level=8 --> listar criaturas con amenaza alta
+   * /artifacts/top --> listar artefactos con power_level mayor a 90
 
 ### Paso 3: probar y consumir el API
 
@@ -1153,11 +1156,12 @@ Vamos a terminar comprobando si el API que hemos construido realmente funciona.
 
 1. **Prueba algunos de los endpoints** anteriores creando *manualmente* algunas peticiones en una colección de Postman.
 2. **Prueba todos los endpoints**:
-    * **2.A) Usa mi colección**: Te dejaré en Moodle un archivo .json con una colección para probar los *endpoints* genéricos de esta API. 
+
+    * **A) Usa mi colección**: Te dejaré en Moodle un archivo .json con una colección para probar los *endpoints* estándar de esta API. 
     
-        ***¡OJO! Usaré esa colección para corregir la práctica***, así que es importante que tu API responda correctamente a todas las peticiones de esa colección (o al mayor número posible).
+       ***¡OJO! Usaremos esa colección para corregir el grueso de la práctica***, así que es importante que tu API responda correctamente a todas las peticiones estándar REST (o al mayor número posible).
 
-    * **2.B) Diseña tu propia colección**: Genera, con ayuda de una IA generativa, un archivo .json para probar *todos* tus endpoints. Ten en cuenta que la IA es posible que no pueda generar el archivo correctamente de una sola vez y tendrás que ir pidiéndole que lo cree poco a poco, probándolo a cada paso.
+    * **B) Diseña tu propia colección**: Genera, con ayuda de una IA generativa, un archivo .json para probar *todos* tus endpoints, incluidos los no estándar. Ten en cuenta que la IA es posible que no pueda generar el archivo correctamente de una sola vez y tendrás que ir pidiéndole que lo cree poco a poco, probándolo a cada paso.
 
-        ***¡OJO! Con tu colección puedes probar los endpoints no estándar (los opcionales)***. Esto es importante si quieres que te sean tenidos en cuenta en la corrección, porque yo usaré tu colección para probarlos.
+       ***¡OJO! Con tu colección puedes probar los endpoints no estándar (los opcionales)***. Esto es importante si quieres que te sean tenidos en cuenta en la corrección. Tienes todos los detalles en Moodle.
 
