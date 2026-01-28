@@ -1897,6 +1897,7 @@ Los pasos que debes seguir para construir esta aplicación son los mismos que he
 
 8. **Crear las vistas Blade**. No olvides dirigir la ruta raíz (/) a alguna de tus vistas (la que quieras que haga de "home" de la aplicación).
 9. **Desplegar, compilar, probar**
-10. (Optativo) **Enrutar en el cliente**. Puedes modificar tus componentes para que el enrutamiento se haga en el cliente y así construir una aplicación 100% SPA.
+10. (EXTRA) **Enrutar en el cliente**. Modifica tus componentes para que el enrutamiento se haga en el cliente y así construir una aplicación 100% SPA.
+11. (EXTRA) **Desplegar en Openstack**. Monta un servidor en Openstack, despliega allí tu aplicación y ajusta los archivos de configuración (como .env) para que todo funcione (*[--> Más info sobre Openstack aquí](../openstack/)*).
 
 
