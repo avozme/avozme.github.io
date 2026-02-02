@@ -31,29 +31,88 @@ José Juan Sánchez ha elaborado una completísima documentación sobre Openstac
 
 No vamos a repetir aquí lo que ya pone en esa guía, porque además corresponde al módulo de "Despliegue de Aplicaciones Web". Aquí solo resumiremos los pasos necesarios para crear un servidor en Openstack adecuado para desplegar tus aplicaciones:
 
-1. **Accede a Openstack** en [https://172.16.0.11](https://172.16.0.11). Lógicamente, necesitarás una cuenta de usuario en vigor.
+**1) Accede a Openstack** en [https://172.16.0.11](https://172.16.0.11). Lógicamente, necesitarás una cuenta de usuario en vigor.
 
-2. **Crea una instancia nueva** (por ejemplo, un Ubuntu 22.04 con 10 GB de disco y 1 GB de RAM debería ser suficiente para un servidor normalito).
+<div style="font-size: 80%; margin-left: 20%; background-color: #ddd; font-style: italic;  padding: 5px 15px 5px 15px;">
+  <p>¡OJO! Esa IP solo está disponible dentro de la red del Departamento de Informática del IES Celia Viñas. Para acceder desde el exterior (desde tu casa, por ejemplo), necesitas instalar y configurar un VPN. <strong>Esto es optativo, solo para acceder desde fuera del instituto a Openstack</strong>.</p>
+  <ol>
+    <li>
+      Descarga el cliente de OpenVPN para tu sistema operativo favorito.
+      <ul>
+        <li>Linux: <a href="https://openvpn.net/cloud-docs/openvpn-3-client-for-linux/" target="_blank">https://openvpn.net/cloud-docs/openvpn-3-client-for-linux/</a></li>
+        <li>Android: <a href="https://play.google.com/store/apps/details?id=net.openvpn.openvpn&hl=es_CL" target="_blank">https://play.google.com/store/apps/details?id=net.openvpn.openvpn&hl=es_CL</a></li>
+        <li>Windows: <a href="https://openvpn.net/client-connect-vpn-for-windows/" target="_blank">https://openvpn.net/client-connect-vpn-for-windows/</a></li>
+        <li>MacOS: <a href="https://openvpn.net/client-connect-vpn-for-mac-os/" target="_blank">https://openvpn.net/client-connect-vpn-for-mac-os/</a></li>
+      </ul>
+    </li>
 
-3. **Asocia una IP flotante** a la instancia. Es la única forma de poder entrar a tu máquina virtual posteriormente.
+    <li>
+      Utiliza el archivo de configuración <code>.ovpn</code> para <strong>alumnos</strong> que encontrarás en Moodle para conectar con el servidor de OpenVPN.
+      <pre>
+$ openvpn3 session-start --config &lt;fichero .ovpn&gt;
+      </pre>
+    </li>
 
-4. **Lanza la instancia y conéctate por SSH** con ella. Necesitarás crear un par de claves SSH y guardar tu clave privada en un archivo llamado "id_rsa" de tu usuario (la ubicación de este archivo depende del sistema operativo; tendrás que consultar dónde hacerlo según que sistema uses):
+    <li>
+      Accede con tu usuario y contraseña (los mismos que en Openstack)
+    </li>
+
+    <li>
+      Una vez que te hayas conectado a la VPN tendrás acceso a las máquinas de OpenStack.
+      <br>
+      La URL del dashboard de OpenStack es:
+      <a href="https://172.16.0.11/" target="_blank">https://172.16.0.11/</a>
+    </li>
+
+    <li>
+      Para cambiar la contraseña de tu usuario de la VPN accede a la URL:
+      <a href="http://172.16.0.1/" target="_blank">http://172.16.0.1/</a>
+    </li>
+
+    <li>
+      Para obtener información de la sesión de VPN:
+      <pre>
+$ openvpn3 sessions-list
+      </pre>
+      Y para cerrar la sesión de VPN:
+      <pre>
+$ openvpn3 session-manage --path &lt;session-path&gt; --disconnect
+      </pre>
+      &mdash;&gt; el <code>&lt;session-path&gt;</code> se obtiene de la información de la sesión
+    </li>
+  </ol>
+
+</div>
+
+
+**2) Crea una instancia nueva** (por ejemplo, un Ubuntu 22.04 con 10 GB de disco y 1 GB de RAM debería ser suficiente para un servidor normalito).
+
+**3) Asocia una IP flotante** a la instancia. Es la única forma de poder entrar a tu máquina virtual posteriormente.
+
+**4) Lanza la instancia y conéctate por SSH** con ella. Necesitarás crear un par de claves SSH en Openstack y guardar tu clave privada en un archivo llamado "id_rsa" de tu usuario (la ubicación de este archivo depende del sistema operativo; tendrás que consultar dónde hacerlo según que sistema uses). Una vez hecho esto, puedes conectarte así:
 
    ```
    $ ssh ubuntu@dirección_IP
    ```
-5. **Añade una regla al grupo de seguridad de Openstack para poder acceder al servidor por http**. Esto se hace desde el panel de administración  de Openstack, siguiendo esta ruta: *Red -> Grupos de seguridad -> Administrar reglas -> Agregar regla*. Después, elije la regla predefinida que se llama "HTTP".
 
-6. **Añade una regla al grupo de seguridad de Openstack para poder acceder a MySQL**. Como antes, se hace desde el panel de administración de Openstack (*Red -> Grupos de seguridad -> Administrar reglas -> Agregar regla*). En esta ocasión, elije la regla predefinida "MySQL".
+O, si tu archivo con la clave no está en el lugar establecido por tu sistema operativo, puedes conectar así:
 
-7. **Instala docker, docker-compose, git y composer** en la máquina virtual (bueno, y cualquier otra cosa que te sea necesaria para tu aplicación). Para ello, *recuerda conectarte antes a tu máquina virtual por SSH* y teclea esto:
+   ```
+   $ ssh -i ruta-al-archivo-con-la-clave-privada ubuntu@dirección_IP
+   ```
+
+**5) Añade una regla al grupo de seguridad de Openstack para poder acceder al servidor por http**. Esto se hace desde el panel de administración  de Openstack, siguiendo esta ruta: *Red -> Grupos de seguridad -> Administrar reglas -> Agregar regla*. Después, elije la regla predefinida que se llama "HTTP".
+
+**6) Añade una regla al grupo de seguridad de Openstack para poder acceder a MySQL**. Como antes, se hace desde el panel de administración de Openstack (*Red -> Grupos de seguridad -> Administrar reglas -> Agregar regla*). En esta ocasión, elije la regla predefinida "MySQL".
+
+**7) Instala docker, docker-compose, git y composer** en la máquina virtual (bueno, y cualquier otra cosa que te sea necesaria para tu aplicación). Para ello, *recuerda conectarte antes a tu máquina virtual por SSH* y teclea esto:
 
     ```
     $ sudo apt install docker docker-compose git composer
     $ sudo adduser ubuntu docker  (Añadir usuario "ubuntu" al grupo "docker")
     ```
 
-8. **Instala el software necesario para que tu aplicación web funcione**. Esto se puede hacer de forma nativa, instalado Apache, MySQL y todo lo que tu aplicación necesite, o virtualizando todos esos componentes con Docker, que es más fácil, escalable y recomendable.
+**8) Instala el software necesario para que tu aplicación web funcione**. Esto se puede hacer de forma nativa, instalado Apache, MySQL y todo lo que tu aplicación necesite, o virtualizando todos esos componentes con Docker, que es más fácil, escalable y recomendable.
 
     Como es diferente desplegar una aplicación web escrita en PHP clásico que hacerlo con una escrita con Laravel, vamos a mostrar los siguientes pasos de forma diferenciada para cada situación.
 
@@ -105,16 +164,22 @@ Los pasos para lograrlo serían los siguientes (recuerda que debes ejecutarlos e
 
 4. **Resolver problemas con sesiones, caché y vistas**. Si la aplicación Laravel da errores con la sesiones, la caché o las vistas, asegúrate de que dentro del directorio */storage/framework* existen los subdirectorios *cache*, *sessions* y *views*, los tres con permisos 777. Si no existen, créalos. 
 
-5. **Lanzar Node** (si es necesario). Si tu aplicación Laravel usa Node (por ejemplo, porque hayas instalado Laravel Breeze), tendrás que lanzar Node en el servidor:
+5. **Lanzar npm** (si es necesario). Si tu aplicación Laravel usa ```npm``` (por ejemplo, porque hayas instalado Laravel Breeze o porque estés creando un frontend con Vue.js), tendrás que lanzar Node en el servidor:
 
     ```
     $ ./vendor/bin/sail npm install
     $ ./vendor/bin/sail npm run dev
     ```
 
-    Eso dejará el servidor Node corriendo. No lo detengas: necesitará estár permanentemente activo (como Sail) para que la aplicación Laravel funcione bien.
+    Eso dejará el servidor Node corriendo, apropiado si aún estás desarrollando la aplicación porque los cambios en las vistas (o en los archivos .vue) se compilarán sobre la marcha. 
+    
+    En cambio, si la aplicación ya está terminada o no quieres desarrollar en este servidor, solo desplegar, ejecuta:
+    
+    ```
+    $ ./vendor/bin/sail npm run build
+    ```
 
-    Hemos observado que, en el servidor Ubuntu de Openstack, el comando ```npm run dev``` puede dar el error "ENOSPC: System limit for number of file watchers reached". Si te sucede esto, haz lo siguiente:
+    Hemos observado que, en el servidor Ubuntu de Openstack, los comandos ```npm run dev``` o ```npm run build``` pueden dar el error "ENOSPC: System limit for number of file watchers reached". Si te sucede esto, haz lo siguiente:
 
     ```
     $ sudo nano /etc/sysctl.conf
@@ -126,6 +191,6 @@ Los pasos para lograrlo serían los siguientes (recuerda que debes ejecutarlos e
     fs.inotify.max_user_watches = 524288
     ```
 
-    Con eso, ```npm run dev``` debería funcionar bien.
+    Con eso, ```npm run``` debería funcionar bien.
  
-¡Listo! Con esto, deberías tener tu servidor escuchando en la IP flotante que hayas asignado a tu máquina virtual.
+¡Listo! Ya deberías tener tu servidor escuchando en la IP flotante que hayas asignado a tu máquina virtual.
