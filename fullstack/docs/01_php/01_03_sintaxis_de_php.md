@@ -53,10 +53,10 @@ En PHP, no es necesario declarar las variables: al inicializarlas queda especifi
 Ejemplos:
 
 ```php
-$a = 4;                  // Variable entera (PHP5+)
-int $a = 4;              // Variable entera (PHP7+)
+$a = 4;                  // Variable entera
 $media = 52.75;          // Variable real
 $texto = "Hoy es lunes"; // Variable string
+$esValido = true;        // Variable booleana
 ```
 
 Cualquier variable puede **cambiarse de tipo** con funciones como **intval(), floatval()** o **strval()**:
@@ -741,12 +741,12 @@ Tras la ejecución de este código nos habremos asegurado de que el usuario ha r
 
 *filter_var()* admite otros valores como segundo parámetro. Son estos:
 
-* **FILTER_SANITIZE_STRING**: elimina cualquier etiqueta HTML que encuentre en el string.
+* **FILTER_SANITIZE_SPECIAL_CHARS**: Escapa caracteres especiales (sustituye a FILTER_SANITIZE_STRING, que está obsoleto desde PHP 8.1).
 * **FILTER_SANITIZE_NUMBER_INT**: elimina cualquier carácter que no sea numérico (solo respeta los caracteres "+" y "-")
 * **FILTER_SANITIZE_URL**: elimina cualquier carácter que no forme parte de una URL. El decir, solo deja las letras, los números y algunos caracteres especiales como _, : o ?
 * **FILTER_SANITIZE_EMAIL**: elimina cualquier carácter que no forme parte de una dirección de email típica.
 
-Si solo queremos validar un string procedente de un formulario, podemos cambiar los valores anteriores por FILTER_VALIDATE_STRING, FILTER_VALIDATE_NUMBER_INT, etc. Es decir, cambiaremos la palabra SANITIZE por VALIDATE. De ese modo, la función *filter_var()* no cambiará el string, sino que comprobará si pasa el filtro o no y nos devolverá *true* o *false*.
+Si solo queremos validar un string procedente de un formulario, podemos cambiar los valores anteriores por **FILTER_VALIDATE_INT**, **FILTER_VALIDATE_EMAIL**, etc. Es decir, cambiaremos la palabra SANITIZE por VALIDATE. De ese modo, la función *filter_var()* no cambiará el string, sino que comprobará si pasa el filtro o no y nos devolverá *true* o *false*.
 
 Existen otros filtros más complejos que puedes consultar en la referencia oficial del lenguaje.
 
@@ -784,7 +784,55 @@ use Persona/Empleado/Empleado;                   // Esto indica el namespace que
 $emp = new Empleado();                           // ¡Y ya tenemos disponible la clase Empleado!
 ```
 
-### 1.3.15. Extensiones de PHP y referencia del lenguaje: cómo usar la biblioteca del lenguaje sin volverse loco
+### 1.3.15. Novedades de PHP 8+
+
+PHP 8 y sus versiones sucesivas han introducido características que modernizan notablemente el lenguaje:
+
+**Expresión match**
+Es una mejora sobre el clásico `switch`. Es más segura (comparación estricta `===`) y devuelve un valor directamente:
+
+```php
+$resultado = match ($codigo) {
+    1 => "Pendiente",
+    2 => "Enviado",
+    3 => "Entregado",
+    default => "Desconocido",
+};
+```
+
+**Promoción de propiedades en el constructor**
+Permite declarar y asignar atributos directamente en el constructor, evitando el código repetitivo:
+
+```php
+// En lugar de declarar arriba y asignar abajo...
+class Usuario {
+    public function __construct(
+        public string $nombre,
+        public string $email,
+        private int $edad
+    ) {}
+}
+```
+
+**Operador Nullsafe (?->)**
+Evita errores al acceder a métodos de objetos que podrían ser `null`. Si el objeto es nulo, la cadena se detiene y devuelve `null` en lugar de lanzar un error:
+
+```php
+$ciudad = $usuario?->getDireccion()?->getCiudad();
+```
+
+**Enums**
+Permiten definir tipos de datos con un conjunto limitado de valores posibles, mejorando la robustez del código:
+
+```php
+enum EstadoPedido: string {
+    case Pendiente = 'P';
+    case Enviado = 'E';
+    case Entregado = 'D';
+}
+```
+
+### 1.3.16. Extensiones de PHP y referencia del lenguaje: cómo usar la biblioteca del lenguaje sin volverse loco
 
 Para terminar con esta introducción a PHP, no podemos dejar de hablar de las **bibliotecas de clases y funciones** que vienen con cualquier distribución del lenguaje.
 

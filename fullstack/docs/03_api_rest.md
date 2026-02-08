@@ -190,7 +190,7 @@ Antes de lanzarte a implementar un API REST en Laravel, lee esta sección, por f
 
 Para implementar un API REST con Laravel debes:
 
-1. **Instalar el complemento para APIs de Laravel**. Esto solo es necesario a partir de Laravel 12 (en versiones anteriores ya venía "de serie"):
+1. **Instalar el soporte para APIs de Laravel**. En las versiones más recientes (Laravel 11 y 12), las rutas de API no vienen configuradas por defecto para reducir el peso del proyecto. Debes ejecutar:
 
     ```bash
     $ php artisan install:api
@@ -429,7 +429,7 @@ Los controladores de clientes (*ClienteController*) y compras (*CompraController
 
 Como estamos construyendo una API pura, editaremos el enrutador ***routes/api.php*** en lugar de *routes/web.php*.
 
-<div style='background-color: #ddd'><strong>¡¡OJO!!</strong> Si trabajas con Laravel 12 o posterior, el archivo <i>routes/api.php</i> no existirá. Debes instalar primero el soporte para APIs de Laravel con el comando <i>$ php artisan install:api</i></div>
+<div style='background-color: #ddd'><strong>¡¡OJO!!</strong> Si trabajas con Laravel 11, 12 o posterior, el archivo <i>routes/api.php</i> no existirá inicialmente. Debes instalar el soporte para APIs con el comando <i>$ php artisan install:api</i></div>
 
 ```php
 <?php

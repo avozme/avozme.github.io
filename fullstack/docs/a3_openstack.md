@@ -54,7 +54,7 @@ $ openvpn3 session-start --config &lt;fichero .ovpn&gt;
     </li>
 
     <li>
-      Accede con tu usuario y contraseña (los mismos que en Openstack)
+      Accede con tu usuario y contraseña (son diferentes que los de Openstack; tu profesor te habrá facilitado estas credenciales)
     </li>
 
     <li>
@@ -74,11 +74,13 @@ $ openvpn3 session-start --config &lt;fichero .ovpn&gt;
       <pre>
 $ openvpn3 sessions-list
       </pre>
-      Y para cerrar la sesión de VPN:
+    </li>
+    <li>
+      Para cerrar la sesión de VPN:
       <pre>
 $ openvpn3 session-manage --path &lt;session-path&gt; --disconnect
       </pre>
-      &mdash;&gt; el <code>&lt;session-path&gt;</code> se obtiene de la información de la sesión
+      &mdash;&gt; el <code>&lt;session-path&gt;</code> se obtiene de la información de la sesión (ver punto anterior).
     </li>
   </ol>
 
@@ -112,9 +114,9 @@ O, si tu archivo con la clave no está en el lugar establecido por tu sistema op
     $ sudo adduser ubuntu docker  (Añadir usuario "ubuntu" al grupo "docker")
     ```
 
-**8) Instala el software necesario para que tu aplicación web funcione**. Esto se puede hacer de forma nativa, instalado Apache, MySQL y todo lo que tu aplicación necesite, o virtualizando todos esos componentes con Docker, que es más fácil, escalable y recomendable.
+**8) Instala el software necesario para que tu aplicación web funcione**. Esto se puede hacer de forma nativa, instalado Apache, MySQL y todo lo que tu aplicación necesite, o virtualizando todos esos componentes con Docker (por ejemplo, con Laravel Sail), que es más fácil, escalable y recomendable.
 
-    Como es diferente desplegar una aplicación web escrita en PHP clásico que hacerlo con una escrita con Laravel, vamos a mostrar los siguientes pasos de forma diferenciada para cada situación.
+Como es diferente desplegar una aplicación web escrita en PHP clásico que hacerlo con una escrita con Laravel, vamos a mostrar los siguientes pasos de forma diferenciada para cada situación.
 
 ### A3.2.1. Caso 1: mi aplicación está escrita en PHP clásico
 
@@ -194,3 +196,5 @@ Los pasos para lograrlo serían los siguientes (recuerda que debes ejecutarlos e
     Con eso, ```npm run``` debería funcionar bien.
  
 ¡Listo! Ya deberías tener tu servidor escuchando en la IP flotante que hayas asignado a tu máquina virtual.
+
+***(¡OJO! Puedes levantar la app en tu servidor de OpenStack con Laravel Sail, y funcionará correctamente, pero ten en cuenta que Sail es un servidor pensado para solo para DESARROLLO. Para PRODUCCIÓN no se considera seguro ni tiene buen rendimiento. Existen otras soluciones para ello, como Laravel Forge, o montar contenedores Docker bien configurados, que nosotros no vamos a trabajar por falta de tiempo)***

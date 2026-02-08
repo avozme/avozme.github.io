@@ -184,38 +184,27 @@ En este ejemplo vamos a ver cómo *data()* puede preparar múltiples datos para 
 
 Vue también permite hacer salidas HTML condicionadas a los valores de los datos, como puedes ver en este ejemplo.
 
-Cambia el valor del *data* ***visible*** dentro de Vue para ver qué efecto tiene en la página final.
-
 ```html
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <title>Ejemplo de uso de Vue.js</title>
-  </head>
-  <body>
-    <div id="app">
-        <p v-if="visible">Ahora puedes verme</p>
-    </div>
+<div id="app">
+    <p v-if="visible">Ahora puedes verme</p>
+    <button @click="visible = !visible">Alternar</button>
+</div>
 
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+  const { createApp, ref } = Vue;
 
-    <script>
-      const { createApp } = Vue;
-    
-      const app = createApp({
-        data() {
-          return {
-            visible: true
-          };
-        }
-      });
-
-      app. mount('#app');
-    </script>
-  </body>
-</html>
+  createApp({
+    setup() {
+      const visible = ref(true);
+      return { visible };
+    }
+  }).mount('#app');
+</script>
 ```
+
+> [!NOTE]
+> En este ejemplo hemos usado la **Composition API** (con `setup` y `ref`), que es la forma moderna y recomendada de trabajar con Vue 3, aunque la forma clásica (Options API) sigue funcionando perfectamente.
 
 #### Ejemplo 4 – Bucle
 
@@ -654,67 +643,51 @@ El frontend de Vue suele pedir datos al backend usando el *API fetch* o la libre
 
 Nosotros usaremos el API fetch en los próximos ejemplos, pero no entraremos en muchos detalles porque la estudiaréis en el módulo de "Desarrollo web en entorno cliente".
 
-### 4.4.4. Estructura típica de un componente vue
+### 4.4.4. Estructura moderna de un componente Vue (`<script setup>`)
 
-Los componentes de Vue suelen tener todos esta estructura:
+Aunque Vue 3 permite seguir usando la "Options API" (con `data`, `methods`, etc.), la forma estándar y más eficiente de programar componentes hoy en día es la **Composition API** utilizando el bloque `<script setup>`.
 
-```html
-<template>
-    HTML del componente
-</template>
-<script>
-    Código Vue y JavaScript del componente
-</script>
-<style>
-    Estilos CSS del componente
-</style>
-```
+Esta sintaxis es más concisa, ofrece mejor soporte para TypeScript y un rendimiento ligeramente superior.
 
-Dentro de la sección ***script***, un componente puede llevar muchas cosas. Las más habituales son:
-
-* **data()** → código JS que devuelve un objeto con el estado actual del componente.
-* **mounted()** → código JS que se ejecuta cuando el componente se ha desplegado en el árbol DOM de la página.
-* **created()** → código JS que se ejecuta al crear el componente, antes de que esté en el DOM.
-* **methods** → contiene funciones JS que se pueden invocar desde el template (con los eventos @click, @submit, etc)
-* **computed** → define propiedades calculadas a partir de otras propiedades. Se recalculan automáticamente si alguna cambia.
-* **template** → estructura visual (HTML) del componente.
-
-Por ejemplo, en este sencillo componente puedes ver cómo se escriben muchos de los elementos Vue de la lista anterior:
-
-```html
+```vue
 <template>
     <h2>Contador: {{ count }}</h2>
-    <p>Doble del contador (computado): {{ doubleCount }}</p>
+    <p>Doble del contador: {{ doubleCount }}</p>
     <button @click="increment">Incrementar</button>
 </template>
 
-<script>
-export default {
-  name: 'Contador',
-  data() {     // Devuelve el estado del componente
-    return {
-      count: 0
-    };
-  },
-  created() {   // Se ejecuta cuando el componente es creado
-    console.log('Componente creado. (created)');
-  },
-  mounted() {   // Se ejecuta cuando el componente se monta en el árbol DOM de la página
-    console.log('Componente montado en el DOM. (mounted)');
-  },
-  methods: {    // Se ejecutan como respuesta a eventos en la página (ver @click más arriba)
-    increment() {
-      this.count++;
-    }
-  },
-  computed: {   // Se ejecutan si cambian los datos base (this.count, en este caso)
-    doubleCount() {
-      return this.count * 2;
-    }
-  }
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+
+// Definimos el estado reactivo
+const count = ref(0);
+
+// Propiedad computada
+const doubleCount = computed(() => count.value * 2);
+
+// Método
+const increment = () => {
+  count.value++;
 };
+
+// Lifecycle hook
+onMounted(() => {
+  console.log('El componente se ha montado');
+});
 </script>
+
+<style scoped>
+h2 {
+  color: #42b983;
+}
+</style>
 ```
+
+#### Diferencias clave:
+* **`ref()`**: Se usa para declarar variables reactivas. Para acceder o modificar su valor en el bloque `<script>`, usamos `.value`, pero en el `<template>` no es necesario.
+* **`computed()`**: Define valores que dependen de otros y se cachean automáticamente.
+* **`onMounted()`, `onCreated()`...**: Sustituyen a los antiguos métodos de ciclo de vida.
+* **Sin `export default`**: Al usar `<script setup>`, todo lo declarado (variables, funciones) queda disponible automáticamente en el template.
 
 ### 4.4.5. Enrutamiento en el cliente
 
