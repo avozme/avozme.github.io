@@ -30,7 +30,6 @@ SÓTANO
 <tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
 </thead>
 <tbody>
-<tr><td>D</td><td>12 portátiles</td><td>Ateca</td></tr>
 <tr><td>E (en preparación)</td><td>10 tablets Android</td><td>Ateca</td></tr>
 <tr><td>F</td><td>30 portátiles</td><td>Taller tecnología</td></tr>
 </tbody>
@@ -43,7 +42,8 @@ PLANTA BAJA
 <tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
 </thead>
 <tbody>
-<tr><td>G</td><td>30 portátiles</td><td>Secretaría</td></tr>
+<tr><td>D</td><td>12 portátiles</td><td>Aula de convivencia (carro negro)</td></tr>
+<tr><td>G</td><td>30 portátiles</td><td>Aula de convivencia (carro blanco)</td></tr>
 </tbody>
 </table>
 
@@ -55,8 +55,8 @@ PLANTA PRIMERA
 </thead>
 <tbody>
 <tr><td>A</td><td>30 portátiles</td><td>Dpto. de Física y Química</td></tr>
-<tr><td>C</td><td>24 portátiles</td><td>Biblioteca (secundario)</td></tr>
-<tr><td>I</td><td>30 portátiles</td><td>Biblioteca (principal)</td></tr>
+<tr><td>C</td><td>24 portátiles</td><td>Biblioteca (carro negro)</td></tr>
+<tr><td>I</td><td>30 portátiles</td><td>Biblioteca (carro gris)</td></tr>
 </tbody>
 </table>
 
@@ -67,8 +67,8 @@ PLANTA SEGUNDA
 <tr><td>Carro</td><td>Capacidad</td><td>Ubicación</td></tr>
 </thead>
 <tbody>
-<tr><td>B</td><td>30 portátiles</td><td>Lab. de Ciencias Naturales</td></tr>
-<tr><td>H</td><td>26 portátiles (en proceso de ampliación a 30)</td><td>Aula 22</td></tr>
+<tr><td>B</td><td>30 portátiles</td><td>Aula 24</td></tr>
+<tr><td>H</td><td>30 portátiles</td><td>Aula 22</td></tr>
 </tbody>
 </table>
 

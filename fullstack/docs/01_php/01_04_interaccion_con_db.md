@@ -45,25 +45,12 @@ Desde PHP5, se utiliza **una biblioteca de clases para acceder a los diferentes 
 
 Todos los nuevos desarrollos deberían usar las bibliotecas de clases y prescindir de las viejas librerías de funciones.
 
-#### Formas de acceder a bases de datos en PHP
+#### La forma profesional de acceder a bases de datos en PHP
 
-PHP proporciona varios mecanismos para acceder a bases de datos (ya te lo dije antes: en PHP, casi todo se puede hacer de varias maneras distintas):
+Aunque PHP ofrece varios mecanismos, el estándar profesional es uno:
 
-* **Forma 1: Usar la extensión mysqli en su forma procedimental.**
-
-   Esta forma recuerda mucho a PHP4, pero cambiando la palabra “mysql” por “mysqli”. 
-
-   Por ejemplo, la función *mysql_connect()* ahora se llama *mysqli_connect()* (la "i" significa "improved", es decir, "mejorado").
-
-   Esta forma es apta para programadores/as perezosos y anticuados, que no quieren pasarse a la programación orientada a objetos y se sienten cómodos con la forma de codificación tradicional. Pero ese no es tu caso, ¿verdad? Así que nunca utilizaremos la forma procedimental.
-
-* **Forma 2: Usar la extensión mysqli en su forma orientada a objetos.**
-
-   Se accede a la base de datos a través de un objeto de la clase *mysqli*. Es decir, se crea una instancia (con ```new mysqli()```) y, a través de ella, se tiene acceso a todos los métodos para interactuar con la base de datos.
-
-   Si en lugar de una base de datos MySQL, trabajamos con otro gestor de base de datos, hay que crear un objeto de otro tipo. Por ejemplo, la clase *SQLite3* sirve para conectar con bases de datos SQLite. Hay otros gestores que solo ofrecen la forma procedimental.
+* **La extensión PDO (PHP Data Objects)**
       
-* **Forma 3: Usar la extensión PDO.**
 
    A partir de PHP 5.1, existe una clase genérica, llamada *PDO*, que permite acceder a cualquier gestor de bases de datos mediante el mismo conjunto de métodos. Es lo que se llama una *capa de abstracción de acceso a datos*
    
@@ -73,36 +60,39 @@ PHP proporciona varios mecanismos para acceder a bases de datos (ya te lo dije a
 
 Vamos a ver cómo funciona la clase *PDO* mediante unos cuantos ejemplos. En primer lugar, lanzaremos una inserción de datos.
 
-Imagina que tenemos una base de datos MySQL o MariaDB llamada *mi-base-de-datos* que contiene una tabla de clientes donde guardamos, entre otras cosas, los nombres y los teléfonos de los clientes.
-
-Insertar un registro en esa tabla desde PHP se logra en solo dos pasos:
+Insertar un registro en una tabla desde PHP requiere configurar la conexión y usar **sentencias preparadas** para evitar ataques de inyección SQL.
 
 ```php
-<?php
-// Datos de conexión
-$dsn = "mysql:host=servidor;dbname=mi-base-de-datos;charset=utf8";
-$usuario = "nombre-de-usuario";
-$clave   = "password";
+declare(strict_types=1);
+
+// Configuración (esto suele ir en un archivo de configuración separado)
+$dsn = "mysql:host=servidor;dbname=mi-base-de-datos;charset=utf8mb4";
+$usuario = "usuario_db";
+$clave = "password_seguro";
 
 try {
-    // Conexión con PDO
-    $pdo = new PDO($dsn, $usuario, $clave);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // 1. Conexión segura
+    $pdo = new PDO($dsn, $usuario, $clave, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    ]);
 
-    // Sentencia preparada para insertar
+    // 2. Sentencia preparada con parámetros nombrados
     $sql = "INSERT INTO clientes (nombre, telefono) VALUES (:nombre, :telefono)";
     $stmt = $pdo->prepare($sql);
 
-    // Ejecutar la consulta con los valores
+    // 3. Ejecución segura
     $stmt->execute([
-        ":nombre"  => $nombre,
-        ":telefono"=> $telefono
+        "nombre" => $nombre,
+        "telefono" => $telefono
     ]);
 
     echo "Registro insertado correctamente";
 
 } catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
+    // En producción, nunca mostrar el mensaje exacto al usuario
+    error_log($e->getMessage());
+    echo "Hubo un error al procesar la solicitud.";
 }
 ```
 
@@ -125,35 +115,41 @@ En el caso de los cursores MySQL, no te permiten borrar nada. El cursor solo se�
 Observa cómo se hace un SELECT en este ejemplo:
 
 ```php
-<?php
+declare(strict_types=1);
+
 // Datos de conexión
 $dsn = "mysql:host=servidor;dbname=database;charset=utf8mb4";
 $usuario = "user";
 $clave   = "password";
 
-// Conexión con PDO
-$pdo = new PDO($dsn, $usuario, $clave);
+try {
+    // Conexión segura con PDO
+    $pdo = new PDO($dsn, $usuario, $clave, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ]);
 
-// Ejecutamos la consulta
-$sql = "SELECT nombre, telefono FROM Clientes";
-$stmt = $pdo->query($sql);
-if ($stmt == false) {
+    // Ejecutamos la consulta
+    $sql = "SELECT nombre, telefono FROM Clientes";
+    $stmt = $pdo->query($sql);
+} catch (PDOException $e) {
     die("Error en la conexión o en la consulta: " . $e->getMessage());
 }
 ?>
 <table border="1" align="center">
-    <tr>
-        <th>Nombre</th>
-        <th>Teléfono</th>
-    </tr>
-    <?php 
-        while ($cliente = $stmt->fetch(PDO::FETCH_ASSOC)) { 
-           echo "<tr>";
-           echo "<td>".$cliente["nombre"]."</td>";
-           echo "<td>".$cliente["telefono"]."</td>";
-           echo "</tr>";
-        }
-    ?>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php while ($cliente = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+            <tr>
+                <td><?= htmlspecialchars($cliente["nombre"]) ?></td>
+                <td><?= htmlspecialchars($cliente["telefono"]) ?></td>
+            </tr>
+        <?php endwhile; ?>
+    </tbody>
 </table>
 ```
 
@@ -169,7 +165,7 @@ El método *fetch()* nos devuelve el siguiente dato almacenado en el cursor (en 
 
 Por eso hemos colocado la instrucción *fetch()* en un bucle.
 
-Cuando el cursor está recién abierto, el primer *fetch()* nos devuelve el primer registro del resultado. Es decir, el primer cliente. Podemos acceder a los campos de ese registro (como "nombre" o "teléfono") accediendo al registro como si fuera un array ($registro["nomnre"], $registro["telefono"], etc). Por eso el método no se llama solo *fetch()*, sino *fetch_array()*.
+Cuando el cursor está recién abierto, el primer *fetch()* nos devuelve el primer registro del resultado. Es decir, el primer cliente. Podemos acceder a los campos de ese registro (como "nombre" o "teléfono") accediendo al registro como si fuera un array ($registro["nombre"], $registro["telefono"], etc).
 
 Pero *fetch()* no solo recupera el primer registro, sino que hace avanzar el cursor para que se quede apuntando al segundo. De este modo, en la siguiente iteración del bucle, *fetch()* nos recupera *el segundo* registro (el segundo cliente), y el cursor queda apuntando al tercero, listo para la siguiente iteración.
 
@@ -182,41 +178,42 @@ Podríamos hacer muchas consideraciones adicionales sobre PHP, pero esto solo es
 Sin embargo, me gustaría que vieras una implementación alternativa del código anterior (PHP es muy flexible y admite muchas maneras de hacer lo mismo), porque ilustra algunas características de PHP que me parece que debes conocer:
 
 ```php
-<!-- PARTE 1: Lógica de la consulta -->
-<?php
-// Configuración de la conexión
-$dsn = "mysql:host=servidor;dbname=database;charset=utf8mb4";
-$usuario = "user";
-$clave   = "password";
+declare(strict_types=1);
 
+// 1. Lógica: Obtención de datos
 try {
-    // Conexión con PDO
-    $pdo = new PDO($dsn, $usuario, $clave);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo = new PDO($dsn, $usuario, $clave, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ]);
 
-    // Ejecutamos la consulta
-    $stmt = $pdo->query("SELECT nombre, telefono FROM Clientes");
-    $clientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt = $pdo->prepare("SELECT nombre, telefono FROM Clientes WHERE id = :id");
+    $stmt->execute(['id' => $id]);
+    $clientes = $stmt->fetchAll();
 
 } catch (PDOException $e) {
-    die("Error en la conexión o consulta: " . $e->getMessage());
+    error_log($e->getMessage());
+    die("Error interno del servidor");
 }
 ?>
 
-<!-- PARTE 2: Mostrar los datos de la consulta-->
-    <table>
+<!-- 2. Presentación: Renderizado HTML -->
+<table>
+    <thead>
         <tr>
             <th>Nombre</th>
             <th>Teléfono</th>
         </tr>
+    </thead>
+    <tbody>
         <?php foreach ($clientes as $cliente): ?>
             <tr>
                 <td><?= htmlspecialchars($cliente["nombre"]) ?></td>
                 <td><?= htmlspecialchars($cliente["telefono"]) ?></td>
             </tr>
         <?php endforeach; ?>
-    </table>
-
+    </tbody>
+</table>
 ```
 
 Este código es funcionalmente idéntico que el que veíamos antes, pero tiene algunas mejoras interesantes en las que quiero que te fijes:
@@ -237,6 +234,8 @@ En primer lugar, tenemos dos métodos para hacer *fetch*:
 Además, tanto a *fetch()* como a *fetchAll()* podemos indicarle la forma en la que queremos que se almacenen los datos recuperados en variables PHP. Por ejemplo:
 
 ```php
+declare(strict_types=1);
+
 $stmt = $pdo->query("SELECT id, nombre FROM usuarios");
 while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
     echo $fila['nombre'];
@@ -253,9 +252,11 @@ $fila['nombre'] = "Aquí va el nombre";
 En cambio, podríamos haber recuperado los datos así:
 
 ```php
+declare(strict_types=1);
+
 $stmt = $pdo->query("SELECT id, nombre FROM usuarios");
 while ($fila = $stmt->fetch(PDO::FETCH_NUM)) {
-    echo $fila['nombre'];
+    echo $fila[1]; // El nombre está en la segunda columna
 }
 ```
 

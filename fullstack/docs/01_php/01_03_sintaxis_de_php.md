@@ -48,15 +48,23 @@ Si se definen variables fuera de una función, serán **globales** a todo el fic
 
 El **identificador** de variable siempre debe empezar por $. Esta es una peculiaridad de PHP que al principio descoloca un poco.
 
-En PHP, no es necesario declarar las variables: al inicializarlas queda especificado el tipo. A partir de PHP7 pueden indicarse los tipos predefinidos (int, float, string...), pero solo es algo optativo.
+En PHP moderno, **el tipado fuerte es la norma**. Aunque históricamente PHP era muy permisivo, hoy en día se recomienda activar el modo de tipado estricto al principio de cada archivo:
+
+```php
+declare(strict_types=1);
+```
+
+Esto obliga a que los tipos coincidan exactamente, evitando errores difíciles de encontrar. Al inicializar variables en el código general, PHP deduce el tipo, pero en clases y funciones (como veremos más adelante) **siempre indicaremos el tipo explícitamente**.
 
 Ejemplos:
 
 ```php
-$a = 4;                  // Variable entera
-$media = 52.75;          // Variable real
-$texto = "Hoy es lunes"; // Variable string
-$esValido = true;        // Variable booleana
+declare(strict_types=1);
+
+$a = 4;                  // int
+$media = 52.75;          // float
+$texto = "Hoy es lunes"; // string
+$esValido = true;        // bool
 ```
 
 Cualquier variable puede **cambiarse de tipo** con funciones como **intval(), floatval()** o **strval()**:
@@ -76,12 +84,14 @@ if (isset($nombre)) {
 }
 ```
 
-**El tipado de PHP es débil**, así que puedes encontrarte expresiones donde **se mezclen tipos**. PHP hará las conversiones que le parezca oportunas, con resultados a veces imprevisibles, por lo que no es buena idea recurrir a estas estratagemas a menos que sepas muy bien lo que estás haciendo y el resultado que obtendrás. Por ejemplo:
+**El tipado de PHP es históricamente débil**, lo que permitía mezclar tipos alegremente. Sin embargo, **esto ya no se permite en el desarrollo profesional**. En modo estricto, mezclar tipos provocará un error inmediato, lo cual es preferible a tener un comportamiento imprevisible. Siempre debes convertir los tipos manualmente si es necesario. Por ejemplo:
 
 ```php
-$a = 3;                // a es un integer
-$b = "Hoy es lunes";   // b es un string
-$c = $a + $b;          // ¡Esto funciona, pero ¿a que no predices bien el resultado?
+declare(strict_types=1);
+
+$a = 3;                // int
+$b = "10";             // string
+$c = $a + (int)$b;     // Convertimos explícitamente a entero antes de sumar
 ```
 
 Los **tipos de datos** predefinidos en PHP son:
@@ -95,8 +105,10 @@ Los **tipos de datos** predefinidos en PHP son:
 En cuanto a las **constantes**, se crean con la función **define()**:
 
 ```php
-define("NOMBRE", "Pepito Pérez");  // NOMBRE es una constante
-echo NOMBRE;    // Muestra el valor de la constante. ¡Fíjate en que no lleva el símbolo $!
+declare(strict_types=1);
+
+define("VERSION_APP", "1.0.0");
+echo VERSION_APP;    // Muestra: 1.0.0. ¡Fíjate en que no lleva el símbolo $!
 ```
 
 Las constantes, por convenio, suelen nombrarse en MAYÚSCULAS. El propio PHP tiene muchas constantes predefinidas (todas en mayúsculas) de ámbito global, como PHP_VERSION o PHP_OS. 
@@ -119,7 +131,9 @@ Existen operadores más esotéricos, como el operador ternario o los operadores 
 **Operador de coalescencia nulo**. Con ese nombre tan rebuscado se conoce al operador ?? (doble interrogante). Simplemente, asigna a una variable valor u otro dependiendo de si está definida o no:
 
 ```php
-$user = $nombreUsuario ?? "sin-nombre";
+declare(strict_types=1);
+
+$user = $nombreUsuario ?? "invitado";
 ```
 
 La variable $user del ejemplo anterior tomará el valor $nombreUsuario si y solo si esa variable, $nombreUsuario, existe y tiene un valor asignado. En caso contrario, tomará el valor "sin-nombre".
@@ -127,8 +141,10 @@ La variable $user del ejemplo anterior tomará el valor $nombreUsuario si y solo
 **Operador nave espacial**. Así se conoce el operador <==>. ¡Otro bonito chiste de informáticos! Se usa para comparar dos expresiones y decidir cuál es la menor. Devuelve -1 (si la primera expresión es menor que la segunda), 0 (si son iguales) o 1 (si la primera expresión es mayor que la segunda):
 
 ```php
-$resultado = $var1 <==> $var2;
-echo $resultado;   // Mostrará -1, 0 o 1, dependiendo de los valores de $var1 y $var2
+declare(strict_types=1);
+
+$resultado = $var1 <=> $var2;
+echo $resultado;   // Mostrará -1, 0 o 1
 ```
 
 ### 1.3.5. Arrays
@@ -136,19 +152,23 @@ echo $resultado;   // Mostrará -1, 0 o 1, dependiendo de los valores de $var1 y
 Los arrays en PHP son colecciones de variables del mismo o de distinto tipo identificadas por un índice. Se parecen más a los ArrayList de Java que a los arrays clásicos propiamente dichos.
 
 ```php
+declare(strict_types=1);
+
+$a = []; 
 $a[1] = "lunes";
-$a[2] = 1;        // El array de PHP puede contener datos de diferente tipo en cada elemento
-$a[3] = "martes";
-$a[4] = 2;
-etc.
+$a[2] = 1;        // Un array puede contener tipos mixtos, pero se recomienda homogeneidad
 ```
 
 El índice no tiene por qué ser un número entero: puede ser un String (array asociativo):
 
 ```php
-$a["ESP"] = "España";
-$a["FRA"] = "Francia";
-$a["POR"] = "Portugal";
+declare(strict_types=1);
+
+$paises = [
+    "ESP" => "España",
+    "FRA" => "Francia",
+    "POR" => "Portugal"
+];
 ```
 
 Como los arrays son objetos, dispones de un montón de métodos y atributos para consultarlos y manipularlos. No es mi intención proporcionarte aquí una lista exhaustiva, porque son muchos y para eso ya está la documentación oficial, pero sí te voy a mostrar algunos que te permitan hacerte una idea:
@@ -231,12 +251,16 @@ El bucle *foreach* se repite una vez para cada valor guardado en el array. Ese v
 Por ejemplo:
 
 ```php
-$a["ESP"] = "España";
-$a["FRA"] = "Francia";
-$a["POR"] = "Portugal";
+declare(strict_types=1);
 
-foreach ($a as $pais=>$codigo) {
-    echo "Nombre del país: $pais - Código: $codigo<br>";
+$paises = [
+    "España" => "ESP",
+    "Francia" => "FRA",
+    "Portugal" => "POR"
+];
+
+foreach ($paises as $nombre => $codigo) {
+    echo "Nombre del país: $nombre - Código: $codigo<br>";
 }
 ```
 
@@ -277,97 +301,49 @@ Puedes elegir la sintaxis con la que te sientas más cómodo/a. Nosotros, en est
 
 ### 1.3.7. Funciones y procedimientos
 
-Los subprogramas (funciones y procedimientos) se escriben en PHP del mismo modo: con la palabra *function*.
+Los subprogramas se escriben en PHP con la palabra *function*. En el desarrollo moderno, **siempre definiremos el tipo de los argumentos y del valor de retorno**.
 
-* Las **funciones** deben devolver un valor en su última línea con *return*. Si necesitas devolver varios valores, puedes empaquetarlos en un array o en un objeto.
-   Ten en cuenta que, después de un *return*, la función terminará de forma inmediata y devolverá el control de ejecución al código desde la que fue invocada. Es decir: cualquier línea de código de la función que esté por debajo del *return* nunca se ejecutará.
-* Los **procedimientos** no tienen *return*. Realizan su función y terminan.
+* **Funciones**: Devuelven un valor con *return*.
+* **Procedimientos**: Realizan una acción sin devolver valor (su tipo de retorno es `void`).
 
-Los **argumentos** de las funciones o procedimientos en PHP siembre se pasan ***por valor***.
-
-Por si hay algún despistado/a: pasar argumentos por valor significa que PHP copiará en el parámetro de la función el *valor* de la variable con la que se invoca a dicha función, pero serán dos variables distintas. Si modificamos un parámetro dentro del código de la función, la variable con la que fue invocada no se verá afectada.
-
-Veámoslo con un ejempolo. Esta es una función con dos argumentos:
+Ejemplo de una función moderna con tipado estricto:
 
 ```php
-function calcular_iva($base, $porcentaje)
+declare(strict_types=1);
+
+function calcular_iva(float $base, float $porcentaje): float
 {
-   $total = $base * $porcentaje / 100;
-   return $total;
+   return $base * ($porcentaje / 100);
 }
+
+// Invocación segura
+$precio = 100.0;
+$iva = calcular_iva($precio, 21.0);
 ```
-
-Para invocar a esta función, haremos algo como esto en algún otro punto del código fuente:
-
-```php
-$iva = $calcular_iva($precio_del_articulo, 21);
-```
-
-En esta ocasión, hemos invocado a la función $calcular_iva() con dos parámetros: una variable ($precio_del_articulo) y una constante literal (21). Ambos parámetros se pasan por valor a la función. Eso significa que el valor de $precio_del_articulo se copia en el parámetro $base, y el valor del literal 21 se copia en $porcentaje. Cualquier modificación de $base o $porcentaje que pudiera producirse dentro del código de la función, no afectaría para nada a las variables originales ($precio_del_articulo y el literal 21). Por último, la función devuelve un valor mediante su *return* y ese valor se asigna a la varible $iva.
-
-Si esto del paso de parámetros por valor sigue sonándote a chino, quizá deberías repasar tus conocimientos sobre fundamentos de programación. Busca en internet algo como "paso de parametros por valor y por referencia" y dedica un rato a desentrañar los misterios del paso de parámetros antes de continuar.
-
-#### Definir el tipo de los argumentos
-
-Desde PHP7, se puede definir el tipo de los argumentos de cualquier función:
-
-```php
-function calcular_iva(float $base, float $porcentaje) {
-    ...
-}
-```
-
-Esto es completamente optativo. Ahora bien, si defines el tipo de los argumentos y luego le pasas a la función un argumento de otro tipo, obtendrás un error de ejecución *TypeError*, como es lógico.
-
-#### Definir el tipo de la función
-
-Desde PHP7 también se puede, optativamente, definir el tipo de datos que devolverá la función en el *return*:
-
-```php
-function calcular_iva(float $base, float $porcentaje): float {
-    ...
-}
-```
-
-Esto provocará que se evalúe de forma estricta el tipo de datos durante la invocación a la función y que se puedan producir errores de tipo (*TypeError*) en tiempo de ejecución, como es natural.
 
 #### Argumentos con valor predefinido
 
-Algo muy útil que nos ofrece PHP es la posibilidad de asignar un valor por defecto a los argumentos de las funciones. Observa este ejemplo:
+PHP permite asignar valores por defecto, lo que hace que los parámetros sean opcionales:
 
 ```php
-function calcular_iva($base, $porcentaje = 0.21) {
-    ...
+declare(strict_types=1);
+
+function calcular_iva(float $base, float $porcentaje = 21.0): float {
+    return $base * ($porcentaje / 100);
 }
+
+$a = calcular_iva(1000.0, 4.0);  // Usa 4%
+$b = calcular_iva(1000.0);       // Usa el 21% por defecto
 ```
 
-El argumento *$porcentaje* tiene un valor por defecto, 0.21. Eso significa que podemos invocar esta función de dos maneras:
+#### Gestión moderna de archivos: Autoloading y Composer
 
-```php
-$a = calcular_iva(1000, 0.04); // Calculará el IVA de 1000 euros con un porcentaje del 4%
-$b = calcular_iva(1000);       // Calculará el IVA de 1000 euros con un porcentaje del 21%
-```
+Históricamente, PHP usaba `include` y `require` para cargar archivos manualmente. **En el desarrollo profesional actual, esto se considera una mala práctica** y ha sido sustituido por el **Autoloading** (Carga automática) y gestores como **Composer**.
 
-Como ves, en la primera invocación pasamos un valor para el argumento *$porcentaje* (0.04), por lo que ese argumento tomará ese valor. En cambio, en la segunda invocación nos olvidamos del segundo parámetro. Eso provocaría un error de ejecución en muchos lenguajes de programación, ¿verdad? Bueno, pues PHP lo ejecutará sin problemas, porque le hemos asignado un valor por defecto a *$porcentaje*.
+*   **include / require**: (Legado) Cargan manualmente un script. Si usas `require` y el archivo no existe, la aplicación se detiene (preferible a `include` que solo da un aviso).
+*   **Autoloading (Estándar PSR-4)**: Es el sistema que usan frameworks como Laravel. Consiste en una configuración que le dice a PHP: "si intento usar una clase que no conoces, búscala automáticamente en esta carpeta".
 
-Eso significa que, si no le pasamos ningún valor, el argumento tomará su valor por defecto (0.21), y la función se ejecutará con ese valor asignado a esa variable.
-
-#### include y require
-
-Cuando desarrollamos mucho código, a menudo colocamos colecciones de funciones (llamadas **bibliotecas**) en archivos diferentes que el resto del código.
-
-Para usar una función definida en otro archivo, necesitamos incluir ese código en nuestro archivo actual. Eso se hace con **include** y **require**:
-
-* **include** se utiliza para incluir el código fuente de la biblioteca en nuestro archivo actual. Si la biblioteca no se encuentra, se produce un error de ejecución, pero el script actual continúa ejecutándose.
-* **require** también se utiliza para incluir el código fuente de la biblioteca en nuestro archivo actual. Pero si la biblioteca no se encuentra, se produce un error de ejecución y el script actual se detiene.
-
-Las variantes **include_once** y **require_once** se utilizan para evitar las inclusiones repetidas de código. Estas suelen ocurrir cuando nuestro programa es muy grande y varios scripts incluyen las mismas bibliotecas. Para prevenir errores por redefinición de funciones, se usa **include_once** o **require_once**:
-
-```php
-include_once "mi_biblioteca.php";    // Incluye las funciones del archivo mi_biblioteca.php
-```
-
-El uso de *include* y *require* está en retroceso gracias a los **espacios con nombre** de las versiones recientes de PHP. Más adelante hablaremos de ellos.
+Gracias a esto, **ya no escribirás `include` en cada archivo**. Simplemente usarás la clase y PHP se encargará de encontrarla. Veremos cómo configurar esto en el apartado de MVC y Composer.
 
 
 ### 1.3.8. Funciones anónimas, funciones lambda o *closures*
@@ -391,11 +367,14 @@ Aquí puedes ver un ejemplo sencillo de función anónima:
 
 
 ```php
+declare(strict_types=1);
+
 $numero = 8;
-$doble = function(int $numero) {
-    return $numero * 2;
-}
-echo $doble;   // Imprimirá 16
+$doble = function(int $n): int {
+    return $n * 2;
+};
+
+echo $doble($numero);   // Imprimirá 16
 ```
 
 Hemos asignado la función anónima a una variable, llamada $doble. Por eso, al tratar de imprimir la variable, se invocará la función automáticamente.
@@ -403,13 +382,15 @@ Hemos asignado la función anónima a una variable, llamada $doble. Por eso, al 
 En este es otro ejemplo, una función sin nombre se pasa como parámetro:
 
 ```php
-function procesar(array $datos, callable $callback) {
+declare(strict_types=1);
+
+function procesar(array $datos, callable $callback): void {
     foreach ($datos as $d) {
-        echo $callback($d) . "\n";
+        echo $callback($d) . PHP_EOL;
     }
 }
 
-procesar([1, 2, 3], fn($n) => $n * $n);
+procesar([1, 2, 3], fn(int $n): int => $n * $n);
 ```
 
 La función *procesar()* recibe dos parámetros: el primero es un array con datos y, el segundo, es una función anónima que **le indica cómo procesar** esos datos. En este caso, se calculará el cuadrado de cada uno de los datos del array, pero podría ser cualquier otra cosa. 
@@ -425,32 +406,45 @@ A partir de la versión 5, PHP incluyó un completo soporte para orientación a 
 En este ejemplo puedes ver cómo se declara una clase en PHP. Observa cómo se indica la **herencia** (*extends*) y cómo se declara el **constructor**  (*__construct()*):
 
 ```php
+declare(strict_types=1);
+
 class MiClase extends ClaseMadre
 {
-    // Declaración de propiedades (atributos)
-    public  $var1 = 'soy una variable pública de instancia';
-    private $var2 = 'y yo soy otra variable de instancia, pero privada';
+    // PHP 7.4+ permite tipar las propiedades
+    public string $var1 = 'pública';
+    private string $var2;
 
-    // Método constructor (siempre se llama __construct)
-    public function __construct($valor) {
+    public function __construct(string $valor) {
         $this->var2 = $valor;
     }
 
-    // Declaración de un método público
-    public function mostrarVar() {
+    public function mostrarVar(): void {
         echo $this->var2;
     }
 
-    // Declaración de un método privado
-    private function resetVar() {
+    private function resetVar(): void {
        $this->var2 = '';
-    }
-
-    public function otroMetodo() {
-        // ...etc...
     }
 }
 ```
+
+#### Constructor Property Promotion (PHP 8.0)
+
+En las clases modernas, ya no es necesario declarar los atributos al principio y luego asignarles valor en el constructor. Podemos hacer ambas cosas a la vez en la propia firma del constructor:
+
+```php
+class Usuario {
+    public function __construct(
+        private string $nombre,
+        private string $email,
+        public readonly int $id
+    ) {}
+}
+```
+
+Al poner `public`, `private` o `protected` delante de un argumento del constructor, PHP crea automáticamente el atributo y le asigna el valor. Además, fíjate en la palabra **readonly**: indica que el valor solo puede asignarse una vez (normalmente en el constructor) y ya no podrá cambiarse, lo cual es fantástico para la integridad de los datos.
+
+#### Notación flecha (->)
 
 Algo que suele llamar la atención de los programadores que vienen de Java u otros lenguajes semejantes es que PHP **no utiliza la notación punto** para acceder a los miembros de una clase, sino la **notación flecha (->)**. Por eso en el ejemplo anterior ves cosas como *$this->var* en lugar de *this.var*
 
@@ -472,18 +466,20 @@ Como ya habrás supuesto, la variable **$this** se refiere siempre al objeto que
 A veces, cuando tenemos una jerarquía de clases y unas heredan de otras, necesitamos invocar algún método de la clase madre o superclase. En ese caso, usaremos la palabra **parent** seguida de la **notación cuatro puntos (::)**. Observa cómo se hace en este ejemplo, en el que el constructor de la subclase invoca al constructor de la superclase:
 
 ```php
+declare(strict_types=1);
+
 class MiClase {
-    private $var1;
-    public function __construct($param) {
-        $this->var1 = $param;
-    }
+    public function __construct(
+        protected string $var1
+    ) {}
 }
 
 class MiSubclase extends MiClase {
-    private $var2;
-    public function __construct($param1, $param2) {
-        $this->var2 = $param2;
-        parent::__construct($param1);   // Llamada a un método de la superclase
+    public function __construct(
+        string $param1,
+        private string $var2
+    ) {
+        parent::__construct($param1);
     }
 }
 ```
@@ -503,16 +499,19 @@ En PHP también es habitual, como en muchos lenguajes de programación, que los 
 Los *getters* suelen devolver el valor de un atributo, pero los *setters*, en otros lenguajes, no devuelven nada. Sin embargo, en PHP es costumbre que los *setters* devuelvan el objeto completo, es decir, que terminen con un ***return $this***. Así:
 
 ```php
+```php
+declare(strict_types=1);
+
 class MiClase {
-    private $var1 = "Esto es un atributo privado";
-    // Getter
-    public function getVar1() {
-        return $var1;
+    private string $var1 = "Atributo privado";
+
+    public function getVar1(): string {
+        return $this->var1;
     }
-    // Setter
-    public function setVar1($value) {
-        $var1 = $value;
-        return $this;   // Devolvemos el objeto al terminar
+
+    public function setVar1(string $value): self {
+        $this->var1 = $value;
+        return $this; 
     }
 }
 ```
@@ -727,13 +726,17 @@ Por ejemplo, supongamos que tenemos un sencillo formulario con dos campos, *nomb
 El script *procesa_formulario.php* recibirá los datos enviados por este formulario (nombre y email) en las variables *$_REQUEST["nombre"]* y *$_REQUEST["email"]*. Pues bien, si queremos sanear (limpiar) cualquier carácter sospechoso que pueda venir en esas variables, podemos hacerlo así:
 
 ```php
+declare(strict_types=1);
+
 if (!isset($_REQUEST["nombre"])) {
     echo "Error: el campo nombre es obligatorio";
 }
 if (!isset($_REQUEST["email"])) {
     echo "Error: el campo email es obligatorio";
 }
-$nombre = filter_var($_REQUEST["nombre"], FILTER_SANITIZE_STRING);
+
+// Sanear entradas (FILTER_SANITIZE_STRING está obsoleto desde PHP 8.1)
+$nombre = filter_var($_REQUEST["nombre"], FILTER_SANITIZE_SPECIAL_CHARS);
 $email = filter_var($_REQUEST["email"], FILTER_SANITIZE_EMAIL);
 ```
 
@@ -779,9 +782,10 @@ El archivo que comience de ese modo debería contener el código fuente de una c
 ¿Y cómo se usa una clase localizada en un *namespace*? Muy sencillo: indicaremos el *namespace* que queremos utilizar mediante la instrucción ***use***:
 
 ```php
-include_once("Persona/Empleado/empleado.php");   // Esto incluye el código fuente de la clase Empleado
-use Persona/Empleado/Empleado;                   // Esto indica el namespace que queremos utilizar
-$emp = new Empleado();                           // ¡Y ya tenemos disponible la clase Empleado!
+// Con Autoloading/Composer, ya no necesitas include_once()
+use Persona\Empleado\Empleado;                   // Usamos la clase mediante su Namespace
+
+$emp = new Empleado(nombre: "Juan");             // ¡Y ya tenemos disponible la clase!
 ```
 
 ### 1.3.15. Novedades de PHP 8+

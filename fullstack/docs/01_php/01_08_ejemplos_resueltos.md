@@ -62,22 +62,30 @@ Esta primera solución la vamos a plantear con dos archivos:
     <title>Tabla de multiplicar - Versión 1</title>
   </head>
   <body>
+    <?php
+    declare(strict_types=1);
 
-	<?php
-		// Recuperamos el número escrito en el formulario.
-		$n = $_REQUEST["numero"];
-		// Mostramos la tabla de multiplicar en una tabla HTML
-		echo "<table border='1'>";
-		echo "<tr><td colspan='5'>Tabla de multiplicar del número $n</td></tr>";
-		echo "<tr>";
-		for ($i = 1; $i <= 25; $i++) {
-			if (($i-1) % 5 == 0) echo "</tr><tr>";
-			echo "<td>$n x $i = " . $n * $i . "</td>";
-		}
-		echo "</tr>";
-		echo "</table>";
-	?>
+    // Recuperamos el número escrito en el formulario.
+    $n = (int)($_REQUEST["numero"] ?? 0);
+    ?>
 
+    <table border="1">
+        <thead>
+            <tr>
+                <th colspan="5">Tabla de multiplicar del número <?= $n ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <?php for ($i = 1; $i <= 25; $i++): ?>
+                <?php if ($i > 1 && ($i - 1) % 5 == 0): ?>
+                    </tr><tr>
+                <?php endif; ?>
+                <td><?= $n ?> x <?= $i ?> = <?= $n * $i ?></td>
+            <?php endfor; ?>
+            </tr>
+        </tbody>
+    </table>
   </body>
 </html>
 ```

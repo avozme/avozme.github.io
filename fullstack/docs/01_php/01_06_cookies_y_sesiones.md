@@ -51,12 +51,20 @@ La función *setcookie()* admite un montón de parámetros, la mayor parte de el
 Aquí tienes tres ejemplos de envío de la misma cookie:
 
 ```php
-<?php 
+<?php
+declare(strict_types=1);
+
 $value = "I'm your father"; 
 
-setcookie("VaderQuote", $value); 
-setcookie("VaderQuote", $value, time()+3600);  // la cookie expira en una hora 
-setcookie("VaderQuote", $value, time()+3600, "/quotes/", "bestquotes.com", 1); 
+// Opción recomendada (PHP 7.3+) usando array de opciones
+setcookie("VaderQuote", $value, [
+    'expires' => time() + 3600,
+    'path' => '/',
+    'domain' => 'example.com',
+    'secure' => true,
+    'httponly' => true,
+    'samesite' => 'Lax',
+]);
 ?>
 ```
 
@@ -133,21 +141,24 @@ Ahora bien, session_destroy() destruye la información asociada a la sesión act
 Si eres un fanático de la seguridad y quieres asegurarte de destruir todas las variables de sesión, puedes usar la función ***session_unset()***. Y, para borrar la cookie de sesión, debes usar ***setcookie()***, como en este ejemplo:
 
 ```php
-
 <?php
+declare(strict_types=1);
+
 session_start();
 
-// Destruimos todas las variables de sesión (optativo)
-session_unset();
+// Destruimos todas las variables de sesión
+$_SESSION = [];
 
-// Si queremos destruir la sesión completamente, borramos también la cookie de sesión.
-$params = session_get_cookie_params();
-setcookie(session_name(), '', time() - 42000,
+// Borramos la cookie de sesión
+if (ini_get("session.use_cookies")) {
+    $params = session_get_cookie_params();
+    setcookie(session_name(), '', time() - 42000,
         $params["path"], $params["domain"],
         $params["secure"], $params["httponly"]
-);
+    );
+}
 
-// Finalmente, cerramos 0la sesión
+// Finalmente, destruimos la sesión en el servidor
 session_destroy();
 ?>
 ```

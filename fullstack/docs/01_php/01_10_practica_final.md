@@ -1,15 +1,15 @@
 ---
 layout: page
 title: 1.10 Práctica final
-permalink: /php/practica.html
+permalink: /php/practica-final.html
 nav_order: 10
 has_children: false
 parent: 1 Programación web con PHP
-grand_parent: Desarrollo web full stack XXX
+grand_parent: Desarrollo web full stack
 ---
 
 
-## 1.10. Práctica final del tema 1
+## 1.10. Práctica final
 {: .no_toc }
 
 - TOC
@@ -95,9 +95,14 @@ Tareas:
 ```php
 $controller = $_REQUEST['controller'] ?? 'Libros';
 $action = $_REQUEST['action'] ?? 'index';
-$controllerClass = $controller . 'Controller';
-require "controllers/$controllerClass.php";
-(new $controllerClass())->$action();
+$controllerClass = "App\\Controllers\\" . $controller . "Controller";
+
+if (class_exists($controllerClass) && method_exists($controllerClass, $action)) {
+    (new $controllerClass($pdo))->$action();
+} else {
+    header("HTTP/1.0 404 Not Found");
+    echo "Página no encontrada";
+}
 ```
 
 * **Ajusta todos los enlaces en las vistas** para pasar el nombre del controlador como parámetro, no solo la acción (*?controller=Autores&action=mostrarListaAutores*).
