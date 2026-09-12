@@ -1,0 +1,11 @@
+I"	<h1 id="2-php-como-lenguaje-de-servidor">2. PHP como lenguaje de servidor</h1>
+
+<p>En este capítulo te voy a presentar a un amigo íntimo: <strong>el lenguaje PHP</strong>.</p>
+
+<p>No vamos a detenernos mucho en la sintaxis básica de este lenguaje, pues es muy parecida a Java, pero sí en qué diferencias tiene con Java y cómo trabaja <strong>en el lado del servidor</strong> para ayudarnos a crear aplicaciones web dinámicas, es decir, aplicaciones que generan un HTML distinto según los datos de entrada y el estado del servidor.</p>
+
+<p>También aprenderemos los fundamentos de las aplicaciones web seguras y cuál es la arquitectura más habitual de las aplicaciones web (llamada MVC = modelo, vista, contolador… ¿Te suena?)</p>
+
+<p>Trabajaremos de forma práctica con algunos <strong>ejemplos de aplicaciones web</strong> sencillas que puedes utilizar como base para tus propios desarrollos. Y, por supuesto, no te escaparás sin desarrollar tu primera aplicación web con PHP en la práctica final de este tema.</p>
+
+:ET

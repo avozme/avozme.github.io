@@ -1,0 +1,260 @@
+I"L]<h2 class="no_toc" id="13-uso-eficiente-y-ético-de-la-ia-en-desarrollo-backend">1.3. Uso eficiente y ético de la IA en desarrollo backend</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#131-por-qué-este-documento-existe" id="markdown-toc-131-por-qué-este-documento-existe">1.3.1. Por qué este documento existe</a></li>
+  <li><a href="#132-la-trampa-de-que-lo-haga-la-ia" id="markdown-toc-132-la-trampa-de-que-lo-haga-la-ia">1.3.2. La trampa de «que lo haga la IA»</a></li>
+  <li><a href="#133-lo-que-te-va-a-pedir-el-mercado-laboral" id="markdown-toc-133-lo-que-te-va-a-pedir-el-mercado-laboral">1.3.3. Lo que te va a pedir el mercado laboral</a></li>
+  <li><a href="#134-cómo-sí-vamos-a-usar-la-ia-en-este-curso" id="markdown-toc-134-cómo-sí-vamos-a-usar-la-ia-en-este-curso">1.3.4. Cómo SÍ vamos a usar la IA en este curso</a></li>
+  <li><a href="#135-protocolo-de-entregas-cómo-comprobaremos-la-autoría" id="markdown-toc-135-protocolo-de-entregas-cómo-comprobaremos-la-autoría">1.3.5. Protocolo de entregas: cómo comprobaremos la autoría</a></li>
+  <li><a href="#136-práctica-final" id="markdown-toc-136-práctica-final">1.3.6. Práctica final</a></li>
+</ul>
+
+<h3 id="131-por-qué-este-documento-existe">1.3.1. Por qué este documento existe</h3>
+
+<p>Vamos a hablar claro: en este curso, <strong>puedes y DEBES usar IA</strong>.</p>
+
+<p>La IA es una herramienta que vas a tener disponible el resto de tu carrera profesional, te guste o no. Cualquier empresa de desarrollo de software actual da por hecho que sabes usar estas herramientas. Lo raro para un programador, a estas alturas, sería <em>no</em> usarlas.</p>
+
+<p>Pero (y este pero es importante) hay una diferencia abismal entre <strong>usar la IA para programar mejor</strong> y <strong>usar la IA para no tener que aprender a programar</strong>.</p>
+
+<p><strong><em>Eso sería un suicidio profesional para ti, incluso aunque lograses aprobar el curso.</em></strong></p>
+
+<p>Este documento existe para dejar clarísima esa diferencia, explicarte por qué la segunda opción es una trampa que solo te hace daño a ti mismo, y contarte exactamente cómo vamos a comprobar, a lo largo del curso, que lo que entregas es tuyo de verdad.</p>
+
+<p>Léetelo entero. No es un trámite burocrático, es literalmente la diferencia entre que este curso (y este título) te sirva para algo o no.</p>
+
+<h3 id="132-la-trampa-de-que-lo-haga-la-ia">1.3.2. La trampa de «que lo haga la IA»</h3>
+
+<p>Vamos a hacer un ejercicio de sinceridad. Le pides a una IA que te genere un CRUD completo en Laravel, lo copias y lo pegas, lo entregas, y sacas un notable. ¿Qué has conseguido?</p>
+
+<p>Una nota. Nada más. Una mentira que te estás contando a ti mismo. <strong>Cuando llegues a una empresa, a nadie le importará un pimiento tu notable. Lo único que les importará es <em>qué sabes hacer TÚ</em></strong>.</p>
+
+<p>Aquí van las razones, sin rodeos, de por qué esto es una pésima idea, incluso (sobre todo) si tu único objetivo fuera “aprobar como sea”:</p>
+
+<ul>
+  <li><strong>La nota no es el producto, es la señal.</strong> La nota existe para decirte a ti (no a una futura empresa) si sabes hacer algo. Si falsificas la señal, no has ganado nada: sigues sin saber hacerlo, solo que ahora tienes un papel que dice lo contrario. Y ese papel se va a poner a prueba en la primera entrevista técnica o en tu primer día de prácticas en una empresa real.</li>
+  <li><strong>Este módulo se construye por capas.</strong> Lo que no entiendes hoy de Eloquent te va a explotar en la cara dentro de tres semanas, cuando lo demos por sabido para explicar otra cosa. Copiar y pegar sin entender no es “ganar tiempo”, es pedir un préstamo con intereses que vas a tener que pagar más adelante (normalmente en el peor momento posible).</li>
+  <li><strong>Vas a tener que defenderlo.</strong> Como verás en el apartado 1.3.5, en este curso el código que entregas no es el final de la historia: vas a tener que explicarlo, defenderlo y, en algunos casos, modificarlo en vivo. Y ahí no hay IA que te salve.</li>
+  <li><strong>Le estás mintiendo a la única persona a la que no le conviene mentir: a ti.</strong> Recuerda siempre que <em>dentro de unos meses</em> vas a hacer las prácticas en empresa o vas a buscar tu primer trabajo.</li>
+</ul>
+
+<p>No se trata de que “la IA sea trampa”. Se trata de que <strong>usarla para evitar aprender es la única forma de usarla mal</strong>. El resto de usos (y son muchos, y son potentísimos) son bienvenidos. Sigue leyendo.</p>
+
+<h3 id="133-lo-que-te-va-a-pedir-el-mercado-laboral">1.3.3. Lo que te va a pedir el mercado laboral</h3>
+
+<p>Desde un punto de vista práctico, esto es, a grandes rasgos, lo que hoy en día una empresa espera de un programador/a junior, tanto en habilidades técnicas tradicionales como en habilidades relacionadas con IA:</p>
+
+<p><strong>Como programador/a:</strong></p>
+
+<ul>
+  <li>Que entiendas el código que escribes y el que te entregan tus compañeros, no que “funcione y ya está”.</li>
+  <li>Que sepas depurar un error tú solo/a cuando la IA (o una búsqueda en Google) no te da la respuesta correcta a la primera, cosa que pasa constantemente.</li>
+  <li>Que entiendas lo suficiente de arquitectura (en nuestro caso, MVC, ORM, API REST…) como para saber <em>dónde</em> debe ir cada cosa, aunque no te acuerdes de memoria de la sintaxis exacta.</li>
+  <li>Que puedas justificar tus decisiones técnicas delante de tu equipo, tu responsable técnico o un cliente. “Porque la IA me dijo que era así” no es una respuesta aceptable en una <em>code review</em> real.</li>
+  <li>Que sepas leer y entender código que no has escrito tú, porque, en tu primer trabajo, el 90% de tu tiempo lo vas a pasar dentro de un proyecto que ya existía antes de que llegaras y modificando código que puede llevar 20 años escrito y funcionando.</li>
+</ul>
+
+<p><strong>Como usuario/a de IA:</strong></p>
+
+<ul>
+  <li>Que sepas usarla como un <strong>acelerador</strong>, no como un sustituto: pedirle que te genere un test, que te sugiera una refactorización, que te explique un error inexplicable, que te proponga varias formas de resolver algo para que tú elijas, etc.</li>
+  <li>Que sepas <strong>revisar y cuestionar</strong> lo que te devuelve, en lugar de aceptarlo a ciegas. La IA se equivoca, alucina funciones que no existen, y a veces te sugiere soluciones que funcionan pero que son una barbaridad desde el punto de vista de la seguridad o el rendimiento. Si no sabes lo suficiente como para detectarlo, el problema no es la IA, eres tú.</li>
+  <li>Que <strong>entiendas sus límites</strong>: una IA no conoce el contexto completo de tu proyecto, ni tus decisiones de arquitectura previas, ni las restricciones concretas del cliente. Tú sí (o deberías conocerlas).</li>
+  <li>Cada vez más empresas hacen entrevistas técnicas que incluyen el uso de IA para <strong>ver <em>cómo</em> la usas</strong>: qué le preguntas, cómo verificas la respuesta, si detectas cuando se equivoca. Saber usarla bien es, en sí mismo, una habilidad que se valora mucho.</li>
+</ul>
+
+<p>Nadie te va a echar de una empresa por usar IA. <strong><em>Te van a echar (o, peor, ni siquiera te van a contratar) si demuestras que sin ella no sabes hacer nada</em></strong>.</p>
+
+<h3 id="134-cómo-sí-vamos-a-usar-la-ia-en-este-curso">1.3.4. Cómo SÍ vamos a usar la IA en este curso</h3>
+
+<p>Nos vamos a centrar, sobre todo, en tres usos concretos:</p>
+
+<ol>
+  <li><strong>Asistencia para refactorización.</strong> Ya tienes un código que funciona. Lo has escrito tú, aunque sea con ayuda, y lo entiendes. Es razonable pedirle a la IA sugerencias para mejorarlo: nombres más claros, eliminar duplicación, aplicar un patrón mejor, simplificar una condición enrevesada. Tú decides qué sugerencias aceptas y por qué.</li>
+  <li><strong>Generador de tests.</strong> Le describes qué hace una función o un endpoint y le pides que te proponga casos de prueba (incluyendo casos límite en los que quizá no habrías pensado). Es una de las tareas donde la IA rinde muchísimo y donde el riesgo de “hacer trampa” es prácticamente nulo, porque los tests no sustituyen tu código, lo ponen a prueba.</li>
+  <li><strong>Resolución de dudas puntuales.</strong> “¿Por qué me da este error?”, “¿qué significa este mensaje de Laravel?”, “¿cuál es la diferencia entre estos dos métodos?”. Es un profesor particular disponible 24 horas. Úsalo así.</li>
+</ol>
+
+<p><strong>¿Y generar código directamente?</strong> Aquí está el matiz importante: es razonable, y no vamos a perseguirlo, que la IA te genere <strong>esqueletos o <em>scaffolding</em></strong> de una parte del proyecto (la estructura de un controlador, las rutas básicas de un recurso, un modelo con sus relaciones ya esbozadas). Es exactamente el tipo de código repetitivo y mecánico que a cualquier programador/a profesional también le interesa generar rápido para no perder el tiempo escribiéndolo a mano.</p>
+
+<p>La condición, la única de verdad importante, es esta: <strong>antes de entregarlo, tienes que entender cada línea que hay en tu entrega</strong>, la haya escrito tu mano o la IA. Si no puedes explicar por qué una línea está ahí y qué pasaría si la borraras, esa línea no debería estar en tu entrega. Punto.</p>
+
+<p>Lo que <strong>no</strong> vamos a considerar un uso razonable es pedirle a la IA “hazme la práctica entera” y entregarla sin haber entendido ni tocado nada. No porque esté “prohibido” en un sentido policial, sino porque, como hemos visto, solo estaríamos perdiendo el tiempo. El tuyo y el mío.</p>
+
+<h3 id="135-protocolo-de-entregas-cómo-comprobaremos-la-autoría">1.3.5. Protocolo de entregas: cómo comprobaremos la autoría</h3>
+
+<p>Vamos a usar tres mecanismos complementarios para asegurarnos razonablemente de que lo que entregas lo entiendes de verdad.</p>
+
+<p>Digo “razonablemente” porque ningún método es infalible al cien por cien. El objetivo no es “cazarte”, es que te resulte <strong>costoso fingir que aprendes</strong>. Pero, si finges lo suficientemente bien, seguro que consigues engañarme. Es decir, <em>engañarte a ti mismo/a</em>.</p>
+
+<p>Los tres mecanismos de comprobación que usaremos son:</p>
+
+<ol>
+  <li><strong>Explicación de decisiones técnicas</strong>, sobre tu propia entrega, de forma oral y sin IA.</li>
+  <li><strong>Exámenes con cambios en vivo</strong>, unos días después de la entrega, también sin IA.</li>
+  <li><strong>Code reviews entre compañeros</strong>, con tiempo limitado, sobre código ajeno.</li>
+</ol>
+
+<p>Vamos uno por uno.</p>
+
+<h4 id="enfoque-1-explicación-de-decisiones-técnicas">Enfoque 1: Explicación de decisiones técnicas</h4>
+
+<p><strong>Cómo funciona:</strong></p>
+
+<ul>
+  <li><strong>Fase A (con IA permitida):</strong> desarrollas tu tarea, proyecto o examen con toda la ayuda de la IA que consideres oportuna.</li>
+  <li><strong>Fase B (sin IA, en vivo):</strong> después de entregado tu código, te haré unas preguntas de control <strong>sobre tu propio código</strong>, que no conoces de antemano, y que tendrás que responder ahí mismo, sin consultar ninguna IA.</li>
+</ul>
+
+<p>Los exámenes podrán basarse en prácticas que <em>tú</em> has entregado, así que cada alumno/a puede tener preguntas distintas (aunque parecidas en dificultad y que evalúen las mismas competencias). Así que debes conocer bien el código que has entregado en las prácticas para afrontar con éxito el examen.</p>
+
+<p><strong>Ejemplo de preguntas</strong> (sobre un modelo Eloquent de Laravel; lo entenderás mejor cuando vamos Laravel):</p>
+
+<blockquote>
+  <ul>
+    <li>¿Por qué usas <code class="language-plaintext highlighter-rouge">hasMany</code> en lugar de <code class="language-plaintext highlighter-rouge">belongsToMany</code> en este modelo? ¿Qué cambiarías si la relación fuera muchos-a-muchos?</li>
+    <li>Identifica dos líneas de tu código que podrían causar un problema de rendimiento o de seguridad (por ejemplo, una consulta N+1 o una inyección SQL) y explica cómo las corregirías.</li>
+  </ul>
+</blockquote>
+
+<p>No hace falta que la respuesta sea perfecta. Lo que buscamos es que se note que sabes <em>por qué</em> tu código es como es, no que lo hayas memorizado.</p>
+
+<h4 id="enfoque-2-exámenes-con-cambios-en-vivo">Enfoque 2: Exámenes con cambios en vivo</h4>
+
+<p><strong>Cómo funciona:</strong></p>
+
+<ul>
+  <li>En el examen individual inicial, <strong>sí se permite el uso de IA</strong>, con las mismas reglas del apartado 1.3.4.</li>
+  <li>Unos días después, habrá un <strong>segundo examen</strong>, esta vez sin IA (en papel), en el que tendrás que <strong>modificar tu propio código entregado</strong> o <strong>responder preguntas sobre él</strong>.</li>
+</ul>
+
+<p>Igual que en el enfoque anterior, este segundo examen se generará a partir de las respuestas que cada alumno/a entregó en el primero, así que será ligeramente distinto (aunque comparable en dificultad) para cada persona.</p>
+
+<p><strong>Ejemplo:</strong></p>
+
+<p>Imagina que en tu examen inicial entregaste un pequeño CRUD de tareas (<code class="language-plaintext highlighter-rouge">Task</code>) con Eloquent, incluyendo un método para listar solo las tareas pendientes. Unos días después, en el segundo examen (sin IA), te puedo pasar tu controlador <code class="language-plaintext highlighter-rouge">TaskController</code> y tu modelo <code class="language-plaintext highlighter-rouge">Task</code> impreso y pedirte algo así:</p>
+
+<blockquote>
+  <p><em>Tu controlador <code class="language-plaintext highlighter-rouge">TaskController</code> tiene un método <code class="language-plaintext highlighter-rouge">index()</code> que devuelve todas las tareas. Añade al modelo <code class="language-plaintext highlighter-rouge">Task</code> un método llamado <code class="language-plaintext highlighter-rouge">completadas()</code> que permita obtener solo las tareas marcadas como completadas, y modifica el método <code class="language-plaintext highlighter-rouge">index()</code> para que acepte un parámetro por query string (<code class="language-plaintext highlighter-rouge">?estado=completadas</code>) que use ese método cuando esté presente.</em></p>
+</blockquote>
+
+<p>No es un ejercicio inventado desde cero: es una situación típica del mundo real y que parte de tu propio código, sobre el que deberías tener soltura si lo entendiste, lo escribiste y lo revisaste la primera vez.</p>
+
+<h4 id="enfoque-3-code-reviews-entre-pares">Enfoque 3: Code reviews entre pares</h4>
+
+<p><strong>Cómo funciona:</strong></p>
+
+<p>En sesiones concretas del curso, revisaréis el código de un compañero o compañera (nunca el vuestro), o bien código que os presentará el profesor, con un <strong>tiempo limitado y sin IA</strong> para hacerlo.</p>
+
+<p>Ese límite de tiempo no es capricho: es precisamente lo que hace que este método funcione. Con diez o quince minutos y el reloj corriendo, hay que ir directo al grano, lo que demuestra si de verdad conocéis la arquitectura de Laravel (o de lo que estemos trabajando en ese momento) o si solo la habéis visto pasar por delante.</p>
+
+<p><strong>Ejemplo:</strong></p>
+
+<p>Se os entrega este fragmento de un controlador de Laravel y tenéis cinco minutos para hacer una <em>code review</em> con sugerencias constructivas:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$user</span> <span class="o">=</span> <span class="nc">User</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="n">user_id</span><span class="p">);</span>
+
+    <span class="nv">$post</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Post</span><span class="p">();</span>
+    <span class="nv">$post</span><span class="o">-&gt;</span><span class="n">title</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="n">title</span><span class="p">;</span>
+    <span class="nv">$post</span><span class="o">-&gt;</span><span class="n">body</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="n">body</span><span class="p">;</span>
+    <span class="nv">$post</span><span class="o">-&gt;</span><span class="n">user_id</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="n">user_id</span><span class="p">;</span>
+    <span class="nv">$post</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="nc">Post</span><span class="o">::</span><span class="nf">all</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>En cinco minutos, alguien que domine mínimamente Laravel debería poder señalar, entre otras cosas:</p>
+
+<ul>
+  <li>No hay <strong>validación</strong> de los datos de entrada (<code class="language-plaintext highlighter-rouge">$request-&gt;title</code> y <code class="language-plaintext highlighter-rouge">$request-&gt;body</code> podrían venir vacíos, o directamente no existir).</li>
+  <li>No se comprueba si <code class="language-plaintext highlighter-rouge">$user</code> existe antes de usarlo (y, de hecho, ni siquiera se usa la variable <code class="language-plaintext highlighter-rouge">$user</code> para nada).</li>
+  <li>Sería más idiomático usar <strong>asignación masiva</strong> (<code class="language-plaintext highlighter-rouge">Post::create($request-&gt;validated())</code>) en lugar de asignar campo a campo.</li>
+  <li>Devolver <code class="language-plaintext highlighter-rouge">Post::all()</code> al final es un problema de rendimiento serio: con cada <code class="language-plaintext highlighter-rouge">store()</code>, se está trayendo <em>toda</em> la tabla de posts en lugar de devolver, por ejemplo, el post recién creado.</li>
+</ul>
+
+<p>Ese tipo de hallazgos, hechos con el reloj corriendo y sin preguntar a nadie (ni a una IA), son un termómetro bastante fiable de cuánto has interiorizado de verdad.</p>
+
+<hr />
+<p>layout: page
+title: Ejercicio 1.3 — Genera, entiende, defiende
+permalink: /uso-de-ia-ejercicio/
+nav_order: 4
+has_children: false
+parent: 1 Herramientas de desarrollo y flujo de trabajo profesional
+grand_parent: Desarrollo Web en Entorno Servidor
+—</p>
+
+<h3 id="136-práctica-final">1.3.6. Práctica final</h3>
+
+<h4 id="qué-vamos-a-hacer">¿Qué vamos a hacer?</h4>
+
+<p>Si te has leído cuidadosamente este apartado, ya sabes que <strong>en este curso vamos a comprobar que lo que entregas lo entiendes de verdad</strong>, sea tuyo al 100% o generado con ayuda de una IA, y que uno de los mecanismos que usaremos es <strong>explicar tus decisiones técnicas</strong>, en vivo y sin IA.</p>
+
+<p>Este ejercicio es un calentamiento de ese mecanismo. Todavía no hemos visto Laravel ni nada del temario propiamente dicho, así que vamos a ponerlo en práctica sin presión de nota, solo para que te familiarices con la dinámica antes de que cuente para algo.</p>
+
+<p>El ejercicio tiene tres fases y dura unos 15-20 minutos en total. Las vamos a hacer todas en clase, en orden, y cada una tiene sus propias reglas sobre si se puede usar IA o no. Léetelas bien antes de empezar cada fase, porque cambian.</p>
+
+<h4 id="fase-1-generar-código-con-ia-5-minutos">Fase 1: Generar código con IA (5 minutos)</h4>
+
+<p><strong>Pídele a una IA (la que quieras) que te escriba un método sencillo</strong>, pero no trivial, escrito en Java o el lenguaje de programación que usaste en primer curso. Un par de ideas, aunque puedes elegir otras parecidas:</p>
+
+<ul>
+  <li>Un método que reciba una lista de números y devuelva solo los que son primos.</li>
+  <li>Un método que valide si una cadena de texto tiene formato de email válido.</li>
+</ul>
+
+<p>Puede ser cualquier cosa siempre que cumpla 2 condiciones:</p>
+
+<ul>
+  <li><strong>Ser un método completo</strong> y autocontenido, es decir, que se pueda leer de arriba abajo sin depender de más código.</li>
+  <li><strong>No ser trivial</strong>, es decir, que haya que pensar un poco para entenderlo, pero tampoco debe ser terriblemente complejo.</li>
+</ul>
+
+<p>Guarda el código en un archivo. Lo vas a necesitar en las dos fases siguientes.</p>
+
+<h4 id="fase-2-entender-el-código-generado-5-minutos">Fase 2: Entender el código generado (5 minutos)</h4>
+
+<p>Cierra la IA. En esta fase vas a trabajar solo/a, con tus propias palabras. En un documento aparte (no lo mezcles con el código), anota:</p>
+
+<ol>
+  <li>
+    <p><strong>Qué hace cada línea o cada bloque relevante del código</strong>, explicado como si se lo estuvieras contando a alguien que no lo ha visto y que no sabe programar. <strong><em>¡Imagina que se lo estás explicando a mi abuela!</em></strong>.</p>
+
+    <p>Y, si hay una o varias líneas que no sabes explicar, no dejes de investigar qué demonios significan cuando termines este ejercicio. Puedes usar una IA para ello.</p>
+  </li>
+  <li>
+    <p><strong>Casos de entrada para los que sospeches que la función podría fallar o comportarse raro.</strong> Por ejemplo: una lista vacía, un número negativo, una cadena vacía, un valor inesperado. No hace falta que ejecutes nada, solo que lo razones.</p>
+
+    <p>Este segundo punto no es un capricho, sino el tipo de pensamiento que necesitarás más adelante para generar buenos tests y para usar la IA de forma crítica.</p>
+  </li>
+</ol>
+
+<p><strong>Puedes sentir la tentación de usar IA para hacer esta parte</strong>. Es lógico. <strong><em>¡Es tan cómodo no tener que pensar! ¿Verdad?</em></strong> Pero estás aquí para aprender a pensar como un programador.</p>
+
+<p>Ten en cuenta que, en futuras ocasiones, tendrás que hacer este ejercicio CON EL ORDENADOR APAGADO. Solo tú, tu cerebro, papel y bolígrafo.</p>
+
+<h4 id="fase-3-hacer-el-code-review-del-código-de-otra-persona-5-10-minutos">Fase 3: Hacer el code review del código de otra persona (5-10 minutos)</h4>
+
+<p>Intercambia <strong>tu código</strong> (no tus notas) con un compañero o compañera.</p>
+
+<p>Cada uno/a le va a hacer al otro 2 o 3 preguntas, de tipo técnico, sobre su código. Algunas ideas de preguntas que podéis usar (o inventar otras parecidas):</p>
+
+<ul>
+  <li>¿Por qué usaste este bucle/estructura y no una función de librería que ya existe para esto?</li>
+  <li>¿Qué pasaría si le pasas [pon aquí un caso límite que sospechas que podría fallar]?</li>
+  <li>¿Por qué esta condición va antes que esa otra? ¿Cambiaría algo si las intercambiases de orden?</li>
+  <li>Señala una línea que podrías borrar sin que la función deje de funcionar en el caso normal. ¿Por qué está ahí entonces?</li>
+</ul>
+
+<p>Reglas de esta fase:</p>
+
+<ul>
+  <li>Nada de IA ni de consultar tus propias notas de la Fase 2 para responder preguntas. Si te preguntan algo y no lo sabes, reconócelo. <em>Eso</em> información útil para ti, no un error.</li>
+  <li>El que pregunta tiene que escuchar de verdad la respuesta. Si la respuesta no le convence, que siga preguntando.</li>
+  <li>Sé constructivo/a. El objetivo no es dejar en ridículo a nadie, es que los dos salgáis de la fase entendiendo mejor un código que hace diez minutos ni siquiera habíais escrito vosotros mismos.</li>
+  <li>Después de unos 5 minutos preguntando el uno al otro, intercambiad los papeles.</li>
+</ul>
+:ET

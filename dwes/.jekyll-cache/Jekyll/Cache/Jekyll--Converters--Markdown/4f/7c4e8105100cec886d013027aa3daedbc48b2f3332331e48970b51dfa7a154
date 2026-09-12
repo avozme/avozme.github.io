@@ -1,0 +1,126 @@
+I"\<h2 class="no_toc" id="53-instalación-de-laravel">5.3. Instalación de Laravel</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#531-instalación-nativa-en-servidor-local" id="markdown-toc-531-instalación-nativa-en-servidor-local">5.3.1. Instalación nativa en servidor local</a></li>
+  <li><a href="#532-laravel-con-docker" id="markdown-toc-532-laravel-con-docker">5.3.2. Laravel con Docker</a></li>
+</ul>
+
+<p>En esta sección vamos a describir el proceso de instalación de Laravel en un servidor local para desarrollo.</p>
+
+<p>Como es loǵico, hay dos posibilidades:</p>
+
+<ol>
+  <li><strong>Usar un servidor local y configurarlo adecuadamente</strong> para que Laravel funcione.</li>
+  <li><strong>Usar un servidor virtualizado mediante</strong>.</li>
+</ol>
+
+<p>Docker es la solución de virtualización más utilizada acualmente, y la recomendada por Laravel.</p>
+
+<h3 id="531-instalación-nativa-en-servidor-local">5.3.1. Instalación nativa en servidor local</h3>
+
+<p><strong>No es recomendable instalar Laravel de forma nativa en tu servidor local</strong> porque requiere una fuerte configuración del servidor. Tendrás que instalar bastante librerías que consumirán recursos de tu máquina sin necesidad, tales como OpenSSL, Mbstring o Tokenizer.</p>
+
+<p>También necesitarás instalar composer, la herramienta de resolución de dependencias de PHP.</p>
+
+<p>Por todo ello, los desarrolladores de Laravel aconsejan <strong>virtualizar el servidor</strong>.</p>
+
+<p>Esto lo podemos hacer mediante <strong>Vagrant</strong> o <strong>Docker</strong>. Discutiremos estas dos opciones más adelante.</p>
+
+<p>Si, aún así, estás decidido a instalar Laravel de forma nativa en tu servidor local, sigue estos pasos:</p>
+
+<h4 id="paso-1"><strong>Paso 1</strong></h4>
+
+<p>Instala todo el software de servidor necesario para que Laravel funcione.</p>
+
+<p>Empieza por instalar <strong>composer</strong>, la herramienta de instalación de dependencias de PHP. Después, durante la instalación de Laravel, el propio composer se encargará de instalar el resto del software necesario. Si no puede instalar algo, ya te avisará para que lo hagas tú manualmente.</p>
+
+<h4 id="paso-2"><strong>Paso 2</strong></h4>
+
+<p>Descarga Laravel usando composer.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ composer global require "laravel/installer"
+</code></pre></div></div>
+
+<h4 id="paso-3"><strong>Paso 3</strong></h4>
+
+<p>Instala una copia de Laravel limpia y lista para usar (en un directorio accesible por Apache o el servidor web que estés usando, claro). Puede ser que tengas que añadir el comando <em>laravel</em> al PATH del sistema.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ laravel new &lt;nombre-aplicación&gt;
+</code></pre></div></div>
+
+<p>Por ejemplo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ laravel new blog
+</code></pre></div></div>
+
+<p>No olvides dar los permisos necesarios a tus archivos y directorios.</p>
+
+<h4 id="problemas-frecuentes">Problemas frecuentes</h4>
+
+<p>Lamentablemente, la lista de posibles problemas que pueden surgir durante una instalación nativa de Laravel son tantos y tan variados, dependiendo de la configuración de tu servidor, que sería imposible dar una lista exhaustiva.</p>
+
+<p>Te vuelvo a recordar que <em>los desarrolladores de Laravel desaconsejan instalarlo de este modo</em>, pero allá tú.</p>
+
+<p>Si sigues empeñado/a en hacerlo, puedes intentar seguir alguna de estas guías:</p>
+
+<ul>
+  <li>
+    <p><a href="https://technologyrss.com/how-to-install-and-configure-laravel-9-on-ubuntu-20-04/">Guía para instalar Laravel en localhost en Ubuntu Linux</a></p>
+  </li>
+  <li>
+    <p><a href="https://codingdriver.com/install-laravel-in-windows.html">Guía para instalar Laravel en localhost con Windows y XAMPP:</a></p>
+  </li>
+</ul>
+
+<h3 id="532-laravel-con-docker">5.3.2. Laravel con Docker</h3>
+
+<p><strong>Docker</strong>, como ya sabes, es una tecnología que solo virtualiza los servicios de software que nuestra aplicación necesita para funcionar en lugar de la máquina completa, como haría VirtualBox, por ejemplo.</p>
+
+<p>Los servicios virtualizados se agrupan en conjuntos llamados <strong><em>images</em></strong>. Cuando una <em>image</em> se instancia (como quien instancia una clase en programación orientada a objetos), pasan de denominarse <strong><em>containers</em></strong>.</p>
+
+<p>Laravel recomienda que todos los nuevos desarrollos. Y no solo eso, sino que desde Laravel 9 proporciona una herramienta llamada Sail, que permite desplegar un Laravel basado en Docker en cuestión de segundos.</p>
+
+<p>Los pasos necesarios para lograrlo son:</p>
+
+<h4 id="paso-1-1"><strong>Paso 1</strong></h4>
+
+<p>Asegúrate de tener instalado <strong><em>docker</em></strong> y <strong><em>docker-compose</em></strong> en tu ordenador (claro).</p>
+
+<p>Además, si trabajas con Windows, deberías instalar Docker Desktop y Windows Subsystem for Linux 2 (WSL2). Si trabajas con Linux, nada de esto es necesario, aunque Docker Desktop puede ser interesante.</p>
+
+<h4 id="paso-2-1"><strong>Paso 2</strong></h4>
+
+<p>Ahora vamos a <strong>instalar las imágenes Docker necesarias</strong>.</p>
+
+<p>Simplemente, ve a tu carpeta de trabajo y teclea este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ curl -s https://laravel.build/mi-app | bash
+</code></pre></div></div>
+
+<p>(Por supuesto, puedes cambiar “mi-app” por el nombre que tú quieras).</p>
+
+<p>La instalación de todas las imágenes necesarias puede tardar un poco.</p>
+
+<h4 id="paso-3-1"><strong>Paso 3</strong></h4>
+
+<p>Levanta tu servidor:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd mi-app (o el directorio que hayas elegido)
+$ ./vendor/bin/sail up
+</code></pre></div></div>
+
+<p>También puedes lanzarlo así:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sail up -d
+</code></pre></div></div>
+
+<p>¡Has terminado! El comando <code class="language-plaintext highlighter-rouge">sail up</code> levantará todos los contenedores Docker necesarios y pondrá en marcha tu Laravel basado en Docker.</p>
+
+<p>A partir de ahora, puedes acceder a tu aplicación tecleando <strong>http://localhost</strong> en tu navegador web.</p>
+
+<p>Cuando quieras detener tu servidor, solo pulsa CTRL+C o teclea:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sail stop
+</code></pre></div></div>
+
+:ET

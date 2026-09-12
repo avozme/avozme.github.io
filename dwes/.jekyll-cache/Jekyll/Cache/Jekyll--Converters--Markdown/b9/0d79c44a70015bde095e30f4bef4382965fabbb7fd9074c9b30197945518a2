@@ -1,0 +1,11 @@
+I"�<h1 id="1-herramientas-de-desarrollo-y-flujo-de-trabajo-profesional">1. Herramientas de desarrollo y flujo de trabajo profesional</h1>
+
+<p>En este tema vamos a sentar las bases del <strong>entorno de trabajo profesional</strong> que utilizaremos a lo largo de todo el curso. Es un entorno totalmente realista, similar al que puedes encontrarte en cualquier empresa del sector (aunque también puedes encontarte muchas otras cosas, claro).</p>
+
+<p>Antes de escribir una sola línea de código en el servidor, es imprescindible <strong>dominar las herramientas</strong> que garantizan la <em>trazabilidad, la portabilidad y la eficiencia</em> en el desarrollo web moderno, alejándonos de entornos locales rígidos y de malas prácticas de gestión de código.</p>
+
+<p>A lo largo de este tema, aprenderás a <strong>gestionar el control de versiones</strong> con <strong>Git y GitHub</strong> mediante flujos de trabajo basados en ramas y revisiones de código y a <strong>aislar tus servicios</strong> (como PHP, Python o MySQL) con contenedores <strong>Docker</strong>.</p>
+
+<p>Además, hablaremos de cómo integrar la <strong>Inteligencia Artificial</strong> como un asistente activo para la refactorización y creación de pruebas automatizadas, de forma que te ayude en tu aprendizaje en lugar de entorpecerlo. Estableceremos para ello un protocolo de entregas que valide el uso ético y la comprensión real del código desarrollado.</p>
+
+:ET

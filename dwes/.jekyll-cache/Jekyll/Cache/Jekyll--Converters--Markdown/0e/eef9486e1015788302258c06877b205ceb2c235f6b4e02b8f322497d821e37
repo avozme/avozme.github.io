@@ -1,0 +1,211 @@
+I"�Q<h2 class="no_toc" id="22-php-moderno">2.2. PHP moderno</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#221-diferencias-de-php-con-respecto-a-java" id="markdown-toc-221-diferencias-de-php-con-respecto-a-java">2.2.1. Diferencias de PHP con respecto a Java</a></li>
+  <li><a href="#222-tipado-estricto-en-php8-strict-types" id="markdown-toc-222-tipado-estricto-en-php8-strict-types">2.2.2. Tipado estricto en PHP8 (Strict Types)</a></li>
+  <li><a href="#223-programación-orientada-a-objetos-moderna-con-php" id="markdown-toc-223-programación-orientada-a-objetos-moderna-con-php">2.2.3. Programación orientada a objetos moderna con PHP</a></li>
+  <li><a href="#224-namespaces-espacios-de-nombres" id="markdown-toc-224-namespaces-espacios-de-nombres">2.2.4. Namespaces (Espacios de nombres)</a></li>
+  <li><a href="#225-composer-el-gestor-de-dependencias" id="markdown-toc-225-composer-el-gestor-de-dependencias">2.2.5. Composer: el gestor de dependencias</a></li>
+</ul>
+
+<p>Quizá hayas oído que PHP es un lenguaje desordenado, sin tipos y un poco caótico. Eso era cierto hace 15 años. Hoy en día, a partir de PHP 7 y sobre todo con <strong>PHP 8</strong>, el lenguaje se ha transformado en una herramienta robusta, orientada a objetos, con tipado estricto y un ecosistema profesional.</p>
+
+<p>Como ya sabes programar, no te contaremos qué es un <code class="language-plaintext highlighter-rouge">if</code> o cómo hacer un bucle <code class="language-plaintext highlighter-rouge">for</code> (funcionan exactamente en Java y en PHP). En la siguientes secciones vamos a ver cómo es PHP y que hace que el PHP moderno sea… eso, moderno.</p>
+
+<h3 id="221-diferencias-de-php-con-respecto-a-java">2.2.1. Diferencias de PHP con respecto a Java</h3>
+
+<p>Empecemos con lo básico. Si vienes de Java, esta es una buena forma de saber a que “huele” PHP.</p>
+
+<p>PHP y Java derivan de C++, así que su sintaxis es semejante (podríamos decir que son “primos”). Por eso, si sabes programar en Java, saltar a PHP es muy sencillo.</p>
+
+<p>Pero existen ciertas diferencias importantes. A continuación te resumo las principales:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>En Java…</th>
+      <th>En PHP…</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Las variables se declaran con un tipo (<code class="language-plaintext highlighter-rouge">String nombre;</code>)</td>
+      <td>Las variables empiezan siempre por <code class="language-plaintext highlighter-rouge">$</code> y, por defecto, no necesitan tipo (<code class="language-plaintext highlighter-rouge">$nombre</code>). PHP 8 te permite añadir tipos en parámetros, propiedades y retornos, y está fuertemente recomendado hacerlo en proyectos grandes. Si encabezas el programa con la línea <code class="language-plaintext highlighter-rouge">declare(strict_types=1)</code>, PHP te obligará a declarar los tipos.</td>
+    </tr>
+    <tr>
+      <td>Un programa tiene un método <code class="language-plaintext highlighter-rouge">public static void main()</code> como punto de entrada</td>
+      <td>Un script PHP se ejecuta de arriba abajo en cuanto se carga. No hay un “main”: el archivo <code class="language-plaintext highlighter-rouge">public/index.php</code> hace ese papel, como verás enseguida.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">package com.miapp.modelos;</code> y <code class="language-plaintext highlighter-rouge">import com.miapp.modelos.Articulo;</code></td>
+      <td><code class="language-plaintext highlighter-rouge">namespace App\Models;</code> y <code class="language-plaintext highlighter-rouge">use App\Models\Article;</code>. Es exactamente la misma idea, con otra sintaxis.</td>
+    </tr>
+    <tr>
+      <td>El <em>classpath</em> y Maven o Gradle resuelven qué archivo <code class="language-plaintext highlighter-rouge">.class</code> corresponde a cada clase</td>
+      <td><strong>Composer</strong> hace ese trabajo mediante el llamado autoload PSR-4: le dices “las clases del namespace <code class="language-plaintext highlighter-rouge">App\</code> están en la carpeta <code class="language-plaintext highlighter-rouge">src/</code>” y él se encarga de cargar el archivo correcto cuando lo necesites.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ArrayList&lt;String&gt;</code> para listas, <code class="language-plaintext highlighter-rouge">HashMap&lt;String, Object&gt;</code> para diccionarios</td>
+      <td>Un único tipo, el <strong>array</strong>, hace de las dos cosas. <code class="language-plaintext highlighter-rouge">$colores = ['rojo', 'verde'];</code> es una lista; <code class="language-plaintext highlighter-rouge">$persona = ['nombre' =&gt; 'Ana', 'edad' =&gt; 20];</code> es un diccionario (aquí lo llamamos <em>array asociativo</em>).</td>
+    </tr>
+    <tr>
+      <td>Los datos de una petición HTTP llegan en un objeto <code class="language-plaintext highlighter-rouge">HttpServletRequest</code>, con métodos como <code class="language-plaintext highlighter-rouge">request.getParameter("nombre")</code></td>
+      <td>PHP te los deja directamente en variables globales con forma de array asociativo, llamadas <strong>superglobales</strong>: <code class="language-plaintext highlighter-rouge">$_GET</code>, <code class="language-plaintext highlighter-rouge">$_POST</code>, <code class="language-plaintext highlighter-rouge">$_SESSION</code>, <code class="language-plaintext highlighter-rouge">$_SERVER</code>… Por ejemplo, <code class="language-plaintext highlighter-rouge">$_POST['title']</code> es el equivalente a <code class="language-plaintext highlighter-rouge">request.getParameter("title")</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>JDBC</strong>: <code class="language-plaintext highlighter-rouge">Connection</code>, <code class="language-plaintext highlighter-rouge">PreparedStatement</code>, <code class="language-plaintext highlighter-rouge">stmt.setString(1, valor)</code>, <code class="language-plaintext highlighter-rouge">stmt.executeQuery()</code></td>
+      <td><strong>PDO</strong> (<em>PHP Data Objects</em>): un objeto <code class="language-plaintext highlighter-rouge">PDO</code> es tu <code class="language-plaintext highlighter-rouge">Connection</code>, y <code class="language-plaintext highlighter-rouge">$pdo-&gt;prepare()</code> te da un objeto equivalente a <code class="language-plaintext highlighter-rouge">PreparedStatement</code>. La diferencia más cómoda: en vez de encadenar un <code class="language-plaintext highlighter-rouge">setXxx()</code> por cada parámetro, en PDO se los pasas todos juntos en un array a <code class="language-plaintext highlighter-rouge">execute()</code>.</td>
+    </tr>
+    <tr>
+      <td>Declaras un campo y luego lo asignas en el constructor (<code class="language-plaintext highlighter-rouge">this.titulo = titulo;</code>)</td>
+      <td>PHP 8 permite hacer las dos cosas en una sola línea, escribiendo el tipo de visibilidad delante del parámetro del constructor. Lo verás en la clase <code class="language-plaintext highlighter-rouge">Article</code>, y es una de las cosas que más se agradecen viniendo de Java.</td>
+    </tr>
+    <tr>
+      <td>El código se compila a bytecode antes de ejecutarse</td>
+      <td>PHP es un lenguaje interpretado: guardas el archivo <code class="language-plaintext highlighter-rouge">.php</code>, recargas la página en el navegador, y el servidor lo interpreta en ese mismo instante. No hay paso de compilación.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>IMPORTANTE:</strong> Para usar PHP en un entorno Web, el código PHP debe ir precedido de la marca <code class="language-plaintext highlighter-rouge">&lt;?php</code>. ¡Si no, el servidor web creerá que estás escribiendo HTML, aunque la extensión del archivo sea <code class="language-plaintext highlighter-rouge">.php</code>!</p>
+
+<p>Y si necesitas intercalar PHP con HTML en el mismo archivo (una mala práctica que a veces es inevitable), puedes cerrar PHP con <code class="language-plaintext highlighter-rouge">?&gt;</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- Esto es código HTML convencional --&gt;</span>
+<span class="nt">&lt;h1&gt;</span>Hola mundo<span class="nt">&lt;/h1&gt;</span>
+<span class="cp">&lt;?php</span>
+   <span class="c1">// A partir de aquí empieza PHP</span>
+   <span class="k">echo</span> <span class="s2">"&lt;p&gt;Esto lo ha generado PHP&lt;/p&gt;"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
+<span class="c">&lt;!-- Aquí ha terminado PHP y continúa HTML --&gt;</span>
+<span class="nt">&lt;p&gt;</span>Esto lo ha generado HTML<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<h3 id="222-tipado-estricto-en-php8-strict-types">2.2.2. Tipado estricto en PHP8 (Strict Types)</h3>
+
+<p>Por defecto, PHP es un lenguaje de tipado débil.</p>
+
+<p>Esto significa que, si sumas el número <code class="language-plaintext highlighter-rouge">5</code> a la cadena <code class="language-plaintext highlighter-rouge">"10"</code>, PHP se encoge de hombros, convierte la cadena en un número y te devuelve <code class="language-plaintext highlighter-rouge">15</code>.</p>
+
+<p>¡Pero en proyectos grandes, esta característica se convierte en una pesadilla de depuración!</p>
+
+<p>Para <strong>obligar a PHP a comportarse como un lenguaje de tipado fuerte</strong> (donde sumar un int y un string te lance un error), <strong>siempre</strong> debes poner esta línea al principio de todos tus archivos PHP, justo después de <code class="language-plaintext highlighter-rouge">&lt;?php</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="k">function</span> <span class="n">sumar</span><span class="p">(</span><span class="kt">int</span> <span class="nv">$a</span><span class="p">,</span> <span class="kt">int</span> <span class="nv">$b</span><span class="p">):</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$a</span> <span class="o">+</span> <span class="nv">$b</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">echo</span> <span class="nf">sumar</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>   <span class="c1">// Funciona: 15</span>
+<span class="k">echo</span> <span class="nf">sumar</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">"10"</span><span class="p">);</span> <span class="c1">// FATAL ERROR: TypeError</span>
+</code></pre></div></div>
+
+<p>Fíjate en la firma de la función: hemos definido el tipo de los parámetros (<code class="language-plaintext highlighter-rouge">int</code>) y el tipo del valor de retorno (<code class="language-plaintext highlighter-rouge">: int</code>). Acostúmbrate a hacerlo <strong>siempre</strong>.</p>
+
+<h4 id="union-types-y-nullable-types">Union Types y Nullable Types</h4>
+<p>En PHP 8 podemos decir que una variable puede ser de más de un tipo, o que puede ser nula (usando el símbolo <code class="language-plaintext highlighter-rouge">?</code>):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">buscarUsuario</span><span class="p">(</span><span class="kt">int</span> <span class="nv">$id</span><span class="p">):</span> <span class="kt">?string</span> <span class="p">{</span>
+    <span class="c1">// Retorna un string si lo encuentra, o null si no.</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="n">procesarDato</span><span class="p">(</span><span class="kt">int</span><span class="o">|</span><span class="n">string</span><span class="o">|</span><span class="n">float</span> <span class="nv">$dato</span><span class="p">):</span> <span class="kt">void</span> <span class="p">{</span>
+    <span class="c1">// $dato puede ser entero, cadena o decimal. "void" significa que no devuelve nada, como en Java.</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="223-programación-orientada-a-objetos-moderna-con-php">2.2.3. Programación orientada a objetos moderna con PHP</h3>
+
+<p>La POO en PHP es prácticamente idéntica a Java: usamos <code class="language-plaintext highlighter-rouge">class</code>, <code class="language-plaintext highlighter-rouge">interface</code>, herencia de clases e interfaces, <code class="language-plaintext highlighter-rouge">extends</code> para clases derivadas, etc.</p>
+
+<p>Una de las grandes mejoras de PHP 8 es la <strong>promoción de propiedades del constructor</strong> (Constructor Property Promotion). Antes, para crear una clase con atributos, tenías que escribir mucho código repetitivo. Ahora es así de limpio:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="kd">class</span> <span class="nc">Usuario</span> <span class="p">{</span>
+    <span class="c1">// PHP define automáticamente las propiedades privadas y las asigna en el constructor.</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span>
+        <span class="k">private</span> <span class="kt">int</span> <span class="nv">$id</span><span class="p">,</span>
+        <span class="k">private</span> <span class="kt">string</span> <span class="nv">$nombre</span><span class="p">,</span>
+        <span class="k">private</span> <span class="kt">string</span> <span class="nv">$email</span>
+    <span class="p">)</span> <span class="p">{}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">getNombre</span><span class="p">():</span> <span class="kt">string</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">nombre</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Usuario</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"Ana"</span><span class="p">,</span> <span class="s2">"ana@ejemplo.com"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Fíjate que cómodo es: PHP <em>definirá por ti</em> las propiedades privadas <code class="language-plaintext highlighter-rouge">$id</code>, <code class="language-plaintext highlighter-rouge">$nombre</code> y <code class="language-plaintext highlighter-rouge">$email</code> y las inicializará en el constructor.</p>
+
+<h3 id="224-namespaces-espacios-de-nombres">2.2.4. Namespaces (Espacios de nombres)</h3>
+
+<p>En un proyecto real pueden existir literalmente CIENTOS de clases. ¿Qué pasa si tú creas una clase llamada <code class="language-plaintext highlighter-rouge">Database</code> y descargas una librería que también tiene una clase llamada <code class="language-plaintext highlighter-rouge">Database</code>?</p>
+
+<p>Lo has adivinado: <strong>el código explota</strong>.</p>
+
+<p>Para evitarlo, se inventaron los <strong>Namespaces</strong>. Son como los “paquetes” (packages) de Java. Te permiten agrupar tus clases en carpetas lógicas.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Archivo: src/Controllers/UserController.php</span>
+<span class="kn">namespace</span> <span class="nn">App\Controllers</span><span class="p">;</span> <span class="c1">// Este es nuestro "paquete"</span>
+
+<span class="kn">use</span> <span class="nc">App\Models\User</span><span class="p">;</span> <span class="c1">// Importamos la clase User de otro namespace (equivalente a "import" en Java)</span>
+
+<span class="kd">class</span> <span class="nc">UserController</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">mostrar</span><span class="p">(</span><span class="kt">int</span> <span class="nv">$id</span><span class="p">):</span> <span class="kt">void</span> <span class="p">{</span>
+        <span class="nv">$usuario</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">User</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span> <span class="c1">// Instanciamos la clase importada</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="225-composer-el-gestor-de-dependencias">2.2.5. Composer: el gestor de dependencias</h3>
+
+<p>Si en Java tienes Maven o Gradle, y en Node.js tienes NPM, en PHP el gestor de dependencias indiscutible es <strong>Composer</strong>.</p>
+
+<p>Composer hace dos cosas fundamentales:</p>
+<ol>
+  <li><strong>Descargar librerías de terceros</strong> (desde <a href="https://packagist.org/">Packagist.org</a>) y mantenerlas actualizadas.</li>
+  <li><strong>Autoloading (Carga automática de clases)</strong>: Olvídate de escribir <code class="language-plaintext highlighter-rouge">require</code> o <code class="language-plaintext highlighter-rouge">include</code> en cada archivo, Composer se encarga por ti.</li>
+</ol>
+
+<p>Para iniciar un proyecto con Composer, abres la terminal en tu carpeta y escribes:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer init
+</code></pre></div></div>
+<p>Esto te generará un archivo <code class="language-plaintext highlighter-rouge">composer.json</code>. Ahí se configura el Autoloading para que Composer pueda localizar y cargar automáticamente las clases.</p>
+
+<p>Por ejemplo,  que básicamente le dice a PHP: <em>“Oye, cuando veas que uso una clase del namespace <code class="language-plaintext highlighter-rouge">App\</code>, búscalo en la carpeta <code class="language-plaintext highlighter-rouge">src/</code>“</em>.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"autoload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"psr-4"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"App\\"</span><span class="p">:</span><span class="w"> </span><span class="s2">"src/"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="nl">"require"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+       </span><span class="nl">"monolog/monolog"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^3.0"</span><span class="w">
+    </span><span class="p">}</span><span class="w">    
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<ul>
+  <li>En la parte “autoload” se indican las clases de nuestro propio proyecto que queremos que se autocarguen (Lo de “psr-4” es un estándar de autoloading y hay que ponerlo siempre como lo ves aquí).</li>
+  <li>En la parte “require” sin indican librerías de terceros que queremos que Composer busque y descargue. Al poner “^3.0” decimos que queremos la verión 3.0 de la librería “monolog” o una versión superior.</li>
+</ul>
+
+<p>Después, ejecutas <code class="language-plaintext highlighter-rouge">composer dump-autoload</code>, y en tu archivo <code class="language-plaintext highlighter-rouge">index.php</code> principal (tu Front Controller) solo tienes que poner una línea:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="k">__DIR__</span> <span class="mf">.</span> <span class="s1">'/vendor/autoload.php'</span><span class="p">;</span>
+
+<span class="c1">// ¡A partir de aquí, puedes usar cualquier clase de tu proyecto sin hacer más includes!</span>
+<span class="c1">// Por ejemplo:</span>
+<span class="nv">$app</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">App\Controllers\HomeController</span><span class="p">();</span>
+</code></pre></div></div>
+
+:ET

@@ -1,0 +1,168 @@
+I"�3<h2 id="83-python">8.3. Python</h2>
+
+<h3 id="831-características-del-lenguaje-python">8.3.1. Características del lenguaje Python</h3>
+
+<p>Fecha de aparición: 1991</p>
+
+<p>Perspectivas:</p>
+
+<ul>
+  <li>Uso creciente.</li>
+  <li>Es el sustituto natural de Perl para el desarrollo rápido de scripts.</li>
+  <li>También usado en grandes proyectos como alternativa a PHP.</li>
+  <li>Menos extendido que PHP, pero comunidad con muchos desarrolladores profesionales (mejor relación señal/ruido)</li>
+  <li>Muchas bibliotecas de terceros → flexibilidad</li>
+</ul>
+
+<p>Filosofía:</p>
+
+<ul>
+  <li>Es la versión “limpia” de Perl. Pensado para escribir scripts de forma rápida y limpia.</li>
+  <li>Énfasis en la legibilidad: Python es casi pseudocódigo (código “pythonico” → v. “El Zen de Python”)</li>
+  <li>Interpretado. Tipado dinámico. Fuertemente tipado.</li>
+  <li>Expresiones regulares heredadas de Perl.</li>
+  <li>Multiparadigma: imperativo, O.O., funcional.</li>
+</ul>
+
+<h3 id="832-configuración-necesaria-en-el-servidor">8.3.2. Configuración necesaria en el servidor</h3>
+
+<p>Para hacer funcionar Python en un servidor Apache o similar, es necesario:</p>
+
+<ol>
+  <li>Instalar el intérprete Python (/usr/bin/python). El más extendido es CPhyton.</li>
+  <li>Activar los módulos python y/o cgi de Apache y configurar el handler de Apache para CGI.</li>
+  <li>Instalar módulos adicionales (p. ej: para acceso a bases de datos) si es necesario.</li>
+</ol>
+
+<p>Python puede funcionar de forma nativa integrado en Apache o a través de CGI. Lo primero es más rápido; lo segundo, más frecuente.</p>
+
+<h3 id="833-sintaxis-básica-de-python">8.3.3. Sintaxis básica de Python</h3>
+
+<p>Las variables en Python no se declaran obligatoriamente: tienen tipado dinámico y son locales por defecto.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">varariable</span> <span class="o">=</span> <span class="n">valor</span><span class="p">;</span>
+<span class="k">print</span> <span class="s">"La variable var vale %s"</span> <span class="p">(</span><span class="n">variable</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>En Python hay muchos tipos de datos complejos predefinidos: listas, tuplas, diccionarios…</p>
+
+<p>Algunos operadores son:</p>
+
+<ul>
+  <li>Comparación: &lt;, &gt;, &lt;=, &gt;=, ==, !=</li>
+  <li>Asignación: =</li>
+</ul>
+
+<p>Y estas son algunas estructuras de control. <strong>¡Cuidado! ¡El código debe indentarse OBLIGATORIAMENTE!</strong> No existen las llaves ({ y }) en Python. ¡La indentación (o sangrado) marca los bloques!</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> <span class="n">condicion</span><span class="p">:</span>
+  <span class="n">Acciones</span>
+
+<span class="k">if</span> <span class="n">condicion</span><span class="p">:</span>
+  <span class="n">Acciones</span><span class="o">-</span><span class="mi">1</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="n">Acciones</span><span class="o">-</span><span class="mi">2</span>
+</code></pre></div></div>
+
+<h3 id="834-entrada--salida">8.3.4. Entrada / Salida</h3>
+
+<p>La entrada de datos por teclado puede hacerse con raw_input():</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">variable</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">"Texto"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Pero a nosotros nos interesa hacer entrada de datos a través de un formulario HTML. Esto se hace así:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">cgi</span>
+<span class="n">form</span> <span class="o">=</span> <span class="n">cgi</span><span class="p">.</span><span class="n">FieldStorage</span><span class="p">()</span>
+<span class="n">campo</span> <span class="o">=</span> <span class="n">form</span><span class="p">[</span><span class="s">"campo"</span><span class="p">].</span><span class="n">value</span>
+</code></pre></div></div>
+
+<p>En cuanto a la salida de datos, se usa <strong><em>print</em></strong> con cadenas de formato, seguida de una lista de variables. Cada elemento de la cadena de formato marcado con un % se sustituirá por una variable de la lista, en el mismo orden en el que estén escritas. Por ejemplo:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span> <span class="s">"cadena %s cadena %s ..."</span> <span class="p">(</span><span class="n">variable1</span><span class="p">,</span> <span class="n">variable2</span><span class="p">)</span> 
+</code></pre></div></div>
+
+<p>El símbolo %s significa que en esa posición irá un String. Otras posibilidades son %d (enteros) o %f (float). Esta forma de especificar las cadenas de formato está directamente tomada del lenguaje C.</p>
+
+<p>En Python existen muchas otras formas de hacer una salida de datos, pero <strong><em>print</em></strong> es lo suficientemente potente como para que puedas utilizarla para cualquier cosa imaginable en una aplicación web.</p>
+
+<h3 id="835-bibliotecas-funciones-y-clases">8.3.5. Bibliotecas, funciones y clases</h3>
+
+<p>En Python hay tres niveles de agrupación de bibliotecas:</p>
+
+<ul>
+  <li>Módulos: un módulo es un fichero con código Python en su interior. Puede ser una clase o un puñado de funciones sueltas, por ejemplo.</li>
+  <li>Paquetes (<em>packages</em>): un paquete es un directorio que contiene varios módulos. También puede contener subpaquetes. Los paquetes se instalan y desinstalan con un gestor de paquetes (como <em>pip</em>, que viene a ser como <em>composer</em> en PHP).</li>
+  <li>Bibliotecas (<em>libraries</em>): una biblioteca es cualquier fragmento de código reutilizable que se puede incluir en otros proyectos. Las bibliotecas pueden ser paquetes o no. Existe una <em>Python Standard Library</em> que contiene todas las funciones básicas de Python y viene preinstalada con el <em>core</em> del lenguaje.</li>
+</ul>
+
+<p>Podemos incluir una librería en nuestro proyecto Python usando la palabra <em>import</em>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">mi</span><span class="o">-</span><span class="n">librería</span>
+</code></pre></div></div>
+
+<p>Como hemos dicho, dentro de cada módulo puede haber clases o subrutinas sueltas. Una subrutina (procedimiento o función) se declara así en Python (observa de nuevo como la indentación o sangrado es fundamental porque marca el comienzo y final de los bloques de código):</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">mi</span><span class="o">-</span><span class="n">funcion</span><span class="p">(</span><span class="n">param1</span><span class="p">,</span> <span class="n">param2</span><span class="p">,</span> <span class="n">etc</span><span class="p">):</span>
+    <span class="c1"># Aquí va el código de la función
+</span>    <span class="p">[</span><span class="k">return</span> <span class="n">valor1</span><span class="p">,</span> <span class="n">varlor2</span><span class="p">...]</span>
+</code></pre></div></div>
+
+<p>En cuanto a las clases, la sintaxis para declararlas y muy similar a PHP, Java o C++ (recordando que, en Python, no se usan las llaves sino la indentación):</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
+    
+    <span class="n">un_atributo</span> <span class="o">=</span> <span class="n">valor</span>
+    <span class="n">otro_atributo</span> <span class="o">=</span> <span class="n">valor</span>
+
+    <span class="c1"># Esto es un constructor
+</span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">un_atributo</span> <span class="o">=</span> <span class="mi">0</span>
+ 
+
+    <span class="k">def</span> <span class="nf">un_metodo</span><span class="p">(</span><span class="n">parámetros</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">lo_que_sea</span>
+</code></pre></div></div>
+
+<h3 id="836-ejemplo-1-en-python-hola-mundo">8.3.6. Ejemplo 1 en Python: Hola mundo</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/python
+</span><span class="k">print</span> <span class="s">"Content-type: text/html</span><span class="se">\n\n</span><span class="s">"</span>
+<span class="k">print</span> <span class="s">"&lt;html&gt;&lt;body&gt;"</span>
+<span class="k">print</span> <span class="s">"&lt;h1&gt;Hola, mundo&lt;/h1&gt;"</span>
+<span class="k">print</span> <span class="s">"&lt;/body&gt;&lt;/html&gt;"</span>
+</code></pre></div></div>
+
+<h3 id="837-ejemplo-2-en-python-login-con-comprobación-de-email-por-ajax">8.3.7. Ejemplo 2 en Python: login con comprobación de email por Ajax</h3>
+
+<p>Repetimos ahora el ejemplo del login con comprobación de usuario y contraseña mediante Ajax, pero no mostraremos de nuevo el código del formulario ni de la llamada Ajax. Para ver ese código, revisa la sección que dedicamos al lenguaje Perl. Allí solo tendrás que cambiar el nombre del script (login.pl) por login.py.</p>
+
+<p>El código de ese script sí que cambia, claro. Esta es la versión del mismo escrita en Python:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/python
+</span>
+<span class="kn">import</span> <span class="nn">cgi</span>
+<span class="kn">import</span> <span class="nn">MySQLdb</span> 
+
+<span class="c1"># Capturamos los valores del formulario
+</span><span class="n">form</span> <span class="o">=</span> <span class="n">cgi</span><span class="p">.</span><span class="n">FieldStorage</span><span class="p">()</span>
+<span class="n">usuario</span> <span class="o">=</span> <span class="n">form</span><span class="p">[</span><span class="s">"username"</span><span class="p">].</span><span class="n">value</span><span class="p">;</span>
+<span class="n">password</span> <span class="o">=</span> <span class="n">form</span><span class="p">[</span><span class="s">"password"</span><span class="p">].</span><span class="n">value</span><span class="p">;</span>
+
+<span class="k">print</span> <span class="s">"Usuario = "</span><span class="p">,</span> <span class="n">usuario</span><span class="p">,</span> <span class="s">" Pass = "</span><span class="p">,</span> <span class="n">password</span>
+
+<span class="c1"># Lanzamos la consulta contra la base de datos
+</span><span class="n">db</span><span class="o">=</span><span class="n">MySQLdb</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s">'localhost'</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s">'yo-que-sé'</span><span class="p">,</span> <span class="n">passwd</span><span class="o">=</span><span class="s">'vete-a-saber'</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="s">'lo-que-sea'</span><span class="p">)</span>
+<span class="n">cursor</span><span class="o">=</span><span class="n">db</span><span class="p">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="n">num_rows</span> <span class="o">=</span> <span class="n">cursor</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="s">"SELECT id FROM users WHERE username = '%s' AND password = '%s';"</span><span class="p">,</span> <span class="p">(</span><span class="n">usuario</span><span class="p">,</span> <span class="n">password</span><span class="p">))</span>
+<span class="n">userid</span> <span class="o">=</span> <span class="n">cursor</span><span class="p">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+<span class="c1"># Devolvemos el resultado en JSON
+</span><span class="k">print</span> <span class="s">"Content-type: application/json</span><span class="se">\n</span><span class="s">"</span>
+<span class="k">if</span> <span class="n">num_rows</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+   <span class="k">print</span> <span class="s">"{'error': 'Usuario o contraseña incorrectos'}"</span>
+<span class="k">else</span><span class="p">:</span>
+   <span class="k">print</span> <span class="s">"{'success': 'El usuario y la contraseña son válidos', 'userid': '%d'"</span><span class="p">,</span> <span class="n">userid</span>
+</code></pre></div></div>
+:ET
