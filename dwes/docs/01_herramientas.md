@@ -1,7 +1,7 @@
 ---
 layout: page
-title: 1 Herramientas de desarrollo y flujo de trabajo profesional
-permalink: /herramientas-desarrollo-flujo-trabajo/
+title: 1 Herramientas de desarrollo web
+permalink: /herramientas-desarrollo-web/
 nav_order: 1
 has_children: true
 parent: Desarrollo Web en Entorno Servidor

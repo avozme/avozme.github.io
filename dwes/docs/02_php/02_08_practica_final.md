@@ -173,9 +173,20 @@ Tareas:
 * Debe funcionar para cualquier controlador y cualquier id, no solo para publicaciones.
 * Pista: vas a necesitar expresiones regulares para "trocear" la URL en sus partes (controlador, acción, parámetro) y un archivo `.htaccess` parecido al que ya usaste en el apartado 2.7 para que todas las peticiones lleguen a tu `index.php`.
 
+### PASO 8. Plan de pruebas con IA
+
+PHP permite automatizar el proceso de *testing* con PHPUnit, pero su instalación y aplicación excede a los propósitos de esta introducción.
+
+Vamos a hacer un ***testing* validado manualmente** a partir de una lista de casos de prueba.
+
+Añade al proyecto un archivo llamado `TESTING.md` en formato Markdown donde:
+
+* Generes con ayuda de IA una lista de casos de prueba ("¿qué debería pasar si...?") para las funcionalidades principales. Por ejemplo, puedes pedirle a la IA algo como: "Genera 10 casos de prueba para un sistema de posts y comentarios: incluye casos normales, casos límite y casos de error. Formatéalo con viñetas, y en cada elemento de la lista especifica con qué se hace y cómo debería responder la aplicación".
+* Ejecuta manualmente cada caso en tu aplicación y anota en el documento `TESTING.md` si tu programa pasó la prueba o falló.
+
 ### Entrega de la práctica
 
-* Comprime todo el código fuente y súbelo a Moodle Centros dentro del plazo indicado por el profesor.
+* Comprime todo el código fuente, incluyendo `TESTING.md`, y súbelo a Moodle Centros dentro del plazo indicado por el profesor.
 * Graba un vídeo en el que muestres la aplicación funcionando y donde se vea, en este orden, cómo funciona lo siguiente:
   * La autenticación de usuarios (registro y login)
   * El CRUD de publicaciones (crear, listar, editar, borrar)
@@ -183,7 +194,7 @@ Tareas:
   * Publicación de comentarios
   * Búsqueda de publicaciones
   Sube el vídeo a Moodle Centros junto con tu código fuente.
-* Sube también el link a tu repositorio GitHub o GitLab con el códgo del proyecto.
+* Sube también el link a tu repositorio GitHub o GitLab con el código del proyecto.
 * El proyecto debe ser reproducible nada más descargarlo en otro equipo sin más que lanzar el comando `docker compose up -d`
 * Recuerda que puedes tener que hacer una defensa oral parcial y/o responder a preguntas sobre tu código en un examen escrito SIN IA. Asegúrate de ENTENDER (no memorizar) todo el código que has entregado.
 
@@ -211,7 +222,9 @@ La nota final será la suma de todos los ítems, convertida sobre 10.
 | 8 | **Buscador / filtrado de publicaciones** | No implementado | Implementado pero poco fiable (falla con ciertos términos, no usa sentencias preparadas, resultados incorrectos) | Filtra correctamente por título o categoría, con sentencias preparadas | Además, combina bien varios criterios de búsqueda o mejora la experiencia de uso (por ejemplo, mantiene el término buscado en el formulario) |
 | 9 | **Seguridad transversal** (sentencias preparadas, `htmlspecialchars()`, CSRF) | Hay consultas construidas por concatenación, o no se escapa la salida en las vistas, o no hay token CSRF en ningún formulario | Se aplica de forma parcial: algunas consultas o vistas están protegidas y otras no | Todas las consultas usan sentencias preparadas, toda salida a HTML pasa por `htmlspecialchars()`, y todos los formularios de modificación llevan y comprueban el token CSRF | Además, demuestra haber pensado en algún caso límite extra de seguridad no explícitamente pedido en el enunciado |
 | 10 | **Calidad y organización del código** | Código desordenado, nombres poco claros, duplicación evidente entre archivos | Es legible pero con inconsistencias (mezcla de estilos, nombres poco descriptivos en partes del proyecto) | Nombres claros y consistentes, sin duplicación relevante, código legible de principio a fin | Además, el código está especialmente bien comentado o estructurado donde de verdad aporta valor (sin comentarios superfluos) |
-| 11 | **Defensa oral del código** (preguntas en vivo, sin IA) | No sabe explicar decisiones básicas de su propio código | Explica algunas partes, pero con inseguridad o errores conceptuales relevantes | Explica con soltura las decisiones principales de su código y responde bien a preguntas no anticipadas | Además, es capaz de razonar alternativas ("también podría haberlo hecho así, pero elegí esto porque...") |
+| 11 | **Testing** | No entrega el documento de testing | Entrega el documento pero no respeta el formato especificado o no realiza las pruebas sobre la aplicación | Entrega el documento y realiza las pruebas sobre la aplicación, pero las pruebas son pocas o no figuran tests importantes | Entrega el documento, realiza las pruebas sobre la aplicación y no se deja ninguna prueba importante |
+| 12 | **Control de versiones** | No usa Git/GitHub/GitLab o no entrega la dirección del repositorio público | Usa Git pero apenas hace commits a lo largo de todo el desarrollo | Usa Git y hace commits con frecuencia, pero con nombres irrelevantes o confusos | Usa Git de forma adecuada para permitir un correcto seguimiento del proyecto y la resolución de problemas si fuera necesario |
+| 13 | **Defensa oral del código** (preguntas en vivo, sin IA) | No sabe explicar decisiones básicas de su propio código | Explica algunas partes, pero con inseguridad o errores conceptuales relevantes | Explica con soltura las decisiones principales de su código y responde bien a preguntas no anticipadas | Además, es capaz de razonar alternativas ("también podría haberlo hecho así, pero elegí esto porque...") |
 
 #### Ampliación de nota: rutas limpias (apartado 2.8.8)
 
