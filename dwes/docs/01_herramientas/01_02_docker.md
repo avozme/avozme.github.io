@@ -4,7 +4,7 @@ title: 1.2 Contenedores con Docker
 permalink: /docker/
 nav_order: 2
 has_children: false
-parent: 1 Herramientas de desarrollo y flujo de trabajo profesional
+parent: 1 Herramientas de desarrollo web
 grand_parent: Desarrollo Web en Entorno Servidor
 ---
 
