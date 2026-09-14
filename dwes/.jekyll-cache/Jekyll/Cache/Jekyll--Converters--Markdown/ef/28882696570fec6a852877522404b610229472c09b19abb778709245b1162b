@@ -1,4 +1,4 @@
-I"�Q<h2 class="no_toc" id="22-php-moderno">2.2. PHP moderno</h2>
+I"\X<h2 class="no_toc" id="22-php-moderno">2.2. PHP moderno</h2>
 
 <ul id="markdown-toc">
   <li><a href="#221-diferencias-de-php-con-respecto-a-java" id="markdown-toc-221-diferencias-de-php-con-respecto-a-java">2.2.1. Diferencias de PHP con respecto a Java</a></li>
@@ -83,26 +83,38 @@
 
 <h3 id="222-tipado-estricto-en-php8-strict-types">2.2.2. Tipado estricto en PHP8 (Strict Types)</h3>
 
-<p>Por defecto, PHP es un lenguaje de tipado débil.</p>
+<p>PHP es un lenguaje de <strong>tipado débil</strong>.</p>
 
-<p>Esto significa que, si sumas el número <code class="language-plaintext highlighter-rouge">5</code> a la cadena <code class="language-plaintext highlighter-rouge">"10"</code>, PHP se encoge de hombros, convierte la cadena en un número y te devuelve <code class="language-plaintext highlighter-rouge">15</code>.</p>
+<p>Esto significa que, si sumas el número <code class="language-plaintext highlighter-rouge">5</code> a la cadena <code class="language-plaintext highlighter-rouge">"10"</code>, PHP no ve ningún problema: convierte la cadena en un número y te devuelve <code class="language-plaintext highlighter-rouge">15</code>, cuando Java te hubiera mandado a freír espárragos.</p>
 
-<p>¡Pero en proyectos grandes, esta característica se convierte en una pesadilla de depuración!</p>
+<p>Esta flexibilidad puede parecer una ventaja, ¡pero en proyectos grandes puede convertirse en una pesadilla para la depuración!</p>
 
-<p>Para <strong>obligar a PHP a comportarse como un lenguaje de tipado fuerte</strong> (donde sumar un int y un string te lance un error), <strong>siempre</strong> debes poner esta línea al principio de todos tus archivos PHP, justo después de <code class="language-plaintext highlighter-rouge">&lt;?php</code>:</p>
+<p>En PHP moderno existe la opción de activar el tipado estricto con <code class="language-plaintext highlighter-rouge">declare(strict_types=1)</code>. Ojo, que <strong>esto no convierte milagrosamente a PHP en un lenguaje con tipos fuertes</strong> como Java o C++. Solo afecta al paso de parámetros a funciones y la devolución de resultados con <code class="language-plaintext highlighter-rouge">return</code>. En el resto de operaciones, PHP seguirá usando su tipado débil de toda la vida:</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
-<span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+<span class="c1">// *** PHP ClÁSICO CON TIPADO DÉBIL ***</span>
 
-<span class="k">function</span> <span class="n">sumar</span><span class="p">(</span><span class="kt">int</span> <span class="nv">$a</span><span class="p">,</span> <span class="kt">int</span> <span class="nv">$b</span><span class="p">):</span> <span class="kt">int</span> <span class="p">{</span>
+<span class="c1">// No se declaran los tipos de los argumentos ni el de retorno</span>
+<span class="k">function</span> <span class="n">sumar_clasico</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nv">$a</span> <span class="o">+</span> <span class="nv">$b</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">echo</span> <span class="nf">sumar</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>   <span class="c1">// Funciona: 15</span>
-<span class="k">echo</span> <span class="nf">sumar</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">"10"</span><span class="p">);</span> <span class="c1">// FATAL ERROR: TypeError</span>
+<span class="k">echo</span> <span class="nf">sumar_clasico</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>   <span class="c1">// Funciona y devuelve 15</span>
+<span class="k">echo</span> <span class="nf">sumar_clasico</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">"10"</span><span class="p">);</span> <span class="c1">// También funciona y devuelve 15</span>
+
+<span class="c1">// *** PHP MODERNO CON TIPADO ESTRICTO ***</span>
+<span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="c1">// Obligatorio declarar los tipos de los argumentos y el de retorno</span>
+<span class="k">function</span> <span class="n">sumar_moderno</span><span class="p">(</span><span class="kt">int</span> <span class="nv">$a</span><span class="p">,</span> <span class="kt">int</span> <span class="nv">$b</span><span class="p">):</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$a</span> <span class="o">+</span> <span class="nv">$b</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">echo</span> <span class="nf">sumar_moderno</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>   <span class="c1">// Funciona y devuelve 15</span>
+<span class="k">echo</span> <span class="nf">sumar_moderno</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">"10"</span><span class="p">);</span> <span class="c1">// FATAL ERROR: TypeError</span>
 </code></pre></div></div>
 
-<p>Fíjate en la firma de la función: hemos definido el tipo de los parámetros (<code class="language-plaintext highlighter-rouge">int</code>) y el tipo del valor de retorno (<code class="language-plaintext highlighter-rouge">: int</code>). Acostúmbrate a hacerlo <strong>siempre</strong>.</p>
+<p>Fíjate en la firma de la función <code class="language-plaintext highlighter-rouge">sumar_moderno()</code>: hemos definido el tipo de los parámetros (<code class="language-plaintext highlighter-rouge">int</code>) y el tipo del valor de retorno (<code class="language-plaintext highlighter-rouge">: int</code>). Acostúmbrate a hacerlo así <strong>siempre</strong>, aunque verás mucho código clásico que no lo hace.</p>
 
 <h4 id="union-types-y-nullable-types">Union Types y Nullable Types</h4>
 <p>En PHP 8 podemos decir que una variable puede ser de más de un tipo, o que puede ser nula (usando el símbolo <code class="language-plaintext highlighter-rouge">?</code>):</p>

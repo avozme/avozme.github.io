@@ -1,4 +1,4 @@
-I"��<h2 class="no_toc" id="11-control-de-versiones-con-git">1.1. Control de versiones con Git</h2>
+I"��<h2 class="no_toc" id="11-control-de-versiones-con-git">1.1. Control de versiones con Git</h2>
 
 <ul id="markdown-toc">
   <li><a href="#111-sistemas-de-control-de-versiones" id="markdown-toc-111-sistemas-de-control-de-versiones">1.1.1. Sistemas de control de versiones</a></li>
@@ -300,19 +300,21 @@
 
 <p>La mayoría de las veces es un problema puntual que puede resolverse de un modo muy simple: volviendo a la última versión estable.</p>
 
-<p>En primer lugar, si lo que quieres es revertir cambios de los que <strong>aún no has hecho commit</strong>, es tan fácil como:</p>
+<p>En primer lugar, si lo que quieres es revertir cambios de los que <strong>ya has hecho commit</strong>, es tan fácil como:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git reset --hard
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git reset <span class="nt">--hard</span> id_del_commit
 </code></pre></div></div>
 
-<p>Pero, la mayor parte de las veces, el problema viene de cambios de los que no solo ya se ha hecho commit, sino que incluso se han subido al repositorio remoto. ¿Cómo descartamos esos cambios para volver a un estado anterior?</p>
+<p>¡Cuidado, porque <em>todos los commits que hayas hecho hasta el commit al que retrocedas se perderán</em>! <strong>Usa reser –hard solo como último recurso desesperado</strong>.</p>
+
+<p>La mayor parte de las veces no necesitamos ser tan radicales y podemos descartar solo parte de los cambios, no eliminar commits enteros. ¿Cómo descartamos esos cambios para volver a un estado anterior de forma menos abrupta?</p>
 
 <p>En primer lugar, si aún no lo has hecho, ejecuta un <strong>git pull</strong> para traerte la última versión del código a tu repositorio local.</p>
 
 <p>Luego, utiliza el comando <strong>git log</strong>:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git log (muestra historial de cambios)
-$ git log --oneline (muestra historial de cambios simplificado)
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git log <span class="o">(</span>muestra historial de cambios<span class="o">)</span>
+<span class="nv">$ </span>git log <span class="nt">--oneline</span> <span class="o">(</span>muestra historial de cambios simplificado<span class="o">)</span>
 </code></pre></div></div>
 
 <p>Con esto obtendrás una lista, ordenada por cronología inversa (de más reciente a más antiguo), de todos los commits que has hecho en el repositorio. Observa que cada commit está identificado con un id único en hexadecimal. Cada id de commit está acompañado de su descripción.</p>
@@ -328,21 +330,34 @@ $ git log --oneline (muestra historial de cambios simplificado)
 
 <p>Ahora bastará con hacer <strong>git push</strong> para subir el nuevo commit al repositorio remoto y que todos los miembros del equipo puedan replicarlo en sus máquinas.</p>
 
-<p>Es posible que, en el proceso, hayáis perdido algo de código valioso: todo depende de cuánto hayáis tenido que retroceder en el historial de commits hasta alcanzar un estado válido. Pero ese código en realidad no se ha perdido, porque los commits siguen ahí, en el historial de Git.</p>
+<p>Es posible que, en el proceso, hayáis perdido algo de código valioso: todo depende de cuánto hayáis tenido que retroceder en el historial de commits hasta alcanzar un estado válido. Pero ese código en realidad no se ha perdido, porque los commits siguen ahí, en el historial de Git. En cambio, si usas <strong>git reset –hard</strong>, el código sí que se perderá.</p>
 
 <p>Existe una forma de poner el repositorio local en un commit concreto, sin crear ningún commit nuevo, solo para echar un vistazo. Si lo haces y abres cualquier archivo fuente, lo encontrarás como estaba en ese commit, no como está en el último. ¿No es maravilloso? Así, podrás recuperar manualmente el código que pudiera haberse perdido al hacer el <em>git revert</em>.</p>
 
-<p>El comando clásico que te permite saltar momentáneamente a cualquier commit es <strong>git checkout</strong>:</p>
+<p>El comando clásico que te permite saltar momentáneamente a cualquier commit es <strong>git checkout</strong>, y el moderno es <strong>git switch</strong>:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git checkout id-del-commit
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git checkout id-del-commit
+<span class="nv">$ </span>git switch <span class="nt">--detach</span> id-del-commit
 </code></pre></div></div>
 
-<p>Y, para regresar al presente, es decir, al último commit de tu rama principal, basta con teclear:</p>
+<p>Así “viajarás en el tiempo” para ver el código fuente como era en ese momento, pero no podrás cambiarlo, porque ese commit ya pertenece al pasado.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git checkout main
+<p>Para regresar al presente, es decir, al último commit de tu rama principal, puedes hacerlo también de dos formas:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git checkout main   <span class="c"># Forma tradicional</span>
+<span class="nv">$ </span>git switch main     <span class="c"># Forma moderna</span>
 </code></pre></div></div>
 
-<p>Un apunte para que no te líes: en versiones modernas de Git (2.23 en adelante) se introdujeron los comandos <strong>git switch</strong> (para cambiar de rama) y <strong>git restore</strong> (para descartar cambios en archivos concretos), pensados para ser más claros que el “todoterreno” <code class="language-plaintext highlighter-rouge">git checkout</code>, que hacía un poco de todo y por eso mismo confundía a más de uno. Verás las dos formas en la documentación y en el trabajo real, así que conviene que conozcas ambas, aunque para el día a día <code class="language-plaintext highlighter-rouge">git switch nombre-rama</code> es más legible que <code class="language-plaintext highlighter-rouge">git checkout nombre-rama</code>.</p>
+<p><strong>git switch</strong> solo está disponible en versiones modernas de Git (2.23 en adelante) porque <strong>git checkout</strong> hacía demasiadas cosas diferentes. En la práctica, ambos comandos siguen funcionando y también se pueden usar para saltar de rama, no de commit:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git checkout <span class="nt">-b</span> otra-rama   <span class="c"># Forma tradicional</span>
+<span class="nv">$ </span>git switch otra-rama        <span class="c"># Forma moderna</span>
+</code></pre></div></div>
+
+<p>Junto con <strong>git switch</strong>, también se introdujo el comando <strong>git restore</strong> para descartar cambios en archivos concretos (siempre que no estén ya en un commit).</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git restore archivo.txt   <span class="c"># Descarta cambios del archivo.txt</span>
+</code></pre></div></div>
 
 <p>Ahora puedes ver y rescatar el código fuente válido sin temor: nada de lo que hagas en este estado afectará a tu proyecto, porque los cambios se perderán cuando salgas de este “viaje en el tiempo” (salvo que crees una nueva rama desde ese punto, pero de ramas hablamos ahora mismo).</p>
 

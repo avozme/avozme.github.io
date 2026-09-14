@@ -48,51 +48,83 @@ Si se definen variables fuera de una función, serán **globales** a todo el fic
 
 El **identificador** de variable siempre debe empezar por $. Esta es una peculiaridad de PHP que al principio descoloca un poco.
 
-En PHP moderno, **el tipado fuerte es la norma**. Aunque históricamente PHP era muy permisivo, hoy en día se recomienda activar el modo de tipado estricto al principio de cada archivo:
+Como hemos visto en la sección anterior, en PHP moderno **el tipado estricto es la norma**. Aunque históricamente PHP era muy permisivo, hoy en día se recomienda activar el modo de tipado estricto al principio de cada archivo:
 
 ```php
 declare(strict_types=1);
 ```
 
-Esto obliga a que los tipos coincidan exactamente, evitando errores difíciles de encontrar. Al inicializar variables en el código general, PHP deduce el tipo, pero en clases y funciones (como veremos más adelante) **siempre indicaremos el tipo explícitamente**.
+Esto obliga a que los tipos de los **parámetros formales** y de los **valores de retorno** de las funciones coincidan de forma estricta con los parámetros actuales, evitando errores en tiempo de ejecución difíciles de depurar. 
+
+```php
+<?php
+// *** PHP CLÁSICO CON TIPADO DÉBIL ***
+
+// No se declaran los tipos de los argumentos ni el de retorno
+function sumar_clasico($a, $b) {
+    return $a + $b;
+}
+
+echo sumar_clasico(5, 10);   // Funciona y devuelve 15
+echo sumar_clasico(5, "10"); // También funciona y devuelve 15
+
+// *** PHP MODERNO CON TIPADO ESTRICTO ***
+declare(strict_types=1);
+
+// Obligatorio declarar los tipos de los argumentos y el de retorno
+function sumar_moderno(int $a, int $b): int {
+    return $a + $b;
+}
+
+echo sumar_moderno(5, 10);   // Funciona y devuelve 15
+echo sumar_moderno(5, "10"); // FATAL ERROR: TypeError
+```
+
+Ahora bien, recuerda que el tipado estricto **no convierte a PHP en un lenguaje de tipado fuerte**. Al contrario, el tipado sigue siendo débil, lo que significa que:
+* **El tipo de las variables locales nunca se declara**.
+* **PHP hará todo tipo de conversiones implícitas** cuando mezcles tipos.
+* (Aunque se recomienda hacer **conversiones explícitas** para evitar efectos raros difíciles de depurar).
 
 Ejemplos:
 
 ```php
-declare(strict_types=1);
-
-$a = 4;                  // int
-$media = 52.75;          // float
-$texto = "Hoy es lunes"; // string
-$esValido = true;        // bool
+// PHP clásico y moderno (PHP deduce los tipos de las variables locales, nunca se declaran)
+$a = 4;                     // int
+$media = 52.75;             // float
+$texto = "Hoy es lunes";    // string
+$esValido = true;           // boolean
 ```
 
-Cualquier variable puede **cambiarse de tipo** con funciones como **intval(), floatval()** o **strval()**:
+Si necesitas cambiar el tipo de una variable, PHP puede hacerlo por tí (**conversión implícita**, poco recomendable) o puedes hacerlo tú (**conversión explícita**, recomendable) con funciones como **intval(), floatval()** o **strval()** o con *casting* al estilo de Java:
 
 ```php
-$a = "10";          // $a es una cadena
-$b = intval($a);    // $a se convierte a entero y se asigna a $b
+// *** PHP CLÁSICO ***
+$a = "10";             // $a es una cadena
+$b = $a + 5;           // PHP convierte $a a entero implícitamente antes de sumarle 5
+echo $b;               // Imprime 15
+
+// *** PHP MODERNO ***
+$a = "10";             // $a es una cadena
+$b = (int)$a + 5;      // Convertimos $a a entero explícitamente con un casting estilo Java
+echo $b;               // Imprime 15
 ```
 
 Como no hay que declarar las variables, a veces no estaremos seguros de si una variable existe y tiene un valor válido (no nulo) asignado. Para averiguarlo existe la función **isset()**, que nos devuelve *true* si la variable existe y *false* en caso contrario. Del mismo modo, hay otra función muy útil, **unset()**, que hace desaparecer a una variable ya definida y libera la memoria que ocupaba:
 
 ```php
 if (isset($nombre)) {
-    echo $nombre;    // Solo muestra el nombre si la variable tiene algún valor
+    echo $nombre;    // Solo muestra el nombre si la variable existe y tiene algún valor
 } else {
     echo "El nombre no está definido";
 }
 ```
 
-**El tipado de PHP es históricamente débil**, lo que permitía mezclar tipos alegremente. Sin embargo, **esto ya no se permite en el desarrollo profesional**. En modo estricto, mezclar tipos provocará un error inmediato, lo cual es preferible a tener un comportamiento imprevisible. Siempre debes convertir los tipos manualmente si es necesario. Por ejemplo:
+En PHP moderno, esta comprobación clásica con `isset()` se puede abreviar con el operador `??`:
 
 ```php
-declare(strict_types=1);
-
-$a = 3;                // int
-$b = "10";             // string
-$c = $a + (int)$b;     // Convertimos explícitamente a entero antes de sumar
+echo $nombre ?? "El nombre no está definido";
 ```
+
 
 Los **tipos de datos** predefinidos en PHP son:
 
@@ -105,8 +137,6 @@ Los **tipos de datos** predefinidos en PHP son:
 En cuanto a las **constantes**, se crean con la función **define()**:
 
 ```php
-declare(strict_types=1);
-
 define("VERSION_APP", "1.0.0");
 echo VERSION_APP;    // Muestra: 1.0.0. ¡Fíjate en que no lleva el símbolo $!
 ```
@@ -128,21 +158,19 @@ Los operadores en PHP son iguales que los de Java, que, a su vez, los heredó de
 
 Existen operadores más esotéricos, como el operador ternario o los operadores a nivel de bit, que no usaremos demasiado. Sin embargo, PHP cuenta con algunos operadores curiosos que a lo mejor no conoces y que te pueden ahorrar mucho trabajo. Te los cuento brevemente:
 
-**Operador de coalescencia nulo**. Con ese nombre tan rebuscado se conoce al operador ?? (doble interrogante). Simplemente, asigna a una variable valor u otro dependiendo de si está definida o no:
+**Operador de coalescencia nulo**. Con ese nombre tan rebuscado se conoce al operador ?? (doble interrogante). Como acabamos de ver un poco más arriba, este operador asigna a una variable valor u otro dependiendo de si está definida o no:
 
 ```php
 declare(strict_types=1);
 
-$user = $nombreUsuario ?? "invitado";
+$user = $nombreUsuario ?? "sin-nombre";
 ```
 
 La variable $user del ejemplo anterior tomará el valor $nombreUsuario si y solo si esa variable, $nombreUsuario, existe y tiene un valor asignado. En caso contrario, tomará el valor "sin-nombre".
 
-**Operador nave espacial**. Así se conoce el operador <==>. ¡Otro bonito chiste de informáticos! Se usa para comparar dos expresiones y decidir cuál es la menor. Devuelve -1 (si la primera expresión es menor que la segunda), 0 (si son iguales) o 1 (si la primera expresión es mayor que la segunda):
+**Operador nave espacial**. Así se conoce el operador <=>. ¡Otro bonito chiste de informáticos! Se usa para comparar dos expresiones y decidir el orden entre ambas. Devuelve -1 (si la primera expresión es menor que la segunda), 0 (si son iguales) o 1 (si la primera expresión es mayor que la segunda):
 
 ```php
-declare(strict_types=1);
-
 $resultado = $var1 <=> $var2;
 echo $resultado;   // Mostrará -1, 0 o 1
 ```
@@ -152,8 +180,6 @@ echo $resultado;   // Mostrará -1, 0 o 1
 Los arrays en PHP son colecciones de variables del mismo o de distinto tipo identificadas por un índice. Se parecen más a los ArrayList de Java que a los arrays clásicos propiamente dichos.
 
 ```php
-declare(strict_types=1);
-
 $a = []; 
 $a[1] = "lunes";
 $a[2] = 1;        // Un array puede contener tipos mixtos, pero se recomienda homogeneidad

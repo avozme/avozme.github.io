@@ -55,27 +55,39 @@ Y si necesitas intercalar PHP con HTML en el mismo archivo (una mala práctica q
 
 ### 2.2.2. Tipado estricto en PHP8 (Strict Types)
 
-Por defecto, PHP es un lenguaje de tipado débil. 
+PHP es un lenguaje de **tipado débil**. 
 
-Esto significa que, si sumas el número `5` a la cadena `"10"`, PHP se encoge de hombros, convierte la cadena en un número y te devuelve `15`. 
+Esto significa que, si sumas el número `5` a la cadena `"10"`, PHP no ve ningún problema: convierte la cadena en un número y te devuelve `15`, cuando Java te hubiera mandado a freír espárragos.
 
-¡Pero en proyectos grandes, esta característica se convierte en una pesadilla de depuración!
+Esta flexibilidad puede parecer una ventaja, ¡pero en proyectos grandes puede convertirse en una pesadilla para la depuración!
 
-Para **obligar a PHP a comportarse como un lenguaje de tipado fuerte** (donde sumar un int y un string te lance un error), **siempre** debes poner esta línea al principio de todos tus archivos PHP, justo después de `<?php`:
+En PHP moderno existe la opción de activar el tipado estricto con `declare(strict_types=1)`. Ojo, que **esto no convierte milagrosamente a PHP en un lenguaje con tipos fuertes** como Java o C++. Solo afecta al paso de parámetros a funciones y la devolución de resultados con `return`. En el resto de operaciones, PHP seguirá usando su tipado débil de toda la vida:
 
 ```php
 <?php
-declare(strict_types=1);
+// *** PHP ClÁSICO CON TIPADO DÉBIL ***
 
-function sumar(int $a, int $b): int {
+// No se declaran los tipos de los argumentos ni el de retorno
+function sumar_clasico($a, $b) {
     return $a + $b;
 }
 
-echo sumar(5, 10);   // Funciona: 15
-echo sumar(5, "10"); // FATAL ERROR: TypeError
+echo sumar_clasico(5, 10);   // Funciona y devuelve 15
+echo sumar_clasico(5, "10"); // También funciona y devuelve 15
+
+// *** PHP MODERNO CON TIPADO ESTRICTO ***
+declare(strict_types=1);
+
+// Obligatorio declarar los tipos de los argumentos y el de retorno
+function sumar_moderno(int $a, int $b): int {
+    return $a + $b;
+}
+
+echo sumar_moderno(5, 10);   // Funciona y devuelve 15
+echo sumar_moderno(5, "10"); // FATAL ERROR: TypeError
 ```
 
-Fíjate en la firma de la función: hemos definido el tipo de los parámetros (`int`) y el tipo del valor de retorno (`: int`). Acostúmbrate a hacerlo **siempre**.
+Fíjate en la firma de la función `sumar_moderno()`: hemos definido el tipo de los parámetros (`int`) y el tipo del valor de retorno (`: int`). Acostúmbrate a hacerlo así **siempre**, aunque verás mucho código clásico que no lo hace.
 
 #### Union Types y Nullable Types
 En PHP 8 podemos decir que una variable puede ser de más de un tipo, o que puede ser nula (usando el símbolo `?`):

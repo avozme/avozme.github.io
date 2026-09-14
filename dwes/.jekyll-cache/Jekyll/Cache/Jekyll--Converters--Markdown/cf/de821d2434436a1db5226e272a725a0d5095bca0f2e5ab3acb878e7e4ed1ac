@@ -1,4 +1,4 @@
-I"W"<h2 class="no_toc" id="23-sintaxis-de-php">2.3. Sintaxis de PHP</h2>
+I"@-<h2 class="no_toc" id="23-sintaxis-de-php">2.3. Sintaxis de PHP</h2>
 
 <ul id="markdown-toc">
   <li><a href="#231-cómo-incrustar-php-dentro-de-html" id="markdown-toc-231-cómo-incrustar-php-dentro-de-html">2.3.1. Cómo incrustar PHP dentro de HTML</a></li>
@@ -51,45 +51,77 @@
 
 <p>El <strong>identificador</strong> de variable siempre debe empezar por $. Esta es una peculiaridad de PHP que al principio descoloca un poco.</p>
 
-<p>En PHP moderno, <strong>el tipado fuerte es la norma</strong>. Aunque históricamente PHP era muy permisivo, hoy en día se recomienda activar el modo de tipado estricto al principio de cada archivo:</p>
+<p>Como hemos visto en la sección anterior, en PHP moderno <strong>el tipado estricto es la norma</strong>. Aunque históricamente PHP era muy permisivo, hoy en día se recomienda activar el modo de tipado estricto al principio de cada archivo:</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>Esto obliga a que los tipos coincidan exactamente, evitando errores difíciles de encontrar. Al inicializar variables en el código general, PHP deduce el tipo, pero en clases y funciones (como veremos más adelante) <strong>siempre indicaremos el tipo explícitamente</strong>.</p>
+<p>Esto obliga a que los tipos de los <strong>parámetros formales</strong> y de los <strong>valores de retorno</strong> de las funciones coincidan de forma estricta con los parámetros actuales, evitando errores en tiempo de ejecución difíciles de depurar.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="c1">// *** PHP CLÁSICO CON TIPADO DÉBIL ***</span>
+
+<span class="c1">// No se declaran los tipos de los argumentos ni el de retorno</span>
+<span class="k">function</span> <span class="n">sumar_clasico</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$a</span> <span class="o">+</span> <span class="nv">$b</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">echo</span> <span class="nf">sumar_clasico</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>   <span class="c1">// Funciona y devuelve 15</span>
+<span class="k">echo</span> <span class="nf">sumar_clasico</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">"10"</span><span class="p">);</span> <span class="c1">// También funciona y devuelve 15</span>
+
+<span class="c1">// *** PHP MODERNO CON TIPADO ESTRICTO ***</span>
+<span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="c1">// Obligatorio declarar los tipos de los argumentos y el de retorno</span>
+<span class="k">function</span> <span class="n">sumar_moderno</span><span class="p">(</span><span class="kt">int</span> <span class="nv">$a</span><span class="p">,</span> <span class="kt">int</span> <span class="nv">$b</span><span class="p">):</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$a</span> <span class="o">+</span> <span class="nv">$b</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">echo</span> <span class="nf">sumar_moderno</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>   <span class="c1">// Funciona y devuelve 15</span>
+<span class="k">echo</span> <span class="nf">sumar_moderno</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">"10"</span><span class="p">);</span> <span class="c1">// FATAL ERROR: TypeError</span>
+</code></pre></div></div>
+
+<p>Ahora bien, recuerda que el tipado estricto <strong>no convierte a PHP en un lenguaje de tipado fuerte</strong>. Al contrario, el tipado sigue siendo débil, lo que significa que:</p>
+<ul>
+  <li><strong>El tipo de las variables locales nunca se declara</strong>.</li>
+  <li><strong>PHP hará todo tipo de conversiones implícitas</strong> cuando mezcles tipos.</li>
+  <li>(Aunque se recomienda hacer <strong>conversiones explícitas</strong> para evitar efectos raros difíciles de depurar).</li>
+</ul>
 
 <p>Ejemplos:</p>
 
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="nv">$a</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>                  <span class="c1">// int</span>
-<span class="nv">$media</span> <span class="o">=</span> <span class="mf">52.75</span><span class="p">;</span>          <span class="c1">// float</span>
-<span class="nv">$texto</span> <span class="o">=</span> <span class="s2">"Hoy es lunes"</span><span class="p">;</span> <span class="c1">// string</span>
-<span class="nv">$esValido</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>        <span class="c1">// bool</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// PHP clásico y moderno (PHP deduce los tipos de las variables locales, nunca se declaran)</span>
+<span class="nv">$a</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>                     <span class="c1">// int</span>
+<span class="nv">$media</span> <span class="o">=</span> <span class="mf">52.75</span><span class="p">;</span>             <span class="c1">// float</span>
+<span class="nv">$texto</span> <span class="o">=</span> <span class="s2">"Hoy es lunes"</span><span class="p">;</span>    <span class="c1">// string</span>
+<span class="nv">$esValido</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>           <span class="c1">// boolean</span>
 </code></pre></div></div>
 
-<p>Cualquier variable puede <strong>cambiarse de tipo</strong> con funciones como <strong>intval(), floatval()</strong> o <strong>strval()</strong>:</p>
+<p>Si necesitas cambiar el tipo de una variable, PHP puede hacerlo por tí (<strong>conversión implícita</strong>, poco recomendable) o puedes hacerlo tú (<strong>conversión explícita</strong>, recomendable) con funciones como <strong>intval(), floatval()</strong> o <strong>strval()</strong> o con <em>casting</em> al estilo de Java:</p>
 
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$a</span> <span class="o">=</span> <span class="s2">"10"</span><span class="p">;</span>          <span class="c1">// $a es una cadena</span>
-<span class="nv">$b</span> <span class="o">=</span> <span class="nb">intval</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>    <span class="c1">// $a se convierte a entero y se asigna a $b</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// *** PHP CLÁSICO ***</span>
+<span class="nv">$a</span> <span class="o">=</span> <span class="s2">"10"</span><span class="p">;</span>             <span class="c1">// $a es una cadena</span>
+<span class="nv">$b</span> <span class="o">=</span> <span class="nv">$a</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>           <span class="c1">// PHP convierte $a a entero implícitamente antes de sumarle 5</span>
+<span class="k">echo</span> <span class="nv">$b</span><span class="p">;</span>               <span class="c1">// Imprime 15</span>
+
+<span class="c1">// *** PHP MODERNO ***</span>
+<span class="nv">$a</span> <span class="o">=</span> <span class="s2">"10"</span><span class="p">;</span>             <span class="c1">// $a es una cadena</span>
+<span class="nv">$b</span> <span class="o">=</span> <span class="p">(</span><span class="n">int</span><span class="p">)</span><span class="nv">$a</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>      <span class="c1">// Convertimos $a a entero explícitamente con un casting estilo Java</span>
+<span class="k">echo</span> <span class="nv">$b</span><span class="p">;</span>               <span class="c1">// Imprime 15</span>
 </code></pre></div></div>
 
 <p>Como no hay que declarar las variables, a veces no estaremos seguros de si una variable existe y tiene un valor válido (no nulo) asignado. Para averiguarlo existe la función <strong>isset()</strong>, que nos devuelve <em>true</em> si la variable existe y <em>false</em> en caso contrario. Del mismo modo, hay otra función muy útil, <strong>unset()</strong>, que hace desaparecer a una variable ya definida y libera la memoria que ocupaba:</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$nombre</span><span class="p">))</span> <span class="p">{</span>
-    <span class="k">echo</span> <span class="nv">$nombre</span><span class="p">;</span>    <span class="c1">// Solo muestra el nombre si la variable tiene algún valor</span>
+    <span class="k">echo</span> <span class="nv">$nombre</span><span class="p">;</span>    <span class="c1">// Solo muestra el nombre si la variable existe y tiene algún valor</span>
 <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
     <span class="k">echo</span> <span class="s2">"El nombre no está definido"</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p><strong>El tipado de PHP es históricamente débil</strong>, lo que permitía mezclar tipos alegremente. Sin embargo, <strong>esto ya no se permite en el desarrollo profesional</strong>. En modo estricto, mezclar tipos provocará un error inmediato, lo cual es preferible a tener un comportamiento imprevisible. Siempre debes convertir los tipos manualmente si es necesario. Por ejemplo:</p>
+<p>En PHP moderno, esta comprobación clásica con <code class="language-plaintext highlighter-rouge">isset()</code> se puede abreviar con el operador <code class="language-plaintext highlighter-rouge">??</code>:</p>
 
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="nv">$a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>                <span class="c1">// int</span>
-<span class="nv">$b</span> <span class="o">=</span> <span class="s2">"10"</span><span class="p">;</span>             <span class="c1">// string</span>
-<span class="nv">$c</span> <span class="o">=</span> <span class="nv">$a</span> <span class="o">+</span> <span class="p">(</span><span class="n">int</span><span class="p">)</span><span class="nv">$b</span><span class="p">;</span>     <span class="c1">// Convertimos explícitamente a entero antes de sumar</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">echo</span> <span class="nv">$nombre</span> <span class="o">??</span> <span class="s2">"El nombre no está definido"</span><span class="p">;</span>
 </code></pre></div></div>
 
 <p>Los <strong>tipos de datos</strong> predefinidos en PHP son:</p>
@@ -104,9 +136,7 @@
 
 <p>En cuanto a las <strong>constantes</strong>, se crean con la función <strong>define()</strong>:</p>
 
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="nb">define</span><span class="p">(</span><span class="s2">"VERSION_APP"</span><span class="p">,</span> <span class="s2">"1.0.0"</span><span class="p">);</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">define</span><span class="p">(</span><span class="s2">"VERSION_APP"</span><span class="p">,</span> <span class="s2">"1.0.0"</span><span class="p">);</span>
 <span class="k">echo</span> <span class="no">VERSION_APP</span><span class="p">;</span>    <span class="c1">// Muestra: 1.0.0. ¡Fíjate en que no lleva el símbolo $!</span>
 </code></pre></div></div>
 
@@ -128,20 +158,18 @@
 
 <p>Existen operadores más esotéricos, como el operador ternario o los operadores a nivel de bit, que no usaremos demasiado. Sin embargo, PHP cuenta con algunos operadores curiosos que a lo mejor no conoces y que te pueden ahorrar mucho trabajo. Te los cuento brevemente:</p>
 
-<p><strong>Operador de coalescencia nulo</strong>. Con ese nombre tan rebuscado se conoce al operador ?? (doble interrogante). Simplemente, asigna a una variable valor u otro dependiendo de si está definida o no:</p>
+<p><strong>Operador de coalescencia nulo</strong>. Con ese nombre tan rebuscado se conoce al operador ?? (doble interrogante). Como acabamos de ver un poco más arriba, este operador asigna a una variable valor u otro dependiendo de si está definida o no:</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
 
-<span class="nv">$user</span> <span class="o">=</span> <span class="nv">$nombreUsuario</span> <span class="o">??</span> <span class="s2">"invitado"</span><span class="p">;</span>
+<span class="nv">$user</span> <span class="o">=</span> <span class="nv">$nombreUsuario</span> <span class="o">??</span> <span class="s2">"sin-nombre"</span><span class="p">;</span>
 </code></pre></div></div>
 
 <p>La variable $user del ejemplo anterior tomará el valor $nombreUsuario si y solo si esa variable, $nombreUsuario, existe y tiene un valor asignado. En caso contrario, tomará el valor “sin-nombre”.</p>
 
-<p><strong>Operador nave espacial</strong>. Así se conoce el operador &lt;==&gt;. ¡Otro bonito chiste de informáticos! Se usa para comparar dos expresiones y decidir cuál es la menor. Devuelve -1 (si la primera expresión es menor que la segunda), 0 (si son iguales) o 1 (si la primera expresión es mayor que la segunda):</p>
+<p><strong>Operador nave espacial</strong>. Así se conoce el operador &lt;=&gt;. ¡Otro bonito chiste de informáticos! Se usa para comparar dos expresiones y decidir el orden entre ambas. Devuelve -1 (si la primera expresión es menor que la segunda), 0 (si son iguales) o 1 (si la primera expresión es mayor que la segunda):</p>
 
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="nv">$resultado</span> <span class="o">=</span> <span class="nv">$var1</span> <span class="o">&lt;=&gt;</span> <span class="nv">$var2</span><span class="p">;</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$resultado</span> <span class="o">=</span> <span class="nv">$var1</span> <span class="o">&lt;=&gt;</span> <span class="nv">$var2</span><span class="p">;</span>
 <span class="k">echo</span> <span class="nv">$resultado</span><span class="p">;</span>   <span class="c1">// Mostrará -1, 0 o 1</span>
 </code></pre></div></div>
 
@@ -149,9 +177,7 @@
 
 <p>Los arrays en PHP son colecciones de variables del mismo o de distinto tipo identificadas por un índice. Se parecen más a los ArrayList de Java que a los arrays clásicos propiamente dichos.</p>
 
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="nv">$a</span> <span class="o">=</span> <span class="p">[];</span> 
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$a</span> <span class="o">=</span> <span class="p">[];</span> 
 <span class="nv">$a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"lunes"</span><span class="p">;</span>
 <span class="nv">$a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>        <span class="c1">// Un array puede contener tipos mixtos, pero se recomienda homogeneidad</span>
 </code></pre></div></div>
