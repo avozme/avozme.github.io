@@ -325,27 +325,38 @@ endif;
 
 Puedes elegir la sintaxis con la que te sientas más cómodo/a. Nosotros, en este manual, usaremos la primera por estar más extendida, pero las dos son igualmente válidas.
 
-### 2.3.7. Funciones y procedimientos
+### 2.3.7. Funciones
 
-Los subprogramas se escriben en PHP con la palabra *function*. En el desarrollo moderno, **siempre definiremos el tipo de los argumentos y del valor de retorno**.
+Las funciones y métodos se escriben en PHP con la palabra *function*. Con PHP moderno, **es aconsejable declarar el tipo de los argumentos y del valor de retorno**.
 
-* **Funciones**: Devuelven un valor con *return*.
-* **Procedimientos**: Realizan una acción sin devolver valor (su tipo de retorno es `void`).
+Las **funciones** pueden devolver algo con *return* o no devolver nada. Como en Java.
 
 Ejemplo de una función moderna con tipado estricto:
 
 ```php
 declare(strict_types=1);
 
-function calcular_iva(float $base, float $porcentaje): float
-{
-   return $base * ($porcentaje / 100);
+function calcular_iva(float $base, float $porcentaje): float {
+   $iva = $base * $porcentaje / 100;
+   return $iva;
 }
 
-// Invocación segura
+// Ejemplo de invocación
 $precio = 100.0;
 $iva = calcular_iva($precio, 21.0);
 ```
+
+#### ¿Paso por valor o por refencia?
+
+Aquí PHP vuelve a ser muy parecido a Java:
+
+* Si le pasas a una función una **variable de tipo básico**, siempre se pasa por **valor**. Es decir, si la modificas dentro de la función, el parámetro actual NO se modifica fuera de la función.
+
+   En PHP, los tipos básicos son `int`, `float`, `bool`, `string`, `array`, `null` y alguno más. ¡Ojo! Fíjate que en la lista de tipos básicos están `string` y `array`, que en Java siempre son objetos. Fíjate también que no existe `char`. En su lugar, se usa un `string` de longitud 1.
+
+* Si le pasas a una función un **objeto**, le pasas el valor de su identificador o referencia. En la práctica, es como si lo pasaras por **referencia**. ¡Igual que en Java!
+
+   Esto significa que, si modificas el objeto dentro de la función, *también se modificará fuera de ella*.
 
 #### Argumentos con valor predefinido
 
@@ -364,17 +375,17 @@ $b = calcular_iva(1000.0);       // Usa el 21% por defecto
 
 #### Gestión moderna de archivos: Autoloading y Composer
 
-Históricamente, PHP usaba `include` y `require` para cargar archivos manualmente. **En el desarrollo profesional actual, esto se considera una mala práctica** y ha sido sustituido por el **Autoloading** (Carga automática) y gestores como **Composer**.
+Históricamente, PHP usaba `include` y `require` para cargar archivos manualmente. **En el desarrollo profesional actual, esto se considera una mala práctica** y ha sido sustituido por el **Autoloading** (Carga automática) y gestores de dependencias como **Composer**.
 
-*   **include / require**: (Legado) Cargan manualmente un script. Si usas `require` y el archivo no existe, la aplicación se detiene (preferible a `include` que solo da un aviso).
-*   **Autoloading (Estándar PSR-4)**: Es el sistema que usan frameworks como Laravel. Consiste en una configuración que le dice a PHP: "si intento usar una clase que no conoces, búscala automáticamente en esta carpeta".
+* **include / require**: (Obsoleto) Cargan manualmente un script. Si usas `require` y el archivo no existe, la aplicación se detiene (preferible a `include` que solo da un aviso).
+* **include_once / require_once**: (Obsoleto) Igual que `include` y `require`, pero evitan incluir por accidente varias veces el mismo archivo (y con ello la inevitable redifinición de clases) en proyectos grandes.
+* **Autoloading (Estándar PSR-4)**: Se configura Composer para que PHP sepa dónde buscar las clases que no están disponible en el archivo que se esté ejecutando. 
 
-Gracias a esto, **ya no escribirás `include` en cada archivo**. Simplemente usarás la clase y PHP se encargará de encontrarla. Veremos cómo configurar esto en el apartado de MVC y Composer.
+   Gracias a esto, **ya no hay que escribir `include` en cada archivo**. Simplemente, se usa la clase que sea y PHP se encargará de encontrarla. Veremos cómo configurar esto en el apartado de MVC y enrutado.
 
+### 2.3.8. Funciones anónimas y *closures*
 
-### 2.3.8. Funciones anónimas, funciones lambda o *closures*
-
-En muchos lenguajes modernos es habitual el uso de las **funciones anónimas, funciones lambda o *closures***. Aunque no son exactamente lo mismo, se parecen mucho y por ahora no entraremos en detalles sobre sus diferencias.
+En muchos lenguajes modernos es habitual el uso de las **funciones anónimas** (a veces llamadas **funciones lambda**) y los **closures**. Aunque no son exactamente lo mismo, se parecen mucho.
 
 Se trata de funciones que no tienen nombre y que se usan directamente en una asignación a una variable o como parámetro de otra función.
 
@@ -389,8 +400,7 @@ En cambio, cuando la lógica de una función sea compleja, o bien su código se 
 
 Ten en cuenta que, si se usan mal, la funciones anónimas **pueden volver incomprensible el código**.
 
-Aquí puedes ver un ejemplo sencillo de función anónima:
-
+Aquí puedes ver un ejemplo sencillo de función anónima que se asigna a una variable:
 
 ```php
 declare(strict_types=1);
@@ -403,7 +413,7 @@ $doble = function(int $n): int {
 echo $doble($numero);   // Imprimirá 16
 ```
 
-Hemos asignado la función anónima a una variable, llamada $doble. Por eso, al tratar de imprimir la variable, se invocará la función automáticamente.
+Hemos asignado la función anónima a una variable, llamada `$doble`. Por eso, al tratar de imprimir la variable, se invocará la función automáticamente.
 
 En este es otro ejemplo, una función sin nombre se pasa como parámetro:
 
@@ -423,6 +433,16 @@ La función *procesar()* recibe dos parámetros: el primero es un array con dato
 
 Piensa en lo flexible que se vuelve la función *procesar()* al utilizarla de este modo: ¡ahora el mismo código puede servir para hacer casi cualquier cosa con el array!
 
+Por último, un **closure** es un tipo especial de función anónima que usa variables que ya existen fuera de la función para hacer su trabajo. Por ejemplo:
+
+```php
+$iva = 21;
+
+$calcular = function (float $precio) use ($iva): float {
+    return $precio * (1 + $iva / 100);
+};
+```
+
 ### 2.3.9. Clases y objetos
 
 A partir de la versión 5, PHP incluyó un completo soporte para orientación a objetos. Las clases, métodos y atributos se declaran de forma muy semejante a C++ y Java.
@@ -436,9 +456,9 @@ declare(strict_types=1);
 
 class MiClase extends ClaseMadre
 {
-    // PHP 7.4+ permite tipar las propiedades
-    public string $var1 = 'pública';
-    private string $var2;
+    // En PHP moderno se aconseja declarar el tipo de las propiedades
+    public string $var1 = 'propiedad pública';
+    private string $var2 = 'propiedad privada';
 
     public function __construct(string $valor) {
         $this->var2 = $valor;
@@ -525,7 +545,6 @@ En PHP también es habitual, como en muchos lenguajes de programación, que los 
 Los *getters* suelen devolver el valor de un atributo, pero los *setters*, en otros lenguajes, no devuelven nada. Sin embargo, en PHP es costumbre que los *setters* devuelvan el objeto completo, es decir, que terminen con un ***return $this***. Así:
 
 ```php
-```php
 declare(strict_types=1);
 
 class MiClase {
@@ -558,9 +577,7 @@ En cambio, si los *setters* devuelven *this* podemos usar un *fluent interface* 
 
 ```php
 $obj = new MiClase();
-$obj->setVar1($valor1)
-    ->setVar2($valor2)
-    ->setVar3($valor2);
+$obj->setVar1($valor1)->setVar2($valor2)->setVar3($valor2);
 ```
 
 Puede parecer un cambio insignificante, pero cuando los objetos son muy complejos, el código *fluent* se hace mucho más legible que el código tradicional. ¡Además, es gratis!
@@ -577,7 +594,9 @@ abstract class MiClase {
 }
 ```
 
-También existen los **interfaces**, que son parecidos a las clases abstractas pero no pueden incorporar nada de código a los métodos. Es decir, se trata de una mera definición de métodos. Todas las clases que usen ese interfaz deben respetar e implementar esos métodos. Esto se hace cuando queremos que una colección de clases independientes proporcionen un conjunto de métodos homogéneos.
+También existen los **interfaces**, que son parecidos a las clases abstractas pero no pueden incorporar nada de código a los métodos. Todas las clases que usen ese interfaz deben respetar e implementar esos métodos. Esto se hace cuando queremos que una colección de clases independientes proporcionen un conjunto de métodos homogéneos.
+
+Como en Java, vamos.
 
 Los interfaces se definen así:
 
@@ -663,6 +682,19 @@ En PHP moderno, hay una abreviatura para *echo()* que se usa muchísimo:
 ```
 
 Esta abreviatura solo se usa para hacer *echo()*. Si tienes una lógica PHP más compleja, debes usar los tags <?php ... ?> habituales.
+
+#### Interpolación de variables
+
+Cualquier variable simple escrita dentro de un string será sustituida (interpolada) por su valor. No necesitas sacarla del array. ¡Pero solo funciona con strings escritos entre *doble comilla*, no los que se escriben con *comillas simples*!
+
+```php
+<?php 
+   $a = 8;
+   echo "La variable a vale $a";   // Imprime "La variable a vale 8"
+   echo 'La variable a vale $a';   // Imprime "La variable a vale $a"
+?>
+```
+
 
 ### 2.3.11. Paso de parámetros por la URL
 
@@ -814,11 +846,11 @@ use Persona\Empleado\Empleado;                   // Usamos la clase mediante su 
 $emp = new Empleado(nombre: "Juan");             // ¡Y ya tenemos disponible la clase!
 ```
 
-### 2.3.15. Novedades de PHP 8+
+### 2.3.15. Más novedades de PHP 8+
 
-PHP 8 y sus versiones sucesivas han introducido características que modernizan notablemente el lenguaje:
+PHP 8 ha introducido un montón de características adicionales que modernizan el lenguaje. Aquí te comento algunas que me parecen interesantes por si quieres profundizar un poco más en el lenguaje, aunque no es imprescindible que las domines.
 
-**Expresión match**
+#### Expresión match
 Es una mejora sobre el clásico `switch`. Es más segura (comparación estricta `===`) y devuelve un valor directamente:
 
 ```php
@@ -830,29 +862,15 @@ $resultado = match ($codigo) {
 };
 ```
 
-**Promoción de propiedades en el constructor**
-Permite declarar y asignar atributos directamente en el constructor, evitando el código repetitivo:
-
-```php
-// En lugar de declarar arriba y asignar abajo...
-class Usuario {
-    public function __construct(
-        public string $nombre,
-        public string $email,
-        private int $edad
-    ) {}
-}
-```
-
-**Operador Nullsafe (?->)**
+#### Operador Nullsafe (?->)
 Evita errores al acceder a métodos de objetos que podrían ser `null`. Si el objeto es nulo, la cadena se detiene y devuelve `null` en lugar de lanzar un error:
 
 ```php
 $ciudad = $usuario?->getDireccion()?->getCiudad();
 ```
 
-**Enums**
-Permiten definir tipos de datos con un conjunto limitado de valores posibles, mejorando la robustez del código:
+#### Enums
+Como en Java, permiten definir tipos de datos con un conjunto limitado de valores posibles, mejorando la robustez del código:
 
 ```php
 enum EstadoPedido: string {
@@ -861,23 +879,3 @@ enum EstadoPedido: string {
     case Entregado = 'D';
 }
 ```
-
-### 2.3.16. Extensiones de PHP y referencia del lenguaje: cómo usar la biblioteca del lenguaje sin volverse loco
-
-Para terminar con esta introducción a PHP, no podemos dejar de hablar de las **bibliotecas de clases y funciones** que vienen con cualquier distribución del lenguaje.
-
-PHP dispone, literalmente, de miles de funciones y métodos disponibles para usar con nuestros programas. Estas funciones y métodos resuelven casi cualquier problema común concebible.
-
-Como la biblioteca de PHP es tan grande, los administradores del servidor deben decidir qué funciones y clases están disponibles activando o desactivando **extensiones de PHP**, que es una forma rebuscada de referirse a las bibliotecas del lenguaje. Cuando un servidor tiene activada una determinada extensión de PHP, todas sus funciones y métodos están disponibles para nuestros programas.
-
-Es imposible conocer toda esa vasta colección de funciones, clases y métodos. Para eso está la referencia oficial del lenguaje, que puedes encontrar en [https://www.php.net/manual](https://www.php.net/manual)
-
-Por ejemplo, existen muchas funciones para manipular strings. Imagina que un día necesitas convertir todos los caracteres de un string a mayúsculas. Parece razonable suponer que, si las bibliotecas de PHP son tan grandes, exitirá una función que pueda hacer eso por nosotros. ¿Cómo la localizamos?
-
-Mi consejo es que acudas siempre a [https://www.php.net/manual](https://www.php.net/manual) y allí utilices el buscador. Por ejemplo, teclea en la caja de búsqueda la palabra "strings". En la página de resultados obtendrás una lista con todas las funciones relativas a strings. La función que estamos buscando debe incluir la palabra "upper". Una rápida búsqueda por la página de resultados te conducirá a la función *strtoupper()*, que es justo la que estábamos buscando.
-
-Si accedes a la página de *strtoupper()* encontrarás una completa descripción de la función y, lo que es más importante, algunos ejemplos de código que puedes copiar, pegar y adaptar a tu caso concreto.
-
-Si, por alguna razón, decides buscar información sobre las biblioteca de PHP fuera de la web oficial, asegúrate que el sitio es de confianza y que la información que ofrece está actualizada: hay muchos sitios web que proporcionan soluciones obsoletas, inseguras o directamente erróneas.
-
-Por supuesto, también está la opción de recurrir a una IA generativa. Pero hazte un favor a ti y a tu cerebro de programador en formación: no te fíes al 100% de su respuesta y, sobre todo, **nunca, nunca jamás le pidas a una IA que resuelva tu problema**. Pídele mejor que *te explique* cómo podrías resolver el problema, y después trata de resolverlo por ti mismo. Si no, no habrás aprendido nada por el camino y, aunque tu programa funcione bien, habrás perdido el tiempo miserablemente.

@@ -196,7 +196,7 @@ try {
 }
 ?>
 
-<!-- 2. Presentación: Renderizado HTML -->
+<!-- 2. Presentación: Renderizado HTML (vista) -->
 <table>
     <thead>
         <tr>

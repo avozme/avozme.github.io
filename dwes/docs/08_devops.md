@@ -1,12 +1,12 @@
 ---
 layout: page
-title: 7 Despliegue, DevOps e integración de sistemas
+title: 8 Despliegue, DevOps e integración de sistemas
 permalink: /despliegue-devops/
-nav_order: 7
+nav_order: 8
 has_children: true
 parent: Desarrollo Web en Entorno Servidor
 ---
-# 7. Despliegue, DevOps e integración de sistemas
+# 8. Despliegue, DevOps e integración de sistemas
 
 {: .no_toc }
 

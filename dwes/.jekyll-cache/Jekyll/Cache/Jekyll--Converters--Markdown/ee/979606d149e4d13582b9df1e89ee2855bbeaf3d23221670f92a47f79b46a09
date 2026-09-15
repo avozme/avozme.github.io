@@ -1,27 +1,27 @@
-I"1:<h2 class="no_toc" id="25-estado-y-seguridad">2.5. Estado y seguridad</h2>
+I"#E<h2 class="no_toc" id="25-estado-y-seguridad">2.5. Estado y seguridad</h2>
 
 <ul id="markdown-toc">
   <li><a href="#251-las-cookies" id="markdown-toc-251-las-cookies">2.5.1. Las cookies</a></li>
   <li><a href="#252-las-sesiones" id="markdown-toc-252-las-sesiones">2.5.2. Las sesiones</a></li>
-  <li><a href="#253-prevención-de-vulnerabilidades-en-aplicaciones-web" id="markdown-toc-253-prevención-de-vulnerabilidades-en-aplicaciones-web">2.5.3. Prevención de vulnerabilidades en aplicaciones web</a></li>
+  <li><a href="#253-principales-formas-de-ataque-a-aplicaciones-web" id="markdown-toc-253-principales-formas-de-ataque-a-aplicaciones-web">2.5.3. Principales formas de ataque a aplicaciones web</a></li>
 </ul>
 
-<p>Como comentamos al principio, HTTP es un protocolo <strong>sin estado</strong>. El servidor no tiene ni idea de si la petición que le acaba de llegar es del mismo usuario que le pidió una página hace cinco segundos o de alguien completamente distinto.</p>
+<p>Como comentamos al principio, HTTP es un protocolo <strong>sin estado</strong>. Esto significa que el servidor no tiene ni idea de si la petición que le acaba de llegar es del mismo usuario que le pidió una página hace cinco segundos o de alguien completamente distinto.</p>
 
 <p>Para construir aplicaciones web reales (donde un usuario hace login, añade cosas a un carrito, etc.) necesitamos inventarnos alguna forma de “recordar” el estado. Y ahí es donde entran las Cookies y las Sesiones.</p>
 
 <h3 id="251-las-cookies">2.5.1. Las cookies</h3>
 
-<p>Una cookie no es más que un pequeño trocito de texto que el servidor le envía al navegador y le dice: <em>“Oye, guárdame esto, y devuélvemelo en cada petición que me hagas a partir de ahora”</em>.</p>
+<p>Una cookie no es más que un pequeño trocito de texto que el servidor le envía al navegador y le dice: <em>“Guárdame esto y devuélvemelo en cada petición que me hagas a partir de ahora”</em>.</p>
 
-<p>En PHP, crear una cookie es muy sencillo con la función <code class="language-plaintext highlighter-rouge">setcookie()</code>:</p>
+<p>Para crear una cookie desde PHP se usa la función <code class="language-plaintext highlighter-rouge">setcookie()</code>:</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Nombre de la cookie, valor, tiempo de expiración (1 hora), ruta</span>
 <span class="nb">setcookie</span><span class="p">(</span><span class="s2">"idioma"</span><span class="p">,</span> <span class="s2">"es"</span><span class="p">,</span> <span class="nb">time</span><span class="p">()</span> <span class="o">+</span> <span class="mi">3600</span><span class="p">,</span> <span class="s2">"/"</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>Y para leerla en una petición futura, usamos la variable superglobal <code class="language-plaintext highlighter-rouge">$_COOKIE</code>:</p>
+<p>Y para leerla en cualquier otro script se usa la variable superglobal <code class="language-plaintext highlighter-rouge">$_COOKIE</code>:</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
 <span class="nv">$idioma_elegido</span> <span class="o">=</span> <span class="nv">$_COOKIE</span><span class="p">[</span><span class="s1">'idioma'</span><span class="p">]</span> <span class="o">??</span> <span class="s1">'en'</span><span class="p">;</span>
@@ -64,9 +64,9 @@
 <span class="nb">session_destroy</span><span class="p">();</span>   <span class="c1">// Destruimos la sesión en el servidor</span>
 </code></pre></div></div>
 
-<h3 id="253-prevención-de-vulnerabilidades-en-aplicaciones-web">2.5.3. Prevención de vulnerabilidades en aplicaciones web</h3>
+<h3 id="253-principales-formas-de-ataque-a-aplicaciones-web">2.5.3. Principales formas de ataque a aplicaciones web</h3>
 
-<p>En cuanto tu aplicación está en internet, van a intentar atacarla tarde o temprano. Esto es un hecho incontrovertible, así que tienes que protegerte contra estas tres vulnerabilidades clásicas:</p>
+<p>En cuanto tu aplicación está en internet, van a intentar atacarla tarde o temprano. Esto es un hecho incontrovertible, así que tienes que protegerte, como mínimo, contra estas tres vulnerabilidades clásicas (hay más, pero de momento vamos bien con estas):</p>
 
 <h4 id="1-xss-cross-site-scripting">1. XSS (Cross-Site Scripting)</h4>
 
@@ -76,13 +76,40 @@
 
 <p>(El XSS suele hacer cosas más chungas que mostrar un simple <code class="language-plaintext highlighter-rouge">alert()</code>, como te puedes imaginar).</p>
 
-<p><strong>Solución:</strong> Desconfiar <em>siempre</em> de cualquier dato que provenga del usuario antes de imprimirlo en el HTML. Para eso se usa el método de PHP <code class="language-plaintext highlighter-rouge">htmlspecialchars()</code>, que “escapa” un string, es decir, elimina cualquier rastro de código Javascript o SQL.</p>
+<p><strong>Solución:</strong> Desconfiar <em>siempre</em> de cualquier dato que provenga del usuario antes de imprimirlo en el HTML. Para eso se usa el método de PHP <code class="language-plaintext highlighter-rouge">htmlspecialchars()</code>, que “escapa” un string, es decir, elimina cualquier rastro de código Javascript o SQL sustituyendo los caracteres que lo hacen reconocible como Javascript o SQL por otros inofensivos (por ejemplo, cambia <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> por <code class="language-plaintext highlighter-rouge">&amp;lt;script&amp;gt</code>;).</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// MAL: Vulnerable a XSS</span>
 <span class="k">echo</span> <span class="s2">"&lt;p&gt;Comentario: "</span> <span class="mf">.</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'comentario'</span><span class="p">]</span> <span class="mf">.</span> <span class="s2">"&lt;/p&gt;"</span><span class="p">;</span>
 
 <span class="c1">// BIEN: Seguro</span>
 <span class="k">echo</span> <span class="s2">"&lt;p&gt;Comentario: "</span> <span class="mf">.</span> <span class="nb">htmlspecialchars</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'comentario'</span><span class="p">],</span> <span class="no">ENT_QUOTES</span><span class="p">,</span> <span class="s1">'UTF-8'</span><span class="p">)</span> <span class="mf">.</span> <span class="s2">"&lt;/p&gt;"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">htmlspecialchars()</code> se puede usar con un solo argumento (como <code class="language-plaintext highlighter-rouge">_$POST['comentario']</code>) pero suele usarse de esta forma:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">htmlspecialchars($texto, $flags, $codificacion)</code></li>
+</ul>
+
+<p>Donde:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">$texto</code> es la cadena de texto que queremos “limpiar” de posible código malicioso en el contexto de un documento HTML.</li>
+  <li><code class="language-plaintext highlighter-rouge">$flags</code> sirve para indicar qué limpiar. Aquí se coloca alguna (o varias) de estas constantes:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">ENT_NOQUOTES</code> → no convierte comillas.</li>
+      <li><code class="language-plaintext highlighter-rouge">ENT_COMPAT</code> → convierte comillas dobles, pero no simples.</li>
+      <li><code class="language-plaintext highlighter-rouge">ENT_QUOTES</code> → convierte ambas.</li>
+      <li><code class="language-plaintext highlighter-rouge">ENT_SUBSTITUTE</code> → sustituye caracteres inválidos por � en lugar de producir un resultado problemático.</li>
+      <li><code class="language-plaintext highlighter-rouge">ENT_HTML401</code>, <code class="language-plaintext highlighter-rouge">ENT_HTML5</code>, etc. → indican qué estándar de entidades HTML utilizar.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">$codificacion</code> indica la codificación de caracteres del documento (p. ej: <code class="language-plaintext highlighter-rouge">UTF-8</code>)</li>
+</ul>
+
+<p>Por eso, en el ejemplo anterior, podíamos haber escrito:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">echo</span> <span class="s2">"&lt;p&gt;Comentario: "</span> <span class="mf">.</span> <span class="nb">htmlspecialchars</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'comentario'</span><span class="p">],</span> <span class="no">ENT_QUOTES</span> <span class="o">|</span> <span class="no">ENT_SUBSTITUTE</span><span class="p">,</span> <span class="s1">'UTF-8'</span><span class="p">)</span> <span class="mf">.</span> <span class="s2">"&lt;/p&gt;"</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="2-inyección-sql">2. Inyección SQL</h4>
@@ -118,7 +145,7 @@
 
 <h4 id="3-csrf-cross-site-request-forgery">3. CSRF (Cross-Site Request Forgery)</h4>
 
-<p>Imagina que estás logueado en tu banco. Abres otra pestaña en el navegador y navegas pr ella, y llegas a una página maligna que un formulario oculto que envía una petición POST a tu banco ordenando una transferencia.</p>
+<p>Imagina que estás logueado en tu banco. Abres otra pestaña en el navegador y navegas por ella, y llegas a una página maligna que un formulario oculto que envía una petición POST a tu banco ordenando una transferencia.</p>
 
 <p>Como estás logueado, tu navegador enviará automáticamente la cookie de sesión al banco, y el banco pensará que la petición es tuya. <em>Eso es un ataque por CSRF</em>.</p>
 
@@ -126,7 +153,8 @@
 
 <p>En este caso, el código es más complejo, pero no temas, pronto lo entenderás:</p>
 
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Generar token en el formulario (GET)</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Generar token en el formulario (GET)
+<span class="cp">&lt;?php</span>
 <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'csrf_token'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bin2hex</span><span class="p">(</span><span class="nb">random_bytes</span><span class="p">(</span><span class="mi">32</span><span class="p">));</span>
 <span class="cp">?&gt;</span>
 <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"/transferir"</span> <span class="na">method=</span><span class="s">"POST"</span><span class="nt">&gt;</span>

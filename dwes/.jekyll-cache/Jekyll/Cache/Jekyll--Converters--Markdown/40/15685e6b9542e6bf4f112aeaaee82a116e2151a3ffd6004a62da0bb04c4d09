@@ -1,4 +1,4 @@
-I"j<h2 class="no_toc" id="24-interacción-con-la-base-de-datos">2.4. Interacción con la base de datos</h2>
+I"$j<h2 class="no_toc" id="24-interacción-con-la-base-de-datos">2.4. Interacción con la base de datos</h2>
 
 <ul id="markdown-toc">
   <li><a href="#241-mysqlmariadb-con-php-clásico-ojo-obsoleto" id="markdown-toc-241-mysqlmariadb-con-php-clásico-ojo-obsoleto">2.4.1. MySQL/MariaDB con PHP clásico (¡Ojo! ¡Obsoleto!)</a></li>
@@ -190,7 +190,7 @@
 <span class="p">}</span>
 <span class="cp">?&gt;</span>
 
-<span class="c">&lt;!-- 2. Presentación: Renderizado HTML --&gt;</span>
+<span class="c">&lt;!-- 2. Presentación: Renderizado HTML (vista) --&gt;</span>
 <span class="nt">&lt;table&gt;</span>
     <span class="nt">&lt;thead&gt;</span>
         <span class="nt">&lt;tr&gt;</span>

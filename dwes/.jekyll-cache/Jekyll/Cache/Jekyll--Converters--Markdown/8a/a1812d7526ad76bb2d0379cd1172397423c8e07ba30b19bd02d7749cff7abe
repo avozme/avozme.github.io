@@ -1,4 +1,4 @@
-I"@-<h2 class="no_toc" id="23-sintaxis-de-php">2.3. Sintaxis de PHP</h2>
+I"z+<h2 class="no_toc" id="23-sintaxis-de-php">2.3. Sintaxis de PHP</h2>
 
 <ul id="markdown-toc">
   <li><a href="#231-cómo-incrustar-php-dentro-de-html" id="markdown-toc-231-cómo-incrustar-php-dentro-de-html">2.3.1. Cómo incrustar PHP dentro de HTML</a></li>
@@ -7,16 +7,15 @@
   <li><a href="#234-operadores" id="markdown-toc-234-operadores">2.3.4. Operadores</a></li>
   <li><a href="#235-arrays" id="markdown-toc-235-arrays">2.3.5. Arrays</a></li>
   <li><a href="#236-estructuras-de-control" id="markdown-toc-236-estructuras-de-control">2.3.6. Estructuras de control</a></li>
-  <li><a href="#237-funciones-y-procedimientos" id="markdown-toc-237-funciones-y-procedimientos">2.3.7. Funciones y procedimientos</a></li>
-  <li><a href="#238-funciones-anónimas-funciones-lambda-o-closures" id="markdown-toc-238-funciones-anónimas-funciones-lambda-o-closures">2.3.8. Funciones anónimas, funciones lambda o <em>closures</em></a></li>
+  <li><a href="#237-funciones" id="markdown-toc-237-funciones">2.3.7. Funciones</a></li>
+  <li><a href="#238-funciones-anónimas-y-closures" id="markdown-toc-238-funciones-anónimas-y-closures">2.3.8. Funciones anónimas y <em>closures</em></a></li>
   <li><a href="#239-clases-y-objetos" id="markdown-toc-239-clases-y-objetos">2.3.9. Clases y objetos</a></li>
   <li><a href="#2310-salida-de-datos" id="markdown-toc-2310-salida-de-datos">2.3.10. Salida de datos</a></li>
   <li><a href="#2311-paso-de-parámetros-por-la-url" id="markdown-toc-2311-paso-de-parámetros-por-la-url">2.3.11. Paso de parámetros por la URL</a></li>
   <li><a href="#2312-entrada-de-datos-a-través-de-formulario" id="markdown-toc-2312-entrada-de-datos-a-través-de-formulario">2.3.12. Entrada de datos a través de formulario</a></li>
   <li><a href="#2313-validación-y-saneamiento-de-formularios" id="markdown-toc-2313-validación-y-saneamiento-de-formularios">2.3.13. Validación y saneamiento de formularios</a></li>
   <li><a href="#2314-namespaces" id="markdown-toc-2314-namespaces">2.3.14. Namespaces</a></li>
-  <li><a href="#2315-novedades-de-php-8" id="markdown-toc-2315-novedades-de-php-8">2.3.15. Novedades de PHP 8+</a></li>
-  <li><a href="#2316-extensiones-de-php-y-referencia-del-lenguaje-cómo-usar-la-biblioteca-del-lenguaje-sin-volverse-loco" id="markdown-toc-2316-extensiones-de-php-y-referencia-del-lenguaje-cómo-usar-la-biblioteca-del-lenguaje-sin-volverse-loco">2.3.16. Extensiones de PHP y referencia del lenguaje: cómo usar la biblioteca del lenguaje sin volverse loco</a></li>
+  <li><a href="#2315-más-novedades-de-php-8" id="markdown-toc-2315-más-novedades-de-php-8">2.3.15. Más novedades de PHP 8+</a></li>
 </ul>
 
 <h3 id="231-cómo-incrustar-php-dentro-de-html">2.3.1. Cómo incrustar PHP dentro de HTML</h3>
@@ -316,28 +315,42 @@ Nombre del país: Portugal - Código: POR
 
 <p>Puedes elegir la sintaxis con la que te sientas más cómodo/a. Nosotros, en este manual, usaremos la primera por estar más extendida, pero las dos son igualmente válidas.</p>
 
-<h3 id="237-funciones-y-procedimientos">2.3.7. Funciones y procedimientos</h3>
+<h3 id="237-funciones">2.3.7. Funciones</h3>
 
-<p>Los subprogramas se escriben en PHP con la palabra <em>function</em>. En el desarrollo moderno, <strong>siempre definiremos el tipo de los argumentos y del valor de retorno</strong>.</p>
+<p>Las funciones y métodos se escriben en PHP con la palabra <em>function</em>. Con PHP moderno, <strong>es aconsejable declarar el tipo de los argumentos y del valor de retorno</strong>.</p>
 
-<ul>
-  <li><strong>Funciones</strong>: Devuelven un valor con <em>return</em>.</li>
-  <li><strong>Procedimientos</strong>: Realizan una acción sin devolver valor (su tipo de retorno es <code class="language-plaintext highlighter-rouge">void</code>).</li>
-</ul>
+<p>Las <strong>funciones</strong> pueden devolver algo con <em>return</em> o no devolver nada. Como en Java.</p>
 
 <p>Ejemplo de una función moderna con tipado estricto:</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
 
-<span class="k">function</span> <span class="n">calcular_iva</span><span class="p">(</span><span class="kt">float</span> <span class="nv">$base</span><span class="p">,</span> <span class="kt">float</span> <span class="nv">$porcentaje</span><span class="p">):</span> <span class="kt">float</span>
-<span class="p">{</span>
-   <span class="k">return</span> <span class="nv">$base</span> <span class="o">*</span> <span class="p">(</span><span class="nv">$porcentaje</span> <span class="o">/</span> <span class="mi">100</span><span class="p">);</span>
+<span class="k">function</span> <span class="n">calcular_iva</span><span class="p">(</span><span class="kt">float</span> <span class="nv">$base</span><span class="p">,</span> <span class="kt">float</span> <span class="nv">$porcentaje</span><span class="p">):</span> <span class="kt">float</span> <span class="p">{</span>
+   <span class="nv">$iva</span> <span class="o">=</span> <span class="nv">$base</span> <span class="o">*</span> <span class="nv">$porcentaje</span> <span class="o">/</span> <span class="mi">100</span><span class="p">;</span>
+   <span class="k">return</span> <span class="nv">$iva</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="c1">// Invocación segura</span>
+<span class="c1">// Ejemplo de invocación</span>
 <span class="nv">$precio</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">;</span>
 <span class="nv">$iva</span> <span class="o">=</span> <span class="nf">calcular_iva</span><span class="p">(</span><span class="nv">$precio</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">);</span>
 </code></pre></div></div>
+
+<h4 id="paso-por-valor-o-por-refencia">¿Paso por valor o por refencia?</h4>
+
+<p>Aquí PHP vuelve a ser muy parecido a Java:</p>
+
+<ul>
+  <li>
+    <p>Si le pasas a una función una <strong>variable de tipo básico</strong>, siempre se pasa por <strong>valor</strong>. Es decir, si la modificas dentro de la función, el parámetro actual NO se modifica fuera de la función.</p>
+
+    <p>En PHP, los tipos básicos son <code class="language-plaintext highlighter-rouge">int</code>, <code class="language-plaintext highlighter-rouge">float</code>, <code class="language-plaintext highlighter-rouge">bool</code>, <code class="language-plaintext highlighter-rouge">string</code>, <code class="language-plaintext highlighter-rouge">array</code>, <code class="language-plaintext highlighter-rouge">null</code> y alguno más. ¡Ojo! Fíjate que en la lista de tipos básicos están <code class="language-plaintext highlighter-rouge">string</code> y <code class="language-plaintext highlighter-rouge">array</code>, que en Java siempre son objetos. Fíjate también que no existe <code class="language-plaintext highlighter-rouge">char</code>. En su lugar, se usa un <code class="language-plaintext highlighter-rouge">string</code> de longitud 1.</p>
+  </li>
+  <li>
+    <p>Si le pasas a una función un <strong>objeto</strong>, le pasas el valor de su identificador o referencia. En la práctica, es como si lo pasaras por <strong>referencia</strong>. ¡Igual que en Java!</p>
+
+    <p>Esto significa que, si modificas el objeto dentro de la función, <em>también se modificará fuera de ella</em>.</p>
+  </li>
+</ul>
 
 <h4 id="argumentos-con-valor-predefinido">Argumentos con valor predefinido</h4>
 
@@ -355,18 +368,21 @@ Nombre del país: Portugal - Código: POR
 
 <h4 id="gestión-moderna-de-archivos-autoloading-y-composer">Gestión moderna de archivos: Autoloading y Composer</h4>
 
-<p>Históricamente, PHP usaba <code class="language-plaintext highlighter-rouge">include</code> y <code class="language-plaintext highlighter-rouge">require</code> para cargar archivos manualmente. <strong>En el desarrollo profesional actual, esto se considera una mala práctica</strong> y ha sido sustituido por el <strong>Autoloading</strong> (Carga automática) y gestores como <strong>Composer</strong>.</p>
+<p>Históricamente, PHP usaba <code class="language-plaintext highlighter-rouge">include</code> y <code class="language-plaintext highlighter-rouge">require</code> para cargar archivos manualmente. <strong>En el desarrollo profesional actual, esto se considera una mala práctica</strong> y ha sido sustituido por el <strong>Autoloading</strong> (Carga automática) y gestores de dependencias como <strong>Composer</strong>.</p>
 
 <ul>
-  <li><strong>include / require</strong>: (Legado) Cargan manualmente un script. Si usas <code class="language-plaintext highlighter-rouge">require</code> y el archivo no existe, la aplicación se detiene (preferible a <code class="language-plaintext highlighter-rouge">include</code> que solo da un aviso).</li>
-  <li><strong>Autoloading (Estándar PSR-4)</strong>: Es el sistema que usan frameworks como Laravel. Consiste en una configuración que le dice a PHP: “si intento usar una clase que no conoces, búscala automáticamente en esta carpeta”.</li>
+  <li><strong>include / require</strong>: (Obsoleto) Cargan manualmente un script. Si usas <code class="language-plaintext highlighter-rouge">require</code> y el archivo no existe, la aplicación se detiene (preferible a <code class="language-plaintext highlighter-rouge">include</code> que solo da un aviso).</li>
+  <li><strong>include_once / require_once</strong>: (Obsoleto) Igual que <code class="language-plaintext highlighter-rouge">include</code> y <code class="language-plaintext highlighter-rouge">require</code>, pero evitan incluir por accidente varias veces el mismo archivo (y con ello la inevitable redifinición de clases) en proyectos grandes.</li>
+  <li>
+    <p><strong>Autoloading (Estándar PSR-4)</strong>: Se configura Composer para que PHP sepa dónde buscar las clases que no están disponible en el archivo que se esté ejecutando.</p>
+
+    <p>Gracias a esto, <strong>ya no hay que escribir <code class="language-plaintext highlighter-rouge">include</code> en cada archivo</strong>. Simplemente, se usa la clase que sea y PHP se encargará de encontrarla. Veremos cómo configurar esto en el apartado de MVC y enrutado.</p>
+  </li>
 </ul>
 
-<p>Gracias a esto, <strong>ya no escribirás <code class="language-plaintext highlighter-rouge">include</code> en cada archivo</strong>. Simplemente usarás la clase y PHP se encargará de encontrarla. Veremos cómo configurar esto en el apartado de MVC y Composer.</p>
+<h3 id="238-funciones-anónimas-y-closures">2.3.8. Funciones anónimas y <em>closures</em></h3>
 
-<h3 id="238-funciones-anónimas-funciones-lambda-o-closures">2.3.8. Funciones anónimas, funciones lambda o <em>closures</em></h3>
-
-<p>En muchos lenguajes modernos es habitual el uso de las <strong>funciones anónimas, funciones lambda o <em>closures</em></strong>. Aunque no son exactamente lo mismo, se parecen mucho y por ahora no entraremos en detalles sobre sus diferencias.</p>
+<p>En muchos lenguajes modernos es habitual el uso de las <strong>funciones anónimas</strong> (a veces llamadas <strong>funciones lambda</strong>) y los <strong>closures</strong>. Aunque no son exactamente lo mismo, se parecen mucho.</p>
 
 <p>Se trata de funciones que no tienen nombre y que se usan directamente en una asignación a una variable o como parámetro de otra función.</p>
 
@@ -383,7 +399,7 @@ Nombre del país: Portugal - Código: POR
 
 <p>Ten en cuenta que, si se usan mal, la funciones anónimas <strong>pueden volver incomprensible el código</strong>.</p>
 
-<p>Aquí puedes ver un ejemplo sencillo de función anónima:</p>
+<p>Aquí puedes ver un ejemplo sencillo de función anónima que se asigna a una variable:</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
 
@@ -395,7 +411,7 @@ Nombre del país: Portugal - Código: POR
 <span class="k">echo</span> <span class="nv">$doble</span><span class="p">(</span><span class="nv">$numero</span><span class="p">);</span>   <span class="c1">// Imprimirá 16</span>
 </code></pre></div></div>
 
-<p>Hemos asignado la función anónima a una variable, llamada $doble. Por eso, al tratar de imprimir la variable, se invocará la función automáticamente.</p>
+<p>Hemos asignado la función anónima a una variable, llamada <code class="language-plaintext highlighter-rouge">$doble</code>. Por eso, al tratar de imprimir la variable, se invocará la función automáticamente.</p>
 
 <p>En este es otro ejemplo, una función sin nombre se pasa como parámetro:</p>
 
@@ -414,6 +430,15 @@ Nombre del país: Portugal - Código: POR
 
 <p>Piensa en lo flexible que se vuelve la función <em>procesar()</em> al utilizarla de este modo: ¡ahora el mismo código puede servir para hacer casi cualquier cosa con el array!</p>
 
+<p>Por último, un <strong>closure</strong> es un tipo especial de función anónima que usa variables que ya existen fuera de la función para hacer su trabajo. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$iva</span> <span class="o">=</span> <span class="mi">21</span><span class="p">;</span>
+
+<span class="nv">$calcular</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="kt">float</span> <span class="nv">$precio</span><span class="p">)</span> <span class="k">use</span> <span class="p">(</span><span class="nv">$iva</span><span class="p">):</span> <span class="kt">float</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$precio</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nv">$iva</span> <span class="o">/</span> <span class="mi">100</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
 <h3 id="239-clases-y-objetos">2.3.9. Clases y objetos</h3>
 
 <p>A partir de la versión 5, PHP incluyó un completo soporte para orientación a objetos. Las clases, métodos y atributos se declaran de forma muy semejante a C++ y Java.</p>
@@ -426,9 +451,9 @@ Nombre del país: Portugal - Código: POR
 
 <span class="kd">class</span> <span class="nc">MiClase</span> <span class="kd">extends</span> <span class="nc">ClaseMadre</span>
 <span class="p">{</span>
-    <span class="c1">// PHP 7.4+ permite tipar las propiedades</span>
-    <span class="k">public</span> <span class="kt">string</span> <span class="nv">$var1</span> <span class="o">=</span> <span class="s1">'pública'</span><span class="p">;</span>
-    <span class="k">private</span> <span class="kt">string</span> <span class="nv">$var2</span><span class="p">;</span>
+    <span class="c1">// En PHP moderno se aconseja declarar el tipo de las propiedades</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="nv">$var1</span> <span class="o">=</span> <span class="s1">'propiedad pública'</span><span class="p">;</span>
+    <span class="k">private</span> <span class="kt">string</span> <span class="nv">$var2</span> <span class="o">=</span> <span class="s1">'propiedad privada'</span><span class="p">;</span>
 
     <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span><span class="kt">string</span> <span class="nv">$valor</span><span class="p">)</span> <span class="p">{</span>
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">var2</span> <span class="o">=</span> <span class="nv">$valor</span><span class="p">;</span>
@@ -513,8 +538,7 @@ Nombre del país: Portugal - Código: POR
 
 <p>Los <em>getters</em> suelen devolver el valor de un atributo, pero los <em>setters</em>, en otros lenguajes, no devuelven nada. Sin embargo, en PHP es costumbre que los <em>setters</em> devuelvan el objeto completo, es decir, que terminen con un <strong><em>return $this</em></strong>. Así:</p>
 
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="sb">``</span><span class="err">`</span><span class="n">php</span>
-<span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
 
 <span class="kd">class</span> <span class="nc">MiClase</span> <span class="p">{</span>
     <span class="k">private</span> <span class="kt">string</span> <span class="nv">$var1</span> <span class="o">=</span> <span class="s2">"Atributo privado"</span><span class="p">;</span>
@@ -544,9 +568,7 @@ Nombre del país: Portugal - Código: POR
 <p>En cambio, si los <em>setters</em> devuelven <em>this</em> podemos usar un <em>fluent interface</em> y escribirlo así:</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MiClase</span><span class="p">();</span>
-<span class="nv">$obj</span><span class="o">-&gt;</span><span class="nf">setVar1</span><span class="p">(</span><span class="nv">$valor1</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="nf">setVar2</span><span class="p">(</span><span class="nv">$valor2</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="nf">setVar3</span><span class="p">(</span><span class="nv">$valor2</span><span class="p">);</span>
+<span class="nv">$obj</span><span class="o">-&gt;</span><span class="nf">setVar1</span><span class="p">(</span><span class="nv">$valor1</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">setVar2</span><span class="p">(</span><span class="nv">$valor2</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">setVar3</span><span class="p">(</span><span class="nv">$valor2</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>Puede parecer un cambio insignificante, pero cuando los objetos son muy complejos, el código <em>fluent</em> se hace mucho más legible que el código tradicional. ¡Además, es gratis!</p>
@@ -562,7 +584,9 @@ Nombre del país: Portugal - Código: POR
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>También existen los <strong>interfaces</strong>, que son parecidos a las clases abstractas pero no pueden incorporar nada de código a los métodos. Es decir, se trata de una mera definición de métodos. Todas las clases que usen ese interfaz deben respetar e implementar esos métodos. Esto se hace cuando queremos que una colección de clases independientes proporcionen un conjunto de métodos homogéneos.</p>
+<p>También existen los <strong>interfaces</strong>, que son parecidos a las clases abstractas pero no pueden incorporar nada de código a los métodos. Todas las clases que usen ese interfaz deben respetar e implementar esos métodos. Esto se hace cuando queremos que una colección de clases independientes proporcionen un conjunto de métodos homogéneos.</p>
+
+<p>Como en Java, vamos.</p>
 
 <p>Los interfaces se definen así:</p>
 
@@ -641,6 +665,17 @@ Nombre del país: Portugal - Código: POR
 </code></pre></div></div>
 
 <p>Esta abreviatura solo se usa para hacer <em>echo()</em>. Si tienes una lógica PHP más compleja, debes usar los tags &lt;?php … ?&gt; habituales.</p>
+
+<h4 id="interpolación-de-variables">Interpolación de variables</h4>
+
+<p>Cualquier variable simple escrita dentro de un string será sustituida (interpolada) por su valor. No necesitas sacarla del array. ¡Pero solo funciona con strings escritos entre <em>doble comilla</em>, no los que se escriben con <em>comillas simples</em>!</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+   <span class="nv">$a</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
+   <span class="k">echo</span> <span class="s2">"La variable a vale </span><span class="nv">$a</span><span class="s2">"</span><span class="p">;</span>   <span class="c1">// Imprime "La variable a vale 8"</span>
+   <span class="k">echo</span> <span class="s1">'La variable a vale $a'</span><span class="p">;</span>   <span class="c1">// Imprime "La variable a vale $a"</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
 
 <h3 id="2311-paso-de-parámetros-por-la-url">2.3.11. Paso de parámetros por la URL</h3>
 
@@ -787,12 +822,12 @@ Apellidos<span class="nt">&lt;br&gt;</span>
 <span class="nv">$emp</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Empleado</span><span class="p">(</span><span class="n">nombre</span><span class="o">:</span> <span class="s2">"Juan"</span><span class="p">);</span>             <span class="c1">// ¡Y ya tenemos disponible la clase!</span>
 </code></pre></div></div>
 
-<h3 id="2315-novedades-de-php-8">2.3.15. Novedades de PHP 8+</h3>
+<h3 id="2315-más-novedades-de-php-8">2.3.15. Más novedades de PHP 8+</h3>
 
-<p>PHP 8 y sus versiones sucesivas han introducido características que modernizan notablemente el lenguaje:</p>
+<p>PHP 8 ha introducido un montón de características adicionales que modernizan el lenguaje. Aquí te comento algunas que me parecen interesantes por si quieres profundizar un poco más en el lenguaje, aunque no es imprescindible que las domines.</p>
 
-<p><strong>Expresión match</strong>
-Es una mejora sobre el clásico <code class="language-plaintext highlighter-rouge">switch</code>. Es más segura (comparación estricta <code class="language-plaintext highlighter-rouge">===</code>) y devuelve un valor directamente:</p>
+<h4 id="expresión-match">Expresión match</h4>
+<p>Es una mejora sobre el clásico <code class="language-plaintext highlighter-rouge">switch</code>. Es más segura (comparación estricta <code class="language-plaintext highlighter-rouge">===</code>) y devuelve un valor directamente:</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$resultado</span> <span class="o">=</span> <span class="k">match</span> <span class="p">(</span><span class="nv">$codigo</span><span class="p">)</span> <span class="p">{</span>
     <span class="mi">1</span> <span class="o">=&gt;</span> <span class="s2">"Pendiente"</span><span class="p">,</span>
@@ -802,27 +837,14 @@ Es una mejora sobre el clásico <code class="language-plaintext highlighter-roug
 <span class="p">};</span>
 </code></pre></div></div>
 
-<p><strong>Promoción de propiedades en el constructor</strong>
-Permite declarar y asignar atributos directamente en el constructor, evitando el código repetitivo:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// En lugar de declarar arriba y asignar abajo...</span>
-<span class="kd">class</span> <span class="nc">Usuario</span> <span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span>
-        <span class="k">public</span> <span class="kt">string</span> <span class="nv">$nombre</span><span class="p">,</span>
-        <span class="k">public</span> <span class="kt">string</span> <span class="nv">$email</span><span class="p">,</span>
-        <span class="k">private</span> <span class="kt">int</span> <span class="nv">$edad</span>
-    <span class="p">)</span> <span class="p">{}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p><strong>Operador Nullsafe (?-&gt;)</strong>
-Evita errores al acceder a métodos de objetos que podrían ser <code class="language-plaintext highlighter-rouge">null</code>. Si el objeto es nulo, la cadena se detiene y devuelve <code class="language-plaintext highlighter-rouge">null</code> en lugar de lanzar un error:</p>
+<h4 id="operador-nullsafe--">Operador Nullsafe (?-&gt;)</h4>
+<p>Evita errores al acceder a métodos de objetos que podrían ser <code class="language-plaintext highlighter-rouge">null</code>. Si el objeto es nulo, la cadena se detiene y devuelve <code class="language-plaintext highlighter-rouge">null</code> en lugar de lanzar un error:</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ciudad</span> <span class="o">=</span> <span class="nv">$usuario</span><span class="o">?-&gt;</span><span class="nf">getDireccion</span><span class="p">()</span><span class="o">?-&gt;</span><span class="nf">getCiudad</span><span class="p">();</span>
 </code></pre></div></div>
 
-<p><strong>Enums</strong>
-Permiten definir tipos de datos con un conjunto limitado de valores posibles, mejorando la robustez del código:</p>
+<h4 id="enums">Enums</h4>
+<p>Como en Java, permiten definir tipos de datos con un conjunto limitado de valores posibles, mejorando la robustez del código:</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">enum</span> <span class="nc">EstadoPedido</span><span class="o">:</span> <span class="n">string</span> <span class="p">{</span>
     <span class="k">case</span> <span class="nc">Pendiente</span> <span class="o">=</span> <span class="s1">'P'</span><span class="p">;</span>
@@ -830,24 +852,4 @@ Permiten definir tipos de datos con un conjunto limitado de valores posibles, me
     <span class="k">case</span> <span class="nc">Entregado</span> <span class="o">=</span> <span class="s1">'D'</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
-
-<h3 id="2316-extensiones-de-php-y-referencia-del-lenguaje-cómo-usar-la-biblioteca-del-lenguaje-sin-volverse-loco">2.3.16. Extensiones de PHP y referencia del lenguaje: cómo usar la biblioteca del lenguaje sin volverse loco</h3>
-
-<p>Para terminar con esta introducción a PHP, no podemos dejar de hablar de las <strong>bibliotecas de clases y funciones</strong> que vienen con cualquier distribución del lenguaje.</p>
-
-<p>PHP dispone, literalmente, de miles de funciones y métodos disponibles para usar con nuestros programas. Estas funciones y métodos resuelven casi cualquier problema común concebible.</p>
-
-<p>Como la biblioteca de PHP es tan grande, los administradores del servidor deben decidir qué funciones y clases están disponibles activando o desactivando <strong>extensiones de PHP</strong>, que es una forma rebuscada de referirse a las bibliotecas del lenguaje. Cuando un servidor tiene activada una determinada extensión de PHP, todas sus funciones y métodos están disponibles para nuestros programas.</p>
-
-<p>Es imposible conocer toda esa vasta colección de funciones, clases y métodos. Para eso está la referencia oficial del lenguaje, que puedes encontrar en <a href="https://www.php.net/manual">https://www.php.net/manual</a></p>
-
-<p>Por ejemplo, existen muchas funciones para manipular strings. Imagina que un día necesitas convertir todos los caracteres de un string a mayúsculas. Parece razonable suponer que, si las bibliotecas de PHP son tan grandes, exitirá una función que pueda hacer eso por nosotros. ¿Cómo la localizamos?</p>
-
-<p>Mi consejo es que acudas siempre a <a href="https://www.php.net/manual">https://www.php.net/manual</a> y allí utilices el buscador. Por ejemplo, teclea en la caja de búsqueda la palabra “strings”. En la página de resultados obtendrás una lista con todas las funciones relativas a strings. La función que estamos buscando debe incluir la palabra “upper”. Una rápida búsqueda por la página de resultados te conducirá a la función <em>strtoupper()</em>, que es justo la que estábamos buscando.</p>
-
-<p>Si accedes a la página de <em>strtoupper()</em> encontrarás una completa descripción de la función y, lo que es más importante, algunos ejemplos de código que puedes copiar, pegar y adaptar a tu caso concreto.</p>
-
-<p>Si, por alguna razón, decides buscar información sobre las biblioteca de PHP fuera de la web oficial, asegúrate que el sitio es de confianza y que la información que ofrece está actualizada: hay muchos sitios web que proporcionan soluciones obsoletas, inseguras o directamente erróneas.</p>
-
-<p>Por supuesto, también está la opción de recurrir a una IA generativa. Pero hazte un favor a ti y a tu cerebro de programador en formación: no te fíes al 100% de su respuesta y, sobre todo, <strong>nunca, nunca jamás le pidas a una IA que resuelva tu problema</strong>. Pídele mejor que <em>te explique</em> cómo podrías resolver el problema, y después trata de resolverlo por ti mismo. Si no, no habrás aprendido nada por el camino y, aunque tu programa funcione bien, habrás perdido el tiempo miserablemente.</p>
 :ET

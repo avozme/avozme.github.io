@@ -14,15 +14,15 @@ grand_parent: Desarrollo Web en Entorno Servidor
 - TOC
 {:toc}
 
-Como comentamos al principio, HTTP es un protocolo **sin estado**. El servidor no tiene ni idea de si la petición que le acaba de llegar es del mismo usuario que le pidió una página hace cinco segundos o de alguien completamente distinto.
+Como comentamos al principio, HTTP es un protocolo **sin estado**. Esto significa que el servidor no tiene ni idea de si la petición que le acaba de llegar es del mismo usuario que le pidió una página hace cinco segundos o de alguien completamente distinto.
 
 Para construir aplicaciones web reales (donde un usuario hace login, añade cosas a un carrito, etc.) necesitamos inventarnos alguna forma de "recordar" el estado. Y ahí es donde entran las Cookies y las Sesiones.
 
 ### 2.5.1. Las cookies
 
-Una cookie no es más que un pequeño trocito de texto que el servidor le envía al navegador y le dice: *"Oye, guárdame esto, y devuélvemelo en cada petición que me hagas a partir de ahora"*.
+Una cookie no es más que un pequeño trocito de texto que el servidor le envía al navegador y le dice: *"Guárdame esto y devuélvemelo en cada petición que me hagas a partir de ahora"*.
 
-En PHP, crear una cookie es muy sencillo con la función `setcookie()`:
+Para crear una cookie desde PHP se usa la función `setcookie()`:
 
 ```php
 <?php
@@ -30,7 +30,7 @@ En PHP, crear una cookie es muy sencillo con la función `setcookie()`:
 setcookie("idioma", "es", time() + 3600, "/");
 ```
 
-Y para leerla en una petición futura, usamos la variable superglobal `$_COOKIE`:
+Y para leerla en cualquier otro script se usa la variable superglobal `$_COOKIE`:
 
 ```php
 <?php
@@ -77,9 +77,9 @@ session_unset();     // Vaciamos el array $_SESSION
 session_destroy();   // Destruimos la sesión en el servidor
 ```
 
-### 2.5.3. Prevención de vulnerabilidades en aplicaciones web
+### 2.5.3. Principales formas de ataque a aplicaciones web
 
-En cuanto tu aplicación está en internet, van a intentar atacarla tarde o temprano. Esto es un hecho incontrovertible, así que tienes que protegerte contra estas tres vulnerabilidades clásicas:
+En cuanto tu aplicación está en internet, van a intentar atacarla tarde o temprano. Esto es un hecho incontrovertible, así que tienes que protegerte, como mínimo, contra estas tres vulnerabilidades clásicas (hay más, pero de momento vamos bien con estas):
 
 #### 1. XSS (Cross-Site Scripting)
 
@@ -89,7 +89,7 @@ Imagina que en un foro, por ejemplo, alguien publica un mensaje que dice: `<scri
 
 (El XSS suele hacer cosas más chungas que mostrar un simple `alert()`, como te puedes imaginar).
 
-**Solución:** Desconfiar *siempre* de cualquier dato que provenga del usuario antes de imprimirlo en el HTML. Para eso se usa el método de PHP `htmlspecialchars()`, que "escapa" un string, es decir, elimina cualquier rastro de código Javascript o SQL.
+**Solución:** Desconfiar *siempre* de cualquier dato que provenga del usuario antes de imprimirlo en el HTML. Para eso se usa el método de PHP `htmlspecialchars()`, que "escapa" un string, es decir, elimina cualquier rastro de código Javascript o SQL sustituyendo los caracteres que lo hacen reconocible como Javascript o SQL por otros inofensivos (por ejemplo, cambia `<script>` por `&lt;script&gt`;).
 
 ```php
 // MAL: Vulnerable a XSS
@@ -97,6 +97,27 @@ echo "<p>Comentario: " . $_POST['comentario'] . "</p>";
 
 // BIEN: Seguro
 echo "<p>Comentario: " . htmlspecialchars($_POST['comentario'], ENT_QUOTES, 'UTF-8') . "</p>";
+```
+
+`htmlspecialchars()` se puede usar con un solo argumento (como `_$POST['comentario']`) pero suele usarse de esta forma:
+
+* `htmlspecialchars($texto, $flags, $codificacion)`
+
+Donde:
+
+* `$texto` es la cadena de texto que queremos "limpiar" de posible código malicioso en el contexto de un documento HTML.
+* `$flags` sirve para indicar qué limpiar. Aquí se coloca alguna (o varias) de estas constantes:
+   * `ENT_NOQUOTES` → no convierte comillas.
+   * `ENT_COMPAT` → convierte comillas dobles, pero no simples.
+   * `ENT_QUOTES` → convierte ambas.
+   * `ENT_SUBSTITUTE` → sustituye caracteres inválidos por � en lugar de producir un resultado problemático.
+   * `ENT_HTML401`, `ENT_HTML5`, etc. → indican qué estándar de entidades HTML utilizar.
+* `$codificacion` indica la codificación de caracteres del documento (p. ej: `UTF-8`)
+
+Por eso, en el ejemplo anterior, podíamos haber escrito:
+
+```php
+echo "<p>Comentario: " . htmlspecialchars($_POST['comentario'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</p>";
 ```
 
 #### 2. Inyección SQL
@@ -132,12 +153,9 @@ $stmt->execute(['email' => $_POST['email']]);
 $user = $stmt->fetch();
 ```
 
-
-
-
 #### 3. CSRF (Cross-Site Request Forgery)
 
-Imagina que estás logueado en tu banco. Abres otra pestaña en el navegador y navegas pr ella, y llegas a una página maligna que un formulario oculto que envía una petición POST a tu banco ordenando una transferencia. 
+Imagina que estás logueado en tu banco. Abres otra pestaña en el navegador y navegas por ella, y llegas a una página maligna que un formulario oculto que envía una petición POST a tu banco ordenando una transferencia. 
 
 Como estás logueado, tu navegador enviará automáticamente la cookie de sesión al banco, y el banco pensará que la petición es tuya. *Eso es un ataque por CSRF*.
 
@@ -147,6 +165,7 @@ En este caso, el código es más complejo, pero no temas, pronto lo entenderás:
 
 ```php
 // Generar token en el formulario (GET)
+<?php
 $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 ?>
 <form action="/transferir" method="POST">

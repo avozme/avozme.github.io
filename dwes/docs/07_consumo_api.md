@@ -1,11 +1,11 @@
 ---
 layout: page
-title: 6 Consumo de APIs y frontend reactivo para SPA
+title: 7 Consumo de APIs y frontend reactivo para SPA
 permalink: /servicios-web/
 parent: Desarrollo Web en Entorno Servidor
-nav_order: 6
+nav_order: 7
 ---
-# 6. Consumo de APIs y frontend reactivo para SPA
+# 7. Consumo de APIs y frontend reactivo para SPA
 
 {: .no_toc }
 
