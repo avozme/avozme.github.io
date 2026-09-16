@@ -72,9 +72,10 @@ PLANTA SEGUNDA
 </tbody>
 </table>
 
-![Uno de los carritos de portátiles](../assets/medios-tic/carrito.jpg)
+![Uno de los carros de portátiles (cerrado)](../assets/medios-tic/carrito-cerrado.jpg)
+![Uno de los carros de portátiles (abierto)](../assets/medios-tic/carrito.jpg)
 
-### ¿A quién están destinados?
+### ¿A quién están destinados los carros de portátiles?
 
 Los ordenadores portátiles de los carritos están destinados al alumnado para su uso durante el horario de clases y siempre bajo la supervisión y responsabilidad de un miembro del profesorado.
 
@@ -93,9 +94,9 @@ Para usar un carrito de portátiles, el procedimiento general es el siguiente:
 
 ***MUY IMPORTANTE: Rellenar adecuadamente el parte de uso es la única manera de prevenir actos vandálicos y poder así mantener los carritos en el mejor estado posible.*** Rogamos para ello vuestra colaboración.
 
-### Procedimiento para reservar un carrito de portátiles
+### Procedimiento para reservar un carro de portátiles
 
-La reserva de carritos de portátiles **ya no se realiza en papel**, sino a través de Moodle Centros.
+La reserva de carritos de portátiles **NO se realiza en papel** desde el curso 22/23, sino a través de Moodle Centros.
 
 El procedimiento es el siguiente:
 
@@ -139,11 +140,52 @@ En caso de dudas con este procemiento, no dudes en contactar con nosotros a trav
 
 ## 1.2. Equipos del profesorado en aulas generales
 
-Las aulas del centro están equipadas con, al menos, un ordenador para uso del profesorado durante el ejercicio de su docencia y un televisor de gran formato y/o panel digital interactivo (PDI).
+Las aulas del centro están equipadas con, al menos, un ordenador para uso del profesorado durante el ejercicio de su docencia y un panel digital interactivo (PDI) y/o un televisor de gran formato.
+
+**Aulas con panel digital interactivo (PDI)**
+
+En estas aulas, en lugar de un televisor convencional encontraremos un panel digital interactivo (PDI) o **pantalla táctil**. 
+
+Externamente, un PDI parece un televisor, pero consta de una pantalla táctil de 75" y dos ordenadores integrados, uno con Android y otro con EducandOS (la distribución Linux de la Junta de Andalucía).
+
+Estas aulas se pueden usar de tres maneras diferentes:
+
+MANERA 1: ANDROID
+
+1. Encender el PDI. Automáticamente, entrará en modo Android.
+2. El dispositivo, en este modo, se manipula exclusivamente desde su pantalla táctil.
+
+MANERA 2: EDUCANDOS
+
+1. Encender el PDI.
+2. Usando la botonera que hay abajo y a la derecha del dispositivo, cambiar la entrada de "Android" a **"OPS"**
+3. A partir de ahora, el dispositivo puede usarse tanto desde su pantalla táctil como desde el teclado y ratón situados en la mesa del profesor/a (como si fuera un ordenador convencional).
+
+MANERA 3: CONECTANDO NUESTRO PROPIO EQUIPO
+
+* Podemos conectar nuestro equipo de uso personal mediante un cable HDMI o inalámbricamente al PDI. La forma exacta de hacerlo dependerá de tu dispositivo, por lo que tendrás que investigar un poco cómo hacerlo o preguntar al equipo de coordinación TDE.
+
+*IMPORTANTE: El alumnado tiene terminantemente prohibido hacer uso de la pantalla táctil salvo permiso expreso de un profesor/a y siempre bajo su supervisión*.
+
+<div style="position: relative; display: inline-block;">
+<img src="../assets/medios-tic/pdi-optoma-nuevas.jpg" style="display: block;" />
+<div style="position: absolute; bottom: 0; left: 0; width: 100%; background-color: rgba(0, 0, 0, 0.6); color: white; font-size: 75%; text-align: center; padding: 0.5em;">
+Una de las PDI Optoma de 75"
+</div>
+</div>
+
+<div style="position: relative; display: inline-block;">
+<img src="../assets/medios-tic/pdi-optoma-nuevas-botonera.jpg" style="display: block;" />
+<div style="position: absolute; bottom: 0; left: 0; width: 100%; background-color: rgba(0, 0, 0, 0.6); color: white; font-size: 75%; text-align: center; padding: 0.5em;">
+Botonera de la PDI Optoma. El primer botón nos permite seleccionar la entrada (OPS, Android, HDMI, etc). También se controla desde aquí el volumen del audio o se puede pausar la visualización
+</div>
+</div>
 
 **Aulas con televisor convencional**
 
-En estas aulas, el televisor sirve para proyectar la imagen y el sonido del ordenador que se encuentra ubicado en la mesa del profesor/a. 
+Aún quedan algunas (pocas) aulas con un ordenador de sobremesa en el puesto del profesor/a y un televisor convencional de gran formato conectado al mismo.
+
+En estas aulas, el televisor sirve para proyectar la imagen y el sonido del ordenador de sobremesa. 
 
 Para usar esta equipación, el procedimiento es el siguiente:
 
@@ -164,45 +206,6 @@ Uno de los televisores convencionales de 65 o 75", normalmente instalados encima
 <img src="../assets/medios-tic/ordenador-tv-antiguo.jpg" style="display: block;" />
 <div style="position: absolute; bottom: 0; left: 0; width: 100%; background-color: rgba(0, 0, 0, 0.6); color: white; font-size: 75%; text-align: center; padding: 0.5em;">
 Los televisores convencionales están conectados al PC de la mesa del profesor
-</div>
-</div>
-
-**Aulas con panel digital interactivo (PDI)**
-
-En estas aulas, en lugar de un televisor encontraremos un panel digital interactivo (PDI) o pantalla táctil. 
-
-Externamente, un PDI parece un televisor convencional, pero consta de una pantalla táctil de 75" y dos ordenadores integrados, uno con Android y otro con EducandOS (la distribución Linux de la Junta de Andalucía).
-
-Estas aulas se pueden usar de tres maneras diferentes:
-
-MANERA 1: ANDROID
-
-1. Encender el PDI. Automáticamente, entrará en modo Android.
-2. El dispositivo, en este modo, se manipula exclusivamente desde su pantalla táctil.
-
-MANERA 2: EDUCANDOS
-
-1. Encender el PDI.
-2. Usando la botonera que hay abajo y a la derecha del dispositivo, cambiar la entrada de "Android" a **"OPS"**
-3. A partir de ahora, el dispositivo puede usarse tanto desde su pantalla táctil como desde el teclado y ratón situados en la mesa del profesor/a (como si fuera un ordenador convencional).
-
-MANERA 3: CONECTANDO NUESTRO PROPIO EQUIPO
-
-* Podemos conectar nuestro equipo de uso personal mediante un cable HDMI o inalámbricamente al PDI. La forma exacta de hacerlo dependerá del dispositivo, por lo que tendrás que investigar un poco cómo hacerlo o preguntar al equipo de coordinación TDE.
-
-*IMPORTANTE: El alumnado tiene terminantemente prohibido hacer uso de la pantalla táctil salvo permiso expreso de un profesor/a y siempre bajo su supervisión*.
-
-<div style="position: relative; display: inline-block;">
-<img src="../assets/medios-tic/pdi-optoma-nuevas.jpg" style="display: block;" />
-<div style="position: absolute; bottom: 0; left: 0; width: 100%; background-color: rgba(0, 0, 0, 0.6); color: white; font-size: 75%; text-align: center; padding: 0.5em;">
-Una de las PDI Optoma de 75"
-</div>
-</div>
-
-<div style="position: relative; display: inline-block;">
-<img src="../assets/medios-tic/pdi-optoma-nuevas-botonera.jpg" style="display: block;" />
-<div style="position: absolute; bottom: 0; left: 0; width: 100%; background-color: rgba(0, 0, 0, 0.6); color: white; font-size: 75%; text-align: center; padding: 0.5em;">
-Botonera de la PDI Optoma. El primer botón nos permite seleccionar la entrada (OPS, Android, HDMI, etc). También se controla desde aquí el volumen del audio o se puede pausar la visualización
 </div>
 </div>
 
@@ -233,7 +236,29 @@ Además, hay una impresora de alta capacidad en la Sala de Profesorado, donde se
 
 Asimismo, las fotocopiadores admiten archivos en formato PDF que el personal de conserjería podrá imprimir fácilmente si se los facilitamos en una memoria USB.
 
-## 1.6. Otros medios
+## 1.6. Armario de material audiovisual
+
+Todo el material audiovisual del que dispone el centro está ubicado en el Aula de Audiovisuales 3 (planta sótano)
+
+El material disponible incluye:
+
+* Mesa de mezclas
+* Micrófonos y auriculares
+* Amplificador de auriculares
+* Phantom power
+* Cámaras fotográficas
+* Cámaras de vídeo
+* Trípodes
+* Focos
+* Kits de croma
+
+Todo este material está guardado bajo llave, como es lógico debido a su naturaleza. Esta llave debe solicitarse en Secretaría por el profesor/a que vaya a responsabilizarse del buen uso del material.
+
+Os rogamos que todo quede recogido y bajo llave después de utilizarlo.
+
+![Armario de material audiovisual](../assets/medios-tic/armario-materia-audiovisual.jpg)
+
+## 1.7. Otros medios
 
 El IES Celia Viñas dispone de otros muchos medios relacionados con las TIC. Sus características son tan variadas que enumerarlas aquí no tiene sentido. Nos limitaremos a dar una lista de los medios con los que contamos.
 
