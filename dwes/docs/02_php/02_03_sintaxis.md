@@ -381,7 +381,7 @@ Históricamente, PHP usaba `include` y `require` para cargar archivos manualment
 * **include_once / require_once**: (Obsoleto) Igual que `include` y `require`, pero evitan incluir por accidente varias veces el mismo archivo (y con ello la inevitable redifinición de clases) en proyectos grandes.
 * **Autoloading (Estándar PSR-4)**: Se configura Composer para que PHP sepa dónde buscar las clases que no están disponible en el archivo que se esté ejecutando. 
 
-   Gracias a esto, **ya no hay que escribir `include` en cada archivo**. Simplemente, se usa la clase que sea y PHP se encargará de encontrarla. Veremos cómo configurar esto en el apartado de MVC y enrutado.
+   Gracias a esto, **ya no hay que escribir `include` en cada archivo**. Simplemente, se usa la clase que sea y PHP se encargará de encontrarla, como vimos en el apartado anterior (***2.2 PHP moderno***).
 
 ### 2.3.8. Funciones anónimas y *closures*
 

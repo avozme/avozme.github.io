@@ -157,8 +157,10 @@ class UserController {
 Si en Java tienes Maven o Gradle, y en Node.js tienes NPM, en PHP el gestor de dependencias indiscutible es **Composer**.
 
 Composer hace dos cosas fundamentales:
-1. **Descargar librerías de terceros** (desde [Packagist.org](https://packagist.org/)) y mantenerlas actualizadas.
-2. **Autoloading (Carga automática de clases)**: Olvídate de escribir `require` o `include` en cada archivo, Composer se encarga por ti.
+1. **Autoloading (Carga automática de clases)**: Olvídate de escribir `require` o `include` en cada archivo, Composer se encarga por ti.
+2. **Descargar librerías de terceros** (desde [Packagist.org](https://packagist.org/)) y mantenerlas actualizadas.
+
+#### Autoloading
 
 Para iniciar un proyecto con Composer, abres la terminal en tu carpeta y escribes:
 ```bash
@@ -175,16 +177,14 @@ Por ejemplo,  que básicamente le dice a PHP: *"Oye, cuando veas que uso una cla
             "App\\": "src/"
         }
     }
-    "require": {
-       "monolog/monolog": "^3.0"
-    }    
 }
 ```
 
-* En la parte "autoload" se indican las clases de nuestro propio proyecto que queremos que se autocarguen (Lo de "psr-4" es un estándar de autoloading y hay que ponerlo siempre como lo ves aquí).
-* En la parte "require" sin indican librerías de terceros que queremos que Composer busque y descargue. Al poner "^3.0" decimos que queremos la verión 3.0 de la librería "monolog" o una versión superior.
+* En la parte "autoload" se indican las clases de nuestro propio proyecto que queremos que se autocarguen
+* `"psr-4"` es el estándar de autoloading que usa Composer. Escríbelo siempre como lo ves aquí.
+* `"App\\": "src/"` hace que Composer vaya a buscar al directorio `src` cualquier clase cuyo nombre empiece por `\App`. Por ejemplo: `\App\Controllers\HomeController`.
 
-Después, ejecutas `composer dump-autoload`, y en tu archivo `index.php` principal (tu Front Controller) solo tienes que poner una línea:
+Después, ejecutas `composer dump-autoload` una sola vez y, en tu archivo `index.php` principal (tu Front Controller, lo veremos en detalle más adelante) solo tienes que poner esta línea:
 
 ```php
 <?php
@@ -195,3 +195,34 @@ require __DIR__ . '/vendor/autoload.php';
 $app = new \App\Controllers\HomeController();
 ```
 
+#### Utilizar librerías de terceros
+
+Composer también se usa, como hemos dicho, para descargar y mantener actualizadas librerías de terceros. Para ese uso, se añade algo como esto al `composer.json`:
+
+```php
+{
+    "require": {
+       "nesbot/carbon": "^3.0"
+    }    
+}
+```
+
+Después ejecutas `composer install` o `composer update` (no es exactamente lo mismo, pero por ahora supondremos que sí) y la librería se descarga e instala en `vendor`, donde tu aplicación PHP la encontrará sin que tengas que hacer nada más.
+
+   (`"nesbot/carbon"`, por cierto, es una librería llamada "carbon" y publicada por "nesbot", y estamos pidiendo a Composer que obtenga la versión 3.0 o superior)
+
+Por lo tanto, un `composer.json` completo, con autoloading y carga de librerías de terceros, podría tener este aspecto:
+
+```php
+{
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    } 
+    "require": {
+       "nesbot/carbon": "^3.0"
+    }
+    (A partir de aquí podemos añadir otras librerías)    
+}
+```

@@ -1,0 +1,143 @@
+I"A9<h2 class="no_toc" id="26-mvc-y-enrutado-web">2.6. MVC y enrutado web</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#261-qué-es-el-mvc" id="markdown-toc-261-qué-es-el-mvc">2.6.1. ¿Qué es el MVC?</a></li>
+  <li><a href="#262-estructura-típica-de-un-proyecto" id="markdown-toc-262-estructura-típica-de-un-proyecto">2.6.2. Estructura típica de un proyecto</a></li>
+  <li><a href="#263-el-frontcontroller-y-el-enrutador" id="markdown-toc-263-el-frontcontroller-y-el-enrutador">2.6.3. El FrontController y el enrutador</a></li>
+</ul>
+
+<p>Cuando empiezas a programar en PHP, <strong>la tendencia natural es crear un archivo por cada página</strong> (por ejemplo, <code class="language-plaintext highlighter-rouge">formulario_login.php</code> te lleva a <code class="language-plaintext highlighter-rouge">comprobar_login.php</code>, que a su vez te lleva a <code class="language-plaintext highlighter-rouge">home.php</code>, etc.).</p>
+
+<p>Al programar así, en cada archivo se mezcla todo: la conexión a la base de datos, la lógica para procesar formularios, la salida HTML… Esto se conoce como “<strong>código espagueti</strong>” y es imposible de mantener cuando el proyecto crece.</p>
+
+<p>Para resolver este problema usamos un <strong>patrón de arquitectura</strong>, y el más famoso en el mundillo de las aplicaciones web es el <strong>patrón MVC (Modelo-Vista-Controlador)</strong>.</p>
+
+<h3 id="261-qué-es-el-mvc">2.6.1. ¿Qué es el MVC?</h3>
+
+<p>El MVC divide la aplicación web en <strong>tres capas</strong>, cada una con una responsabilidad muy clara:</p>
+
+<ul>
+  <li>
+    <p><strong>Los modelos:</strong> Son los encargados de manejar los datos.</p>
+
+    <p>Es decir, se conectan a la base de datos, lanzan las consultas (mejor usando PDO), aplican sobre ellos las reglas de que requiera la lógica de la aplicación (lo que se conoce como “<strong>lógica de negocio</strong>”) y devuelven los datos ya preprocesados (¡pero nunca los muestran!).</p>
+
+    <p>Normalmente, <em>tendrás un modelo por cada tabla maestra</em> de tu base de datos.</p>
+
+    <p>Por ejemplo, si tienes una tabla <code class="language-plaintext highlighter-rouge">articulos</code>, es casi seguro que necesitarás un modelo llamado <code class="language-plaintext highlighter-rouge">Articulo</code>.</p>
+  </li>
+  <li>
+    <p><strong>Las vistas:</strong> Son los archivos que contienen el HTML y el CSS.</p>
+
+    <p>Su misión es recibir los datos (ya procesados) de los modelos y mostrarlos por pantalla de forma bonita.</p>
+
+    <p>En las vistas <strong>no debe haber ninguna consulta a la base de datos</strong>, pues esa es la labor de los modelos. Lo habitual es encontrar bucles <code class="language-plaintext highlighter-rouge">foreach</code> sobre los datos y sentencias <code class="language-plaintext highlighter-rouge">echo</code> para generar la salida HTML, o bien formularios y botones que capturan la entrada de datos del usuario y los envían a un controlador.</p>
+  </li>
+  <li>
+    <p><strong>Los controladores:</strong> Son los «directores de orquesta».</p>
+
+    <p>Reciben la petición http del usuario (<em>Request</em>), la analizan y deciden a qué modelo deben llamar para conseguir los datos y qué vista debe mostrar esos datos. También suelen encargarse de aplicar la capa de seguridad.</p>
+  </li>
+</ul>
+
+<p><img src="../../assets/images/02-arquitectura-mvc.png" alt="Arquitectura MVC" /></p>
+
+<h3 id="262-estructura-típica-de-un-proyecto">2.6.2. Estructura típica de un proyecto</h3>
+
+<p>Si montamos un proyecto moderno con PHP usando Composer y Namespaces, como debe ser, y queremos parecer <strong>profesionales</strong> y no simples  aficionados, nuestro árbol de carpetas debería tener un aspecto parecido a este:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mi-proyecto/
+├── src/                # Aquí estará el código fuente PHP (Namespace: App\)
+│   ├── Controllers/    # Aquí colocamos los controladores
+│   │   └── ArticleController.php
+│   ├── Models/         # Aquí colocamos los modelos
+│   │   └── Article.php
+│   └── Views/          # Aquí colocamos las vistas (a menudo se organizan en subcarpetas)
+│       └── articles_list.php
+├── public/             # ¡La ÚNICA carpeta accesible desde el navegador!
+│   └── index.php       # El FrontController o punto de entrada (ver más abajo)
+├── vendor/             # Librerías gestionadas por Composer (no tocar)
+└── composer.json       # Configuración de Composer
+</code></pre></div></div>
+
+<p>Fíjate en algo crucial para la seguridad de la aplicación: <strong>la carpeta <code class="language-plaintext highlighter-rouge">src/</code> está <em>fuera</em> de la carpeta pública</strong>. Así los usuarios nunca pueden acceder directamente a tus modelos o controladores poniendo la URL en el navegador. El único archivo accesible públicamente es <code class="language-plaintext highlighter-rouge">public/index.php</code>.</p>
+
+<h3 id="263-el-frontcontroller-y-el-enrutador">2.6.3. El FrontController y el enrutador</h3>
+
+<p>Cuando se trabajaba con <strong>PHP clásico</strong>, los <em>Request</em> del usuario tenían este aspecto:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">misitio.com/index.php</code> - Esta era la homepage de la aplicación, con links al resto de subpáginas (por ejemplo, si fuera una tienda online, contendría un link a la lista de artículos)</li>
+  <li><code class="language-plaintext highlighter-rouge">misitio.com/articulos.php</code> - Este archivo .php consultaría la tabla de artículos y generaría un HTML con la lista de artículos.</li>
+  <li><code class="language-plaintext highlighter-rouge">misitio.com/ver_articulo.php?id_articulo=5</code> - Este otro script mostraría una página de detalle del artículo con id = 5</li>
+</ul>
+
+<p>Es decir, según lo que estuviera ocurriendo en la aplicación, la ejecución comenzaba por un archivo (como <code class="language-plaintext highlighter-rouge">index.php</code>) o por otro (como <code class="language-plaintext highlighter-rouge">articulos.php</code> o <code class="language-plaintext highlighter-rouge">ver_articulos.php</code>). Y una aplicación grande podía tener, literalmente, <em>cientos</em> de archivos. ¡El caos absoluto!</p>
+
+<p>Cada una de estas rutas las que la aplicación responde se llama <strong>endpoint</strong>. En PHP clásico, los endpoints podían tener cualquier forma y podía haber cientos de endpoints distintos. ¡Otra vez el caos!</p>
+
+<p><strong>En el desarrollo web moderno, usamos un FrontController</strong> (o controlador frontal) para organizarlo todo. Se trata de un archivo PHP especial que recoge TODAS, absolutamente todas las peticiones que llegan al servidor. Ese FrontController suele ser el archivo <code class="language-plaintext highlighter-rouge">public/index.php</code>.</p>
+
+<p>¿Cómo sabe, entonces, <code class="language-plaintext highlighter-rouge">index.php</code> qué código tiene que ejecutar? Gracias al <strong>Enrutador (Router)</strong>.</p>
+
+<p>El <strong>enrutador</strong> es la pieza del programa que examina la URL (por ejemplo, <code class="language-plaintext highlighter-rouge">misitio.com/articles/show/5</code>) y la divide en trozos, con lo que puede extraer la información que necesita para saber qué código ejecutar a continuación:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">articles</code> - El FrontController ya sabe que el usuario quiere hacer algo con los artículos.</li>
+  <li><code class="language-plaintext highlighter-rouge">show</code> - El FrontController sabe que el usuario ha pedido <em>ver</em> artículos. Pero aún no sabe si todos o uno en concreto.</li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">5</code> - El FrontController sabe que el usuario quiere ver el artículo con id = 5, así que ya sabe <strong>qué modelo y qué vista tiene que invocar</strong>: el modelo de artículos (para buscar el artículo 5 en la BD) y la vista diseñada para mostrar los datos de un solo artículo.</p>
+
+    <p>Lógicamente, estos dos elementos (modelo de artículos y vista para mostrar un artículo) tienen que existir y estarán en dos archivos diferentes (generalmente, el modelo estará en <code class="language-plaintext highlighter-rouge">Models/Article.php</code> y la vista en <code class="language-plaintext highlighter-rouge">Views/Article/show.php</code> o algo muy semejante).</p>
+  </li>
+</ul>
+
+<p>Usar un FrontController no solo permite construir aplicaciones mejor organizadas y más seguras, sino también usar URL limpias y semánticas:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">misitio.com/ver_articulo.php?id_articulo=5</code> - URL “sucia” y antigua, difícil de leer e interpretar.</li>
+  <li><code class="language-plaintext highlighter-rouge">misitio.com/articles/show/5</code> - URL limpia y moderna, fácil de leer e interpretar. Mejora la semántica y el posicionamiento web.</li>
+</ul>
+
+<p>Además, los <strong>endpoints</strong> de las aplicaciones modernas están bastante <strong>estandarizados</strong>, de manera que, por ejemplo, <code class="language-plaintext highlighter-rouge">misitio.com/articles/show/5</code> es el endpoint para ver el detalle de un artículo con id = 5, mientras que <code class="language-plaintext highlighter-rouge">misitio.com/clients/show/9</code> es el endpoint para ver en cliente con id = 9 o <code class="language-plaintext highlighter-rouge">misitio.com/articles/delete/13</code> es el endpoint para borrar el artículo con id = 13.</p>
+
+<h4 id="ejemplo-de-frontcontroller-muy-básico-publicindexphp">Ejemplo de FrontController muy básico (<code class="language-plaintext highlighter-rouge">public/index.php</code>)</h4>
+
+<p>Este es un ejemplo sencillo de cómo se puede escribir un archivo tan importante como el FrontController de forma sencilla y limpia. No es perfecto (para eso ya están los Frameworks como Laravel), pero sí funcional:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Cargamos el autoload de Composer</span>
+<span class="k">require</span> <span class="k">__DIR__</span> <span class="mf">.</span> <span class="s1">'/../vendor/autoload.php'</span><span class="p">;</span>
+
+<span class="c1">// Conexión a la BD</span>
+<span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PDO</span><span class="p">(</span><span class="s2">"mysql:host=localhost;dbname=blog"</span><span class="p">,</span> <span class="s2">"root"</span><span class="p">,</span> <span class="s2">""</span><span class="p">);</span>
+
+<span class="c1">// Capturamos la acción por GET (modo "cutre" pero fácil de entender)</span>
+<span class="c1">// ¡OJO! Lo mejor sería leer la URL limpia ($_SERVER['REQUEST_URI'])</span>
+<span class="c1">// (recuerda: el operador ?? asigna a $controllerName el valor de $_GET['controller'] si existe o, si no, se asigna 'Article')</span>
+<span class="nv">$controllerName</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'controller'</span><span class="p">]</span> <span class="o">??</span> <span class="s1">'Article'</span><span class="p">;</span>
+<span class="nv">$action</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'action'</span><span class="p">]</span> <span class="o">??</span> <span class="s1">'index'</span><span class="p">;</span>
+
+<span class="c1">// Construimos el nombre completo de la clase usando nuestro namespace</span>
+<span class="nv">$controllerClass</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\\</span><span class="s2">App</span><span class="se">\\</span><span class="s2">Controllers</span><span class="se">\\</span><span class="s2">"</span> <span class="mf">.</span> <span class="nv">$controllerName</span> <span class="mf">.</span> <span class="s2">"Controller"</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nb">class_exists</span><span class="p">(</span><span class="nv">$controllerClass</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nb">method_exists</span><span class="p">(</span><span class="nv">$controllerClass</span><span class="p">,</span> <span class="nv">$action</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// Instanciamos el controlador y le pasamos la conexión a la base de datos</span>
+    <span class="nv">$controller</span> <span class="o">=</span> <span class="k">new</span> <span class="nv">$controllerClass</span><span class="p">(</span><span class="nv">$pdo</span><span class="p">);</span>
+    <span class="c1">// Ejecutamos el método</span>
+    <span class="nv">$controller</span><span class="o">-&gt;</span><span class="nv">$action</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nb">header</span><span class="p">(</span><span class="s2">"HTTP/1.0 404 Not Found"</span><span class="p">);</span>
+    <span class="k">echo</span> <span class="s2">"Página no encontrada"</span><span class="p">;</span>  <span class="c1">// Aquí personalizamos la página del error 404</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="inyección-de-dependencias">Inyección de dependencias</h4>
+
+<p>Fíjate en esta línea del controlador frontal: <code class="language-plaintext highlighter-rouge">$controller = new $controllerClass($pdo);</code>.</p>
+
+<p>Le estamos pasando el objeto de la base de datos (<code class="language-plaintext highlighter-rouge">$pdo</code>) al controlador que se vaya a ejecutar. Ese controlador, a su vez, se lo pasará al modelo. A esto se le llama <strong>Inyección de dependencias</strong>.</p>
+
+<p>En lugar de que cada modelo cree su propia conexión (lo cual es un infierno si mañana cambias la contraseña de la BD, porque tendrías que cambiarla en 50 archivos), <strong>creamos la conexión una sola vez en el <code class="language-plaintext highlighter-rouge">index.php</code> y se la “inyectamos” a las clases que la necesiten</strong>.</p>
+
+<p>Los frameworks modernos como Laravel automatizan todo esto de una forma aparentemente mágica. Pero lo que ocurre en las tripas del framework no es magia, sino exactamente lo mismo que acabamos de explicar.</p>
+:ET
