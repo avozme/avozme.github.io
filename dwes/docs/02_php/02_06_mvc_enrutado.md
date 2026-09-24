@@ -96,9 +96,24 @@ Usar un FrontController no solo permite construir aplicaciones mejor organizadas
 
 Además, los **endpoints** de las aplicaciones modernas están bastante **estandarizados**, de manera que, por ejemplo, `misitio.com/articles/show/5` es el endpoint para ver el detalle de un artículo con id = 5, mientras que `misitio.com/clients/show/9` es el endpoint para ver en cliente con id = 9 o `misitio.com/articles/delete/13` es el endpoint para borrar el artículo con id = 13.
 
-#### Ejemplo de FrontController muy básico (`public/index.php`)
+#### Ejemplo de FrontController simple (`public/index.php`)
 
-Este es un ejemplo sencillo de cómo se puede escribir un archivo tan importante como el FrontController de forma sencilla y limpia. No es perfecto (para eso ya están los Frameworks como Laravel), pero sí funcional:
+Este es un ejemplo sencillo de cómo se puede escribir un archivo tan importante como el FrontController de forma sencilla y limpia. No es perfecto (para eso ya están los Frameworks como Laravel), pero sí funcional.
+
+Las rutas que este FrontController acepta tienen forma «fea», de este estilo:
+
+```
+http://servidor.com/index.php?controller=ArticleController&action=show&id=5
+```
+
+Un FrontController más elaborado aceptaría rutas «limpias» y sería capaz de extraer de ellas tanto el nombre del controlador que debe usarse como el método (o acción) que debe ejecutar, así como los datos adicionales necesarios para ejecutarlo (en el ejemplo anterior, el `id = 5`):
+
+```
+# La misma ruta que antes, pero «limpia»
+http://servidor.com/articles/show/5
+```
+
+Este FrontController, además de aceptar solo rutas «feas», tiene integrado el **enrutador** supersimple (por eso solo acepta rutas «feas»). Un enrutador más elaborado para rutas «limpias» implicaría demasiado código y tendríamos que sacarlo del FrontController para colocarlo en otro archivo. *Haremos exactamente eso en la próxima sección.*
 
 ```php
 <?php

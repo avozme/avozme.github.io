@@ -7,7 +7,7 @@ has_children: true
 parent: Desarrollo Web en Entorno Servidor
 ---
 
-# 5. SSR y API RESTful con Spring Boot
+# 3. SSR y API RESTful con Spring Boot
 
 {: .no_toc }
 

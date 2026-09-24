@@ -53,7 +53,7 @@ function initNav() {
 
 function initSearch() {
   var request = new XMLHttpRequest();
-  request.open('GET', 'https://iescelia.org/docs/dwes/_site/assets/js/search-data.json', true);
+  request.open('GET', 'http://localhost:4000/docs/dwes/_site/assets/js/search-data.json', true);
 
   request.onload = function(){
     if (request.status >= 200 && request.status < 400) {
@@ -430,7 +430,7 @@ jtd.getTheme = function() {
 
 jtd.setTheme = function(theme) {
   var cssFile = document.querySelector('[rel="stylesheet"]');
-  cssFile.setAttribute('href', 'https://iescelia.org/docs/dwes/_site/assets/css/just-the-docs-' + theme + '.css');
+  cssFile.setAttribute('href', 'http://localhost:4000/docs/dwes/_site/assets/css/just-the-docs-' + theme + '.css');
 }
 
 // Document ready

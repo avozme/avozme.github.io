@@ -28,8 +28,8 @@ Pero existen ciertas diferencias importantes. A continuación te resumo las prin
 
 | En Java... | En PHP... |
 |---|---|
-| Las variables se declaran con un tipo (`String nombre;`) | Las variables empiezan siempre por `$` y, por defecto, no necesitan tipo (`$nombre`). PHP 8 te permite añadir tipos en parámetros, propiedades y retornos, y está fuertemente recomendado hacerlo en proyectos grandes. Si encabezas el programa con la línea `declare(strict_types=1)`, PHP te obligará a declarar los tipos. |
-| Un programa tiene un método `public static void main()` como punto de entrada | Un script PHP se ejecuta de arriba abajo en cuanto se carga. No hay un "main": el archivo `public/index.php` hace ese papel, como verás enseguida. |
+| Las variables se declaran con un tipo (`String nombre;`) | Las variables empiezan siempre por `$` y, por defecto, no necesitan tipo (`$nombre`). PHP 8 te permite añadir tipos en parámetros, propiedades y retornos, y está fuertemente recomendado hacerlo en proyectos grandes. Si encabezas el programa con la línea `declare(strict_types=1)`, PHP te obligará a declarar los tipos en los métodos. |
+| Un programa tiene un método `public static void main()` como punto de entrada | Un script PHP se ejecuta de arriba abajo en cuanto se carga. No hay un "main", aunque el archivo `public/index.php` hace un papel parecido, como verás enseguida. |
 | `package com.miapp.modelos;` y `import com.miapp.modelos.Articulo;` | `namespace App\Models;` y `use App\Models\Article;`. Es exactamente la misma idea, con otra sintaxis. |
 | El *classpath* y Maven o Gradle resuelven qué archivo `.class` corresponde a cada clase | **Composer** hace ese trabajo mediante el llamado autoload PSR-4: le dices "las clases del namespace `App\` están en la carpeta `src/`" y él se encarga de cargar el archivo correcto cuando lo necesites. |
 | `ArrayList<String>` para listas, `HashMap<String, Object>` para diccionarios | Un único tipo, el **array**, hace de las dos cosas. `$colores = ['rojo', 'verde'];` es una lista; `$persona = ['nombre' => 'Ana', 'edad' => 20];` es un diccionario (aquí lo llamamos *array asociativo*). |

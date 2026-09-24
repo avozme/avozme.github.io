@@ -1,0 +1,11 @@
+También merece su pequeño apartado porque es uno de los conceptos fundamentales que después utilizarán constantemente:
+
+$url = route('products.index');
+
+Con parámetros:
+
+$url = route('products.show', ['product' => 5]);
+
+Esto encaja perfectamente con tu explicación de rutas con nombre.
+
+La documentación actual recomienda precisamente route() para generar URLs a partir del nombre de la ruta.
