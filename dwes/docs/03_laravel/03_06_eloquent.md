@@ -42,21 +42,21 @@ $art->save();                     // Si hacemos save(), los cambios se guardan e
 Tienes que **crear un modelo**. ¿Qué te creías? Pero con Artisan es así de fácil:
 
 ```
-$ php artisan make:model <Mi-modelo>
+# ./vendor/bin/sail php artisan make:model <Mi-modelo>
 ```
 
 Por ejemplo:
 
 ```
-$ php artisan make:model Article
+# ./vendor/bin/sail php artisan make:model Article
 ```
 
-El modelo se creará en */app/models/Article.php* (¡cuidado! En versiones más antiguas de Laravel, el modelo se creará en */app/Article.php*)
+El modelo se creará en `app/Models/Article.php`.
 
-Truco: si creas el modelo con la **opción -m**, se creará atomáticamente su migración, lo cual resulta tremendamente práctico:
+Truco: si creas el modelo con la **opción -m**, se creará automáticamente su migración, lo cual resulta tremendamente práctico:
 
-```
-$ php artisan make:model Article -m
+```bash
+$ ./vendor/bin/sail artisan make:model Article -m
 ```
 
 Ya tienes tu modelo. Si no puedes contener tu curiosidad insaciable y lo abres, verás un archivo bastante decepcionante con este aspecto:
@@ -89,12 +89,12 @@ Recuerda que en Laravel existen un montón de convenciones sobre los nombres de 
 
 No obstante, si quieres ponerle otro nombre a la tabla, puedes hacerlo. También puedes cambiar otras muchas cosas, como el nombre del campo clave (Laravel supondrá que se llama id) o los campos sobre los que se puede hacer una asignación masiva, algo muy útil que veremos un poco más adelante.
 
-Por ejemplo, podemos editar el modelo */app/Articles.php* y añadir estas líneas dentro de nuestra clase:
+Por ejemplo, podemos editar el modelo `app/Models/Article.php` y añadir estas líneas dentro de nuestra clase:
 
 ```php
 protected $table = 'articulos';   // El nombre de la tabla no será "articles" sino "articulos"
 protected $primaryKey = 'id_art'; // La clave primaria no será "id" sino "id_art"
-protected $fillable = array('id','titulo','cuerpo'); // Campos de la tabla en los que se permite la ASIGNACIÓN MASIVA (más adelante veremos qué es esto) 
+protected $fillable = ['titulo', 'cuerpo']; // Campos de la tabla en los que se permite la ASIGNACIÓN MASIVA (más adelante veremos qué es esto) 
 ```
 
 ### 3.6.4. Consultas con Eloquent
@@ -150,11 +150,11 @@ Y, por supuesto, también podemos **modificar y borrar** artículos de la base d
    $art->delete();
 ```
 
-### 3.6.6. Lista de los métodos más útiles de Eloquent
+### 3.6.6. Chuleta con los métodos más útiles de Eloquent
 
 Hemos visto en los últimos ejemplos **algunos métodos de Eloquent** por separado. Te los reúno en esta sección para que los puedas consultar cuando lo necesites.
 
-Aviso: no están todos, solo los de uso más habitual. Si quieres una lista completa, ya sabes: acude a la [documentación oficial](https://laravel.com/docs/8.x/eloquent). 
+Aviso: no están todos, solo los de uso más habitual. Si quieres una lista completa, ya sabes: acude a la [documentación oficial de Eloquent](https://laravel.com/docs/eloquent). 
 
 * **all()** → Recupera todos los registros de una tabla.
 * **where("campo", valor)** → Aplica claúsula *where*.
@@ -172,11 +172,7 @@ Aviso: no están todos, solo los de uso más habitual. Si quieres una lista comp
 * **update()** → Actualiza registros.
 * **delete()** → Elimina registros.
 
-### 3.6.7 QueryBuilder
-{: .no_toc }
-
-- TOC
-{:toc}
+### 3.6.7. QueryBuilder
 
 En esta sección te voy a presentar a **QueryBuilder**, otra forma de acceder a la base de datos desde Laravel que te resultará muy útil en aquellos casos en los que, por la razón que sea, los métodos de Eloquent no sean suficientes.
 
@@ -201,7 +197,7 @@ $users = DB::table("users")->select("nombre, apellidos as apell")->get();
 
 Ahora ves a qué me refiero cuando digo que QueryBuilder es *casi* SQL, sin llegar a serlo. No tendrás que depurar el SQL, ni pelearte con comillas que se abren y cierran, ni nada de eso. QueryBuilder generará el SQL por ti a partir de expresiones como las que acabas de ver.
 
-En la [documentación oficial](https://laravel.com/docs/8.x/queries) encontrarás una referencia completa de todas las funciones de QueryBuilder, pero con estas que ves en el ejemplo puedes construir prácticamente cualquier consulta sencilla.
+En la [documentación oficial de Queries](https://laravel.com/docs/queries) encontrarás una referencia completa de todas las funciones de QueryBuilder, pero con estas que ves en el ejemplo puedes construir prácticamente cualquier consulta sencilla.
 
 #### Colecciones
 
@@ -210,7 +206,7 @@ El **resultado** de consultas como las que veíamos de ejemplo en el apartado an
 * O bien un **dato simple** (como el *$maxId* de la cuarta consulta, que es un entero).
 * O bien un **objeto de tipo Collection**. 
 
-Las **colecciones de Laravel** tienen un montón de métodos útiles para procesarlas y puedes echarle un vistazo a la [documentación oficial](https://laravel.com/docs/8.x/collections) para ello, pero la mayor parte de las veces basta con hacer un *foreach* sobre la variable para ir accediendo a cada uno de los elementos, que se comportarán como objetos del tipo adecuado.
+Las **colecciones de Laravel** tienen un montón de métodos útiles para procesarlas y puedes echarle un vistazo a la [documentación oficial de Collections](https://laravel.com/docs/collections) para ello, pero la mayor parte de las veces basta con hacer un *foreach* sobre la variable para ir accediendo a cada uno de los elementos, que se comportarán como objetos del tipo adecuado.
 
 Por ejemplo, para acceder a todos los registros de la tabla de usuarios:
 
@@ -262,8 +258,160 @@ Eso sí, deberías valorar muy bien para qué narices quieres escribir SQL crudo
 
 Además, tendrás que extremar las precauciones ante un posible ataque por inyección de código.
 
-Si aún así no te he convencido, puedes ejecutar tu SQL crudo así:
+Si aún así no te he convencido, puedes ejecutar tu consulta SQL cruda directamente con el método `DB::select()`, `DB::insert()`, `DB::update()` o `DB::delete()`. Por ejemplo:
 
 ```php
-$resultado = DB::raw('escribe-aquí-tu-sentencia-SQL');
+$resultado = DB::select('SELECT * FROM users WHERE active = ?', [1]);
 ```
+
+*(Nota: si lo que necesitas es inyectar una expresión cruda dentro de una consulta QueryBuilder o Eloquent, entonces se usa `DB::raw('expresión SQL')`)*.
+
+### 3.6.8. Práctica: Eloquent en nuestra aplicación
+
+En las prácticas anteriores creamos el controlador y las vistas de `products`, y en el capítulo anterior generamos su migración para la base de datos.
+¡Es el momento de unir todas las piezas utilizando **Eloquent**!
+
+Sustituiremos los arrays fijos que usábamos en `ProductController` por consultas reales a la base de datos para listar, mostrar, crear, editar y eliminar productos.
+
+#### Objetivos
+
+- Crear un modelo asociado a una tabla existente.
+- Configurar el atributo `$fillable` para permitir asignación masiva.
+- Utilizar `all()`, `findOrFail()`, `create()`, `update()` y `delete()` en el controlador.
+- Manipular registros reales en una base de datos mediante una interfaz web.
+
+#### PASO 1. Crear el Modelo y configurar $fillable
+
+1. Abre un terminal, asegúrate de que Sail está levantado y crea el modelo para tus productos (ya tienes la migración, así que no hace falta la opción `-m`):
+
+   ```bash
+   ./vendor/bin/sail artisan make:model Product
+   ```
+
+2. Abre el archivo recién creado en `app/Models/Product.php` y añade la propiedad `$fillable` para poder usar asignación masiva cuando insertemos o modifiquemos desde el formulario:
+
+   ```php
+   namespace App\Models;
+
+   use Illuminate\Database\Eloquent\Model;
+
+   class Product extends Model
+   {
+       // Los campos que permitimos guardar masivamente
+       protected $fillable = ['name', 'description', 'price'];
+   }
+   ```
+
+#### PASO 2. Importar el modelo en el Controlador
+
+1. Abre `app/Http/Controllers/ProductController.php`.
+2. Añade el `use` del modelo al principio del archivo (debajo del `namespace` y de otros `use`):
+
+   ```php
+   use App\Models\Product;
+   ```
+
+#### PASO 3. Actualizar los métodos del Controlador
+
+Ahora modificaremos cada uno de los métodos para que usen Eloquent en lugar de datos de prueba o mensajes de error vacíos.
+
+1. **Método `index()`** (Mostrar todos los productos):
+
+   Borra el array `$productos` que teníamos escrito a mano y cámbialo por una llamada al modelo:
+
+   ```php
+   public function index()
+   {
+       $productos = Product::all(); // Obtiene todos los registros de la BD
+       
+       return view('productos.index', compact('productos'));
+   }
+   ```
+   *(Nota: recuerda que `compact('productos')` es equivalente a `['productos' => $productos]`)*.
+
+2. **Método `store()`** (Guardar el producto de la vista `create`):
+
+   ```php
+   public function store(Request $request)
+   {
+       // 1. Validar
+       $request->validate([
+           'name' => 'required|max:100',
+           'price' => 'required|numeric|min:0'
+       ]);
+
+       // 2. Crear masivamente (¡gracias a $fillable!)
+       Product::create($request->all());
+
+       // 3. Redirigir al listado principal
+       return redirect()->route('products.index');
+   }
+   ```
+
+3. **Método `show()`** (Mostrar el detalle de un producto):
+
+   Borra el array manual y usa `findOrFail()` (si el ID no existe en la BD, lanzará un error 404):
+
+   ```php
+   public function show(string $id)
+   {
+       $producto = Product::findOrFail($id);
+
+       return view('productos.show', compact('producto'));
+   }
+   ```
+
+4. **Método `edit()`** (Mostrar el formulario de edición):
+
+   Similar a `show()`, pero pasaremos el modelo a la vista de edición:
+
+   ```php
+   public function edit(string $id)
+   {
+       $producto = Product::findOrFail($id);
+
+       return view('productos.edit', compact('producto'));
+   }
+   ```
+
+5. **Método `update()`** (Guardar los cambios del formulario de edición):
+
+   ```php
+   public function update(Request $request, string $id)
+   {
+       $request->validate([
+           'name' => 'required|max:100',
+           'price' => 'required|numeric|min:0'
+       ]);
+
+       $producto = Product::findOrFail($id);
+       $producto->update($request->all());
+
+       return redirect()->route('products.show', $producto->id);
+   }
+   ```
+
+6. **Método `destroy()`** (Eliminar un producto):
+
+   ```php
+   public function destroy(string $id)
+   {
+       $producto = Product::findOrFail($id);
+       $producto->delete();
+
+       return redirect()->route('products.index');
+   }
+   ```
+
+#### PASO 4. Probar la aplicación completa
+
+1. Entra a `http://localhost/products`. Debería salir una página vacía de productos (sin contar la cabecera).
+2. Entra en "Nuevo producto", rellena el formulario y envíalo. Si los datos son correctos, serás redirigido a la lista donde ahora verás tu nuevo artículo.
+3. Haz clic sobre él, edita su precio y guárdalo. 
+4. Finalmente, intenta borrar el artículo con el botón/formulario de borrado de la vista `show`.
+
+**¡Enhorabuena! Tienes un CRUD 100% funcional, seguro y elegante en Laravel.**
+
+<div markdown="1" style="color: red; font-style: italic">
+**Como en otras ocasiones, no te conformes con que funcione. ASEGÚRATE DE ENTENDERLO.** Recuerda que cuando hagas prácticas de entrega obligatoria y exámenes, te podremos preguntar, por escrito u oralmente, qué hace tu código para comprobar que realmente lo entiendes, independientemente de si el código lo has escrito todo tú o lo has generado con ayuda de una IA.
+</div>

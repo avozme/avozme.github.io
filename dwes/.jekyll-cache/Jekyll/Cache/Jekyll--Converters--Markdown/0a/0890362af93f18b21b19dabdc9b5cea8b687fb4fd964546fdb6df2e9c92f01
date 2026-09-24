@@ -1,4 +1,4 @@
-I"�l<h2 class="no_toc" id="36-usando-la-bd-con-eloquent">3.6. Usando la BD con Eloquent</h2>
+I"��<h2 class="no_toc" id="36-usando-la-bd-con-eloquent">3.6. Usando la BD con Eloquent</h2>
 
 <ul id="markdown-toc">
   <li><a href="#361-qué-es-el-mapeo-objeto-relacional" id="markdown-toc-361-qué-es-el-mapeo-objeto-relacional">3.6.1. ¿Qué es el mapeo objeto-relacional?</a></li>
@@ -6,7 +6,9 @@
   <li><a href="#363-pero-cómo-sabe-laravel-qué-tabla-está-asociada-a-ese-modelo" id="markdown-toc-363-pero-cómo-sabe-laravel-qué-tabla-está-asociada-a-ese-modelo">3.6.3. Pero ¿cómo sabe Laravel qué tabla está asociada a ese modelo?</a></li>
   <li><a href="#364-consultas-con-eloquent" id="markdown-toc-364-consultas-con-eloquent">3.6.4. Consultas con Eloquent</a></li>
   <li><a href="#365-inserciones-y-borrados-con-eloquent" id="markdown-toc-365-inserciones-y-borrados-con-eloquent">3.6.5. Inserciones y borrados con Eloquent</a></li>
-  <li><a href="#366-lista-de-los-métodos-más-útiles-de-eloquent" id="markdown-toc-366-lista-de-los-métodos-más-útiles-de-eloquent">3.6.6. Lista de los métodos más útiles de Eloquent</a></li>
+  <li><a href="#366-chuleta-con-los-métodos-más-útiles-de-eloquent" id="markdown-toc-366-chuleta-con-los-métodos-más-útiles-de-eloquent">3.6.6. Chuleta con los métodos más útiles de Eloquent</a></li>
+  <li><a href="#367-querybuilder" id="markdown-toc-367-querybuilder">3.6.7. QueryBuilder</a></li>
+  <li><a href="#368-práctica-eloquent-en-nuestra-aplicación" id="markdown-toc-368-práctica-eloquent-en-nuestra-aplicación">3.6.8. Práctica: Eloquent en nuestra aplicación</a></li>
 </ul>
 
 <p>Eloquent uno de los componentes de Laravel que permiten al desarrollador manipular los datos de la BD sin rebajarse a escribir sucio SQL. Y lo consigue mediante un mecanismo simple y elegante: el mapeo objeto-relacional.</p>
@@ -35,19 +37,19 @@
 
 <p>Tienes que <strong>crear un modelo</strong>. ¿Qué te creías? Pero con Artisan es así de fácil:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php artisan make:model &lt;Mi-modelo&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># ./vendor/bin/sail php artisan make:model &lt;Mi-modelo&gt;
 </code></pre></div></div>
 
 <p>Por ejemplo:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php artisan make:model Article
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># ./vendor/bin/sail php artisan make:model Article
 </code></pre></div></div>
 
-<p>El modelo se creará en <em>/app/models/Article.php</em> (¡cuidado! En versiones más antiguas de Laravel, el modelo se creará en <em>/app/Article.php</em>)</p>
+<p>El modelo se creará en <code class="language-plaintext highlighter-rouge">app/Models/Article.php</code>.</p>
 
-<p>Truco: si creas el modelo con la <strong>opción -m</strong>, se creará atomáticamente su migración, lo cual resulta tremendamente práctico:</p>
+<p>Truco: si creas el modelo con la <strong>opción -m</strong>, se creará automáticamente su migración, lo cual resulta tremendamente práctico:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php artisan make:model Article -m
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>./vendor/bin/sail artisan make:model Article <span class="nt">-m</span>
 </code></pre></div></div>
 
 <p>Ya tienes tu modelo. Si no puedes contener tu curiosidad insaciable y lo abres, verás un archivo bastante decepcionante con este aspecto:</p>
@@ -79,11 +81,11 @@
 
 <p>No obstante, si quieres ponerle otro nombre a la tabla, puedes hacerlo. También puedes cambiar otras muchas cosas, como el nombre del campo clave (Laravel supondrá que se llama id) o los campos sobre los que se puede hacer una asignación masiva, algo muy útil que veremos un poco más adelante.</p>
 
-<p>Por ejemplo, podemos editar el modelo <em>/app/Articles.php</em> y añadir estas líneas dentro de nuestra clase:</p>
+<p>Por ejemplo, podemos editar el modelo <code class="language-plaintext highlighter-rouge">app/Models/Article.php</code> y añadir estas líneas dentro de nuestra clase:</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">protected</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">'articulos'</span><span class="p">;</span>   <span class="c1">// El nombre de la tabla no será "articles" sino "articulos"</span>
 <span class="k">protected</span> <span class="nv">$primaryKey</span> <span class="o">=</span> <span class="s1">'id_art'</span><span class="p">;</span> <span class="c1">// La clave primaria no será "id" sino "id_art"</span>
-<span class="k">protected</span> <span class="nv">$fillable</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span><span class="s1">'titulo'</span><span class="p">,</span><span class="s1">'cuerpo'</span><span class="p">);</span> <span class="c1">// Campos de la tabla en los que se permite la ASIGNACIÓN MASIVA (más adelante veremos qué es esto) </span>
+<span class="k">protected</span> <span class="nv">$fillable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'titulo'</span><span class="p">,</span> <span class="s1">'cuerpo'</span><span class="p">];</span> <span class="c1">// Campos de la tabla en los que se permite la ASIGNACIÓN MASIVA (más adelante veremos qué es esto) </span>
 </code></pre></div></div>
 
 <h3 id="364-consultas-con-eloquent">3.6.4. Consultas con Eloquent</h3>
@@ -135,11 +137,11 @@
    <span class="nv">$art</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">();</span>
 </code></pre></div></div>
 
-<h3 id="366-lista-de-los-métodos-más-útiles-de-eloquent">3.6.6. Lista de los métodos más útiles de Eloquent</h3>
+<h3 id="366-chuleta-con-los-métodos-más-útiles-de-eloquent">3.6.6. Chuleta con los métodos más útiles de Eloquent</h3>
 
 <p>Hemos visto en los últimos ejemplos <strong>algunos métodos de Eloquent</strong> por separado. Te los reúno en esta sección para que los puedas consultar cuando lo necesites.</p>
 
-<p>Aviso: no están todos, solo los de uso más habitual. Si quieres una lista completa, ya sabes: acude a la <a href="https://laravel.com/docs/8.x/eloquent">documentación oficial</a>.</p>
+<p>Aviso: no están todos, solo los de uso más habitual. Si quieres una lista completa, ya sabes: acude a la <a href="https://laravel.com/docs/eloquent">documentación oficial de Eloquent</a>.</p>
 
 <ul>
   <li><strong>all()</strong> → Recupera todos los registros de una tabla.</li>
@@ -159,11 +161,7 @@
   <li><strong>delete()</strong> → Elimina registros.</li>
 </ul>
 
-<h3 class="no_toc" id="367-querybuilder">3.6.7 QueryBuilder</h3>
-
-<ul>
-  <li>TOC</li>
-</ul>
+<h3 id="367-querybuilder">3.6.7. QueryBuilder</h3>
 
 <p>En esta sección te voy a presentar a <strong>QueryBuilder</strong>, otra forma de acceder a la base de datos desde Laravel que te resultará muy útil en aquellos casos en los que, por la razón que sea, los métodos de Eloquent no sean suficientes.</p>
 
@@ -187,7 +185,7 @@
 
 <p>Ahora ves a qué me refiero cuando digo que QueryBuilder es <em>casi</em> SQL, sin llegar a serlo. No tendrás que depurar el SQL, ni pelearte con comillas que se abren y cierran, ni nada de eso. QueryBuilder generará el SQL por ti a partir de expresiones como las que acabas de ver.</p>
 
-<p>En la <a href="https://laravel.com/docs/8.x/queries">documentación oficial</a> encontrarás una referencia completa de todas las funciones de QueryBuilder, pero con estas que ves en el ejemplo puedes construir prácticamente cualquier consulta sencilla.</p>
+<p>En la <a href="https://laravel.com/docs/queries">documentación oficial de Queries</a> encontrarás una referencia completa de todas las funciones de QueryBuilder, pero con estas que ves en el ejemplo puedes construir prácticamente cualquier consulta sencilla.</p>
 
 <h4 id="colecciones">Colecciones</h4>
 
@@ -198,7 +196,7 @@
   <li>O bien un <strong>objeto de tipo Collection</strong>.</li>
 </ul>
 
-<p>Las <strong>colecciones de Laravel</strong> tienen un montón de métodos útiles para procesarlas y puedes echarle un vistazo a la <a href="https://laravel.com/docs/8.x/collections">documentación oficial</a> para ello, pero la mayor parte de las veces basta con hacer un <em>foreach</em> sobre la variable para ir accediendo a cada uno de los elementos, que se comportarán como objetos del tipo adecuado.</p>
+<p>Las <strong>colecciones de Laravel</strong> tienen un montón de métodos útiles para procesarlas y puedes echarle un vistazo a la <a href="https://laravel.com/docs/collections">documentación oficial de Collections</a> para ello, pero la mayor parte de las veces basta con hacer un <em>foreach</em> sobre la variable para ir accediendo a cada uno de los elementos, que se comportarán como objetos del tipo adecuado.</p>
 
 <p>Por ejemplo, para acceder a todos los registros de la tabla de usuarios:</p>
 
@@ -249,8 +247,173 @@
 
 <p>Además, tendrás que extremar las precauciones ante un posible ataque por inyección de código.</p>
 
-<p>Si aún así no te he convencido, puedes ejecutar tu SQL crudo así:</p>
+<p>Si aún así no te he convencido, puedes ejecutar tu consulta SQL cruda directamente con el método <code class="language-plaintext highlighter-rouge">DB::select()</code>, <code class="language-plaintext highlighter-rouge">DB::insert()</code>, <code class="language-plaintext highlighter-rouge">DB::update()</code> o <code class="language-plaintext highlighter-rouge">DB::delete()</code>. Por ejemplo:</p>
 
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$resultado</span> <span class="o">=</span> <span class="no">DB</span><span class="o">::</span><span class="nf">raw</span><span class="p">(</span><span class="s1">'escribe-aquí-tu-sentencia-SQL'</span><span class="p">);</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$resultado</span> <span class="o">=</span> <span class="no">DB</span><span class="o">::</span><span class="nf">select</span><span class="p">(</span><span class="s1">'SELECT * FROM users WHERE active = ?'</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 </code></pre></div></div>
+
+<p><em>(Nota: si lo que necesitas es inyectar una expresión cruda dentro de una consulta QueryBuilder o Eloquent, entonces se usa <code class="language-plaintext highlighter-rouge">DB::raw('expresión SQL')</code>)</em>.</p>
+
+<h3 id="368-práctica-eloquent-en-nuestra-aplicación">3.6.8. Práctica: Eloquent en nuestra aplicación</h3>
+
+<p>En las prácticas anteriores creamos el controlador y las vistas de <code class="language-plaintext highlighter-rouge">products</code>, y en el capítulo anterior generamos su migración para la base de datos.
+¡Es el momento de unir todas las piezas utilizando <strong>Eloquent</strong>!</p>
+
+<p>Sustituiremos los arrays fijos que usábamos en <code class="language-plaintext highlighter-rouge">ProductController</code> por consultas reales a la base de datos para listar, mostrar, crear, editar y eliminar productos.</p>
+
+<h4 id="objetivos">Objetivos</h4>
+
+<ul>
+  <li>Crear un modelo asociado a una tabla existente.</li>
+  <li>Configurar el atributo <code class="language-plaintext highlighter-rouge">$fillable</code> para permitir asignación masiva.</li>
+  <li>Utilizar <code class="language-plaintext highlighter-rouge">all()</code>, <code class="language-plaintext highlighter-rouge">findOrFail()</code>, <code class="language-plaintext highlighter-rouge">create()</code>, <code class="language-plaintext highlighter-rouge">update()</code> y <code class="language-plaintext highlighter-rouge">delete()</code> en el controlador.</li>
+  <li>Manipular registros reales en una base de datos mediante una interfaz web.</li>
+</ul>
+
+<h4 id="paso-1-crear-el-modelo-y-configurar-fillable">PASO 1. Crear el Modelo y configurar $fillable</h4>
+
+<ol>
+  <li>
+    <p>Abre un terminal, asegúrate de que Sail está levantado y crea el modelo para tus productos (ya tienes la migración, así que no hace falta la opción <code class="language-plaintext highlighter-rouge">-m</code>):</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./vendor/bin/sail artisan make:model Product
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Abre el archivo recién creado en <code class="language-plaintext highlighter-rouge">app/Models/Product.php</code> y añade la propiedad <code class="language-plaintext highlighter-rouge">$fillable</code> para poder usar asignación masiva cuando insertemos o modifiquemos desde el formulario:</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">App\Models</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">Illuminate\Database\Eloquent\Model</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Product</span> <span class="kd">extends</span> <span class="nc">Model</span>
+<span class="p">{</span>
+    <span class="c1">// Los campos que permitimos guardar masivamente</span>
+    <span class="k">protected</span> <span class="nv">$fillable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'description'</span><span class="p">,</span> <span class="s1">'price'</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="paso-2-importar-el-modelo-en-el-controlador">PASO 2. Importar el modelo en el Controlador</h4>
+
+<ol>
+  <li>Abre <code class="language-plaintext highlighter-rouge">app/Http/Controllers/ProductController.php</code>.</li>
+  <li>
+    <p>Añade el <code class="language-plaintext highlighter-rouge">use</code> del modelo al principio del archivo (debajo del <code class="language-plaintext highlighter-rouge">namespace</code> y de otros <code class="language-plaintext highlighter-rouge">use</code>):</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Models\Product</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="paso-3-actualizar-los-métodos-del-controlador">PASO 3. Actualizar los métodos del Controlador</h4>
+
+<p>Ahora modificaremos cada uno de los métodos para que usen Eloquent en lugar de datos de prueba o mensajes de error vacíos.</p>
+
+<ol>
+  <li>
+    <p><strong>Método <code class="language-plaintext highlighter-rouge">index()</code></strong> (Mostrar todos los productos):</p>
+
+    <p>Borra el array <code class="language-plaintext highlighter-rouge">$productos</code> que teníamos escrito a mano y cámbialo por una llamada al modelo:</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">index</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$productos</span> <span class="o">=</span> <span class="nc">Product</span><span class="o">::</span><span class="nf">all</span><span class="p">();</span> <span class="c1">// Obtiene todos los registros de la BD</span>
+       
+    <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'productos.index'</span><span class="p">,</span> <span class="nb">compact</span><span class="p">(</span><span class="s1">'productos'</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+    <p><em>(Nota: recuerda que <code class="language-plaintext highlighter-rouge">compact('productos')</code> es equivalente a <code class="language-plaintext highlighter-rouge">['productos' =&gt; $productos]</code>)</em>.</p>
+  </li>
+  <li>
+    <p><strong>Método <code class="language-plaintext highlighter-rouge">store()</code></strong> (Guardar el producto de la vista <code class="language-plaintext highlighter-rouge">create</code>):</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// 1. Validar</span>
+    <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">validate</span><span class="p">([</span>
+        <span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'required|max:100'</span><span class="p">,</span>
+        <span class="s1">'price'</span> <span class="o">=&gt;</span> <span class="s1">'required|numeric|min:0'</span>
+    <span class="p">]);</span>
+
+    <span class="c1">// 2. Crear masivamente (¡gracias a $fillable!)</span>
+    <span class="nc">Product</span><span class="o">::</span><span class="nf">create</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">all</span><span class="p">());</span>
+
+    <span class="c1">// 3. Redirigir al listado principal</span>
+    <span class="k">return</span> <span class="nf">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">route</span><span class="p">(</span><span class="s1">'products.index'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Método <code class="language-plaintext highlighter-rouge">show()</code></strong> (Mostrar el detalle de un producto):</p>
+
+    <p>Borra el array manual y usa <code class="language-plaintext highlighter-rouge">findOrFail()</code> (si el ID no existe en la BD, lanzará un error 404):</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">show</span><span class="p">(</span><span class="kt">string</span> <span class="nv">$id</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$producto</span> <span class="o">=</span> <span class="nc">Product</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'productos.show'</span><span class="p">,</span> <span class="nb">compact</span><span class="p">(</span><span class="s1">'producto'</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Método <code class="language-plaintext highlighter-rouge">edit()</code></strong> (Mostrar el formulario de edición):</p>
+
+    <p>Similar a <code class="language-plaintext highlighter-rouge">show()</code>, pero pasaremos el modelo a la vista de edición:</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">edit</span><span class="p">(</span><span class="kt">string</span> <span class="nv">$id</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$producto</span> <span class="o">=</span> <span class="nc">Product</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'productos.edit'</span><span class="p">,</span> <span class="nb">compact</span><span class="p">(</span><span class="s1">'producto'</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Método <code class="language-plaintext highlighter-rouge">update()</code></strong> (Guardar los cambios del formulario de edición):</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">update</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">,</span> <span class="kt">string</span> <span class="nv">$id</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">validate</span><span class="p">([</span>
+        <span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'required|max:100'</span><span class="p">,</span>
+        <span class="s1">'price'</span> <span class="o">=&gt;</span> <span class="s1">'required|numeric|min:0'</span>
+    <span class="p">]);</span>
+
+    <span class="nv">$producto</span> <span class="o">=</span> <span class="nc">Product</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+    <span class="nv">$producto</span><span class="o">-&gt;</span><span class="nf">update</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">all</span><span class="p">());</span>
+
+    <span class="k">return</span> <span class="nf">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">route</span><span class="p">(</span><span class="s1">'products.show'</span><span class="p">,</span> <span class="nv">$producto</span><span class="o">-&gt;</span><span class="n">id</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Método <code class="language-plaintext highlighter-rouge">destroy()</code></strong> (Eliminar un producto):</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">destroy</span><span class="p">(</span><span class="kt">string</span> <span class="nv">$id</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$producto</span> <span class="o">=</span> <span class="nc">Product</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+    <span class="nv">$producto</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="nf">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">route</span><span class="p">(</span><span class="s1">'products.index'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="paso-4-probar-la-aplicación-completa">PASO 4. Probar la aplicación completa</h4>
+
+<ol>
+  <li>Entra a <code class="language-plaintext highlighter-rouge">http://localhost/products</code>. Debería salir una página vacía de productos (sin contar la cabecera).</li>
+  <li>Entra en “Nuevo producto”, rellena el formulario y envíalo. Si los datos son correctos, serás redirigido a la lista donde ahora verás tu nuevo artículo.</li>
+  <li>Haz clic sobre él, edita su precio y guárdalo.</li>
+  <li>Finalmente, intenta borrar el artículo con el botón/formulario de borrado de la vista <code class="language-plaintext highlighter-rouge">show</code>.</li>
+</ol>
+
+<p><strong>¡Enhorabuena! Tienes un CRUD 100% funcional, seguro y elegante en Laravel.</strong></p>
+
+<div style="color: red; font-style: italic">
+  <p><strong>Como en otras ocasiones, no te conformes con que funcione. ASEGÚRATE DE ENTENDERLO.</strong> Recuerda que cuando hagas prácticas de entrega obligatoria y exámenes, te podremos preguntar, por escrito u oralmente, qué hace tu código para comprobar que realmente lo entiendes, independientemente de si el código lo has escrito todo tú o lo has generado con ayuda de una IA.</p>
+</div>
 :ET
