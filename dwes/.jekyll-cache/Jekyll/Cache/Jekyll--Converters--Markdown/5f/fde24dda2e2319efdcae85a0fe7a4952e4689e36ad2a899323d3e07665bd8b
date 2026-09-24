@@ -1,0 +1,304 @@
+I";p<p>(ACtuales 5.11 y 5.12)</p>
+
+<p>PARTE 1: Eloquent. En concreto:
+Consultar.
+Buscar.
+Insertar.
+Modificar.
+Eliminar.
+find().
+findOrFail().
+where().
+first().
+get().
+create().
+update().
+delete().</p>
+
+<p>Todavía no trataremos las relaciones (eso en otro apartado)</p>
+
+<p>No intentaría cubrir veinte métodos de Eloquent. El objetivo es que sepan leer y escribir las consultas habituales.</p>
+
+<p>PARTE 2: Introducción MUY BREVE a:
+Query Builder
+SQL mediante Laravel.
+Collections.
+Helpers.
+Route Model Binding.
+Factories.
+Paginación.
+Storage.
+etc.</p>
+
+<p>Pero con una regla:</p>
+
+<p>“Lo conocemos, no necesariamente lo dominamos.”</p>
+
+<p>Por ejemplo, enseñar:</p>
+
+<p>Product::where(‘price’, ‘&gt;’, 100)-&gt;get();</p>
+
+<p>frente a:</p>
+
+<p>DB::table(‘products’)
+    -&gt;where(‘price’, ‘&gt;’, 100)
+    -&gt;get();</p>
+
+<p>y explicar cuándo puede resultar útil Query Builder.</p>
+
+<h2 class="no_toc" id="36-usando-la-bd-con-eloquent">3.6. Usando la BD con Eloquent</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#361-qué-es-el-mapeo-objeto-relacional" id="markdown-toc-361-qué-es-el-mapeo-objeto-relacional">3.6.1. ¿Qué es el mapeo objeto-relacional?</a></li>
+  <li><a href="#362-cómo-puedo-usar-eloquent-en-mi-aplicación" id="markdown-toc-362-cómo-puedo-usar-eloquent-en-mi-aplicación">3.6.2. ¿Cómo puedo usar Eloquent en mi aplicación?</a></li>
+  <li><a href="#363-pero-cómo-sabe-laravel-qué-tabla-está-asociada-a-ese-modelo" id="markdown-toc-363-pero-cómo-sabe-laravel-qué-tabla-está-asociada-a-ese-modelo">3.6.3. Pero ¿cómo sabe Laravel qué tabla está asociada a ese modelo?</a></li>
+  <li><a href="#364-consultas-con-eloquent" id="markdown-toc-364-consultas-con-eloquent">3.6.4. Consultas con Eloquent</a></li>
+  <li><a href="#365-inserciones-y-borrados-con-eloquent" id="markdown-toc-365-inserciones-y-borrados-con-eloquent">3.6.5. Inserciones y borrados con Eloquent</a></li>
+  <li><a href="#366-lista-de-los-métodos-más-útiles-de-eloquent" id="markdown-toc-366-lista-de-los-métodos-más-útiles-de-eloquent">3.6.6. Lista de los métodos más útiles de Eloquent</a></li>
+</ul>
+
+<p>Eloquent uno de los componentes de Laravel que permiten al desarrollador manipular los datos de la BD sin rebajarse a escribir sucio SQL. Y lo consigue mediante un mecanismo simple y elegante: el mapeo objeto-relacional.</p>
+
+<p>En esta sección vamos a ver qué es eso del mapeo y cómo sacarle a Eloquent el máximo partido para que nuestros modelos se programen prácticamente solos.</p>
+
+<h3 id="361-qué-es-el-mapeo-objeto-relacional">3.6.1. ¿Qué es el mapeo objeto-relacional?</h3>
+
+<p>Eloquent no es más que una librería incluida con Laravel que utiliza un patrón de software llamado <strong>ORM (Object-Relational Mapping)</strong> para abstraer aún más el acceso a la base de datos, de manera que no tengamos que escribir y depurar SQL.</p>
+
+<p><em>Mapear</em> los objetos de nuestra aplicación con una BD relacional significa que Eloquent convierte los registros de tus tablas en objetos de tu aplicación para que los manipules con mayor facilidad.</p>
+
+<p>Sí, lo has entendido bien: podrás manejar los datos de tu base de datos como si fueran objetos de tu aplicación. Y, cuando los modifiques, borras o crees, se ejecutará el código SQL necesario (sin que tú te enteres) para traducir esas operaciones en sentencias para la base de datos.</p>
+
+<p>Te lo muestro con un ejemplo.</p>
+
+<p>Imagina que tenemos una tabla de artículos de un blog. La llamaremos <em>Articles</em>, y tendrá 3 campos: el <em>id</em> (entero), el <em>title</em> (cadena de caracteres) y el <em>body</em> (cadena de caracteres). Con Eloquent, usar esa tabla es tan fácil como hacer algo así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$art</span> <span class="o">=</span> <span class="nc">Article</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="s1">'7'</span><span class="p">);</span>        <span class="c1">// Buscamos un artículo por su id</span>
+<span class="k">echo</span> <span class="nv">$art</span><span class="o">-&gt;</span><span class="n">title</span><span class="p">;</span>                 <span class="c1">// Ahora podemos acceder a los campos de ese artículo</span>
+<span class="nv">$art</span><span class="o">-&gt;</span><span class="n">body</span> <span class="o">=</span> <span class="s2">"Texto del cuerpo"</span><span class="p">;</span>  <span class="c1">// O también podemos modificar los campos del artículo</span>
+<span class="nv">$art</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>                     <span class="c1">// Si hacemos save(), los cambios se guardan en la BD</span>
+</code></pre></div></div>
+
+<h3 id="362-cómo-puedo-usar-eloquent-en-mi-aplicación">3.6.2. ¿Cómo puedo usar Eloquent en mi aplicación?</h3>
+
+<p>Tienes que <strong>crear un modelo</strong>. ¿Qué te creías? Pero con Artisan es así de fácil:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php artisan make:model &lt;Mi-modelo&gt;
+</code></pre></div></div>
+
+<p>Por ejemplo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php artisan make:model Article
+</code></pre></div></div>
+
+<p>El modelo se creará en <em>/app/models/Article.php</em> (¡cuidado! En versiones más antiguas de Laravel, el modelo se creará en <em>/app/Article.php</em>)</p>
+
+<p>Truco: si creas el modelo con la <strong>opción -m</strong>, se creará atomáticamente su migración, lo cual resulta tremendamente práctico:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php artisan make:model Article -m
+</code></pre></div></div>
+
+<p>Ya tienes tu modelo. Si no puedes contener tu curiosidad insaciable y lo abres, verás un archivo bastante decepcionante con este aspecto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="kn">namespace</span> <span class="nn">App\Models</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">Illuminate\Database\Eloquent\Factories\HasFactory</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Illuminate\Database\Eloquent\Model</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Article</span> <span class="kd">extends</span> <span class="nc">Model</span>
+<span class="p">{</span>
+    <span class="kn">use</span> <span class="nc">HasFactory</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>¿Y eso es todo?</p>
+
+<p>Pues sí, eso es todo. La gracia está en ese <em>“extends Model”</em> de la definición de la clase: aunque tu modelo Article parezca vacío, en realidad acaba de heredar un mogollón de características útiles de la clase <em>Model</em>. Entre otras, todos los métodos de Eloquent.</p>
+
+<h3 id="363-pero-cómo-sabe-laravel-qué-tabla-está-asociada-a-ese-modelo">3.6.3. Pero ¿cómo sabe Laravel qué tabla está asociada a ese modelo?</h3>
+
+<p>Buena pregunta.</p>
+
+<p>Laravel supondrá que <strong>la tabla se llama igual que el modelo</strong>, solo que en <strong>minúscula y plural</strong>. Es decir, la tabla de la base de datos asociada al modelo <em>Article</em> se debería llamar <em>articles</em>.</p>
+
+<p>Recuerda que en Laravel existen un montón de convenciones sobre los nombres de las cosas que conviene respetar, más que nada porque te facilitan mucho la vida y hacen que te centres en lo verdaderamente importante (crear el código de tu aplicación) en lugar de en lo accesorio (pelearte con los nombres).</p>
+
+<p>No obstante, si quieres ponerle otro nombre a la tabla, puedes hacerlo. También puedes cambiar otras muchas cosas, como el nombre del campo clave (Laravel supondrá que se llama id) o los campos sobre los que se puede hacer una asignación masiva, algo muy útil que veremos un poco más adelante.</p>
+
+<p>Por ejemplo, podemos editar el modelo <em>/app/Articles.php</em> y añadir estas líneas dentro de nuestra clase:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">protected</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">'articulos'</span><span class="p">;</span>   <span class="c1">// El nombre de la tabla no será "articles" sino "articulos"</span>
+<span class="k">protected</span> <span class="nv">$primaryKey</span> <span class="o">=</span> <span class="s1">'id_art'</span><span class="p">;</span> <span class="c1">// La clave primaria no será "id" sino "id_art"</span>
+<span class="k">protected</span> <span class="nv">$fillable</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span><span class="s1">'titulo'</span><span class="p">,</span><span class="s1">'cuerpo'</span><span class="p">);</span> <span class="c1">// Campos de la tabla en los que se permite la ASIGNACIÓN MASIVA (más adelante veremos qué es esto) </span>
+</code></pre></div></div>
+
+<h3 id="364-consultas-con-eloquent">3.6.4. Consultas con Eloquent</h3>
+
+<p>Solo con construir el modelo (y asignarlo a la tabla adecuada) ya tenemos detrás a Eloquent haciendo el mapeo objeto-relacional.</p>
+
+<p>Ahora podemos ir a nuestro controlador (que, por respetar las convenciones de Laravel, debería llamarse <em>ArticlesController</em>) y <strong>lanzar consultas</strong> con expresiones como estas:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$articlesList</span> <span class="o">=</span> <span class="nc">Article</span><span class="o">::</span><span class="nf">all</span><span class="p">();</span>        <span class="c1">// Devuelve todos los artículos</span>
+<span class="nv">$myArticle</span> <span class="o">=</span> <span class="nc">Article</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>       <span class="c1">// Devuelve el artículo con ese $id</span>
+<span class="nv">$myArticle</span> <span class="o">=</span> <span class="nc">Article</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span> <span class="c1">// Error 404 si el artículo no existe</span>
+<span class="nv">$articlesList</span> <span class="o">=</span> <span class="nc">Article</span><span class="o">::</span><span class="nf">where</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span> <span class="s1">'&gt;'</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">();</span>  <span class="c1">// Select con where</span>
+<span class="nv">$articlesList</span> <span class="o">=</span> <span class="nc">Article</span><span class="o">::</span><span class="nf">where</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span> <span class="s1">'&gt;'</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">take</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">();</span>  <span class="c1">// Select con where y take</span>
+<span class="nv">$maxId</span> <span class="o">=</span> <span class="nc">Article</span><span class="o">::</span><span class="nb">max</span><span class="p">(</span><span class="s1">'id'</span><span class="p">);</span>           <span class="c1">// Devuelve el último id asignado</span>
+</code></pre></div></div>
+
+<p>A lo mejor hay algo que te está chirriando. Si escribimos cosas como estas en el controlador, ¿no significa eso que estamos lanzando consultas desde el controlador? Y eso está prohibidísimo en la arquitectura MVC. ¿Es que Laravel no respeta la arquitectura MVC?</p>
+
+<p>Hay quien dice que sí, hay quien dice que no y hay quien dice que psé, psé.</p>
+
+<p>En realidad, no estamos escribiendo SQL en el controlador, ni estamos accediendo a la base de datos de ninguna manera explícita. Cuando lanzamos un <code class="language-plaintext highlighter-rouge">Article::find($id)</code> desde el controlador, por ejemplo, no sabemos qué ocurre por debajo ni de dónde se extrae la información: nos limitamos a acceder a una de nuestras clases y obtener de ella un objeto de tipo <em>Article</em>.</p>
+
+<h3 id="365-inserciones-y-borrados-con-eloquent">3.6.5. Inserciones y borrados con Eloquent</h3>
+
+<p>También podemos usar Eloquent para <strong>insertar</strong> un nuevo artículo desde nuestro controlador:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nv">$art</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Article</span><span class="p">;</span>
+   <span class="nv">$art</span><span class="o">-&gt;</span><span class="n">title</span> <span class="o">=</span> <span class="s1">'Los Chitauri invaden Nueva York'</span><span class="p">;</span>
+   <span class="nv">$art</span><span class="o">-&gt;</span><span class="n">body</span> <span class="o">=</span> <span class="s1">'Bla, bla, bla'</span><span class="p">;</span>
+   <span class="nv">$art</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Si los datos del artículo vienen de un formulario, fíjate en lo alucinantemente fácil que es recoger todos esos datos, crear un objeto Article con ellos y guardar el artículo en la BD:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nc">Article</span><span class="o">::</span><span class="nf">create</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">all</span><span class="p">());</span>  <span class="c1">// Esto es una ASIGNACIÓN MASIVA de las que hablábamos más arriba!!</span>
+      <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'la-vista-que-sea'</span><span class="p">);</span>
+   <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Ojo: solo los campos que hayas indicado como <em>fillables</em> en el modelo se podrán asignar al artículo de este modo. Eso es lo que significa <strong>asignación masiva</strong>.</p>
+
+<p>Y, por supuesto, también podemos <strong>modificar y borrar</strong> artículos de la base de datos:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nv">$art</span> <span class="o">=</span> <span class="nc">Article</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="mi">18</span><span class="p">);</span>     <span class="c1">// MODIFICAR</span>
+   <span class="nv">$art</span><span class="o">-&gt;</span><span class="n">body</span> <span class="o">=</span> <span class="s1">'Nuevo cuerpo'</span><span class="p">;</span>
+   <span class="nv">$art</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>
+   <span class="nv">$art</span> <span class="o">=</span> <span class="nc">Article</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="mi">13</span><span class="p">);</span>     <span class="c1">// BORRAR</span>
+   <span class="nv">$art</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h3 id="366-lista-de-los-métodos-más-útiles-de-eloquent">3.6.6. Lista de los métodos más útiles de Eloquent</h3>
+
+<p>Hemos visto en los últimos ejemplos <strong>algunos métodos de Eloquent</strong> por separado. Te los reúno en esta sección para que los puedas consultar cuando lo necesites.</p>
+
+<p>Aviso: no están todos, solo los de uso más habitual. Si quieres una lista completa, ya sabes: acude a la <a href="https://laravel.com/docs/8.x/eloquent">documentación oficial</a>.</p>
+
+<ul>
+  <li><strong>all()</strong> → Recupera todos los registros de una tabla.</li>
+  <li><strong>where(“campo”, valor)</strong> → Aplica claúsula <em>where</em>.</li>
+  <li><strong>orderBy(“campo”, “asc|desc”)</strong> → Aplica claúsula <em>order by</em>.</li>
+  <li><strong>get()</strong> → Recupera registros seleccionados. Se suele usar con <em>where</em> y/o <em>order by</em>:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ciudades::where("ciudad", "Madrid")-&gt;orderBy("id", "asc")-&gt;get();
+</code></pre></div>    </div>
+  </li>
+  <li><strong>first()</strong> → Recupera el primer registro.</li>
+  <li><strong>latest()</strong> → Recupera el último registro.</li>
+  <li><strong>find(valor)</strong> → Busca registros con ese valor en el campo <em>id</em>.</li>
+  <li><strong>findOrFail(valor)</strong> → Lanza un error 404 si no encuentra el registro.</li>
+  <li><strong>count(), max(), min()…</strong> → Utiliza funciones de agregado de SQL.</li>
+  <li><strong>save()</strong> →  Inserta o actualiza registros.</li>
+  <li><strong>update()</strong> → Actualiza registros.</li>
+  <li><strong>delete()</strong> → Elimina registros.</li>
+</ul>
+
+<h3 class="no_toc" id="367-querybuilder">3.6.7 QueryBuilder</h3>
+
+<ul>
+  <li>TOC</li>
+</ul>
+
+<p>En esta sección te voy a presentar a <strong>QueryBuilder</strong>, otra forma de acceder a la base de datos desde Laravel que te resultará muy útil en aquellos casos en los que, por la razón que sea, los métodos de Eloquent no sean suficientes.</p>
+
+<h4 id="qué-es-y-cómo-se-utiliza-querybuilder">¿Qué es y cómo se utiliza QueryBuilder?</h4>
+
+<p>Eloquent permite usar la BD de forma simple y elegante en la mayor parte de las circunstancias.</p>
+
+<p>Aún así, puede haber situaciones en las que queramos un acceso de más bajo nivel a la BD. Para eso existe <strong>QueryBuilder</strong>.</p>
+
+<p>El grado de abstracción de QueryBuilder es mucho menor que el de Eloquent. Es decir, estaremos <em>CASI escribiendo SQL</em>, sin llegar a hacerlo.</p>
+
+<p>Algunos ejemplos de uso te darán una pista de qué tipo cosas se pueden hacer con QueryBuilder:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$users</span> <span class="o">=</span> <span class="no">DB</span><span class="o">::</span><span class="nf">table</span><span class="p">(</span><span class="s2">"users"</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">();</span>	
+<span class="nv">$users</span> <span class="o">=</span> <span class="no">DB</span><span class="o">::</span><span class="nf">table</span><span class="p">(</span><span class="s2">"users"</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">where</span><span class="p">(</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"="</span><span class="p">,</span> <span class="s2">"Ana"</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">first</span><span class="p">();</span>
+<span class="nv">$users</span> <span class="o">=</span> <span class="no">DB</span><span class="o">::</span><span class="nf">table</span><span class="p">(</span><span class="s2">"users"</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">where</span><span class="p">(</span><span class="s2">"edad"</span><span class="p">,</span> <span class="s2">"&gt;="</span><span class="p">,</span> <span class="mi">18</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">orderBy</span><span class="p">(</span><span class="s2">"apellidos"</span><span class="p">);</span>
+<span class="nv">$maxId</span> <span class="o">=</span> <span class="no">DB</span><span class="o">::</span><span class="nf">table</span><span class="p">(</span><span class="s2">"users"</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">max</span><span class="p">(</span><span class="s2">"id"</span><span class="p">);</span>
+<span class="nv">$existe</span> <span class="o">=</span> <span class="no">DB</span><span class="o">::</span><span class="nf">table</span><span class="p">(</span><span class="s2">"users"</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">where</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">"="</span><span class="p">,</span> <span class="nv">$id</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">exists</span><span class="p">();</span>
+<span class="nv">$users</span> <span class="o">=</span> <span class="no">DB</span><span class="o">::</span><span class="nf">table</span><span class="p">(</span><span class="s2">"users"</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">select</span><span class="p">(</span><span class="s2">"nombre, apellidos as apell"</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">();</span> 
+</code></pre></div></div>
+
+<p>Ahora ves a qué me refiero cuando digo que QueryBuilder es <em>casi</em> SQL, sin llegar a serlo. No tendrás que depurar el SQL, ni pelearte con comillas que se abren y cierran, ni nada de eso. QueryBuilder generará el SQL por ti a partir de expresiones como las que acabas de ver.</p>
+
+<p>En la <a href="https://laravel.com/docs/8.x/queries">documentación oficial</a> encontrarás una referencia completa de todas las funciones de QueryBuilder, pero con estas que ves en el ejemplo puedes construir prácticamente cualquier consulta sencilla.</p>
+
+<h4 id="colecciones">Colecciones</h4>
+
+<p>El <strong>resultado</strong> de consultas como las que veíamos de ejemplo en el apartado anterior es bastante intuitivo:</p>
+
+<ul>
+  <li>O bien un <strong>dato simple</strong> (como el <em>$maxId</em> de la cuarta consulta, que es un entero).</li>
+  <li>O bien un <strong>objeto de tipo Collection</strong>.</li>
+</ul>
+
+<p>Las <strong>colecciones de Laravel</strong> tienen un montón de métodos útiles para procesarlas y puedes echarle un vistazo a la <a href="https://laravel.com/docs/8.x/collections">documentación oficial</a> para ello, pero la mayor parte de las veces basta con hacer un <em>foreach</em> sobre la variable para ir accediendo a cada uno de los elementos, que se comportarán como objetos del tipo adecuado.</p>
+
+<p>Por ejemplo, para acceder a todos los registros de la tabla de usuarios:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nv">$users</span> <span class="o">=</span> <span class="no">DB</span><span class="o">::</span><span class="nf">table</span><span class="p">(</span><span class="s2">"users"</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">();</span>
+   <span class="k">foreach</span> <span class="p">(</span><span class="nv">$users</span> <span class="k">as</span> <span class="nv">$user</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">echo</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">;</span>
+      <span class="k">echo</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="n">email</span><span class="p">;</span>
+      <span class="mf">...</span><span class="n">etc</span><span class="mf">...</span>
+   <span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="ventajas-de-querybuilder-sobre-sql">Ventajas de QueryBuilder sobre SQL</h4>
+
+<p>Como ves, QueryBuilder te permite construir sentencias SQL sin necesidad de escribir SQL.</p>
+
+<p>La <strong>ventaja</strong> de esto es triple:</p>
+
+<ol>
+  <li>No tendremos que depurar nuestros errores sintácticos en SQL, con el ahorro de tiempo que eso conlleva.</li>
+  <li>El SQL generado será 100% compatible con el gestor de base de datos que estemos utilizando. Si escribimos SQL en crudo, tendremos que adaptarlo al dialecto de nuestro gestor de base de datos. Y, si cambiamos de gestor, habrá que revisar todas las sentencias SQL para adaptarlas de nuevo. Todo esto lo evita QueryBuilder, puesto que hace esa adaptación por nosotros.</li>
+  <li>Es imposible que suframos un ataque por inyección de código, puesto que QueryBuilder no lo permitirá.</li>
+</ol>
+
+<h4 id="relaciones-entre-tablas-con-querybuilder">Relaciones entre tablas con QueryBuilder</h4>
+
+<p>Las relaciones entre tablas se manejan con <strong>joins</strong>, como en SQL, solo que escritos al estilo QueryBuilder.</p>
+
+<p>Para hacer un <strong>INNER JOIN</strong>, puedes usar como referencia este ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$users</span> <span class="o">=</span> <span class="no">DB</span><span class="o">::</span><span class="nf">table</span><span class="p">(</span><span class="s1">'users'</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="nb">join</span><span class="p">(</span><span class="s1">'contacts'</span><span class="p">,</span> <span class="s1">'users.id'</span><span class="p">,</span> <span class="s1">'='</span><span class="p">,</span> <span class="s1">'contacts.user_id'</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="nb">join</span><span class="p">(</span><span class="s1">'orders'</span><span class="p">,</span> <span class="s1">'users.id'</span><span class="p">,</span> <span class="s1">'='</span><span class="p">,</span> <span class="s1">'orders.user_id'</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="nf">select</span><span class="p">(</span><span class="s1">'users.*'</span><span class="p">,</span> <span class="s1">'contacts.phone'</span><span class="p">,</span> <span class="s1">'orders.price'</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="nf">get</span><span class="p">();</span> 
+</code></pre></div></div>
+
+<p>Por supuesto, también puedes hacer <strong>LEFT JOIN</strong> y <strong>RIGHT JOIN</strong>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$resultado</span> <span class="o">=</span> <span class="no">DB</span><span class="o">::</span><span class="nf">table</span><span class="p">(</span><span class="s1">'A'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">leftJoin</span><span class="p">(</span><span class="s1">'B'</span><span class="mf">...</span><span class="p">);</span> 
+<span class="nv">$resultado</span> <span class="o">=</span> <span class="no">DB</span><span class="o">::</span><span class="nf">table</span><span class="p">(</span><span class="s1">'A'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">rightJoin</span><span class="p">(</span><span class="s1">'B'</span><span class="mf">...</span><span class="p">);</span> 
+</code></pre></div></div>
+
+<h4 id="sql-crudo">SQL crudo</h4>
+
+<p>Por último, QueryBuilder también te permite <strong>escribir SQL crudo</strong>, es decir, SQL tal cual, si es que alguna vez lo necesitas.</p>
+
+<p>Eso sí, deberías valorar muy bien para qué narices quieres escribir SQL crudo. ¿Estás seguro/a de que eso que intentas hacer no se puede lograr más fácilmente con Eloquent o con QueryBuilder?</p>
+
+<p>Además, tendrás que extremar las precauciones ante un posible ataque por inyección de código.</p>
+
+<p>Si aún así no te he convencido, puedes ejecutar tu SQL crudo así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$resultado</span> <span class="o">=</span> <span class="no">DB</span><span class="o">::</span><span class="nf">raw</span><span class="p">(</span><span class="s1">'escribe-aquí-tu-sentencia-SQL'</span><span class="p">);</span>
+</code></pre></div></div>
+:ET

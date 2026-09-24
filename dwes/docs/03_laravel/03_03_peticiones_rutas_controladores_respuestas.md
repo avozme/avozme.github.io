@@ -308,7 +308,6 @@ Todavía no será una aplicación "usable" (eso lo haremos al final del tema), p
 
 Si terminas esta práctica con éxito serás capaz de:
 
-- Crear un modelo y una migración para cualquier recurso.
 - Crear controladores.
 - Registrar las rutas REST de un recurso.
 - Identificar qué URL y qué verbo HTTP corresponden a cada método del controlador.
@@ -318,47 +317,7 @@ Si terminas esta práctica con éxito serás capaz de:
 
 ---
 
-#### PASO 1. Crear el modelo y la migración
-
-1. Desde la carpeta del proyecto Laravel de prueba (`hola-laravel` o como tú lo hayas llamado), ejecuta:
-
-    ```bash
-    $ ./vendor/bin/sail artisan make:model Product --migration
-    ```
-
-    Se crearán el modelo `app/Models/Product.php` y una migración en `database/migrations/`.
-
-2. Busca la migración recién creada en `database/migrations/`. Tendrá un nombre parecido a `2026_09_22_123456_create_products_table.php`
-
-3. Modifica su método `up()` de la migración para que la tabla `products` tenga los siguientes campos:
-
-    ```php
-    public function up(): void
-    {
-        Schema::create('products', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->decimal('price', 8, 2);
-            $table->timestamps();
-        });
-    }
-    ```
-
-    (No tienes que hacer nada con el modelo `Product` en esta práctica).
-
-4. Lanza la migración:
-
-    ```bash
-    $ ./vendor/bin/sail artisan migrate
-    ```
-
-    Esta es la forma que tiene Laravel de hacer `CREATE TABLE`. ¡Pero tiene muchas ventajas sobre el SQL! **Aprenderemos más sobre migraciones más adelante.**
-
-5. Conéctate a tu base de datos y comprueba que se ha creado la tabla `products`
-
-    ¿Que cómo te puedes conectar a tu base de datos? ¡Buena pregunta! Investiga un poco si no sabes cómo hacerlo. **No continúes hasta que no hayas completado todas estas tareas**, incluyendo esta última.
-
-#### PASO 2. Crear el controlador resource
+#### PASO 1. Crear el controlador tipo `resource`
 
 1. Crea un controlador de tipo `resource`:
 
@@ -370,10 +329,10 @@ Si terminas esta práctica con éxito serás capaz de:
 
 2. Abre el archivo. Si todo ha ido bien, deberías encontrar los siete métodos habituales de un controlador REST, es decir, `index()`, `create()`, `store()`, `show()`, `edit()`, `update()` y `destroy()`
 
-    De momento no vamos a dejar esos métodos vacíos. Tú solo comprueba que se han creado.
+    De momento vamos a dejar esos métodos vacíos. Tú solo comprueba que se han creado.
 
 
-#### PASO 3. Registrar las rutas resource
+#### PASO 2. Registrar las rutas resource
 
 1. Abre `routes/web.php`
 
@@ -404,7 +363,7 @@ Si terminas esta práctica con éxito serás capaz de:
 
     **¡No continúes hasta que tus 7 rutas REST aparezcan en el listado!**.
 
-#### PASO 4. Implementar respuestas sencillas
+#### PASO 3. Implementar respuestas sencillas
 
 Vamos a crear una **respuesta temporal de texto simple** en los métodos del controlador. Más adelante aprenderemos a consultar la base de datos y crear las respuestas adecuadas.
 
@@ -431,7 +390,7 @@ Edita el archivo `app/Http/Controllers/ProductController.php` y añade un `retur
     // (Si no es así, ¡repasa el tema o pregunta!)
 ```
 
-#### PASO 5. Comprobar los nombres de las rutas
+#### PASO 4. Comprobar los nombres de las rutas
 
 Prueba en tu navegador web los métodos del controlador.
 
@@ -442,7 +401,7 @@ Prueba en tu navegador web los métodos del controlador.
 
     (**Asegúrate de que sabes contestar a estas preguntas antes de continuar**; si no lo sabes, ¡averígualo!)
 
-#### PASO 6. Probar una redirección
+#### PASO 5. Probar una redirección
 
 1. Añade esta ruta a `routes/web.php` (solo para probar una redirección, no tiene utilidad real):
 

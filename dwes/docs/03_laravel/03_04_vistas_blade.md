@@ -441,7 +441,7 @@ También puedes, simplemente, guardar tu CSS y tu Javascript en el **directorio 
 
 ### 3.4.11. Práctica con vistas y Blade
 
-En la práctica anterior del apartado 3.3 dejamos preparada la infraestructura de `products`: migración, modelo, controlador (tipo `resource`) y rutas.
+En la práctica anterior del apartado 3.3 dejamos preparada la infraestructura básica de `products`: controlador y rutas de tipo `resource`.
 
 Vamos a dar el siguiente paso, que consistirá en **crear las vistas de los productos y conectarlas con el controlador**.
 

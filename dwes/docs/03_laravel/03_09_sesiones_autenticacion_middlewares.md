@@ -1,10 +1,10 @@
 ---
 layout: page
-title: 3.10 Sesiones, autenticación y middlewares
+title: 3.9 Sesiones, autenticación y middlewares
 permalink: /laravel/sesiones-autenticacion.html
 parent: 3 Aplicaciones SSR con Laravel
 grand_parent: Desarrollo Web en Entorno Servidor
-nav_order: 10
+nav_order: 9
 has_children: false
 ---
 

@@ -1,5 +1,26 @@
-I"�<p>Introducción breve a:
-Query Builder.
+I"�<p>(ACtuales 5.11 y 5.12)</p>
+
+<p>PARTE 1: Eloquent. En concreto:
+Consultar.
+Buscar.
+Insertar.
+Modificar.
+Eliminar.
+find().
+findOrFail().
+where().
+first().
+get().
+create().
+update().
+delete().</p>
+
+<p>Todavía no trataremos las relaciones (eso en otro apartado)</p>
+
+<p>No intentaría cubrir veinte métodos de Eloquent. El objetivo es que sepan leer y escribir las consultas habituales.</p>
+
+<p>PARTE 2: Introducción MUY BREVE a:
+Query Builder
 SQL mediante Laravel.
 Collections.
 Helpers.
