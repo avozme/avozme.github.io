@@ -1,0 +1,264 @@
+I"�u<h2 class="no_toc" id="24-interacción-con-la-base-de-datos">2.4. Interacción con la base de datos</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#241-mysqlmariadb-con-php-clásico-ojo-obsoleto" id="markdown-toc-241-mysqlmariadb-con-php-clásico-ojo-obsoleto">2.4.1. MySQL/MariaDB con PHP clásico (¡Ojo! ¡Obsoleto!)</a></li>
+  <li><a href="#242-mysqlmariadb-con-php-moderno-la-extensión-pdo" id="markdown-toc-242-mysqlmariadb-con-php-moderno-la-extensión-pdo">2.4.2. MySQL/MariaDB con PHP moderno: la extensión PDO</a></li>
+  <li><a href="#243-inserción-modificación-y-borrado-de-datos-con-pdo" id="markdown-toc-243-inserción-modificación-y-borrado-de-datos-con-pdo">2.4.3. Inserción, modificación y borrado de datos con PDO</a></li>
+  <li><a href="#244-consultas-con-pdo" id="markdown-toc-244-consultas-con-pdo">2.4.4. Consultas con PDO</a></li>
+  <li><a href="#245-mejorando-la-implementación-de-consultas" id="markdown-toc-245-mejorando-la-implementación-de-consultas">2.4.5. Mejorando la implementación de consultas</a></li>
+  <li><a href="#246-formas-de-hacer-fetch" id="markdown-toc-246-formas-de-hacer-fetch">2.4.6. Formas de hacer fetch</a></li>
+</ul>
+
+<p>A partir de ahora, vamos a referirnos a MySQL/MariaDB indistintamente. Este será el gestor de bases de datos relacionales que vamos a usar a lo largo del curso. La adaptación a otros gestores, en cualquier caso, es muy simple.</p>
+
+<p>MySQL/MariaDB, como ya hemos visto, es un SGBD relacional de probada eficacia. La interacción con él resulta eficiente y segura para casi cualquier aplicación web que podamos concebir.</p>
+
+<h3 id="241-mysqlmariadb-con-php-clásico-ojo-obsoleto">2.4.1. MySQL/MariaDB con PHP clásico (¡Ojo! ¡Obsoleto!)</h3>
+
+<p>En la red hay mucho código PHP obsoleto que <strong><em>NO debes utilizar bajo ningún concepto</em></strong> porque es muy inseguro.</p>
+
+<p>Si encuentras código que se parece al siguiente, huye de esa página porque no te va a ayudar:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="c1">// *** CÓDIGO OBSOLETO -- ¡¡¡NO USAR!!!***</span>
+
+<span class="c1">// Conectamos con MySQL</span>
+<span class="nb">mysql_connect</span><span class="p">(</span><span class="s2">"URL"</span><span class="p">,</span><span class="s2">"nombre_usuario"</span><span class="p">,</span><span class="s2">"contraseña"</span><span class="p">);</span>
+
+<span class="c1">// Seleccionamos la base de datos con la que vamos a trabajar</span>
+<span class="nb">mysql_select_db</span><span class="p">(</span><span class="s2">"nombre_base_de_datos"</span><span class="p">);</span>
+
+<span class="c1">// Ejecutamos una sentencia SQL</span>
+<span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"INSERT INTO clientes (nombre,telefono) VALUES ('</span><span class="nv">$nombre</span><span class="s2">','</span><span class="nv">$telefono</span><span class="s2">')"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="242-mysqlmariadb-con-php-moderno-la-extensión-pdo">2.4.2. MySQL/MariaDB con PHP moderno: la extensión PDO</h3>
+
+<p>Ahora se utiliza <strong>una biblioteca de clases para acceder a los diferentes SGBDs</strong>.</p>
+
+<p>Todos los nuevos desarrollos deberían usar las bibliotecas de clases y prescindir de las viejas librerías de funciones.</p>
+
+<p>Aunque PHP ofrece varios mecanismos, como la clase <strong>MySQLi</strong>, el estándar profesional en la actualidad es <strong>PDO</strong>:</p>
+
+<p><strong>La extensión PDO (PHP Data Objects) es una clase genérica que permite acceder a cualquier gestor de bases de datos mediante el mismo conjunto de métodos. Es lo que se llama una <em>capa de abstracción de acceso a datos</em></strong>.</p>
+
+<p>Esto significa que, independientemente de la base de datos que se esté utilizando, PDO permite utilizar los mismos métodos para realizar consultas y obtener datos, por lo que es la forma de trabajo más flexible y la que vamos a utilizar en este curso.</p>
+
+<h3 id="243-inserción-modificación-y-borrado-de-datos-con-pdo">2.4.3. Inserción, modificación y borrado de datos con PDO</h3>
+
+<p>Vamos a ver cómo funciona la clase <em>PDO</em> mediante unos cuantos ejemplos. En primer lugar, lanzaremos una inserción de datos.</p>
+
+<p>Insertar un registro en una tabla desde PHP requiere configurar la conexión y usar <strong>sentencias preparadas</strong> para evitar ataques de inyección SQL.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="c1">// Configuración (esto suele ir en un archivo de configuración separado)</span>
+<span class="nv">$dsn</span> <span class="o">=</span> <span class="s2">"mysql:host=servidor;dbname=mi-base-de-datos;charset=utf8mb4"</span><span class="p">;</span>
+<span class="nv">$usuario</span> <span class="o">=</span> <span class="s2">"usuario_db"</span><span class="p">;</span>
+<span class="nv">$clave</span> <span class="o">=</span> <span class="s2">"password_seguro"</span><span class="p">;</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="c1">// 1. Conexión segura</span>
+    <span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PDO</span><span class="p">(</span><span class="nv">$dsn</span><span class="p">,</span> <span class="nv">$usuario</span><span class="p">,</span> <span class="nv">$clave</span><span class="p">,</span> <span class="p">[</span>
+        <span class="no">PDO</span><span class="o">::</span><span class="no">ATTR_ERRMODE</span> <span class="o">=&gt;</span> <span class="no">PDO</span><span class="o">::</span><span class="no">ERRMODE_EXCEPTION</span><span class="p">,</span>
+        <span class="no">PDO</span><span class="o">::</span><span class="no">ATTR_DEFAULT_FETCH_MODE</span> <span class="o">=&gt;</span> <span class="no">PDO</span><span class="o">::</span><span class="no">FETCH_ASSOC</span><span class="p">,</span>
+    <span class="p">]);</span>
+
+    <span class="c1">// 2. Sentencia preparada con parámetros nombrados</span>
+    <span class="nv">$sql</span> <span class="o">=</span> <span class="s2">"INSERT INTO clientes (nombre, telefono) VALUES (:nombre, :telefono)"</span><span class="p">;</span>
+    <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="o">-&gt;</span><span class="nf">prepare</span><span class="p">(</span><span class="nv">$sql</span><span class="p">);</span>
+
+    <span class="c1">// 3. Ejecución segura</span>
+    <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="nf">execute</span><span class="p">([</span>
+        <span class="s2">"nombre"</span> <span class="o">=&gt;</span> <span class="nv">$nombre</span><span class="p">,</span>
+        <span class="s2">"telefono"</span> <span class="o">=&gt;</span> <span class="nv">$telefono</span>
+    <span class="p">]);</span>
+
+    <span class="k">echo</span> <span class="s2">"Registro insertado correctamente"</span><span class="p">;</span>
+
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nc">PDOException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// En producción, nunca mostrar el mensaje exacto al usuario</span>
+    <span class="nb">error_log</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="nf">getMessage</span><span class="p">());</span>
+    <span class="k">echo</span> <span class="s2">"Hubo un error al procesar la solicitud."</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Si sustituyes la sentencia <code class="language-plaintext highlighter-rouge">INSERT</code> por cualquier otra instrucción SQL válida, también funcionará, con la excepción de <code class="language-plaintext highlighter-rouge">SELECT</code>, que se maneja de otra manera que enseguida veremos.</p>
+
+<p>Por lo tanto, el código anterior te puede servir de base para ejecutar cualquier <code class="language-plaintext highlighter-rouge">INSERT</code>, <code class="language-plaintext highlighter-rouge">UPDATE</code> o <code class="language-plaintext highlighter-rouge">DELETE</code> sobre tu base de datos. O incluso sentencias de definición de la base de datos, como <code class="language-plaintext highlighter-rouge">CREATE TABLE</code> o <code class="language-plaintext highlighter-rouge">ALTER TABLE</code> (siempre que el usuario con el que te estés conectando tenga permisos para ejecutarlas, claro)</p>
+
+<h3 id="244-consultas-con-pdo">2.4.4. Consultas con PDO</h3>
+
+<p>Hemos dicho que las sentencias <code class="language-plaintext highlighter-rouge">SELECT</code> se lanzan desde PHP de un modo diferente al resto. ¿Por qué será?</p>
+
+<p>La respuesta es sencilla de entender: la ejecución de consultas (<code class="language-plaintext highlighter-rouge">SELECT</code>) produce la devolución de un conjunto de registros, mientras que cualquier otra instucción (<code class="language-plaintext highlighter-rouge">INSERT</code>, <code class="language-plaintext highlighter-rouge">UPDATE</code>, <code class="language-plaintext highlighter-rouge">DELETE</code> o lo que sea) no devuelve ningún registro.</p>
+
+<p>Los registros obtenidos como resultado de un <code class="language-plaintext highlighter-rouge">SELECT</code> se manejan en PHP con un objeto denominado <strong>cursor</strong>. Un cursor no es más que un puntero al conjunto de resultados que señala al registro que se va a procesar a continuación.</p>
+
+<p>Es decir: se parece al cursor de tu procesador de textos, que te indica el lugar en el que vas a insertar o borrar caracteres.</p>
+
+<p>En el caso de los cursores MySQL, no te permiten borrar nada. El cursor solo señala un registro concreto dentro de los resultados del <code class="language-plaintext highlighter-rouge">SELECT</code>.</p>
+
+<p>Observa cómo se hace un <code class="language-plaintext highlighter-rouge">SELECT</code> en este ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="c1">// Datos de conexión</span>
+<span class="nv">$dsn</span> <span class="o">=</span> <span class="s2">"mysql:host=servidor;dbname=database;charset=utf8mb4"</span><span class="p">;</span>
+<span class="nv">$usuario</span> <span class="o">=</span> <span class="s2">"user"</span><span class="p">;</span>
+<span class="nv">$clave</span>   <span class="o">=</span> <span class="s2">"password"</span><span class="p">;</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="c1">// Conexión segura con PDO</span>
+    <span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PDO</span><span class="p">(</span><span class="nv">$dsn</span><span class="p">,</span> <span class="nv">$usuario</span><span class="p">,</span> <span class="nv">$clave</span><span class="p">,</span> <span class="p">[</span>
+        <span class="no">PDO</span><span class="o">::</span><span class="no">ATTR_ERRMODE</span> <span class="o">=&gt;</span> <span class="no">PDO</span><span class="o">::</span><span class="no">ERRMODE_EXCEPTION</span>
+    <span class="p">]);</span>
+
+    <span class="c1">// Ejecutamos la consulta</span>
+    <span class="nv">$sql</span> <span class="o">=</span> <span class="s2">"SELECT nombre, telefono FROM Clientes"</span><span class="p">;</span>
+    <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="nv">$sql</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nc">PDOException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">die</span><span class="p">(</span><span class="s2">"Error en la conexión o en la consulta: "</span> <span class="mf">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="nf">getMessage</span><span class="p">());</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+<span class="nt">&lt;table</span> <span class="na">border=</span><span class="s">"1"</span> <span class="na">align=</span><span class="s">"center"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;thead&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;th&gt;</span>Nombre<span class="nt">&lt;/th&gt;</span>
+            <span class="nt">&lt;th&gt;</span>Teléfono<span class="nt">&lt;/th&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/thead&gt;</span>
+    <span class="nt">&lt;tbody&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="k">while</span> <span class="p">(</span><span class="nv">$cliente</span> <span class="o">=</span> <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="nf">fetch</span><span class="p">(</span><span class="no">PDO</span><span class="o">::</span><span class="no">FETCH_ASSOC</span><span class="p">))</span><span class="o">:</span> <span class="cp">?&gt;</span>
+            <span class="nt">&lt;tr&gt;</span>
+                <span class="nt">&lt;td&gt;</span><span class="cp">&lt;?=</span> <span class="nb">htmlspecialchars</span><span class="p">(</span><span class="nv">$cliente</span><span class="p">[</span><span class="s2">"nombre"</span><span class="p">])</span> <span class="cp">?&gt;</span><span class="nt">&lt;/td&gt;</span>
+                <span class="nt">&lt;td&gt;</span><span class="cp">&lt;?=</span> <span class="nb">htmlspecialchars</span><span class="p">(</span><span class="nv">$cliente</span><span class="p">[</span><span class="s2">"telefono"</span><span class="p">])</span> <span class="cp">?&gt;</span><span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;/tr&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="k">endwhile</span><span class="p">;</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;/tbody&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+</code></pre></div></div>
+
+<p>Probablemente ya lo hayas captado sin necesidad de explicaciones adicionales, pero, por si acaso no es así, ahí va una explicación adicional gratuita.</p>
+
+<p>Cuando se lanza una consulta contra una base de datos desde PHP, la base de datos nos devuelve el resultado en un <em>cursor</em>, como hemos dicho. Ese objeto de tipo cursor lo almacenamos en una variable que, en este ejemplo, hemos llamado <em><code class="language-plaintext highlighter-rouge">$stmt</code></em> (abreviatura de “Statement”).</p>
+
+<p>Recuerda que un cursor es un apuntador a un conjunto de resultados. Cuando un cursor está recién abierto, <em>siempre apunta al primer registro de ese conjunto de resultados</em>.</p>
+
+<p>Nuestra variable <code class="language-plaintext highlighter-rouge">*$stmt</code>* es un objeto y, como cualquier objeto, contiene una serie de métodos. Entre esos métodos, cualquier cursor siempre nos ofrecerá un método importantísimo llamado <em><code class="language-plaintext highlighter-rouge">fetch()</code></em>.</p>
+
+<p>El método <em><code class="language-plaintext highlighter-rouge">fetch()</code></em> nos devuelve el siguiente dato almacenado en el cursor (en nuestro caso, un registro completo) y hace avanzar al cursor para que apunte al siguiente dato (en nuestro caso, el siguiente registro). Así, lo deja preparado para recuperar otro registro en la siguiente iteración.</p>
+
+<p>Por eso hemos colocado la instrucción <em><code class="language-plaintext highlighter-rouge">fetch()</code></em> en un bucle.</p>
+
+<p>Cuando el cursor está recién abierto, el primer <em><code class="language-plaintext highlighter-rouge">fetch()</code></em> nos devuelve el primer registro del resultado. Es decir, el primer cliente. Podemos acceder a los campos de ese registro (como “nombre” o “teléfono”) accediendo al registro como si fuera un array (<code class="language-plaintext highlighter-rouge">$registro["nombre"]</code>, <code class="language-plaintext highlighter-rouge">$registro["telefono"]</code>, etc).</p>
+
+<p>Pero <em><code class="language-plaintext highlighter-rouge">fetch()</code></em> no solo recupera el primer registro, sino que hace avanzar el cursor para que se quede apuntando al segundo. De este modo, en la siguiente iteración del bucle, <em><code class="language-plaintext highlighter-rouge">fetch()</code></em> nos recupera <em>el segundo</em> registro (el segundo cliente), y el cursor queda apuntando al tercero, listo para la siguiente iteración.</p>
+
+<p>Cuando no quedan más registros que procesar, <em><code class="language-plaintext highlighter-rouge">fetch()</code></em> devuelve <em><code class="language-plaintext highlighter-rouge">false</code></em> y el bucle termina. De ese modo, habremos procesado fácilmente todo el conjunto de resultados devueltos por la consulta.</p>
+
+<h3 id="245-mejorando-la-implementación-de-consultas">2.4.5. Mejorando la implementación de consultas</h3>
+
+<p>Podríamos hacer muchas consideraciones adicionales sobre PHP, pero esto solo es una introducción al lenguaje, así que no profundizaremos mucho.</p>
+
+<p>Sin embargo, me gustaría que vieras una implementación alternativa del código anterior (PHP es muy flexible y admite muchas maneras de hacer lo mismo), porque ilustra algunas características de PHP que me parece que debes conocer:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="c1">// 1. Lógica: Obtención de datos</span>
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PDO</span><span class="p">(</span><span class="nv">$dsn</span><span class="p">,</span> <span class="nv">$usuario</span><span class="p">,</span> <span class="nv">$clave</span><span class="p">,</span> <span class="p">[</span>
+        <span class="no">PDO</span><span class="o">::</span><span class="no">ATTR_ERRMODE</span> <span class="o">=&gt;</span> <span class="no">PDO</span><span class="o">::</span><span class="no">ERRMODE_EXCEPTION</span><span class="p">,</span>
+        <span class="no">PDO</span><span class="o">::</span><span class="no">ATTR_DEFAULT_FETCH_MODE</span> <span class="o">=&gt;</span> <span class="no">PDO</span><span class="o">::</span><span class="no">FETCH_ASSOC</span>
+    <span class="p">]);</span>
+
+    <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="o">-&gt;</span><span class="nf">prepare</span><span class="p">(</span><span class="s2">"SELECT nombre, telefono FROM Clientes WHERE id = :id"</span><span class="p">);</span>
+    <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="nf">execute</span><span class="p">([</span><span class="s1">'id'</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">]);</span>
+    <span class="nv">$clientes</span> <span class="o">=</span> <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="nf">fetchAll</span><span class="p">();</span>
+
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nc">PDOException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">error_log</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="nf">getMessage</span><span class="p">());</span>
+    <span class="k">die</span><span class="p">(</span><span class="s2">"Error interno del servidor"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+
+<span class="c">&lt;!-- 2. Presentación: Renderizado HTML (vista) --&gt;</span>
+<span class="nt">&lt;table&gt;</span>
+    <span class="nt">&lt;thead&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;th&gt;</span>Nombre<span class="nt">&lt;/th&gt;</span>
+            <span class="nt">&lt;th&gt;</span>Teléfono<span class="nt">&lt;/th&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/thead&gt;</span>
+    <span class="nt">&lt;tbody&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$clientes</span> <span class="k">as</span> <span class="nv">$cliente</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
+            <span class="nt">&lt;tr&gt;</span>
+                <span class="nt">&lt;td&gt;</span><span class="cp">&lt;?=</span> <span class="nb">htmlspecialchars</span><span class="p">(</span><span class="nv">$cliente</span><span class="p">[</span><span class="s2">"nombre"</span><span class="p">])</span> <span class="cp">?&gt;</span><span class="nt">&lt;/td&gt;</span>
+                <span class="nt">&lt;td&gt;</span><span class="cp">&lt;?=</span> <span class="nb">htmlspecialchars</span><span class="p">(</span><span class="nv">$cliente</span><span class="p">[</span><span class="s2">"telefono"</span><span class="p">])</span> <span class="cp">?&gt;</span><span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;/tr&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="k">endforeach</span><span class="p">;</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;/tbody&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+</code></pre></div></div>
+
+<p>Este código es funcionalmente idéntico que el que veíamos antes, pero tiene algunas mejoras interesantes en las que quiero que te fijes:</p>
+
+<ol>
+  <li><strong>Separa completamente la lógica del problema (la extracción de datos de la BD) de su presentación</strong>. Cuanto menos se mezcle el código PHP con el código HTML, menos confuso será el resultado. Por eso, en esta solución usamos <em><code class="language-plaintext highlighter-rouge">fetchAll()</code></em> en lugar de <em><code class="language-plaintext highlighter-rouge">fetch()</code></em>: para mover todo el resultado a un array asociativo (<code class="language-plaintext highlighter-rouge">PDO::FETCH_ASSOC</code>), que es un array PHP normal que podemos procesar más adelante, cuando vayamos a mostrarlo.</li>
+  <li><strong>Utiliza <em><code class="language-plaintext highlighter-rouge">&lt;?= ... ?&gt;</code></em></strong>. Esto, como ya vimos,  es una abreviatura muy habitual de <em><code class="language-plaintext highlighter-rouge">&lt;?php echo("...") ?&gt;</code></em>.</li>
+  <li><strong>Utiliza <em><code class="language-plaintext highlighter-rouge">$pdo-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION)</code></em></strong>, que fuerza a que PDO lance una excepción si ocurre un error en la consulta. De otro modo, PDO no lanza excepciones, solo devuelve <em><code class="language-plaintext highlighter-rouge">false</code></em> si la consulta falla. El manejador de excepciones es más seguro y puede tener en cuenta más situaciones de error que la simple comprobación de ese <em><code class="language-plaintext highlighter-rouge">false</code></em>.</li>
+  <li><strong>Utiliza <em><code class="language-plaintext highlighter-rouge">htmlspecialchars()</code></em></strong>. Esto filtra cualquier contenido sospechoso que un atacante malicioso pudiera haber inyectado en tu base de datos, por lo que se considera más seguro que usar solo <em><code class="language-plaintext highlighter-rouge">echo()</code></em> en aplicaciones web. Imagínate que en la BD alguien hubiera logrado inyectar el código <em><code class="language-plaintext highlighter-rouge">&lt;script&gt;location.href='miServidor.com'&lt;/script&gt;</code></em> en el campo <em><code class="language-plaintext highlighter-rouge">teléfono</code></em> de un usuario. ¿Qué pasaría al tratar de mostrar la lista de usuarios? <em><code class="language-plaintext highlighter-rouge">htmlspecialchars()</code></em> impedirá la ejecución de ese código malicioso y de cualquier otra cosa sospechosa o mal formada.</li>
+</ol>
+
+<h3 id="246-formas-de-hacer-fetch">2.4.6. Formas de hacer fetch</h3>
+
+<p>Como has visto en los ejemplos, al hacer <em><code class="language-plaintext highlighter-rouge">fetch()</code></em> del resultado de una consulta recuperas los datos del siguiente registro, pero esto se puede lograr de varias maneras.</p>
+
+<p>En primer lugar, tenemos dos métodos para hacer <em>fetch</em>:</p>
+<ul>
+  <li><strong><em><code class="language-plaintext highlighter-rouge">fetch()</code></em></strong> recupera el siguiente registro de la consulta.</li>
+  <li><strong><em><code class="language-plaintext highlighter-rouge">fetchAll()</code></em></strong> recupera todos los registros de la consulta.</li>
+</ul>
+
+<p>Además, tanto a <em><code class="language-plaintext highlighter-rouge">fetch()</code></em> como a <em><code class="language-plaintext highlighter-rouge">fetchAll()</code></em> podemos indicarle la forma en la que queremos que se almacenen los datos recuperados en variables PHP. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT id, nombre FROM usuarios"</span><span class="p">);</span>
+<span class="k">while</span> <span class="p">(</span><span class="nv">$fila</span> <span class="o">=</span> <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="nf">fetch</span><span class="p">(</span><span class="no">PDO</span><span class="o">::</span><span class="no">FETCH_ASSOC</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$fila</span><span class="p">[</span><span class="s1">'nombre'</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Aquí se ha usado <em><code class="language-plaintext highlighter-rouge">fetch(PDO::FETCH_ASSOC)</code></em>, que devuelve los datos de la consulta en un array asociativo con esta forma:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$fila['id'] = Aquí-va-el-ID;
+$fila['nombre'] = "Aquí va el nombre";
+</code></pre></div></div>
+
+<p>En cambio, podríamos haber recuperado los datos así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="o">-&gt;</span><span class="nf">query</span><span class="p">(</span><span class="s2">"SELECT id, nombre FROM usuarios"</span><span class="p">);</span>
+<span class="k">while</span> <span class="p">(</span><span class="nv">$fila</span> <span class="o">=</span> <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="nf">fetch</span><span class="p">(</span><span class="no">PDO</span><span class="o">::</span><span class="no">FETCH_NUM</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$fila</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="c1">// El nombre está en la segunda columna</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>En este caso, <em><code class="language-plaintext highlighter-rouge">fetch(PDO::FETCH_NUM)</code></em> nos colocará los datos en un array indexado por números, donde la posición 0 es la primera columna, la posición 1 la segunda, etc:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$fila[0] = Aquí-va-el-ID;
+$fila[1] = "Aquí va el nombre";
+</code></pre></div></div>
+
+<p>Tanto <em><code class="language-plaintext highlighter-rouge">fetch()</code></em> como <em><code class="language-plaintext highlighter-rouge">fetchAll()</code></em> admiten, por tanto, varias posibilidades. Estas son las más interesantes, aunque hay más:</p>
+
+<ul>
+  <li><strong><em><code class="language-plaintext highlighter-rouge">fetch(PDO::FETCH_ASSOC)</code></em></strong>: Devuelve los datos en un array asociativo.</li>
+  <li><strong><em><code class="language-plaintext highlighter-rouge">fetch(PDO::FETCH_NUM)</code></em></strong>: Devuelve los datos en un array indexado por números enteros.</li>
+  <li><strong><em><code class="language-plaintext highlighter-rouge">fetch(PDO::FETCH_BOTH)</code></em></strong> (por defecto): Devuelve los datos en un array asociativo y en un array indexado por números enteros, las dos cosas a la vez.</li>
+  <li><strong><em><code class="language-plaintext highlighter-rouge">fetch(PDO::FETCH_OBJ)</code></em></strong>: Devuelve los datos en un objeto creado para la ocasión (Los datos serían accesibles como <em>$fila-&gt;nombre, $fila-&gt;id</em>, etc).</li>
+  <li><strong><em><code class="language-plaintext highlighter-rouge">fetch(PDO::FETCH_CLASS, NombreClase)</code></em></strong>: Devuelve los datos como instancias de la clase especificada.</li>
+</ul>
+:ET

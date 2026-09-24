@@ -1,0 +1,29 @@
+I"�<p>Juntaría tus actuales:</p>
+
+<p>3.10 Migraciones
+parte de 3.11 Eloquent
+parte de 3.15
+Contenidos
+Configuración de la base de datos.
+.env.
+Migraciones.
+Crear tablas.
+Modificar tablas.
+Rollback.
+Seeders.
+Factories, aunque sea muy brevemente.
+Modelos Eloquent.
+Convenciones de nombres.</p>
+
+<p>Ejemplo:</p>
+
+<p>php artisan make:model Product -m</p>
+
+<p>y:</p>
+
+<p>php artisan migrate</p>
+
+<p>Aquí también introduciría claramente la relación:</p>
+
+<p>tabla ↔ modelo Eloquent</p>
+:ET

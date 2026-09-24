@@ -1,0 +1,26 @@
+I"X<p>Contenidos
+Formularios HTML.
+GET / POST.
+Request.
+Obtener datos enviados.
+Validación.
+Reglas de validación.
+Mensajes de error.
+Redirección después de un error.
+CSRF.
+Métodos HTTP PUT, PATCH y DELETE mediante formularios.</p>
+
+<p>Por ejemplo:</p>
+
+<p>$request-&gt;validate([
+    ‘nombre’ =&gt; ‘required|max:100’,
+    ‘precio’ =&gt; ‘required|numeric|min:0’,
+]);
+Práctica</p>
+
+<p>Crear y validar un producto.</p>
+
+<p>Todavía podemos guardar los datos temporalmente en memoria.</p>
+
+<p>Esto produce una primera aplicación interactiva bastante antes de llegar a Eloquent.</p>
+:ET
