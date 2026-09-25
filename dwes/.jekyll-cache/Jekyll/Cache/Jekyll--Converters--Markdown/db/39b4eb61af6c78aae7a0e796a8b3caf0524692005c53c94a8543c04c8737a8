@@ -1,0 +1,357 @@
+I"ۏ<h2 id="37-relaciones-entre-tablas-con-eloquent">3.7. Relaciones entre tablas con Eloquent</h2>
+
+<p>Las <strong>relaciones entre tablas</strong> también se pueden manejar con Eloquent sin necesidad de andar escribiendo larguísimos <code class="language-plaintext highlighter-rouge">INNER JOIN</code> y otros miembros de su nutrida familia, con todos los errores de escritura que suelen hacernos perder el tiempo depurando SQL.</p>
+
+<p>Aunque al principio te parezca que definir las relaciones entre tablas con Eloquent necesita mucho trabajo previo, te garantizo que después te alegrarás de haberlo hecho. Porque las relaciones, una vez definidas, se comportan como consultas y se puede operar con ellas como si lo fueran.</p>
+
+<p>Lo comprenderemos mejor, como siempre, con ejemplos. <strong>En los ejemplos de los siguientes apartados vamos a suponer que tenemos estas tablas ya creadas y con datos</strong>:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">usuarios(id#, nombre, passwd)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">emails(id#, email, usuario_id)</code> → Esta tabla tiene una relación 1:1 con usuarios</li>
+  <li><code class="language-plaintext highlighter-rouge">articulos(id#, titulo, texto, idUsuario)</code> → Esta tabla tiene una relación 1:N con usuarios</li>
+  <li><code class="language-plaintext highlighter-rouge">roles(id#, nombre)</code> → Esta tabla tiene una relación N:N con usuarios</li>
+</ul>
+
+<p>ATENCIÓN: en la tabla <em><code class="language-plaintext highlighter-rouge">artículos</code></em> hemos usado a propósito un nombre no estándar para la clave foránea. Para respetar la convención de Laravel, debería llamarse <em><code class="language-plaintext highlighter-rouge">usuario_id</code></em> en lugar de <em><code class="language-plaintext highlighter-rouge">idUsuario</code></em>, como en la tabla <em><code class="language-plaintext highlighter-rouge">emails</code></em>.</p>
+
+<h3 id="371-migraciones-con-claves-foráneas">3.7.1. Migraciones con claves foráneas</h3>
+
+<p>Antes de definir las relaciones en los modelos, debemos asegurarnos de que la base de datos refleje estas asociaciones mediante <strong>claves foráneas</strong>.</p>
+
+<p>A partir de las versiones recientes de Laravel, crear una clave foránea que respete las convenciones en una migración es tan sencillo como usar el método <code class="language-plaintext highlighter-rouge">foreignId</code> encadenado con <code class="language-plaintext highlighter-rouge">constrained</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Schema</span><span class="o">::</span><span class="nf">create</span><span class="p">(</span><span class="s1">'articulos'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="kt">Blueprint</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">id</span><span class="p">();</span>
+    <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">string</span><span class="p">(</span><span class="s1">'titulo'</span><span class="p">);</span>
+    <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">text</span><span class="p">(</span><span class="s1">'texto'</span><span class="p">);</span>
+    
+    <span class="c1">// Crea la columna 'usuario_id' (BIGINT UNSIGNED) y añade la restricción de clave foránea</span>
+    <span class="c1">// referenciando al campo 'id' de la tabla 'usuarios'.</span>
+    <span class="c1">// Además, activamos el ON DELETE CASCADE. ¡¡Ojo con eso, no usar indiscriminadamente!!</span>
+    <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">foreignId</span><span class="p">(</span><span class="s1">'usuario_id'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">constrained</span><span class="p">(</span><span class="s1">'usuarios'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">onDelete</span><span class="p">(</span><span class="s1">'cascade'</span><span class="p">);</span>
+    
+    <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">timestamps</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Si no respetas la convención de nombres, tendrás que indicarlo manualmente:</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">unsignedBigInteger</span><span class="p">(</span><span class="s1">'idUsuario'</span><span class="p">);</span>
+<span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">foreign</span><span class="p">(</span><span class="s1">'idUsuario'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">references</span><span class="p">(</span><span class="s1">'id'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">on</span><span class="p">(</span><span class="s1">'usuarios'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="372-relaciones-11-usuarios---emails">3.7.2. Relaciones 1:1 (usuarios &lt;-&gt; emails)</h3>
+
+<p>Para definir un <strong>relación 1:1</strong> con Eloquent debes hacer lo siguiente:</p>
+
+<p><strong>Paso 1</strong>. En el modelo de la tabla maestra (clase <code class="language-plaintext highlighter-rouge">Usuario</code>, en nuestro ejemplo) añadimos este método:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Models\Email</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="n">email</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">hasOne</span><span class="p">(</span><span class="nc">Email</span><span class="o">::</span><span class="n">class</span><span class="p">);</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Paso 2</strong>. En el modelo de la tabla relacionada (clase <code class="language-plaintext highlighter-rouge">Email</code>) añadimos este método:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Models\Usuario</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="n">usuario</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">belongsTo</span><span class="p">(</span><span class="nc">Usuario</span><span class="o">::</span><span class="n">class</span><span class="p">);</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>A partir de ahora, se puede recuperar el email de un usuario como si fuera un miembro de la clase <em>Usuario</em>, tan sencilla como esto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$email</span> <span class="o">=</span> <span class="nc">Usuario</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">email</span><span class="p">;</span>
+    <span class="nv">$user</span> <span class="o">=</span> <span class="nc">Email</span><span class="o">::</span><span class="nf">all</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">first</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">user</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Y también funciona al revés. Es decir, a partir de un objeto de tipo <em>Email</em>, podemos acceder a su usuario como si fuera un atributo de la clase <em>Email</em>.</p>
+
+<h3 id="373-relaciones-1n-usuarios---artículos">3.7.3. Relaciones 1:N (usuarios &lt;-&gt; artículos)</h3>
+
+<p>Si tienes una <strong>relación 1:N</strong> (como la que hay entre las tablas de <em>usuarios</em> y <em>artículos</em> de nuestro ejemplo), para definirla en Eloquent tienes que hacer esto:</p>
+
+<p><strong>Paso 1</strong>. En el modelo de la tabla maestra (clase <code class="language-plaintext highlighter-rouge">Usuario</code>), añade este método:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Models\Articulo</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="n">articulos</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ATENCIÓN: indicamos el nombre de la clave foránea (idUsuario)</span>
+    <span class="c1">// porque no hemos respetado la convención (usuario_id).</span>
+    <span class="c1">// Si lo hubiéramos respetado, no haría falta.</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">hasMany</span><span class="p">(</span><span class="nc">Articulo</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'idUsuario'</span><span class="p">);</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Paso 2</strong>. En el modelo de la tabla relacionada (clase <code class="language-plaintext highlighter-rouge">Articulo</code>), añade este otro método:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Models\Usuario</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="n">usuario</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">belongsTo</span><span class="p">(</span><span class="nc">Usuario</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'idUsuario'</span><span class="p">);</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>¡Y listo! Ya puedes recuperar los artículos a partir del usuario, como si fueran atributos de esa clase. Y a la inversa también funciona.</p>
+
+<p>Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$articulos</span> <span class="o">=</span> <span class="nc">Usuario</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">articulos</span><span class="p">;</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$articulos</span> <span class="k">as</span> <span class="nv">$articulo</span><span class="p">)</span> <span class="p">{</span>
+       <span class="c1">// Procesar cada artículo</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="374-relaciones-nn-usuarios---roles">3.7.4. Relaciones N:N (usuarios &lt;-&gt; roles)</h3>
+
+<p>Si lo que tienes es una <strong>relación N:N</strong> (como la que hay entre <em>usuarios</em> y <em>roles</em> en nuestro ejemplo), los pasos a seguir para construirla con Eloquent son estos:</p>
+
+<p><strong>Paso 1</strong>. En el modelo de una de las tablas (clase <code class="language-plaintext highlighter-rouge">Usuario</code>) añadimos este método:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Models\Rol</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="n">roles</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">belongsToMany</span><span class="p">(</span><span class="nc">Rol</span><span class="o">::</span><span class="n">class</span><span class="p">);</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Paso 2</strong>. En el modelo de la otra tabla (clase <code class="language-plaintext highlighter-rouge">Rol</code>) añadimos este método:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Models\Usuario</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="n">usuarios</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">belongsToMany</span><span class="p">(</span><span class="nc">Usuario</span><span class="o">::</span><span class="n">class</span><span class="p">);</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Ahora, ya se pueden recuperar los roles a partir del usuario o a la inversa. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$roles</span> <span class="o">=</span> <span class="nc">Usuario</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">roles</span><span class="p">;</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$roles</span> <span class="k">as</span> <span class="nv">$rol</span><span class="p">)</span> <span class="p">{</span>
+       <span class="c1">// Procesar cada rol</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+<h3 id="375-la-tabla-pivote-insertar-modificar-y-borrar-en-relaciones-nn">3.7.5. La tabla pivote: insertar, modificar y borrar en relaciones N:N</h3>
+
+<p>Insertar, modificar y borrar en relaciones N:N implica escribir datos (normalmente, ids) en la <strong>tabla intermedia</strong> o <strong>tabla pivote</strong>, lo cual suele suponer un engorro cuando se hace <em>a mano</em> con SQL.</p>
+
+<p>Ese tedioso proceso también se puede automatizar con Eloquent. Lo vemos con un ejemplo entre nuestras tablas <em>usuarios</em> y <em>roles</em>.</p>
+
+<p><strong>Para insertar</strong> un usuario y sus roles se usa el método <em>attach()</em>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$r</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">User</span><span class="p">(</span><span class="nv">$r</span><span class="o">-&gt;</span><span class="nf">all</span><span class="p">());</span>
+    <span class="nv">$user</span><span class="o">-&gt;</span><span class="nf">roles</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">attach</span><span class="p">(</span><span class="nv">$r</span><span class="o">-&gt;</span><span class="n">roles</span><span class="p">);</span>
+    <span class="nv">$user</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Para actualizar</strong> un usuario y sus roles se usa el método <em>sync()</em>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">function</span> <span class="n">update</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$r</span><span class="p">,</span> <span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$user</span> <span class="o">=</span> <span class="nc">User</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+        <span class="nv">$user</span><span class="o">-&gt;</span><span class="nf">fill</span><span class="p">(</span><span class="nv">$r</span><span class="o">-&gt;</span><span class="nf">all</span><span class="p">());</span> 
+        <span class="nv">$user</span><span class="o">-&gt;</span><span class="nf">roles</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">sync</span><span class="p">(</span><span class="nv">$r</span><span class="o">-&gt;</span><span class="n">roles</span><span class="p">);</span> 
+        <span class="nv">$user</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>  
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Para eliminar</strong> un usuario y sus roles se usa el método <em>detach()</em>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">function</span> <span class="n">destroy</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$user</span> <span class="o">=</span> <span class="nc">User</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+        <span class="nv">$user</span><span class="o">-&gt;</span><span class="nf">roles</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">detach</span><span class="p">();</span> 
+        <span class="nv">$user</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">();</span> 
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="376-problemas-frecuentes-en-relaciones-nn">3.7.6. Problemas frecuentes en relaciones N:N</h3>
+
+<p>Eloquent supondrá que <strong>el nombre de la tabla intermedia (pivote)</strong> se ha formado con los nombres de los dos modelos en singular, en snake case y ordenados alfabéticamente.</p>
+
+<p>Por ejemplo, en la relación N:N entre los modelos <code class="language-plaintext highlighter-rouge">Usuario</code> y <code class="language-plaintext highlighter-rouge">Rol</code>, Eloquent supondrá que existe una tabla llamada <code class="language-plaintext highlighter-rouge">rol_usuario</code>. Si no se llama así, la relación fallará.</p>
+
+<p>Se puede indicar otro nombre de tabla al definir la relación. Por ejemplo, en el modelo de usuarios (clase <code class="language-plaintext highlighter-rouge">Usuario</code>):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">roles</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">belongsToMany</span><span class="p">(</span><span class="nc">Rol</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'usuarios_roles'</span><span class="p">);</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>También se pueden indicar los nombres de las claves foráneas si no siguen las convenciones:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">function</span> <span class="n">roles</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">belongsToMany</span><span class="p">(</span><span class="nc">Rol</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'usuarios_roles'</span><span class="p">,</span>
+                                    <span class="s1">'id_usuario'</span><span class="p">,</span> <span class="s1">'id_rol'</span><span class="p">);</span> 
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>¿Te has fijado en que hemos creado un método para acceder a la tabla relacionada, pero estamos usando un atributo en su lugar?</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">articulos</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">hasMany</span><span class="p">(</span><span class="nc">Articulo</span><span class="o">::</span><span class="n">class</span><span class="p">);</span> 
+<span class="p">}</span>
+<span class="k">public</span> <span class="k">function</span> <span class="n">loQueSea</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nv">$arts</span> <span class="o">=</span> <span class="nc">Usuario</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">articulos</span><span class="p">;</span>  <span class="c1">// articulos, no articulos()</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Pues bien, el atributo <em>articulo</em> es un <strong>atributo virtual</strong> creado por Eloquent. Pero el método <em>articulos()</em> también existe, y puede usarse como una consulta, extendiéndola como necesitemos. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$arts</span> <span class="o">=</span> <span class="nc">Usuario</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">articulos</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">where</span><span class="p">(</span><span class="s1">'titulo'</span><span class="p">,</span><span class="s1">'foo'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">first</span><span class="p">();</span> 
+</code></pre></div></div>
+
+<h3 id="377-práctica-de-relaciones-con-eloquent">3.7.7. Práctica de relaciones con Eloquent</h3>
+
+<p>Vamos a añadir, a nuestra aplicación <code class="language-plaintext highlighter-rouge">hola-laravel</code> donde tenemos ya un CRUD de productos funcionando, la capacidad de <strong>asignar nuestros productos a categorías</strong>.</p>
+
+<p>Un producto pertenecerá a una única categoría (por ejemplo: Electrónica, Hogar, Ropa), pero una categoría podrá tener muchos productos. Es decir, tendremos es una <strong>relación 1:N</strong>.</p>
+
+<h4 id="objetivos">Objetivos</h4>
+<ul>
+  <li>Crear un nuevo modelo <code class="language-plaintext highlighter-rouge">Category</code> con su migración.</li>
+  <li>Añadir la clave foránea a la tabla de productos creando una nueva migración.</li>
+  <li>Establecer las relaciones Eloquent <code class="language-plaintext highlighter-rouge">hasMany</code> y <code class="language-plaintext highlighter-rouge">belongsTo</code>.</li>
+  <li>Guardar y mostrar los productos con su respectiva categoría.</li>
+</ul>
+
+<h4 id="paso-1-crear-el-modelo-category-y-su-tabla">PASO 1. Crear el modelo Category y su tabla</h4>
+
+<ol>
+  <li>En tu terminal (recuerda tener Sail levantado), ejecuta:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./vendor/bin/sail artisan make:model Category <span class="nt">-m</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Abre la migración creada en <code class="language-plaintext highlighter-rouge">database/migrations/</code> (la de <code class="language-plaintext highlighter-rouge">create_categories_table</code>) y añade un campo <code class="language-plaintext highlighter-rouge">name</code>:
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">up</span><span class="p">():</span> <span class="kt">void</span> <span class="p">{</span>
+    <span class="nc">Schema</span><span class="o">::</span><span class="nf">create</span><span class="p">(</span><span class="s1">'categories'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="kt">Blueprint</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">id</span><span class="p">();</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">string</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">timestamps</span><span class="p">();</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Modifica el modelo <code class="language-plaintext highlighter-rouge">app/Models/Category.php</code> para permitir asignación masiva y definir que una categoría tiene muchos productos:
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">App\Models</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">Illuminate\Database\Eloquent\Model</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Category</span> <span class="kd">extends</span> <span class="nc">Model</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$fillable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'name'</span><span class="p">];</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">products</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">hasMany</span><span class="p">(</span><span class="nc">Product</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="paso-2-añadir-la-relación-al-modelo-product">PASO 2. Añadir la relación al modelo Product</h4>
+
+<ol>
+  <li>Abre <code class="language-plaintext highlighter-rouge">app/Models/Product.php</code> y añade la relación inversa y el campo a <code class="language-plaintext highlighter-rouge">$fillable</code>:
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Asegúrate de importar el modelo si no están en el mismo namespace</span>
+<span class="c1">// use App\Models\Category;</span>
+
+<span class="c1">// Añade 'category_id' al fillable existente:</span>
+<span class="k">protected</span> <span class="nv">$fillable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'description'</span><span class="p">,</span> <span class="s1">'price'</span><span class="p">,</span> <span class="s1">'category_id'</span><span class="p">];</span>
+
+<span class="c1">// Añade la relación:</span>
+<span class="k">public</span> <span class="k">function</span> <span class="n">category</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">belongsTo</span><span class="p">(</span><span class="nc">Category</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="paso-3-actualizar-la-base-de-datos-de-productos">PASO 3. Actualizar la base de datos de productos</h4>
+
+<p>Nuestra tabla <code class="language-plaintext highlighter-rouge">products</code> actual no tiene la columna <code class="language-plaintext highlighter-rouge">category_id</code>. Vamos a crear una migración que solo modifique esa tabla para añadirle el campo.</p>
+
+<ol>
+  <li>Ejecuta:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./vendor/bin/sail artisan make:migration add_category_id_to_products_table <span class="nt">--table</span><span class="o">=</span>products
+</code></pre></div>    </div>
+  </li>
+  <li>En la nueva migración generada, añade el campo como clave foránea:
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">up</span><span class="p">():</span> <span class="kt">void</span> <span class="p">{</span>
+    <span class="nc">Schema</span><span class="o">::</span><span class="nf">table</span><span class="p">(</span><span class="s1">'products'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="kt">Blueprint</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// nullable() porque los productos que ya tenemos no tienen categoría asignada</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">foreignId</span><span class="p">(</span><span class="s1">'category_id'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">nullable</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">constrained</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">onDelete</span><span class="p">(</span><span class="s1">'set null'</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="n">down</span><span class="p">():</span> <span class="kt">void</span> <span class="p">{</span>
+    <span class="nc">Schema</span><span class="o">::</span><span class="nf">table</span><span class="p">(</span><span class="s1">'products'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="kt">Blueprint</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">dropForeign</span><span class="p">([</span><span class="s1">'category_id'</span><span class="p">]);</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">dropColumn</span><span class="p">(</span><span class="s1">'category_id'</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Lanza las migraciones:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./vendor/bin/sail artisan migrate
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="paso-4-llenar-categorías-de-prueba-y-verlas-en-la-web">PASO 4. Llenar categorías de prueba y verlas en la web</h4>
+
+<ol>
+  <li>Utiliza Tinker (la consola interactiva de Laravel) para crear algunas categorías de prueba rápidamente:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./vendor/bin/sail artisan tinker
+</code></pre></div>    </div>
+    <p>Dentro de la consola (shell interactiva), escribe y pulsa Enter tras cada línea:</p>
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">App\Models\Category</span><span class="o">::</span><span class="nf">create</span><span class="p">([</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'Electrónica'</span><span class="p">]);</span>
+<span class="nc">App\Models\Category</span><span class="o">::</span><span class="nf">create</span><span class="p">([</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'Hogar'</span><span class="p">]);</span>
+<span class="nc">App\Models\Category</span><span class="o">::</span><span class="nf">create</span><span class="p">([</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'Oficina'</span><span class="p">]);</span>
+<span class="k">exit</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Modifica el formulario de creación en <code class="language-plaintext highlighter-rouge">resources/views/productos/create.blade.php</code> para añadir un <code class="language-plaintext highlighter-rouge">&lt;select&gt;</code> que permita elegir la categoría. Para ello, primero debes enviar las categorías desde el controlador:
+En <code class="language-plaintext highlighter-rouge">ProductController@create</code>:
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Models\Category</span><span class="p">;</span>
+   
+<span class="k">public</span> <span class="k">function</span> <span class="n">create</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nv">$categories</span> <span class="o">=</span> <span class="nc">Category</span><span class="o">::</span><span class="nf">all</span><span class="p">();</span>
+    <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'productos.create'</span><span class="p">,</span> <span class="nb">compact</span><span class="p">(</span><span class="s1">'categories'</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+    <p>En tu vista, añade este campo dentro del formulario:</p>
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"category_id"</span><span class="nt">&gt;</span>Categoría:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">name=</span><span class="s">"category_id"</span> <span class="na">id=</span><span class="s">"category_id"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">""</span><span class="nt">&gt;</span>-- Ninguna --<span class="nt">&lt;/option&gt;</span>
+        @foreach($categories as $category)
+            <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"{{ $category-&gt;id }}"</span><span class="nt">&gt;</span>{{ $category-&gt;name }}<span class="nt">&lt;/option&gt;</span>
+        @endforeach
+    <span class="nt">&lt;/select&gt;</span>
+<span class="nt">&lt;/p&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Modifica la vista de visualización individual (<code class="language-plaintext highlighter-rouge">resources/views/productos/show.blade.php</code>) para mostrar el nombre de la categoría a través de la relación de Eloquent:
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p&gt;</span>
+    <span class="nt">&lt;strong&gt;</span>Categoría:<span class="nt">&lt;/strong&gt;</span>
+    {{ $producto-&gt;category ? $producto-&gt;category-&gt;name : 'Sin categoría' }}
+<span class="nt">&lt;/p&gt;</span>
+</code></pre></div>    </div>
+    <p><em>(Nota: comprobamos primero si tiene categoría porque puede ser nula)</em>.</p>
+  </li>
+</ol>
+
+<p>¡Prueba la app! Si todo funciona, has entrelazado tus dos primeras tablas de base de datos utilizando el poder y simplicidad del ORM Eloquent.</p>
+
+<div style="color: red; font-style: italic">
+  <p><strong>Siempre lo decimos y en esta práctica no será una excepción: ASEGÚRATE DE ENTENDERLO, NO SOLO DE QUE FUNCIONE.</strong></p>
+
+  <p>Recuerda que cuando hagas prácticas de entrega obligatoria y exámenes, te podremos preguntar, por escrito u oralmente, qué hace tu código para comprobar que realmente lo entiendes, independientemente de si el código lo has escrito todo tú o lo has generado con ayuda de una IA.</p>
+</div>
+:ET

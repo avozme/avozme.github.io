@@ -1,0 +1,799 @@
+I"��<h2 class="no_toc" id="11-control-de-versiones-con-git">1.1. Control de versiones con Git</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#111-sistemas-de-control-de-versiones" id="markdown-toc-111-sistemas-de-control-de-versiones">1.1.1. Sistemas de control de versiones</a></li>
+  <li><a href="#112-uso-básico-de-git-con-plataformas-remotas-githubgitlab" id="markdown-toc-112-uso-básico-de-git-con-plataformas-remotas-githubgitlab">1.1.2. Uso básico de Git con plataformas remotas (GitHub/GitLab)</a></li>
+  <li><a href="#113-creando-e-inicializando-un-repositorio" id="markdown-toc-113-creando-e-inicializando-un-repositorio">1.1.3. Creando e inicializando un repositorio</a></li>
+  <li><a href="#114-flujo-de-trabajo-cotidiano-con-git" id="markdown-toc-114-flujo-de-trabajo-cotidiano-con-git">1.1.4. Flujo de trabajo cotidiano con Git</a></li>
+  <li><a href="#115-algunas-cosillas-avanzadas-revertir-cambios-merges-ramas" id="markdown-toc-115-algunas-cosillas-avanzadas-revertir-cambios-merges-ramas">1.1.5. Algunas cosillas avanzadas: revertir cambios, merges, ramas</a></li>
+  <li><a href="#116-flujo-de-ramas-trabajando-con-github-flow" id="markdown-toc-116-flujo-de-ramas-trabajando-con-github-flow">1.1.6. Flujo de ramas: trabajando con GitHub Flow</a></li>
+  <li><a href="#117-pull-requests" id="markdown-toc-117-pull-requests">1.1.7. Pull Requests</a></li>
+  <li><a href="#118-code-reviews" id="markdown-toc-118-code-reviews">1.1.8. Code Reviews</a></li>
+  <li><a href="#119-aún-quieres-saber-más" id="markdown-toc-119-aún-quieres-saber-más">1.1.9. ¿Aún quieres saber más?</a></li>
+  <li><a href="#1410-práctica-de-git" id="markdown-toc-1410-práctica-de-git">1.4.10 Práctica de Git</a></li>
+</ul>
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="/docs/dwes/_site/assets/pdfs/01_01_git.pdf">DESCARGAR RESUMEN EN PDF</a>
+</div>
+
+<div>&nbsp;</div>
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/76lkkparp0fpx3j5z0xhs/01_01_git.pdf?rlkey=ps36zheptnqxsr2gqgxd0npj2&amp;st=obntvodn&amp;dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
+
+<h3 id="111-sistemas-de-control-de-versiones">1.1.1. Sistemas de control de versiones</h3>
+
+<p>Es <em>inconcebible</em> que un desarrollador trabaje en la actualidad sin un sistema de control de versiones.</p>
+
+<p>Fíjate que en la frase anterior no tiene cabida tu opinión. Lo siento, pero es lo que hay. No importa si te gustan estos sistemas o no. No importa si los usas de forma habitual o siempre has huido de ellos como de la peste. No importa si ni siquiera sabes qué son o cómo funcionan. <strong><em>Si quieres dedicarte profesionalmente al desarrollo de software, tienes que conocerlos porque te los vas a encontrar vayas donde vayas</em></strong>.</p>
+
+<h4 id="qué-es-un-sistema-de-control-de-versiones">¿Qué es un sistema de control de versiones?</h4>
+
+<p>Un <strong>sistema de control de versiones</strong> (en inglés, VCS = <em>Versions Control System</em>) es un <em>almacén en la nube pensado para equipos de desarrollo de software</em>.</p>
+
+<p>A diferencia de un servicio de almacenamiento tradicional como Google Drive o Dropbox, o del peligroso hábito de guardar carpetas con nombres tipo <code class="language-plaintext highlighter-rouge">proyecto_final_v2_DEFINITIVO_FINAL_2.zip</code>, un VCS está diseñado específicamente para tratar proyectos de software y te permite:</p>
+
+<ul>
+  <li><strong>Conservar el historial completo</strong> de cambios desde el día cero del proyecto.</li>
+  <li><strong>Documentar cada modificación</strong>, de manera que siempre sea posible saber quién, cuándo, cómo y por qué se cambió determinada línea de código.</li>
+  <li><strong>Revertir el software</strong> a un estado anterior o estable en cualquier momento tras una regresión o <em>bug</em>.</li>
+  <li><strong>Crear ramas (branches)</strong> para aislar el desarrollo de nuevas características sin romper la versión que ya funciona.</li>
+  <li><strong>Crear réplicas (forks)</strong> de proyectos existentes para contribuir a ellos o hacerlos evolucionar de forma independiente.</li>
+  <li><strong>Gestionar y resolver conflictos</strong> cuando dos o más desarrolladores editan los mismos archivos o líneas de código de manera simultánea.</li>
+</ul>
+
+<p>Incluso para un desarrollador que trabaja en solitario en su cueva, trabajar sin un VCS es jugar a la ruleta rusa. Poder “viajar en el tiempo” cuando algo se rompe (y, créeme, antes o después <em>algo</em> se romperá) y documentar tus propios avances justifica por sí solo su uso diario.</p>
+
+<h4 id="cómo-funcionan-los-sistemas-de-control-de-versiones">¿Cómo funcionan los sistemas de control de versiones?</h4>
+
+<p>Aunque históricamente existieron sistemas centralizados (como CVS o Subversion/SVN), la industria viró completamente hacia los <strong>sistemas de control de versiones distribuidos (DVCS)</strong>, donde <strong>Git</strong> es el rey indiscutible y ha desplazado casi por completo a alternativas como Mercurial o Bazaar.</p>
+
+<p>Git, como cualquier sistema de este tipo, comparte estas características básicas:</p>
+
+<ul>
+  <li>Cada desarrollador tiene una <strong>copia completa del repositorio</strong> en su máquina local, con todo su historial.</li>
+  <li>Se trabaja siempre sobre el <strong>repositorio local</strong>. El trabajo es ultrarrápido porque no depende de la conexión a Internet para hacer commits, consultar historiales o crear ramas.</li>
+  <li>El <strong>repositorio remoto</strong> (alojado en un servidor centralizado como GitHub o GitLab) actúa como punto de encuentro y “fuente de la verdad” (<em>Source of Truth</em>) para sincronizar el trabajo de todo el equipo.</li>
+  <li>La sincronización con el repositorio remoto es un proceso explícito (<em>push</em> / <em>pull</em>). Jamás es automática, lo que te permite probar y validar tus cambios locales con calma antes de exponerlos al resto del equipo.</li>
+</ul>
+
+<p>La sincronización con el repositorio remoto, por lo tanto, no puede ser automática (como en Google Drive o Dropbox), sino que hemos de hacerla explícita, momento en el cual el sistema nos avisará de posibles conflictos. Esta es la única manera de resolver adecuadamente esos conflictos en proyectos donde haya mucha gente trabajando simultáneamente.</p>
+
+<h3 id="112-uso-básico-de-git-con-plataformas-remotas-githubgitlab">1.1.2. Uso básico de Git con plataformas remotas (GitHub/GitLab)</h3>
+
+<p>Git es un software de código abierto (<em>open source</em>) creado originalmente por Linus Torvalds en 2005 para gestionar el desarrollo del kernel de Linux.</p>
+
+<p>Es vital entender la diferencia desde ya: <strong>Git es la herramienta</strong> (el motor de control de versiones de línea de comandos en tu máquina) y <strong>GitHub / GitLab son plataformas en la nube</strong> que alojan repositorios Git y añaden capas de gestión de proyectos, seguridad y, recientmente, Inteligencia Artificial.</p>
+
+<h4 id="el-entorno-de-trabajo">El entorno de trabajo</h4>
+
+<p>Para trabajar con Git necesitarás:</p>
+
+<ol>
+  <li><strong>Cliente de Git local:</strong> Instalado en tu sistema operativo (<strong><a href="https://git-scm.com/">git-scm.com</a></strong>).</li>
+  <li><strong>Cuenta en GitHub o GitLab:</strong> Plataformas desde las que gestionarás tus proyectos.</li>
+  <li><strong>Autenticación segura:</strong> Hace años que las plataformas remotas no permiten autenticarse en terminal con usuario y contraseña tradicionales. Se requiere configurar <strong>claves SSH</strong> o <strong>Tokens de Acceso Personal (PAT)</strong>.</li>
+</ol>
+
+<h4 id="línea-de-comandos-o-cliente-gráfico">¿Línea de comandos o cliente gráfico?</h4>
+
+<p>Existen multitud de clientes gráficos (GUI) como <strong>GitHub Desktop</strong>, <strong>GitKraken</strong>, <strong>Sourcetree</strong> o la propia integración nativa de <strong>Visual Studio Code</strong>.</p>
+
+<p>Sin embargo, te recomiendo que <strong>priorices la línea de comandos (CLI)</strong>. Aprender los comandos básicos de Git no solo te dará un entendimiento profundo del árbol de estados de tu código, sino que te salvará la vida en entornos de producción, servidores remotos en la nube (donde no hay interfaz gráfica) y pipelines de CI/CD.</p>
+
+<h4 id="configuración-inicial-de-git-solo-se-hace-una-vez">Configuración inicial de Git (Solo se hace una vez)</h4>
+
+<p>Tras instalar Git, debes identificarte localmente para que tus commits lleven tu autoría correctamente asignada:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git config <span class="nt">--global</span> user.name <span class="s2">"Tu Nombre o Usuario"</span>
+<span class="nv">$ </span>git config <span class="nt">--global</span> user.email <span class="s2">"tu-email@ejemplo.com"</span>
+</code></pre></div></div>
+
+<p>Para establecer <code class="language-plaintext highlighter-rouge">main</code> como el nombre por defecto de la rama principal en nuevos repositorios (estándar actual en la industria):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git config <span class="nt">--global</span> init.defaultBranch main
+</code></pre></div></div>
+
+<p>Puedes verificar tu configuración en cualquier momento con:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git config <span class="nt">--list</span>
+</code></pre></div></div>
+
+<h3 id="113-creando-e-inicializando-un-repositorio">1.1.3. Creando e inicializando un repositorio</h3>
+
+<p>Existen dos formas habituales de comenzar a trabajar con un repositorio Git:</p>
+
+<h4 id="opción-a-crear-un-repositorio-local-e-inscribirlo-en-un-remoto">Opción A: Crear un repositorio local e inscribirlo en un remoto</h4>
+
+<ol>
+  <li>Navega hasta la carpeta de tu proyecto en la terminal:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> /ruta/a/tu/proyecto
+</code></pre></div>    </div>
+  </li>
+  <li>Inicializa el repositorio local:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git init
+</code></pre></div>    </div>
+  </li>
+  <li>Enlaza el repositorio local con el remoto previamente creado en GitHub/GitLab:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git remote add origin git@github.com:usuario/nombre-repositorio.git
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="opción-b-clonar-un-repositorio-existente-recomendado">Opción B: Clonar un repositorio existente (Recomendado)</h4>
+
+<p>Si creas el repositorio primero en la interfaz de GitHub/GitLab (opción más cómoda):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git clone git@github.com:usuario/nombre-repositorio.git
+<span class="nv">$ </span><span class="nb">cd </span>nombre-repositorio
+</code></pre></div></div>
+<p>Este comando crea la carpeta local, inicializa Git y deja configurada automáticamente la ruta remota (<code class="language-plaintext highlighter-rouge">origin</code>).</p>
+
+<h4 id="atención-indispensable-el-archivo-gitignore">¡Atención indispensable! El archivo <code class="language-plaintext highlighter-rouge">.gitignore</code></h4>
+
+<p>El archivo <code class="language-plaintext highlighter-rouge">.gitignore</code> se sitúa en la raíz del proyecto e instruye a Git sobre qué archivos o carpetas <strong>debe ignorar por completo</strong>.</p>
+
+<p><strong>Jamás de los jamases se deben subir al repositorio remoto:</strong></p>
+
+<ol>
+  <li><strong>Credenciales y datos sensibles:</strong> Archivos <code class="language-plaintext highlighter-rouge">.env</code>, claves privadas, certificados, contraseñas de BD. Subir esto a un repositorio público es la vía rápida hacia el desastre.</li>
+  <li><strong>Dependencias descargadas:</strong> Las carpetas <code class="language-plaintext highlighter-rouge">vendor/</code> (PHP/Composer) o <code class="language-plaintext highlighter-rouge">node_modules/</code> (Node/JS). Ocupan megabytes innecesarios y se gestionan con gestores de paquetes (<code class="language-plaintext highlighter-rouge">npm install</code>, <code class="language-plaintext highlighter-rouge">composer install</code>).</li>
+  <li><strong>Archivos generados o de compilación:</strong> Logs, archivos temporales, binarios, imágenes subidas durante pruebas locales.</li>
+  <li><strong>Archivos de configuración del IDE:</strong> Carpetas <code class="language-plaintext highlighter-rouge">.idea/</code>, <code class="language-plaintext highlighter-rouge">.vscode/</code> específicas del usuario.</li>
+</ol>
+
+<p>Ejemplo de <code class="language-plaintext highlighter-rouge">.gitignore</code> para un proyecto Backend:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Credenciales y variables de entorno
+.env
+.env.local
+
+# Dependencias
+/vendor/
+/node_modules/
+
+# Logs y temporales
+*.log
+/storage/*.key
+
+# Configuración de IDEs
+.idea/
+.vscode/
+</code></pre></div></div>
+
+<h3 id="114-flujo-de-trabajo-cotidiano-con-git">1.1.4. Flujo de trabajo cotidiano con Git</h3>
+
+<p>Ya tenemos nuestros repositorios local y remoto inicializados y conectados, y el archivo .gitignore a punto. ¿Qué hacemos ahora?</p>
+
+<p>Muy fácil: ponernos a trabajar como si Git no existiera.</p>
+
+<p>Y luego, cuando des por finalizada una parte de la aplicación (un método, una clase, una funcionalidad concreta: tú decides cada cuánto tiempo haces esto), pasarla a la <strong><em>Staging Area</em></strong>.</p>
+
+<h4 id="un-momento-staging-quéeee">Un momento… ¿Staging quéeee?</h4>
+
+<p>La <strong><em>Staging Area</em></strong> es como la pista de despegue de Git.</p>
+
+<p>La idea es la siguiente: Git no quiere sincronizar tus archivos con el repositorio remoto de forma automática (como hacen las plataformas para el público general, como Google Drive o Dropbox), porque sabe que los programadores producimos mucha basura al cabo del día.</p>
+
+<p>Si cada vez que escribimos una basurilla, Git la sincronizara con el remoto, el resto de personas del proyecto estarían recibiendo nuestra basura de forma permanente. Y nosotros la de esas personas.</p>
+
+<p>Y esparcir basura no es una buena política.</p>
+
+<p>Así que Git quiere que seas muy consciente de cuándo deseas sincronizar algo, y de qué es lo que deseas sincronizar. Quiere que te tomes el trabajo (que tampoco es para tanto, la verdad) de emplear medio minuto de tu tiempo para decirle: “eh, Git, he estado currándome estos dos archivos esta mañana y creo que <em>ahora</em> ya no son una basura”.</p>
+
+<p>Para eso sirve la <em>Staging Area</em>.</p>
+
+<p>Tienes que pasar los archivos que ya no son una basura a la <em>Staging Area</em>. Y tienes que hacerlo tú, generalmente cuando hayas terminado una funcionalidad y la hayas probado adecuadamente. Lo bastante como para que no te avergüence que otras personas del equipo reciban tu código.</p>
+
+<p>Para <strong>añadir archivos a la <em>Staging Area</em></strong> se usa el comando <strong>git add</strong>, así:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git add archivo1 archivo2 archivo3 ...
+</code></pre></div></div>
+
+<p>Se pueden añadir carpetas completas:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git add carpeta1 carpeta2 ...
+</code></pre></div></div>
+
+<p>Y también se pueden usar símbolos comodín, como el asterisco. De modo que, si estás muy, pero que muy seguro/a de que todos los archivos que han andado tocando desde el último commit están en un estado aceptable, puedes hacer esto para que Git se encargue de <em>añadir todos los archivos modificados recientemente a la Staging Area</em>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git add *
+</code></pre></div></div>
+
+<p>Por fin, cuando tengas una o varias cosas preparadas en la <em>Staging Area</em>… Bueno, entonces llega el momento de hacer un <strong>commit</strong>.</p>
+
+<h4 id="hacer-commit">Hacer commit</h4>
+
+<p>Un <strong>commit</strong> (palabra que podríamos traducir por “perpetrar”) consiste en empaquetar todos los cambios de la <em>Staging Area</em> para registrarlos en el historial del repositorio local.</p>
+
+<p>Es decir, con el commit le decimos a Git: “quiero que dejes constancia permanente de todo el código que te he puesto en la <em>Staging Area</em>”.</p>
+
+<p>Se puede hacer un commit por cada pequeña modificación que introducimos en la <em>Staging Area</em>, o se pueden preparar muchos archivos en la <em>Staging Area</em> y luego empaquetarlos en un único mega-commit. Eso lo decidís tú y tu equipo de desarrollo. Pero suele ser buena idea hacer commits de funcionalidades o tareas individuales, pequeños y frecuentes.</p>
+
+<p>Es decir, si esta mañana he estado trabajando en dos funcionalidades, “Añadir usuarios nuevos” y “Modificar la vista de edición de usuarios”, es mejor que haga dos commits separados para cada una de esas funcionalidades.</p>
+
+<p>Esto es así porque, a cada commit, le tengo que añadir <strong><em>obligatoriamente</em></strong> un texto descriptivo donde indique qué cambios estoy subiendo con ese commit.</p>
+
+<p>El comando para hacer un commit es:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git commit -m "Mensaje"
+</code></pre></div></div>
+
+<p>Ahora saco mi bola de cristal y te digo: no tardarás ni una semana en empezar a hacer commits cuyo texto descriptivo será algo como “aslkdaslkjda”, “aaa”, “yoquésé”. Eso es una pésima idea. Antes o después, alguien del equipo meterá la pata, subirá un cambio indebido y todo el repositorio explotará. Entonces, intentaréis regresar a un estado en el que el código aún funcionaba, pero encontraréis que los últimos commits tienen explicaciones incomprensibles como “aslkdaslkjda”, “aaa” y “yoquésé”. Y sudaréis tinta para descubrir cuál fue el commit explosivo.</p>
+
+<p>Los commits deben llevar textos descriptivos breves pero informativos. Por ejemplo: “Arreglo el fallo del id de usuario inexistente al actualizar foto de perfil” o “Elimino el botón de modificar de la vista de libros”. Si quieres ir un paso más allá (y en un entorno profesional te lo van a pedir), existen convenciones como los <a href="https://www.conventionalcommits.org/es/"><strong>Conventional Commits</strong></a>, que estandarizan el formato del mensaje (<code class="language-plaintext highlighter-rouge">fix:</code>, <code class="language-plaintext highlighter-rouge">feat:</code>, <code class="language-plaintext highlighter-rouge">docs:</code>…) para que hasta una máquina pueda entender qué tipo de cambio has hecho.</p>
+
+<p>Pero, ¡ojo!, hacer commit <strong>no sube los archivos al repositorio remoto</strong>. Todavía no. Recuerda que Git quiere que estés muy seguro/a de que subes lo que realmente tienes que subir, así que aún te falta un último paso: hacer <strong><em>push</em></strong>.</p>
+
+<h4 id="subir-el-commit-hacer-push">Subir el commit: hacer push</h4>
+
+<p>El último paso para enviar nuestros cambios locales al repositorio remoto (típicamente, GitHub o GitLab) consiste en hacer <strong><em>push</em></strong>. Es decir, literalmente, “empujar” los cambios al repositorio remoto.</p>
+
+<p>La operación <em>push</em> enviará todos los commits que aún no se hayan enviado al repositorio remoto. A partir de ese momento, estarán disponibles para el resto de miembros del equipo. Pero solo a partir de ese momento.</p>
+
+<p>Para hacer push, basta con escribir:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git push
+</code></pre></div></div>
+
+<p>Como ya te he comentado antes, GitHub y GitLab exigirán que te autentiques mediante un token de acceso personal o una clave SSH, no con tu contraseña habitual de la web.</p>
+
+<h4 id="bajar-la-última-versión-del-código-hacer-pull">Bajar la última versión del código: hacer pull</h4>
+
+<p>Si podemos subir nuestros cambios al repositorio remoto, tendremos que tener una forma de bajar los cambios del resto de miembros del equipo, ¿verdad?</p>
+
+<p>Por supuesto, existe un comando para ello. Es este:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git pull
+</code></pre></div></div>
+
+<p>Es recomendable hacer pull antes de hacer push, por si alguien ha tocado alguno de los archivos que nosotros pretendemos subir. En ese caso, Git nos avisará del conflicto y nos ayudará a resolverlo (más adelante veremos cómo). No podremos hacer push hasta resolver ese conflicto, para evitar pérdidas de código.</p>
+
+<h4 id="resumiéndolo-todo-flujo-de-trabajo-habitual-con-git">Resumiéndolo todo: flujo de trabajo habitual con Git</h4>
+
+<p>Si resumimos lo dicho hasta ahora, tenemos que, después de inicializar el repositorio (cosa que hay que hacer solo una vez), el trabajo cotidiano con Git consiste en:</p>
+
+<ol>
+  <li>Desarrollar nuestra aplicación con normalidad, como si Git no existiera.</li>
+  <li>Cuando terminamos de hacer algo, añadirlo a la <em>Staging Area</em> (git add).</li>
+  <li>Cada cierto tiempo, o cuando acabamos una funcionalidad, empaquetar todos los cambios que esperan en la <em>Staging Area</em> en un commit (git commit).</li>
+  <li>Bajarnos los commits del resto de miembros del equipo (git pull).</li>
+  <li>Subir nuestros commits al repositorio remoto (git push).</li>
+</ol>
+
+<p>Podemos verlo gráficamente en el siguiente esquema. Las tres primeras columnas (workspace, Staging Area y Local Repo) están en nuestro ordenador de trabajo. El repositorio remoto (Remote Repo) está en un servidor, como GitHub o GitLab.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Workspace   Staging area (INDEX)  Local repo (HEAD)   Remote repo
+    |             |                     |                  |
+    | git add → → |                     |                  |
+    |             | git commit → → → →  |                  |
+    |             |                     |                  |
+    |             |                     | git push → → → → |
+    |             |                     |                  |
+    |             |                     |                  |
+    | ← ← ← ← ← ← | ← ← ← ← ← ← ← ← ← ← | ← ← ← ← git pull |
+    |             |                     |                  |
+</code></pre></div></div>
+
+<p>Un último apunte: te voy a chivar un comando muy útil de Git cuando no estás muy seguro de qué archivos has estado tocando últimamente (¿a quién no le ha pasado eso? ¿Eh?). Este comando te resumirá el estado de tu repositorio local, indicándote qué archivos han sido modificados (pero no están en la Staging Area), qué archivos están preparados en la Staging Area (pero no en un commit) y, por supuesto, qué commits están hechos pero aún sin subir.</p>
+
+<p>Todo eso, gratis y tecleando este humilde comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git status
+</code></pre></div></div>
+
+<p>¿Es potente o no es potente este Git? Pues aún no has visto nada.</p>
+
+<h3 id="115-algunas-cosillas-avanzadas-revertir-cambios-merges-ramas">1.1.5. Algunas cosillas avanzadas: revertir cambios, merges, ramas</h3>
+
+<p>Solo con lo que hemos visto hasta ahora (add, commit, push y pull) ya tienes suficiente para empezar a funcionar con Git. Luego, conforme te surjan otras necesidades, puedes ir curioseando por internet para profundizar en ciertos aspectos.</p>
+
+<p>Una de esas “necesidades” que te surgirán antes o después consiste en lo siguiente:</p>
+
+<p>Imagínate la escena: un día llegas a clase después de haberte acostado a las tantas trabajando en tu proyecto. Antes de acostarte hiciste un push para subir todos tus cambios y puedes jurar que todo funcionaba perfectamente. Pero ahora, tú y el resto de miembros de tu equipo acabáis de hacer pull y… ¡BUM! El proyecto entero salta por los aires. El homepage no carga. Otras rutas que <em>estás seguro</em> de que funcionaban hace unas horas ahora no responden.</p>
+
+<p>¿Qué narices ha pasado?</p>
+
+<p>Tranquilidad: ahí está Git para sacarte del embrollo.</p>
+
+<h4 id="regreso-al-pasado-cómo-revertir-los-cambios">Regreso al pasado: cómo revertir los cambios</h4>
+
+<p>Las causas de un desastre como ese pueden ser tantas que, en la práctica, es como si fueran infinitas. Un problema con el proxy, un merge mal hecho, una desconfiguración de uno de los servidores locales que ha afectado a algún archivo clave, un error de algún miembro del equipo que ha sobrescrito cientos de archivos con versiones incorrectas… Causas infinitas, como te digo.</p>
+
+<p>No suele compensar el esfuerzo de buscar la razón última de lo que ha ocurrido, salvo que os pase esto con cierta regularidad: entonces sí que es cuestión de preocuparse.</p>
+
+<p>La mayoría de las veces es un problema puntual que puede resolverse de un modo muy simple: volviendo a la última versión estable.</p>
+
+<p>En primer lugar, si lo que quieres es revertir cambios de los que <strong>ya has hecho commit</strong>, es tan fácil como:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git reset <span class="nt">--hard</span> id_del_commit
+</code></pre></div></div>
+
+<p>¡Cuidado, porque <em>todos los commits que hayas hecho hasta el commit al que retrocedas se perderán</em>! <strong>Usa reser –hard solo como último recurso desesperado</strong>.</p>
+
+<p>La mayor parte de las veces no necesitamos ser tan radicales y podemos descartar solo parte de los cambios, no eliminar commits enteros. ¿Cómo descartamos esos cambios para volver a un estado anterior de forma menos abrupta?</p>
+
+<p>En primer lugar, si aún no lo has hecho, ejecuta un <strong>git pull</strong> para traerte la última versión del código a tu repositorio local.</p>
+
+<p>Luego, utiliza el comando <strong>git log</strong>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git log <span class="o">(</span>muestra historial de cambios<span class="o">)</span>
+<span class="nv">$ </span>git log <span class="nt">--oneline</span> <span class="o">(</span>muestra historial de cambios simplificado<span class="o">)</span>
+</code></pre></div></div>
+
+<p>Con esto obtendrás una lista, ordenada por cronología inversa (de más reciente a más antiguo), de todos los commits que has hecho en el repositorio. Observa que cada commit está identificado con un id único en hexadecimal. Cada id de commit está acompañado de su descripción.</p>
+
+<p>Si habéis sido cuidadosos con los commits y les habéis puesto descripciones representativas (y no “asdfasdf” o “aaa”), resultará fácil localizar en esa lista el commit causante del destrozo.</p>
+
+<p>A continuación, usa el comando <strong>git revert</strong> para deshacer, sin reescribir el historial, los cambios introducidos por el commit problemático:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git revert id-del-commit
+</code></pre></div></div>
+
+<p>Lo que hace este comando es crear un <strong>nuevo commit</strong> que anula exactamente los cambios del commit indicado. No borra nada del historial: simplemente añade un commit nuevo que “hace lo contrario” del que causó el problema. Git te abrirá un editor de texto para que confirmes o modifiques el mensaje de ese nuevo commit (por defecto, algo como <code class="language-plaintext highlighter-rouge">Revert "Mensaje del commit original"</code>). En este nuevo commit habrá desaparecido todo el código conflictivo, y el proyecto volverá a estar en un estado estable.</p>
+
+<p>Ahora bastará con hacer <strong>git push</strong> para subir el nuevo commit al repositorio remoto y que todos los miembros del equipo puedan replicarlo en sus máquinas.</p>
+
+<p>Es posible que, en el proceso, hayáis perdido algo de código valioso: todo depende de cuánto hayáis tenido que retroceder en el historial de commits hasta alcanzar un estado válido. Pero ese código en realidad no se ha perdido, porque los commits siguen ahí, en el historial de Git. En cambio, si usas <strong>git reset –hard</strong>, el código sí que se perderá.</p>
+
+<p>Existe una forma de poner el repositorio local en un commit concreto, sin crear ningún commit nuevo, solo para echar un vistazo. Si lo haces y abres cualquier archivo fuente, lo encontrarás como estaba en ese commit, no como está en el último. ¿No es maravilloso? Así, podrás recuperar manualmente el código que pudiera haberse perdido al hacer el <em>git revert</em>.</p>
+
+<p>El comando clásico que te permite saltar momentáneamente a cualquier commit es <strong>git checkout</strong>, y el moderno es <strong>git switch</strong>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git checkout id-del-commit
+<span class="nv">$ </span>git switch <span class="nt">--detach</span> id-del-commit
+</code></pre></div></div>
+
+<p>Así “viajarás en el tiempo” para ver el código fuente como era en ese momento, pero no podrás cambiarlo, porque ese commit ya pertenece al pasado.</p>
+
+<p>Para regresar al presente, es decir, al último commit de tu rama principal, puedes hacerlo también de dos formas:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git checkout main   <span class="c"># Forma tradicional</span>
+<span class="nv">$ </span>git switch main     <span class="c"># Forma moderna</span>
+</code></pre></div></div>
+
+<p><strong>git switch</strong> solo está disponible en versiones modernas de Git (2.23 en adelante) porque <strong>git checkout</strong> hacía demasiadas cosas diferentes. En la práctica, ambos comandos siguen funcionando y también se pueden usar para saltar de rama, no de commit:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git checkout <span class="nt">-b</span> otra-rama   <span class="c"># Forma tradicional</span>
+<span class="nv">$ </span>git switch otra-rama        <span class="c"># Forma moderna</span>
+</code></pre></div></div>
+
+<p>Junto con <strong>git switch</strong>, también se introdujo el comando <strong>git restore</strong> para descartar cambios en archivos concretos (siempre que no estén ya en un commit).</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git restore archivo.txt   <span class="c"># Descarta cambios del archivo.txt</span>
+</code></pre></div></div>
+
+<p>Ahora puedes ver y rescatar el código fuente válido sin temor: nada de lo que hagas en este estado afectará a tu proyecto, porque los cambios se perderán cuando salgas de este “viaje en el tiempo” (salvo que crees una nueva rama desde ese punto, pero de ramas hablamos ahora mismo).</p>
+
+<h4 id="cuando-dos-personas-se-encaprichan-del-mismo-archivo-cómo-hacer-un-merge">Cuando dos personas se encaprichan del mismo archivo: cómo hacer un merge</h4>
+
+<p>Cuando ejecutas <em>git pull</em>, traes a tu repositorio local las versiones más recientes de todos los archivos del proyecto. Esto ya lo sabíamos.</p>
+
+<p>Si <em>git pull</em> se ejecuta sin contratiempos, aparecerá un mensaje informándote de ello.</p>
+
+<p>Pero los contratiempos existen, qué le vamos a hacer. La vida sería muy aburrida y predecible sin ellos.</p>
+
+<p>El contratiempo más habitual, con diferencia, al hacer <em>git pull</em> es el aviso de un conflicto en alguno de los archivos modificados en el repositorio remoto. Eso quiere decir que <em>tú</em> has estado tocando el código de un archivo <em>al mismo tiempo que otra persona de tu equipo</em>.</p>
+
+<p>Supongamos que, en un archivo A, tú has añadido las líneas A1, A2 y A3, mientras que otra persona ha añadido las líneas A4, A5 y A6. Si la otra persona ha subido el archivo A al repositorio remoto antes que tú, Git se dará cuenta cuando intentes hacer <em>git pull</em> de que tu copia local del archivo y la que hay en el repositorio remoto no coinciden: no solo porque la tuya tiene las nuevas líneas A1, A2 y A3, sino porque a la tuya <em>le faltan</em> las líneas A4, A5 y A6.</p>
+
+<p>En ese caso, y para no perder ninguna de las nuevas líneas de código, Git te mostrará un mensaje de advertencia y creará una versión nueva del archivo A en la que estarán <strong>todas las líneas de código nuevas, tanto las tuyas como las de la otra persona</strong>, rodeadas de unas marcas de texto como estas:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+    (tus líneas)
+=======
+    (las líneas de la otra persona)
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; nombre-de-la-otra-rama
+</code></pre></div></div>
+
+<p>Ahora, lo único que tienes que hacer es buscar manualmente esas líneas conflictivas y resolverlas a mano, es decir, quedarte con las líneas correctas y borrar las que no lo sean. Borra también todas las marcas que ha puesto ahí Git para indicarte el conflicto.</p>
+
+<p>Si usas cualquier editor de texto medianamente potente (Visual Studio Code, sin ir más lejos), te mostrará esas líneas resaltadas e incluso te ayudará a quedarte con una versión, con la otra, o con ambas, con un simple clic.</p>
+
+<p>Una vez que hayas resuelto manualmente las líneas en conflicto, basta con guardar los cambios y hacer <em>git add</em> y <em>git commit -m “Resolviendo el conflicto bla, bla, bla”</em> para que el <em>git pull</em> y el <em>git push</em> vuelvan a funcionar a la perfección.</p>
+
+<h4 id="proyectos-que-se-complican-cómo-crear-ramas">Proyectos que se complican: cómo crear ramas</h4>
+
+<p>Imagina esta situación: tienes un proyecto ya en marcha, con una versión más o menos estable funcionando, y entonces surge la necesidad de desarrollar una nueva funcionalidad.</p>
+
+<p>Y esta nueva funcionalidad va a poner patas arriba una parte importante del código y va a dejar la aplicación hecha unos zorros durante un tiempo.</p>
+
+<p>Si trabajas con tu repositorio como hemos hecho hasta ahora, el resultado es que, durante ese tiempo, todo tu proyecto dejará de funcionar. No podrás hacer demos a los clientes (ni a tus profesores/as), no podrás probar la aplicación, no podrás cargarla con datos reales, etc. ¡Todo quedará paralizado hasta que la nueva funcionalidad esté en marcha!</p>
+
+<p>En un equipo de desarrollo grande, esta es una situación cotidiana que provocaría que gran parte de la gente se tuviera que quedar de brazos cruzados a la espera de la finalización de la nueva funcionalidad. Pero incluso en un equipo pequeño es un engorro llegar a este extremo.</p>
+
+<p>Para evitarlo, existen <strong>las ramas</strong> (<em>branches</em>) de Git.</p>
+
+<p>Una rama no es más que una copia del historial del proyecto que puede evolucionar por su cuenta mientras la rama original (normalmente <code class="language-plaintext highlighter-rouge">main</code>) permanece inalterada.</p>
+
+<p>Los desarrolladores/as que trabajen en esa rama pueden así trabajar en la nueva funcionalidad sin que el resto del equipo se vea afectado. Cuando la nueva funcionalidad se termine, lo único que hay que hacer es fusionar las dos ramas. Esto puede ser un trabajo ímprobo si se han estado modificando los mismos archivos en la rama principal y en la rama nueva, pero no se trata de un fallo de Git, que quede claro, sino de un fallo de organización del equipo (o, sencillamente, de mala suerte).</p>
+
+<p>Y si la nueva funcionalidad nunca llega a terminarse (cosa que puede ocurrir por miles de razones), no pasa nada: la rama se elimina, o simplemente se abandona, y la rama principal sigue intacta.</p>
+
+<p>Crear una rama nueva es tan sencillo como usar este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git branch nombre-nueva-rama
+</code></pre></div></div>
+
+<p>El comando <em>git branch</em> tiene muchas otras posibilidades. Aquí te pongo unas cuantas:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git branch --list          (saca un listado de todas las ramas existentes)
+$ git branch -d nombre-rama  (elimina una rama)
+$ git branch -D nombre-rama  (elimina una rama a lo bestia, incluso si tiene cambios sin fusionar)
+$ git branch -m nuevo-nombre (cambia el nombre de la rama actual)
+</code></pre></div></div>
+
+<p>Ten en cuenta que, cuando creas una rama, <em>aún no estás trabajando en ella</em>. Si quieres cambiar a esa rama para empezar a trastear con ella sin tocar a la principal, debes hacer:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git switch nombre-rama
+</code></pre></div></div>
+
+<p>(o, si prefieres el comando clásico, <code class="language-plaintext highlighter-rouge">git checkout nombre-rama</code>; hacen lo mismo en este caso).</p>
+
+<p>Un atajo que se usa muchísimo es crear la rama y cambiarte a ella en un solo paso:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git switch -c nombre-nueva-rama
+</code></pre></div></div>
+
+<p>Por último, para fusionar una rama con otra (típicamente, con la rama principal o <em>main</em>), tienes que seguir estos pasos:</p>
+
+<ol>
+  <li>Asegúrate de estar situado en la rama que va a recibir la fusión. Si esa rama es <em>main</em>, tienes que hacer:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ git switch main
+</code></pre></div>    </div>
+  </li>
+  <li>Haz un <em>git pull</em> para tener disponible la última versión del código.</li>
+  <li>Realiza la fusión de las dos ramas con <em>git merge</em>:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ git merge nombre-rama
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>En este punto, tendrás que resolver manualmente los conflictos que puedan surgir (si los hay), como hemos explicado más arriba.</p>
+
+<p>Esto está muy bien para proyectos pequeños o para entender cómo funcionan las ramas por dentro. Pero, en un equipo real, fusionar ramas “a pelo” con <code class="language-plaintext highlighter-rouge">git merge</code> en tu máquina, sin que nadie más las revise, es jugar con fuego. Por eso, en el mundo profesional casi nadie fusiona una rama de funcionalidad directamente: se usa un <strong>Pull Request</strong>. Vamos a verlo.</p>
+
+<h3 id="116-flujo-de-ramas-trabajando-con-github-flow">1.1.6. Flujo de ramas: trabajando con GitHub Flow</h3>
+
+<p>Ya sabes crear ramas y fusionarlas. El problema es que “cuándo crear una rama nueva” y “cómo se llama” y “cuándo se fusiona” son preguntas que, si cada persona del equipo responde a su manera, acaban generando un caos de ramas con nombres como <code class="language-plaintext highlighter-rouge">rama2</code>, <code class="language-plaintext highlighter-rouge">pruebas_pedro_final</code>, <code class="language-plaintext highlighter-rouge">pruebas_pedro_final_DEFINITIVA</code>… Para evitarlo, los equipos adoptan una <strong>estrategia de ramificación</strong> (<em>branching strategy</em>) común, que no es más que un conjunto de reglas que todo el mundo sigue.</p>
+
+<p>Existen varias estrategias (la más veterana y elaborada es <em>Git Flow</em>, con ramas <code class="language-plaintext highlighter-rouge">develop</code>, <code class="language-plaintext highlighter-rouge">release</code>, <code class="language-plaintext highlighter-rouge">hotfix</code>…), pero para el tipo de proyectos que vamos a manejar en este módulo (y, en general, para la inmensa mayoría de proyectos web actuales) nos va a bastar con una mucho más sencilla y muy extendida en la industria: <strong>GitHub Flow</strong>. Sus reglas son solo cuatro:</p>
+
+<ol>
+  <li>La rama <code class="language-plaintext highlighter-rouge">main</code> <strong>siempre</strong> tiene que estar en un estado desplegable. Es decir: lo que hay en <code class="language-plaintext highlighter-rouge">main</code> funciona, siempre. Nadie trabaja directamente sobre ella.</li>
+  <li>Para desarrollar cualquier cosa (una funcionalidad nueva, arreglar un error, lo que sea), se crea una <strong>rama nueva a partir de <code class="language-plaintext highlighter-rouge">main</code></strong>, con un nombre descriptivo de lo que se va a hacer en ella. Por ejemplo: <code class="language-plaintext highlighter-rouge">feature/login-usuarios</code> o <code class="language-plaintext highlighter-rouge">fix/error-calculo-precio</code>.</li>
+  <li>Se trabaja en esa rama, haciendo tantos commits como haga falta y subiéndolos al repositorio remoto con normalidad (<code class="language-plaintext highlighter-rouge">git push</code>), para que el resto del equipo pueda ver el progreso e incluso colaborar en la misma rama si es necesario.</li>
+  <li>Cuando el trabajo está terminado (o se quiere que alguien lo revise), se abre un <strong>Pull Request</strong> para fusionar esa rama con <code class="language-plaintext highlighter-rouge">main</code>. Solo después de que el Pull Request se apruebe y se fusione, la rama se elimina.</li>
+</ol>
+
+<p>Fíjate en la idea de fondo: <strong>cualquier cambio que llegue a <code class="language-plaintext highlighter-rouge">main</code> ha pasado, obligatoriamente, por una revisión</strong>. Esto es justo lo que vamos a ver en las dos siguientes secciones.</p>
+
+<h3 id="117-pull-requests">1.1.7. Pull Requests</h3>
+
+<p>Un <strong>Pull Request</strong> (a veces llamado <em>Merge Request</em> en GitLab; abreviado habitualmente como <strong>PR</strong>) es una petición formal para fusionar los cambios de una rama con otra, normalmente con <code class="language-plaintext highlighter-rouge">main</code>. No es un comando de Git: es una funcionalidad que añaden por encima plataformas como GitHub o GitLab, y se gestiona desde su interfaz web.</p>
+
+<p>La idea es sencilla: en lugar de que cualquiera pueda hacer <code class="language-plaintext highlighter-rouge">git merge</code> y colar sus cambios en <code class="language-plaintext highlighter-rouge">main</code> sin que nadie se entere, el autor de la rama dice “oye, tengo esto terminado, ¿alguien le puede echar un vistazo antes de que lo fusionemos?”. A partir de ahí:</p>
+
+<ul>
+  <li>El Pull Request muestra, de forma visual y muy clara, <strong>el diff</strong>: todas las líneas añadidas (en verde) y eliminadas (en rojo) respecto a <code class="language-plaintext highlighter-rouge">main</code>, archivo por archivo.</li>
+  <li>Cualquier persona con acceso al repositorio (normalmente, el resto del equipo) puede añadir <strong>comentarios</strong>, tanto generales como sobre líneas concretas de código.</li>
+  <li>Se pueden lanzar automáticamente <strong>comprobaciones automáticas</strong> (tests, linters, análisis de calidad de código…) que deben pasar en verde antes de poder fusionar. Esto se suele configurar mediante integración continua (lo veremos con más detalle en el tema de despliegue).</li>
+  <li>El autor de la rama puede subir nuevos commits para corregir lo que se le indique en la revisión, y el Pull Request se actualiza automáticamente con ellos.</li>
+  <li>Cuando todo el mundo está conforme, alguien con permisos (normalmente no el propio autor, para evitar que uno se autoapruebe sus cambios) <strong>aprueba</strong> y <strong>fusiona</strong> el Pull Request. En ese momento, y no antes, los cambios pasan a formar parte de <code class="language-plaintext highlighter-rouge">main</code>.</li>
+</ul>
+
+<p>Para crear un Pull Request en GitHub, el flujo típico es:</p>
+
+<ol>
+  <li>Sube tu rama al repositorio remoto: <code class="language-plaintext highlighter-rouge">git push -u origin nombre-de-tu-rama</code>.</li>
+  <li>Entra en la web del repositorio en GitHub. Verás un aviso ofreciéndote crear un Pull Request para la rama que acabas de subir (o puedes ir a la pestaña “Pull requests” → “New pull request”).</li>
+  <li>Escribe un título y una descripción claros: qué hace este cambio, por qué era necesario, cómo se puede probar… Cuanto mejor documentado esté, más rápido y mejor será revisado.</li>
+  <li>Asigna revisores (compañeros de equipo, tu profesor/a, si te lo ha indicado así, testers independientes…) y espera comentarios.</li>
+</ol>
+
+<p>Los Pull Requests no son exclusivos de proyectos con más de una persona: aunque trabajes solo/a en un proyecto, es una buena práctica abrir un Pull Request antes de fusionar cualquier rama de funcionalidad con <code class="language-plaintext highlighter-rouge">main</code>. Te obliga a revisar tus propios cambios con otra perspectiva antes de darlos por bueno, y te deja un historial clarísimo de qué cambio hizo qué cosa y por qué.</p>
+
+<h3 id="118-code-reviews">1.1.8. Code Reviews</h3>
+
+<p>La <strong>revisión de código</strong> (<em>Code Review</em>) es el proceso de examinar el código de otra persona antes de que se integre en el proyecto, y suele hacerse precisamente dentro de un Pull Request, mediante los comentarios que hemos mencionado antes.</p>
+
+<p>No se trata solo de buscar bugs (que también). Una buena revisión de código persigue varias cosas a la vez:</p>
+
+<ul>
+  <li><strong>Detectar errores</strong> que el autor, por estar metido de lleno en el problema, no ha visto.</li>
+  <li><strong>Mantener la coherencia</strong> del proyecto: que todo el código siga las mismas convenciones de nombres, de estilo, de organización de carpetas, etc.</li>
+  <li><strong>Compartir conocimiento</strong>: quien revisa aprende cómo se ha resuelto un problema, y quien ha escrito el código recibe otro punto de vista. En un equipo, esto evita que solo una persona conozca cómo funciona una parte crítica de la aplicación.</li>
+  <li><strong>Detectar problemas de diseño</strong> que no siempre saltan a la vista solo con ejecutar el código: código duplicado, funciones que hacen demasiadas cosas a la vez, nombres de variables poco claros, ausencia de tests, etc.</li>
+</ul>
+
+<p>Algunas recomendaciones para que las revisiones de código sean útiles y no un suplicio para nadie:</p>
+
+<ul>
+  <li><strong>Revisa el código, no a la persona.</strong> Los comentarios deben ir sobre el código (“esta función podría simplificarse así”), nunca sobre quien lo ha escrito. Y, si te toca recibir las críticas de los demás, no te las tomes como algo personal: todo el mundo mejora su código gracias a otros ojos, incluidos los programadores con más experiencia.</li>
+  <li><strong>Pull Requests pequeños y frecuentes</strong>, mejor que uno gigantesco cada dos semanas. Un PR de 30 líneas se revisa en cinco minutos y con mucho cuidado. Uno de 3.000 líneas nadie lo revisa de verdad: la gente lo aprueba por cansancio, y ahí es donde se cuelan los problemas.</li>
+  <li><strong>Sé concreto y, si puedes, sugiere una alternativa</strong>, no te quedes en “esto está mal”. Muchas plataformas, como GitHub, te permiten incluso proponer directamente el cambio de código en el propio comentario, para que el autor lo acepte con un clic.</li>
+  <li><strong>No todo tiene que resolverse antes de fusionar.</strong> Es razonable distinguir entre comentarios bloqueantes (hay que corregirlos sí o sí) y sugerencias o mejoras que se pueden abordar en otro Pull Request posterior, para no eternizar la revisión.</li>
+</ul>
+
+<p>En el contexto de este módulo, vamos a aplicar este mismo esquema en el “Protocolo de entregas” que veremos en el apartado 1.3: tus entregas de prácticas se van a gestionar, siempre que sea posible, mediante Pull Requests, y recibirás comentarios de revisión sobre tu código exactamente igual que ocurriría en un entorno de trabajo real.</p>
+
+<h3 id="119-aún-quieres-saber-más">1.1.9. ¿Aún quieres saber más?</h3>
+
+<p>Git es un sistema de control de versiones increíblemente completo. Sus creadores parecen haber pensado en escenarios de lo más aberrante y han tenido en cuenta casi cada cosa que puede suceder en un proyecto complejo. Si no, no se explica la enorme cantidad de comandos y posibilidades que ofrece.</p>
+
+<p>Si necesitas saber más cosas sobre Git, internet está plagada de contenidos de calidad (y otros bastante penosos) sobre este sistema.</p>
+
+<p>Como siempre te recomiendo, acude en primer lugar a la referencia oficial: https://git-scm.com/docs</p>
+
+<p>Personalmente, a mí me gustan mucho los tutoriales de Atlassian. Aunque están orientados a BitBucket (un servicio competidor de GitHub o GitLab), casi todas sus recomendaciones son aplicables a cualquier servidor Git. Los puedes encontrar aquí: https://www.atlassian.com/es/git/tutorials</p>
+
+<p>Y, si quieres profundizar específicamente en el flujo de trabajo con ramas y Pull Requests que hemos visto en este apartado, la propia documentación de GitHub sobre <em>GitHub Flow</em> es corta, clarísima y merece mucho la pena: https://docs.github.com/es/get-started/using-github/github-flow</p>
+
+<h3 id="1410-práctica-de-git">1.4.10 Práctica de Git</h3>
+
+<p><strong>Objetivos:</strong></p>
+<ul>
+  <li>Crear y conectar un repositorio local con uno remoto en GitHub.</li>
+  <li>Trabajar con el ciclo <em>add → commit → push / pull</em>.</li>
+  <li>Aplicar el flujo GitHub Flow: ramas de funcionalidad + <em>Pull Request</em>.</li>
+  <li>Provocar y resolver un conflicto de merge.</li>
+  <li>Revisar el código de un compañero mediante comentarios en un <em>Pull Request</em>.</li>
+  <li>Deshacer un commit erróneo con git revert.</li>
+</ul>
+
+<p><strong>Requisitos previos:</strong></p>
+<ul>
+  <li>Tener una cuenta en GitHub o GitLab</li>
+  <li>Tener Git instalado en el equipo local (teclea <code class="language-plaintext highlighter-rouge">git --version</code> en la terminal para comprobarlo)</li>
+</ul>
+
+<p><strong>Entregable final:</strong> el enlace a tu repositorio de GitHub, con el historial de commits, al menos dos Pull Requests cerrados y capturas de pantalla donde se verá el progreso.</p>
+
+<h4 id="paso-1--crear-el-repositorio-remoto">Paso 1 — Crear el repositorio remoto</h4>
+
+<ul>
+  <li>Entra en GitHub y crea un repositorio nuevo llamado <code class="language-plaintext highlighter-rouge">practica-git-tu-usuario</code> (por ejemplo, <code class="language-plaintext highlighter-rouge">practica-git-pepitoperez</code>).</li>
+  <li>Márcalo como público, no lo inicialices con README (lo crearemos nosotros desde local).</li>
+</ul>
+
+<h4 id="paso-2--crear-el-repositorio-local-y-conectar-los-dos-repos">Paso 2 — Crear el repositorio local y conectar los dos repos</h4>
+
+<ul>
+  <li>En tu ordenador, crea una carpeta para el proyecto y ejecuta:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">mkdir </span>practica-git
+<span class="nv">$ </span><span class="nb">cd </span>practica-git
+<span class="nv">$ </span>git init
+<span class="nv">$ </span>git branch <span class="nt">-M</span> main
+<span class="nv">$ </span>git remote add origin &lt;URL-de-tu-repositorio&gt;
+</code></pre></div></div>
+
+<ul>
+  <li>Comprueba que la conexión es correcta:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git remote -v
+</code></pre></div></div>
+
+<p>Deberías ver <code class="language-plaintext highlighter-rouge">origin</code> apuntando a tu URL, tanto para fetch como para push.</p>
+
+<h4 id="paso-3--primer-commit">Paso 3 — Primer commit</h4>
+
+<ul>
+  <li>Crea un archivo <code class="language-plaintext highlighter-rouge">README.md</code> con un contenido de este estilo:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="c"># Práctica de Git</span>
+   Repositorio de prácticas del módulo de Desarrollo de Aplicaciones Web.
+   Autor: &lt;tu nombre&gt;
+</code></pre></div></div>
+
+<ul>
+  <li>Crea también un archivo <code class="language-plaintext highlighter-rouge">.gitignore</code> con estas líneas:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   /vendor/
+   /node_modules/
+   .env
+</code></pre></div></div>
+
+<ul>
+  <li>Añade ambos archivos con <code class="language-plaintext highlighter-rouge">git add</code> y haz el primer commit:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nv">$ </span>git add README.md .gitignore
+   <span class="nv">$ </span>git commit <span class="nt">-m</span> <span class="s2">"Primer commit: README y gitignore"</span>
+   <span class="nv">$ </span>git push <span class="nt">-u</span> origin main
+</code></pre></div></div>
+
+<ul>
+  <li>Entra en GitHub y verifica que se han subido los dos archivos y el commit.</li>
+</ul>
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+CAPTURA 1: guarda una captura de pantalla del repositorio en GitHub mostrando el commit.
+</div>
+
+<h4 id="paso-4--crear-una-nueva-rama-de-funcionalidad">Paso 4 — Crear una nueva rama de funcionalidad</h4>
+
+<ul>
+  <li>Vamos a crear una nueva rama simulando que queremos hacer algún cambio en la aplicación:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git switch <span class="nt">-c</span> feature/pagina-index
+</code></pre></div></div>
+
+<ul>
+  <li>Crea un archivo <code class="language-plaintext highlighter-rouge">index.html</code> sencillo (como una página de bienvenida o un “hola mundo” cualquiera). Guarda, añade y confirma:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git add index.html
+<span class="nv">$ </span>git commit <span class="nt">-m</span> <span class="s2">"feat: añado página de inicio"</span>
+<span class="nv">$ </span>git push <span class="nt">-u</span> origin feature/pagina-index
+</code></pre></div></div>
+
+<h4 id="paso-5--abrir-el-pull-request">Paso 5 — Abrir el Pull Request</h4>
+
+<ul>
+  <li>Ve a GitHub. Aparecerá un aviso para crear el <strong><em>Pull Request</em></strong> desde tu rama.</li>
+  <li>Pulsa <strong><em>Compare &amp; pull request</em></strong>.</li>
+  <li>Pon en el título algo como: <em>Añadir página de inicio</em>.</li>
+  <li>En la descripción, explica brevemente qué hace el cambio.</li>
+  <li>Pulsa <strong><em>Create pull request</em></strong>. ¡Pero no lo fusiones todavía!</li>
+</ul>
+
+<h4 id="paso-6--autorrevisión">Paso 6 — Autorrevisión</h4>
+
+<ul>
+  <li>Antes de fusionar, entra en la pestaña <strong><em>Files changed</em></strong> del <em>Pull Request</em> y repasa el <em>diff</em> como si fueras otra persona revisando el código.</li>
+  <li>Añade al menos un <strong>comentario</strong> (aunque sea sobre tu propio código, para practicar la mecánica).</li>
+</ul>
+
+<h4 id="paso-7--fusionar">Paso 7 — Fusionar</h4>
+
+<ul>
+  <li>Pulsa <strong><em>Merge pull request → Confirm merge → Delete branch</em></strong> (para borrar la rama remota ya fusionada).</li>
+  <li>De vuelta en tu terminal, actualiza tu copia local de main y borra la rama local:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git switch main
+<span class="nv">$ </span>git pull
+<span class="nv">$ </span>git branch <span class="nt">-d</span> feature/pagina-index
+</code></pre></div></div>
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+CAPTURA 2: guarda una captura de pantalla del Pull Request ya fusionado (estado Merged).
+</div>
+
+<h4 id="paso-8--preparar-el-conflicto-a-propósito">Paso 8 — Preparar el conflicto (a propósito)</h4>
+
+<div style="color: red">¡ATENCIÓN! Esta parte se debe hacer <strong>POR PAREJAS (alumno A y alumno B)</strong></div>
+
+<p>Uno de los dos añade al otro como colaborador de su repositorio (<em>Settings → Collaborators</em>).</p>
+
+<p>Ambos miembros de la pareja, a la vez, vais a modificar la misma línea del mismo archivo siguiendo estos pasos:</p>
+
+<ul>
+  <li>Los dos hacéis <code class="language-plaintext highlighter-rouge">git pull</code> para tener la última versión de main.</li>
+  <li>Los dos creáis una rama distinta desde main:
+    <ul>
+      <li>Alumno A: <code class="language-plaintext highlighter-rouge">git switch -c feature/titulo-alumnoA</code></li>
+      <li>Alumno B: <code class="language-plaintext highlighter-rouge">git switch -c feature/titulo-alumnoB</code></li>
+    </ul>
+  </li>
+  <li>Los dos editáis la misma línea del <code class="language-plaintext highlighter-rouge">README.md</code> (por ejemplo, la línea del título), pero cada uno escribe algo distinto.</li>
+  <li>Cada uno hace commit y push de su rama.</li>
+  <li>Cada uno abre su propio <code class="language-plaintext highlighter-rouge">Pull Request</code> contra main.</li>
+  <li>El Alumno A fusiona su <em>Pull Request</em> con normalidad. <code class="language-plaintext highlighter-rouge">main</code> debe quedar actualizado con su cambio.</li>
+</ul>
+
+<h4 id="paso-9--provocar-el-conflicto">Paso 9 — Provocar el conflicto</h4>
+
+<p>El Alumno B, en su <em>Pull Request</em>, verá ahora un aviso de este estilo: <em>“This branch has conflicts that must be resolved”</em>. Puede resolverlo desde local:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git switch feature/titulo-alumnoB
+<span class="nv">$ </span>git pull origin main
+</code></pre></div></div>
+
+<p><strong>Git marcará el conflicto</strong> en el archivo con las marcas <code class="language-plaintext highlighter-rouge">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code class="language-plaintext highlighter-rouge">=======</code> y <code class="language-plaintext highlighter-rouge">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>.</p>
+
+<ul>
+  <li>El Alumno B abre el archivo en su editor, decide qué línea final quiere dejar (incluso se pueden combinar ambas) y borra las marcas de conflicto.</li>
+  <li>Guarda, añade y confirma la resolución:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>git add README.md
+ <span class="nv">$ </span>git commit <span class="nt">-m</span> <span class="s2">"fix: resuelvo conflicto de merge en README"</span>
+ <span class="nv">$ </span>git push
+</code></pre></div>    </div>
+  </li>
+  <li>Vuelve al <em>Pull Request</em> en GitHub: el aviso de conflicto debería haber desaparecido y ya se puede fusionar.</li>
+</ul>
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+CAPTURA 3A: guarda una captura de pantalla del archivo con las marcas de conflicto antes de resolverlo.<br />
+CAPTURA 3B: guarda una captura de pantalla del archivo con el Pull Request ya fusionado sin conflicto.
+</div>
+
+<h4 id="paso-10---code-review-realista">Paso 10 - Code Review realista</h4>
+
+<ul>
+  <li>El Alumno A crea una rama <code class="language-plaintext highlighter-rouge">feature/formulario-contacto</code> y añade un archivo <code class="language-plaintext highlighter-rouge">contacto.html</code> con un formulario simple que contendrá algún fallo pequeño a propósito, como un campo sin label, un nombre de variable confuso, etc. El Alumno B no debe saber cuál es el error.</li>
+  <li>El Alumno A sube la rama y abre el <em>Pull Request</em>.</li>
+  <li>El Alumno B, como revisor, entra en el <em>Pull Request</em> del Alumno A y:
+    <ul>
+      <li>Deja algunos comentarios sobre líneas concretas del código (usando el botón + que aparece al pasar el ratón sobre una línea en la pestaña <em>Files changed</em>).</li>
+      <li>Marca la revisión como Request changes (botón Review changes) en lugar de aprobarla directamente.</li>
+    </ul>
+  </li>
+  <li>El Alumno A corrige lo indicado, hace un nuevo <em>commit</em> en la misma rama y lo sube (<code class="language-plaintext highlighter-rouge">git push</code>). El <em>Pull Request</em> se actualiza solo.</li>
+  <li>El Alumno B vuelve a revisar los cambios y, si ya está conforme, aprueba con <em>Approve</em> y fusiona el <em>Pull Request</em>.</li>
+</ul>
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+CAPTURA 4: guarda una captura de los comentarios de revisión y de la aprobación final.
+</div>
+
+<h4 id="paso-11---deshacer-un-error">Paso 11 - Deshacer un error</h4>
+
+<div style="color: red">ATENCIÓN: Esta parte vuelve a hacerse individualmente.</div>
+
+<p>Sobre la rama <code class="language-plaintext highlighter-rouge">main</code>, edita el <code class="language-plaintext highlighter-rouge">README.md</code> y, a propósito, borra por error una parte importante del contenido. O incluso el archivo entero. Haz <em>commit</em> y <em>push</em> directamente:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git add README.md
+<span class="nv">$ </span>git commit <span class="nt">-m</span> <span class="s2">"cambios varios"</span>
+<span class="nv">$ </span>git push
+</code></pre></div></div>
+
+<p>(Sí, sabemos que esto no debe hacerse, pero es justo el error que queremos provocar).</p>
+
+<ul>
+  <li>Localizamos el commit problemático con <code class="language-plaintext highlighter-rouge">git log --oneline</code></li>
+  <li>Identificamos el hash del commit con el texto “cambios varios”.</li>
+  <li>Revertimos (deshacemos) los cambios:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git revert &lt;hash-del-commit&gt;
+</code></pre></div></div>
+
+<p>Git abrirá un editor para el mensaje del commit de reversión; guarda y cierra tal cual. Sube el cambio:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git push
+</code></pre></div></div>
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+CAPTURA 5: guarda la captura de <code>git log --oneline</code> donde se vea el commit original y el commit de revert justo debajo.
+</div>
+
+<h4 id="entrega-de-la-práctica">Entrega de la práctica</h4>
+
+<p>Sube a Moodle Centros lo siguiente:</p>
+
+<ol>
+  <li>El enlace a tu repositorio de GitHub.</li>
+  <li>Las 5 capturas de pantalla que has debido guardar a lo largo de la práctica. Insértalas en un único documento PDF, colocadas en orden e identificadas con su número (captura 1, captura 2, etc).</li>
+  <li>Añade al final del documento PDF una respuesta breve a esta pregunta: ¿qué hubiera pasado si el Alumno A y el Alumno B hubieran fusionado sus cambios directamente en main con <code class="language-plaintext highlighter-rouge">git push</code>, en lugar de usar ramas y <em>Pull Requests</em>?</li>
+</ol>
+
+<h4 id="rúbrica-de-corrección">Rúbrica de corrección</h4>
+
+<p>Esta práctica se calificará siguiendo la siguiente rúbrica:</p>
+<ul>
+  <li>0 = sin hacer o sin evidencia de esfuerzo</li>
+  <li>1 = hecho pero incorrecto</li>
+  <li>2 = hecho correctamente, pero mejorable</li>
+  <li>3 = hecho superando las espectativas</li>
+</ul>
+
+<p>Se calificarán de 0 a 3, según la rúbrica anterior, los siguientes ítems evaluables:</p>
+<ol>
+  <li>Repositorio inicializado y conectado correctamente</li>
+  <li>Flujo de rama + Pull Request ejecutado correctamente</li>
+  <li>Conflicto de merge resuelto correctamente</li>
+  <li>Code review cruzado con comentarios reales</li>
+  <li>Uso correcto de git revert</li>
+</ol>
+:ET

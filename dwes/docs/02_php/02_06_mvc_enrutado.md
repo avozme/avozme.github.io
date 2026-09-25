@@ -14,6 +14,12 @@ grand_parent: Desarrollo Web en Entorno Servidor
 - TOC
 {:toc}
 
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/1k3oevlwk5qs7rww3493i/02_06_mvc_enrutado.pdf?rlkey=8r03enhnr3nan17igsaqjw1dk&st=z42hmjmp&dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
+
 Cuando empiezas a programar en PHP, **la tendencia natural es crear un archivo por cada página** (por ejemplo, `formulario_login.php` te lleva a `comprobar_login.php`, que a su vez te lleva a `home.php`, etc.). 
 
 Al programar así, en cada archivo se mezcla todo: la conexión a la base de datos, la lógica para procesar formularios, la salida HTML... Esto se conoce como "**código espagueti**" y es imposible de mantener cuando el proyecto crece.

@@ -14,6 +14,12 @@ grand_parent: Desarrollo Web en Entorno Servidor
 - TOC
 {:toc}
 
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/yjeqlku9c1o9xloqnhsag/02_04_interaccion_PHP_DB.pdf?rlkey=vhuzrl39ie6ymx7nxormv74mi&st=h61z4det&dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
+
 A partir de ahora, vamos a referirnos a MySQL/MariaDB indistintamente. Este será el gestor de bases de datos relacionales que vamos a usar a lo largo del curso. La adaptación a otros gestores, en cualquier caso, es muy simple.
 
 MySQL/MariaDB, como ya hemos visto, es un SGBD relacional de probada eficacia. La interacción con él resulta eficiente y segura para casi cualquier aplicación web que podamos concebir.

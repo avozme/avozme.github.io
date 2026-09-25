@@ -1,0 +1,435 @@
+I"��<h2 class="no_toc" id="33-peticiones-rutas-controladores-y-respuestas">3.3. Peticiones, rutas, controladores y respuestas</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#331-qué-es-el-enrutador" id="markdown-toc-331-qué-es-el-enrutador">3.3.1. ¿Qué es el enrutador?</a></li>
+  <li><a href="#332-enrutamiento-básico" id="markdown-toc-332-enrutamiento-básico">3.3.2. Enrutamiento básico</a></li>
+  <li><a href="#333-rutas-con-nombre" id="markdown-toc-333-rutas-con-nombre">3.3.3. Rutas con nombre</a></li>
+  <li><a href="#334-verbos-http-get-post-put-patch-y-delete" id="markdown-toc-334-verbos-http-get-post-put-patch-y-delete">3.3.4. Verbos http: GET, POST, PUT, PATCH y DELETE</a></li>
+  <li><a href="#335-orden-de-las-rutas" id="markdown-toc-335-orden-de-las-rutas">3.3.5. Orden de las rutas</a></li>
+  <li><a href="#336-servidor-restful" id="markdown-toc-336-servidor-restful">3.3.6. Servidor RESTful</a></li>
+  <li><a href="#337-los-controladores-en-laravel-responses" id="markdown-toc-337-los-controladores-en-laravel-responses">3.3.7. Los controladores en Laravel. Responses</a></li>
+  <li><a href="#338-datos-de-entrada-al-controlador-requests" id="markdown-toc-338-datos-de-entrada-al-controlador-requests">3.3.8. Datos de entrada al controlador: Requests</a></li>
+  <li><a href="#339-tres-formas-de-crear-un-controlador" id="markdown-toc-339-tres-formas-de-crear-un-controlador">3.3.9. Tres formas de crear un controlador</a></li>
+  <li><a href="#3310-práctica-de-rutas-y-controladores" id="markdown-toc-3310-práctica-de-rutas-y-controladores">3.3.10. Práctica de rutas y controladores</a></li>
+</ul>
+
+<p>Llegados a este punto, ya debes haber creado tu primera aplicación Laravel (“Hola, mundo”) y habrás aprendido algo fundamental sobre el <strong>enrutador</strong>: cómo hacer que la solicitud de una URL termine ejecutando un método de un controlador.</p>
+
+<p>En esta sección, profundizaremos en el <strong>enrutador</strong>, un componente fundamental de cualquier aplicación web, e introduciremos los <strong>controladores</strong>, que toman el control del flujo de ejecución redirigido desde el enrutador.</p>
+
+<h3 id="331-qué-es-el-enrutador">3.3.1. ¿Qué es el enrutador?</h3>
+
+<p>El <strong>enrutador</strong> de Laravel es el componente que captura los endpoints solicitados al servidor y hace 3 cosas con ellos:</p>
+
+<ol>
+  <li>
+    <p><strong>Los traduce a acciones</strong>, normalmente invocaciones de métodos de los controladores.</p>
+  </li>
+  <li>
+    <p><strong>Mapea fragmentos de la URL</strong> a variables PHP que serán inyectadas como parámetros a los métodos del controlador.</p>
+
+    <p>Esto significa que, si le pides al servidor una ruta como <code class="language-plaintext highlighter-rouge">http://mi-servidor/user/delete/12</code>, el enrutador “trocea” ese endpoint para extraer los segmentos (“user”, “delete” y “12”). Y tú decides qué hacer a partir de esa información.</p>
+
+    <p><em>(Lo normal en este ejemplo sería que invocaras el método <code class="language-plaintext highlighter-rouge">delete()</code> del controlador <code class="language-plaintext highlighter-rouge">UserController</code>, y que ese método recibiera como parámetro el dato <code class="language-plaintext highlighter-rouge">12</code>, que será el id del usuario que se pretende borrar).</em></p>
+  </li>
+  <li>
+    <p><strong>Distingue el verbo http</strong> empleado para solicitar una página al servidor.</p>
+
+    <p>Es decir, para el enrutador no es lo mismo una solicitud enviada por <code class="language-plaintext highlighter-rouge">GET</code> que otra enviada por <code class="language-plaintext highlighter-rouge">POST</code>.</p>
+
+    <p>Incluso admite verbos que aún no están soportados por HTML, como <code class="language-plaintext highlighter-rouge">DELETE</code> o <code class="language-plaintext highlighter-rouge">PUT</code>. Un poco más abajo explicaremos qué narices significan.</p>
+  </li>
+</ol>
+
+<h3 id="332-enrutamiento-básico">3.3.2. Enrutamiento básico</h3>
+
+<p>En la práctica guiada del “Hola, mundo” vimos que el enrutador web de Laravel está en el archivo <code class="language-plaintext highlighter-rouge">/routes/web.php</code>.</p>
+
+<p>Observa en este ejemplo <code class="language-plaintext highlighter-rouge">web.php</code> las <strong>cuatro formas básicas</strong> que hay de enrutar:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Http\Controllers\HolaController</span><span class="p">;</span>
+
+<span class="c1">// Forma 1: generar la salida directamente en el enrutador, con un closure (función sin nombre)</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/hola'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">"Hola, mundo"</span><span class="p">;</span>
+<span class="p">});</span>
+
+<span class="c1">// Forma 2: llamar a una función de un controlador sin pasarle parámetros</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/hola'</span><span class="p">,</span> <span class="p">[</span><span class="nc">HolaController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'show'</span><span class="p">]);</span>
+
+<span class="c1">// Forma 3: llamar a una función de un controlador pasándole parámetros</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/hola/{nombre}'</span><span class="p">,</span> <span class="p">[</span><span class="nc">HolaController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'show'</span><span class="p">]);</span>
+
+<span class="c1">// Forma 4: llamar a una función de un controlador con un parámetro optativo</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/hola/{nombre?}'</span><span class="p">,</span> <span class="p">[</span><span class="nc">HolaController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'show'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>La diferencia esntre la forma 3 y la 4 es que, en la forma 3, la ruta debe llevar forzosamente un dato a continuación de <code class="language-plaintext highlighter-rouge">/hola</code> (algo como: <code class="language-plaintext highlighter-rouge">http://mi-servidor/hola/juan</code>). Si no lo lleva, el enrutador considerará que no se trata de esa ruta y seguirá buscando alguna ruta coincidente en el resto del archivo.</p>
+
+<p>En cambio, en la forma 4, el dato final es optativo, así que el enrutador invocará el método <code class="language-plaintext highlighter-rouge">show()</code> del controlador tanto si ese dato aparece en la URL como si no lo hace.</p>
+
+<p>Además, se puede afinar aún más qué tipo de datos nos interesa. Por ejemplo, si solo queremos entrar a <code class="language-plaintext highlighter-rouge">show()</code> cuando el <code class="language-plaintext highlighter-rouge">{nombre}</code> sea una colección de caracteres alfabéticos y no números, haríamos esto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/hola/{nombre}'</span><span class="p">,</span> <span class="p">[</span><span class="nc">HolaController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'show'</span><span class="p">])</span><span class="o">-&gt;</span><span class="nf">whereAlpha</span><span class="p">(</span><span class="s1">'id'</span><span class="p">);;</span>
+</code></pre></div></div>
+
+<p>Laravel 13 tiene un montón de método tipo <code class="language-plaintext highlighter-rouge">whereXxx()</code>, como <code class="language-plaintext highlighter-rouge">whereAlpha()</code>, <code class="language-plaintext highlighter-rouge">whereNumber()</code>, <code class="language-plaintext highlighter-rouge">whereAlphaNumeric()</code>, <code class="language-plaintext highlighter-rouge">whereUuid()</code>, etc.</p>
+
+<h3 id="333-rutas-con-nombre">3.3.3. Rutas con nombre</h3>
+
+<p>Es MUY recomendable <strong>asignar un nombre a las rutas</strong> en el enrutador. Esto hace que, más adelante, podamos cambiar la URL de los enlaces sin tener que modificar el código fuente de nuestras vistas.</p>
+
+<p>El nombre se le asigna a una ruta añadiendo <code class="language-plaintext highlighter-rouge">-&gt;name('nombre')</code> al final:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/contactame'</span><span class="p">,</span> <span class="s1">'Controlador@contacto'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'contact'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>En tu código fuente, debes referirte a esta ruta siempre con la expresión <code class="language-plaintext highlighter-rouge">route('contact')</code> (ya veremos exactamente cómo se hace esto), pero el usuario verá la dirección <code class="language-plaintext highlighter-rouge">https://servidor/contactame</code>.</p>
+
+<p>En el futuro se puede cambiar la forma en la que lo ve el usuario. Por ejemplo, puedes cambiar <code class="language-plaintext highlighter-rouge">Route::get('/contactame'...)</code> por <code class="language-plaintext highlighter-rouge">Route::get('/acerca-de'...)</code>, pero no tendrás que modificar ni una línea de código más en tu aplicación, porque internamente esa ruta seguirá llamándose <code class="language-plaintext highlighter-rouge">route('contact')</code>.</p>
+
+<h3 id="334-verbos-http-get-post-put-patch-y-delete">3.3.4. Verbos http: GET, POST, PUT, PATCH y DELETE</h3>
+
+<p>Además de GET, en el enrutador se pueden enrutar otras acciones:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">();</span>    <span class="c1">// Solicitudes habituales</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">post</span><span class="p">();</span>   <span class="c1">// Recepción de datos de formulario (para insert)</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">put</span><span class="p">();</span>    <span class="c1">// Recepción de datos para update (también puede escribirse Route::patch(), que no es lo mismo, pero casi)</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nb">delete</span><span class="p">();</span> <span class="c1">// Recepción de datos para delete</span>
+<span class="nc">Route</span><span class="o">::</span><span class="k">match</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span><span class="s1">'POST'</span><span class="p">),</span> <span class="s1">'ruta'</span><span class="p">,</span> <span class="n">acción</span><span class="p">)</span>
+                 <span class="c1">// Responderá tanto a GET como a POST</span>
+</code></pre></div></div>
+
+<p>Los verbos PUT, PATCH y DELETE no están soportados aún por HTML. Las razones por las que esto ocurre son tan confusas que, sinceramente, creo que ni siquiera en el W3C lo entienden. <em>La cuestión es que aún no existen y punto</em>.</p>
+
+<p>Es decir, no puedes crear un formulario así: <code class="language-plaintext highlighter-rouge">&lt;form method='PUT'&gt;</code>, porque tu navegador no lo entenderá. Solo puedes poner <code class="language-plaintext highlighter-rouge">&lt;form method='GET'&gt;</code> o <code class="language-plaintext highlighter-rouge">&lt;form method='POST'&gt;</code>.</p>
+
+<p>Cuando trabajes con Laravel, <strong>debes emular PUT, PATCH o DELETE</strong> en los formularios así:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"/foo/bar"</span> <span class="na">method=</span><span class="s">"POST"</span><span class="nt">&gt;</span>
+    @method('DELETE')
+</code></pre></div></div>
+
+<p>Tal vez, llegado a este punto, te estés preguntando qué diferencia hay entre <code class="language-plaintext highlighter-rouge">PUT</code> y <code class="language-plaintext highlighter-rouge">PATCH</code>. O tal vez no. Salta a la siguiente sección si no te interesan estas sutilezas. Continúa leyendo en caso contrario.</p>
+
+<p>En teoría, una petición enviada por <code class="language-plaintext highlighter-rouge">PUT</code> debería culminar con la ejecución de un <code class="language-plaintext highlighter-rouge">UPDATE</code> en el servidor que modifique <em>un recurso entero</em>. Es decir, un registro completo de una tabla de la base de datos.</p>
+
+<p>En cambio, <code class="language-plaintext highlighter-rouge">PATCH</code> debería emplearse cuando el <code class="language-plaintext highlighter-rouge">UPDATE</code> vaya a modificar solo <em>una parte de los campos de un registro</em>, y no todos.</p>
+
+<p>¿Que te parece una chorrada hacer esa distinción? Bueno, lo que tú o yo opinemos no importa demasiado. Todo esto es un estándar y, por lo tanto, hay que comérselo con patatas.</p>
+
+<h3 id="335-orden-de-las-rutas">3.3.5. Orden de las rutas</h3>
+
+<p>El <strong>orden</strong> en el que se escriben las rutas en el enrutador es importante.</p>
+
+<p>Por ejemplo, si pedimos la dirección <code class="language-plaintext highlighter-rouge">http://mi-servidor/usuario/crear</code>, escribir estas dos rutas en este orden es un error:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'usuario/{nombre}'</span><span class="p">,</span> <span class="p">[</span><span class="nc">UserController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'show'</span><span class="p">]);</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'usuario/crear'</span><span class="p">,</span> <span class="p">[</span><span class="nc">UserController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'create'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>El enrutador tratará de mostrar un usuario cuyo nombre sea “crear” (que seguramente no existirá) porque la petición encaja con las dos rutas y el enrutador elegirá la primera ruta que encuentre.</p>
+
+<p>La solución pasa por alterar el orden de las líneas en el enrutador:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'usuario/crear'</span><span class="p">,</span> <span class="p">[</span><span class="nc">UserController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'create'</span><span class="p">]);</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'usuario/{nombre}'</span><span class="p">,</span> <span class="p">[</span><span class="nc">UserController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'show'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>De este modo, la petición <code class="language-plaintext highlighter-rouge">http://mi-servidor/usuario/crear</code> seguirá encajando en las dos rutas, pero el enrutador elegirá la primera. En cambio, una petición parecida pero con cualquier otro nombre (por ejemplo, <code class="language-plaintext highlighter-rouge">http://mi-servidor/usuario/luis</code>), solo encajará con la segunda ruta.</p>
+
+<p><strong>Recuerda: Laravel elegirá sempre la <em>primera ruta que coincida</em></strong>.</p>
+
+<h3 id="336-servidor-restful">3.3.6. Servidor RESTful</h3>
+
+<p>Un <strong>servidor RESTful</strong> es aquel que responde a la <a href="https://juanda.gitbooks.io/webapps/content/api/arquitectura-api-rest.html">arquitectura REST</a>.</p>
+
+<p>La arquitectura REST no es más que una forma estandarizada de construir un servidor para que realice las tareas típicas de mantenimiento de recursos. Y los recursos pueden ser cualquier cosa que se almacene en el servidor: usuarios, clientes, productos, películas, facturas…</p>
+
+<p>Es decir: el 99% de las veces, los recursos son registros en una tabla de la base de datos.</p>
+
+<p>El enrutador de un servidor RESTful contendrá las 7 operaciones habituales en la arquitectura REST para cada recurso accesible desde la red, y que permiten manipular el recurso: mostrarlo, buscarlo, insertarlo, modificarlo o borrarlo.</p>
+
+<p>Por ejemplo, para un recurso llamado “user”, esas 7 operaciones son:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Http\Controllers\UserController</span><span class="p">;</span>
+
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'users'</span><span class="p">,</span> <span class="p">[</span><span class="nc">UserController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'index'</span><span class="p">])</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'user.index'</span><span class="p">);</span>                <span class="c1">// Recupera todos los usuarios</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'users/{user}'</span><span class="p">,</span> <span class="p">[</span><span class="nc">UserController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'show'</span><span class="p">])</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'user.show'</span><span class="p">);</span>           <span class="c1">// Recupera un usuario concreto con id = user</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'users/crear'</span><span class="p">,</span> <span class="p">[</span><span class="nc">UserController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'create'</span><span class="p">])</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'user.create'</span><span class="p">);</span>        <span class="c1">// Lanza el formulario de creación de usuarios</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">post</span><span class="p">(</span><span class="s1">'users/{user}'</span><span class="p">,</span> <span class="p">[</span><span class="nc">UserController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'store'</span><span class="p">])</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'user.store'</span><span class="p">);</span>        <span class="c1">// Recoge los datos del formulario y los inserta en la base de datos</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'users/{user}/edit'</span><span class="p">,</span> <span class="p">[</span><span class="nc">UserController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'edit'</span><span class="p">])</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'user.edit'</span><span class="p">);</span>      <span class="c1">// Lanza el formulario de modificación de usuarios</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">patch</span><span class="p">(</span><span class="s1">'users/{user}'</span><span class="p">,</span> <span class="p">[</span><span class="nc">UserController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'update'</span><span class="p">])</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'user.update'</span><span class="p">);</span>     <span class="c1">// Recoge los datos del formulario y modifica el usuario de la base de datos</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nb">delete</span><span class="p">(</span><span class="s1">'users/{user}'</span><span class="p">,</span> <span class="p">[</span><span class="nc">UserController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'destroy'</span><span class="p">])</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'user.destroy'</span><span class="p">);</span>  <span class="c1">// Elimina al usuario de la base de datos</span>
+</code></pre></div></div>
+
+<p>Ten encuenta que, si estás construyendo un servidor RESTful, es buena práctca <strong>respetar los nombres y URLs de las rutas</strong>. Así, cualquier otro usuario o aplicación que use tu servidor sabrá cómo manipular los recursos sin necesidad de consultar la documentación técnica.</p>
+
+<p>Laravel te permite <strong>generar automáticamente las 7 rutas REST</strong> anteriores con esta única entrada en el enrutador:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Http\Controllers\UserController</span><span class="p">;</span>
+
+<span class="nc">Route</span><span class="o">::</span><span class="nf">resource</span><span class="p">(</span><span class="s1">'users'</span><span class="p">,</span> <span class="nc">UserController</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="337-los-controladores-en-laravel-responses">3.3.7. Los controladores en Laravel. Responses</h3>
+
+<p>Los controladores, como ya sabemos, son las clases que <strong>toman el control</strong> de la aplicación una vez que el enrutador redirige el flujo de ejecución.</p>
+
+<p>En esta sección vamos a ver cómo se crean en Laravel.</p>
+
+<ol>
+  <li>
+    <p>Los <strong>controladores</strong> en Laravel <strong>heredan de la clase <code class="language-plaintext highlighter-rouge">Controller</code></strong>.</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">MiControlador</span> <span class="kd">extends</span> <span class="nc">Controller</span> <span class="p">{</span>
+   <span class="mf">...</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Su nombre debería escribirse en singular, CamelCase y terminando en la palabra Controller. Por ejemplo: <code class="language-plaintext highlighter-rouge">UserController</code>, <code class="language-plaintext highlighter-rouge">LoginController</code>, <code class="language-plaintext highlighter-rouge">ArticleController</code>…</p>
+  </li>
+  <li>
+    <p><strong>Cada método del controlador terminar con un <code class="language-plaintext highlighter-rouge">return</code> de algo que pueda enviarse al cliente</strong>. Los casos más habituales son:</p>
+
+    <ul>
+      <li><strong>Devolver un string</strong> -&gt; Laravel lo convertirá automáticamente en una <code class="language-plaintext highlighter-rouge">HTTP response 200</code> y lo devolverá como una página web.</li>
+      <li><strong>Devolver un array</strong> u otra estructura de datos compleja -&gt; Laravel lo convertirá en <code class="language-plaintext highlighter-rouge">JSON</code> y enviará al cliente esos datos.</li>
+      <li><strong>Devolver una vista</strong> (<code class="language-plaintext highlighter-rouge">return view('nombre-vista')</code> -&gt; Laravel renderiza la vista y devuelve el HTML al cliente (ya veremos cómo funcionan las vistas).</li>
+      <li><strong>Devolver una redirección</strong> (<code class="language-plaintext highlighter-rouge">return redirect('/products');</code>) -&gt; Laravel devuelve una respuesta HTTP de redirección y el navegador realiza una nueva petición a la dirección indicada.</li>
+      <li><strong>Devolver un JSON explícito</strong> (por ejemplo: <code class="language-plaintext highlighter-rouge">return response()-&gt;json(['nombre' =&gt; 'Juan', 'edad' =&gt; 25]);)</code></li>
+      <li><strong>Devolver una respuesta HTTP personalizada</strong>. Por ejemplo:</li>
+    </ul>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="k">return</span> <span class="nf">response</span><span class="p">(</span><span class="s1">'contenido'</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
+             <span class="o">-&gt;</span><span class="nb">header</span><span class="p">(</span><span class="s1">'mi-cabecera'</span><span class="p">,</span> <span class="s1">'contenido'</span><span class="p">)</span>
+             <span class="o">-&gt;</span><span class="nb">header</span><span class="p">(</span><span class="s1">'otra-cabecera'</span><span class="p">,</span> <span class="s1">'más-contenido'</span><span class="p">)</span>
+             <span class="o">-&gt;</span><span class="nf">cookie</span><span class="p">(</span><span class="s1">'mi-cookie'</span><span class="p">,</span> <span class="s1">'valor'</span><span class="p">);</span>
+             <span class="p">(</span><span class="n">etc</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="338-datos-de-entrada-al-controlador-requests">3.3.8. Datos de entrada al controlador: Requests</h3>
+
+<p>Al controlador pueden llegar <strong>datos procedentes de un formulario</strong>. Aunque siguen existiendo las variables <code class="language-plaintext highlighter-rouge">$_GET</code> y <code class="language-plaintext highlighter-rouge">$_POST</code> de PHP, lo recomendable en Laravel es usar el objeto <code class="language-plaintext highlighter-rouge">Request</code>.</p>
+
+<p>Obsérvalo en acción en este pequeño ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">Illuminate\Http\Request</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$nombre</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">input</span><span class="p">(</span><span class="s1">'nombre'</span><span class="p">);</span>
+
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>El objeto <code class="language-plaintext highlighter-rouge">Request</code> <strong>se inyecta como parámetro</strong> en cualquier método del controlador que necesite hacer uso de él y, a partir de ahí, puedes acceder a los campos del formulario con:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">$request-&gt;input('nombre')</code> -&gt; para recuperar un input de texto llamado <code class="language-plaintext highlighter-rouge">nombre</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">$request-&gt;all()</code> -&gt; para recuperar todos los inputs a la vez en forma de array.</li>
+  <li><code class="language-plaintext highlighter-rouge">$request-&gt;has('nombre')</code> -&gt; para comprobar si entre los datos existe uno llamado <code class="language-plaintext highlighter-rouge">nombre</code> (devuelve <code class="language-plaintext highlighter-rouge">true</code>o <code class="language-plaintext highlighter-rouge">false</code>).</li>
+  <li>(Hay más métodos, pero con estos vamos bien por ahora).</li>
+</ul>
+
+<h3 id="339-tres-formas-de-crear-un-controlador">3.3.9. Tres formas de crear un controlador</h3>
+
+<p>Los controladores se pueden crear a mano: vas al directorio <code class="language-plaintext highlighter-rouge">/app/http/controllers</code>, creas allí un archivo vacío y empiezas a escribir código como una fiera.</p>
+
+<p>Pero nadie lo hace así porque <strong>Artisan</strong> ya crea el esqueleto del archivo por ti. Así que es mejor que vayas a lo práctico: abre una consola en tu servidor web y ponte a escribir.</p>
+
+<ul>
+  <li>
+    <p><strong>Forma 1. Crear un controlador vacío.</strong></p>
+
+    <p>Por ejemplo, para crear un controlador para la tabla de usuarios:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  $ ./vendor/bin/sail artisan make:controller UserController
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Forma 2. Crear un controlador de tipo resource.</strong></p>
+
+    <p>Estos controladores se generan automáticamente con un andamiaje para <strong>construir recursos REST</strong>. Es decir, la clase ya llevará incorporados los métodos estándar <code class="language-plaintext highlighter-rouge">index()</code>, <code class="language-plaintext highlighter-rouge">create()</code>, <code class="language-plaintext highlighter-rouge">store()</code>, <code class="language-plaintext highlighter-rouge">show()</code>, <code class="language-plaintext highlighter-rouge">edit()</code>, <code class="language-plaintext highlighter-rouge">update()</code> y <code class="language-plaintext highlighter-rouge">destroy()</code> de REST.</p>
+
+    <p>(Si no sabes de qué estamos hablando, revisa la sección que dedicamos al RESTful un poco más arriba)</p>
+
+    <p>Para crear un controlador RESTful:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  $ ./vendor/bin/sail artisan make:controller UserController --resource
+</code></pre></div>    </div>
+
+    <p>No te olvides de añadir al enrutador (<code class="language-plaintext highlighter-rouge">/routes/web.php</code>) las rutas REST para este tipo controlador. Te recuerdo que se pueden resumir las siete rutas en esta sola entrada del enrutador:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Route::resource('nombreRecurso', Controlador::class);
+</code></pre></div>    </div>
+
+    <p>En nuestro ejemplo:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  use App\Http\Controllers\UserController;
+
+  Route::resource('usuarios', UserController::class);
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Forma 3. Crear un controlador tipo API.</strong></p>
+
+    <p>Una <strong>API</strong> (<em>Application Programming Interface</em>) es un interfaz entre programas. Es decir, es la forma en la que unos programas interaccionan con otros.</p>
+
+    <p>Algunas aplicaciones web se diseñan para que otros programas las utilicen, no para que las utilicen seres humanos. En estos casos, el interfaz de usuario no existe (o es mínimo) y lo importante es el API. Y los métodos del controlador no devuelven vistas, sino datos formateados en JSON.</p>
+
+    <p>Se puede construir con Laravel un controlador tipo API de forma muy simple, porque es parecido a un <em>resource</em>, pero sin <code class="language-plaintext highlighter-rouge">create()</code> ni <code class="language-plaintext highlighter-rouge">edit()</code>, porque una API no necesita mostrar los formularios de inserción/modificación.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  $ ./vendor/bin/sail artisan make:controller UserController --api
+</code></pre></div>    </div>
+
+    <p>De nuevo, no te olvides de las entradas en el enrutador. Puedes englobarlas todas en una sola entrada con este aspecto:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  use App\Http\Controllers\UserController;
+
+  Route::apiResource('usuarios', UserController::class);
+</code></pre></div>    </div>
+
+    <p>Construiremos APIs con Laravel en el próximo tema.</p>
+  </li>
+</ul>
+
+<h3 id="3310-práctica-de-rutas-y-controladores">3.3.10. Práctica de rutas y controladores</h3>
+
+<p>En esta pequeña práctica vamos a aplicar lo que hemos aprendido sobre <strong>rutas, verbos HTTP y controladores</strong>, creando un controlador de tipo <code class="language-plaintext highlighter-rouge">resource</code> para gestionar un recurso llamado <code class="language-plaintext highlighter-rouge">products</code>.</p>
+
+<p>Todavía no será una aplicación “usable” (eso lo haremos al final del tema), pero se acercará bastante.</p>
+
+<p><em>La práctica está pensada para trabajar con la infraestructura Docker + Laravel Sail que ya conoces.</em></p>
+
+<h4 id="al-terminar-la-práctica">Al terminar la práctica…</h4>
+
+<p>Si terminas esta práctica con éxito serás capaz de:</p>
+
+<ul>
+  <li>Crear controladores.</li>
+  <li>Registrar las rutas REST de un recurso.</li>
+  <li>Identificar qué URL y qué verbo HTTP corresponden a cada método del controlador.</li>
+  <li>Consultar las rutas disponibles mediante <code class="language-plaintext highlighter-rouge">route:list</code>.</li>
+  <li>Realizar redirecciones mediante <code class="language-plaintext highlighter-rouge">redirect()</code>.</li>
+</ul>
+
+<hr />
+
+<h4 id="paso-1-crear-el-controlador-tipo-resource">PASO 1. Crear el controlador tipo <code class="language-plaintext highlighter-rouge">resource</code></h4>
+
+<ol>
+  <li>
+    <p>Crea un controlador de tipo <code class="language-plaintext highlighter-rouge">resource</code>:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>./vendor/bin/sail artisan make:controller ProductController <span class="nt">--resource</span>
+</code></pre></div>    </div>
+
+    <p>Laravel creará el archivo <code class="language-plaintext highlighter-rouge">app/Http/Controllers/ProductController.php</code></p>
+  </li>
+  <li>
+    <p>Abre el archivo. Si todo ha ido bien, deberías encontrar los siete métodos habituales de un controlador REST, es decir, <code class="language-plaintext highlighter-rouge">index()</code>, <code class="language-plaintext highlighter-rouge">create()</code>, <code class="language-plaintext highlighter-rouge">store()</code>, <code class="language-plaintext highlighter-rouge">show()</code>, <code class="language-plaintext highlighter-rouge">edit()</code>, <code class="language-plaintext highlighter-rouge">update()</code> y <code class="language-plaintext highlighter-rouge">destroy()</code></p>
+
+    <p>De momento vamos a dejar esos métodos vacíos. Tú solo comprueba que se han creado.</p>
+  </li>
+</ol>
+
+<h4 id="paso-2-registrar-las-rutas-resource">PASO 2. Registrar las rutas resource</h4>
+
+<ol>
+  <li>
+    <p>Abre <code class="language-plaintext highlighter-rouge">routes/web.php</code></p>
+  </li>
+  <li>
+    <p>Añade la importación del controlador y registra las siete rutas con una única instrucción:</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">// Esto importa el controlador:</span>
+ <span class="kn">use</span> <span class="nc">App\Http\Controllers\ProductController</span><span class="p">;</span>
+
+ <span class="c1">// Esto añade las 7 rutas típicas REST en una sola línea</span>
+ <span class="nc">Route</span><span class="o">::</span><span class="nf">resource</span><span class="p">(</span><span class="s1">'products'</span><span class="p">,</span> <span class="nc">ProductController</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Comprueba que las rutas se han registrado tecleando en el terminal de texto:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>./vendor/bin/sail artisan route:list
+</code></pre></div>    </div>
+
+    <p>Deberías ver las siete rutas REST de <code class="language-plaintext highlighter-rouge">products</code>, más las que creamos el otro día para el “Hola mundo”. Observa que <strong>dos rutas utilizan el mismo endpoint ()<code class="language-plaintext highlighter-rouge">/products</code>)</strong>, pero que una lo hace por <code class="language-plaintext highlighter-rouge">GET</code> y otra por <code class="language-plaintext highlighter-rouge">POST</code>. Así es como el servidor las distingue:</p>
+
+    <p><strong>Si las 7 rutas recién añadidas no aparecen</strong> puede ser necesario limpiar la caché de rutas, una memoria caché que Laravel usa para acelerar la ejecución.</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>./vendor/bin/sail artisan route:clear   <span class="c"># Con esto limpias la caché de rutas</span>
+ <span class="nv">$ </span>./vendor/bin/sail artisan route:list    <span class="c"># Luego vuelve a probar a sacar el listado</span>
+</code></pre></div>    </div>
+
+    <p><strong>¡No continúes hasta que tus 7 rutas REST aparezcan en el listado!</strong>.</p>
+  </li>
+</ol>
+
+<h4 id="paso-3-implementar-respuestas-sencillas">PASO 3. Implementar respuestas sencillas</h4>
+
+<p>Vamos a crear una <strong>respuesta temporal de texto simple</strong> en los métodos del controlador. Más adelante aprenderemos a consultar la base de datos y crear las respuestas adecuadas.</p>
+
+<p>Edita el archivo <code class="language-plaintext highlighter-rouge">app/Http/Controllers/ProductController.php</code> y añade un <code class="language-plaintext highlighter-rouge">return</code> de texto simple a cada método:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">function</span> <span class="n">index</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">'Aquí aparecerá el listado de todos los productos de la BD'</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">create</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">'Aquí se mostrará el formulario para crear un producto nuevo'</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">'Aquí estaría el código para almacenar el producto de create() en la BD'</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">show</span><span class="p">(</span><span class="kt">string</span> <span class="nv">$id</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="s2">"Aquí se mostraría el producto con id = </span><span class="nv">$id</span><span class="s2">"</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// Continúa tú con el resto de métodos (¿sabes ya lo que hace cada método REST?)</span>
+    <span class="c1">// (Si no es así, ¡repasa el tema o pregunta!)</span>
+</code></pre></div></div>
+
+<h4 id="paso-4-comprobar-los-nombres-de-las-rutas">PASO 4. Comprobar los nombres de las rutas</h4>
+
+<p>Prueba en tu navegador web los métodos del controlador.</p>
+
+<ul>
+  <li>Para probar <code class="language-plaintext highlighter-rouge">ProductController::index()</code>, escribe el endpoint <code class="language-plaintext highlighter-rouge">http://localhost/products</code>.</li>
+  <li>Para probar <code class="language-plaintext highlighter-rouge">ProductController::create()</code>, escribe el endpoint <code class="language-plaintext highlighter-rouge">http://localhost/products/create</code>.</li>
+  <li>Para probar <code class="language-plaintext highlighter-rouge">ProductController::show()</code>, escribe el endpoint <code class="language-plaintext highlighter-rouge">http://localhost/products/id</code>, donde <code class="language-plaintext highlighter-rouge">id</code> sea el ID del producto que quieres mostrar.</li>
+  <li>
+    <p>¿Qué endpoint debes usar para probar el resto de rutas? ¿Hay alguna ruta que no puedas probar directamente desde tu navegador web? ¿Por qué?</p>
+
+    <p>(<strong>Asegúrate de que sabes contestar a estas preguntas antes de continuar</strong>; si no lo sabes, ¡averígualo!)</p>
+  </li>
+</ul>
+
+<h4 id="paso-5-probar-una-redirección">PASO 5. Probar una redirección</h4>
+
+<ol>
+  <li>
+    <p>Añade esta ruta a <code class="language-plaintext highlighter-rouge">routes/web.php</code> (solo para probar una redirección, no tiene utilidad real):</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/ir-a-productos'</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+     <span class="k">return</span> <span class="nf">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">route</span><span class="p">(</span><span class="s1">'products.index'</span><span class="p">);</span>
+ <span class="p">});</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Pruébala visitando <code class="language-plaintext highlighter-rouge">http://localhost/ir-a-productos</code>. Debería llevarte a <code class="language-plaintext highlighter-rouge">/products</code>.</li>
+  <li>Añade un método a tu controlador <code class="language-plaintext highlighter-rouge">ProductController.php</code> que haga lo mismo, es decir, <code class="language-plaintext highlighter-rouge">return redirect()-&gt;route('products.index');</code>.</li>
+  <li>
+    <p>Modifica la ruta anterior <code class="language-plaintext highlighter-rouge">/ir-a-productos</code> para que te lleve al método que acabas de crear en el controlador, en lugar de ejecutar la redirección desde el propio enrutador.</p>
+
+    <p>¡Como en otros ejercicios, aunque de momento solo estamos “jugando”, no continúes si algo no te funciona o no lo entiendes!</p>
+  </li>
+</ol>
+:ET

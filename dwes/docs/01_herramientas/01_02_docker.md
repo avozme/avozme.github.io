@@ -14,6 +14,12 @@ grand_parent: Desarrollo Web en Entorno Servidor
 - TOC
 {:toc}
 
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/ehdegweqqo3ltbt8mgwqc/01_02_docker.pdf?rlkey=s1730lvqf0tjhjh44lfgcosb3&st=jygxztr8&dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
+
 
 ### 1.2.1. ¿Qué es Docker?
 

@@ -1,0 +1,306 @@
+I"CV<h2 class="no_toc" id="32-nuestra-primera-aplicación-en-laravel">3.2. Nuestra primera aplicación en Laravel</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#paso-0-prerrequisitos-para-que-laravel-funcione" id="markdown-toc-paso-0-prerrequisitos-para-que-laravel-funcione">PASO 0. Prerrequisitos para que Laravel funcione</a></li>
+  <li><a href="#paso-1-crear-la-infraestructura-con-docker-laravel-sail" id="markdown-toc-paso-1-crear-la-infraestructura-con-docker-laravel-sail">PASO 1: Crear la infraestructura con Docker: Laravel Sail</a></li>
+  <li><a href="#paso-2-arrancar-y-parar-laravel-sail" id="markdown-toc-paso-2-arrancar-y-parar-laravel-sail">PASO 2: Arrancar y parar Laravel Sail</a></li>
+  <li><a href="#paso-3-comprobar-versión-de-php" id="markdown-toc-paso-3-comprobar-versión-de-php">PASO 3. Comprobar versión de PHP</a></li>
+  <li><a href="#paso-4-echar-un-vistazo-a-la-arquitectura-de-laravel" id="markdown-toc-paso-4-echar-un-vistazo-a-la-arquitectura-de-laravel">PASO 4. Echar un vistazo a la arquitectura de Laravel</a></li>
+  <li><a href="#paso-5-crear-el-archivo-env" id="markdown-toc-paso-5-crear-el-archivo-env">PASO 5. Crear el archivo <code class="language-plaintext highlighter-rouge">.env</code></a></li>
+  <li><a href="#paso-6-probar-artisan-la-consola-de-laravel" id="markdown-toc-paso-6-probar-artisan-la-consola-de-laravel">PASO 6. Probar artisan, la consola de Laravel</a></li>
+  <li><a href="#paso-7-crear-nuestra-primera-ruta" id="markdown-toc-paso-7-crear-nuestra-primera-ruta">PASO 7. Crear nuestra primera ruta</a></li>
+  <li><a href="#paso-8-crear-una-ruta-con-un-parámetro" id="markdown-toc-paso-8-crear-una-ruta-con-un-parámetro">PASO 8. Crear una ruta con un parámetro</a></li>
+  <li><a href="#una-advertencia-final-desarrollo-frente-a-producción" id="markdown-toc-una-advertencia-final-desarrollo-frente-a-producción">Una advertencia final: desarrollo frente a producción</a></li>
+</ul>
+
+<p>Ya sabemos qué es Laravel y por qué puede resultar útil utilizar un framework para desarrollar aplicaciones web.</p>
+
+<p>Ha llegado el momento de dejar la teoría y crear nuestra primera aplicación.</p>
+
+<p>La idea de este apartado es muy sencilla: <strong>crear una aplicación Laravel desde cero para entender cómo está organizada y hacer que responda a nuestras primeras peticiones HTTP</strong>.</p>
+
+<p>No vamos a aprender todavía <em>todos</em> los componentes de Laravel. De hecho, muchas cosas que veremos ahora solo tendrán sentido cuando avancemos en el tema. <strong>Lo importante es empezar a familiarizarnos con el entorno de trabajo</strong>.</p>
+
+<hr />
+
+<h3 id="paso-0-prerrequisitos-para-que-laravel-funcione">PASO 0. Prerrequisitos para que Laravel funcione</h3>
+
+<p>Para desarrollar una aplicación con Laravel necesitamos disponer de un entorno de desarrollo con las herramientas necesarias.</p>
+
+<p>Para Laravel 13, los prerrequisitos principales son:</p>
+
+<ul>
+  <li><strong>PHP 8.3 o superior</strong>.</li>
+  <li><strong>Composer</strong>, el gestor de dependencias de PHP.</li>
+  <li><strong>Node.js y npm</strong> si vamos a trabajar con CSS y JavaScript.</li>
+  <li><strong>MySQL</strong> u otro gestor de bases de datos si vamos a usar base de datos.</li>
+  <li><strong>Laravel Installer</strong>, la herramienta de línea de comandos que nos permitirá crear nuevas aplicaciones Laravel.</li>
+</ul>
+
+<p>En lugar de instalar todo esto en nuestra máquina, ya vimos en el Tema 1 que es más limpio y portable hacerlo con <strong>contenedores Docker</strong>, de modo que eso es lo primero que tenemos que hacer.</p>
+
+<h3 id="paso-1-crear-la-infraestructura-con-docker-laravel-sail">PASO 1: Crear la infraestructura con Docker: Laravel Sail</h3>
+
+<p>Vamos a utilizar <strong>docker</strong> y <strong>docker compose</strong> pero, en lugar de crear manualmente nuestro <code class="language-plaintext highlighter-rouge">docker-compose.yml</code>, vamos a recurrir a <strong>Laravel Sail</strong>, una herramienta que Laravel proporciona para trabajar con docker y compose.</p>
+
+<p>De esta forma, el ordenador de desarrollo <strong>solo necesita tener instalado docker con docker compose</strong>. PHP, Composer, Node.js, MySQL y el resto de servicios necesarios funcionarán dentro de contenedores.</p>
+
+<ol>
+  <li>Instala Docker y Docker Compose en tu máquina (si no lo tienes ya). <em>Si no sabes cómo hacerlo, revisa el Tema 1</em>.</li>
+  <li>
+    <p>Abre un terminal de texto en tu carpeta de trabajo y teclea esto (sustituye <code class="language-plaintext highlighter-rouge">hola-laravel</code> por el nombre que le quieras dar a tu aplicación):</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>curl <span class="nt">-s</span> <span class="s2">"https://laravel.build/hola-laravel"</span> | bash
+</code></pre></div>    </div>
+
+    <p>Este comando descarga todos los archivos de Laravel en un subdirectorio llamado <code class="language-plaintext highlighter-rouge">hola-laravel</code>.</p>
+  </li>
+  <li>Revisa el directorio <code class="language-plaintext highlighter-rouge">hola-laravel</code> (o el nombre que le hayas puesto) y comprueba que se han descargado un montón de archivos y subcarpetas. Si está vacío, es que algo ha ido mal.</li>
+</ol>
+
+<h3 id="paso-2-arrancar-y-parar-laravel-sail">PASO 2: Arrancar y parar Laravel Sail</h3>
+
+<ol>
+  <li>Abre un terminal de texto en el directorio de tu proyecto Laravel.</li>
+  <li>
+    <p>Pon en marcha todos los servicios (Apache, PHP, MySQL, etc) haciendo:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>./vendor/bin/sail up
+</code></pre></div>    </div>
+
+    <p>O bien:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>./vendor/bin/sail up <span class="nt">-d</span>
+</code></pre></div>    </div>
+
+    <p>Esto es el equivalente a hacer <code class="language-plaintext highlighter-rouge">docker compose up</code> o <code class="language-plaintext highlighter-rouge">docker compose up -d</code>, pero usando <code class="language-plaintext highlighter-rouge">sail</code>, la herramienta de Laravel, como sustituto.</p>
+  </li>
+  <li>Comprueba que Laravel está funcionando bien haciendo visitando en tu navegador la dirección <code class="language-plaintext highlighter-rouge">http://localhost</code>. Debería verse la pantalla de bienvenida de Laravel 13.</li>
+  <li>Detén los contenedores como harías con docker compose: o bien pulsando <code class="language-plaintext highlighter-rouge">CTRL+C</code> o bien tecleando  <code class="language-plaintext highlighter-rouge">./vendor/bin/sail down</code>.</li>
+</ol>
+
+<p><strong>OJO: La primera vez que levantes los contenedores puede tardar bastante</strong>, porque tiene que descargar y construir las imágenes necesarias. La siguientes veces será mucho más rápido.</p>
+
+<h3 id="paso-3-comprobar-versión-de-php">PASO 3. Comprobar versión de PHP</h3>
+
+<p>Como hemos decidido no instalar PHP en nuestro ordenador, si ejecutas en un terminal de texto de tu máquina el comando <code class="language-plaintext highlighter-rouge">$ php</code>, lo lógico es que te responda con un <code class="language-plaintext highlighter-rouge">command not found</code> (salvo que tengas instalado PHP por otra razón).</p>
+
+<p>¿Dónde está entonces PHP? Está <em>dentro</em> de uno de los contenedores levantados con <code class="language-plaintext highlighter-rouge">sail</code>.</p>
+
+<p>Para abrir un terminal <em>dentro</em> de un contenedor, vimos en el tema 1 que docker tiene el comando <code class="language-plaintext highlighter-rouge">docker exec -it &lt;id-contenedor&gt; bash</code>. Sin embargo, con Laravel Sail es más fácil acceder al contenedor. Basta con que teclees <code class="language-plaintext highlighter-rouge">./vendor/bin/sail</code> delante del comando que quieras ejecutar <em>dentro</em> del contenedor.</p>
+
+<ol>
+  <li>Abre un terminal de texto en la carpeta del proyecto.</li>
+  <li>Levanta los contenedores de Laravel (si no están corriendo ya).</li>
+  <li>Teclea esto para ver la versión exacta de PHP que está usando el contenedor que te ha proporcionado Laravel:</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./vendor/bin/sail php <span class="nt">--version</span>
+</code></pre></div></div>
+
+<p><strong>RECUERDA:</strong> Más adelante tendrás que ejecutar muchas veces cosas <em>dentro</em> de los contenedores, como <code class="language-plaintext highlighter-rouge">artisan</code>, <code class="language-plaintext highlighter-rouge">mysql</code>, <code class="language-plaintext highlighter-rouge">npm</code> o <code class="language-plaintext highlighter-rouge">composer</code>. Se hace exactamente igual que ahora hemos ejecutado <code class="language-plaintext highlighter-rouge">php</code>.</p>
+
+<h3 id="paso-4-echar-un-vistazo-a-la-arquitectura-de-laravel">PASO 4. Echar un vistazo a la arquitectura de Laravel</h3>
+
+<p>Si abrimos la carpeta del proyecto, encontraremos una <strong>estructura de archivos y carpetas</strong> parecida a esta:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hola-laravel/
+│
+├── app/
+├── bootstrap/
+├── config/
+├── database/
+├── public/
+├── resources/
+├── routes/
+├── storage/
+├── tests/
+├── vendor/
+│
+├── .env
+├── .env.example
+├── artisan
+├── composer.json
+├── package.json
+└── vite.config.js
+</code></pre></div></div>
+
+<p><strong>No necesitas conocer todavía todos estos directorios</strong>. Basta con saber para qué sirven algunos de los más importantes:</p>
+
+<ul>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">app/</code></strong>: contendrá la mayor parte del código de nuestra aplicación (cuando lo escribamos).</p>
+  </li>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">bootstrap/</code></strong>: contiene los archivos necesarios para arrancar el framework y algunos archivos generados para mejorar el rendimiento. No suele tocarse.</p>
+  </li>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">config/</code></strong>: contiene los archivos de configuración de la aplicación.</p>
+  </li>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">database/</code></strong>: contiene todo lo necesario para que la base de datos funcione.</p>
+  </li>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">public/</code></strong>: es el directorio público de la aplicación. Contiene <code class="language-plaintext highlighter-rouge">index.php</code>, que es el punto de entrada de las peticiones HTTP (como el Front Controller de Laravel), además de otros recursos accesibles vía web.</p>
+  </li>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">resources/</code></strong>: contiene las vistas y los recursos del frontend, como CSS, JavaScript, imágenes, etc.</p>
+  </li>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">routes/</code></strong>: contiene las definiciones de las rutas de nuestra aplicación para que en enrutador de Laravel trabaje correctamente.</p>
+  </li>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">storage/</code></strong>: contiene archivos generados por Laravel, como logs, cachés y otros archivos internos. ¡No tocar!</p>
+  </li>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">tests/</code></strong>: contiene las pruebas automatizadas de la aplicación.</p>
+  </li>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">vendor/</code></strong>: contiene las dependencias instaladas por Composer. ¡No tocar!.</p>
+  </li>
+</ul>
+
+<p>También hay <strong>algunos archivos muy importantes</strong> en la raíz del proyecto:</p>
+
+<ul>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">.env</code></strong>: contiene configuración específica del entorno en el que se ejecuta la aplicación.</p>
+  </li>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">.env.example</code></strong>: sirve como ejemplo de las variables de entorno que necesita la aplicación.</p>
+  </li>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">artisan</code></strong>: es el script que nos permite utilizar la consola de Laravel.</p>
+  </li>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">composer.json</code></strong>: describe las dependencias PHP y otra información del proyecto.</p>
+  </li>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">package.json</code></strong>: describe las dependencias y scripts relacionados con Node.js.</p>
+  </li>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">compose.yaml</code></strong>: configuración para docker compose (sail).</p>
+  </li>
+</ul>
+
+<p>No es necesario que memorices esta estructura. Cuando vayas trabajando con ella te familiarizarás sin darte cuenta.</p>
+
+<h3 id="paso-5-crear-el-archivo-env">PASO 5. Crear el archivo <code class="language-plaintext highlighter-rouge">.env</code></h3>
+
+<p>El archivo <code class="language-plaintext highlighter-rouge">.env</code> contiene <strong>los valores de configuración</strong> que pueden variar dependiendo del entorno en el que ejecutemos nuestra aplicación, como el nombre de la  base de datos o las credenciales para esa misma la base de datos.</p>
+
+<p>Un archivo <code class="language-plaintext highlighter-rouge">.env</code> recién creado contiene, entre otras cosas, estas variables:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>APP_NAME=Laravel
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost
+
+DB_HOST=host_de_la_base_de_datos
+DB_DATABASE=mi_base_de_datos
+DB_USERNAME=usuaro_base_de_datos
+DB_PASSWORD=password_base_de_datos
+</code></pre></div></div>
+
+<p>Laravel viene con <strong>un archivo <code class="language-plaintext highlighter-rouge">.env.example</code></strong> que te sirve como punto de partida para construir tu <code class="language-plaintext highlighter-rouge">.env</code>.</p>
+
+<ol>
+  <li>Buscar el archivo <code class="language-plaintext highlighter-rouge">.env.example</code> que debe venir con tu distribución limpia de Laravel.</li>
+  <li>Cópialo o renómbralo como <code class="language-plaintext highlighter-rouge">.env</code>.</li>
+</ol>
+
+<p><strong>Importante:</strong> recuerda que el archivo <code class="language-plaintext highlighter-rouge">.env</code> contiene información delicada y <strong>no debe subirse a un repositorio Git</strong>. ¡Comprueba que está en <code class="language-plaintext highlighter-rouge">.gitignore</code> antes de sincronizar nada!</p>
+
+<h3 id="paso-6-probar-artisan-la-consola-de-laravel">PASO 6. Probar artisan, la consola de Laravel</h3>
+
+<p><strong>Artisan</strong> es una de las herramientas que más vas a utilizar durante el desarrollo de aplicaciones con Laravel.</p>
+
+<p>Se trata de una <strong>interfaz de línea de comandos para interactuar con Laravel</strong> y se usa para muchísimas tareas habituales, como crear controladores, modelos o migraciones, limpiar cachés, ejecutar tareas de mantenimiento, etc.</p>
+
+<ol>
+  <li>Abre un terminal de texto en el directorio del proyecto.</li>
+  <li>
+    <p>Comprueba que artisan funciona:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>./vendor/bin/sail artisan   
+</code></pre></div>    </div>
+
+    <p>Esto debe mostrarte información sobre los comandos disponibles. Iremos viendo muchos de ellos conforme los necesitemos a lo largo del tema.</p>
+  </li>
+  <li>
+    <p>Prueba este comando concreto:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>./vendor/bin/sail artisan route:list
+</code></pre></div>    </div>
+
+    <p>Esto te mostrará las rutas que Laravel tiene registradas en la aplicación. Como Laravel está limpio y recién instalado, solo deben aparecer estas:</p>
+
+    <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code> GET|HEAD   / .......................
+ GET|HEAD   up .....................
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="paso-7-crear-nuestra-primera-ruta">PASO 7. Crear nuestra primera ruta</h3>
+
+<ol>
+  <li>Abre el archivo <code class="language-plaintext highlighter-rouge">routes/web.php</code>. Este es el enrutador principal de Laravel.</li>
+  <li>
+    <p>Añade esto:</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kn">use</span> <span class="nc">Illuminate\Support\Facades\Route</span><span class="p">;</span>
+
+ <span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/hola'</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+     <span class="k">return</span> <span class="s1">'Hola mundo'</span><span class="p">;</span>
+ <span class="p">});</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Ejecuta el comando <code class="language-plaintext highlighter-rouge">./vendor/bin/sail artisan route:list</code>. Debería mostrarte una nueva ruta <code class="language-plaintext highlighter-rouge">/hola</code>.</li>
+  <li>En tu navegador web, visita la dirección <code class="language-plaintext highlighter-rouge">http://localhost/hola</code>. Deberías ver una página web que simplemente dice <code class="language-plaintext highlighter-rouge">Hola mundo</code>. ¡Acabas de hacer tu primer “Hola mundo” con Laravel.</li>
+</ol>
+
+<h4 id="qué-ha-ocurrido">¿Qué ha ocurrido?</h4>
+
+<p>Hemos creado una ruta nueva en <code class="language-plaintext highlighter-rouge">web.php</code>, y le hemos dicho a Laravel que capture el endpoint <code class="language-plaintext highlighter-rouge">/hola</code> y ejecute un fragmento de código, un sencillo <code class="language-plaintext highlighter-rouge">return 'Hola mundo'</code>.</p>
+
+<p>Cuando Laravel recibe un texto como respuesta a una Request http, genera por defecto un documeto HTML con ese texto como contenido.</p>
+
+<p>Por eso vemos <code class="language-plaintext highlighter-rouge">Hola mundo</code> al visitar el endpoint <code class="language-plaintext highlighter-rouge">http://localhost/hola</code>.</p>
+
+<h3 id="paso-8-crear-una-ruta-con-un-parámetro">PASO 8. Crear una ruta con un parámetro</h3>
+
+<ol>
+  <li>
+    <p>Abre <code class="language-plaintext highlighter-rouge">routes/web.php</code> y añade:</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/saludo/{nombre}'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$nombre</span><span class="p">)</span> <span class="p">{</span>
+     <span class="k">return</span> <span class="s2">"Hola, </span><span class="nv">$nombre</span><span class="s2">"</span><span class="p">;</span>
+ <span class="p">});</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Visita, por ejemplo, <code class="language-plaintext highlighter-rouge">http://localhost/saludo/Ana</code>. Deberías ver una página en blanco con el texto “Hola, Ana”.</p>
+
+    <p>Si pruebas con otros nombres, la página cambiará.</p>
+  </li>
+</ol>
+
+<h4 id="qué-ha-ocurrido-1">¿Qué ha ocurrido?</h4>
+
+<p>Hemos creado una <strong>ruta parametrizada</strong>.</p>
+
+<p>Al crear la ruta o endpoint, hemos añadido <code class="language-plaintext highlighter-rouge">{nombre}</code> escrito entre llaves (<code class="language-plaintext highlighter-rouge">{ }</code>). La ruta resultante ha sido <code class="language-plaintext highlighter-rouge">hola/{nombre}</code>.</p>
+
+<p>Eso hace que Laravel coja <em>cualquier cosa</em> que se escriba a continuación de <code class="language-plaintext highlighter-rouge">http://localhost/hola</code> y la asigne a la variable <code class="language-plaintext highlighter-rouge">$nombre</code>. Por eso, al hacer <code class="language-plaintext highlighter-rouge">return "Hola, $nombre"</code> vemos exactamente el nombre que incluimos en el endpoint.</p>
+
+<p>En cambio, si volvemos a pedir <code class="language-plaintext highlighter-rouge">http://localhost/hola</code>, Laravel seguirá generando un <code class="language-plaintext highlighter-rouge">Hola mundo</code>, porque la ruta <code class="language-plaintext highlighter-rouge">hola/{nombre}</code> <strong>no coincide</strong> con el endpoint que acabamos de solicitar y sí lo hace la ruta <code class="language-plaintext highlighter-rouge">/hola</code>.</p>
+
+<h3 id="una-advertencia-final-desarrollo-frente-a-producción">Una advertencia final: desarrollo frente a producción</h3>
+
+<p>El entorno que estamos utilizando es un <strong>entorno de desarrollo</strong>.</p>
+
+<p>Laravel Sail está pensado precisamente para proporcionar un entorno Docker sencillo para desarrollar aplicaciones Laravel. Permite comenzar a programar pronto, sin necesidad de configurar trabajosamente un servidor.</p>
+
+<p>Cuando una aplicación se pone en producción, se elige cuidadosamente una <strong>configuración de producción</strong>. En un servidor de producción normalmente utilizaremos una infraestructura diferente y configurada para las necesidades de la aplicación, donde primará la velocidad de ejecución y la seguridad por encima de la facilidad de puesta en marcha.</p>
+:ET

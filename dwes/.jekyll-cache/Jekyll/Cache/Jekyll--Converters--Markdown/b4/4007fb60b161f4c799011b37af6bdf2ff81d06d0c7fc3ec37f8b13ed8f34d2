@@ -1,0 +1,310 @@
+I"Ek<h2 class="no_toc" id="38-sesiones-autenticación-y-middlewares">3.8. Sesiones, autenticación y middlewares</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#381-drivers-de-sesión" id="markdown-toc-381-drivers-de-sesión">3.8.1. Drivers de sesión</a></li>
+  <li><a href="#382-persistencia-de-las-variables-de-sesión" id="markdown-toc-382-persistencia-de-las-variables-de-sesión">3.8.2. Persistencia de las variables de sesión</a></li>
+  <li><a href="#383-autenticación" id="markdown-toc-383-autenticación">3.8.3. Autenticación</a></li>
+  <li><a href="#384-el-starter-kit-más-simple-laravel-breeze" id="markdown-toc-384-el-starter-kit-más-simple-laravel-breeze">3.8.4. El Starter Kit más simple: Laravel Breeze</a></li>
+  <li><a href="#385-autenticación-y-vistas-cómo-generar-código-dependiendo-del-tipo-de-usuario" id="markdown-toc-385-autenticación-y-vistas-cómo-generar-código-dependiendo-del-tipo-de-usuario">3.8.5. Autenticación y vistas: cómo generar código dependiendo del tipo de usuario</a></li>
+  <li><a href="#386-diferencia-entre-autenticación-y-autorización" id="markdown-toc-386-diferencia-entre-autenticación-y-autorización">3.8.6. Diferencia entre Autenticación y Autorización</a></li>
+  <li><a href="#387-autenticación-y-middlewares-cómo-proteger-las-rutas" id="markdown-toc-387-autenticación-y-middlewares-cómo-proteger-las-rutas">3.8.7. Autenticación y middlewares: cómo proteger las rutas</a></li>
+  <li><a href="#388-práctica-de-sesiones-y-autenticación" id="markdown-toc-388-práctica-de-sesiones-y-autenticación">3.8.8. Práctica de sesiones y autenticación</a></li>
+</ul>
+
+<p>Como es lógico, Laravel también proporciona su propio sistema de manejo de <strong>variables de sesión</strong>, es decir, variables persistentes en el servidor asociadas a cada cliente.</p>
+
+<p>Las variables de sesión de Laravel son mucho más seguras y poderosas que las variables de sesión estándar de PHP. En esta sección vamos a ver cómo funcionan y qué posibilidades nos ofrecen las sesiones en Laravel. También veremos cómo construir un robusto sistema de <strong>autenticación de usuarios</strong> con muy poco trabajo y qué son y qué papel juegan los <strong>middlewares</strong> en todo esto.</p>
+
+<h3 id="381-drivers-de-sesión">3.8.1. Drivers de sesión</h3>
+
+<p>Las sesiones de configuran en <em><code class="language-plaintext highlighter-rouge">/config/sessions.php</code></em>, y una de las cosas que debes configurar ahí es el <strong>driver</strong> de sesión, es decir, el tipo de manejador que quieres que manipule las sesiones.</p>
+
+<ul>
+  <li>
+    <p><strong><em>Database</em></strong>:</p>
+
+    <p>En las últimas versiones de Laravel (a partir de la v11), el driver por defecto suele ser <strong><em>database</em></strong>. Laravel almacenará las sesiones de los usuarios en la tabla <code class="language-plaintext highlighter-rouge">sessions</code> de tu base de datos. Es seguro, escalable y muy recomendable.</p>
+  </li>
+  <li>
+    <p><strong><em>Files</em></strong>:</p>
+
+    <p>Tradicionalmente fue el driver por defecto. Laravel guardará las variables de sesión en ficheros especiales en el servidor (que nosotros no tenemos que manejar). Es sencillo pero menos escalable que la base de datos.</p>
+  </li>
+  <li>
+    <p><strong><em>Memcached</em></strong> y <strong><em>Redis</em></strong>:</p>
+
+    <p>Para aplicaciones en producción con muchísima carga, Laravel recomienda usar <strong><em>memcached</em></strong> o <strong><em>redis</em></strong> porque son extremadamente rápidos guardando las sesiones en memoria RAM. Ambos son <em>daemons</em> del sistema, lo que significa que el servidor debe soportarlos para que puedas usarlos.</p>
+  </li>
+</ul>
+
+<p>Una vez elegido del driver, si el servidor lo soporta, no tienes que hacer nada más en especial: desde el punto de vista del programador, todos se manejan exactamente igual, porque Laravel hará todo el trabajo específico con el driver por ti.</p>
+
+<h3 id="382-persistencia-de-las-variables-de-sesión">3.8.2. Persistencia de las variables de sesión</h3>
+
+<p>Laravel maneja dos tipos de variable según su persistencia:</p>
+
+<ul>
+  <li><strong>Variables flash</strong>: solo duran una petición y luego desaparecen.</li>
+  <li><strong>Variables de sesión convencionales</strong>: existen hasta que las destruimos expresamente.</li>
+</ul>
+
+<h4 id="variables-flash">Variables flash</h4>
+
+<p>Son variables de sesión que solo duran una petición y luego se <em>autodestruyen</em>. Se usan típicamente para enviar un <em>feedback</em> o mensaje de retroalimentación al usuario.</p>
+
+<p>Te lo muestro con un ejemplo. Imagina el típico formulario de <em>login</em>. En caso de producirse un error, lo habitual es que la aplicación nos muestre de nuevo ese formulario con un mensaje del tipo de “Usuario no reconocido”.</p>
+
+<p>Para lograr eso, haríamos lo siguiente en el controlador. Observa el uso del <strong>método <code class="language-plaintext highlighter-rouge">*with()*</code></strong> para crear una variable flash de sesión llamada <em>mensaje</em>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">return</span> <span class="p">(</span><span class="s1">'login/form'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">with</span><span class="p">(</span><span class="s1">'mensaje'</span><span class="p">,</span> <span class="s1">'Usuario no reconocido'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>En la vista, podemos acceder a esa variable flash. Por ejemplo, así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="o">@</span><span class="k">if</span> <span class="p">(</span><span class="nf">session</span><span class="p">(</span><span class="s1">'mensaje'</span><span class="p">))</span>
+        <span class="p">{{</span> <span class="nf">session</span><span class="p">(</span><span class="s1">'mensaje'</span><span class="p">);</span> <span class="p">}}</span>
+    <span class="o">@</span><span class="k">endif</span>
+</code></pre></div></div>
+
+<p>A partir de este momento, la variable flash se destruye y cualquier intento de acceder a ella provocará un error de ejecución.</p>
+
+<h4 id="variables-de-sesión-convencionales">Variables de sesión convencionales</h4>
+
+<p>Las variables de sesión convencionales se manejan con la <strong>clase <em>Session</em></strong>, que tiene un montón de métodos estáticos para crear variables, destruirlas, consultarlas, etc.</p>
+
+<p>Los métodos más útiles son:</p>
+
+<ul>
+  <li>
+    <p><strong>put()</strong> -&gt; almacena una variable de sesión:</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nc">Session</span><span class="o">::</span><span class="nf">put</span><span class="p">(</span><span class="s1">'nombre-variable'</span><span class="p">,</span> <span class="s1">'valor'</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>push()</strong> -&gt; elimina una variable de sesión:</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nc">Session</span><span class="o">::</span><span class="nf">push</span><span class="p">(</span><span class="s1">'nombre-variable'</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>get()</strong> -&gt; devuelve el valor de una variable de sesión:</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$v</span> <span class="o">=</span> <span class="nc">Session</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'nombre-variable'</span><span class="p">);</span>
+    <span class="nv">$v</span> <span class="o">=</span> <span class="nc">Session</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'nombre-variable'</span><span class="p">,</span> <span class="s1">'valor-por-defecto'</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>all()</strong> -&gt; devuelve todas las variables de sesión en un array:</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$a</span> <span class="o">=</span> <span class="nc">Session</span><span class="o">::</span><span class="nf">all</span><span class="p">(</span><span class="s1">'nombre-variable'</span><span class="p">,</span> <span class="s1">'valor'</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>flush()</strong> -&gt; elimina todas las variables de sesión:</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nc">Session</span><span class="o">::</span><span class="nb">flush</span><span class="p">();</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>flash()</strong> -&gt; crea manualmente una variable de sesión de tipo flash:</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nc">Session</span><span class="o">::</span><span class="nf">flash</span><span class="p">(</span><span class="s1">'nombre-variable'</span><span class="p">,</span> <span class="s1">'valor'</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="383-autenticación">3.8.3. Autenticación</h3>
+
+<p>La autenticación de usuarios, es decir, el sistema de <em>login</em> seguido de la creación de una o varias variables de sesión asociadas al usuario, es un componente habitual de muchas aplicaciones web.</p>
+
+<p>Actualmente, Laravel proporciona los denominados <em>Starter Kits</em>, que son componentes que se pueden instalar para delegar todo este trabajo y no tener que programar nosotros mismos el formulario de login, el registro, la seguridad, etc.</p>
+
+<p>Para la autenticación, Laravel dispone de varios <em>Starter Kits</em>. El más simple y recomendado oficialmente para empezar en Laravel 13 sigue siendo <strong>Laravel Breeze</strong>.</p>
+
+<h3 id="384-el-starter-kit-más-simple-laravel-breeze">3.8.4. El Starter Kit más simple: Laravel Breeze</h3>
+
+<p><strong><em>Laravel Breeze</em></strong> contiene el código mínimo necesario para crear un sistema de autenticación completo y seguro (login, registro, reseteo de contraseñas, etc.) usando Blade de forma muy sencilla.</p>
+
+<p>Para <strong>instalar el Starter Kit</strong>, abre un terminal (si usas Sail, recuerda añadir <code class="language-plaintext highlighter-rouge">./vendor/bin/sail</code> delante de <code class="language-plaintext highlighter-rouge">artisan</code> y <code class="language-plaintext highlighter-rouge">npm</code>):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>composer require laravel/breeze <span class="nt">--dev</span>
+<span class="nv">$ </span>./vendor/bin/sail artisan breeze:install blade
+<span class="nv">$ </span>./vendor/bin/sail artisan migrate
+<span class="nv">$ </span>./vendor/bin/sail npm <span class="nb">install</span>
+<span class="nv">$ </span>./vendor/bin/sail npm run build
+</code></pre></div></div>
+
+<p>Estos comandos instalarán la librería, publicarán las vistas y controladores básicos de autenticación en tu proyecto y actualizarán la base de datos. No hace falta complicarse más, Breeze hará todo el trabajo pesado.</p>
+
+<p>Una vez hecho esto, Breeze creará automáticamente el archivo de rutas <code class="language-plaintext highlighter-rouge">routes/auth.php</code> y varias vistas en <code class="language-plaintext highlighter-rouge">resources/views/auth/</code>. Puedes probar directamente visitando <code class="language-plaintext highlighter-rouge">/login</code> y <code class="language-plaintext highlighter-rouge">/register</code> en tu navegador. Ya tienes un sistema de usuarios funcional y seguro.</p>
+
+<h3 id="385-autenticación-y-vistas-cómo-generar-código-dependiendo-del-tipo-de-usuario">3.8.5. Autenticación y vistas: cómo generar código dependiendo del tipo de usuario</h3>
+
+<p>En las vistas, tenemos un par de directivas de Blade muy útiles relacionadas con las sesiones: <strong><em>@auth</em></strong> y <strong><em>@guest</em></strong>. Puedes ver cómo funcionan en este ejemplo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@auth
+    <span class="nt">&lt;p&gt;</span>Bienvenido, {{ Auth::user()-&gt;name }}<span class="nt">&lt;/p&gt;</span>
+    <span class="c">&lt;!-- Este código solo se renderiza si hay un usuario logueado --&gt;</span>
+@endauth
+
+@guest
+    <span class="nt">&lt;p&gt;</span>Por favor, identifícate.<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"{{ route('login') }}"</span><span class="nt">&gt;</span>Login<span class="nt">&lt;/a&gt;</span>
+    <span class="c">&lt;!-- Este código solo se renderiza si NO hay sesión --&gt;</span>
+@endguest
+</code></pre></div></div>
+
+<p>Además, podemos acceder a los datos del usuario mediante la clase <code class="language-plaintext highlighter-rouge">Auth</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$user</span> <span class="o">=</span> <span class="nc">Auth</span><span class="o">::</span><span class="nf">user</span><span class="p">();</span> <span class="c1">// Devuelve el usuario actualmente logueado o null si no hay sesión</span>
+<span class="k">if</span> <span class="p">(</span><span class="nc">Auth</span><span class="o">::</span><span class="nf">check</span><span class="p">())</span> <span class="p">{</span>  <span class="c1">// Devuelve true si el usuario actual está logueado</span>
+   <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>(Más métodos de Auth en <a href="https://laravel.com/docs/authentication">la documentación oficial</a>)</p>
+
+<h3 id="386-diferencia-entre-autenticación-y-autorización">3.8.6. Diferencia entre Autenticación y Autorización</h3>
+
+<p>Es fundamental no confundir estos dos conceptos:</p>
+<ul>
+  <li><strong>Autenticación (Authentication)</strong>: Es el proceso de verificar <strong>quién eres</strong>. (Ej: Hacer login con usuario y contraseña).</li>
+  <li><strong>Autorización (Authorization)</strong>: Es el proceso de verificar <strong>qué puedes hacer</strong>. (Ej: ¿Este usuario autenticado tiene permisos para borrar este producto concreto? ¿Es administrador?).</li>
+</ul>
+
+<p>En esta sección nos estamos centrando en la Autenticación. La Autorización en Laravel se maneja usando <em>Gates</em> y <em>Policies</em>, que son mecanismos para proteger acciones concretas.</p>
+
+<h3 id="387-autenticación-y-middlewares-cómo-proteger-las-rutas">3.8.7. Autenticación y middlewares: cómo proteger las rutas</h3>
+
+<p>Los <strong>middlewares</strong> de Laravel son componentes que capturan y filtran todas las peticiones HTTP que llegan a la aplicación (literalmente, se ponen <em>en medio</em>).</p>
+
+<p>Para proteger partes de tu aplicación y exigir que el usuario haya hecho login, Laravel nos proporciona el middleware integrado <strong><em>auth</em></strong>.</p>
+
+<p>La forma moderna y recomendada de aplicarlo es directamente en el archivo de rutas (<code class="language-plaintext highlighter-rouge">routes/web.php</code>):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Proteger una ruta individual</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/ruta-privada'</span><span class="p">,</span> <span class="p">[</span><span class="nc">MiControlador</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'metodo'</span><span class="p">])</span><span class="o">-&gt;</span><span class="nf">middleware</span><span class="p">(</span><span class="s1">'auth'</span><span class="p">);</span>
+
+<span class="c1">// Proteger un grupo de rutas (muy común para recursos protegidos)</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">middleware</span><span class="p">(</span><span class="s1">'auth'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">group</span><span class="p">(</span><span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/dashboard'</span><span class="p">,</span> <span class="p">[</span><span class="nc">DashboardController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'index'</span><span class="p">]);</span>
+    <span class="nc">Route</span><span class="o">::</span><span class="nf">resource</span><span class="p">(</span><span class="s1">'products'</span><span class="p">,</span> <span class="nc">ProductController</span><span class="o">::</span><span class="n">class</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">except</span><span class="p">([</span><span class="s1">'index'</span><span class="p">,</span> <span class="s1">'show'</span><span class="p">]);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Si intentas acceder a una de estas rutas sin estar logueado, el middleware <code class="language-plaintext highlighter-rouge">auth</code> lo detectará y te redirigirá automáticamente a la página de login.</p>
+
+<h3 id="388-práctica-de-sesiones-y-autenticación">3.8.8. Práctica de sesiones y autenticación</h3>
+
+<p>Vamos a <strong>incorporar un sistema de autenticación</strong> a nuestra pequeña aplicación de productos y categorías, y lo vamos a hacer usando Laravel Breeze.</p>
+
+<p>El objetivo es que cualquier usuario (incluso los visitantes anónimos o <em>guests</em>) pueda <strong>ver</strong> el catálogo de productos (<code class="language-plaintext highlighter-rouge">index</code> y <code class="language-plaintext highlighter-rouge">show</code>), pero solo los usuarios autenticados puedan <strong>crear, editar o borrar</strong> productos.</p>
+
+<h4 id="objetivos">Objetivos</h4>
+<ul>
+  <li>Instalar el Starter Kit de autenticación (Breeze).</li>
+  <li>Proteger las rutas sensibles usando el middleware <code class="language-plaintext highlighter-rouge">auth</code>.</li>
+  <li>Ocultar los botones de creación, edición y borrado en las vistas para los usuarios no logueados (<code class="language-plaintext highlighter-rouge">@auth</code> / <code class="language-plaintext highlighter-rouge">@guest</code>).</li>
+</ul>
+
+<h4 id="paso-1-instalar-laravel-breeze">PASO 1. Instalar Laravel Breeze</h4>
+
+<ol>
+  <li>Abre tu terminal y ejecuta los siguientes comandos para instalar Breeze en su versión más simple (Blade):
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>composer require laravel/breeze <span class="nt">--dev</span>
+<span class="nv">$ </span>./vendor/bin/sail artisan breeze:install blade
+<span class="nv">$ </span>./vendor/bin/sail artisan migrate
+<span class="nv">$ </span>./vendor/bin/sail npm <span class="nb">install</span>
+<span class="nv">$ </span>./vendor/bin/sail npm run build
+</code></pre></div>    </div>
+  </li>
+  <li>Entra en tu navegador a <code class="language-plaintext highlighter-rouge">http://localhost/register</code> y crea una cuenta de usuario para ti.</li>
+  <li>Al terminar, deberías estar logueado. Puedes ver arriba a la derecha tu nombre y la opción de hacer <em>Log Out</em>.</li>
+</ol>
+
+<h4 id="paso-2-proteger-las-rutas-de-modificación-en-webphp">PASO 2. Proteger las rutas de modificación en <code class="language-plaintext highlighter-rouge">web.php</code></h4>
+
+<ol>
+  <li>Abre <code class="language-plaintext highlighter-rouge">routes/web.php</code>.</li>
+  <li>Seguramente tengas una ruta <code class="language-plaintext highlighter-rouge">Route::resource('products', ProductController::class);</code>. Cámbiala por esto para que <code class="language-plaintext highlighter-rouge">index</code> y <code class="language-plaintext highlighter-rouge">show</code> sean públicas, pero que el resto requieran login:
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Http\Controllers\ProductController</span><span class="p">;</span>
+
+<span class="c1">// Rutas PÚBLICAS de productos</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">resource</span><span class="p">(</span><span class="s1">'products'</span><span class="p">,</span> <span class="nc">ProductController</span><span class="o">::</span><span class="n">class</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">only</span><span class="p">([</span><span class="s1">'index'</span><span class="p">,</span> <span class="s1">'show'</span><span class="p">]);</span>
+
+<span class="c1">// Rutas PRIVADAS (Protegidas por middleware 'auth')</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">middleware</span><span class="p">(</span><span class="s1">'auth'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">group</span><span class="p">(</span><span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nc">Route</span><span class="o">::</span><span class="nf">resource</span><span class="p">(</span><span class="s1">'products'</span><span class="p">,</span> <span class="nc">ProductController</span><span class="o">::</span><span class="n">class</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">except</span><span class="p">([</span><span class="s1">'index'</span><span class="p">,</span> <span class="s1">'show'</span><span class="p">]);</span>
+<span class="p">});</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Cierra sesión (o abre una ventana de incógnito) e intenta entrar a <code class="language-plaintext highlighter-rouge">http://localhost/products/create</code>. Verás que te redirige automáticamente a la pantalla de login. ¡Eso significa que la protección funciona!</li>
+</ol>
+
+<h4 id="paso-3-ocultar-botones-en-las-vistas">PASO 3. Ocultar botones en las vistas</h4>
+
+<p>Aunque la ruta esté protegida, los enlaces en las vistas seguirán apareciendo si no los ocultamos, lo que genera una mala experiencia de usuario (pulsarán el botón para nada, porque, si no están autenticados, el middleware <code class="language-plaintext highlighter-rouge">auth</code> los redirigirá a la pantalla de login).</p>
+
+<ol>
+  <li>Abre <code class="language-plaintext highlighter-rouge">resources/views/productos/index.blade.php</code>.</li>
+  <li>
+    <p>Rodea el enlace de “Crear producto” y los enlaces de “Editar” con la directiva <code class="language-plaintext highlighter-rouge">@auth</code> para que solo se vean si estás logueado:</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@auth
+    <span class="nt">&lt;p&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"{{ route('products.create') }}"</span><span class="nt">&gt;</span>Crear producto<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/p&gt;</span>
+@endauth
+   
+<span class="c">&lt;!-- Bucle foreach de los productos... --&gt;</span>
+   
+@auth
+    <span class="nt">&lt;p&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"{{ route('products.edit', $producto-&gt;id) }}"</span><span class="nt">&gt;</span>Editar<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/p&gt;</span>
+@endauth
+</code></pre></div>    </div>
+  </li>
+  <li>Repite este proceso en <code class="language-plaintext highlighter-rouge">resources/views/productos/show.blade.php</code>, rodeando los enlaces o formularios de editar y borrar con <code class="language-plaintext highlighter-rouge">@auth</code>.</li>
+</ol>
+
+<h4 id="paso-4-saludar-al-usuario-autenticado">PASO 4. Saludar al usuario autenticado</h4>
+
+<ol>
+  <li>Abre tu <em>master layout</em> principal (el tuyo propio, o el de Breeze).</li>
+  <li>
+    <p>Añade este bloque en la cabecera (header o nav) para saludar al usuario y darle la opción de login/logout:</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;nav&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"{{ route('products.index') }}"</span><span class="nt">&gt;</span>Catálogo<span class="nt">&lt;/a&gt;</span>
+       
+    @auth
+        <span class="nt">&lt;span&gt;</span>¡Hola, {{ Auth::user()-&gt;name }}!<span class="nt">&lt;/span&gt;</span>
+        <span class="c">&lt;!-- El logout de Breeze debe hacerse por POST, por eso usamos un formulario oculto --&gt;</span>
+        <span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">"POST"</span> <span class="na">action=</span><span class="s">"{{ route('logout') }}"</span> <span class="na">style=</span><span class="s">"display:inline;"</span><span class="nt">&gt;</span>
+            @csrf
+            <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span><span class="nt">&gt;</span>Cerrar Sesión<span class="nt">&lt;/button&gt;</span>
+        <span class="nt">&lt;/form&gt;</span>
+    @endauth
+       
+    @guest
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"{{ route('login') }}"</span><span class="nt">&gt;</span>Login<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"{{ route('register') }}"</span><span class="nt">&gt;</span>Registro<span class="nt">&lt;/a&gt;</span>
+    @endguest
+<span class="nt">&lt;/nav&gt;</span>
+</code></pre></div>    </div>
+
+    <p><strong>Ahora tu aplicación diferencia a los visitantes anónimos de los usuarios registrados con capacidad de administrar datos</strong>. Has asegurado tu CRUD con variables de sesión y el middleware de Laravel.</p>
+  </li>
+</ol>
+
+<div style="color: red; font-style: italic">
+  <p><strong>ASEGÚRATE DE ENTENDER TODO LO QUE HAS HECHO Y NO SOLO DE QUE FUNCIONE.</strong></p>
+
+  <p>Recuerda que cuando hagas prácticas de entrega obligatoria y exámenes, te podremos preguntar, por escrito u oralmente, qué hace tu código para comprobar que realmente lo entiendes, independientemente de si el código lo has escrito todo tú o lo has generado con ayuda de una IA.</p>
+
+  <p><span style="font-size: 75%">(En esta práctica, Laravel Breeze habrá creado mucho código mezclado con tus controladores y tus vistas. Obviamente, ese código no es tuyo y no tienes por qué conocerlo, pero sí tener una idea global de qué hace y distinguirlo del que sí es tuyo)</span></p>
+</div>
+
+:ET

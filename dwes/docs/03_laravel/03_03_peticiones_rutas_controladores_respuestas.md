@@ -245,7 +245,7 @@ Pero nadie lo hace así porque **Artisan** ya crea el esqueleto del archivo por 
     Por ejemplo, para crear un controlador para la tabla de usuarios:
 
     ```
-    $ ./vendor/bin/sail php artisan make:controller UserController
+    $ ./vendor/bin/sail artisan make:controller UserController
     ```
 
 * **Forma 2. Crear un controlador de tipo resource.**
@@ -257,7 +257,7 @@ Pero nadie lo hace así porque **Artisan** ya crea el esqueleto del archivo por 
     Para crear un controlador RESTful:
 
     ```
-    $ ./vendor/bin/sail php artisan make:controller UserController --resource
+    $ ./vendor/bin/sail artisan make:controller UserController --resource
     ```
 
     No te olvides de añadir al enrutador (`/routes/web.php`) las rutas REST para este tipo controlador. Te recuerdo que se pueden resumir las siete rutas en esta sola entrada del enrutador:
@@ -283,7 +283,7 @@ Pero nadie lo hace así porque **Artisan** ya crea el esqueleto del archivo por 
     Se puede construir con Laravel un controlador tipo API de forma muy simple, porque es parecido a un *resource*, pero sin `create()` ni `edit()`, porque una API no necesita mostrar los formularios de inserción/modificación.
 
     ```
-    $ ./vendor/bin/sail php artisan make:controller UserController --api
+    $ ./vendor/bin/sail artisan make:controller UserController --api
     ```
 
     De nuevo, no te olvides de las entradas en el enrutador. Puedes englobarlas todas en una sola entrada con este aspecto:

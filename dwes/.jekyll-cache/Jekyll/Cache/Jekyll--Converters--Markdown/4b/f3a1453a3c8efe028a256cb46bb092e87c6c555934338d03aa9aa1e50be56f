@@ -1,0 +1,720 @@
+I"�<h2 class="no_toc" id="12-contenedores-con-docker">1.2. Contenedores con Docker</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#121-qué-es-docker" id="markdown-toc-121-qué-es-docker">1.2.1. ¿Qué es Docker?</a></li>
+  <li><a href="#122-instalación-y-comandos-básicos-de-docker" id="markdown-toc-122-instalación-y-comandos-básicos-de-docker">1.2.2. Instalación y comandos básicos de Docker</a></li>
+  <li><a href="#123-docker-compose-orquestando-varios-contenedores-a-la-vez" id="markdown-toc-123-docker-compose-orquestando-varios-contenedores-a-la-vez">1.2.3. Docker Compose: orquestando varios contenedores a la vez</a></li>
+  <li><a href="#124-persistencia-de-datos" id="markdown-toc-124-persistencia-de-datos">1.2.4. Persistencia de datos</a></li>
+  <li><a href="#125-cómo-levantar-un-entorno-de-desarrollo-para-php-con-docker-compose" id="markdown-toc-125-cómo-levantar-un-entorno-de-desarrollo-para-php-con-docker-compose">1.2.5. Cómo levantar un entorno de desarrollo para PHP con Docker Compose</a></li>
+  <li><a href="#126-ajustando-la-configuración-de-php" id="markdown-toc-126-ajustando-la-configuración-de-php">1.2.6. Ajustando la configuración de PHP</a></li>
+  <li><a href="#127-y-qué-pasa-con-redis-python-y-otros-servicios" id="markdown-toc-127-y-qué-pasa-con-redis-python-y-otros-servicios">1.2.7. ¿Y qué pasa con Redis, Python y otros servicios?</a></li>
+  <li><a href="#128-de-un-entorno-de-desarrollo-a-un-entorno-de-producción" id="markdown-toc-128-de-un-entorno-de-desarrollo-a-un-entorno-de-producción">1.2.8. De un entorno de desarrollo a un entorno de producción</a></li>
+  <li><a href="#129-quieres-saber-más" id="markdown-toc-129-quieres-saber-más">1.2.9. ¿Quieres saber más?</a></li>
+  <li><a href="#1210-práctica-de-docker" id="markdown-toc-1210-práctica-de-docker">1.2.10. Práctica de Docker</a></li>
+</ul>
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/ehdegweqqo3ltbt8mgwqc/01_02_docker.pdf?rlkey=s1730lvqf0tjhjh44lfgcosb3&amp;st=jygxztr8&amp;dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
+
+<h3 id="121-qué-es-docker">1.2.1. ¿Qué es Docker?</h3>
+
+<p><strong>Docker</strong> es una herramienta de virtualización basada en <em>contenedores</em>.</p>
+
+<p>Un <strong>contenedor</strong> es un <strong>paquete de software completamente independiente del sistema donde se ejecuta</strong>. Recibe ese nombre por los contenedores que se utilizan en el transporte marítimo, que tienen unas medidas y una forma estandarizada y que aíslan por completo la carga que llevan dentro del exterior.</p>
+
+<p>Un contenedor Docker hace lo mismo, pero con un conjunto de software: lo aísla por completo del resto del sistema. El software que hay dentro del contenedor se puede ejecutar en cualquier máquina gracias al <em>runtime</em> de Docker (el programa que sabe interpretar y ejecutar contenedores), sin necesidad de instalar ni configurar nada de ese software directamente en tu ordenador.</p>
+
+<p><strong>Un contenedor puede contener cualquier cosa</strong>. Por ejemplo, un servidor Apache. De ese modo, podemos ejecutar Apache en cualquier máquina (siempre que tenga Docker instalado) sin necesidad de instalarlo de verdad, con todo lo que ello conlleva de configuración, dependencias, consumo de recursos, etc.</p>
+
+<p>Un contenedor puede ponerse en marcha cuando queramos y detenerse en cualquier momento y, salvo que le digamos explícitamente lo contrario (ahora veremos cómo), no dejará ningún rastro permanente en la máquina anfitriona.</p>
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<i>En definitiva, con Docker puedes usar y/o testear cualquier programa sin tener que instalarlo realmente, y su rendimiento es comparable al de una aplicación instalada de forma tradicional.</i>
+</div>
+
+<h4 id="contenedores-vs-imágenes">Contenedores vs Imágenes</h4>
+
+<p>Los contenedores Docker se crean a partir de <strong>imágenes</strong>. Una imagen es como el “molde”: contiene el software y todas sus dependencias ya instaladas y configuradas. A partir de una misma imagen puedes lanzar tantos contenedores como necesites.</p>
+
+<p>Dicho con términos de programación orientada a objetos: las imágenes son como las <em>clases</em>, y los contenedores son como los <em>objetos</em> que se instancian a partir de ellas.</p>
+
+<p>Cada cual puede construir sus propias imágenes (con un archivo llamado <em>Dockerfile</em>, algo que estudiaréis en el módulo de <em>Despliegue de Aplicaciones Web</em>) o usar imágenes ya hechas por otros.</p>
+
+<p>Existen repositorios públicos de imágenes y el más conocido es <strong>Docker Hub</strong> (<code class="language-plaintext highlighter-rouge">hub.docker.com</code>), donde puedes encontrar imágenes oficiales de prácticamente cualquier software conocido. Allí buscaremos nuestros servidores para PHP, MySQL, Redis, Python, Apache, Nginx…</p>
+
+<div style="padding: 20px; background-color: #ccc">
+  <p><strong>Un contenedor NO ES una máquina virtual</strong><br /><br />
+Este es un matiz importante. Una máquina virtual virtualiza hardware completo y arranca su propio sistema operativo entero, lo que la hace pesada y lenta de iniciar. Un contenedor Docker, en cambio, <strong>comparte el núcleo (kernel) del sistema operativo anfitrión</strong> y solo aísla el proceso mediante mecanismos del propio sistema operativo. Por eso un contenedor arranca en segundos (a veces milisegundos) y consume muchísimos menos recursos que una máquina virtual equivalente.</p>
+</div>
+
+<h3 id="122-instalación-y-comandos-básicos-de-docker">1.2.2. Instalación y comandos básicos de Docker</h3>
+
+<p>La forma más cómoda de tener Docker si usas <strong>Windows</strong> o <strong>Mac</strong> es instalar <strong>Docker Desktop</strong>, que incluye tanto el motor de Docker como una interfaz gráfica, así como <strong>Docker Compose</strong> ya integrado.</p>
+
+<p>En <strong>Linux</strong>, normalmente instalarás el paquete <em>Docker Engine</em> junto con el plugin de <em>Compose</em> desde el repositorio de tu distribución. En los ordenadores del instituto ya lo encontrarás todo instalado.</p>
+
+<p>Aunque existe interfaz gráfica, lo habitual como desarrollador/a es trabajar con Docker <strong>desde la línea de comandos</strong>.</p>
+
+<p>Esto no pretende ser un manual completo de Docker (lo verás con más detalle en otros módulos), pero sí vamos a enumerar aquí, a modo de “chuleta”, los comandos que más vas a necesitar como desarrollador/a web.</p>
+
+<h4 id="chuleta-con-los-comandos-más-frecuentes-de-docker">Chuleta con los comandos más frecuentes de Docker</h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">docker run [nombre-imagen]</code> — Lanza un contenedor a partir de la imagen especificada. Si la imagen no está descargada en tu ordenador, Docker la descargará antes de Docker Hub (o del repositorio que tengas configurado).</li>
+  <li><code class="language-plaintext highlighter-rouge">docker images</code> — Lista las imágenes que ya tienes descargadas en tu máquina.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker ps</code> — Muestra los contenedores que están actualmente en marcha. Con <code class="language-plaintext highlighter-rouge">docker ps -a</code> ves también los detenidos.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker stop [id-del-contenedor]</code> — Detiene un contenedor en marcha. Su id (o su nombre) se obtiene con <code class="language-plaintext highlighter-rouge">docker ps</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker start [id-del-contenedor]</code> — Vuelve a poner en marcha un contenedor detenido.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker rm [id-del-contenedor]</code> — Elimina un contenedor (debe estar detenido). Esto borra su sistema de archivos interno: cualquier dato que no esté en un volumen (ver más abajo) se perderá para siempre.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker rmi [nombre-imagen]</code> — Elimina una imagen descargada de tu disco.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker exec -it [id-del-contenedor] bash</code> — Abre una terminal <em>dentro</em> de un contenedor en marcha. Muy útil para investigar qué está pasando ahí dentro. Si la imagen no trae <code class="language-plaintext highlighter-rouge">bash</code> instalado (es habitual en imágenes basadas en Alpine), prueba con <code class="language-plaintext highlighter-rouge">sh</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker logs -f [id-del-contenedor]</code> — Muestra en tiempo real lo que el contenedor va escribiendo en su salida estándar (por ejemplo, el log de peticiones de Apache). Imprescindible para depurar.</li>
+</ul>
+
+<h3 id="123-docker-compose-orquestando-varios-contenedores-a-la-vez">1.2.3. Docker Compose: orquestando varios contenedores a la vez</h3>
+
+<p>En cuanto tu proyecto necesita más de un contenedor (por ejemplo, un servidor web, una base de datos y una herramienta de administración), lanzarlos uno a uno a mano con <code class="language-plaintext highlighter-rouge">docker run</code>, recordando todos sus parámetros, se vuelve un infierno. Para eso existe <strong>Docker Compose</strong>.</p>
+
+<p>Docker Compose te permite describir, en un único archivo llamado <strong><code class="language-plaintext highlighter-rouge">docker-compose.yml</code></strong>, todos los contenedores (llamados <em>servicios</em> en la jerga de Compose) que forman tu aplicación: qué imagen usa cada uno, qué puertos expone, qué variables de entorno necesita, qué volúmenes monta y de qué otros servicios depende. Con ese archivo escrito, levantar (o tirar abajo) toda tu infraestructura de desarrollo se reduce a un único comando.</p>
+
+<h4 id="con-guion-o-sin-guion">¿Con guion o sin guion?</h4>
+
+<p>Es posible que veas por internet el comando para ejecutar Docker Compose escrito a veces como <code class="language-plaintext highlighter-rouge">docker-compose</code> (con guion) y a veces como <code class="language-plaintext highlighter-rouge">docker-compose</code>(sin guion).</p>
+
+<ul>
+  <li>La versión con guion es un programa aparte que hay que instalar manualmente. Se trata de la versión 1 de Compose y hoy en día se considera obsoleta, aunque sigue funcionando.</li>
+  <li>En la actualidad, Compose viene integrado como un <em>plugin</em> del propio Docker, y el comando correcto de la versión 2 se escribe <strong>sin guion y con espacio</strong>: <code class="language-plaintext highlighter-rouge">docker compose</code>.</li>
+</ul>
+
+<h4 id="chuleta-de-comandos-esenciales-de-docker-compose">Chuleta de comandos esenciales de Docker Compose</h4>
+
+<p>Los comandos esenciales de Compose, ejecutados en el directorio donde tengas tu <code class="language-plaintext highlighter-rouge">docker-compose.yml</code>, son:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">docker compose up -d</code> — Crea y arranca todos los servicios definidos en el archivo. La opción <code class="language-plaintext highlighter-rouge">-d</code> hace que se ejecuten en segundo plano y te devuelva el control de la terminal.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker compose down</code> — Detiene y elimina todos los contenedores del proyecto (conserva los volúmenes con nombre; ver la siguiente sección).</li>
+  <li><code class="language-plaintext highlighter-rouge">docker compose ps</code> — Muestra una lista con el estado actual de los servicio.</li>
+  <li><code class="language-plaintext highlighter-rouge">docker compose logs -f</code> — Muestra en tiempo real los logs de todos los servicios a la vez (o de uno solo, si añades su nombre: <code class="language-plaintext highlighter-rouge">docker compose logs -f web</code>).</li>
+  <li><code class="language-plaintext highlighter-rouge">docker compose exec [servicio] bash</code> — Abre una terminal dentro de uno de los servicios. Muy útil si necesitas <em>entrar</em> en el servicio virtualizado para ejecutar comandos en él.</li>
+</ul>
+
+<h3 id="124-persistencia-de-datos">1.2.4. Persistencia de datos</h3>
+
+<p>Por defecto, <strong>todo lo que ocurre dentro de un contenedor es efímero</strong>. Esto quiere decir que si tu contenedor escribe archivos en su propio sistema de ficheros interno y luego eliminas ese contenedor, esos archivos desaparecen sin dejar rastro.</p>
+
+<p>Esto es un problema serio en cuanto metemos, por ejemplo, una base de datos en un contenedor. ¡Si tu MySQL vive en un contenedor y ese contenedor se destruye, adiós a todos tus datos!</p>
+
+<p>Para evitarlo, existen los <strong>volúmenes de Docker</strong>, que sirven para que una carpeta del contenedor “sobreviva” fuera de él, es decir, en la máquina “real”.</p>
+
+<p>Hay dos tipos de volúmenes que te interesa distinguir:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>¿Qué es?</th>
+      <th>¿Cuándo se usa?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Bind mount</strong></td>
+      <td>Una carpeta de <em>tu propio ordenador</em> se “engancha” a una ruta dentro del contenedor. Tú decides la ruta exacta en el host.</td>
+      <td>Para el código fuente de tu aplicación: así editas los archivos con tu editor de siempre y los cambios se reflejan al instante dentro del contenedor, sin reconstruir nada.</td>
+    </tr>
+    <tr>
+      <td><strong>Volumen con nombre</strong> (<em>named volume</em>)</td>
+      <td>Docker gestiona el almacenamiento por ti, en un lugar interno que no necesitas conocer. Se declara con un nombre y Docker se encarga del resto.</td>
+      <td>Para datos que deben persistir pero que no necesitas mirar directamente, como los ficheros internos de una base de datos.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>En <code class="language-plaintext highlighter-rouge">docker-compose.yml</code>, los volúmenes se declaran así:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">web</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">php:8.3-apache</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./src:/var/www/html</span>          <span class="c1"># bind mount: carpeta local ./src</span>
+  <span class="na">db</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">mysql:8.4</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">db_data:/var/lib/mysql</span>       <span class="c1"># volumen con nombre: db_data</span>
+
+<span class="na">volumes</span><span class="pi">:</span>
+  <span class="na">db_data</span><span class="pi">:</span>                           <span class="c1"># hay que declararlo también aquí</span>
+</code></pre></div></div>
+
+<p><strong>Cuidado con <code class="language-plaintext highlighter-rouge">docker compose down -v</code>.</strong> El comando <code class="language-plaintext highlighter-rouge">docker compose down</code> normal <strong>no</strong> borra los volúmenes con nombre: tus datos de la base de datos sobrevivirán aunque tires abajo los contenedores y los vuelvas a levantar. Pero si añades la opción <code class="language-plaintext highlighter-rouge">-v</code> (<code class="language-plaintext highlighter-rouge">docker compose down -v</code>), sí que los borra. Resérvala solo para cuando quieras empezar de cero de verdad.</p>
+
+<h3 id="125-cómo-levantar-un-entorno-de-desarrollo-para-php-con-docker-compose">1.2.5. Cómo levantar un entorno de desarrollo para PHP con Docker Compose</h3>
+
+<p>Para comprender mejor todo esto, vamos a ver cómo montaríamos, con imágenes <strong>oficiales</strong> de Docker Hub, un entorno típico para desarrollar una aplicación PHP.</p>
+
+<p>Estas aplicaciones suelen necesitar varios servicios:</p>
+
+<ul>
+  <li><strong>Un servidor web con PHP</strong> integrado</li>
+  <li><strong>Una base de datos MySQL</strong> (o MariaDB, SQLite, MongoDB o cualquier otra)</li>
+  <li><strong>PHPMyAdmin</strong> para administrar visualmente la base de datos.</li>
+</ul>
+
+<p>La estructura de carpetas de un proyecto así puede ser como esta:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mi-proyecto/
+├── docker-compose.yml    &lt;--- Archivo de configuración de Docker Compose
+├── php/
+│   └── custom.ini        &lt;--- Configuración adicional para PHP
+└── src/
+    └── index.php         &lt;--- Punto de entrada de la aplicación PHP
+</code></pre></div></div>
+
+<p>En nuestro <strong><code class="language-plaintext highlighter-rouge">docker-compose.yml</code></strong> indicaremos las imágenes oficiales de Apache con PHP, de MySQL y de PHPMyAdmin. Los números que hay al lado del nombre de la imagen se refieren a la versión. Por ejemplo, con este archivo instalaremos PHP 8.3 o MySQL 8.4:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">web</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">php:8.3-apache</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8080:80"</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./src:/var/www/html</span>
+      <span class="pi">-</span> <span class="s">./php/custom.ini:/usr/local/etc/php/conf.d/custom.ini:ro</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">db</span>
+
+  <span class="na">db</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">mysql:8.4</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">MYSQL_ROOT_PASSWORD</span><span class="pi">:</span> <span class="s">root</span>
+      <span class="na">MYSQL_DATABASE</span><span class="pi">:</span> <span class="s">practica</span>
+      <span class="na">MYSQL_USER</span><span class="pi">:</span> <span class="s">dev</span>
+      <span class="na">MYSQL_PASSWORD</span><span class="pi">:</span> <span class="s">dev</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">db_data:/var/lib/mysql</span>
+
+  <span class="na">phpmyadmin</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">phpmyadmin</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">PMA_HOST</span><span class="pi">:</span> <span class="s">db</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8081:80"</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">db</span>
+
+<span class="na">volumes</span><span class="pi">:</span>
+  <span class="na">db_data</span><span class="pi">:</span>
+</code></pre></div></div>
+
+<p>Algunas cosas que conviene que entiendas de este archivo:</p>
+
+<ul>
+  <li>Usamos la imagen oficial <strong><code class="language-plaintext highlighter-rouge">php:8.3-apache</code></strong>, que trae Apache y PHP ya integrados en un único contenedor. Es la forma más directa de levantar un servidor PHP para desarrollo, sin tener que andar conectando dos contenedores Apache y PHP independientes.</li>
+  <li>El servicio <code class="language-plaintext highlighter-rouge">web</code> publica el <strong>puerto 80</strong> del contenedor (el puerto estándar de HTTP) en el <strong>puerto 8080</strong> de tu máquina (eso significa <code class="language-plaintext highlighter-rouge">"8080:80"</code>), así que accederás a tu aplicación en la URL <strong>http://localhost:8080</strong>. Es importante elegir un puerto libre en tu máquina, porque si ya tienes otro servidor usando ese puerto en tu equipo, el contenedor no podrá arrancar. Por eso se elige el puerto 8080, que suele estar libre y “recuerda” al puerto 80 estándar de HTTP.</li>
+  <li>La carpeta <code class="language-plaintext highlighter-rouge">./src</code> de tu proyecto se monta como <em>bind mount</em> en <code class="language-plaintext highlighter-rouge">/var/www/html</code>. Es decir, los archivos que haya en la carpeta <code class="language-plaintext highlighter-rouge">./src</code> de tu disco duro y los que haya en la carpeta <code class="language-plaintext highlighter-rouge">/var/www/html</code> dentro del contenedor serán exactamente los mismos. Y esa es precisamente la carpeta donde Apache busca los archivos que tiene que servir. ¡Cualquier cambio que hagas en <code class="language-plaintext highlighter-rouge">./src</code> se ve reflejado al momento!</li>
+  <li>Para la imagen de <strong><code class="language-plaintext highlighter-rouge">mysql:8.4</code></strong> usamos unas variables de entorno para configurar el usuario root, la base de datos inicial, el usuario y la contraseña de desarrollo. Los datos se guardarán en un volumen con nombre <code class="language-plaintext highlighter-rouge">db_data</code>, así que sobrevivirán aunque reinicies los contenedores.</li>
+  <li><strong>phpMyAdmin</strong> se conecta automáticamente al servicio <code class="language-plaintext highlighter-rouge">db</code> gracias a la variable <code class="language-plaintext highlighter-rouge">PMA_HOST: db</code>. Puedes acceder a él en la URL <strong>http://localhost:8081</strong>.</li>
+</ul>
+
+<p>Para poner en marcha todo este enooorme entorno de desarrollo, simplemente teclea este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker compose up -d
+</code></pre></div></div>
+
+<p>Y para detenerlo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker compose down
+</code></pre></div></div>
+
+<div class="box warn">
+  <p><strong>OJO: Las contraseñas de este ejemplo son solo para desarrollo local.</strong> 
+Nunca subas a tu repositorio un <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> con contraseñas reales escritas tal cual, ni lo uses así en un servidor accesible desde fuera. En un entorno real, esos valores se suelen colocar en un archivo llamado <code class="language-plaintext highlighter-rouge">.env</code> (que se añade a <code class="language-plaintext highlighter-rouge">.gitignore</code>, para que no esté en los repositorios de código).</p>
+</div>
+
+<h3 id="126-ajustando-la-configuración-de-php">1.2.6. Ajustando la configuración de PHP</h3>
+
+<p>Es habitual que tengas que tocar alguna directiva del <strong><code class="language-plaintext highlighter-rouge">php.ini</code></strong>, el archivo de configuración del intérprete PHP.</p>
+
+<p>Si trabajaras con un PHP instalado de forma nativa en tu máquina, bastaría con localizar ese archivo, editarlo y reiniciar el servidor. Pero, como el PHP vive ahora dentro de la imagen del contenedor, editar un <code class="language-plaintext highlighter-rouge">php.ini</code> que esté “dentro” no sirve de nada: en cuanto reconstruyas o vuelvas a crear el contenedor, tus cambios habrán desaparecido, porque formaban parte de una capa efímera de la imagen, no de un volumen.</p>
+
+<p>La solución, igual que con los datos de la base de datos, es la <strong>persistencia mediante volúmenes</strong>: en vez de editar el <code class="language-plaintext highlighter-rouge">php.ini</code> de dentro del contenedor, <strong>montamos nuestro propio archivo de configuración adicional</strong> desde fuera, que suele llamarse <code class="language-plaintext highlighter-rouge">custom.ini</code>. Las imágenes oficiales de PHP están preparadas, en realidad, para cargar junto con <code class="language-plaintext highlighter-rouge">php.ini</code> cualquier archivo <code class="language-plaintext highlighter-rouge">.ini</code> que coloques en <code class="language-plaintext highlighter-rouge">/usr/local/etc/php/conf.d/</code> dentro del contenedor.</p>
+
+<p>Y eso es justo lo que hemos hecho en nuestro <code class="language-plaintext highlighter-rouge">docker-compose.yml</code>: montar <code class="language-plaintext highlighter-rouge">./php/custom.ini</code> en esa ruta. El contenido de ese <code class="language-plaintext highlighter-rouge">custom.ini</code> podría ser algo así:</p>
+
+<div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">display_errors</span> <span class="p">=</span> <span class="s">On</span>
+<span class="py">error_reporting</span> <span class="p">=</span> <span class="s">E_ALL</span>
+<span class="py">opcache.enable</span> <span class="p">=</span> <span class="s">0</span>
+<span class="py">upload_max_filesize</span> <span class="p">=</span> <span class="s">20M</span>
+<span class="py">post_max_size</span> <span class="p">=</span> <span class="s">20M</span>
+<span class="py">max_execution_time</span> <span class="p">=</span> <span class="s">120</span>
+<span class="py">memory_limit</span> <span class="p">=</span> <span class="s">256M</span>
+</code></pre></div></div>
+
+<p>Te contamos a continuación lo que significan todas estas directivas.</p>
+
+<h4 id="directivas-que-probablemente-tendrás-que-tocar-en-desarrollo">Directivas que (probablemente) tendrás que tocar en desarrollo</h4>
+
+<ul>
+  <li><strong>Mostrar los errores en pantalla</strong>: <code class="language-plaintext highlighter-rouge">display_errors = On</code> y <code class="language-plaintext highlighter-rouge">error_reporting = E_ALL</code>. En producción, esto debe estar desactivado (<code class="language-plaintext highlighter-rouge">display_errors = Off</code>), porque mostrar los errores al usuario final es un problema de seguridad.</li>
+  <li><strong>Desactivar la caché de opcode</strong>: <code class="language-plaintext highlighter-rouge">opcache.enable = 0</code>. Con la caché activada, PHP no siempre detecta que has modificado un archivo y puede seguir ejecutando una versión antigua compilada en memoria. En producción, en cambio, <code class="language-plaintext highlighter-rouge">opcache</code> <strong>sí</strong> debe estar activada: mejora mucho el rendimiento.</li>
+  <li><strong>Subida de archivos y tiempos de ejecución</strong>: <code class="language-plaintext highlighter-rouge">upload_max_filesize</code>, <code class="language-plaintext highlighter-rouge">post_max_size</code>, <code class="language-plaintext highlighter-rouge">max_input_time</code>, <code class="language-plaintext highlighter-rouge">max_execution_time</code> y <code class="language-plaintext highlighter-rouge">memory_limit</code>, según lo que necesite tu aplicación.</li>
+</ul>
+
+<div class="box">
+  <p><strong>¿Y Xdebug?</strong> Si quieres depurar tu código PHP paso a paso desde tu editor, necesitarás instalar la extensión <strong>Xdebug</strong>, que no viene incluida en la imagen oficial de PHP por defecto. Esto ya requiere construir tu propia imagen a partir de un <code class="language-plaintext highlighter-rouge">Dockerfile</code> (añadiendo <code class="language-plaintext highlighter-rouge">RUN pecl install xdebug &amp;&amp; docker-php-ext-enable xdebug</code>), algo que queda fuera del alcance de este apartado, pero que puedes explorar por tu cuenta si te apetece ir un paso más allá.</p>
+</div>
+
+<h3 id="127-y-qué-pasa-con-redis-python-y-otros-servicios">1.2.7. ¿Y qué pasa con Redis, Python y otros servicios?</h3>
+
+<p>Todo lo que has visto en este apartado se puede aplicar exactamente igual a cualquier otro servicio que necesites añadir a tu <code class="language-plaintext highlighter-rouge">docker-compose.yml</code>.</p>
+
+<p>Por ejemplo, <strong>Redis</strong> es un servicio que se usa, entre otras cosas, para cachear resultados de una base de datos y acceder a ellos más rápidamente. Añadirlo a tu stack de servicios es tan sencillo como añadir esto a <code class="language-plaintext highlighter-rouge">docker-compose.yml</code>:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">redis</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">redis:7</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">6379:6379"</span>
+</code></pre></div></div>
+
+<p>Y una aplicación <strong>Python</strong> (algo que retomaremos con más calma cuando lleguemos a FastAPI y los microservicios) se usa con Docker de forma parecida, normalmente a partir de una imagen oficial <code class="language-plaintext highlighter-rouge">python:3.x-slim</code>, sobre la que se instalan las dependencias del proyecto.</p>
+
+<p>Así que la idea de fondo es siempre la misma: una imagen por servicio, un contenedor por instancia, y Compose organizando cómo se relacionan los contenedores entre sí.</p>
+
+<h3 id="128-de-un-entorno-de-desarrollo-a-un-entorno-de-producción">1.2.8. De un entorno de desarrollo a un entorno de producción</h3>
+
+<p>Todo lo que hemos montado en este apartado está pensado <strong>exclusivamente para desarrollo local</strong>.</p>
+
+<p>Cuando tengas que desplegar todo esto en un servidor de verdad (algo que haremos al final del curso) hay bastantes cosas que debes cambiar, pero conviene que sepas ya, aunque sea de forma superficial, que existen estas diferencias:</p>
+
+<ul>
+  <li><strong>Nada de bind mounts para el código.</strong> En producción, el código de la aplicación se copia <em>dentro</em> de la imagen al construirla, y esa imagen es la que se despliega. Los bind mounts son cómodos en desarrollo precisamente copian los cambios al interior del contenedor en el acto. Pero eso mismo es indeseable en producción, cuando quieres que lo que se ejecute sea exactamente lo que probaste, ni una línea más.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">display_errors</code> a <code class="language-plaintext highlighter-rouge">Off</code>, <code class="language-plaintext highlighter-rouge">opcache</code> activada</strong>, y en general, toda configuración de depuración en PHP desactivada.</li>
+  <li><strong>Contraseñas y claves fuera del <code class="language-plaintext highlighter-rouge">docker-compose.yml</code></strong>, gestionadas mediante variables de entorno inyectadas de forma segura (desde archivos <code class="language-plaintext highlighter-rouge">.env</code>, por ejemplo).</li>
+  <li><strong>No publiques puertos que no necesites exponer al exterior.</strong> Por ejemplo, el puerto de la base de datos no debería estar accesible desde fuera de la red interna de contenedores; y herramientas como phpMyAdmin, si se usan en producción, deben protegerse muy bien. O, mejor aún, no desplegarse en producción en absoluto.</li>
+  <li><strong>Versiones de imagen fijas.</strong> Es preferible usar algo como <code class="language-plaintext highlighter-rouge">mysql:8.4</code> en lugar de <code class="language-plaintext highlighter-rouge">mysql:latest</code>. Esto último hará que Docker use la última versión disponible de la imagen mysql, y te puedes llevar una sorpresa el día que un cambio de versión repentino haga que tu aplicación no funcione.</li>
+  <li><strong>Políticas de reinicio y límites de recursos.</strong> En producción se configuran cosas los límites de CPU y memoria por contenedor, para que ningún contenedor pueda acaparar todos los recursos del servidor, y otras cuestiones relativas al rendimiento y recuperación automática ante fallos.</li>
+  <li><strong>Uso de proxy inverso</strong> que se encarga de servir HTTPS (con certificados TLS) y repartir el tráfico entre servicios. En producción, no es habitual exponer los contenedores directamente.</li>
+</ul>
+
+<h3 id="129-quieres-saber-más">1.2.9. ¿Quieres saber más?</h3>
+
+<ul>
+  <li>Documentación oficial de Docker: <a href="https://docs.docker.com/">docs.docker.com</a></li>
+  <li>Referencia completa de Docker Compose: <a href="https://docs.docker.com/compose/">docs.docker.com/compose</a></li>
+  <li>Imágenes oficiales en Docker Hub: <a href="https://hub.docker.com/_/php">PHP</a>, <a href="https://hub.docker.com/_/mysql">MySQL</a>, <a href="https://hub.docker.com/_/redis">Redis</a>, <a href="https://hub.docker.com/_/python">Python</a></li>
+</ul>
+
+<h3 id="1210-práctica-de-docker">1.2.10. Práctica de Docker</h3>
+
+<h4 id="objetivos-de-la-práctica">Objetivos de la práctica</h4>
+
+<p>Con esta práctica vamos a <strong>crear una infraestructura de desarrollo web con PHP</strong> desde cero y vamos a escribir y ejecutar un programa muy simpe en PHP para comprobar que la infraestructura funciona.</p>
+
+<p>Ten en cuenta que esta misma infraestructura nos servirá para hacer aplicaciones web con PHP mucho más complejas sin cambiar absolutamente nada.</p>
+
+<p>La práctica utiliza únicamente imágenes de Docker Hub ya construidas. No tendrás que crear ningún <code class="language-plaintext highlighter-rouge">Dockerfile</code> para construir tus propias imágenes (eso lo harás en el módulo de <em>Despliegue de Aplicaciones Web</em>).</p>
+
+<div style="padding: 20px; background-color: #ccc">
+  <p><strong style="color:#900">¡ATENCIÓN! </strong>
+A lo largo de la práctica verás varios recuadros como este donde se te pedirá que respondas a algunas preguntas. Cuando entregues la práctica, no solo tendrás que subir a Moodle Centros el código fuente de la misma, sino también un documento con las respuestas a estas preguntas.</p>
+</div>
+
+<hr />
+
+<h4 id="qué-pretendemos-hacer">Qué pretendemos hacer</h4>
+
+<p>Vamos a crear el entorno realista para desarrollar aplicaciones web con PHP.</p>
+
+<p>En lugar de <strong>instalar Apache, PHP, MySQL y phpMyAdmin</strong> directamente en tu ordenador, vas a crear un entorno de desarrollo idéntico, pero utilizando Docker.</p>
+
+<p>Usaremos esta estructura de carpetas:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌───────────────────────────────────────────────┐
+│                                               │
+│   docker-php/                                 │
+│   ├── docker-compose.yml                      │
+│   ├── php/                                    │
+│   │   └── custom.ini                          │
+│   └── src/                                    │
+│       └── index.php                           │
+└───────────────────────────────────────────────┘
+</code></pre></div></div>
+
+<p>La carpeta <code class="language-plaintext highlighter-rouge">src</code> <strong>contendrá el código fuente</strong>, que en esta aplicación será un simple <code class="language-plaintext highlighter-rouge">index.php</code> pero, más adelante, se complicará con muchos otros archivos. Gracias al <em>bind mount</em>, podrás editar los archivos con tu editor habitual y Apache, aunque esté dentro de un contenedor, los verá inmediatamente.</p>
+
+<p>Vamos a guiarte paso a paso para que consigas montar y probar este entorno de desarrollo web.</p>
+
+<hr />
+
+<h4 id="paso-1-crear-el-proyecto">PASO 1. Crear el proyecto</h4>
+
+<ul>
+  <li>Crea una carpeta llamada <code class="language-plaintext highlighter-rouge">docker-php</code> en cualquier lugar de tu disco duro.</li>
+  <li>Dentro de ella, crea la estructura de directorios que hemos puesto más arriba (los archivos <code class="language-plaintext highlighter-rouge">docker-compose.yml</code>, <code class="language-plaintext highlighter-rouge">custom.ini</code> e <code class="language-plaintext highlighter-rouge">index.php</code> son archivos de texto que pueden estar vacíos de momento).</li>
+  <li>Abre <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> y transcribe <em>exactamente</em> el contenido que hay más abajo.</li>
+</ul>
+
+<div style="padding: 20px; background-color: #ccc">
+  <p><strong style="color:#900">PREGUNTA 1. </strong>
+Crea un documento <code class="language-plaintext highlighter-rouge">respuestas.doc</code> nuevo. Analizando el archivo <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> que tienes aquí abajo, responde a estas preguntas. Redacta tus respuestas en <code class="language-plaintext highlighter-rouge">respuestas.doc</code> (investiga en Internet si hay cosas que no sabes):</p>
+
+  <ul>
+    <li><strong>1a)</strong> ¿Qué servicio utiliza el puerto 8080 de nuestro ordenador?</li>
+    <li><strong>1b)</strong> ¿Qué puerto del contenedor corresponde al puerto 8080 de nuestro ordenador?</li>
+    <li><strong>1c)</strong> ¿Qué servicio utiliza el puerto 8081?</li>
+    <li><strong>1d)</strong> ¿Por qué el servicio <code class="language-plaintext highlighter-rouge">db</code> no necesita publicar ningún puerto?</li>
+  </ul>
+</div>
+
+<p>Este es el archivo <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> que debes tener en tu proyecto. Es importante que comprendas lo que pone en él, porque es el corazón del entorno de desarrllo:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+
+  <span class="na">web</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">php:8.3-apache</span>
+
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8080:80"</span>
+
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./src:/var/www/html</span>
+      <span class="pi">-</span> <span class="s">./php/custom.ini:/usr/local/etc/php/conf.d/custom.ini:ro</span>
+
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">db</span>
+
+  <span class="na">db</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">mysql:8.4</span>
+
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">MYSQL_ROOT_PASSWORD</span><span class="pi">:</span> <span class="s">root</span>
+      <span class="na">MYSQL_DATABASE</span><span class="pi">:</span> <span class="s">practica</span>
+      <span class="na">MYSQL_USER</span><span class="pi">:</span> <span class="s">dev</span>
+      <span class="na">MYSQL_PASSWORD</span><span class="pi">:</span> <span class="s">dev</span>
+
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">db_data:/var/lib/mysql</span>
+
+  <span class="na">phpmyadmin</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">phpmyadmin</span>
+
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">PMA_HOST</span><span class="pi">:</span> <span class="s">db</span>
+
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8081:80"</span>
+
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">db</span>
+
+<span class="na">volumes</span><span class="pi">:</span>
+  <span class="na">db_data</span><span class="pi">:</span>
+</code></pre></div></div>
+
+<h4 id="paso-2-configurar-php-para-desarrollo">PASO 2. Configurar PHP para desarrollo</h4>
+
+<ul>
+  <li>Abre el archivo <code class="language-plaintext highlighter-rouge">php/custom.ini</code></li>
+  <li>Escribe en él este contenido:
+    <div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">display_errors</span> <span class="p">=</span> <span class="s">On</span>
+<span class="py">error_reporting</span> <span class="p">=</span> <span class="s">E_ALL</span>
+<span class="py">opcache.enable</span> <span class="p">=</span> <span class="s">0</span>
+
+<span class="py">upload_max_filesize</span> <span class="p">=</span> <span class="s">20M</span>
+<span class="py">post_max_size</span> <span class="p">=</span> <span class="s">20M</span>
+<span class="py">max_execution_time</span> <span class="p">=</span> <span class="s">120</span>
+<span class="py">memory_limit</span> <span class="p">=</span> <span class="s">256M</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<div style="padding: 20px; background-color: #ccc">
+  <p><strong style="color:#900">PREGUNTA 2. </strong>
+Responde en el documento <code class="language-plaintext highlighter-rouge">respuestas.doc</code> a estas preguntas (investiga un poco por ahí si lo necesitas):</p>
+
+  <ul>
+    <li><strong>2a)</strong> ¿Por qué necesitamos crear el archivo <code class="language-plaintext highlighter-rouge">custom.ini</code>?</li>
+    <li><strong>2b)</strong> ¿Qué significa cada una de las líneas de nuestro <code class="language-plaintext highlighter-rouge">custom.ini</code>?</li>
+  </ul>
+</div>
+
+<h4 id="paso-3-crear-la-primera-aplicación-php">PASO 3. Crear la primera aplicación PHP</h4>
+
+<p>Vamos a crear una aplicación PHP muy sencilla, aunque aún no sepamos nada de PHP.</p>
+
+<ul>
+  <li>
+    <p>Abre <code class="language-plaintext highlighter-rouge">src/index.php</code> y escribe exactamente este contenido:</p>
+
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Mi primer servidor PHP<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+
+    <span class="nt">&lt;h1&gt;</span>¡Mi servidor PHP funciona!<span class="nt">&lt;/h1&gt;</span>
+
+    <span class="nt">&lt;p&gt;</span>Esta página está siendo ejecutada por PHP dentro de Docker.<span class="nt">&lt;/p&gt;</span>
+
+    <span class="nt">&lt;p&gt;</span>
+        <span class="cp">&lt;?php</span>
+            <span class="k">echo</span> <span class="s2">"PHP está funcionando correctamente.&lt;br&gt;"</span><span class="p">;</span>
+            <span class="nv">$n</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+            <span class="k">echo</span> <span class="s2">"Esta es es la tabla de multiplicar del número </span><span class="nv">$n</span><span class="s2">: &lt;br&gt;"</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                 <span class="k">echo</span> <span class="s2">"</span><span class="nv">$n</span><span class="s2"> x </span><span class="nv">$i</span><span class="s2"> = "</span><span class="mf">.</span> <span class="nv">$n</span> <span class="o">*</span> <span class="err">$</span> <span class="n">i</span> <span class="mf">.</span><span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="cp">?&gt;</span>
+    <span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h4 id="paso-4-levantar-el-entorno-de-ejecución">PASO 4. Levantar el entorno de ejecución</h4>
+
+<ul>
+  <li>Abre una terminal de texto dentro de la carpeta <code class="language-plaintext highlighter-rouge">docker-php</code>.</li>
+  <li>
+    <p>Ejecuta el comando:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker compose up <span class="nt">-d</span>
+</code></pre></div>    </div>
+
+    <p>(La primera vez Docker tendrá que descargar las imágenes necesarias desde Docker Hub, por lo que este proceso puede tardar un poco).</p>
+
+    <p>(Recuerda que la opción <code class="language-plaintext highlighter-rouge">-d</code> hace que los servicios se ejecuten en segundo plano, para no bloquear la terminal).</p>
+  </li>
+  <li>
+    <p>Cuando se hayan descargado las imágenes y los contenedores hayan arrancado, comprueba que están en estado <em>running</em> o <em>up</em> con el comando:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker compose ps
+</code></pre></div>    </div>
+
+    <p>(Deberías encontrar tres servicios en funcionamiento: web, db y phpmyadmin).</p>
+  </li>
+  <li>
+    <p>Si algo no funciona, no empieces a modificar cosas al azar. En lugar de eso, ejecuta este comando y trata de buscar la causa del error:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker compose logs
+</code></pre></div>    </div>
+
+    <p>(El objetivo es que empieces a utilizar los logs, y no la intuición ni la iluminación divina, como herramienta de diagnóstico).</p>
+  </li>
+</ul>
+
+<div style="padding: 20px; background-color: #ccc">
+  <p><strong style="color:#900">PREGUNTA 3. </strong>
+Pega en el documento <code class="language-plaintext highlighter-rouge">respuestas.doc</code> la salida del comando <code class="language-plaintext highlighter-rouge">docker compose ps</code>.</p>
+</div>
+
+<h4 id="paso-5-probar-y-modificar-la-aplicación-php">PASO 5. Probar y modificar la aplicación PHP</h4>
+
+<ul>
+  <li>Abre un navegador web y visita la dirección <strong>http://localhost:8080</strong>. Deberías ver:</li>
+</ul>
+
+<blockquote>
+  <p>¡Mi servidor PHP funciona! PHP está funcionando correctamente.</p>
+</blockquote>
+
+<p>…seguido de la tabla de multiplicar del número 6.</p>
+
+<ul>
+  <li>Modifica el archivo <code class="language-plaintext highlighter-rouge">index.php</code> para que, además de la tabla de multiplicar, nos diga si el número $n es par o impar y si es positivo o negativo (no tengas miedo: la sintaxis de PHP es muy parecida a la de Java)</li>
+  <li>Guarda el archivo <code class="language-plaintext highlighter-rouge">index.php</code> y vuelve a cargar la página <strong>http://localhost:8080</strong> para comprobar si tus cambios funcionan.</li>
+  <li>En caso de error de ejecución, revisa el código fuente hasta que logres que el programa funcione.</li>
+</ul>
+
+<div style="padding: 20px; background-color: #ccc">
+  <p><strong style="color:#900">PREGUNTA 4. </strong>
+Responde en el documento <code class="language-plaintext highlighter-rouge">respuestas.doc</code> a estas preguntas:</p>
+
+  <ul>
+    <li><strong>4a)</strong> ¿Por qué los cambios en <code class="language-plaintext highlighter-rouge">index.php</code> se han reflejado inmediatamente en el contenedor? ¿Qué tiene esto que ver con el <strong>bind mount</strong>?</li>
+    <li><strong>4b)</strong> ¿PHP te ha mostrado algún mensaje de error cuando has modificado el código fuente? ¿Qué mensaje o mensajes han sido?</li>
+  </ul>
+</div>
+
+<h4 id="paso-6-comprobar-phpmyadmin-y-la-persistencia-de-mysql">PASO 6. Comprobar phpMyAdmin y la persistencia de MySQL</h4>
+
+<ul>
+  <li>Abre la URL <strong>http://localhost:8081</strong> (fíjate en el puerto, que es 8081 en lugar de 8080).</li>
+  <li>Debe aparecer la pantalla de autenticación de phpMyAdmin. Utiliza estas credenciales (que se configuraron en <code class="language-plaintext highlighter-rouge">docker-compose.yml</code>):
+    <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Servidor: db
+Usuario: dev
+Contraseña: dev
+</code></pre></div>    </div>
+  </li>
+  <li>Comprueba que existe la base de datos llamada <code class="language-plaintext highlighter-rouge">practica</code> (también se configuró en <code class="language-plaintext highlighter-rouge">docker-compose.yml</code>), que debería estar vacía.</li>
+  <li>En phpMyAdmin, dentro de la base de datos <code class="language-plaintext highlighter-rouge">practica</code>, crea una tabla sencilla llamada <code class="language-plaintext highlighter-rouge">alumnos</code> con los campos <code class="language-plaintext highlighter-rouge">id</code> (INTEGER) y <code class="language-plaintext highlighter-rouge">nombre</code> (VARCHAR 100)</li>
+  <li>Inserta un par de alumnos de prueba en la tabla que acabas de crear. Invéntate los datos.</li>
+  <li>
+    <p>Vuelve a la terminal y echa abajo todos los contenedores:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker compose down
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Comprueba que los contenedores han desaparecido:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker compose ps
+</code></pre></div>    </div>
+  </li>
+  <li>Comprueba que ahora PHP no responde: ve a tu navegador web y carga la URL <strong>http://localhost:8080</strong>. Debería darte el error de “localhost ha rechazado la conexión” o algo parecido.</li>
+  <li>
+    <p>Vuelve a levantar el entorno:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker compose up <span class="nt">-d</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Entra nuevamente en <strong>http://localhost:8080</strong>: PHP debe estar ahí de nuevo.</li>
+  <li>Entra nuevamente en <strong>http://localhost:8081</strong> y accede a PHPMyAdmin. Si todo ha ido bien, la base de datos <code class="language-plaintext highlighter-rouge">practica</code> debería seguir existiendo, con una tabla <code class="language-plaintext highlighter-rouge">alumnos</code> que contendrá los mismos datos que habías añadido antes.</li>
+</ul>
+
+<div style="padding: 20px; background-color: #ccc">
+  <p><strong style="color:#900">PREGUNTA 5. </strong>
+Responde en el documento <code class="language-plaintext highlighter-rouge">respuestas.doc</code> a estas preguntas:</p>
+
+  <ul>
+    <li><strong>5a)</strong> ¿Por qué no se ha borrado la tabla aunque hayamos eliminado los contenedores?</li>
+    <li><strong>5b)</strong> ¿Qué nombre recibe, en <code class="language-plaintext highlighter-rouge">docker-compose.yml</code>, el volumen para MySQL?</li>
+    <li><strong>5c)</strong> ¿Cómo podríamos forzar el borrado de la tabla al echar abajo los contenedores? (investígalo si aún no lo sabes)</li>
+    <li><strong>5d)</strong> ¿Cómo podríamos abrir un terminal de texto <em>dentro</em> del contenedor de MySQL para ejecutar comandos en él?</li>
+  </ul>
+</div>
+
+<h4 id="entrega">Entrega</h4>
+
+<p>Sube a Moodle Centros el documento <code class="language-plaintext highlighter-rouge">respuestas.pdf</code> obtenido a partir de <code class="language-plaintext highlighter-rouge">respuestas.doc</code> con las respuestas a las cinco preguntas de la práctica.</p>
+
+<p>Sube también todo el contenido de tu proyecto comprimido en un único archivo .zip</p>
+
+<p>(El profesor/a debería poder descargar el .zip, descomprimirlo y obtener una réplica exacta de tu entorno de desarrollo con solo escribir <code class="language-plaintext highlighter-rouge">docker compose up -d</code>).</p>
+
+<h4 id="ampliaciones-opcionales">Ampliaciones opcionales</h4>
+
+<p>(Solo si acabas la práctica antes que tus compañeros y quieres profundizar un poco más)</p>
+
+<p><strong>Ampliación 1: página de información</strong></p>
+
+<p>Modifica <code class="language-plaintext highlighter-rouge">index.php</code> para que muestre la versión de PHP, la fecha y hora actuales y el nombre del servidor.
+Investiga las funciones o constantes necesarias para lograrlo.</p>
+
+<p><strong>Ampliación 2: investigar el entorno</strong></p>
+
+<p>Abre un terminal dentro del contenedor <code class="language-plaintext highlighter-rouge">web</code> y ejecuta el comando <code class="language-plaintext highlighter-rouge">php -m</code>.
+Investiga qué extensiones de PHP están disponibles.</p>
+
+<p><strong>Ampliación 3: añadir Redis</strong></p>
+
+<p>Añade al <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> un cuarto servicio:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">redis</span><span class="pi">:</span>
+  <span class="na">image</span><span class="pi">:</span> <span class="s">redis:7</span>
+</code></pre></div></div>
+
+<p>Comprueba que el servicio se levanta correctamente.</p>
+
+<h4 id="rúbrica-de-corrección">Rúbrica de corrección</h4>
+
+<p>Esta práctica se calificará siguiendo la siguiente rúbrica:</p>
+<ul>
+  <li>0 = sin hacer o sin evidencia de esfuerzo</li>
+  <li>1 = hecho pero incorrecto</li>
+  <li>2 = hecho correctamente, pero mejorable</li>
+  <li>3 = hecho superando las espectativas</li>
+</ul>
+
+<p>Se calificarán de 0 a 3, según la rúbrica anterior, los siguientes ítems evaluables, que tendrán un peso diferente en la puntación final, tal como está indicado en esta tabla:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Criterio</th>
+      <th style="text-align: right">Peso</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Estructura de carpetas y archivos correcta</td>
+      <td style="text-align: right">5%</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">docker-compose.yml</code> correctamente configurado con los tres servicios</td>
+      <td style="text-align: right">5%</td>
+    </tr>
+    <tr>
+      <td>Apache + PHP funcionando en <code class="language-plaintext highlighter-rouge">localhost:8080</code></td>
+      <td style="text-align: right">5%</td>
+    </tr>
+    <tr>
+      <td>Aplicación PHP funcionando y mostrando que PHP se ejecuta</td>
+      <td style="text-align: right">5%</td>
+    </tr>
+    <tr>
+      <td>phpMyAdmin funcionando y conectado a MySQL</td>
+      <td style="text-align: right">5%</td>
+    </tr>
+    <tr>
+      <td>Base de datos <code class="language-plaintext highlighter-rouge">practica</code> correctamente creada</td>
+      <td style="text-align: right">10%</td>
+    </tr>
+    <tr>
+      <td>Comprende la correspondencia de puertos entre servicios Docker y la máquina anfitrión (pregunta 1)</td>
+      <td style="text-align: right">5%</td>
+    </tr>
+    <tr>
+      <td>Comprende la necesidad y utilidad de <code class="language-plaintext highlighter-rouge">custom.ini</code> (pregunta 2)</td>
+      <td style="text-align: right">5%</td>
+    </tr>
+    <tr>
+      <td>Levanta y comprueba el entorno de ejecución (pregunta 3)</td>
+      <td style="text-align: right">10%</td>
+    </tr>
+    <tr>
+      <td>Comprende el concepto de bind mount (pregunta 4)</td>
+      <td style="text-align: right">10%</td>
+    </tr>
+    <tr>
+      <td>Modifica correctamente un archivo .php sencillo (pregunta 4)</td>
+      <td style="text-align: right">10%</td>
+    </tr>
+    <tr>
+      <td>Comprende el concepto de persistencia de volúmenes (pregunta 5)</td>
+      <td style="text-align: right">10%</td>
+    </tr>
+    <tr>
+      <td>Abre terminales dentro de los servicios y ejecuta comandos en ellas (pregunta 5)</td>
+      <td style="text-align: right">5%</td>
+    </tr>
+    <tr>
+      <td>Entrega de la práctica en tiempo y forma</td>
+      <td style="text-align: right">10%</td>
+    </tr>
+    <tr>
+      <td><strong>TOTAL</strong></td>
+      <td style="text-align: right"><strong>100%</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>IMPORTANTE</strong></p>
+
+<p>Para considerar la práctica <strong>superada</strong>, deberán cumplirse como mínimo estos cuatro requisitos, independientemente de la nota que salga de aplicar la rúbrica:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">docker compose up -d</code> funciona.</li>
+  <li><code class="language-plaintext highlighter-rouge">localhost:8080</code> muestra la aplicación PHP modificada por ti.</li>
+  <li><code class="language-plaintext highlighter-rouge">localhost:8081</code> permite acceder a phpMyAdmin.</li>
+  <li>La base de datos sobrevive a <code class="language-plaintext highlighter-rouge">docker compose down</code> + <code class="language-plaintext highlighter-rouge">docker compose up -d</code>.</li>
+</ul>
+
+:ET

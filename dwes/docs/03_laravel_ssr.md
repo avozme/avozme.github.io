@@ -9,12 +9,9 @@ parent: Desarrollo Web en Entorno Servidor
 
 # 3. Aplicaciones SSR con Laravel
 {: .no_toc }
-<div style="color:red; font-size: 150%"><strong>AVISO:<br>ESTE MATERIAL ESTÁ EN DESARROLLO</strong></div>
 
 - TOC
 {:toc}
-
-
 
 Laravel es un **framework PHP MVC diseñado para agilizar el desarrollo de aplicaciones web**. En ese sentido, hace auténtica magia. En los últimos años ha tenido una gran penetración en la industria.
 

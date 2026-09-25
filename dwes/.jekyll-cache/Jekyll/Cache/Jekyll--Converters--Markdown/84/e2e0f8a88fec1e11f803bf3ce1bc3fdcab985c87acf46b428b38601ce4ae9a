@@ -1,0 +1,196 @@
+I"F9<h2 class="no_toc" id="39-práctica-final-plataforma-de-gestión-de-proyectos-colaborativos">3.9. Práctica final: Plataforma de gestión de proyectos colaborativos</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#importante-uso-de-ia-en-esta-práctica" id="markdown-toc-importante-uso-de-ia-en-esta-práctica">IMPORTANTE: uso de IA en esta práctica</a></li>
+  <li><a href="#especificación-de-requisitos" id="markdown-toc-especificación-de-requisitos">Especificación de requisitos</a></li>
+  <li><a href="#fases-de-desarrollo-recomendadas" id="markdown-toc-fases-de-desarrollo-recomendadas">Fases de desarrollo recomendadas</a></li>
+  <li><a href="#normas-de-entrega" id="markdown-toc-normas-de-entrega">Normas de entrega</a></li>
+  <li><a href="#rúbrica-de-calificación" id="markdown-toc-rúbrica-de-calificación">Rúbrica de calificación</a></li>
+</ul>
+
+<p>Ha llegado el momento de poner a prueba todo lo que has aprendido sobre Laravel. Esta práctica final no es una simple repetición de los apuntes; es un reto que simula un proyecto real. Tendrás que investigar, planificar y programar.</p>
+
+<p>Vas a construir una <strong>Plataforma de gestión de proyectos colaborativos</strong> donde los usuarios pueden crear proyectos y asignar a otros usuarios a trabajar en ellos con distintos roles.</p>
+
+<h3 id="importante-uso-de-ia-en-esta-práctica">IMPORTANTE: uso de IA en esta práctica</h3>
+
+<p>Gracias a herramientas de IA, una práctica que antes llevaba dos meses de trabajo o que no podía ni plantearse en un curso como este, ahora puede completarse con éxito en una semana y sin aprender menos.</p>
+
+<p><strong>Puedes y debes usar la IA</strong> para ayudarte, pero debes hacerlo de forma <strong>ética y eficiente</strong>:</p>
+
+<ol>
+  <li><strong>Prohibido copiar y pegar todo este enunciado en la IA</strong>. Si le pides a la IA que te haga la práctica entera, te vomitará un código inmenso que no entenderás, que probablemente no funcionará bien y que será imposible de entender y de defender. <em>Si haces eso en una empresa, estarás en la calle al día siguiente</em>.</li>
+  <li>
+    <p><strong>Construye pieza a pieza</strong>. Pide ayuda a la IA para tareas concretas. Por ejemplo: <em>“Genera una migración para la tabla de proyectos, con estos campos (a continuación, le explicas qué campos son)”</em>, <em>“¿Cómo guardo un dato extra en una tabla intermedia N:N en Laravel?”</em>, <em>“Haz este formulario de Blade visualmente más atractivo con Tailwind”</em>…</p>
+
+    <p>Es decir, tienes que <strong>comprender lo que le estás pidiendo</strong>, y para eso tienes que <strong>saber cómo funciona Laravel</strong>.</p>
+  </li>
+  <li><strong>Comprende cada línea de código</strong>. Eres el responsable final de tu aplicación. Si hay un bloque de código que no entiendes, pídele a la IA que te lo explique línea por línea o pregúntale al profesor.</li>
+</ol>
+
+<blockquote>
+  <p><strong>RECUERDA QUE</strong> parte de la evaluación consistirá en una defensa oral o preguntas escritas sin acceso a IA, y que esas preguntas pueden aparecerte en el examen. Si no sabes explicar cómo funciona tu propia aplicación, la práctica completa estará <strong>suspensa</strong>, independientemente de que funcione o que seamuy bonita, porque no habrás podido demostrar <em>tu autoría</em>.</p>
+</blockquote>
+
+<hr />
+
+<h3 id="especificación-de-requisitos">Especificación de requisitos</h3>
+
+<p>La aplicación será tipo <strong>SSR (Server-Side Rendering)</strong> o <strong>MPA (Multi-Page Application)</strong>, es decir, todas las vistas deben ser generadas en el servidor utilizando Blade.</p>
+
+<h4 id="1-base-de-datos">1. Base de datos</h4>
+<p>Trabajaremos con estas entidades:</p>
+
+<ul>
+  <li><strong>Users (Usuarios)</strong>: Para el sistema de autenticación.</li>
+  <li><strong>Projects (Proyectos)</strong>: Cada proyecto debe tener un título, descripción, fecha límite y estado.</li>
+  <li><strong>Relación 1:N <em>(Projects &lt;-&gt; Users)</em></strong>: Todo proyecto debe tener un usuario creador/propietario.</li>
+  <li><strong>Relación N:N <em>(Projects &lt;-&gt; Users)</em></strong>: Un usuario puede participar en muchos proyectos, y un proyecto puede tener muchos usuarios asignados.
+    <ul>
+      <li><em>Atención</em>: La tabla intermedia de la relación N:N (<strong>pivote</strong>) no solo unirá <code class="language-plaintext highlighter-rouge">user_id</code> y <code class="language-plaintext highlighter-rouge">project_id</code>. Debe incluir un campo adicional llamado <code class="language-plaintext highlighter-rouge">role</code> (por ejemplo: ‘Desarrollador’, ‘Diseñador’, ‘Tester’) y un campo <code class="language-plaintext highlighter-rouge">contribution_hours</code> (horas que el usuario ha trabajado en el proyecto).</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/docs/dwes/_site/assets/images/03_practica_final_diagram_er.png" alt="Diagrama ER" /></p>
+
+<h4 id="2-funcionalidades">2. Funcionalidades</h4>
+<p>Debes implementar las siguientes funcionalidades:</p>
+
+<ul>
+  <li><strong>Autenticación</strong>: Solo los usuarios logueados pueden ver y crear proyectos. Usa Laravel Breeze u otro Starter Kit simple.</li>
+  <li><strong>CRUD de Proyectos</strong>: Listar, ver detalle, crear, editar y eliminar.
+    <ul>
+      <li><em>Solo el propietario</em> de un proyecto puede editarlo o borrarlo (Autorización).</li>
+    </ul>
+  </li>
+  <li><strong>Gestión de Participantes (N:N)</strong>: Dentro de la vista detalle de un proyecto, el propietario debe poder añadir a otros usuarios registrados al proyecto, especificando qué <code class="language-plaintext highlighter-rouge">role</code> van a tener. También debe poder anotar cuántas horas ha trabajado cada usuario.</li>
+</ul>
+
+<h4 id="3-diseño-visual">3. Diseño visual</h4>
+<p>La aplicación <strong>debe ser visualmente atractiva</strong>. No se aceptarán prácticas con HTML crudo o estilos descuidados.</p>
+<ul>
+  <li>Utiliza clases de <strong>TailwindCSS</strong> (que viene integrado con Breeze) o escribe tu propio CSS para diseñar tarjetas de proyectos, botones estilizados, formularios limpios y tablas ordenadas.</li>
+  <li>Si un usuario no está logueado, debe ver una bonita <em>landing page</em> (página de inicio) invitándole a registrarse.</li>
+</ul>
+
+<hr />
+
+<h3 id="fases-de-desarrollo-recomendadas">Fases de desarrollo recomendadas</h3>
+
+<p>Para no saturarte, te recomiendo encarecidamente que sigas este orden:</p>
+
+<ol>
+  <li><strong>Fase 1: Preparación</strong>. Crea el proyecto en Sail (usa un Laravel limpio, no con el que hemos estado trabajando durante el tema), configura la base de datos e instala la autenticación (Breeze). Haz tu primer <em>commit</em> en Git.</li>
+  <li><strong>Fase 2: Modelos, migraciones, seeders</strong>. Crea las migraciones para las tablas. Asegúrate de añadir las claves foráneas correctamente. Añade algún seeder para tener algunos datos de prueba en las tablas con los que puedas jugar.</li>
+  <li><strong>Fase 3: CRUD básico</strong>. Haz el controlador y las vistas Blade para crear, listar y borrar proyectos de forma simple.</li>
+  <li><strong>Fase 4: Relaciones complejas</strong>. Añade la lógica para asignar usuarios a proyectos desde la vista de detalle. Vas a tener que investigar cómo usar el método <code class="language-plaintext highlighter-rouge">attach()</code> y <code class="language-plaintext highlighter-rouge">sync()</code> enviando datos extra para la tabla pivote (lo tienes en los apuntes).</li>
+  <li><strong>Fase 5: Diseño y pulido</strong>. Dedica la última parte a maquetar con Tailwind CSS (¡investiga, investiga!), añadir colores, mejorar la navegación y pulir detalles funcionales y visuales.</li>
+</ol>
+
+<hr />
+
+<h3 id="normas-de-entrega">Normas de entrega</h3>
+
+<p>La entrega debe cumplir <strong>estrictamente</strong> con estos requisitos. El incumplimiento de cualquiera de ellos conllevará penalización o rechazo de la entrega:</p>
+
+<ol>
+  <li><strong>Código fuente comprimido</strong>: Sube a Moodle Centros un archivo ZIP con tu proyecto. <strong>EXCEPTUANDO la carpeta <code class="language-plaintext highlighter-rouge">/vendor</code> y <code class="language-plaintext highlighter-rouge">/node_modules</code></strong>. (Si las incluyes, serás penalizado).</li>
+  <li><strong>Vídeo demostrativo</strong>: Graba un vídeo capturando tu pantalla y demostrando el funcionamiento de tu aplicación. Debes explicarlo <strong>con tu propia voz</strong> (nada de voces sintetizadas o IA). Sube el vídeo a Moodle Centros o un enlace a YouTube/Drive, como prefieras.</li>
+  <li><strong>Repositorio público</strong>: Incluye un enlace a tu repositorio público en GitHub o GitLab. <em>Se revisará el historial de commits</em>.</li>
+  <li><strong>Reproducibilidad</strong>: El profesor descargará tu ZIP (o clonará tu repo), ejecutará <code class="language-plaintext highlighter-rouge">./vendor/bin/sail up -d</code> y <code class="language-plaintext highlighter-rouge">./vendor/bin/sail artisan migrate</code>. <strong>La aplicación debe funcionar inmediatamente</strong> sin necesidad de tocar nada más.</li>
+</ol>
+
+<hr />
+
+<h3 id="rúbrica-de-calificación">Rúbrica de calificación</h3>
+
+<p>La evaluación se realizará según los siguientes ítems. Cada nivel de logro otorga una puntuación:</p>
+<ul>
+  <li><strong>0</strong>: Sin hacer o sin evidencia de esfuerzo.</li>
+  <li><strong>1</strong>: Hecho, pero con errores graves o muy incompleto.</li>
+  <li><strong>2</strong>: Hecho y funcional, pero mejorable (faltan detalles, bugs menores).</li>
+  <li><strong>3</strong>: Perfecto, cumple todos los requisitos con excelencia.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Ítem Evaluable</th>
+      <th style="text-align: center">Peso</th>
+      <th style="text-align: left">Nivel 0</th>
+      <th style="text-align: left">Nivel 1</th>
+      <th style="text-align: left">Nivel 2</th>
+      <th style="text-align: left">Nivel 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>0. Uso ético y eficiente de la IA (Eliminatorio)</strong></td>
+      <td style="text-align: center"><strong>Requisito imprescindible</strong></td>
+      <td style="text-align: left">No sabe explicar el código. Uso fraudulento de IA.</td>
+      <td style="text-align: left">(No se aplica)</td>
+      <td style="text-align: left">(No se aplica)</td>
+      <td style="text-align: left">Explica y defiende el código perfectamente.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>1. Entrega en tiempo y forma</strong></td>
+      <td style="text-align: center"><strong>10%</strong></td>
+      <td style="text-align: left">No entregado / Formato incorrecto.</td>
+      <td style="text-align: left">Faltan requisitos de entrega o carpeta /vendor incluida.</td>
+      <td style="text-align: left">Cumple mayoría de normas, falta algún detalle menor en vídeo/repo.</td>
+      <td style="text-align: left">Cumple escrupulosamente todas las normas.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>2. Control de versiones</strong></td>
+      <td style="text-align: center"><strong>10%</strong></td>
+      <td style="text-align: left">Sin repositorio.</td>
+      <td style="text-align: left">Un único commit al final del proyecto.</td>
+      <td style="text-align: left">Varios commits, pero mensajes pobres o irregulares.</td>
+      <td style="text-align: left">Uso continuado de Git, commits atómicos y descriptivos.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>3. Base de datos y relaciones (1:N y N:N)</strong></td>
+      <td style="text-align: center"><strong>20%</strong></td>
+      <td style="text-align: left">No hay migraciones funcionales.</td>
+      <td style="text-align: left">Relaciones mal planteadas o migraciones con errores graves.</td>
+      <td style="text-align: left">Relaciones funcionales, pero falla la tabla pivote compleja.</td>
+      <td style="text-align: left">Diseño de BD perfecto, claves foráneas y tabla pivote extra correctas.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>4. Controladores y rutas</strong></td>
+      <td style="text-align: center"><strong>20%</strong></td>
+      <td style="text-align: left">No responde a las URL pedidas.</td>
+      <td style="text-align: left">Rutas desorganizadas, código espagueti en controladores.</td>
+      <td style="text-align: left">CRUD funcional, controladores correctos pero lógica mejorable.</td>
+      <td style="text-align: left">Controladores limpios (resource), validación de request y lógica impecable.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>5. Autenticación</strong></td>
+      <td style="text-align: center"><strong>15%</strong></td>
+      <td style="text-align: left">Cualquiera puede acceder a todo.</td>
+      <td style="text-align: left">Auth funcional, pero sin proteger todas las rutas privadas.</td>
+      <td style="text-align: left">Rutas protegidas, pero falla la autorización (alguien puede borrar proyectos ajenos).</td>
+      <td style="text-align: left">Sistema seguro. Autenticación y Autorización aplicadas correctamente.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>6. Vistas blade y UX</strong></td>
+      <td style="text-align: center"><strong>15%</strong></td>
+      <td style="text-align: left">No hay interfaz / Errores de renderizado.</td>
+      <td style="text-align: left">Vistas muy básicas, sin herencia ni plantillas compartidas.</td>
+      <td style="text-align: left">Uso correcto de Blade, interfaz funcional pero poco atractiva.</td>
+      <td style="text-align: left">Excelente uso de componentes/layouts Blade y diseño UI muy atractivo.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>7. Calidad y organización del código</strong></td>
+      <td style="text-align: center"><strong>10%</strong></td>
+      <td style="text-align: left">Código ilegible, variables sin sentido.</td>
+      <td style="text-align: left">Mala indentación, código duplicado o comentado innecesariamente.</td>
+      <td style="text-align: left">Código ordenado pero con ligeras deficiencias de buenas prácticas.</td>
+      <td style="text-align: left">Código limpio, variables autoexplicativas, indentación perfecta y modular.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>Recuerda que, para aprobar, es obligatorio obtener un Nivel 3 en el ítem 0 (Uso ético de IA). Este ítem se valorará con posterioridad el resto de la práctica.</em></p>
+:ET

@@ -14,6 +14,12 @@ grand_parent: Desarrollo Web en Entorno Servidor
 - TOC
 {:toc}
 
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/bkw1inujkd3qbhmjjp6z2/02_05_estado_seguridad.pdf?rlkey=ths5qs4n6ebv8udgz50on5cco&st=gt2fjgl4&dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
+
 Como comentamos al principio, HTTP es un protocolo **sin estado**. Esto significa que el servidor no tiene ni idea de si la petición que le acaba de llegar es del mismo usuario que le pidió una página hace cinco segundos o de alguien completamente distinto.
 
 Para construir aplicaciones web reales (donde un usuario hace login, añade cosas a un carrito, etc.) necesitamos inventarnos alguna forma de "recordar" el estado. Y ahí es donde entran las Cookies y las Sesiones.

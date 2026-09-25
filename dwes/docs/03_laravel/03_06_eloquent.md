@@ -42,13 +42,13 @@ $art->save();                     // Si hacemos save(), los cambios se guardan e
 Tienes que **crear un modelo**. ¿Qué te creías? Pero con Artisan es así de fácil:
 
 ```
-# ./vendor/bin/sail php artisan make:model <Mi-modelo>
+# ./vendor/bin/sail artisan make:model <Mi-modelo>
 ```
 
 Por ejemplo:
 
 ```
-# ./vendor/bin/sail php artisan make:model Article
+# ./vendor/bin/sail artisan make:model Article
 ```
 
 El modelo se creará en `app/Models/Article.php`.

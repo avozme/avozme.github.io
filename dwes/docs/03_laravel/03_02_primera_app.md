@@ -196,7 +196,7 @@ Se trata de una **interfaz de línea de comandos para interactuar con Laravel** 
 2. Comprueba que artisan funciona:
 
     ```bash
-    $ ./vendor/bin/sail php artisan   
+    $ ./vendor/bin/sail artisan   
     ```
 
     Esto debe mostrarte información sobre los comandos disponibles. Iremos viendo muchos de ellos conforme los necesitemos a lo largo del tema.
@@ -204,7 +204,7 @@ Se trata de una **interfaz de línea de comandos para interactuar con Laravel** 
 3. Prueba este comando concreto:
 
     ```bash
-    $ ./vendor/bin/sail php artisan route:list
+    $ ./vendor/bin/sail artisan route:list
     ```
 
     Esto te mostrará las rutas que Laravel tiene registradas en la aplicación. Como Laravel está limpio y recién instalado, solo deben aparecer estas:
@@ -227,7 +227,7 @@ Se trata de una **interfaz de línea de comandos para interactuar con Laravel** 
     });
     ```
 
-3. Ejecuta el comando `./vendor/bin/sail php artisan route:list`. Debería mostrarte una nueva ruta `/hola`.
+3. Ejecuta el comando `./vendor/bin/sail artisan route:list`. Debería mostrarte una nueva ruta `/hola`.
 4. En tu navegador web, visita la dirección `http://localhost/hola`. Deberías ver una página web que simplemente dice `Hola mundo`. ¡Acabas de hacer tu primer "Hola mundo" con Laravel.
 
 #### ¿Qué ha ocurrido?
