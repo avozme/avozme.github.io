@@ -6,13 +6,14 @@ parent: Desarrollo Web en Entorno Servidor
 nav_order: 7
 ---
 # 7. Consumo de APIs y frontend reactivo para SPA
-
 {: .no_toc }
+
+<div style="color:red; font-size: 150%"><strong>ESTE MATERIAL AÚN ESTÁ EN DESARROLLO</strong></div>
+
 
 - TOC
 {:toc}
 
-<div style="color:red; font-size: 150%"><strong>ESTE MATERIAL ESTÁ EN DESARROLLO</strong></div>
 
 
 

@@ -223,6 +223,7 @@ Añade al proyecto un archivo llamado `TESTING.md` en formato [Markdown](https:/
   * Publicación de comentarios
   * Búsqueda de publicaciones
   Sube el vídeo a Moodle Centros junto con tu código fuente.
+* **Sube un archivo .docx o .odt con TODA tu conversación con la IA**. Necesitamos ver cómo has interactuado con la Inteligencia Artificial.
 * **Sube también el link a tu repositorio** GitHub o GitLab con el código del proyecto.
 * **El proyecto debe ser reproducible** nada más descargarlo en otro equipo sin más que lanzar el comando `docker compose up -d`
 * **Recuerda que puedes tener que hacer una defensa oral parcial y/o responder a preguntas sobre tu código** en un examen escrito **SIN IA**. Asegúrate de **ENTENDER** (no memorizar) todo el código que has entregado.

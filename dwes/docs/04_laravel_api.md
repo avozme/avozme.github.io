@@ -8,514 +8,428 @@ parent: Desarrollo Web en Entorno Servidor
 ---
 
 # 4. APIs RESTful con Laravel
-
 {: .no_toc }
 
 - TOC
 {:toc}
 
-<div style="color:red; font-size: 150%"><strong>ESTE MATERIAL ESTÁ EN DESARROLLO</strong></div>
+Los **servicios web** son un tipo particular de aplicación web: una aplicación pensada no solo para ser usada por usuarios humanos, sino por otras aplicaciones de software.
 
-Los **servicios web** son un tipo particular de aplicación web: una aplicación pensada no solo para ser usada por usuarios humanos, sino por otras aplicaciones.
+Existen dos estándares históricos para crear servicios web: SOAP y REST. En este tema, vamos a estudiar las diferencias fundamentales y a centrarnos en cómo podemos construir una API RESTful moderna utilizando Laravel 13.
 
-Existen dos estándares para crear servicios web. En este tema, vamos a estudiar esos dos estándares y a ver cómo podemos construir una aplicación de este tipo.
+**¡¡OJO!!** Ten en cuenta que SOAP y REST no son los únicos estándares que existen para construir APIs. Hay otros que también se usan mucho, como **GraphQL** (el más flexible), **WebSocket** (comunicación bidireccional en tiempo real), **MQTT** (para IoT o Internet de las Cosas) o **gRPC** (para microservicios), etc. ¡Pero no podemos verlos todos! Así que veremos REST, que es el más popular en la actualidad.
 
-## 6.1. ¿Qué es un servicio web?
+## 4.1. ¿Qué es un servicio web?
 
-### 6.1.1. Una definición de servicio web
+#### Una definición de servicio web
 
 Un **servicio web** es una aplicación web capaz de **comunicarse e intercambiar información con otra aplicación** (que denominaremos *cliente*) independientemente de la plataforma en la que cada una se ejecute.
 
-Es decir, el servicio web puede estar programado en PHP y correr bajo un sistema operativo GNU/Linux y el cliente puede estar programado con C# y correr bajo un Windows, y deberían ser capaces de comunicarse y trabajar juntas. Pero es importante que quede claro que, en este caso, la aplicación web (servidor) y la aplicación cliente *son dos aplicaciones diferentes*.
+Es decir, el servicio web puede estar programado en PHP (Laravel) y correr bajo un servidor GNU/Linux, y el cliente puede ser una aplicación móvil en Kotlin para Android, y deberían ser capaces de comunicarse y trabajar juntas. Pero es importante que quede claro que, en este caso, el servicio web (servidor) y la aplicación cliente *son dos piezas de software totalmente diferentes*.
 
-Los mensajes que las aplicaciones se intercambian generalmente tienen formato **XML** o **JSON**.
+Los mensajes que las aplicaciones se intercambian actualmente tienen, casi en el 100% de los casos, formato **JSON**.
 
-Existen dos estándares principales en la industria para implementar servicios web, denominados **SOAP** y **REST**. A lo largo el tema, vamos a aprender cómo funciona cada uno de ellos.
+#### Diferencias entre servicios web y aplicaciones web
 
-### 6.1.2. Diferencias entre servicios web y aplicaciones web
+Llegados a este punto, puede que estés pensando: "Vale, pero ¿en qué se diferencia esto de una aplicación web normal? ¿No intercambian también el cliente y el servidor información a través de Internet?".
 
-Llegados a este punto, puede que estés pensando: "Vale, pero ¿en qué se diferencia todo esto de una aplicación web MVC? ¿No intercambian también el cliente y el servidor información independientemente de la plataforma en la que se ejecuta cada uno?".
+Sí, pero hay algunas **diferencias fundamentales entre un *servicio web (API)* y una *aplicación web SSR***:
 
-Pues sí, pero hay algunas **diferencias fundamentales entre un *servicio web* y una *aplicación web***:
+* Una aplicación web tradicional (SSR) está diseñada para que un ser humano interactúe con ella a través de una interfaz gráfica en un navegador (HTML/CSS). Un servicio web (API), en cambio, está pensado para que lo use otra aplicación informática (el cliente móvil, una aplicación frontend como React/Vue, o un servidor externo), no un ser humano directamente.
+* Por ese motivo, los servicios web carecen de interfaz de usuario y no devuelven HTML. Es decir, un servicio web **no tiene vistas**.
+* En lugar de vistas, los servicios web devuelven datos crudos formateados en **JSON**, pensados para que la máquina cliente los lea, los procese y sea ella quien decida cómo dibujarlos en la pantalla del usuario final.
 
-* Una aplicación web está diseñada para que un ser humano interactúe con ella a través de un interfaz DHTML. Un servicio web, en cambio, está pensado para que lo use otra aplicación informática (el cliente), no necesariamente un ser humano.
-* Por ese motivo, los servicios web suelen carecer de interfaz de usuario y no producen salidas HTML legibles. Es decir, un servicio web puro **no suele tener vistas**.
-* En cambio, los servicios web suelen producir salidas XML o JSON, pensadas para que los clientes las procesen. Una aplicación web, en cambio, solo responde con XML o JSON cuando recibe una petición Ajax, algo que veremos en el tema siguiente.
+Por lo demás, un servicio web sigue teniendo una arquitectura MVC, pero *sin la V*. Conservamos las rutas, los controladores y los modelos. Los controladores simplemente pedirán datos al modelo y los escupirán en formato JSON.
 
-Por lo demás, un servicio web puede tener una arquitectura *aproximadamente* MVC, y digo *aproximadamente* porque el servicio web, como acabo de contarte, carece de vistas. Pero puede seguir conservando sus controladores y sus modelos. Los controladores se encargarán de convertir los datos de los modelos a JSON o XML y devolverlos al cliente.
+## 4.2. SOAP (El pasado)
 
-## 6.2. SOAP
+**SOAP (Simple Object Access Protocol)** fue, durante muchos años, el estándar dominante en la industria para la implementación de servicios web en entornos corporativos.
 
-**SOAP (Single Object Access Protocol)** es un mecanismo estandarizado para la implementación, descripción y publicación de servicios en red.
+SOAP estaba orientado a *procesos* (RPC - Remote Procedure Call). Obligaba a empaquetar toda la información en pesados documentos **XML** y requería la publicación de un archivo llamado **WSDL**, que era un enorme diccionario técnico que describía exactamente qué funciones tenía el servidor y qué parámetros aceptaba.
 
-SOAP establece el modo en el que deben comportarse el cliente y el servidor para hablar entre sí, así como la forma en la que el servidor debe dar a conocer sus servicios.
+Aunque SOAP era muy riguroso, también era **extremadamente rígido, lento, pesado y difícil de programar**. Escribir un cliente o un servidor SOAP sin herramientas de autogeneración de código era una pesadilla.
 
-### 6.2.1. La pila de protocolos de SOAP
+Hoy en día, SOAP se considera una tecnología **heredada (legacy)**. A menos que tengas que mantener sistemas bancarios o institucionales antiguos, rara vez iniciarás un proyecto nuevo usando SOAP. La industria entera ha migrado a REST. Por lo tanto, no entraremos en más detalles técnicos sobre él.
 
-El estándar **SOAP** define una serie de protocolos de niveles de abstracción crecientes. Esta colección de protocolos suele denominarse **pila de protocolos SOAP**, y son los siguientes:
+## 4.3. REST (El presente)
 
-Nivel de abstracción|Protocolo
--|-
-Nivel de descubrimiento|UDDI
--|-
-Nivel de publicación|UDDI
--|-
-Nivel de descripción|WSDL
--|-
-Nivel de mensajería|SOAP
--|-
-Nivel de red|TCP, SMTP, FTP, etc
+### 4.3.1. ¿REST o RESTful?
 
-Como ves, SOAP solo es uno de los protocolos de la pila, aunque todo el tinglado recibe el nombre "SOAP" por extensión.
+**REST (Representational State Transfer)** es el mecanismo de intercambio de información estándar en la actualidad. 
 
-Vamos a explicar brevemente en qué consiste cada protocolo de la pila, y lo vamos a hacer, como en otras ocasiones, por medio de unos ejemplos en lugar de perdernos en largas y farragosas explicaciones.
+A diferencia de SOAP, REST está **orientado a los datos (recursos)**. En lugar de crear URLs como `/api/obtenerListadoDeCoches` (enfocado a la acción), en REST las URLs representan recursos estáticos, como `/api/coches`, y la acción que queremos hacer sobre esos coches la indicamos utilizando los **verbos HTTP**.
 
-### 6.2.2. Los protocolos SOAP y WSDL
+Cuando decimos que una API es **RESTful**, simplemente nos referimos a que es un servicio web que respeta estrictamente los principios de la arquitectura REST y devuelve sus respuestas en formato JSON.
 
-Para entender cómo funciona el **protocolo SOAP** (el más importante de la pila, como ya te habrás imaginado por su nombre) y, en menor medida, el **protocolo WSDL**, vamos a implementar tres ejemplos de servicios web muy sencillos:
+Si un servicio se desvía un poco de REST, todavía puede seguir siendo un API REST, pero ya no lo llamaremos "RESTful".
 
-* En el primero veremos cómo construir un servidor que devuelva colecciones de datos en forma de array.
-* En el segundo veremos cómo puede un servidor devolver datos con estructura más compleja formateados con JSON.
-* En el tercero montaremos un pequeño servidor con WSDL.
+### 4.3.2. Repaso de los verbos HTTP
 
-#### Ejemplo 1: Consulta de una BD de marcas y modelos de coches
+Recuerda que el protocolo HTTP soporta varios métodos o verbos para realizar peticiones. El estándar REST, como hemos dicho, hace un uso intensivo de ellos para determinar qué queremos hacer con un recurso:
 
-Vamos a programar un servicio web muy simple capaz de servir a los clientes que nos lo pidan un listado de las **marcas de coches** que existen y otro con los **modelos** registrados que pertenecen a una marca en concreto.
+* **GET** se utiliza para *solicitar* datos al servidor (solo lectura). Ejemplo: "Dame toda la información de este producto".
+* **POST** se utiliza para *enviar* nuevos datos al servidor. Ejemplo: "Aquí tienes un nuevo producto, créalo en la base de datos".
+* **PUT / PATCH** se utilizan para *modificar* datos que ya existen. (PUT suele usarse para reemplazar el objeto entero, y PATCH para modificar solo algunos campos parciales).
+* **DELETE** se usa para solicitar la *eliminación* de datos en el servidor.
 
-El servidor, por lo tanto, necesita dos funciones:
+El HTML tradicional solo soporta GET y POST, pero en el contexto de una API REST, los clientes como Postman, Axios, Fetch u otros que iremos viendo sí pueden enviar peticiones PUT o DELETE sin ningún problema. Y, si usamos HTML, el envío de PUT o DELETE se *simula* con un campo oculto en el formulario, como vimos que hace Blade con las vistas de Laravel.
 
-* obtenerMarcas
-* obtenerModelos($idMarca)
+### 4.3.3. Las 5 operaciones típicas de una API REST
 
-Aquí ya se ve la primera diferencia con REST: ni los nombres de los métodos están estandarizados, ni hay una colección de métodos predefinidos para cada tipo de recurso. Cuando veamos REST en el siguiente apartado, entenderás mejor qué significa esta afirmación.
+Como en una API no existen formularios HTML que mostrarle al usuario humano, las operaciones de un controlador REST se reducen de las 7 tradicionales a **solo 5 operaciones**.
 
-El cliente, como es lógico, debe conocer cómo utilizar el servidor. Esto puede hacerse mediante el protocolo WSDL (que ya veremos un poco después) o por otras vías más tradicionales: documentación de la API, guía del desarrollador, manual de usuario...
+Si tuviéramos un recurso llamado `Product`, una API RESTful perfecta tendría las siguientes rutas, verbos y funciones en el controlador:
 
-En estos ejemplos, tanto el servidor como el cliente estarán escritos en PHP. Por supuesto, puede usarse cualquier otro lenguaje para ello, en particular en el lado del cliente. Para saber cómo hacer un cliente SOAP en otros lenguajes, consulta la documentación de tu lenguaje preferido.
+| Operación | Verbo HTTP | Ruta (URL) | Acción en el Controlador |
+| :--- | :--- | :--- | :--- |
+| **index** | GET | `/api/products` | Devuelve un JSON con la lista de todos los productos o un error (si ocurre). |
+| **show** | GET | `/api/products/{id}` | Devuelve un JSON con los datos del producto solicitado o un error (si ocurre) |
+| **store** | POST | `/api/products` | Recibe un JSON, crea el producto en la BD y devuelve código 201 (Created) o un error (si ocurre). |
+| **update** | PUT / PATCH | `/api/products/{id}` | Recibe un JSON, actualiza el producto y devuelve los datos modificados. O un error (si ocurre)|
+| **destroy** | DELETE | `/api/products/{id}` | Elimina el producto y devuelve un código 204 (No Content) o mensaje de éxito. O un error (si ocurre)|
 
-**EN EL LADO DEL SERVIDOR** necesitaremos crear un objeto de tipo *SoapServer* y definir los métodos a los que el servidor va a responder. La clase *SoapServer* forma parte de la biblioteca de clases estándar de PHP y debería estar disponible en tu servidor a partir de PHP5.
+Cualquier programador del mundo que consuma tu API sabrá, por pura convención, que si hace un POST a `/api/products`, estará creando un producto. ¡Esa es la magia de REST!
 
-Vamos a empezar por los métodos. Crearemos un fichero (por ejemplo, llamado **GestionAutomoviles.class.php**) en cuyo interior escribiremos una clase con los métodos que necesitemos. Para nuestro ejemplo de marcas y modelos de coches, podría ser algo así:
+## 4.4. Cómo crear una API REST con Laravel
+
+Crear una API en Laravel es muy similar a crear una aplicación web estándar, pero en realidad es **más sencillo** porque nos saltamos toda la capa de Vistas y Blade.
+
+#### Instalación de las rutas API
+
+En las versiones modernas de Laravel (a partir de la v11), el archivo de rutas para APIs no viene habilitado por defecto para ahorrar peso. Para generar la infraestructura de APIs, debes abrir tu terminal y ejecutar **una sola vez**:
+
+```bash
+./vendor/bin/sail artisan install:api
+```
+
+Este comando creará el archivo `routes/api.php`. Todas las rutas que escribas dentro de ese archivo tendrán automáticamente el prefijo `/api/` en la URL (por ejemplo, `http://localhost/api/mis-rutas`).
+
+#### El controlador API
+
+Laravel tiene un comando específico para crear controladores orientados exclusivamente a APIs (sin los métodos `create` y `edit` que usábamos para renderizar formularios HTML). 
+
+Se utiliza la opción `--api`:
+
+```bash
+./vendor/bin/sail artisan make:controller ProductController --api
+```
+
+#### El enrutador API
+
+En tu archivo `routes/api.php`, puedes declarar las 5 rutas RESTful en una sola línea utilizando `apiResource` (en lugar de `resource`):
 
 ```php
-class GestionAutomoviles
+use App\Http\Controllers\ProductController;
+
+Route::apiResource('products', ProductController::class);
+```
+
+#### Devolver respuestas JSON
+
+En los métodos de tu controlador, en lugar de utilizar `return view(...)`, simplemente puedes devolver tu modelo o colección de Eloquent, y Laravel lo convertirá mágicamente a formato JSON:
+
+```php
+public function index()
 {
-  public function obtenerMarcas()
+    $products = Product::all();
+    return response()->json($products);
+    // ¡Incluso podrías hacer simplemente `return Product::all();` y Laravel lo transforma!
+}
+
+public function show($id)
+{
+    $product = Product::findOrFail($id);
+    return response()->json($product);
+}
+```
+
+Al crear o actualizar, puedes usar validaciones de Request tal y como lo hacías antes. Laravel es tan inteligente que, si la validación falla estando en un entorno API, devolverá automáticamente un JSON con el error 422 y los detalles de validación, en lugar de hacer una redirección como haría en un entorno web.
+
+## 4.5. Autenticación en una API con Laravel Sanctum
+
+En las aplicaciones web, la sesión del usuario se mantiene viva usando Cookies en el navegador. Sin embargo, en una API REST pura, **no hay estado (stateless)** y no se puede asumir que clientes vayan a manejar cookies.
+
+La solución estándar es usar lo que se llama **Tokens de acceso**. 
+
+Cuando un usuario se identifica correctamente, el servidor le emite un "Token" (una larga cadena alfanumérica secreta). A partir de ese momento, el cliente debe incluir ese token en la **Cabecera HTTP (Header)** de cada petición que haga al servidor.
+
+Laravel facilita esto mediante un paquete oficial llamado **Laravel Sanctum**. Cuando ejecutaste el comando `install:api` anteriormente, Laravel Sanctum se instaló y configuró automáticamente.
+
+#### Generar el Token de acceso
+
+Imagínate que un usuario hace una petición POST a `/api/login` con su email y contraseña. En el controlador de la API, verificaríamos sus credenciales y, si son correctas, le generaríamos un token usando Sanctum de este modo:
+
+```php
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
+use App\Models\User;
+
+public function login(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
+
+    $user = User::where('email', $request->email)->first();
+
+    if (! $user || ! Hash::check($request->password, $user->password)) {
+        return response()->json(['message' => 'Credenciales incorrectas'], 401);
+    }
+
+    // Generamos el token usando Sanctum
+    $token = $user->createToken('token_de_acceso')->plainTextToken;
+
+    // Devolvemos el token al cliente (la app móvil, React, etc.)
+    return response()->json(['token' => $token]);
+}
+```
+
+#### Rutas protegidas
+
+Para proteger las rutas de tu API en `routes/api.php`, debes agruparlas bajo el middleware de Sanctum:
+
+```php
+Route::middleware('auth:sanctum')->group(function () {
+    // Estas rutas requerirán un Token válido
+    Route::apiResource('products', ProductController::class);
+});
+```
+
+A partir de este momento, si el cliente intenta acceder a `/api/products` sin token, recibirá un error 401 (Unauthorized). 
+
+Para acceder sin problemas, **el cliente deberá incluir la siguiente cabecera HTTP obligatoriamente** (si no, Sanctum rechazará la petición):
+
+```http
+Authorization: Bearer <aquí_pega_el_largo_token_generado>
+```
+
+Y de igual manera que en SSR, dentro de tu controlador podrás usar `$request->user()` o `Auth::user()` para saber qué usuario está realizando esa petición a la API y autorizar si puede borrar o editar un recurso concreto.
+
+---
+## 4.6. Consumir el servicio web con Postman
+
+### 4.6.1 Instalación y uso de Postman
+
+#### Qué es Postman
+
+Postman es una herramienta cliente para APIs muy popular que permite a desarrolladores **probar, documentar y automatizar peticiones a servicios web**. Es gratuita con opciones de pago.
+
+Postman se usa para todas estas cosas:
+
+* **Enviar peticiones HTTP** (GET, POST, PUT, PATCH, DELETE, etc.) hacia tu API y visualizar la respuesta.
+* **Configurar headers y parámetros**. Por ejemplo, "Content-Type: application/json", tokens de autenticación, etc.
+* **Enviar cuerpos de petición en JSON** para probar *endpoints*, es decir, URLs que esperan recibir datos en JSON para funcionar.
+* **Visualizar las respuestas del servidor** en formato JSON, XML, texto, etc., junto con el código de estado HTTP.
+* **Guardar colecciones de pruebas para reutilizarlas** o compartirlas con tu equipo (muy útil cuando varios desarrolladores trabajan con la misma API).
+* **Automatizar pruebas**: puedes escribir scripts en JavaScript dentro de Postman para verificar automáticamente que las respuestas cumplen con lo esperado.
+* **Generar documentación** de tu API a partir de las colecciones.
+
+#### Instalación y puesta en marcha de Postman
+
+**Opción 1: Instalar Postman como app de escritorio** (***RECOMENDADO***)
+
+* Visita la web [https://www.postman.com/downloads/](https://www.postman.com/downloads/). Si usas Linux, puedes buscar antes en los repositorios oficiales de tu distribución, porque podría incluir Postman.
+* Descarga e instala la versión más adecuada para tu sistema operativo.
+* Inicia sesión (puedes usar Google o GitHub).
+
+**Opción 2: Usar Postman en la nube**
+
+* Accede a: [https://web.postman.com/](https://web.postman.com/)
+* Inicia sesión y comienza a trabajar directamente en la nube.
+
+**Ignorando el asistente de IA**
+
+En las nuevas versiones de Postman aparece por defecto un **asistente de IA** al lanzar la aplicación. *Vamos a ignorar ese asistente para aprender a usar Postman nosotros, no una IA, que para eso estamos aquí*. 
+
+Para ello, puedes escribir algo como "Quiero ir al interfaz clásico de Postman" en el cuadro de diálogo de la IA, o elegir la opción *File -> New Postman Window*.
+
+Entonces obtendrás una pantalla como esta:
+
+![Postman - Nueva ventana](../assets/images/postman-new-window.jpg)
+
+### 4.6.2. Cómo testear un API con Postman
+
+Vamos a ilustrar cómo funciona Postman con un **ejemplo práctico**: configurándolo para probar nuestro API REST de clientes, productos y compras que hemos implementado un poco más arriba.
+
+#### Configura una colección en Postman
+
+**Una colección es una serie de *request* o peticiones al servidor agrupados** bajo el mismo nombre. Son como carpetas donde organizar peticiones para poder reutilizarlas más tarde, algo habitual si estás en fase de desarrollo de una API.
+
+La colección que nosotros vamos a crear nos permitirá lanzar todas las peticiones para trabajar con Productos, Clientes y Compras.
+
+En Postman puedes crear una colección llamada, por ejemplo, **Tienda API**, o bien puedes usar la colección que viene creada por defecto, **MyCollection**. 
+
+**Todo ello se hace en el panel izquierdo de Postman**.
+   
+![Postman - Crear colección](../assets/images/postman-crear-coleccion.jpg)
+
+
+#### Requests GET
+
+Veamos como hacer un GET con Postman para comprobar si el API responde con los datos correctos.
+
+Cada request tendrá la URL base de tu API. En todos los ejemplos vamos a suponer que es *https://servidor/api*, pero, lógicamente, tendrás que cambiarla por la tuya.
+
+Pues bien: para hacer un **GET /productos** y guardar el request en nuestra colección solo tenemos que:
+
+1. Hacer clic en los tres puntos junto al nombre de la colección y pulsar en *"Add request"*.
+2. Escribir el *endpoint* o ruta ***https://servidor/api/productos*** en el cuadro de búsqueda.
+3. Asegurarnos de tener seleccionado el **verbo GET**. 
+4. Pulsar el **botón "Send"**.
+
+El servidor nos debería devolver todos los productos empaquetados en un JSON:
+
+![Postman - Request GET](../assets/images/postman-request-get.jpg)
+
+#### Requests POST con datos
+
+Si hacemos una petición como **POST /productos**, el estándar REST indica que estamos tratando de enviar los datos de un producto al servidor para que este lo almacene en la base de datos.
+
+Por lo tanto, esta petición debe llevar los datos del producto empaquetados como JSON en el cuerpo (*body*) de la propia petición HTTP.
+
+Esto se logra así en Postman:
+
+1. **Crear una nueva *request*** en tu colección (haz clic en los 3 puntos junto al nombre de la colección y elige *"Add request"*).
+2. **Escribir el *endpoint*** o ruta ***https://servidor/api/productos*** en el cuadro de búsqueda.
+3. Asegurarnos de tener seleccionado el **verbo POST**.  
+4. En el panel de la *request*, seleccionar la **pestaña "Body"**.
+5. **Seleccionar "raw" y "JSON"** en los desplegables, pues vamos a enviar los datos como JSON en texto plano (raw).
+6. **Escribir el objeto JSON** que deseamos enviar al servidor. Por ejemplo:
+
+    ```json
     {
-      $db = new mysqli(<datos-de-la-conexión>);
-
-      $marcas = array();
-      if( $db )
-      {
-        $result = $db->query('select id, marca from marcas');
-        while( $row = $result->fetch_array() )
-          $marcas[$row['id']] = $row['marca'];
-        $db->close();
-      }
-
-      return $marcas;
+      "nombre": "Ratón inalámbrico",
+      "descripcion": "Mouse óptico con USB",
+      "precio": 25.90,
+      "stock": 100
     }
-    
-    public function obtenerModelos($idMarca)
-    {		
-      $db = new mysqli(<datos-de-la-conexión>);
-      $modelos = array();
-
-      if( $marca !== 0 )
-      {
-        $result = $db->query('select id, modelo from modelos
-                                where marca = ' . $idMarca );
-        while( $row = $result->fetch_array() )
-            $modelos[$row['id']] = $row['modelo'];
-      }
-      $db->close();
-      return $modelos;
-    }
-}
-```
-
-Ahora, en otro archivo aparte que llamaremos, por ejemplo, **webservice.php**, *registramos el servicio* usando la clase *SoapServer* de PHP y asignándole la clase anterior, *GestionAutomoviles*. Se hace así:
-
-```php
-<?php
-   include 'GestionAutomoviles.class.php';
-   $soap = new SoapServer(null, array('uri' => 'http://localhost/'));
-   $soap->setClass('GestionAutomoviles');
-   $soap->handle();
-?>
-```
+    ```
 
-Si observas el constructor de *SoapServer* verás que tiene dos argumentos:
+7. Pulsar el **botón "Send"**.
 
-* El **fichero WSDL** donde se describe el servicio. Como aún no vamos a usar fichero WSDL, ese argumento lo dejaremos a *null* por ahora.
-* La **URI** donde el servidor va a estar escuchando. Puede ser el directorio raíz de nuestro servidor o cualquier subdirectorio o archivo. En el ejemplo, hemos puesto simplemente *localhost*, pero tú tendrás que adaptarlo a tu servidor.
-
-**EN EL LADO DEL CLIENTE**: para comprobar que nuestro servidor SOAP funciona bien, necesitamos crear un secillo cliente que consuma ese servicio. Como hemos dicho antes, esta parte también la vamos a programar en PHP, aunque podría hacerse en cualquier otro lenguaje con soporte SOAP.
-
-Necesitamos crear un objeto de tipo *SoapClient*:
-
-```php
-$soapS = new SoapServer(null, "URI del servidor");
-```
-
-Nuevamente, el primer argumento del constructor es el fichero WSDL. Como aún no trabajamos con ellos, lo dejamos a null. Si tuviéramos fichero WSDL, no necesitaríamos indicar la URI del servidor, porque el propio fichero WSDL lo establecería de forma inequívoca.
-
-Una vez hecho eso, podemos consumir los servicios del cliente. Por ejemplo: 
-
-```php
-<?php
-   $client = new SoapClient(null, array('uri' => 'http://localhost/',
-       'location' => 'http://localhost/<ruta>/webservice.php'));
-   $marcas = $client->obtenerMarcas();
-   foreach($marcas as $key => $value )
-      echo $value;   
-?>
-```
-
-Fíjate en la manera en la que hemos indicado la localización del servidor: en un array, le decimos a *SoapClient* su ubicación y la ruta de acceso al fichero que maneja el servicio (en nuestro ejemplo, webservice.php).
-
-#### Ejemplo 2: Lista de libros de una biblioteca.
-
-El ejemplo anterior funciona porque tanto cliente como servidor trabajan en PHP. Pero si el cliente no fuera PHP, podría tener problemas al recibir los datos de respuesta del servidor, que son arrays PHP.
-
-Lo más adecuado cuando se responden datos complejos es enviarlos en algún formato estándar de intercambio de información, como **XML o JSON**.
-
-En este nuevo ejemplo, vamos a crear un servidor que nos devuelva la **lista de libros de una biblioteca** (lo que incluirá el id, el título y el ISBN de cada libro) empaquetada en un string **JSON**.
-
-De momento, tampoco usaremos WSDL (fichero de descripción del servicio).
-
-**LADO DEL SERVIDOR** 
-
-Definimos los métodos de nuestro servidor (archivo *libros.class.php*). En este ejemplo, solo habrá un método :
-
-```php
-class libros
-{
-      private function getLibrosJSON()
-      {
-         $sql = "SELECT * FROM libros";
-         $db = new dbAbstract();  // Suponemos que existe una capa
-                                  // de abstracción de datos
-         return json_encode($db->consulta($sql));
-     }
-     ...aquí irían más métodos que pudiera tener el servidor
-}
-```     
-     
-Después, registramos el servidor (archivo *libros.server.php*):
-
-```php
-<?php
-   include 'libros.class.php';
-   $soap = new SoapServer(null, array('uri' => 'http://localhost/'));
-   $soap->setClass('libros');
-   $soap->handle();
-?>
-```
-
-**LADO DEL CLIENTE**
-
-De nuevo, lo vamos a crear en PHP, que es el lenguaje con el que estamos trabajando, pero podrías programarlo con cualquier otro lenguaje de programación de tu elección. 
-
-```php
-<?php
-   $client = new SoapClient(null, array('uri' => 'http://localhost/',
-       'location' => 'http://localhost/libros.server.php'));
-   $listaLibros = $libros->getLibrosJSON();
-?>
-```
-
-A partir de ahí, el cliente dispondrá en la variable *$listaLibros* de la información recibida del servidor (id, titulo, isbn de todos los libros) empaquetada en formato JSON.
-
-#### Ejemplo 3: Servicio de calculadora
-
-Este será un servicio mucho más simple y hasta un poco tontorrón, pero no te lo tomes a mal: solo es un ejemplo.
-
-El servicio simple y tontorrón proporcionará dos métodos:
-
-* **sumar (op1, op2)** --> Devuelve la suma de op1 y op2
-* **restar (op1, op2)** --> Devuelve la diferencia entre op1 y op2
-
-Y va a ser un servicio muy simple y tontorrón porque, ahora sí, **usaremos WSDL para definir el servicio** y que los clientes sepan cómo usarlo. Así será más fácil que entiendas la estructura de estos ficheros, que no son nada fáciles de entender porque no están escritos para que los lean personas, sino otros programas.
-
-**LADO DEL SERVIDOR**
-
-El código de este servidor es extremadamente simple. Fíjate en que ahora, el crear el objeto SoapServer, sí indicamos el nombre del archivo WSDL (*calculadora.wsdl*):
-
-```php
-<?php
-   $server = new SoapServer("calculadora.wsdl");
- 
-   function sumar($operando1,$operando2){
-      return $operando1 + $operando2;
-   }
- 
-   function restar($operando1,$operando2){
-      return $operando1 - $operando2;
-   }
- 
-   $server->AddFunction("sumar");
-   $server->AddFunction("restar");
-   $server->handle();
-?>
-```
-
-**LADO DEL CLIENTE**
-
-El cliente lo volveremos a programar en PHP, aunque ya sabes que puedes programarlo en cualquier otro lenguaje.
-
-Fíjate en que también indicamos el archivo WSDL al crear el objeto *SoapClient*, y no es necesario informarle de nada más porque el archivo WSDL ya contiene todo lo necesario para que el cliente sepa conectarse al servidor:
-
-```php
-<?php
- $clienteSOAP = new SoapClient('http://ejemplo.com/test/wsdl/calculadora.wsdl');
- 
- // Vamos a probar el servidor con un par de llamadas de ejemplo
- $resultado_suma = $clienteSOAP->sumar(4.75, 12.5);
- $resultado_resta = $clienteSOAP->restar(4.75, 12.5);
- 
- echo "La suma es: " . $resultado_suma . "<br>";
- echo "La resta es: " . $resultado_resta . "<br>";
-?>
-```
-
-**DOCUMENTO WSDL**
-
-El documento WSDL es un archivo de texto alojado en el servidor donde se describen todos los aspectos del servicio:
+El servidor responderá con un estado http 200 o 201 (si todo va bien) o con un error (estados 403, 404, 500 o cualquier otro). Además, puede enviarnos datos adicionales, como el id del recurso que acaba de crear o incluso **un JSON con todos los datos del recurso que acaba de crear**, como ocurre en el siguiente pantallazo:
 
-* Los **mensajes** que se pueden intercambiar entre el cliente y el servidor.
-* Los **argumentos** y tipos de datos de esos mensajes.
-* Las **operaciones** y sus tipos
-* Las **rutas** donde puede encontrarse el servidor
+![Postman - Request POST](../assets/images/postman-request-post.jpg)
 
-Se trata de un documento en formato XML que resulta bastante farragoso de leer, así que tómatelo con calma (ahora entenderás por qué hemos elegido un servicio tan simple como el de este ejemplo para ver su archivo WSDL: si usáramos un servicio más realista, el archivo resultaría un monstruo de miles de líneas).
+#### Requests PUT, PATCH o DELETE
 
-Aquí lo tienes:
+Del mismo modo que con POST podemos enviar *requests* con los verbos PUT, PATCH o DELETE, puesto que en el selector del método de envío encontraremos todos esos verbos.
 
-```xml
-  <message name="calculadoraPeticion">
-    <part name="operando1" type="xsd:float" />
-    <part name="operando2" type="xsd:float" />
-  </message>
- 
-  <message name="calculadoraRespuesta">
-    <part name="respuesta" type="xsd:float" />
-  </message>
+#### Crear un archivo de colección .json
 
-  <portType name="calculadoraPort">
-    <operation name="sumar">
-      <input message="tns:calculadoraPeticion" />
-      <output message="tns:calculadoraRespuesta" />
-    </operation>
-    <operation name="restar">
-      <input message="tns:calculadoraPeticion" />
-      <output message="tns:calculadoraRespuesta" />
-    </operation>
-  </portType>
+Probablemente una de las formas más útiles de usar Postman como **herramienta de testeo de un API** es disponer de un archivo .json con todos los datos para lanzar los tests. 
 
-  <binding name="calculadoraBinding" type="tns:calculadoraPort">
-    <soap:binding style="rpc" />
-    <operation name="sumar">
-        <soap:operation soapAction="urn:calculadora#sumar" />
-        <input>
-          <soap:body use="encoded" namespace="urn:calculadora" />
-        </input>
-        <output>
-          <soap:body use="encoded" namespace="urn:calculadora" />
-        </output>
-    </operation>
-    <operation name="restar">
-        <soap:operation soapAction="urn:calculadora#restar" />
-        <input>
-          <soap:body use="encoded" namespace="urn:calculadora"/>
-        </input>
-       <output>
-          <soap:body use="encoded" namespace="urn:calculadora"/>
-        </output>
-    </operation>
-  </binding>
-  
-  <service name="calculadoraServicio">
-    <port name="calculadoraPort" binding="tns:calculadoraBinding">
-      <soap:address location="http://ejemplo.com/test/wsdl/calculadora_server.php" />
-    </port>
-  </service>
-```
+Esto te permite preparar la batería de pruebas de una sola vez y utilizarla todas las veces que lo necesites. También es fácil hacer pequeños retoques en las pruebas y volver a cargar el .json en Postman.
 
-Escribir los documentos WSDL a mano es casi imposible. Y hacerlo sin cometer errores, es imposible del todo. Para eso existen **herramientas automatizadas** que toman el archivo con la clase que contiene los métodos del servicio y generan automáticamente el archivo WSDL.
+Para usar Postman de este modo, debes:
 
-Puedes encontrar estas herramientas de creación automática del archivo WSDL en cualquier IDE avanzado (como Netbeans o Eclipse) y también en muchos sitios web.
+1. **Crear tu archivo .json con la colección de tests**. No suele ser buena idea escribirlo a mano. Para esto puedes apoyarte en una IA como ChatGPT o la propia IA que viene integrada con Postman, a la que puedes pedir algo como esto: *"Genera un archivo .json con una colección para Postman con la que probar la siguiente una API REST basada en las siguientes tablas"*. Y, a continuación, detalla la estructura de tu base de datos.
 
-Por lo tanto, no es un documento que vayas a tener que redactar tú, ni siquiera que leer tú: se trata de una descripción del servicio escrita por y para programas informáticos. Por eso no tiene un formato demasiado legible para un humano.
-  
-### 6.2.3. UDDI
+2. **Importa tu archivo .json con la opción *"Import"* de Postman**. Se importará como una nueva colección. Si la colección ya existiera y te quedan dos con el mismo nombre, puedes borrar la que te sobre.
 
-Este protocolo, que también forma parte de la pila SOAP, es muy fácil de explicar.
+Y listo: solo con esto ya tendrás todos los *endpoints* listos para probar.
 
-*Olvídate de que existe*. 
+![Postman - Importar json en colección](../assets/images/postman-coleccion-json.jpg)
 
-Fin de la explicación. Fácil, ¿verdad?
+### 4.6.3. ¿Qué más puede hacer Postman?
 
-Por si esta explicación te sabe a poco, te diré que UDDI fue un intento de la industria por estandarizar repositorios de servicios, de manera que cualquier cliente pudiera lanzar una petición a la red para descubrirlos y usarlos.
+Postman es mucho más que una herramienta para probar endpoints; es una **plataforma completa de colaboración y automatización para APIs**.
 
-Imagina que tienes una web que necesita conocer la previsión del tiempo en una zona, la que sea. Puedes localizar un servicio web que te proporcione esa información (ya sea de forma gratuita o mediante una suscripción, eso es irrelevante). Hay, de hecho, muchos servidores que ofrecen este servicio, empezando por el de la Agencia Estatal de Meteorología de España.
+Nosotros no vamos a ver mucho más en esta introducción, pero si quieres profundizar en ello, aquí tienes algunos de los trucos de magia que Postman puede realizar para ti:
 
-Para usar ese servicio, tienes que conocer el servidor que lo ofrece y luego bucear en su API para avieriguar cómo narices debes pedirle la información y en qué formato te la va a devolver. Y, una vez hecho eso, ya estás listo para programar tu cliente y consumir ese servicio.
+* **Automatización de pruebas**: puedes escribir sripts en Javascript para validar las respuestas de forma automática o ejecutar múltiples peticiones en secuencia, así como ejecutar código antes y después de lanzar las peticiones.
 
-Pues bien: el servicio UDDI buscaba implementar una manera para que el servidor publicara el tipo de servicio que oferta y los clientes pudieran escanear la red en busca de esos servicios, para luego seleccionar uno y lanzar peticiones contra él, todo ello de forma automatizada y transparente al programador.
+* **Documentación de API**: Postman no solo puede generar automáticamente documentación de la API a partir de la colección, sino que también puede publicarla online y mantenerla actualizada.
 
-Era una idea interesante, ¿verdad? Pero murió hace mucho. De hecho, entró en punto muerto en el año 2006, cuando Microsoft e IBM decidieron abandonar el proyecto.
+* **Monitoreo**: con Postman se puede monitorear el estado de una API de forma automática a intervalos regulares y hacer que nos avise de cualquier mal funcionamiento.
 
-Así que, lo dicho: aunque en teoría el protocolo UDDI forma parte de la pila SOAP, puedes actuar como si no existiera.
+* **Simulación de servidores**: Postman puede simular servidores inexistentes para pruebas más complejas.
 
-## 6.3. REST
+* **Trabajo en equipo**: Puedes integrar Postman con GitHub, GitLab, Jenkins, etc.
 
-### 6.3.1. ¿Qué es REST?
+* **Autenticación**: también puedes gestionar la autenticación por múltiples medios en aquellas APIs que la exijan antes de responder a *requests*.
 
-**REST (Representational State Transfer)** es un mecanismo de intercambio de información entre clientes y servidores de una red.
+## 4.7. Práctica final: API REST de Gestión de Academias y Cursos
 
-A diferencia de SOAP, está orientado a los datos, esto es, proporciona siempre los mismos tipos de acceso a los recursos, sin posibilidad de definir nuevas operaciones.
+Es hora de poner en práctica los conceptos de las APIs RESTful y el uso de Postman como cliente.
 
-Por esa razón se dice que **REST está orientado a los datos** mientras que **SOAP está orientado a los procesos**.
+Vas a construir una **API RESTful de Gestión de Academias** donde se gestionarán centros de estudio (`Academies`), los cursos que ofrecen (`Courses`), y los alumnos que se matriculan en dichos cursos (`Students`).
 
-Actualmente, gran parte de las APIs, ya sean públicas o privadas, se programan según el diseño REST para que los programadores que las usen sepan qué esperar de la API sin necesidad de consultar farragosas páginas de documentación o de pelearse con el servidor mediante el infalible método de ensayo y error.
+#### ADVERTENCIA HABITUAL: Uso de Inteligencia Artificial
 
-### 6.3.2. Las 7 operaciones REST
+Al igual que en la práctica anterior, **puedes y debes usar la IA** para ayudarte, pero recordando que el uso debe ser **ético y eficiente**. Es decir, que te ayude a apreder más, no a fingir que has aprendido:
 
-Un servidor REST debe implementar **siete operaciones de acceso a cada tipo de recurso**. 
+1. **Construye pieza a pieza**. No pidas la API completa de golpe. Pide ayuda para entidades aisladas: *"Hazme el controlador API Resource para el modelo Course en Laravel"*, o *"¿Cómo genero un token con Sanctum al hacer login?"*.
+2. **Entiende el funcionamiento**. El profesor revisará el código y te hará preguntas en la defensa oral o escrita, o en el examen.
+3. **No uses herramientas que desconozcas**. Si la IA te sugiere "Resources" complejos (`JsonResource`), "FormRequests" avanzados o repositorios que no dominas, pídele que simplifique el código para usar las técnicas que conoces y hemos visto en los apuntes, o bien que te explique qué narices está haciendo (simplificar suele ser mejor estrategia; a las IAs se les va la cabeza con facilidad).
 
-Si no las implementa, ya no es REST. Podrá ser *aproximadamente* REST, pero no REST.
+> **Defensa del código (Eliminatorio)**: Recuerda que se evaluará tu conocimiento de la aplicación mediante defensa oral o escrita de la práctica **sin IA** y/o con preguntas **sin AI** en el examen. No superar esto implica suspender automáticamente la práctica porque no habrás podido probar tu autoría.
 
-Los nombres de las operaciones, los datos que se esperan que se devuelvan y el verbo http de acceso deben respetarse escrupulosamente.
 
-Imagina que estamos programando un servidor REST para acceder, por ejemplo, a un recurso llamado *Producto* dentro de una aplicación más grande (por ejemplo, una tienda online). En la siguiente tabla tienes las siete operaciones que un servidor REST puede realizar con ese recurso, es decir, con los productos de la base de datos. También te indico qué significa cada operación y un ejemplo típico de la URL que permitirá el acceso a través de https.
+### Especificación de requisitos
 
-|Operación|Significado|Verbo|URL típica|
-|---|---|---|---|
-|index|Mostrar todos los producto|GET|https://servidor/producto/|
-|show|Mostrar un producto|GET|https://servidor/producto/id|
-|create|Mostrar formulario de creación de un producto|GET|https://servidor/producto/create|
-|store|Crear un producto con los datos procedentes de un formulario|POST|https://servidor/producto/store|
-|edit|Mostrar el formulario de edición de un producto|GET|https://servidor/producto/edit/id|
-|update|Actualizar el producto con los datos procedentes del formulario|PUT o PATCH|https://servidor/producto/update/id|
-|destroy|Eliminar un producto|DELETE|https://servidor/producto/destroy/id|
+La aplicación será exclusivamente backend. No desarrollarás **ninguna vista HTML ni Blade**. Toda tu comunicación con ella debes hacerla con Postman, devolviendo y recibiendo JSON.
 
-Hay una excepción a esta regla: las operaciones *create* y *edit* podrían no estar disponibles en algunas APIs REST, cuando estas estén diseñadas para que las usen otras aplicaciones y no seres humanos.
+#### 1. Tablas de la base de datos
+- `users`: id, name, email, password, timestamps
+- `academies`: id, user_id, name, description, address, phone, email, timestamps
+- `courses`: id, academy_id, name, description, start_date, end_date, capacity, timestamps
+- `students`: id, name, surname, email, phone, date_of_birth, timestamps
+- `course_student`: id, course_id, student_id, enrolled_at, timestamps
 
-Soy consciente de que esta tabla necesita algunas explicaciones adicionales, así que vamos a ello.
+Observa que hay tres relaciones:
+- **Relación 1:N** entre `users` y `academies`.
+- **Relación 1:N** entre `academies` y `courses`.
+- **Relación N:N** entre `courses` y `students`, con una tabla pivote `course_student`
 
-En primer lugar, ¿qué es eso de los *verbos* que figura en cada petición?
+#### 2. Endpoints de Autenticación
+- **POST `/api/register`**: Recibe datos, crea un usuario (`User`) y devuelve su Token de acceso.
+- **POST `/api/login`**: Verifica credenciales de un `User` y devuelve un Token Sanctum.
 
-### 6.3.3. Los verbos http: GET, POST, PUT, PATCH y DELETE
+#### 3. Endpoints de Academias (1:N)
+Un usuario logueado puede crear y gestionar Academias. (Una Academia pertenece a un usuario, y un usuario puede tener varias Academias).
+Las rutas de Academias deben estar **protegidas** (Requieren Token).
+- **CRUD Completo de `Academy`**: Rutas generadas por `apiResource`.
+- *Autorización*: Un usuario solo podrá modificar o eliminar las Academias que él mismo haya creado.
 
-El protocolo http define dos tipos de petición al servidor, GET y POST. El estándar REST aumenta estos tipos en otros tres: PUT, PATCH y DELETE.
+#### 4. Endpoints de Cursos (N:N con Estudiantes)
+Cada Academia imparte varios Cursos (`Course`), y cada Curso pertenece a una Academia.
+A su vez, un Curso puede tener muchos Estudiantes inscritos, y un Estudiante puede matricularse en muchos Cursos (Relación N:N).
+- Implementa endpoints para poder ver los Cursos (esta ruta puede ser pública, sin token).
+- Implementa endpoints privados que permitan, mediante peticiones POST/DELETE a URLs específicas (ej: `/api/courses/{course}/enroll`), inscribir o desinscribir a un Estudiante (`Student`) en un Curso, modificando la tabla pivote.
 
-Veamos qué significa exactamente cada uno:
+---
 
-* **GET** se utiliza para *solicitar* datos al servidor. Por ejemplo: "Dame toda la información de un producto".
-* **POST** se utiliza para *enviar* datos al servidor. Por ejemplo: "Aquí tienes toda la información de un producto; anda, almacénalo en tu base de datos".
-* **PUT/PATCH** se utiliza para solicitar al servidor la modificación de datos que ya existen. Por ejemplo: "Este es el nuevo precio de un producto que ya estaba en tu base de datos. Tómalo y actualízalo".
+### Normas de entrega
 
-   Si se van a actualizar *todos* los datos de un producto, se utiliza *PUT*. Si se va a actualizar solo *una parte* de los datos de un producto, se utiliza *PATCH*.
+El incumplimiento de cualquiera de los siguientes requisitos conllevará penalización o rechazo de la entrega:
 
-* **DELETE** se usa para solicitar la eliminación de datos en el servidor. Por ejemplo: "Elimina este producto".
-
-Por ese motivo, en algunas URLs de la tabla anterior enviamos un id como parte de la ruta. Ese id indicará al servidor qué producto le estamos pidiendo que nos busque, modifique o elimine.
-
-Una moraleja tal vez imprevista de esta tabla es que nunca deberías enviar datos al servidor mediante GET, puesto que GET solo tendría que usarse para *obtener* datos del servidor.
-
-Otra moraleja es que el propio verbo de la petición http ya contiene información sobre lo que se le está pidiendo hacer al servidor. De hecho, en un servidor REST, contiene información fundamental. Por eso es tan importante respetar las convenciones.
-
-Si ya has trabajado con HTML antes, seguro que conocías el significado de GET y POST, pero probablemente nunca habías oído hablar de PUT, PATCH y DELETE, ¿verdad?
-
-### 6.3.4. El problema de PUT, PATCH y DELETE
-
-Cuando solicitamos una URL a un servidor sin indicar otra cosa, el protocolo http/https asumirá que se trata de una petición GET.
-
-Si en un formulario indicamos que el método de envío de los datos al servidor es POST, los datos que el usuario rellene en ese formulario se enviarán al servidor mediante POST, como parte del paquete http, en una zona especialmente dedicada a empaquetarlos:
-
-```html
-<form action='http://servidor/lo-que-sea' method='POST'>
-...cuerpo del formulario
-</form>
-```
-
-Pero **con HTML5 *no hay manera de hacer una petición al servidor por PUT, por PATACH o por DELETE***.
-
-Esto se debe a que la implementación actual de http no contempla los verbos PUT, PATCH ni DELETE. Sin embargo, **en el estándar REST estos verbos son fundamentales**. 
-
-Como a nosotros nos interesa construir servidores REST con acceso por http, es decir, vía web, aquí tenemos un grave problema.
-
-Mientras llega una nueva implementación de http y/o de HTML, **este problema tiene dos soluciones temporales**:
-
-* Sustituir las llamadas con PUT, PATCH o DELETE por llamadas POST convencionales. Esto hará que, en la práctica, nuestro servidor deje de ser REST, claro.
-* Parchear las llamadas con PUT, PATCH o DELETE mediante un campo oculto (de tipo *hidden*) en el formulario. Esta es la forma en la que se realizan las implementaciones REST vía web en la actualidad. Tienes un ejemplo en este formulario:
-
-```html
-<form action='http://servidor/lo-que-sea' method='POST'>
-   <input type='hidden' name='_method' value='PUT'>
-   ...cuerpo del formulario...
-</form>
-```
-
-Tal vez recuerdes que esto es exactamente lo que hace Laravel para implementar llamadas mediante PUT, PATCH o DELETE. ¿Qué dices? ¿Que no te acuerdas? Entonces quizá sea el momento de que retrocedas y repases un poco el enrutador de Laravel.
-
-### 6.3.5. REST y RESTful: ¿hay alguna diferencia?
-
-Puede que hayas leído en algún sitio esa palabreja: RESTful. ¿Significa lo mismo que REST? ¿Qué diferencia hay?
-
-En realidad, es casi lo mismo:
-
-* **REST** se refiere a una **aplicación web** con una arquitectura como la que hemos estado comentando en los epígrafes anteriores.
-* **RESTful** se refiere a **una API** que respeta la arquitectura REST. No una aplicación web, sino una API. Es decir, RESTful se refiere a un *servicio web*, pensado para responder a otros programas, no a usuarios humanos.
-
-RESTful y JSON tienen una relación especial: todas **las APIs RESTful devuelven sus datos formateados en JSON**.
-
-Entiéndeme: si a tu servidor le llega una petición de tipo GET a través de una ruta como esta: ```https://servidor/producto/18```, no hay nada que te impida devolver los datos del producto 18 formateados en XML, por ejemplo, pero tienes que ser consciente de que tu API habrá dejado de ser RESTful.
-
-El ejemplo típico de servidor RESTful es el que usan las **aplicaciones OVA (*one-view-application*)**. Estas aplicaciones, una vez cargada la vista principal, hacen toda la comunicación con el servidor mediante Ajax, sin abandonar jamás esa vista. 
-
-Las aplicaciones OVA lanzan peticiones al servidor y este responde mediante JSON en lugar de con vistas completas. Una aplicación así, en el lado del cliente, se está comportando como un consumidor de servicios y, en el lado del servidor, como una API.
-
-Veremos Ajax en el capítulo siguiente y aprenderemos a construir aplicaciones OVA, que son cada vez más frecuentes. En estos casos, el lado del cliente y el lado del servidor *actúan como aplicaciones independientes*, conectadas solo por la API (aunque la experiencia del usuario sea la de encontrarse ante una única aplicación). Por ese motivo, hay programadores/as que se especializan en desarrollo en el lado del cliente (**front-end**) y otros que se especializan en desarrollo en el lado del servidor (**back-end**).
-
-Conclusión: si vas a desarrollar una API, es buena idea que sea RESTful. En ese caso, cada vez que tengas que devolver un producto (o lo que sea) formateado en JSON desde tu controlador, es mejor que te olvides de las vistas y te limites a hacer algo así:
-
-```php
-public function show($id) {
-   $producto = modelo-de-productos::get($id); // Obtenemos los datos del producto $id pidiéndoselos a nuestro modelo
-   echo json_encode($producto);
-}
-```
-
-### 6.3.6. REST vs SOAP
-
-Ya sabemos en qué consisten las dos grandes arquitecturas para construir servicios web. Ahora, la pregunta del millón: ¿cuál es mejor de las dos?
-
-**SOAP es más flexible que REST**: permite definir nuevas operaciones sobre los recursos, mientras que REST está limitado a las 7 operaciones predefinidas.
-
-**REST es mucho más sencillo de usar e implementar que SOAP**: las operaciones son bien conocidas y no es necesario describirlas (WSDL) ni publicarlas de ningún modo. Para usar un servidor REST, no hay que estudiarse ninguna API ni pelearse con estructuras de datos desconocidas.
-
-Por todo ello, para la mayor parte de las aplicaciones REST es más que suficiente, y de ahí su mayor implantación en la actualidad.
-
-### 6.3.7. Algunos trucos para implementar un servidor REST
-
-Para implementar un servidor REST (o RESTful, si se trata de una API pura) basta con:
-
-* Crear una arquitectura MVC para los recursos/datos que deseemos servir.
-
-   Recuerda que, con Laravel, esto se puede conseguir con el comando:
-
-```
-$ php artisan make:controller --resource <controlador>
-```
-
-* En lugar de mostrar los recursos en una vista, los devolveremos al cliente mediante JSON con un sencillo *echo* (recuerda que esa salida la recibirá el cliente, no un ser humano)
-
-   Si estamos trabajando con Laravel, en lugar de ```return view()``` usaremos ```return response()->json(<datos>)``` al final de cada método del controlador. Laravel se encargará de enviar ese valor devuelto al cliente.
-
-* Es importante respetar los nombres de las peticiones HTTP (create, store, edit, update, etc), así como los verbos (GET, POST, PUT, PATCH o DELETE), puesto que serán los que el cliente utilice.
-
-
-
-
+1. **Código fuente comprimido**: Sube a Moodle Centros un archivo ZIP con tu proyecto, **excluyendo la carpeta `/vendor` y `/node_modules`**.
+2. **Repositorio público**: Enlace a tu repositorio público en GitHub o GitLab, con commits periódicos y descriptivos.
+3. **Vídeo de test con Postman**: Graba un vídeo capturando tu pantalla, con **tu propia voz** explicando brevemente cómo haces peticiones a tu API en Postman (muestra el login, copia el token, inclúyelo en la cabecera `Bearer` y crea una academia o inscribe un estudiante). Debe verse claramente cómo el servidor responde con JSON.
+4. **Conversación con la IA**: Sube un archivo .docx o .odt con TODA tu conversación con la IA. Necesitamos ver cómo has interactuado con la Inteligencia Artificial.
+5. **Reproducibilidad**: El proyecto debe poder ejecutarse sin errores descargando el ZIP (o clonando el repositorio), lanzando `./vendor/bin/sail up -d` y `./vendor/bin/sail artisan migrate`. 
+
+---
+
+### Rúbrica de calificación
+
+La evaluación se realizará según los siguientes ítems (niveles 0 a 3):
+* **0**: Sin hacer o sin evidencia de esfuerzo.
+* **1**: Hecho, pero con errores graves o funcionamiento muy deficiente.
+* **2**: Hecho y funcional, pero mejorable (falta alguna validación, bugs menores, no cumple el 100% de la lógica).
+* **3**: Perfecto, cumple todos los requisitos con excelencia y código limpio.
+
+| Ítem Evaluable | Peso | Nivel 0 | Nivel 1 | Nivel 2 | Nivel 3 |
+| :--- | :---: | :--- | :--- | :--- | :--- |
+| **0. Uso ético y eficiente de la IA (Eliminatorio)** | **Requisito** | No defiende el código. Uso fraudulento. | (No se aplica) | (No se aplica) | Entiende y explica las decisiones arquitectónicas perfectamente. |
+| **1. Entrega en tiempo y forma** | **10%** | No entregado / Formato erróneo. | Faltan requisitos (ej. vendor incluido) o falta vídeo Postman. | Cumple mayoría, fallos en explicación del vídeo o faltan requests menores. | Cumple 100% de la norma. Vídeo nítido y bien narrado. |
+| **2. Control de versiones** | **10%** | Sin repositorio. | Un único commit inmenso. | Varios commits, mensajes poco descriptivos. | Commits lógicos, frecuentes y descriptivos a medida que avanza. |
+| **3. Endpoints y controladores API (Resource)** | **20%** | No responde en `/api`. Devuelve HTML. | Rutas fuera de los estándares REST. Devuelve strings en lugar de JSON estructurado. | Uso parcial de `apiResource`. Faltan validaciones de entrada (`Request`). | Rutas RESTful estrictas, uso impecable de respuestas JSON y validaciones. |
+| **4. Relaciones (1:N y N:N)** | **20%** | No hay migraciones foráneas. | Las relaciones fallan al insertar datos. | Relación básica funciona, pero falla la tabla pivote de inscripción de estudiantes. | Modelos perfectamente enlazados (hasMany, belongsToMany), uso de sync/attach impecable. |
+| **5. Autenticación (tokens con Sanctum)** | **20%** | API pública e insegura. | Token generado pero no se usa para proteger rutas de manera efectiva. | Rutas protegidas, token funcional, pero falla la autorización (puedo borrar cosas de otros). | Login/Register devuelve Tokens perfectos. Protección `auth:sanctum` y Autorización de propiedad implacable. |
+| **6. Uso de Postman** | **10%** | No usa Postman para el testeo o no muestra cómo lo hace. | Usa Postman pero no testea todas las especificaciones o deja pasar muchos errores. | Testea todas las especificaciones con Postman pero de forma poco eficiente o con algunos errores. | Testea todas las especificaciones con Postman de forma eficiente y sin errores. |
+| **7. Calidad del código** | **10%** | Archivos caóticos. | Lógica de base de datos esparcida en archivos de rutas. | Buen código, pero verboso o repetitivo. | Nomenclatura clara en inglés, Controladores finos, uso elegante de Eloquent. |
+
+*Nota: Recuerda que para aprobar es obligatorio obtener el Nivel 3 en el ítem 0 y que este ítem se valorará con posterioridad al resto de la práctica (en entrevistas o pruebas individuales o durante el examen)*.

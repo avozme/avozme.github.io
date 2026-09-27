@@ -14,4 +14,4 @@ parent: Desarrollo Web en Entorno Servidor
 - TOC
 {:toc}
 
-<div style="color:red; font-size: 150%"><strong>ESTE MATERIAL ESTÁ EN DESARROLLO</strong></div>
+<div style="color:red; font-size: 150%"><strong>ESTE MATERIAL AÚN ESTÁ EN DESARROLLO</strong></div>

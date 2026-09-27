@@ -1,0 +1,588 @@
+I"<�<h1 class="no_toc" id="4-apis-restful-con-laravel">4. APIs RESTful con Laravel</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#41-qué-es-un-servicio-web" id="markdown-toc-41-qué-es-un-servicio-web">4.1. ¿Qué es un servicio web?</a></li>
+  <li><a href="#42-soap-el-pasado" id="markdown-toc-42-soap-el-pasado">4.2. SOAP (El pasado)</a></li>
+  <li><a href="#43-rest-el-presente" id="markdown-toc-43-rest-el-presente">4.3. REST (El presente)</a>    <ul>
+      <li><a href="#431-rest-o-restful" id="markdown-toc-431-rest-o-restful">4.3.1. ¿REST o RESTful?</a></li>
+      <li><a href="#432-repaso-de-los-verbos-http" id="markdown-toc-432-repaso-de-los-verbos-http">4.3.2. Repaso de los verbos HTTP</a></li>
+      <li><a href="#433-las-5-operaciones-típicas-de-una-api-rest" id="markdown-toc-433-las-5-operaciones-típicas-de-una-api-rest">4.3.3. Las 5 operaciones típicas de una API REST</a></li>
+    </ul>
+  </li>
+  <li><a href="#44-cómo-crear-una-api-rest-con-laravel" id="markdown-toc-44-cómo-crear-una-api-rest-con-laravel">4.4. Cómo crear una API REST con Laravel</a></li>
+  <li><a href="#45-autenticación-en-una-api-con-laravel-sanctum" id="markdown-toc-45-autenticación-en-una-api-con-laravel-sanctum">4.5. Autenticación en una API con Laravel Sanctum</a></li>
+  <li><a href="#46-consumir-el-servicio-web-con-postman" id="markdown-toc-46-consumir-el-servicio-web-con-postman">4.6. Consumir el servicio web con Postman</a>    <ul>
+      <li><a href="#461-instalación-y-uso-de-postman" id="markdown-toc-461-instalación-y-uso-de-postman">4.6.1 Instalación y uso de Postman</a></li>
+      <li><a href="#462-cómo-testear-un-api-con-postman" id="markdown-toc-462-cómo-testear-un-api-con-postman">4.6.2. Cómo testear un API con Postman</a></li>
+      <li><a href="#463-qué-más-puede-hacer-postman" id="markdown-toc-463-qué-más-puede-hacer-postman">4.6.3. ¿Qué más puede hacer Postman?</a></li>
+    </ul>
+  </li>
+  <li><a href="#47-práctica-final-api-rest-de-gestión-de-academias-y-cursos" id="markdown-toc-47-práctica-final-api-rest-de-gestión-de-academias-y-cursos">4.7. Práctica final: API REST de Gestión de Academias y Cursos</a>    <ul>
+      <li><a href="#especificación-de-requisitos" id="markdown-toc-especificación-de-requisitos">Especificación de requisitos</a></li>
+      <li><a href="#normas-de-entrega" id="markdown-toc-normas-de-entrega">Normas de entrega</a></li>
+      <li><a href="#rúbrica-de-calificación" id="markdown-toc-rúbrica-de-calificación">Rúbrica de calificación</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>Los <strong>servicios web</strong> son un tipo particular de aplicación web: una aplicación pensada no solo para ser usada por usuarios humanos, sino por otras aplicaciones de software.</p>
+
+<p>Existen dos estándares históricos para crear servicios web: SOAP y REST. En este tema, vamos a estudiar las diferencias fundamentales y a centrarnos en cómo podemos construir una API RESTful moderna utilizando Laravel 13.</p>
+
+<p><strong>¡¡OJO!!</strong> Ten en cuenta que SOAP y REST no son los únicos estándares que existen para construir APIs. Hay otros que también se usan mucho, como <strong>GraphQL</strong> (el más flexible), <strong>WebSocket</strong> (comunicación bidireccional en tiempo real), <strong>MQTT</strong> (para IoT o Internet de las Cosas) o <strong>gRPC</strong> (para microservicios), etc. ¡Pero no podemos verlos todos! Así que veremos REST, que es el más popular en la actualidad.</p>
+
+<h2 id="41-qué-es-un-servicio-web">4.1. ¿Qué es un servicio web?</h2>
+
+<h4 id="una-definición-de-servicio-web">Una definición de servicio web</h4>
+
+<p>Un <strong>servicio web</strong> es una aplicación web capaz de <strong>comunicarse e intercambiar información con otra aplicación</strong> (que denominaremos <em>cliente</em>) independientemente de la plataforma en la que cada una se ejecute.</p>
+
+<p>Es decir, el servicio web puede estar programado en PHP (Laravel) y correr bajo un servidor GNU/Linux, y el cliente puede ser una aplicación móvil en Kotlin para Android, y deberían ser capaces de comunicarse y trabajar juntas. Pero es importante que quede claro que, en este caso, el servicio web (servidor) y la aplicación cliente <em>son dos piezas de software totalmente diferentes</em>.</p>
+
+<p>Los mensajes que las aplicaciones se intercambian actualmente tienen, casi en el 100% de los casos, formato <strong>JSON</strong>.</p>
+
+<h4 id="diferencias-entre-servicios-web-y-aplicaciones-web">Diferencias entre servicios web y aplicaciones web</h4>
+
+<p>Llegados a este punto, puede que estés pensando: “Vale, pero ¿en qué se diferencia esto de una aplicación web normal? ¿No intercambian también el cliente y el servidor información a través de Internet?”.</p>
+
+<p>Sí, pero hay algunas <strong>diferencias fundamentales entre un <em>servicio web (API)</em> y una <em>aplicación web SSR</em></strong>:</p>
+
+<ul>
+  <li>Una aplicación web tradicional (SSR) está diseñada para que un ser humano interactúe con ella a través de una interfaz gráfica en un navegador (HTML/CSS). Un servicio web (API), en cambio, está pensado para que lo use otra aplicación informática (el cliente móvil, una aplicación frontend como React/Vue, o un servidor externo), no un ser humano directamente.</li>
+  <li>Por ese motivo, los servicios web carecen de interfaz de usuario y no devuelven HTML. Es decir, un servicio web <strong>no tiene vistas</strong>.</li>
+  <li>En lugar de vistas, los servicios web devuelven datos crudos formateados en <strong>JSON</strong>, pensados para que la máquina cliente los lea, los procese y sea ella quien decida cómo dibujarlos en la pantalla del usuario final.</li>
+</ul>
+
+<p>Por lo demás, un servicio web sigue teniendo una arquitectura MVC, pero <em>sin la V</em>. Conservamos las rutas, los controladores y los modelos. Los controladores simplemente pedirán datos al modelo y los escupirán en formato JSON.</p>
+
+<h2 id="42-soap-el-pasado">4.2. SOAP (El pasado)</h2>
+
+<p><strong>SOAP (Simple Object Access Protocol)</strong> fue, durante muchos años, el estándar dominante en la industria para la implementación de servicios web en entornos corporativos.</p>
+
+<p>SOAP estaba orientado a <em>procesos</em> (RPC - Remote Procedure Call). Obligaba a empaquetar toda la información en pesados documentos <strong>XML</strong> y requería la publicación de un archivo llamado <strong>WSDL</strong>, que era un enorme diccionario técnico que describía exactamente qué funciones tenía el servidor y qué parámetros aceptaba.</p>
+
+<p>Aunque SOAP era muy riguroso, también era <strong>extremadamente rígido, lento, pesado y difícil de programar</strong>. Escribir un cliente o un servidor SOAP sin herramientas de autogeneración de código era una pesadilla.</p>
+
+<p>Hoy en día, SOAP se considera una tecnología <strong>heredada (legacy)</strong>. A menos que tengas que mantener sistemas bancarios o institucionales antiguos, rara vez iniciarás un proyecto nuevo usando SOAP. La industria entera ha migrado a REST. Por lo tanto, no entraremos en más detalles técnicos sobre él.</p>
+
+<h2 id="43-rest-el-presente">4.3. REST (El presente)</h2>
+
+<h3 id="431-rest-o-restful">4.3.1. ¿REST o RESTful?</h3>
+
+<p><strong>REST (Representational State Transfer)</strong> es el mecanismo de intercambio de información estándar en la actualidad.</p>
+
+<p>A diferencia de SOAP, REST está <strong>orientado a los datos (recursos)</strong>. En lugar de crear URLs como <code class="language-plaintext highlighter-rouge">/api/obtenerListadoDeCoches</code> (enfocado a la acción), en REST las URLs representan recursos estáticos, como <code class="language-plaintext highlighter-rouge">/api/coches</code>, y la acción que queremos hacer sobre esos coches la indicamos utilizando los <strong>verbos HTTP</strong>.</p>
+
+<p>Cuando decimos que una API es <strong>RESTful</strong>, simplemente nos referimos a que es un servicio web que respeta estrictamente los principios de la arquitectura REST y devuelve sus respuestas en formato JSON.</p>
+
+<p>Si un servicio se desvía un poco de REST, todavía puede seguir siendo un API REST, pero ya no lo llamaremos “RESTful”.</p>
+
+<h3 id="432-repaso-de-los-verbos-http">4.3.2. Repaso de los verbos HTTP</h3>
+
+<p>Recuerda que el protocolo HTTP soporta varios métodos o verbos para realizar peticiones. El estándar REST, como hemos dicho, hace un uso intensivo de ellos para determinar qué queremos hacer con un recurso:</p>
+
+<ul>
+  <li><strong>GET</strong> se utiliza para <em>solicitar</em> datos al servidor (solo lectura). Ejemplo: “Dame toda la información de este producto”.</li>
+  <li><strong>POST</strong> se utiliza para <em>enviar</em> nuevos datos al servidor. Ejemplo: “Aquí tienes un nuevo producto, créalo en la base de datos”.</li>
+  <li><strong>PUT / PATCH</strong> se utilizan para <em>modificar</em> datos que ya existen. (PUT suele usarse para reemplazar el objeto entero, y PATCH para modificar solo algunos campos parciales).</li>
+  <li><strong>DELETE</strong> se usa para solicitar la <em>eliminación</em> de datos en el servidor.</li>
+</ul>
+
+<p>El HTML tradicional solo soporta GET y POST, pero en el contexto de una API REST, los clientes como Postman, Axios, Fetch u otros que iremos viendo sí pueden enviar peticiones PUT o DELETE sin ningún problema. Y, si usamos HTML, el envío de PUT o DELETE se <em>simula</em> con un campo oculto en el formulario, como vimos que hace Blade con las vistas de Laravel.</p>
+
+<h3 id="433-las-5-operaciones-típicas-de-una-api-rest">4.3.3. Las 5 operaciones típicas de una API REST</h3>
+
+<p>Como en una API no existen formularios HTML que mostrarle al usuario humano, las operaciones de un controlador REST se reducen de las 7 tradicionales a <strong>solo 5 operaciones</strong>.</p>
+
+<p>Si tuviéramos un recurso llamado <code class="language-plaintext highlighter-rouge">Product</code>, una API RESTful perfecta tendría las siguientes rutas, verbos y funciones en el controlador:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Operación</th>
+      <th style="text-align: left">Verbo HTTP</th>
+      <th style="text-align: left">Ruta (URL)</th>
+      <th style="text-align: left">Acción en el Controlador</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>index</strong></td>
+      <td style="text-align: left">GET</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">/api/products</code></td>
+      <td style="text-align: left">Devuelve un JSON con la lista de todos los productos o un error (si ocurre).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>show</strong></td>
+      <td style="text-align: left">GET</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">/api/products/{id}</code></td>
+      <td style="text-align: left">Devuelve un JSON con los datos del producto solicitado o un error (si ocurre)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>store</strong></td>
+      <td style="text-align: left">POST</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">/api/products</code></td>
+      <td style="text-align: left">Recibe un JSON, crea el producto en la BD y devuelve código 201 (Created) o un error (si ocurre).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>update</strong></td>
+      <td style="text-align: left">PUT / PATCH</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">/api/products/{id}</code></td>
+      <td style="text-align: left">Recibe un JSON, actualiza el producto y devuelve los datos modificados. O un error (si ocurre)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>destroy</strong></td>
+      <td style="text-align: left">DELETE</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">/api/products/{id}</code></td>
+      <td style="text-align: left">Elimina el producto y devuelve un código 204 (No Content) o mensaje de éxito. O un error (si ocurre)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Cualquier programador del mundo que consuma tu API sabrá, por pura convención, que si hace un POST a <code class="language-plaintext highlighter-rouge">/api/products</code>, estará creando un producto. ¡Esa es la magia de REST!</p>
+
+<h2 id="44-cómo-crear-una-api-rest-con-laravel">4.4. Cómo crear una API REST con Laravel</h2>
+
+<p>Crear una API en Laravel es muy similar a crear una aplicación web estándar, pero en realidad es <strong>más sencillo</strong> porque nos saltamos toda la capa de Vistas y Blade.</p>
+
+<h4 id="instalación-de-las-rutas-api">Instalación de las rutas API</h4>
+
+<p>En las versiones modernas de Laravel (a partir de la v11), el archivo de rutas para APIs no viene habilitado por defecto para ahorrar peso. Para generar la infraestructura de APIs, debes abrir tu terminal y ejecutar <strong>una sola vez</strong>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./vendor/bin/sail artisan <span class="nb">install</span>:api
+</code></pre></div></div>
+
+<p>Este comando creará el archivo <code class="language-plaintext highlighter-rouge">routes/api.php</code>. Todas las rutas que escribas dentro de ese archivo tendrán automáticamente el prefijo <code class="language-plaintext highlighter-rouge">/api/</code> en la URL (por ejemplo, <code class="language-plaintext highlighter-rouge">http://localhost/api/mis-rutas</code>).</p>
+
+<h4 id="el-controlador-api">El controlador API</h4>
+
+<p>Laravel tiene un comando específico para crear controladores orientados exclusivamente a APIs (sin los métodos <code class="language-plaintext highlighter-rouge">create</code> y <code class="language-plaintext highlighter-rouge">edit</code> que usábamos para renderizar formularios HTML).</p>
+
+<p>Se utiliza la opción <code class="language-plaintext highlighter-rouge">--api</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./vendor/bin/sail artisan make:controller ProductController <span class="nt">--api</span>
+</code></pre></div></div>
+
+<h4 id="el-enrutador-api">El enrutador API</h4>
+
+<p>En tu archivo <code class="language-plaintext highlighter-rouge">routes/api.php</code>, puedes declarar las 5 rutas RESTful en una sola línea utilizando <code class="language-plaintext highlighter-rouge">apiResource</code> (en lugar de <code class="language-plaintext highlighter-rouge">resource</code>):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Http\Controllers\ProductController</span><span class="p">;</span>
+
+<span class="nc">Route</span><span class="o">::</span><span class="nf">apiResource</span><span class="p">(</span><span class="s1">'products'</span><span class="p">,</span> <span class="nc">ProductController</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="devolver-respuestas-json">Devolver respuestas JSON</h4>
+
+<p>En los métodos de tu controlador, en lugar de utilizar <code class="language-plaintext highlighter-rouge">return view(...)</code>, simplemente puedes devolver tu modelo o colección de Eloquent, y Laravel lo convertirá mágicamente a formato JSON:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">index</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$products</span> <span class="o">=</span> <span class="nc">Product</span><span class="o">::</span><span class="nf">all</span><span class="p">();</span>
+    <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">(</span><span class="nv">$products</span><span class="p">);</span>
+    <span class="c1">// ¡Incluso podrías hacer simplemente `return Product::all();` y Laravel lo transforma!</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="n">show</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$product</span> <span class="o">=</span> <span class="nc">Product</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">(</span><span class="nv">$product</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Al crear o actualizar, puedes usar validaciones de Request tal y como lo hacías antes. Laravel es tan inteligente que, si la validación falla estando en un entorno API, devolverá automáticamente un JSON con el error 422 y los detalles de validación, en lugar de hacer una redirección como haría en un entorno web.</p>
+
+<h2 id="45-autenticación-en-una-api-con-laravel-sanctum">4.5. Autenticación en una API con Laravel Sanctum</h2>
+
+<p>En las aplicaciones web, la sesión del usuario se mantiene viva usando Cookies en el navegador. Sin embargo, en una API REST pura, <strong>no hay estado (stateless)</strong> y no se puede asumir que clientes vayan a manejar cookies.</p>
+
+<p>La solución estándar es usar lo que se llama <strong>Tokens de acceso</strong>.</p>
+
+<p>Cuando un usuario se identifica correctamente, el servidor le emite un “Token” (una larga cadena alfanumérica secreta). A partir de ese momento, el cliente debe incluir ese token en la <strong>Cabecera HTTP (Header)</strong> de cada petición que haga al servidor.</p>
+
+<p>Laravel facilita esto mediante un paquete oficial llamado <strong>Laravel Sanctum</strong>. Cuando ejecutaste el comando <code class="language-plaintext highlighter-rouge">install:api</code> anteriormente, Laravel Sanctum se instaló y configuró automáticamente.</p>
+
+<h4 id="generar-el-token-de-acceso">Generar el Token de acceso</h4>
+
+<p>Imagínate que un usuario hace una petición POST a <code class="language-plaintext highlighter-rouge">/api/login</code> con su email y contraseña. En el controlador de la API, verificaríamos sus credenciales y, si son correctas, le generaríamos un token usando Sanctum de este modo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">Illuminate\Support\Facades\Hash</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Illuminate\Validation\ValidationException</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">App\Models\User</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="n">login</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">validate</span><span class="p">([</span>
+        <span class="s1">'email'</span> <span class="o">=&gt;</span> <span class="s1">'required|email'</span><span class="p">,</span>
+        <span class="s1">'password'</span> <span class="o">=&gt;</span> <span class="s1">'required'</span><span class="p">,</span>
+    <span class="p">]);</span>
+
+    <span class="nv">$user</span> <span class="o">=</span> <span class="nc">User</span><span class="o">::</span><span class="nf">where</span><span class="p">(</span><span class="s1">'email'</span><span class="p">,</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="n">email</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">first</span><span class="p">();</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$user</span> <span class="o">||</span> <span class="o">!</span> <span class="nc">Hash</span><span class="o">::</span><span class="nf">check</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="n">password</span><span class="p">,</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="n">password</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">([</span><span class="s1">'message'</span> <span class="o">=&gt;</span> <span class="s1">'Credenciales incorrectas'</span><span class="p">],</span> <span class="mi">401</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Generamos el token usando Sanctum</span>
+    <span class="nv">$token</span> <span class="o">=</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="nf">createToken</span><span class="p">(</span><span class="s1">'token_de_acceso'</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">plainTextToken</span><span class="p">;</span>
+
+    <span class="c1">// Devolvemos el token al cliente (la app móvil, React, etc.)</span>
+    <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">([</span><span class="s1">'token'</span> <span class="o">=&gt;</span> <span class="nv">$token</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="rutas-protegidas">Rutas protegidas</h4>
+
+<p>Para proteger las rutas de tu API en <code class="language-plaintext highlighter-rouge">routes/api.php</code>, debes agruparlas bajo el middleware de Sanctum:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">middleware</span><span class="p">(</span><span class="s1">'auth:sanctum'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">group</span><span class="p">(</span><span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Estas rutas requerirán un Token válido</span>
+    <span class="nc">Route</span><span class="o">::</span><span class="nf">apiResource</span><span class="p">(</span><span class="s1">'products'</span><span class="p">,</span> <span class="nc">ProductController</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>A partir de este momento, si el cliente intenta acceder a <code class="language-plaintext highlighter-rouge">/api/products</code> sin token, recibirá un error 401 (Unauthorized).</p>
+
+<p>Para acceder sin problemas, <strong>el cliente deberá incluir la siguiente cabecera HTTP obligatoriamente</strong> (si no, Sanctum rechazará la petición):</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">Authorization: Bearer &lt;aquí_pega_el_largo_token_generado&gt;
+</span></code></pre></div></div>
+
+<p>Y de igual manera que en SSR, dentro de tu controlador podrás usar <code class="language-plaintext highlighter-rouge">$request-&gt;user()</code> o <code class="language-plaintext highlighter-rouge">Auth::user()</code> para saber qué usuario está realizando esa petición a la API y autorizar si puede borrar o editar un recurso concreto.</p>
+
+<hr />
+<h2 id="46-consumir-el-servicio-web-con-postman">4.6. Consumir el servicio web con Postman</h2>
+
+<h3 id="461-instalación-y-uso-de-postman">4.6.1 Instalación y uso de Postman</h3>
+
+<h4 id="qué-es-postman">Qué es Postman</h4>
+
+<p>Postman es una herramienta cliente para APIs muy popular que permite a desarrolladores <strong>probar, documentar y automatizar peticiones a servicios web</strong>. Es gratuita con opciones de pago.</p>
+
+<p>Postman se usa para todas estas cosas:</p>
+
+<ul>
+  <li><strong>Enviar peticiones HTTP</strong> (GET, POST, PUT, PATCH, DELETE, etc.) hacia tu API y visualizar la respuesta.</li>
+  <li><strong>Configurar headers y parámetros</strong>. Por ejemplo, “Content-Type: application/json”, tokens de autenticación, etc.</li>
+  <li><strong>Enviar cuerpos de petición en JSON</strong> para probar <em>endpoints</em>, es decir, URLs que esperan recibir datos en JSON para funcionar.</li>
+  <li><strong>Visualizar las respuestas del servidor</strong> en formato JSON, XML, texto, etc., junto con el código de estado HTTP.</li>
+  <li><strong>Guardar colecciones de pruebas para reutilizarlas</strong> o compartirlas con tu equipo (muy útil cuando varios desarrolladores trabajan con la misma API).</li>
+  <li><strong>Automatizar pruebas</strong>: puedes escribir scripts en JavaScript dentro de Postman para verificar automáticamente que las respuestas cumplen con lo esperado.</li>
+  <li><strong>Generar documentación</strong> de tu API a partir de las colecciones.</li>
+</ul>
+
+<h4 id="instalación-y-puesta-en-marcha-de-postman">Instalación y puesta en marcha de Postman</h4>
+
+<p><strong>Opción 1: Instalar Postman como app de escritorio</strong> (<strong><em>RECOMENDADO</em></strong>)</p>
+
+<ul>
+  <li>Visita la web <a href="https://www.postman.com/downloads/">https://www.postman.com/downloads/</a>. Si usas Linux, puedes buscar antes en los repositorios oficiales de tu distribución, porque podría incluir Postman.</li>
+  <li>Descarga e instala la versión más adecuada para tu sistema operativo.</li>
+  <li>Inicia sesión (puedes usar Google o GitHub).</li>
+</ul>
+
+<p><strong>Opción 2: Usar Postman en la nube</strong></p>
+
+<ul>
+  <li>Accede a: <a href="https://web.postman.com/">https://web.postman.com/</a></li>
+  <li>Inicia sesión y comienza a trabajar directamente en la nube.</li>
+</ul>
+
+<p><strong>Ignorando el asistente de IA</strong></p>
+
+<p>En las nuevas versiones de Postman aparece por defecto un <strong>asistente de IA</strong> al lanzar la aplicación. <em>Vamos a ignorar ese asistente para aprender a usar Postman nosotros, no una IA, que para eso estamos aquí</em>.</p>
+
+<p>Para ello, puedes escribir algo como “Quiero ir al interfaz clásico de Postman” en el cuadro de diálogo de la IA, o elegir la opción <em>File -&gt; New Postman Window</em>.</p>
+
+<p>Entonces obtendrás una pantalla como esta:</p>
+
+<p><img src="../assets/images/postman-new-window.jpg" alt="Postman - Nueva ventana" /></p>
+
+<h3 id="462-cómo-testear-un-api-con-postman">4.6.2. Cómo testear un API con Postman</h3>
+
+<p>Vamos a ilustrar cómo funciona Postman con un <strong>ejemplo práctico</strong>: configurándolo para probar nuestro API REST de clientes, productos y compras que hemos implementado un poco más arriba.</p>
+
+<h4 id="configura-una-colección-en-postman">Configura una colección en Postman</h4>
+
+<p><strong>Una colección es una serie de <em>request</em> o peticiones al servidor agrupados</strong> bajo el mismo nombre. Son como carpetas donde organizar peticiones para poder reutilizarlas más tarde, algo habitual si estás en fase de desarrollo de una API.</p>
+
+<p>La colección que nosotros vamos a crear nos permitirá lanzar todas las peticiones para trabajar con Productos, Clientes y Compras.</p>
+
+<p>En Postman puedes crear una colección llamada, por ejemplo, <strong>Tienda API</strong>, o bien puedes usar la colección que viene creada por defecto, <strong>MyCollection</strong>.</p>
+
+<p><strong>Todo ello se hace en el panel izquierdo de Postman</strong>.</p>
+
+<p><img src="../assets/images/postman-crear-coleccion.jpg" alt="Postman - Crear colección" /></p>
+
+<h4 id="requests-get">Requests GET</h4>
+
+<p>Veamos como hacer un GET con Postman para comprobar si el API responde con los datos correctos.</p>
+
+<p>Cada request tendrá la URL base de tu API. En todos los ejemplos vamos a suponer que es <em>https://servidor/api</em>, pero, lógicamente, tendrás que cambiarla por la tuya.</p>
+
+<p>Pues bien: para hacer un <strong>GET /productos</strong> y guardar el request en nuestra colección solo tenemos que:</p>
+
+<ol>
+  <li>Hacer clic en los tres puntos junto al nombre de la colección y pulsar en <em>“Add request”</em>.</li>
+  <li>Escribir el <em>endpoint</em> o ruta <strong><em>https://servidor/api/productos</em></strong> en el cuadro de búsqueda.</li>
+  <li>Asegurarnos de tener seleccionado el <strong>verbo GET</strong>.</li>
+  <li>Pulsar el <strong>botón “Send”</strong>.</li>
+</ol>
+
+<p>El servidor nos debería devolver todos los productos empaquetados en un JSON:</p>
+
+<p><img src="../assets/images/postman-request-get.jpg" alt="Postman - Request GET" /></p>
+
+<h4 id="requests-post-con-datos">Requests POST con datos</h4>
+
+<p>Si hacemos una petición como <strong>POST /productos</strong>, el estándar REST indica que estamos tratando de enviar los datos de un producto al servidor para que este lo almacene en la base de datos.</p>
+
+<p>Por lo tanto, esta petición debe llevar los datos del producto empaquetados como JSON en el cuerpo (<em>body</em>) de la propia petición HTTP.</p>
+
+<p>Esto se logra así en Postman:</p>
+
+<ol>
+  <li><strong>Crear una nueva <em>request</em></strong> en tu colección (haz clic en los 3 puntos junto al nombre de la colección y elige <em>“Add request”</em>).</li>
+  <li><strong>Escribir el <em>endpoint</em></strong> o ruta <strong><em>https://servidor/api/productos</em></strong> en el cuadro de búsqueda.</li>
+  <li>Asegurarnos de tener seleccionado el <strong>verbo POST</strong>.</li>
+  <li>En el panel de la <em>request</em>, seleccionar la <strong>pestaña “Body”</strong>.</li>
+  <li><strong>Seleccionar “raw” y “JSON”</strong> en los desplegables, pues vamos a enviar los datos como JSON en texto plano (raw).</li>
+  <li>
+    <p><strong>Escribir el objeto JSON</strong> que deseamos enviar al servidor. Por ejemplo:</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="p">{</span><span class="w">
+   </span><span class="nl">"nombre"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ratón inalámbrico"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"descripcion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mouse óptico con USB"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"precio"</span><span class="p">:</span><span class="w"> </span><span class="mf">25.90</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"stock"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+  <li>Pulsar el <strong>botón “Send”</strong>.</li>
+</ol>
+
+<p>El servidor responderá con un estado http 200 o 201 (si todo va bien) o con un error (estados 403, 404, 500 o cualquier otro). Además, puede enviarnos datos adicionales, como el id del recurso que acaba de crear o incluso <strong>un JSON con todos los datos del recurso que acaba de crear</strong>, como ocurre en el siguiente pantallazo:</p>
+
+<p><img src="../assets/images/postman-request-post.jpg" alt="Postman - Request POST" /></p>
+
+<h4 id="requests-put-patch-o-delete">Requests PUT, PATCH o DELETE</h4>
+
+<p>Del mismo modo que con POST podemos enviar <em>requests</em> con los verbos PUT, PATCH o DELETE, puesto que en el selector del método de envío encontraremos todos esos verbos.</p>
+
+<h4 id="crear-un-archivo-de-colección-json">Crear un archivo de colección .json</h4>
+
+<p>Probablemente una de las formas más útiles de usar Postman como <strong>herramienta de testeo de un API</strong> es disponer de un archivo .json con todos los datos para lanzar los tests.</p>
+
+<p>Esto te permite preparar la batería de pruebas de una sola vez y utilizarla todas las veces que lo necesites. También es fácil hacer pequeños retoques en las pruebas y volver a cargar el .json en Postman.</p>
+
+<p>Para usar Postman de este modo, debes:</p>
+
+<ol>
+  <li>
+    <p><strong>Crear tu archivo .json con la colección de tests</strong>. No suele ser buena idea escribirlo a mano. Para esto puedes apoyarte en una IA como ChatGPT o la propia IA que viene integrada con Postman, a la que puedes pedir algo como esto: <em>“Genera un archivo .json con una colección para Postman con la que probar la siguiente una API REST basada en las siguientes tablas”</em>. Y, a continuación, detalla la estructura de tu base de datos.</p>
+  </li>
+  <li>
+    <p><strong>Importa tu archivo .json con la opción <em>“Import”</em> de Postman</strong>. Se importará como una nueva colección. Si la colección ya existiera y te quedan dos con el mismo nombre, puedes borrar la que te sobre.</p>
+  </li>
+</ol>
+
+<p>Y listo: solo con esto ya tendrás todos los <em>endpoints</em> listos para probar.</p>
+
+<p><img src="../assets/images/postman-coleccion-json.jpg" alt="Postman - Importar json en colección" /></p>
+
+<h3 id="463-qué-más-puede-hacer-postman">4.6.3. ¿Qué más puede hacer Postman?</h3>
+
+<p>Postman es mucho más que una herramienta para probar endpoints; es una <strong>plataforma completa de colaboración y automatización para APIs</strong>.</p>
+
+<p>Nosotros no vamos a ver mucho más en esta introducción, pero si quieres profundizar en ello, aquí tienes algunos de los trucos de magia que Postman puede realizar para ti:</p>
+
+<ul>
+  <li>
+    <p><strong>Automatización de pruebas</strong>: puedes escribir sripts en Javascript para validar las respuestas de forma automática o ejecutar múltiples peticiones en secuencia, así como ejecutar código antes y después de lanzar las peticiones.</p>
+  </li>
+  <li>
+    <p><strong>Documentación de API</strong>: Postman no solo puede generar automáticamente documentación de la API a partir de la colección, sino que también puede publicarla online y mantenerla actualizada.</p>
+  </li>
+  <li>
+    <p><strong>Monitoreo</strong>: con Postman se puede monitorear el estado de una API de forma automática a intervalos regulares y hacer que nos avise de cualquier mal funcionamiento.</p>
+  </li>
+  <li>
+    <p><strong>Simulación de servidores</strong>: Postman puede simular servidores inexistentes para pruebas más complejas.</p>
+  </li>
+  <li>
+    <p><strong>Trabajo en equipo</strong>: Puedes integrar Postman con GitHub, GitLab, Jenkins, etc.</p>
+  </li>
+  <li>
+    <p><strong>Autenticación</strong>: también puedes gestionar la autenticación por múltiples medios en aquellas APIs que la exijan antes de responder a <em>requests</em>.</p>
+  </li>
+</ul>
+
+<h2 id="47-práctica-final-api-rest-de-gestión-de-academias-y-cursos">4.7. Práctica final: API REST de Gestión de Academias y Cursos</h2>
+
+<p>Es hora de poner en práctica los conceptos de las APIs RESTful y el uso de Postman como cliente.</p>
+
+<p>Vas a construir una <strong>API RESTful de Gestión de Academias</strong> donde se gestionarán centros de estudio (<code class="language-plaintext highlighter-rouge">Academies</code>), los cursos que ofrecen (<code class="language-plaintext highlighter-rouge">Courses</code>), y los alumnos que se matriculan en dichos cursos (<code class="language-plaintext highlighter-rouge">Students</code>).</p>
+
+<h4 id="advertencia-habitual-uso-de-inteligencia-artificial">ADVERTENCIA HABITUAL: Uso de Inteligencia Artificial</h4>
+
+<p>Al igual que en la práctica anterior, <strong>puedes y debes usar la IA</strong> para ayudarte, pero recordando que el uso debe ser <strong>ético y eficiente</strong>. Es decir, que te ayude a apreder más, no a fingir que has aprendido:</p>
+
+<ol>
+  <li><strong>Construye pieza a pieza</strong>. No pidas la API completa de golpe. Pide ayuda para entidades aisladas: <em>“Hazme el controlador API Resource para el modelo Course en Laravel”</em>, o <em>“¿Cómo genero un token con Sanctum al hacer login?”</em>.</li>
+  <li><strong>Entiende el funcionamiento</strong>. El profesor revisará el código y te hará preguntas en la defensa oral o escrita, o en el examen.</li>
+  <li><strong>No uses herramientas que desconozcas</strong>. Si la IA te sugiere “Resources” complejos (<code class="language-plaintext highlighter-rouge">JsonResource</code>), “FormRequests” avanzados o repositorios que no dominas, pídele que simplifique el código para usar las técnicas que conoces y hemos visto en los apuntes, o bien que te explique qué narices está haciendo (simplificar suele ser mejor estrategia; a las IAs se les va la cabeza con facilidad).</li>
+</ol>
+
+<blockquote>
+  <p><strong>Defensa del código (Eliminatorio)</strong>: Recuerda que se evaluará tu conocimiento de la aplicación mediante defensa oral o escrita de la práctica <strong>sin IA</strong> y/o con preguntas <strong>sin AI</strong> en el examen. No superar esto implica suspender automáticamente la práctica porque no habrás podido probar tu autoría.</p>
+</blockquote>
+
+<h3 id="especificación-de-requisitos">Especificación de requisitos</h3>
+
+<p>La aplicación será exclusivamente backend. No desarrollarás <strong>ninguna vista HTML ni Blade</strong>. Toda tu comunicación con ella debes hacerla con Postman, devolviendo y recibiendo JSON.</p>
+
+<h4 id="1-tablas-de-la-base-de-datos">1. Tablas de la base de datos</h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">users</code>: id, name, email, password, timestamps</li>
+  <li><code class="language-plaintext highlighter-rouge">academies</code>: id, user_id, name, description, address, phone, email, timestamps</li>
+  <li><code class="language-plaintext highlighter-rouge">courses</code>: id, academy_id, name, description, start_date, end_date, capacity, timestamps</li>
+  <li><code class="language-plaintext highlighter-rouge">students</code>: id, name, surname, email, phone, date_of_birth, timestamps</li>
+  <li><code class="language-plaintext highlighter-rouge">course_student</code>: id, course_id, student_id, enrolled_at, timestamps</li>
+</ul>
+
+<p>Observa que hay tres relaciones:</p>
+<ul>
+  <li><strong>Relación 1:N</strong> entre <code class="language-plaintext highlighter-rouge">users</code> y <code class="language-plaintext highlighter-rouge">academies</code>.</li>
+  <li><strong>Relación 1:N</strong> entre <code class="language-plaintext highlighter-rouge">academies</code> y <code class="language-plaintext highlighter-rouge">courses</code>.</li>
+  <li><strong>Relación N:N</strong> entre <code class="language-plaintext highlighter-rouge">courses</code> y <code class="language-plaintext highlighter-rouge">students</code>, con una tabla pivote <code class="language-plaintext highlighter-rouge">course_student</code></li>
+</ul>
+
+<h4 id="2-endpoints-de-autenticación">2. Endpoints de Autenticación</h4>
+<ul>
+  <li><strong>POST <code class="language-plaintext highlighter-rouge">/api/register</code></strong>: Recibe datos, crea un usuario (<code class="language-plaintext highlighter-rouge">User</code>) y devuelve su Token de acceso.</li>
+  <li><strong>POST <code class="language-plaintext highlighter-rouge">/api/login</code></strong>: Verifica credenciales de un <code class="language-plaintext highlighter-rouge">User</code> y devuelve un Token Sanctum.</li>
+</ul>
+
+<h4 id="3-endpoints-de-academias-1n">3. Endpoints de Academias (1:N)</h4>
+<p>Un usuario logueado puede crear y gestionar Academias. (Una Academia pertenece a un usuario, y un usuario puede tener varias Academias).
+Las rutas de Academias deben estar <strong>protegidas</strong> (Requieren Token).</p>
+<ul>
+  <li><strong>CRUD Completo de <code class="language-plaintext highlighter-rouge">Academy</code></strong>: Rutas generadas por <code class="language-plaintext highlighter-rouge">apiResource</code>.</li>
+  <li><em>Autorización</em>: Un usuario solo podrá modificar o eliminar las Academias que él mismo haya creado.</li>
+</ul>
+
+<h4 id="4-endpoints-de-cursos-nn-con-estudiantes">4. Endpoints de Cursos (N:N con Estudiantes)</h4>
+<p>Cada Academia imparte varios Cursos (<code class="language-plaintext highlighter-rouge">Course</code>), y cada Curso pertenece a una Academia.
+A su vez, un Curso puede tener muchos Estudiantes inscritos, y un Estudiante puede matricularse en muchos Cursos (Relación N:N).</p>
+<ul>
+  <li>Implementa endpoints para poder ver los Cursos (esta ruta puede ser pública, sin token).</li>
+  <li>Implementa endpoints privados que permitan, mediante peticiones POST/DELETE a URLs específicas (ej: <code class="language-plaintext highlighter-rouge">/api/courses/{course}/enroll</code>), inscribir o desinscribir a un Estudiante (<code class="language-plaintext highlighter-rouge">Student</code>) en un Curso, modificando la tabla pivote.</li>
+</ul>
+
+<hr />
+
+<h3 id="normas-de-entrega">Normas de entrega</h3>
+
+<p>El incumplimiento de cualquiera de los siguientes requisitos conllevará penalización o rechazo de la entrega:</p>
+
+<ol>
+  <li><strong>Código fuente comprimido</strong>: Sube a Moodle Centros un archivo ZIP con tu proyecto, <strong>excluyendo la carpeta <code class="language-plaintext highlighter-rouge">/vendor</code> y <code class="language-plaintext highlighter-rouge">/node_modules</code></strong>.</li>
+  <li><strong>Repositorio público</strong>: Enlace a tu repositorio público en GitHub o GitLab, con commits periódicos y descriptivos.</li>
+  <li><strong>Vídeo de test con Postman</strong>: Graba un vídeo capturando tu pantalla, con <strong>tu propia voz</strong> explicando brevemente cómo haces peticiones a tu API en Postman (muestra el login, copia el token, inclúyelo en la cabecera <code class="language-plaintext highlighter-rouge">Bearer</code> y crea una academia o inscribe un estudiante). Debe verse claramente cómo el servidor responde con JSON.</li>
+  <li><strong>Conversación con la IA</strong>: Sube un archivo .docx o .odt con TODA tu conversación con la IA. Necesitamos ver cómo has interactuado con la Inteligencia Artificial.</li>
+  <li><strong>Reproducibilidad</strong>: El proyecto debe poder ejecutarse sin errores descargando el ZIP (o clonando el repositorio), lanzando <code class="language-plaintext highlighter-rouge">./vendor/bin/sail up -d</code> y <code class="language-plaintext highlighter-rouge">./vendor/bin/sail artisan migrate</code>.</li>
+</ol>
+
+<hr />
+
+<h3 id="rúbrica-de-calificación">Rúbrica de calificación</h3>
+
+<p>La evaluación se realizará según los siguientes ítems (niveles 0 a 3):</p>
+<ul>
+  <li><strong>0</strong>: Sin hacer o sin evidencia de esfuerzo.</li>
+  <li><strong>1</strong>: Hecho, pero con errores graves o funcionamiento muy deficiente.</li>
+  <li><strong>2</strong>: Hecho y funcional, pero mejorable (falta alguna validación, bugs menores, no cumple el 100% de la lógica).</li>
+  <li><strong>3</strong>: Perfecto, cumple todos los requisitos con excelencia y código limpio.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Ítem Evaluable</th>
+      <th style="text-align: center">Peso</th>
+      <th style="text-align: left">Nivel 0</th>
+      <th style="text-align: left">Nivel 1</th>
+      <th style="text-align: left">Nivel 2</th>
+      <th style="text-align: left">Nivel 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>0. Uso ético y eficiente de la IA (Eliminatorio)</strong></td>
+      <td style="text-align: center"><strong>Requisito</strong></td>
+      <td style="text-align: left">No defiende el código. Uso fraudulento.</td>
+      <td style="text-align: left">(No se aplica)</td>
+      <td style="text-align: left">(No se aplica)</td>
+      <td style="text-align: left">Entiende y explica las decisiones arquitectónicas perfectamente.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>1. Entrega en tiempo y forma</strong></td>
+      <td style="text-align: center"><strong>10%</strong></td>
+      <td style="text-align: left">No entregado / Formato erróneo.</td>
+      <td style="text-align: left">Faltan requisitos (ej. vendor incluido) o falta vídeo Postman.</td>
+      <td style="text-align: left">Cumple mayoría, fallos en explicación del vídeo o faltan requests menores.</td>
+      <td style="text-align: left">Cumple 100% de la norma. Vídeo nítido y bien narrado.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>2. Control de versiones</strong></td>
+      <td style="text-align: center"><strong>10%</strong></td>
+      <td style="text-align: left">Sin repositorio.</td>
+      <td style="text-align: left">Un único commit inmenso.</td>
+      <td style="text-align: left">Varios commits, mensajes poco descriptivos.</td>
+      <td style="text-align: left">Commits lógicos, frecuentes y descriptivos a medida que avanza.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>3. Endpoints y controladores API (Resource)</strong></td>
+      <td style="text-align: center"><strong>20%</strong></td>
+      <td style="text-align: left">No responde en <code class="language-plaintext highlighter-rouge">/api</code>. Devuelve HTML.</td>
+      <td style="text-align: left">Rutas fuera de los estándares REST. Devuelve strings en lugar de JSON estructurado.</td>
+      <td style="text-align: left">Uso parcial de <code class="language-plaintext highlighter-rouge">apiResource</code>. Faltan validaciones de entrada (<code class="language-plaintext highlighter-rouge">Request</code>).</td>
+      <td style="text-align: left">Rutas RESTful estrictas, uso impecable de respuestas JSON y validaciones.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>4. Relaciones (1:N y N:N)</strong></td>
+      <td style="text-align: center"><strong>20%</strong></td>
+      <td style="text-align: left">No hay migraciones foráneas.</td>
+      <td style="text-align: left">Las relaciones fallan al insertar datos.</td>
+      <td style="text-align: left">Relación básica funciona, pero falla la tabla pivote de inscripción de estudiantes.</td>
+      <td style="text-align: left">Modelos perfectamente enlazados (hasMany, belongsToMany), uso de sync/attach impecable.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>5. Autenticación (tokens con Sanctum)</strong></td>
+      <td style="text-align: center"><strong>20%</strong></td>
+      <td style="text-align: left">API pública e insegura.</td>
+      <td style="text-align: left">Token generado pero no se usa para proteger rutas de manera efectiva.</td>
+      <td style="text-align: left">Rutas protegidas, token funcional, pero falla la autorización (puedo borrar cosas de otros).</td>
+      <td style="text-align: left">Login/Register devuelve Tokens perfectos. Protección <code class="language-plaintext highlighter-rouge">auth:sanctum</code> y Autorización de propiedad implacable.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>6. Uso de Postman</strong></td>
+      <td style="text-align: center"><strong>10%</strong></td>
+      <td style="text-align: left">No usa Postman para el testeo o no muestra cómo lo hace.</td>
+      <td style="text-align: left">Usa Postman pero no testea todas las especificaciones o deja pasar muchos errores.</td>
+      <td style="text-align: left">Testea todas las especificaciones con Postman pero de forma poco eficiente o con algunos errores.</td>
+      <td style="text-align: left">Testea todas las especificaciones con Postman de forma eficiente y sin errores.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>7. Calidad del código</strong></td>
+      <td style="text-align: center"><strong>10%</strong></td>
+      <td style="text-align: left">Archivos caóticos.</td>
+      <td style="text-align: left">Lógica de base de datos esparcida en archivos de rutas.</td>
+      <td style="text-align: left">Buen código, pero verboso o repetitivo.</td>
+      <td style="text-align: left">Nomenclatura clara en inglés, Controladores finos, uso elegante de Eloquent.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>Nota: Recuerda que para aprobar es obligatorio obtener el Nivel 3 en el ítem 0 y que este ítem se valorará con posterioridad al resto de la práctica (en entrevistas o pruebas individuales o durante el examen)</em>.</p>
+:ET

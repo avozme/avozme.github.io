@@ -83,7 +83,8 @@ La entrega debe cumplir **estrictamente** con estos requisitos. El incumplimient
 1. **Código fuente comprimido**: Sube a Moodle Centros un archivo ZIP con tu proyecto. **EXCEPTUANDO la carpeta `/vendor` y `/node_modules`**. (Si las incluyes, serás penalizado).
 2. **Vídeo demostrativo**: Graba un vídeo capturando tu pantalla y demostrando el funcionamiento de tu aplicación. Debes explicarlo **con tu propia voz** (nada de voces sintetizadas o IA). Sube el vídeo a Moodle Centros o un enlace a YouTube/Drive, como prefieras.
 3. **Repositorio público**: Incluye un enlace a tu repositorio público en GitHub o GitLab. *Se revisará el historial de commits*.
-4. **Reproducibilidad**: El profesor descargará tu ZIP (o clonará tu repo), ejecutará `./vendor/bin/sail up -d` y `./vendor/bin/sail artisan migrate`. **La aplicación debe funcionar inmediatamente** sin necesidad de tocar nada más.
+4. **Conversación con la IA**: Sube un archivo .docx o .odt con TODA tu conversación con la IA. Necesitamos ver cómo has interactuado con la Inteligencia Artificial.
+5. **Reproducibilidad**: El profesor descargará tu ZIP (o clonará tu repo), ejecutará `./vendor/bin/sail up -d` y `./vendor/bin/sail artisan migrate`. **La aplicación debe funcionar inmediatamente** sin necesidad de tocar nada más.
 
 ---
 

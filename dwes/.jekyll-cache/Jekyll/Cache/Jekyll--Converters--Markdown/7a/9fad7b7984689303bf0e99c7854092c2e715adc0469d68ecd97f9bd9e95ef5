@@ -1,4 +1,4 @@
-I"F9<h2 class="no_toc" id="39-práctica-final-plataforma-de-gestión-de-proyectos-colaborativos">3.9. Práctica final: Plataforma de gestión de proyectos colaborativos</h2>
+I":<h2 class="no_toc" id="39-práctica-final-plataforma-de-gestión-de-proyectos-colaborativos">3.9. Práctica final: Plataforma de gestión de proyectos colaborativos</h2>
 
 <ul id="markdown-toc">
   <li><a href="#importante-uso-de-ia-en-esta-práctica" id="markdown-toc-importante-uso-de-ia-en-esta-práctica">IMPORTANTE: uso de IA en esta práctica</a></li>
@@ -98,6 +98,7 @@
   <li><strong>Código fuente comprimido</strong>: Sube a Moodle Centros un archivo ZIP con tu proyecto. <strong>EXCEPTUANDO la carpeta <code class="language-plaintext highlighter-rouge">/vendor</code> y <code class="language-plaintext highlighter-rouge">/node_modules</code></strong>. (Si las incluyes, serás penalizado).</li>
   <li><strong>Vídeo demostrativo</strong>: Graba un vídeo capturando tu pantalla y demostrando el funcionamiento de tu aplicación. Debes explicarlo <strong>con tu propia voz</strong> (nada de voces sintetizadas o IA). Sube el vídeo a Moodle Centros o un enlace a YouTube/Drive, como prefieras.</li>
   <li><strong>Repositorio público</strong>: Incluye un enlace a tu repositorio público en GitHub o GitLab. <em>Se revisará el historial de commits</em>.</li>
+  <li><strong>Conversación con la IA</strong>: Sube un archivo .docx o .odt con TODA tu conversación con la IA. Necesitamos ver cómo has interactuado con la Inteligencia Artificial.</li>
   <li><strong>Reproducibilidad</strong>: El profesor descargará tu ZIP (o clonará tu repo), ejecutará <code class="language-plaintext highlighter-rouge">./vendor/bin/sail up -d</code> y <code class="language-plaintext highlighter-rouge">./vendor/bin/sail artisan migrate</code>. <strong>La aplicación debe funcionar inmediatamente</strong> sin necesidad de tocar nada más.</li>
 </ol>
 

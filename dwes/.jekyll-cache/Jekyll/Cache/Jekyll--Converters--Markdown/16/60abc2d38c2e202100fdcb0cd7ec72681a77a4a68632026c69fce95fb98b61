@@ -1,45 +1,42 @@
-I"��<h1 id="7-consumo-de-apis-y-frontend-reactivo-para-spa">7. Consumo de APIs y frontend reactivo para SPA</h1>
+I"Z�<h1 class="no_toc" id="7-consumo-de-apis-y-frontend-reactivo-para-spa">7. Consumo de APIs y frontend reactivo para SPA</h1>
 
-<ul class="no_toc" id="markdown-toc">
-  <li><a href="#7-consumo-de-apis-y-frontend-reactivo-para-spa" id="markdown-toc-7-consumo-de-apis-y-frontend-reactivo-para-spa">7. Consumo de APIs y frontend reactivo para SPA</a>    <ul>
-      <li><a href="#a31-qué-es-vuejs" id="markdown-toc-a31-qué-es-vuejs">A3.1. ¿Qué es Vue.js?</a></li>
-      <li><a href="#a32-algunos-ejemplos-sencillos" id="markdown-toc-a32-algunos-ejemplos-sencillos">A3.2. Algunos ejemplos sencillos</a>        <ul>
-          <li><a href="#ejemplo-1-hola-mundo" id="markdown-toc-ejemplo-1-hola-mundo">Ejemplo 1: hola, mundo</a></li>
-          <li><a href="#ejemplo-2-pregunta-y-respuesta" id="markdown-toc-ejemplo-2-pregunta-y-respuesta">Ejemplo 2: pregunta y respuesta</a></li>
-          <li><a href="#ejemplo-3-condicional-simple" id="markdown-toc-ejemplo-3-condicional-simple">Ejemplo 3: condicional simple</a></li>
-          <li><a href="#ejemplo-4-bucle-for" id="markdown-toc-ejemplo-4-bucle-for">Ejemplo 4: bucle for</a></li>
-          <li><a href="#ejemplo-5-formularios" id="markdown-toc-ejemplo-5-formularios">Ejemplo 5: formularios</a></li>
-          <li><a href="#ejemplo-6-evento-click" id="markdown-toc-ejemplo-6-evento-click">Ejemplo 6: evento click</a></li>
-          <li><a href="#ejemplo-7-evento-key" id="markdown-toc-ejemplo-7-evento-key">Ejemplo 7: evento key</a></li>
-          <li><a href="#ejemplo-8-componente-hola-mundo" id="markdown-toc-ejemplo-8-componente-hola-mundo">Ejemplo 8: componente “Hola mundo”</a></li>
-          <li><a href="#ejemplo-9-componente-lista-de-tareas" id="markdown-toc-ejemplo-9-componente-lista-de-tareas">Ejemplo 9: componente “Lista de tareas”</a></li>
-        </ul>
-      </li>
-      <li><a href="#a33-estructurando-una-aplicación-hecha-con-vue-los-componentes" id="markdown-toc-a33-estructurando-una-aplicación-hecha-con-vue-los-componentes">A3.3. Estructurando una aplicación hecha con Vue: los componentes</a>        <ul>
-          <li><a href="#a331-qué-componentes-debería-tener-mi-aplicación" id="markdown-toc-a331-qué-componentes-debería-tener-mi-aplicación">A3.3.1. ¿Qué componentes debería tener mi aplicación?</a></li>
-          <li><a href="#a332-estructura-típica-de-una-aplicación-vue" id="markdown-toc-a332-estructura-típica-de-una-aplicación-vue">A3.3.2. Estructura típica de una aplicación Vue</a></li>
-          <li><a href="#a333-componente-principal-el-archivo-appvue" id="markdown-toc-a333-componente-principal-el-archivo-appvue">A3.3.3. Componente principal: el archivo App.vue</a></li>
-          <li><a href="#a334-componentes-de-vue" id="markdown-toc-a334-componentes-de-vue">A3.3.4. Componentes de Vue</a></li>
-          <li><a href="#a335-manejo-de-eventos-con-vue" id="markdown-toc-a335-manejo-de-eventos-con-vue">A3.3.5. Manejo de eventos con Vue</a></li>
-        </ul>
-      </li>
-      <li><a href="#a34-y-si-quiero-que-el-componente-vue-tome-sus-datos-del-servidor" id="markdown-toc-a34-y-si-quiero-que-el-componente-vue-tome-sus-datos-del-servidor">A3.4. ¿Y si quiero que el componente Vue tome sus datos del servidor?</a>        <ul>
-          <li><a href="#a341-un-ejemplo-sencillo" id="markdown-toc-a341-un-ejemplo-sencillo">A3.4.1. Un ejemplo sencillo</a></li>
-          <li><a href="#a342-un-ejemplo-completo-crud-con-vue-y-un-servidor-restful" id="markdown-toc-a342-un-ejemplo-completo-crud-con-vue-y-un-servidor-restful">A3.4.2. Un ejemplo completo: CRUD con Vue y un servidor RESTful</a></li>
-          <li><a href="#a343-otro-ejemplo-completo-un-componente-capaz-de-mostrar-cualquier-tabla" id="markdown-toc-a343-otro-ejemplo-completo-un-componente-capaz-de-mostrar-cualquier-tabla">A3.4.3. Otro ejemplo completo: un componente capaz de mostrar cualquier tabla</a></li>
-        </ul>
-      </li>
-      <li><a href="#a35-vuejs-con-laravel" id="markdown-toc-a35-vuejs-con-laravel">A3.5. Vue.js con Laravel</a>        <ul>
-          <li><a href="#a351-instalar-vue-en-laravel" id="markdown-toc-a351-instalar-vue-en-laravel">A3.5.1. Instalar Vue en Laravel</a></li>
-          <li><a href="#a352-crear-componentes-vue-con-laravel" id="markdown-toc-a352-crear-componentes-vue-con-laravel">A3.5.2. Crear componentes Vue con Laravel</a></li>
-          <li><a href="#a353-un-ejemplo-completo-crud-con-laravel-y-vue" id="markdown-toc-a353-un-ejemplo-completo-crud-con-laravel-y-vue">A3.5.3. Un ejemplo completo: CRUD con Laravel y Vue</a></li>
-        </ul>
-      </li>
+<div style="color:red; font-size: 150%"><strong>ESTE MATERIAL AÚN ESTÁ EN DESARROLLO</strong></div>
+
+<ul id="markdown-toc">
+  <li><a href="#a31-qué-es-vuejs" id="markdown-toc-a31-qué-es-vuejs">A3.1. ¿Qué es Vue.js?</a></li>
+  <li><a href="#a32-algunos-ejemplos-sencillos" id="markdown-toc-a32-algunos-ejemplos-sencillos">A3.2. Algunos ejemplos sencillos</a>    <ul>
+      <li><a href="#ejemplo-1-hola-mundo" id="markdown-toc-ejemplo-1-hola-mundo">Ejemplo 1: hola, mundo</a></li>
+      <li><a href="#ejemplo-2-pregunta-y-respuesta" id="markdown-toc-ejemplo-2-pregunta-y-respuesta">Ejemplo 2: pregunta y respuesta</a></li>
+      <li><a href="#ejemplo-3-condicional-simple" id="markdown-toc-ejemplo-3-condicional-simple">Ejemplo 3: condicional simple</a></li>
+      <li><a href="#ejemplo-4-bucle-for" id="markdown-toc-ejemplo-4-bucle-for">Ejemplo 4: bucle for</a></li>
+      <li><a href="#ejemplo-5-formularios" id="markdown-toc-ejemplo-5-formularios">Ejemplo 5: formularios</a></li>
+      <li><a href="#ejemplo-6-evento-click" id="markdown-toc-ejemplo-6-evento-click">Ejemplo 6: evento click</a></li>
+      <li><a href="#ejemplo-7-evento-key" id="markdown-toc-ejemplo-7-evento-key">Ejemplo 7: evento key</a></li>
+      <li><a href="#ejemplo-8-componente-hola-mundo" id="markdown-toc-ejemplo-8-componente-hola-mundo">Ejemplo 8: componente “Hola mundo”</a></li>
+      <li><a href="#ejemplo-9-componente-lista-de-tareas" id="markdown-toc-ejemplo-9-componente-lista-de-tareas">Ejemplo 9: componente “Lista de tareas”</a></li>
+    </ul>
+  </li>
+  <li><a href="#a33-estructurando-una-aplicación-hecha-con-vue-los-componentes" id="markdown-toc-a33-estructurando-una-aplicación-hecha-con-vue-los-componentes">A3.3. Estructurando una aplicación hecha con Vue: los componentes</a>    <ul>
+      <li><a href="#a331-qué-componentes-debería-tener-mi-aplicación" id="markdown-toc-a331-qué-componentes-debería-tener-mi-aplicación">A3.3.1. ¿Qué componentes debería tener mi aplicación?</a></li>
+      <li><a href="#a332-estructura-típica-de-una-aplicación-vue" id="markdown-toc-a332-estructura-típica-de-una-aplicación-vue">A3.3.2. Estructura típica de una aplicación Vue</a></li>
+      <li><a href="#a333-componente-principal-el-archivo-appvue" id="markdown-toc-a333-componente-principal-el-archivo-appvue">A3.3.3. Componente principal: el archivo App.vue</a></li>
+      <li><a href="#a334-componentes-de-vue" id="markdown-toc-a334-componentes-de-vue">A3.3.4. Componentes de Vue</a></li>
+      <li><a href="#a335-manejo-de-eventos-con-vue" id="markdown-toc-a335-manejo-de-eventos-con-vue">A3.3.5. Manejo de eventos con Vue</a></li>
+    </ul>
+  </li>
+  <li><a href="#a34-y-si-quiero-que-el-componente-vue-tome-sus-datos-del-servidor" id="markdown-toc-a34-y-si-quiero-que-el-componente-vue-tome-sus-datos-del-servidor">A3.4. ¿Y si quiero que el componente Vue tome sus datos del servidor?</a>    <ul>
+      <li><a href="#a341-un-ejemplo-sencillo" id="markdown-toc-a341-un-ejemplo-sencillo">A3.4.1. Un ejemplo sencillo</a></li>
+      <li><a href="#a342-un-ejemplo-completo-crud-con-vue-y-un-servidor-restful" id="markdown-toc-a342-un-ejemplo-completo-crud-con-vue-y-un-servidor-restful">A3.4.2. Un ejemplo completo: CRUD con Vue y un servidor RESTful</a></li>
+      <li><a href="#a343-otro-ejemplo-completo-un-componente-capaz-de-mostrar-cualquier-tabla" id="markdown-toc-a343-otro-ejemplo-completo-un-componente-capaz-de-mostrar-cualquier-tabla">A3.4.3. Otro ejemplo completo: un componente capaz de mostrar cualquier tabla</a></li>
+    </ul>
+  </li>
+  <li><a href="#a35-vuejs-con-laravel" id="markdown-toc-a35-vuejs-con-laravel">A3.5. Vue.js con Laravel</a>    <ul>
+      <li><a href="#a351-instalar-vue-en-laravel" id="markdown-toc-a351-instalar-vue-en-laravel">A3.5.1. Instalar Vue en Laravel</a></li>
+      <li><a href="#a352-crear-componentes-vue-con-laravel" id="markdown-toc-a352-crear-componentes-vue-con-laravel">A3.5.2. Crear componentes Vue con Laravel</a></li>
+      <li><a href="#a353-un-ejemplo-completo-crud-con-laravel-y-vue" id="markdown-toc-a353-un-ejemplo-completo-crud-con-laravel-y-vue">A3.5.3. Un ejemplo completo: CRUD con Laravel y Vue</a></li>
     </ul>
   </li>
 </ul>
-
-<div style="color:red; font-size: 150%"><strong>ESTE MATERIAL ESTÁ EN DESARROLLO</strong></div>
 
 <h2 id="a31-qué-es-vuejs">A3.1. ¿Qué es Vue.js?</h2>
 

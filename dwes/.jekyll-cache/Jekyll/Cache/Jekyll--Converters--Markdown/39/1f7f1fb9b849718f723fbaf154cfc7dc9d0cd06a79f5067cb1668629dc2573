@@ -1,4 +1,4 @@
-I"��<h2 class="no_toc" id="28-práctica-final">2.8. Práctica final</h2>
+I"B�<h2 class="no_toc" id="28-práctica-final">2.8. Práctica final</h2>
 
 <ul id="markdown-toc">
   <li><a href="#antes-de-empezar-aviso-para-navegantes" id="markdown-toc-antes-de-empezar-aviso-para-navegantes">Antes de empezar (aviso para navegantes)</a></li>
@@ -275,6 +275,7 @@
 Sube el vídeo a Moodle Centros junto con tu código fuente.</li>
     </ul>
   </li>
+  <li><strong>Sube un archivo .docx o .odt con TODA tu conversación con la IA</strong>. Necesitamos ver cómo has interactuado con la Inteligencia Artificial.</li>
   <li><strong>Sube también el link a tu repositorio</strong> GitHub o GitLab con el código del proyecto.</li>
   <li><strong>El proyecto debe ser reproducible</strong> nada más descargarlo en otro equipo sin más que lanzar el comando <code class="language-plaintext highlighter-rouge">docker compose up -d</code></li>
   <li><strong>Recuerda que puedes tener que hacer una defensa oral parcial y/o responder a preguntas sobre tu código</strong> en un examen escrito <strong>SIN IA</strong>. Asegúrate de <strong>ENTENDER</strong> (no memorizar) todo el código que has entregado.</li>
