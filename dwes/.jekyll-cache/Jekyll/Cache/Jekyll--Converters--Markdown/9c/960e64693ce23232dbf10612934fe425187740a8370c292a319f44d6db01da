@@ -1,4 +1,4 @@
-I"��<h2 class="no_toc" id="34-vistas-y-plantillas-blade">3.4. Vistas y plantillas. Blade</h2>
+I"��<h2 class="no_toc" id="34-vistas-y-plantillas-blade">3.4. Vistas y plantillas. Blade</h2>
 
 <ul id="markdown-toc">
   <li><a href="#341-master-layout" id="markdown-toc-341-master-layout">3.4.1. Master layout</a></li>
@@ -13,6 +13,12 @@
   <li><a href="#3410-añadir-css-y-javascript-a-nuestras-vistas" id="markdown-toc-3410-añadir-css-y-javascript-a-nuestras-vistas">3.4.10. Añadir CSS y Javascript a nuestras vistas</a></li>
   <li><a href="#3411-práctica-con-vistas-y-blade" id="markdown-toc-3411-práctica-con-vistas-y-blade">3.4.11. Práctica con vistas y Blade</a></li>
 </ul>
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/uoeio1cjc4unwkbwa7xiw/03_04_blade.pdf?rlkey=u1mnhgra5lopxuuchbkog9es4&amp;st=g1ww6k2c&amp;dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
 
 <p><strong>Blade es un poderoso y sencillo sub-lenguaje</strong> que nos permitirá <strong>generar plantillas de vistas</strong> para minimizar el código que necesitaremos para nuestras vistas.</p>
 
@@ -445,7 +451,7 @@
 <p>Si queremos <strong>añadir reglas CSS</strong>, lo habitual es:</p>
 
 <ol>
-  <li>Abrir el archivo <em><code class="language-plaintext highlighter-rouge">/resources/sass/app.css</code></em></li>
+  <li>Abrir el archivo <em><code class="language-plaintext highlighter-rouge">/resources/css/app.css</code></em></li>
   <li>Añadir el CSS que necesitemos <em>sin cambiar el contenido que ya existe</em>.</li>
   <li>Recompilar este archivo.</li>
 </ol>

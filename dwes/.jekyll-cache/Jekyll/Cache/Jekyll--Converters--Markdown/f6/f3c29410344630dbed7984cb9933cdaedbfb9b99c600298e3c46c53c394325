@@ -1,4 +1,4 @@
-I"w�<h1 class="no_toc" id="5-ssr-y-api-restful-con-spring-boot">5. SSR y API RESTful con Spring Boot</h1>
+I"��<h1 class="no_toc" id="5-ssr-y-api-rest-con-spring-boot">5. SSR y API REST con Spring Boot</h1>
 
 <ul id="markdown-toc">
   <li><a href="#51-qué-es-spring-boot" id="markdown-toc-51-qué-es-spring-boot">5.1. ¿Qué es Spring Boot?</a></li>
@@ -19,6 +19,12 @@
   <li><a href="#práctica-final-api-rest-biblioteca" id="markdown-toc-práctica-final-api-rest-biblioteca">Práctica final API REST: Biblioteca</a></li>
   <li><a href="#entrega-1" id="markdown-toc-entrega-1">Entrega</a></li>
 </ul>
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/xd1z2yyxbrqmt4j6quvvf/05_springboot.pdf?rlkey=8lgsfcw7w0sn74kt2ooxdnic7&amp;st=vpn8u6xc&amp;dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
 
 <p>Ya conoces Laravel: has construido aplicaciones SSR con Blade, API RESTful devolviendo JSON y has trabajado con Eloquent ORM. <strong>Spring Boot hace lo mismo, pero desde el ecosistema Java</strong>.</p>
 
@@ -248,7 +254,7 @@
 <span class="py">spring.datasource.username</span><span class="p">=</span><span class="s">root</span>
 <span class="py">spring.datasource.password</span><span class="p">=</span><span class="s">mi_password</span>
 
-<span class="c"># Hibernate: genera/actualiza las tablas automáticamente según las Entities
+<span class="c"># Indica a Hibernate que genere/actualice las tablas automáticamente según las Entities
 # (equivale a las migraciones de Laravel, pero sin control de versiones)
 </span><span class="py">spring.jpa.hibernate.ddl-auto</span><span class="p">=</span><span class="s">update</span>
 
@@ -489,7 +495,7 @@ Si añades <strong><em>Lombok</em></strong> al proyecto, puedes reemplazar todos
     <tr>
       <td style="text-align: left">Qué devuelve</td>
       <td style="text-align: left">Nombre de plantilla Thymeleaf (HTML)</td>
-      <td style="text-align: left">Objetos Java → JSON automático</td>
+      <td style="text-align: left">Objetos Java → Se convierten a JSON automáticamente</td>
     </tr>
     <tr>
       <td style="text-align: left"><code class="language-plaintext highlighter-rouge">return</code></td>
@@ -636,6 +642,68 @@ Si añades <strong><em>Lombok</em></strong> al proyecto, puedes reemplazar todos
 <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
 </code></pre></div></div>
+
+<h4 id="cómo-enviar-datos-del-controlador-a-la-vista">Cómo enviar datos del controlador a la vista</h4>
+
+<p>Para enviar datos del controlador a la vista debes prepararlos, como es lógico, en el controlador:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Controlador de Usuarios (fragmento)</span>
+<span class="k">public</span> <span class="kt">String</span> <span class="nf">listarUsuarios</span><span class="p">(</span><span class="nc">Model</span> <span class="n">model</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">model</span><span class="mf">.</span><span class="nf">addAttribute</span><span class="p">(</span><span class="s2">"usuarios"</span><span class="p">,</span> <span class="n">usuarioService</span><span class="mf">.</span><span class="nf">findAll</span><span class="p">());</span>
+   <span class="k">return</span> <span class="s2">"usuariosList"</span><span class="p">;</span>  
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>La vista debe llamarse <code class="language-plaintext highlighter-rouge">usuariosList.html</code> y recibirá en la variable <code class="language-plaintext highlighter-rouge">usuarios</code> la lista de usuarios:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- Vista usuariosList.html (fragmento) --&gt;</span>
+<span class="nt">&lt;table&gt;</span>
+   <span class="nt">&lt;tr</span> <span class="na">th:each=</span><span class="s">"usuario : ${usuarios}"</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;td</span> <span class="na">th:text=</span><span class="s">"${usuario.nombre}"</span><span class="nt">&gt;&lt;/td&gt;</span>
+       <span class="nt">&lt;td</span> <span class="na">th:text=</span><span class="s">"${usuario.email}"</span><span class="nt">&gt;&lt;/td&gt;</span>
+   <span class="nt">&lt;/tr&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+</code></pre></div></div>
+
+<h4 id="atributos-thymeleaf">Atributos Thymeleaf</h4>
+
+<p>Los <strong>atributos de Thymeleaf</strong> se pueden usar en cualquier elemento HTML. Se distinguen de los atributos normales de HTML porque <strong>empiezan por <code class="language-plaintext highlighter-rouge">th:</code></strong> y pueden servir, entre otras cosas, para:</p>
+
+<ul>
+  <li>
+    <p>Mostrar datos inyectados desde el controlador</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="nt">&lt;p</span> <span class="na">th:text=</span><span class="s">"${usuario.nombre}"</span><span class="nt">&gt;&lt;/p&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Iterar sobre colecciones:</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="nt">&lt;tr</span> <span class="na">th:each=</span><span class="s">"usuario : ${usuarios}"</span><span class="nt">&gt;</span>
+              <span class="nt">&lt;td</span> <span class="na">th:text=</span><span class="s">"${usuario.nombre}"</span><span class="nt">&gt;&lt;/td&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Procesar condicionales para mostrar u ocultar contenido:</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="nt">&lt;p</span> <span class="na">th:if=</span><span class="s">"${usuario.activo}"</span><span class="nt">&gt;</span>Activo<span class="nt">&lt;/p&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Integrarse en formularios para indicar el action o el contenido de un input</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="nt">&lt;form</span> <span class="na">th:action=</span><span class="s">"@{/usuarios}"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">th:field=</span><span class="s">"*{nombre}"</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;/form&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Generar enlaces con URLs creadas automáticamente.</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="nt">&lt;a</span> <span class="na">th:href=</span><span class="s">"@{/usuarios/{id}(id=${usuario.id})}"</span><span class="nt">&gt;</span>Ver<span class="nt">&lt;/a&gt;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
 
 <h3 id="527-chuleta-de-anotaciones-clave-de-spring-boot">5.2.7. Chuleta de anotaciones clave de Spring Boot</h3>
 

@@ -1,4 +1,4 @@
-I"CV<h2 class="no_toc" id="32-nuestra-primera-aplicación-en-laravel">3.2. Nuestra primera aplicación en Laravel</h2>
+I""W<h2 class="no_toc" id="32-hola-mundo-con-laravel">3.2. «Hola mundo» con Laravel</h2>
 
 <ul id="markdown-toc">
   <li><a href="#paso-0-prerrequisitos-para-que-laravel-funcione" id="markdown-toc-paso-0-prerrequisitos-para-que-laravel-funcione">PASO 0. Prerrequisitos para que Laravel funcione</a></li>
@@ -12,6 +12,12 @@
   <li><a href="#paso-8-crear-una-ruta-con-un-parámetro" id="markdown-toc-paso-8-crear-una-ruta-con-un-parámetro">PASO 8. Crear una ruta con un parámetro</a></li>
   <li><a href="#una-advertencia-final-desarrollo-frente-a-producción" id="markdown-toc-una-advertencia-final-desarrollo-frente-a-producción">Una advertencia final: desarrollo frente a producción</a></li>
 </ul>
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/ppsm8lcnpa7m6pi3gr69k/03_02_hola_mundo.pdf?rlkey=mdw4q3f0oem9m04bm5hcgk3vv&amp;st=vcbjnhgm&amp;dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
 
 <p>Ya sabemos qué es Laravel y por qué puede resultar útil utilizar un framework para desarrollar aplicaciones web.</p>
 

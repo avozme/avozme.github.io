@@ -13,6 +13,12 @@ parent: Desarrollo Web en Entorno Servidor
 - TOC
 {:toc}
 
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/vyzfkk9peoo6an0g55qxw/04_api_laravel.pdf?rlkey=7i5hhqqen1n9r609vfgpaenpo&st=rjn579w4&dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
+
 Los **servicios web** son un tipo particular de aplicación web: una aplicación pensada no solo para ser usada por usuarios humanos, sino por otras aplicaciones de software.
 
 Existen dos estándares históricos para crear servicios web: SOAP y REST. En este tema, vamos a estudiar las diferencias fundamentales y a centrarnos en cómo podemos construir una API RESTful moderna utilizando Laravel 13.

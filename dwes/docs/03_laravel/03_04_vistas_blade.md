@@ -14,6 +14,11 @@ has_children: false
 - TOC
 {:toc}
 
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/uoeio1cjc4unwkbwa7xiw/03_04_blade.pdf?rlkey=u1mnhgra5lopxuuchbkog9es4&st=g1ww6k2c&dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
 
 **Blade es un poderoso y sencillo sub-lenguaje** que nos permitirá **generar plantillas de vistas** para minimizar el código que necesitaremos para nuestras vistas.
 
@@ -423,7 +428,7 @@ Laravel usa dos archivos, `resources/js/app.js`y `resources/css/app.css`, para c
 
 Si queremos **añadir reglas CSS**, lo habitual es:
 
-1. Abrir el archivo *`/resources/sass/app.css`*
+1. Abrir el archivo *`/resources/css/app.css`*
 2. Añadir el CSS que necesitemos *sin cambiar el contenido que ya existe*.
 3. Recompilar este archivo.
 

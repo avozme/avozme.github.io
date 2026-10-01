@@ -1,4 +1,20 @@
-I"ۏ<h2 id="37-relaciones-entre-tablas-con-eloquent">3.7. Relaciones entre tablas con Eloquent</h2>
+I"ݕ<h2 class="no_toc" id="37-relaciones-entre-entre-modelos">3.7. Relaciones entre entre modelos</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#371-migraciones-con-claves-foráneas" id="markdown-toc-371-migraciones-con-claves-foráneas">3.7.1. Migraciones con claves foráneas</a></li>
+  <li><a href="#372-relaciones-11-usuarios---emails" id="markdown-toc-372-relaciones-11-usuarios---emails">3.7.2. Relaciones 1:1 (usuarios &lt;-&gt; emails)</a></li>
+  <li><a href="#373-relaciones-1n-usuarios---artículos" id="markdown-toc-373-relaciones-1n-usuarios---artículos">3.7.3. Relaciones 1:N (usuarios &lt;-&gt; artículos)</a></li>
+  <li><a href="#374-relaciones-nn-usuarios---roles" id="markdown-toc-374-relaciones-nn-usuarios---roles">3.7.4. Relaciones N:N (usuarios &lt;-&gt; roles)</a></li>
+  <li><a href="#375-la-tabla-pivote-insertar-modificar-y-borrar-en-relaciones-nn" id="markdown-toc-375-la-tabla-pivote-insertar-modificar-y-borrar-en-relaciones-nn">3.7.5. La tabla pivote: insertar, modificar y borrar en relaciones N:N</a></li>
+  <li><a href="#376-problemas-frecuentes-en-relaciones-nn" id="markdown-toc-376-problemas-frecuentes-en-relaciones-nn">3.7.6. Problemas frecuentes en relaciones N:N</a></li>
+  <li><a href="#377-práctica-de-relaciones-con-eloquent" id="markdown-toc-377-práctica-de-relaciones-con-eloquent">3.7.7. Práctica de relaciones con Eloquent</a></li>
+</ul>
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/flg4ebu3ki0xq0vhwwlld/03_07_relaciones.pdf?rlkey=1ovloxawl8z60ww08d8x2hfp1&amp;st=klfamn7k&amp;dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
 
 <p>Las <strong>relaciones entre tablas</strong> también se pueden manejar con Eloquent sin necesidad de andar escribiendo larguísimos <code class="language-plaintext highlighter-rouge">INNER JOIN</code> y otros miembros de su nutrida familia, con todos los errores de escritura que suelen hacernos perder el tiempo depurando SQL.</p>
 

@@ -1,24 +1,32 @@
 ---
 layout: page
-title: 3.5 La base de datos. Migraciones, seeders y modelos
-permalink: /laravel/migraciones-seeders-modelos.html
+title: 3.5 Migraciones y seeders
+permalink: /laravel/migraciones-seeders.html
 parent: 3 Aplicaciones SSR con Laravel
 grand_parent: Desarrollo Web en Entorno Servidor
 nav_order: 5
 has_children: false
 ---
 
-## 3.5. Migraciones
+## 3.5. Migraciones y seeders
 {: .no_toc }
 
 - TOC
 {:toc}
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/vwx4ihlhxzrutpa853r1u/03_05_migraciones.pdf?rlkey=4b6ir3qwfpq6xllw40qeqermb&st=6fu1iba2&dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
 
 Las **migraciones** constituyen una especie de control de versiones para la base de datos de la aplicación. Permiten crear y modificar tablas de la BD con independencia del SGBD que estemos usando.
 
 Con las migraciones no solo podrás reconstruir la base de datos en menos de lo que tarda en decirse "Von Neumann" (algo muy práctico cuando estás en fase de desarrollo), sino que podrás parchear la base de datos de una aplicación en producción en un tiempo record y con riesgo cero. 
 
 (Solo el que ha tenido que parchear la base de datos de una aplicación en producción antes de la existencia de las migraciones sabe la tranquilidad de espíritu que esto produce y la cantidad de problemas embarazosos que te quita de encima).
+
+Los **seeders**, por su parte, te ayudarán a programar la inserción de datos en las tablas creadas con las migraciones. Sirven tanto para inyectar datos necesarios para que la aplicación funcione como para crear una batería reutilizable de datos de prueba, muy útil durante el desarrollo.
 
 Antes de empezar, ten en cuenta que las versiones recientes de Laravel **utilizan SQLite por defecto**. Para **usar MySQL o MariaDB**, debes configurar correctamente las variables de entorno en el archivo `.env`:
 

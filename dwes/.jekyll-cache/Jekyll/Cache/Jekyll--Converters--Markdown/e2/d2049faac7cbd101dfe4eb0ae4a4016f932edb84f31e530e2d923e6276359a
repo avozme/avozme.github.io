@@ -1,4 +1,4 @@
-I"��<h2 class="no_toc" id="36-usando-la-bd-con-eloquent">3.6. Usando la BD con Eloquent</h2>
+I"��<h2 class="no_toc" id="36-eloquent-orm">3.6. Eloquent ORM</h2>
 
 <ul id="markdown-toc">
   <li><a href="#361-qué-es-el-mapeo-objeto-relacional" id="markdown-toc-361-qué-es-el-mapeo-objeto-relacional">3.6.1. ¿Qué es el mapeo objeto-relacional?</a></li>
@@ -6,10 +6,17 @@
   <li><a href="#363-pero-cómo-sabe-laravel-qué-tabla-está-asociada-a-ese-modelo" id="markdown-toc-363-pero-cómo-sabe-laravel-qué-tabla-está-asociada-a-ese-modelo">3.6.3. Pero ¿cómo sabe Laravel qué tabla está asociada a ese modelo?</a></li>
   <li><a href="#364-consultas-con-eloquent" id="markdown-toc-364-consultas-con-eloquent">3.6.4. Consultas con Eloquent</a></li>
   <li><a href="#365-inserciones-y-borrados-con-eloquent" id="markdown-toc-365-inserciones-y-borrados-con-eloquent">3.6.5. Inserciones y borrados con Eloquent</a></li>
-  <li><a href="#366-chuleta-con-los-métodos-más-útiles-de-eloquent" id="markdown-toc-366-chuleta-con-los-métodos-más-útiles-de-eloquent">3.6.6. Chuleta con los métodos más útiles de Eloquent</a></li>
-  <li><a href="#367-querybuilder" id="markdown-toc-367-querybuilder">3.6.7. QueryBuilder</a></li>
-  <li><a href="#368-práctica-eloquent-en-nuestra-aplicación" id="markdown-toc-368-práctica-eloquent-en-nuestra-aplicación">3.6.8. Práctica: Eloquent en nuestra aplicación</a></li>
+  <li><a href="#366-colecciones" id="markdown-toc-366-colecciones">3.6.6. Colecciones</a></li>
+  <li><a href="#367-chuleta-con-los-métodos-más-útiles-de-eloquent" id="markdown-toc-367-chuleta-con-los-métodos-más-útiles-de-eloquent">3.6.7. Chuleta con los métodos más útiles de Eloquent</a></li>
+  <li><a href="#368-querybuilder" id="markdown-toc-368-querybuilder">3.6.8. QueryBuilder</a></li>
+  <li><a href="#369-práctica-eloquent-en-nuestra-aplicación" id="markdown-toc-369-práctica-eloquent-en-nuestra-aplicación">3.6.9. Práctica: Eloquent en nuestra aplicación</a></li>
 </ul>
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/00z2rkkux39c3r07i0frl/03_06_eloquent.pdf?rlkey=z3rn4iwtjykirverrnm7o60cf&amp;st=s28d9xuv&amp;dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
 
 <p>Eloquent uno de los componentes de Laravel que permiten al desarrollador manipular los datos de la BD sin rebajarse a escribir sucio SQL. Y lo consigue mediante un mecanismo simple y elegante: el mapeo objeto-relacional.</p>
 
@@ -137,7 +144,20 @@
    <span class="nv">$art</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">();</span>
 </code></pre></div></div>
 
-<h3 id="366-chuleta-con-los-métodos-más-útiles-de-eloquent">3.6.6. Chuleta con los métodos más útiles de Eloquent</h3>
+<h3 id="366-colecciones">3.6.6. Colecciones</h3>
+
+<p>Las consultas con Eloquent siempre nos devuelven <strong>colecciones</strong> de tipo <code class="language-plaintext highlighter-rouge">Eloquent\Collection</code>, que tienen varias ventajas con respecto de los arrays de objetos convencionales:</p>
+
+<ul>
+  <li>Cada elemento es un objeto del modelo correspondiente (como <code class="language-plaintext highlighter-rouge">User</code>, <code class="language-plaintext highlighter-rouge">Article</code>, etc)</li>
+  <li>Cada elemento tiene ya predefinidos los métodos <code class="language-plaintext highlighter-rouge">save()</code>, <code class="language-plaintext highlighter-rouge">delete()</code>, etc.</li>
+  <li>Cada elemento tiene sus propias relaciones (ej: <code class="language-plaintext highlighter-rouge">$user-&gt;posts</code>), dependiendo de cómo se hayan definido los modelos (hablaremos de esto en el siguiente apartado)</li>
+  <li>La colección tiene métodos como <code class="language-plaintext highlighter-rouge">map()</code>, <code class="language-plaintext highlighter-rouge">filter()</code>, <code class="language-plaintext highlighter-rouge">first()</code>, <code class="language-plaintext highlighter-rouge">sortBy()</code> para procesarla a la manera <strong>funcional</strong>.</li>
+  <li>Se puede hacer encadenamiento de métodos: <code class="language-plaintext highlighter-rouge">$users-&gt;where('active',1)-&gt;pluck('name')</code></li>
+  <li>La colección o sus elementos se convierten a JSON con <code class="language-plaintext highlighter-rouge">-&gt;toJson()</code>. Se conservan las relaciones.</li>
+</ul>
+
+<h3 id="367-chuleta-con-los-métodos-más-útiles-de-eloquent">3.6.7. Chuleta con los métodos más útiles de Eloquent</h3>
 
 <p>Hemos visto en los últimos ejemplos <strong>algunos métodos de Eloquent</strong> por separado. Te los reúno en esta sección para que los puedas consultar cuando lo necesites.</p>
 
@@ -161,7 +181,7 @@
   <li><strong>delete()</strong> → Elimina registros.</li>
 </ul>
 
-<h3 id="367-querybuilder">3.6.7. QueryBuilder</h3>
+<h3 id="368-querybuilder">3.6.8. QueryBuilder</h3>
 
 <p>En esta sección te voy a presentar a <strong>QueryBuilder</strong>, otra forma de acceder a la base de datos desde Laravel que te resultará muy útil en aquellos casos en los que, por la razón que sea, los métodos de Eloquent no sean suficientes.</p>
 
@@ -187,16 +207,52 @@
 
 <p>En la <a href="https://laravel.com/docs/queries">documentación oficial de Queries</a> encontrarás una referencia completa de todas las funciones de QueryBuilder, pero con estas que ves en el ejemplo puedes construir prácticamente cualquier consulta sencilla.</p>
 
-<h4 id="colecciones">Colecciones</h4>
+<h4 id="eloquent-vs-querybuilder-vs-sql">Eloquent vs QueryBuilder vs SQL</h4>
 
-<p>El <strong>resultado</strong> de consultas como las que veíamos de ejemplo en el apartado anterior es bastante intuitivo:</p>
+<p><strong>Eloquent</strong> tiene una serie de indudables <strong>ventajas</strong> sobre el trabajo con <strong>SQL crudo</strong>:</p>
 
 <ul>
-  <li>O bien un <strong>dato simple</strong> (como el <em>$maxId</em> de la cuarta consulta, que es un entero).</li>
-  <li>O bien un <strong>objeto de tipo Collection</strong>.</li>
+  <li>No tienes que pelear con la <strong>farragosa sintaxis de SQL</strong>, en particular en consultas con varias tablas.</li>
+  <li>Trabajas con <strong>objetos</strong>, no con tablas, registros, campos, etc.</li>
+  <li>Tienes <strong>relaciones manejadas de forma automática</strong> entre modelos. Se acabó hacer enormes JOINs de varias tablas.</li>
+  <li>Puedes automatizar la <strong>transformación de atributos</strong> al sacarlos de la base de datos, por ejemplo para cambiarles el tipo (esto se llama <strong>mutation</strong>).</li>
+  <li>Puedes hacer <strong>asignación masiva</strong> desde formularios HTML o, en general, desde arrays a modelos.</li>
+  <li>Y puedes hacer muchas otras cosas que ni siquiera hemos visto: asociar eventos a los modelos, hacer “borrados suaves” (una especie de papelera de reciclaje, para recuperar datos borrados por error), encapsular consultas frecuentes, etc.</li>
 </ul>
 
-<p>Las <strong>colecciones de Laravel</strong> tienen un montón de métodos útiles para procesarlas y puedes echarle un vistazo a la <a href="https://laravel.com/docs/collections">documentación oficial de Collections</a> para ello, pero la mayor parte de las veces basta con hacer un <em>foreach</em> sobre la variable para ir accediendo a cada uno de los elementos, que se comportarán como objetos del tipo adecuado.</p>
+<p>SQL no puede hacer nada de esto.</p>
+
+<p>Pero <strong>Eloquent</strong> tiene también serios <strong>inconvenientes</strong> comparado con <strong>SQL crudo</strong>, porque no hay nada perfecto en este mundo:</p>
+
+<ul>
+  <li>Con SQL es más fácil <strong>optimizar consultas</strong>.</li>
+  <li>Con SQL tienes <strong>control total</strong> sobre la construcción de la consulta. Si usas Eloquent, no sabes cómo hace su magia.</li>
+  <li>Con SQL puedes programar <strong>consultas muy complejas</strong> imposibles de crear con Eloquent.</li>
+  <li>La <strong>velocidad de ejecución</strong> de SQL es muchísimo mayor (si las consultas están optimizadas, se entiende).</li>
+</ul>
+
+<p>Pues bien, <strong>QueryBuilder</strong> es una herramienta <strong>a medio camino entre Eloquent y SQL crudo</strong>. Tiene algunas de las ventajas de Eloquent (no todas) y algunos de sus inconvenientes (no todos).</p>
+
+<p>Así que no hay una herramienta mejor que otra. Simplemente, Eloquent, QueryBuilder y SQL son tres herramientas para el mismo trabajo. Preferir una u otra dependerá de la naturaleza del trabajo.</p>
+
+<ul>
+  <li><strong>Eloquent</strong> es preferible cuando trabajas con entidades de tu base de datos, porque se corresponden directamente con objetos de tus modelos, o con relaciones entre estos modelos.</li>
+  <li><strong>QueryBuilder</strong> es preferible cuando tienes que consultar o manipular datos de maneras no previstas por tus modelos. Un caso típico es cuando quieres montar un informe estadístico que toma datos de un montón de tablas.</li>
+  <li><strong>SQL crudo</strong> es preferible cuando necesitas control absoluto en tu consulta (por ejemplo, por motivos de optimización) o necesitas hacer algo complicado que Eloquent y QueryBuilder no permiten.</li>
+</ul>
+
+<p>Por lo tanto, la mayor parte del tiempo usaremos Eloquent, a veces descenderemos a QueryBuilder y muy, muy raramente necesitaremos tirar de SQL tradicional.</p>
+
+<p><img src="/docs/dwes/_site/assets/images/eloquent-vs-querybuilder-vs-sql.jpg" alt="Comparativa Eloquent - QueryBuilder - Raw SQL" /></p>
+
+<h4 id="colecciones-querybuilder">Colecciones QueryBuilder</h4>
+
+<p>El <strong>resultado</strong> de consultas hechas con QueryBuilder también suele ser una <strong>Collection</strong>, como pasa con Eloquent, pero un poco distinta:</p>
+
+<ul>
+  <li>Hay consultas que devuelven un <strong>dato simple</strong> (como el <em>$maxId</em>, por ejemplo, que será un número entero).</li>
+  <li>Hay consutlas que devuelve <strong>objeto de tipo <code class="language-plaintext highlighter-rouge">Collection&lt;stdClass&gt;</code></strong>. Los <strong><code class="language-plaintext highlighter-rouge">stdClass</code></strong> de PHP son objetos vacíos a los que se les pueden acoplar datos. Es decir, no te va a devolver una colección de objetos de tus modelos, sino objetos “tontos” con los datos de tu tabla de la base de datos.</li>
+</ul>
 
 <p>Por ejemplo, para acceder a todos los registros de la tabla de usuarios:</p>
 
@@ -208,17 +264,7 @@
    <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="ventajas-de-querybuilder-sobre-sql">Ventajas de QueryBuilder sobre SQL</h4>
-
-<p>Como ves, QueryBuilder te permite construir sentencias SQL sin necesidad de escribir SQL.</p>
-
-<p>La <strong>ventaja</strong> de esto es triple:</p>
-
-<ol>
-  <li>No tendremos que depurar nuestros errores sintácticos en SQL, con el ahorro de tiempo que eso conlleva.</li>
-  <li>El SQL generado será 100% compatible con el gestor de base de datos que estemos utilizando. Si escribimos SQL en crudo, tendremos que adaptarlo al dialecto de nuestro gestor de base de datos. Y, si cambiamos de gestor, habrá que revisar todas las sentencias SQL para adaptarlas de nuevo. Todo esto lo evita QueryBuilder, puesto que hace esa adaptación por nosotros.</li>
-  <li>Es imposible que suframos un ataque por inyección de código, puesto que QueryBuilder no lo permitirá.</li>
-</ol>
+<p>Observa que <strong>podemos acceder a los datos de <code class="language-plaintext highlighter-rouge">$user</code></strong>, pero <strong>no a sus métodos</strong>, porque no es un objeto de tipo <code class="language-plaintext highlighter-rouge">User</code> sino <code class="language-plaintext highlighter-rouge">stdClass</code>.</p>
 
 <h4 id="relaciones-entre-tablas-con-querybuilder">Relaciones entre tablas con QueryBuilder</h4>
 
@@ -250,11 +296,25 @@
 <p>Si aún así no te he convencido, puedes ejecutar tu consulta SQL cruda directamente con el método <code class="language-plaintext highlighter-rouge">DB::select()</code>, <code class="language-plaintext highlighter-rouge">DB::insert()</code>, <code class="language-plaintext highlighter-rouge">DB::update()</code> o <code class="language-plaintext highlighter-rouge">DB::delete()</code>. Por ejemplo:</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$resultado</span> <span class="o">=</span> <span class="no">DB</span><span class="o">::</span><span class="nf">select</span><span class="p">(</span><span class="s1">'SELECT * FROM users WHERE active = ?'</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="nv">$resultado</span> <span class="o">=</span> <span class="no">DB</span><span class="o">::</span><span class="nf">insert</span><span class="p">(</span><span class="s1">'INSERT INTO users (name) VALUES (?)'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'Ana'</span><span class="p">]);</span>
+<span class="nv">$resultado</span> <span class="o">=</span> <span class="no">DB</span><span class="o">::</span><span class="nf">update</span><span class="p">(</span><span class="s1">'UPDATE users SET active = 0 WHERE id = ?'</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">]);</span>
+<span class="nv">$resultado</span> <span class="o">=</span> <span class="no">DB</span><span class="o">::</span><span class="nb">delete</span><span class="p">(</span><span class="s1">'DELETE FROM users WHERE active = 0'</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p><em>(Nota: si lo que necesitas es inyectar una expresión cruda dentro de una consulta QueryBuilder o Eloquent, entonces se usa <code class="language-plaintext highlighter-rouge">DB::raw('expresión SQL')</code>)</em>.</p>
 
-<h3 id="368-práctica-eloquent-en-nuestra-aplicación">3.6.8. Práctica: Eloquent en nuestra aplicación</h3>
+<p>Las inserciones, borrados y actualizaciones hechas con SQL crudo devuelven un <strong>número entero</strong>.</p>
+
+<p>Las <strong>consultas</strong> con SQL crudo <strong>devuelven</strong> un <strong>array de objetos stdClass</strong> (<code class="language-plaintext highlighter-rouge">stdClass[]</code>):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$resultado</span> <span class="o">=</span> <span class="no">DB</span><span class="o">::</span><span class="nf">select</span><span class="p">(</span><span class="s1">'SELECT * FROM users WHERE active = ?'</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$resultado</span> <span class="k">as</span> <span class="nv">$user</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="n">email</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="369-práctica-eloquent-en-nuestra-aplicación">3.6.9. Práctica: Eloquent en nuestra aplicación</h3>
 
 <p>En las prácticas anteriores creamos el controlador y las vistas de <code class="language-plaintext highlighter-rouge">products</code>, y en el capítulo anterior generamos su migración para la base de datos.
 ¡Es el momento de unir todas las piezas utilizando <strong>Eloquent</strong>!</p>

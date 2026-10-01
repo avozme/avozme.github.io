@@ -14,6 +14,13 @@ has_children: false
 - TOC
 {:toc}
 
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/tyxjbnv9a64bdif1xyos1/03_08_sesiones_autenticacion_middlewares.pdf?rlkey=eojvhckzw9ne2n2wy4td7agf9&st=69ebgjg5&dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
+
 Como es lógico, Laravel también proporciona su propio sistema de manejo de **variables de sesión**, es decir, variables persistentes en el servidor asociadas a cada cliente.
 
 Las variables de sesión de Laravel son mucho más seguras y poderosas que las variables de sesión estándar de PHP. En esta sección vamos a ver cómo funcionan y qué posibilidades nos ofrecen las sesiones en Laravel. También veremos cómo construir un robusto sistema de **autenticación de usuarios** con muy poco trabajo y qué son y qué papel juegan los **middlewares** en todo esto.
@@ -116,6 +123,16 @@ Actualmente, Laravel proporciona los denominados *Starter Kits*, que son compone
 
 Para la autenticación, Laravel dispone de varios *Starter Kits*. El más simple y recomendado oficialmente para empezar en Laravel 13 sigue siendo **Laravel Breeze**.
 
+#### Diferencia entre Autenticación y Autorización
+
+Son dos conceptos relacionados pero no exactamente iguales y es importante no confundirlos:
+- **Autenticación (Authentication)**: Es el proceso de verificar **quién eres**. (Ej: Hacer login con usuario y contraseña).
+- **Autorización (Authorization)**: Es el proceso de verificar **qué puedes hacer**. (Ej: ¿Este usuario autenticado tiene permisos para borrar este producto concreto? ¿Es administrador?).
+
+Lógicamente, sin autenticación no puede haber autorización.
+
+Laravel Breeze nos ayuda a trabajar las dos cosas: proporciona un sistema de autenticación y métodos a través del middleware `auth` para programar las autorizaciones, como vamos a ver enseguida.
+
 ### 3.8.4. El Starter Kit más simple: Laravel Breeze
 
 ***Laravel Breeze*** contiene el código mínimo necesario para crear un sistema de autenticación completo y seguro (login, registro, reseteo de contraseñas, etc.) usando Blade de forma muy sencilla.
@@ -132,7 +149,15 @@ $ ./vendor/bin/sail npm run build
 
 Estos comandos instalarán la librería, publicarán las vistas y controladores básicos de autenticación en tu proyecto y actualizarán la base de datos. No hace falta complicarse más, Breeze hará todo el trabajo pesado.
 
-Una vez hecho esto, Breeze creará automáticamente el archivo de rutas `routes/auth.php` y varias vistas en `resources/views/auth/`. Puedes probar directamente visitando `/login` y `/register` en tu navegador. Ya tienes un sistema de usuarios funcional y seguro.
+Una vez hecho esto, Breeze creará automáticamente el archivo de rutas `routes/auth.php` y varias vistas en `resources/views/auth/`. En concreto, Breeze habrá creado estos endpoints con sus correspondientes controladores/modelos/vistas:
+
+* `Routes::get("/login", ...)` → Para mostrar el formulario de login
+* `Routes::post("/login", ...)` → Para procesar el formulario de login
+* `Routes::post("/logout", ...)` → Para cerrar la sesión
+* `Routes::get("/register", ...)` → Para mostrar el fomulario de registro
+* `Routes::post("/register", ...)` → Para procesar el formulario de registro
+
+Puedes probar directamente las rutas tipo GET visitando `http://localhost/login` o `http://localhost/register` en tu navegador.
 
 ### 3.8.5. Autenticación y vistas: cómo generar código dependiendo del tipo de usuario
 
@@ -162,15 +187,7 @@ if (Auth::check()) {  // Devuelve true si el usuario actual está logueado
 
 (Más métodos de Auth en [la documentación oficial](https://laravel.com/docs/authentication))
 
-### 3.8.6. Diferencia entre Autenticación y Autorización
-
-Es fundamental no confundir estos dos conceptos:
-- **Autenticación (Authentication)**: Es el proceso de verificar **quién eres**. (Ej: Hacer login con usuario y contraseña).
-- **Autorización (Authorization)**: Es el proceso de verificar **qué puedes hacer**. (Ej: ¿Este usuario autenticado tiene permisos para borrar este producto concreto? ¿Es administrador?).
-
-En esta sección nos estamos centrando en la Autenticación. La Autorización en Laravel se maneja usando *Gates* y *Policies*, que son mecanismos para proteger acciones concretas.
-
-### 3.8.7. Autenticación y middlewares: cómo proteger las rutas
+### 3.8.6. Autenticación y middlewares: cómo proteger las rutas
 
 Los **middlewares** de Laravel son componentes que capturan y filtran todas las peticiones HTTP que llegan a la aplicación (literalmente, se ponen *en medio*).
 
@@ -191,7 +208,7 @@ Route::middleware('auth')->group(function () {
 
 Si intentas acceder a una de estas rutas sin estar logueado, el middleware `auth` lo detectará y te redirigirá automáticamente a la página de login.
 
-### 3.8.8. Práctica de sesiones y autenticación
+### 3.8.7. Práctica de sesiones y autenticación
 
 Vamos a **incorporar un sistema de autenticación** a nuestra pequeña aplicación de productos y categorías, y lo vamos a hacer usando Laravel Breeze.
 

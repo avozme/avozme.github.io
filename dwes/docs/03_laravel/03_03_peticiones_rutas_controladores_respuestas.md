@@ -14,6 +14,12 @@ has_children: false
 - TOC
 {:toc}
 
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/5ltygkmmz3efck3hx75zl/03_03_peticiones_rutas_controladores_respuestas.pdf?rlkey=qxri7b6osv11jwaz0ryuawyn2&st=2s8gqtre&dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
+
 Llegados a este punto, ya debes haber creado tu primera aplicación Laravel ("Hola, mundo") y habrás aprendido algo fundamental sobre el **enrutador**: cómo hacer que la solicitud de una URL termine ejecutando un método de un controlador.
 
 En esta sección, profundizaremos en el **enrutador**, un componente fundamental de cualquier aplicación web, e introduciremos los **controladores**, que toman el control del flujo de ejecución redirigido desde el enrutador.

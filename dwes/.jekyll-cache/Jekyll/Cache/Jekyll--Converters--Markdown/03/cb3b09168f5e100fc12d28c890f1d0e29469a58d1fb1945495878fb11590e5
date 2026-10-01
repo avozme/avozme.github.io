@@ -1,4 +1,4 @@
-I"<�<h1 class="no_toc" id="4-apis-restful-con-laravel">4. APIs RESTful con Laravel</h1>
+I"5�<h1 class="no_toc" id="4-apis-restful-con-laravel">4. APIs RESTful con Laravel</h1>
 
 <ul id="markdown-toc">
   <li><a href="#41-qué-es-un-servicio-web" id="markdown-toc-41-qué-es-un-servicio-web">4.1. ¿Qué es un servicio web?</a></li>
@@ -24,6 +24,12 @@
     </ul>
   </li>
 </ul>
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/vyzfkk9peoo6an0g55qxw/04_api_laravel.pdf?rlkey=7i5hhqqen1n9r609vfgpaenpo&amp;st=rjn579w4&amp;dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
 
 <p>Los <strong>servicios web</strong> son un tipo particular de aplicación web: una aplicación pensada no solo para ser usada por usuarios humanos, sino por otras aplicaciones de software.</p>
 

@@ -1,4 +1,4 @@
-I"Ek<h2 class="no_toc" id="38-sesiones-autenticación-y-middlewares">3.8. Sesiones, autenticación y middlewares</h2>
+I"Vo<h2 class="no_toc" id="38-sesiones-autenticación-y-middlewares">3.8. Sesiones, autenticación y middlewares</h2>
 
 <ul id="markdown-toc">
   <li><a href="#381-drivers-de-sesión" id="markdown-toc-381-drivers-de-sesión">3.8.1. Drivers de sesión</a></li>
@@ -6,10 +6,15 @@
   <li><a href="#383-autenticación" id="markdown-toc-383-autenticación">3.8.3. Autenticación</a></li>
   <li><a href="#384-el-starter-kit-más-simple-laravel-breeze" id="markdown-toc-384-el-starter-kit-más-simple-laravel-breeze">3.8.4. El Starter Kit más simple: Laravel Breeze</a></li>
   <li><a href="#385-autenticación-y-vistas-cómo-generar-código-dependiendo-del-tipo-de-usuario" id="markdown-toc-385-autenticación-y-vistas-cómo-generar-código-dependiendo-del-tipo-de-usuario">3.8.5. Autenticación y vistas: cómo generar código dependiendo del tipo de usuario</a></li>
-  <li><a href="#386-diferencia-entre-autenticación-y-autorización" id="markdown-toc-386-diferencia-entre-autenticación-y-autorización">3.8.6. Diferencia entre Autenticación y Autorización</a></li>
-  <li><a href="#387-autenticación-y-middlewares-cómo-proteger-las-rutas" id="markdown-toc-387-autenticación-y-middlewares-cómo-proteger-las-rutas">3.8.7. Autenticación y middlewares: cómo proteger las rutas</a></li>
-  <li><a href="#388-práctica-de-sesiones-y-autenticación" id="markdown-toc-388-práctica-de-sesiones-y-autenticación">3.8.8. Práctica de sesiones y autenticación</a></li>
+  <li><a href="#386-autenticación-y-middlewares-cómo-proteger-las-rutas" id="markdown-toc-386-autenticación-y-middlewares-cómo-proteger-las-rutas">3.8.6. Autenticación y middlewares: cómo proteger las rutas</a></li>
+  <li><a href="#387-práctica-de-sesiones-y-autenticación" id="markdown-toc-387-práctica-de-sesiones-y-autenticación">3.8.7. Práctica de sesiones y autenticación</a></li>
 </ul>
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/tyxjbnv9a64bdif1xyos1/03_08_sesiones_autenticacion_middlewares.pdf?rlkey=eojvhckzw9ne2n2wy4td7agf9&amp;st=69ebgjg5&amp;dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
 
 <p>Como es lógico, Laravel también proporciona su propio sistema de manejo de <strong>variables de sesión</strong>, es decir, variables persistentes en el servidor asociadas a cada cliente.</p>
 
@@ -122,6 +127,18 @@
 
 <p>Para la autenticación, Laravel dispone de varios <em>Starter Kits</em>. El más simple y recomendado oficialmente para empezar en Laravel 13 sigue siendo <strong>Laravel Breeze</strong>.</p>
 
+<h4 id="diferencia-entre-autenticación-y-autorización">Diferencia entre Autenticación y Autorización</h4>
+
+<p>Son dos conceptos relacionados pero no exactamente iguales y es importante no confundirlos:</p>
+<ul>
+  <li><strong>Autenticación (Authentication)</strong>: Es el proceso de verificar <strong>quién eres</strong>. (Ej: Hacer login con usuario y contraseña).</li>
+  <li><strong>Autorización (Authorization)</strong>: Es el proceso de verificar <strong>qué puedes hacer</strong>. (Ej: ¿Este usuario autenticado tiene permisos para borrar este producto concreto? ¿Es administrador?).</li>
+</ul>
+
+<p>Lógicamente, sin autenticación no puede haber autorización.</p>
+
+<p>Laravel Breeze nos ayuda a trabajar las dos cosas: proporciona un sistema de autenticación y métodos a través del middleware <code class="language-plaintext highlighter-rouge">auth</code> para programar las autorizaciones, como vamos a ver enseguida.</p>
+
 <h3 id="384-el-starter-kit-más-simple-laravel-breeze">3.8.4. El Starter Kit más simple: Laravel Breeze</h3>
 
 <p><strong><em>Laravel Breeze</em></strong> contiene el código mínimo necesario para crear un sistema de autenticación completo y seguro (login, registro, reseteo de contraseñas, etc.) usando Blade de forma muy sencilla.</p>
@@ -137,7 +154,17 @@
 
 <p>Estos comandos instalarán la librería, publicarán las vistas y controladores básicos de autenticación en tu proyecto y actualizarán la base de datos. No hace falta complicarse más, Breeze hará todo el trabajo pesado.</p>
 
-<p>Una vez hecho esto, Breeze creará automáticamente el archivo de rutas <code class="language-plaintext highlighter-rouge">routes/auth.php</code> y varias vistas en <code class="language-plaintext highlighter-rouge">resources/views/auth/</code>. Puedes probar directamente visitando <code class="language-plaintext highlighter-rouge">/login</code> y <code class="language-plaintext highlighter-rouge">/register</code> en tu navegador. Ya tienes un sistema de usuarios funcional y seguro.</p>
+<p>Una vez hecho esto, Breeze creará automáticamente el archivo de rutas <code class="language-plaintext highlighter-rouge">routes/auth.php</code> y varias vistas en <code class="language-plaintext highlighter-rouge">resources/views/auth/</code>. En concreto, Breeze habrá creado estos endpoints con sus correspondientes controladores/modelos/vistas:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Routes::get("/login", ...)</code> → Para mostrar el formulario de login</li>
+  <li><code class="language-plaintext highlighter-rouge">Routes::post("/login", ...)</code> → Para procesar el formulario de login</li>
+  <li><code class="language-plaintext highlighter-rouge">Routes::post("/logout", ...)</code> → Para cerrar la sesión</li>
+  <li><code class="language-plaintext highlighter-rouge">Routes::get("/register", ...)</code> → Para mostrar el fomulario de registro</li>
+  <li><code class="language-plaintext highlighter-rouge">Routes::post("/register", ...)</code> → Para procesar el formulario de registro</li>
+</ul>
+
+<p>Puedes probar directamente las rutas tipo GET visitando <code class="language-plaintext highlighter-rouge">http://localhost/login</code> o <code class="language-plaintext highlighter-rouge">http://localhost/register</code> en tu navegador.</p>
 
 <h3 id="385-autenticación-y-vistas-cómo-generar-código-dependiendo-del-tipo-de-usuario">3.8.5. Autenticación y vistas: cómo generar código dependiendo del tipo de usuario</h3>
 
@@ -165,17 +192,7 @@
 
 <p>(Más métodos de Auth en <a href="https://laravel.com/docs/authentication">la documentación oficial</a>)</p>
 
-<h3 id="386-diferencia-entre-autenticación-y-autorización">3.8.6. Diferencia entre Autenticación y Autorización</h3>
-
-<p>Es fundamental no confundir estos dos conceptos:</p>
-<ul>
-  <li><strong>Autenticación (Authentication)</strong>: Es el proceso de verificar <strong>quién eres</strong>. (Ej: Hacer login con usuario y contraseña).</li>
-  <li><strong>Autorización (Authorization)</strong>: Es el proceso de verificar <strong>qué puedes hacer</strong>. (Ej: ¿Este usuario autenticado tiene permisos para borrar este producto concreto? ¿Es administrador?).</li>
-</ul>
-
-<p>En esta sección nos estamos centrando en la Autenticación. La Autorización en Laravel se maneja usando <em>Gates</em> y <em>Policies</em>, que son mecanismos para proteger acciones concretas.</p>
-
-<h3 id="387-autenticación-y-middlewares-cómo-proteger-las-rutas">3.8.7. Autenticación y middlewares: cómo proteger las rutas</h3>
+<h3 id="386-autenticación-y-middlewares-cómo-proteger-las-rutas">3.8.6. Autenticación y middlewares: cómo proteger las rutas</h3>
 
 <p>Los <strong>middlewares</strong> de Laravel son componentes que capturan y filtran todas las peticiones HTTP que llegan a la aplicación (literalmente, se ponen <em>en medio</em>).</p>
 
@@ -195,7 +212,7 @@
 
 <p>Si intentas acceder a una de estas rutas sin estar logueado, el middleware <code class="language-plaintext highlighter-rouge">auth</code> lo detectará y te redirigirá automáticamente a la página de login.</p>
 
-<h3 id="388-práctica-de-sesiones-y-autenticación">3.8.8. Práctica de sesiones y autenticación</h3>
+<h3 id="387-práctica-de-sesiones-y-autenticación">3.8.7. Práctica de sesiones y autenticación</h3>
 
 <p>Vamos a <strong>incorporar un sistema de autenticación</strong> a nuestra pequeña aplicación de productos y categorías, y lo vamos a hacer usando Laravel Breeze.</p>
 

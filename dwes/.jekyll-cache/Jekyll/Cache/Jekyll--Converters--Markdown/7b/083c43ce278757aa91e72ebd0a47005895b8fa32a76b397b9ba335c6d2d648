@@ -1,4 +1,4 @@
-I"��<h2 class="no_toc" id="33-peticiones-rutas-controladores-y-respuestas">3.3. Peticiones, rutas, controladores y respuestas</h2>
+I"��<h2 class="no_toc" id="33-peticiones-rutas-controladores-y-respuestas">3.3. Peticiones, rutas, controladores y respuestas</h2>
 
 <ul id="markdown-toc">
   <li><a href="#331-qué-es-el-enrutador" id="markdown-toc-331-qué-es-el-enrutador">3.3.1. ¿Qué es el enrutador?</a></li>
@@ -12,6 +12,12 @@
   <li><a href="#339-tres-formas-de-crear-un-controlador" id="markdown-toc-339-tres-formas-de-crear-un-controlador">3.3.9. Tres formas de crear un controlador</a></li>
   <li><a href="#3310-práctica-de-rutas-y-controladores" id="markdown-toc-3310-práctica-de-rutas-y-controladores">3.3.10. Práctica de rutas y controladores</a></li>
 </ul>
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/5ltygkmmz3efck3hx75zl/03_03_peticiones_rutas_controladores_respuestas.pdf?rlkey=qxri7b6osv11jwaz0ryuawyn2&amp;st=2s8gqtre&amp;dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
 
 <p>Llegados a este punto, ya debes haber creado tu primera aplicación Laravel (“Hola, mundo”) y habrás aprendido algo fundamental sobre el <strong>enrutador</strong>: cómo hacer que la solicitud de una URL termine ejecutando un método de un controlador.</p>
 

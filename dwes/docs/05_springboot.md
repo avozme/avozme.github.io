@@ -1,17 +1,23 @@
 ---
 layout: page
-title: 5 SSR y API RESTful con Spring Boot
+title: 5 SSR y API REST con Spring Boot
 permalink: /springboot/
 nav_order: 5
 has_children: true
 parent: Desarrollo Web en Entorno Servidor
 ---
 
-# 5. SSR y API RESTful con Spring Boot
+# 5. SSR y API REST con Spring Boot
 {: .no_toc }
 
 - TOC
 {:toc}
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/xd1z2yyxbrqmt4j6quvvf/05_springboot.pdf?rlkey=8lgsfcw7w0sn74kt2ooxdnic7&st=vpn8u6xc&dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
 
 Ya conoces Laravel: has construido aplicaciones SSR con Blade, API RESTful devolviendo JSON y has trabajado con Eloquent ORM. **Spring Boot hace lo mismo, pero desde el ecosistema Java**.
 
@@ -172,7 +178,7 @@ spring.datasource.url=jdbc:mysql://localhost:3306/mi_base_de_datos
 spring.datasource.username=root
 spring.datasource.password=mi_password
 
-# Hibernate: genera/actualiza las tablas automáticamente según las Entities
+# Indica a Hibernate que genere/actualice las tablas automáticamente según las Entities
 # (equivale a las migraciones de Laravel, pero sin control de versiones)
 spring.jpa.hibernate.ddl-auto=update
 
@@ -396,7 +402,7 @@ Si en lugar de una aplicación SSR quieres construir una API REST que devuelva J
 
 | | `@Controller` (SSR) | `@RestController` (API) |
 | :--- | :--- | :--- |
-| Qué devuelve | Nombre de plantilla Thymeleaf (HTML) | Objetos Java → JSON automático |
+| Qué devuelve | Nombre de plantilla Thymeleaf (HTML) | Objetos Java → Se convierten a JSON automáticamente |
 | `return` | `"products/index"` | `product` o `List<Product>` |
 | Usa `Model` | Sí | No |
 | Clientes | Navegador web | Postman, apps móviles, frontend SPA |
@@ -494,6 +500,67 @@ Obsérvalo en esta vista de ejemplo que muestra una lista productos:
 </body>
 </html>
 ```
+
+#### Cómo enviar datos del controlador a la vista 
+
+Para enviar datos del controlador a la vista debes prepararlos, como es lógico, en el controlador:
+
+```php
+// Controlador de Usuarios (fragmento)
+public String listarUsuarios(Model model) {
+   model.addAttribute("usuarios", usuarioService.findAll());
+   return "usuariosList";  
+}
+```
+
+La vista debe llamarse `usuariosList.html` y recibirá en la variable `usuarios` la lista de usuarios:
+
+```html
+<!-- Vista usuariosList.html (fragmento) -->
+<table>
+   <tr th:each="usuario : ${usuarios}">
+       <td th:text="${usuario.nombre}"></td>
+       <td th:text="${usuario.email}"></td>
+   </tr>
+</table>
+```
+
+#### Atributos Thymeleaf
+
+Los **atributos de Thymeleaf** se pueden usar en cualquier elemento HTML. Se distinguen de los atributos normales de HTML porque **empiezan por `th:`** y pueden servir, entre otras cosas, para:
+
+* Mostrar datos inyectados desde el controlador
+
+    ```html
+        <p th:text="${usuario.nombre}"></p>
+    ```
+
+* Iterar sobre colecciones:
+
+    ```html
+        <tr th:each="usuario : ${usuarios}">
+                <td th:text="${usuario.nombre}"></td>
+    ```
+
+* Procesar condicionales para mostrar u ocultar contenido:
+
+    ```html
+        <p th:if="${usuario.activo}">Activo</p>
+    ```
+
+* Integrarse en formularios para indicar el action o el contenido de un input
+
+    ```html
+        <form th:action="@{/usuarios}" method="post">
+            <input type="text" th:field="*{nombre}" />
+        </form>
+    ```
+
+* Generar enlaces con URLs creadas automáticamente.
+
+    ```html
+        <a th:href="@{/usuarios/{id}(id=${usuario.id})}">Ver</a>
+    ```
 
 ### 5.2.7. Chuleta de anotaciones clave de Spring Boot
 

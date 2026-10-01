@@ -1,6 +1,6 @@
 ---
 layout: page
-title: 3.2 Práctica guiada. Hola mundo con Laravel
+title: 3.2 Hola mundo con Laravel
 permalink: /laravel/hola-mundo.html
 parent: 3 Aplicaciones SSR con Laravel
 grand_parent: Desarrollo Web en Entorno Servidor
@@ -8,11 +8,18 @@ nav_order: 2
 has_children: false
 ---
 
-## 3.2. Nuestra primera aplicación en Laravel
+## 3.2. «Hola mundo» con Laravel
 {: .no_toc }
 
 - TOC
 {:toc}
+
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/ppsm8lcnpa7m6pi3gr69k/03_02_hola_mundo.pdf?rlkey=mdw4q3f0oem9m04bm5hcgk3vv&st=vcbjnhgm&dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
+
 
 Ya sabemos qué es Laravel y por qué puede resultar útil utilizar un framework para desarrollar aplicaciones web.
 
