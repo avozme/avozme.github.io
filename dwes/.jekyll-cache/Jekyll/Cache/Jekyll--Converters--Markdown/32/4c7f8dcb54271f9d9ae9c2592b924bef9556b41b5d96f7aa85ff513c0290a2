@@ -1,0 +1,374 @@
+I"��<h2 class="no_toc" id="55-ejemplo-completo-crud-de-usuarios">5.5. Ejemplo completo: CRUD de usuarios</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#551-la-entity-usuario" id="markdown-toc-551-la-entity-usuario">5.5.1. La Entity Usuario</a></li>
+  <li><a href="#552-el-repository" id="markdown-toc-552-el-repository">5.5.2. El Repository</a></li>
+  <li><a href="#553-el-service" id="markdown-toc-553-el-service">5.5.3. El Service</a></li>
+  <li><a href="#554-el-controller" id="markdown-toc-554-el-controller">5.5.4. El Controller</a></li>
+  <li><a href="#555-las-vistas" id="markdown-toc-555-las-vistas">5.5.5. Las vistas</a></li>
+  <li><a href="#556-probando-la-aplicación" id="markdown-toc-556-probando-la-aplicación">5.5.6. Probando la aplicación</a></li>
+</ul>
+
+<p>Con todo lo que hemos visto, ya estamos en condiciones de crear nuestra primera aplicación web 100% funcional con Spring Boot. Verlo todo bien reunido hará que todos los conceptos que hemos recorrido poco a poco queden mucho más claros.</p>
+
+<p>Vamos a construir un ejemplo sencillo para hacer un CRUD de una tabla de usuarios, que tendrá, para simplificar, solo estos tres campos:</p>
+<ul>
+  <li>id</li>
+  <li>nombre</li>
+  <li>email</li>
+</ul>
+
+<p>Vamos a construir una aplicación Spring Boot típica, con el código organizado en estas capas:</p>
+<ul>
+  <li><strong>Entity</strong> -&gt; representa la tabla de la base de datos (usuarios)</li>
+  <li><strong>Repository</strong> -&gt; acceso a datos</li>
+  <li><strong>Service</strong> -&gt; lógica de negocio</li>
+  <li><strong>Controller</strong> -&gt; captura las peticiones y llama a los servicios adecuados</li>
+  <li><strong>Vistas</strong> -&gt; renderiza la salida HTML</li>
+</ul>
+
+<h3 id="551-la-entity-usuario">5.5.1. La Entity Usuario</h3>
+
+<p>Una Entity, como sabemos, representa una de las tablas que se almacenan en la base de datos. En nuestro caso, como trabajamos con usuarios, nuestra Entity es una <code class="language-plaintext highlighter-rouge">class Usuario</code> con este aspecto:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">jakarta.persistence.*</span><span class="o">;</span>
+
+<span class="nd">@Entity</span>
+<span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"usuarios"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Usuario</span> <span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">GenerationType</span><span class="o">.</span><span class="na">IDENTITY</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">nombre</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">email</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Usuario</span><span class="o">()</span> <span class="o">{}</span>
+
+    <span class="kd">public</span> <span class="nf">Usuario</span><span class="o">(</span><span class="nc">String</span> <span class="n">nombre</span><span class="o">,</span> <span class="nc">String</span> <span class="n">email</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">nombre</span> <span class="o">=</span> <span class="n">nombre</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">email</span> <span class="o">=</span> <span class="n">email</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">Long</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">id</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getNombre</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">nombre</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getEmail</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">email</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNombre</span><span class="o">(</span><span class="nc">String</span> <span class="n">nombre</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">nombre</span> <span class="o">=</span> <span class="n">nombre</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setEmail</span><span class="o">(</span><span class="nc">String</span> <span class="n">email</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">email</span> <span class="o">=</span> <span class="n">email</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="552-el-repository">5.5.2. El Repository</h3>
+
+<p>El Repository, como ya hemos explicado, es la capa que se encarga de acceder a la base de datos.</p>
+
+<p>El repositorio para usuarios se crea simplemente extendiendo la interfaz <code class="language-plaintext highlighter-rouge">JpaRepository</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.data.jpa.repository.JpaRepository</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UsuarioRepository</span> <span class="kd">extends</span> <span class="nc">JpaRepository</span><span class="o">&lt;</span><span class="nc">Usuario</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>¡Y eso es todo! Spring genera automáticamente los métodos <code class="language-plaintext highlighter-rouge">findAll()</code>, <code class="language-plaintext highlighter-rouge">findById()</code>, <code class="language-plaintext highlighter-rouge">save()</code>, <code class="language-plaintext highlighter-rouge">deleteById()</code> y otros muchos para la tabla de usuarios.</p>
+
+<h3 id="553-el-service">5.5.3. El Service</h3>
+
+<p>Un Service contiene la lógica de negocio de la aplicación, que en Laravel suele ir colocada en el controlador.</p>
+
+<p>Aquí se establece cómo se gestionan los usuarios. Observa que nuestro código se limita a invocar métodos del Repository, sin hacer realmente nada nuevo. Muchos Services son así de simples.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UsuarioService</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">UsuarioRepository</span> <span class="n">repository</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">UsuarioService</span><span class="o">(</span><span class="nc">UsuarioRepository</span> <span class="n">repository</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">repository</span> <span class="o">=</span> <span class="n">repository</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Usuario</span><span class="o">&gt;</span> <span class="nf">obtenerTodos</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">repository</span><span class="o">.</span><span class="na">findAll</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">Usuario</span> <span class="nf">obtenerPorId</span><span class="o">(</span><span class="nc">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Si el id no existe, devolverá null</span>
+        <span class="k">return</span> <span class="n">repository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">id</span><span class="o">).</span><span class="na">orElse</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">Usuario</span> <span class="nf">guardar</span><span class="o">(</span><span class="nc">Usuario</span> <span class="n">usuario</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">repository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">usuario</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">eliminar</span><span class="o">(</span><span class="nc">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">repository</span><span class="o">.</span><span class="na">deleteById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="554-el-controller">5.5.4. El Controller</h3>
+
+<p>El Controller es la capa que expone los endpoints de la aplicación, es decir, el lugar donde se enlazan los endpoints (como <code class="language-plaintext highlighter-rouge">"GET /usuarios/3"</code> o cualquier otro endpoint) con el código Java.</p>
+
+<p>El controller usará, por un lado, el Service de usuarios (para acceder a los datos) y, por otro, las vistas (para generar las salidas HTML).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Controller</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.ui.Model</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.*</span><span class="o">;</span>
+
+<span class="nd">@Controller</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/usuarios"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UsuarioController</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">UsuarioService</span> <span class="n">service</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">UsuarioController</span><span class="o">(</span><span class="nc">UsuarioService</span> <span class="n">service</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">service</span> <span class="o">=</span> <span class="n">service</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// LISTAR USUARIOS</span>
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">""</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">listarUsuarios</span><span class="o">(</span><span class="nc">Model</span> <span class="n">model</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">"usuarios"</span><span class="o">,</span> <span class="n">service</span><span class="o">.</span><span class="na">obtenerTodos</span><span class="o">());</span>
+        <span class="k">return</span> <span class="s">"usuarioList"</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// MOSTRAR UN USUARIO</span>
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/{id}"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">verDetalle</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">,</span> <span class="nc">Model</span> <span class="n">model</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Usuario</span> <span class="n">usuario</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">obtenerPorId</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">usuario</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="s">"redirect:/usuarios"</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">"usuario"</span><span class="o">,</span> <span class="n">usuario</span><span class="o">);</span>
+        <span class="k">return</span> <span class="s">"usuarioDetalle"</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// FORMULARIO CREAR</span>
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/nuevo"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">mostrarFormularioNuevo</span><span class="o">(</span><span class="nc">Model</span> <span class="n">model</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">"usuario"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Usuario</span><span class="o">());</span>
+        <span class="k">return</span> <span class="s">"usuarioForm"</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// GUARDAR (CREATE / UPDATE)</span>
+    <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/guardar"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">guardarUsuario</span><span class="o">(</span><span class="nd">@ModelAttribute</span> <span class="nc">Usuario</span> <span class="n">usuario</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">service</span><span class="o">.</span><span class="na">guardar</span><span class="o">(</span><span class="n">usuario</span><span class="o">);</span>
+        <span class="k">return</span> <span class="s">"redirect:/usuarios"</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// FORMULARIO EDITAR</span>
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/editar/{id}"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">mostrarFormularioEditar</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">,</span> <span class="nc">Model</span> <span class="n">model</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Usuario</span> <span class="n">usuario</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">obtenerPorId</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">"usuario"</span><span class="o">,</span> <span class="n">usuario</span><span class="o">);</span>
+        <span class="k">return</span> <span class="s">"usuarioForm"</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// ELIMINAR</span>
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/eliminar/{id}"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">eliminarUsuario</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">service</span><span class="o">.</span><span class="na">eliminar</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+        <span class="k">return</span> <span class="s">"redirect:/usuarios"</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Observa, en el código anterior, estas anotaciones importantes:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">@Controller</code>: Indica a Spring Boot que esta clase define un controlador.</li>
+  <li><code class="language-plaintext highlighter-rouge">@RequestMapping("/usuarios")</code>: Define la ruta base de todos los métodos de este controlador.</li>
+  <li><code class="language-plaintext highlighter-rouge">@GetMapping</code>, <code class="language-plaintext highlighter-rouge">@PostMapping</code>: Asocian métodos HTTP con métodos Java. Fíjate que algunos llevan un parámetro, como <code class="language-plaintext highlighter-rouge">@GetMapping("/{id}")</code>. Eso significa que el endpoint incluirá un dato <code class="language-plaintext highlighter-rouge">"id"</code>, no solo el verbo HTTP y la ruta.
+Por ejemplo, en el caso de <code class="language-plaintext highlighter-rouge">@GetMapping("/{id}")</code>, significa que la petición HTTP debe tener esta forma: <code class="language-plaintext highlighter-rouge">GET /usuarios/id</code>
+El dato <code class="language-plaintext highlighter-rouge">"id"</code> de ese endpoint se usará para pasárselo al método <code class="language-plaintext highlighter-rouge">verDetalle()</code> del controlador. Por eso, si pedimos el endpoint <code class="language-plaintext highlighter-rouge">GET /usuarios/3</code>, el servidor sabe que tiene que consultar el usuario con $id = 3$ y mostrarnos una vista con su detalle.</li>
+  <li><code class="language-plaintext highlighter-rouge">@PathVariable</code>: Permite leer variables que se han pasado por la URL, como el $id = 3$ de <code class="language-plaintext highlighter-rouge">GET /usuarios/3</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">@ModelAttribute</code>: Permite recibir los datos de un formulario HTML empaquetados (mapeados) en un objeto de tipo <code class="language-plaintext highlighter-rouge">Usuario</code>.</li>
+</ul>
+
+<p>Con el código de este controlador, ya tenemos construida una sencilla aplicación CRUD para la tabla de usuarios, con estos endpoints:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">GET /usuarios</code>: Obtener una vista HTML con todos los usuarios</li>
+  <li><code class="language-plaintext highlighter-rouge">GET /usuarios/{id}</code>: Obtener una vista HTML con un usuario</li>
+  <li><code class="language-plaintext highlighter-rouge">GET /usuarios/nuevo</code>: Mostrar una vista HTML con un formulario para creación de un nuevo usuario</li>
+  <li><code class="language-plaintext highlighter-rouge">POST /usuarios/guardar</code>: Crear un nuevo usuario o modificar uno existente</li>
+  <li><code class="language-plaintext highlighter-rouge">GET /usuarios/editar/{id}</code>: Mostrar una vista HTML con un formulario para modificar un usuario que ya existe (por eso se le pasa un id)</li>
+  <li><code class="language-plaintext highlighter-rouge">GET /usuarios/eliminar/{id}</code>: Eliminar el usuario con ese id. Después de eliminar, redirigirá a <code class="language-plaintext highlighter-rouge">GET /usuarios</code> para volver a mostrar la lista de usuarios.</li>
+</ul>
+
+<h3 id="555-las-vistas">5.5.5. Las vistas</h3>
+
+<p>El controlador anterior usa 3 vistas:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">usuarioList</code>: muestra la lista de usuarios. Añadiremos a esta vista varios links, para añadir usuarios nuevos (<code class="language-plaintext highlighter-rouge">GET /usuarios/nuevo</code>), modificar un usuario (<code class="language-plaintext highlighter-rouge">GET /usuarios/editar/{id}</code>), eliminar usuarios (<code class="language-plaintext highlighter-rouge">GET /usuarios/eliminar/{id}</code>) y ver el detalle de un usuario (<code class="language-plaintext highlighter-rouge">GET /usuarios/{id}</code>). Por lo tanto, ejercerá como vista principal de nuestra aplicación, porque desde aquí se puede hacer todo.</li>
+  <li><code class="language-plaintext highlighter-rouge">usuarioForm</code>: muestra un formulario para añadir un usuario nuevo. Reutilizaremos la misma vista para que nos permita editar un usuario existente.</li>
+  <li><code class="language-plaintext highlighter-rouge">usuarioDetalle</code>: muestra los datos de un solo usuario.</li>
+</ul>
+
+<p>Vamos a ver el código de cada una de ellas.</p>
+
+<h4 id="vista-srcmainresourcestemplatesusuariolisthtml">Vista <code class="language-plaintext highlighter-rouge">src/main/resources/templates/usuarioList.html</code></h4>
+
+<p>Esta, como te he dicho, es la vista principal, pues incluye toda la información y links para ejecutar el resto de acciones. Observa bien cómo los links no se crean con direcciones absolutas, sino con expresiones de Thymeleaf como <code class="language-plaintext highlighter-rouge">th:href="@{/usuarios/nuevo}"</code>.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">xmlns:th=</span><span class="s">"http://www.thymeleaf.org"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Lista de usuarios<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Lista de usuarios<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">th:href=</span><span class="s">"@{/usuarios/nuevo}"</span><span class="nt">&gt;</span>Añadir usuario<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;br&gt;&lt;br&gt;</span>
+    <span class="nt">&lt;table</span> <span class="na">border=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;thead&gt;</span>
+            <span class="nt">&lt;tr&gt;</span>
+                <span class="nt">&lt;th&gt;</span>ID<span class="nt">&lt;/th&gt;</span>
+                <span class="nt">&lt;th&gt;</span>Nombre<span class="nt">&lt;/th&gt;</span>
+                <span class="nt">&lt;th&gt;</span>Email<span class="nt">&lt;/th&gt;</span>
+                <span class="nt">&lt;th&gt;</span>Acciones<span class="nt">&lt;/th&gt;</span>
+            <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;/thead&gt;</span>
+        <span class="nt">&lt;tbody&gt;</span>
+            <span class="nt">&lt;tr</span> <span class="na">th:each=</span><span class="s">"usuario : ${usuarios}"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;td</span> <span class="na">th:text=</span><span class="s">"${usuario.id}"</span><span class="nt">&gt;&lt;/td&gt;</span>
+                <span class="c">&lt;!-- Si hacemos click en el nombre nos lleva a la vista detalle --&gt;</span>
+                <span class="nt">&lt;td&gt;</span>
+                    <span class="nt">&lt;a</span> <span class="na">th:href=</span><span class="s">"@{/usuarios/{id}(id=${usuario.id})}"</span>
+                       <span class="na">th:text=</span><span class="s">"${usuario.nombre}"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;/a&gt;</span>
+                <span class="nt">&lt;/td&gt;</span>
+                <span class="nt">&lt;td</span> <span class="na">th:text=</span><span class="s">"${usuario.email}"</span><span class="nt">&gt;&lt;/td&gt;</span>
+                <span class="nt">&lt;td&gt;</span>
+                    <span class="nt">&lt;a</span> <span class="na">th:href=</span><span class="s">"@{/usuarios/editar/{id}(id=${usuario.id})}"</span><span class="nt">&gt;</span>Editar<span class="nt">&lt;/a&gt;</span>
+                    <span class="nt">&lt;a</span> <span class="na">th:href=</span><span class="s">"@{/usuarios/eliminar/{id}(id=${usuario.id})}"</span>
+                       <span class="na">onclick=</span><span class="s">"return confirm('¿Seguro que quieres eliminar este usuario?')"</span><span class="nt">&gt;</span>
+                        Eliminar
+                    <span class="nt">&lt;/a&gt;</span>
+                <span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;/tbody&gt;</span>
+    <span class="nt">&lt;/table&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h4 id="vista-srcmainresourcestemplatesusuarioformhtml">Vista <code class="language-plaintext highlighter-rouge">src/main/resources/templates/usuarioForm.html</code></h4>
+
+<p>Como esta vista debe servirnos como formulario para añadir y para modificar usuarios, verás que el título se muestra con un condicional de tipo <code class="language-plaintext highlighter-rouge">(condición ? acción-true : acción-false)</code>. La “condición” de esa expresión consiste en mirar si existe un id de usuario asignado. Si es así, estamos tratando de modificar un usuario. Si no existe un id, es porque estamos tratando de añadir un usuario nuevo.</p>
+
+<p>Observa también cómo tratan de rellenarse los inputs del formulario con el contenido del usuario. El asterisco en <code class="language-plaintext highlighter-rouge">th:field="*{nombre}"</code> le dice a Thymeleaf que, si existe un valor para <code class="language-plaintext highlighter-rouge">"nombre"</code>, debe mostrarlo en ese input y, si no existe, debe dejar el input en blanco.</p>
+
+<p>Ese sencillo truco nos permite reutilizar el mismo formulario para añadir usuarios nuevos (el formulario saldrá en blanco) y para modificar usuarios existentes (el formulario saldrá relleno con los datos actuales del usuario).</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">xmlns:th=</span><span class="s">"http://www.thymeleaf.org"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title</span> <span class="na">th:text=</span><span class="s">"${usuario.id} == null ? 'Nuevo usuario' : 'Editar usuario'"</span><span class="nt">&gt;&lt;/title&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1</span> <span class="na">th:text=</span><span class="s">"${usuario.id} == null ? 'Crear usuario' : 'Editar usuario'"</span><span class="nt">&gt;&lt;/h1&gt;</span>
+    <span class="nt">&lt;form</span> <span class="na">th:action=</span><span class="s">"@{/usuarios/guardar}"</span> <span class="na">th:object=</span><span class="s">"${usuario}"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- ID oculto para edición --&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">th:field=</span><span class="s">"*{id}"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;div&gt;</span>
+            <span class="nt">&lt;label&gt;</span>Nombre:<span class="nt">&lt;/label&gt;&lt;br&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">th:field=</span><span class="s">"*{nombre}"</span> <span class="na">required</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;br&gt;</span>
+        <span class="nt">&lt;div&gt;</span>
+            <span class="nt">&lt;label&gt;</span>Email:<span class="nt">&lt;/label&gt;&lt;br&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"email"</span> <span class="na">th:field=</span><span class="s">"*{email}"</span> <span class="na">required</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;br&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span><span class="nt">&gt;</span>Guardar<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/form&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">th:href=</span><span class="s">"@{/usuarios}"</span><span class="nt">&gt;</span>Volver al listado<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h4 id="vista-srcmainresourcestemplatesusuariodetallehtml">Vista <code class="language-plaintext highlighter-rouge">src/main/resources/templates/usuarioDetalle.html</code></h4>
+
+<p>Esta vista muestra el detalle de un usuario, un link para volver a la vista principal y otro link para modificar este usuario.</p>
+
+<p>Es la vista más simple de las tres y no tiene demasiado sentido, porque los usuarios de esta pequeña aplicación apenas tienen datos. Sin embargo, en una aplicación real, donde un usuario pudiera tener muchos más campos, sería una vista importante para poder visualizar todos los campos del usuario que no se vieran en la lista de usuarios.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">xmlns:th=</span><span class="s">"http://www.thymeleaf.org"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Detalle de usuario<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Detalle del usuario<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;p&gt;</span>
+        <span class="nt">&lt;strong&gt;</span>ID:<span class="nt">&lt;/strong&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">th:text=</span><span class="s">"${usuario.id}"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>
+        <span class="nt">&lt;strong&gt;</span>Nombre:<span class="nt">&lt;/strong&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">th:text=</span><span class="s">"${usuario.nombre}"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>
+        <span class="nt">&lt;strong&gt;</span>Email:<span class="nt">&lt;/strong&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">th:text=</span><span class="s">"${usuario.email}"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">th:href=</span><span class="s">"@{/usuarios}"</span><span class="nt">&gt;</span>Volver al listado<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">th:href=</span><span class="s">"@{/usuarios/editar/{id}(id=${usuario.id})}"</span><span class="nt">&gt;</span>Editar<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="556-probando-la-aplicación">5.5.6. Probando la aplicación</h3>
+
+<p>Para probar la aplicación, solo nos queda configurarla en <code class="language-plaintext highlighter-rouge">src/main/resources/application.properties</code>, donde tenemos que añadir los datos de la conexión a la BD. Si elegimos MySQL como base de datos, esos datos serán:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">spring.datasource.url</span><span class="p">=</span><span class="s">jdbc:mysql://localhost:3306/tu_database</span>
+<span class="py">spring.datasource.username</span><span class="p">=</span><span class="s">tu_usuario</span>
+<span class="py">spring.datasource.password</span><span class="p">=</span><span class="s">tu_password</span>
+<span class="c"># No es necesario indicar el dialecto en Spring Boot 3.x, Hibernate lo detecta solo:
+</span><span class="py">spring.jpa.hibernate.ddl-auto</span><span class="p">=</span><span class="s">update</span>
+<span class="py">spring.jpa.show-sql</span><span class="p">=</span><span class="s">true</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>¡ATENCIÓN!</strong>
+El parámetro <code class="language-plaintext highlighter-rouge">spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect</code> era necesario en versiones antiguas de Spring Boot pero está <strong>obsoleto en Spring Boot 3.x</strong>: Hibernate detecta automáticamente el dialecto a partir de la URL de conexión. Si lo pones, puede que salga un warning en la consola.</p>
+</blockquote>
+
+<p>¡OJO! Tendrás que poner en marcha el servidor de MySQL por tu cuenta. Spring Boot tiene un servidor web embebido, pero no un servidor de MySQL.</p>
+
+<p>Una vez hecho esto, ya tenemos una mini aplicación web terminada, lista para interactuar con un humano a través de un navegador web. Solo tienes que abrir tu navegador web preferido y probar el endpoint principal:</p>
+
+<p><code class="language-plaintext highlighter-rouge">http://localhost:8080/usuarios</code></p>
+
+<p>Esa URL te dará acceso al endpoint <code class="language-plaintext highlighter-rouge">GET /usuarios</code>, que te mostrará la lista de usuarios y links al resto de endpoints a los que responde el controlador de usuarios (añadir, modificar, borrar, etc.).</p>
+
+<blockquote>
+  <p><strong>¡ATENCIÓN!</strong>
+En el controlador anterior usamos <code class="language-plaintext highlighter-rouge">@GetMapping("/eliminar/{id}")</code> para borrar un usuario por comodidad en el ejemplo. En la práctica, eliminar un recurso con una petición GET es una mala práctica (cualquier spider o bot puede borrar datos sin querer). En una aplicación real deberías usar un formulario HTML con <code class="language-plaintext highlighter-rouge">method="post"</code> y, si quieres ser más estricto, un campo oculto <code class="language-plaintext highlighter-rouge">_method=DELETE</code> o un <code class="language-plaintext highlighter-rouge">@PostMapping("/eliminar/{id}")</code>.</p>
+</blockquote>
+:ET

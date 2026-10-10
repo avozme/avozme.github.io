@@ -14,12 +14,7 @@ has_children: false
 - TOC
 {:toc}
 
-<div style="text-align: center; padding: 20px; background-color: #ccc">
-<a href="https://www.dropbox.com/scl/fi/ppsm8lcnpa7m6pi3gr69k/03_02_hola_mundo.pdf?rlkey=mdw4q3f0oem9m04bm5hcgk3vv&st=vcbjnhgm&dl=0">
-DESCARGAR PRESENTACIÓN
-</a>
-</div>
-
+[Descargar presentación](https://www.dropbox.com/scl/fi/ppsm8lcnpa7m6pi3gr69k/03_02_hola_mundo.pdf?rlkey=mdw4q3f0oem9m04bm5hcgk3vv&st=vcbjnhgm&dl=0){: .btn .btn-primary }
 
 Ya sabemos qué es Laravel y por qué puede resultar útil utilizar un framework para desarrollar aplicaciones web.
 

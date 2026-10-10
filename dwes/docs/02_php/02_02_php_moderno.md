@@ -14,11 +14,8 @@ grand_parent: Desarrollo Web en Entorno Servidor
 - TOC
 {:toc}
 
-<div style="text-align: center; padding: 20px; background-color: #ccc">
-<a href="https://www.dropbox.com/scl/fi/52wf6w7gerjnjjkyywty7/02_02_-PHP_moderno.pdf?rlkey=z41u07h5flneh4tjixncp4u6e&st=bf3b17jz&dl=0">
-DESCARGAR PRESENTACIÓN
-</a>
-</div>
+[Descargar presentación](https://www.dropbox.com/scl/fi/52wf6w7gerjnjjkyywty7/02_02_-PHP_moderno.pdf?rlkey=z41u07h5flneh4tjixncp4u6e&st=bf3b17jz&dl=0){: .btn .btn-primary }
+
 
 Quizá hayas oído que PHP es un lenguaje desordenado, sin tipos y un poco caótico. Eso era cierto hace 15 años. Hoy en día, a partir de PHP 7 y sobre todo con **PHP 8**, el lenguaje se ha transformado en una herramienta robusta, orientada a objetos, con tipado estricto y un ecosistema profesional.
 

@@ -1,0 +1,7 @@
+I"�<h1 class="no_toc" id="6-microservicios-con-python-y-fastapi">6. Microservicios con Python y FastAPI</h1>
+
+
+<p>El objetivo de este tema es introducirte la <strong>creación de APIs REST ligeras</strong>, de alto rendimiento y preparadas para arquitecturas de <strong>microservicios</strong>. Y, claro, comprender la diferencia entre <strong>microservicios</strong> y <strong>servicios</strong>.</p>
+
+<p>Una de las plataformas más utilizadas en la actualidad para microservicios es <strong>FastAPI</strong>, que está basada en lenguaje <strong>Python</strong>. Por lo tanto, en este tema no solo varemos qué es un microservicio y cómo se monta, sino que tendremos que aprender un poco de <strong>lenguaje Python</strong>, que nunca viene mal.</p>
+:ET

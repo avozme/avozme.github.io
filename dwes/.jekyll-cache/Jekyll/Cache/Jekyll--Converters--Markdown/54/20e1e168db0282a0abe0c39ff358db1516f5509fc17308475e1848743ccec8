@@ -1,0 +1,141 @@
+I"�'<h2 class="no_toc" id="51-introducción-a-spring-boot">5.1. Introducción a Spring Boot</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#511-laravel-vs-spring-boot" id="markdown-toc-511-laravel-vs-spring-boot">5.1.1. Laravel vs Spring Boot</a></li>
+  <li><a href="#512-características-de-spring-boot" id="markdown-toc-512-características-de-spring-boot">5.1.2. Características de Spring Boot</a></li>
+  <li><a href="#513-autoconfiguración" id="markdown-toc-513-autoconfiguración">5.1.3. Autoconfiguración</a></li>
+  <li><a href="#514-starter-dependencies" id="markdown-toc-514-starter-dependencies">5.1.4. Starter dependencies</a></li>
+  <li><a href="#515-servidor-web-embebido" id="markdown-toc-515-servidor-web-embebido">5.1.5. Servidor web embebido</a></li>
+  <li><a href="#516-inversión-de-control-ioc-e-inyección-de-dependencias" id="markdown-toc-516-inversión-de-control-ioc-e-inyección-de-dependencias">5.1.6. Inversión de control (IoC) e inyección de dependencias</a></li>
+</ul>
+
+<p><a href="https://www.dropbox.com/scl/fi/4qw4lad75w2k3bcncq09h/05_01_springboot_intro.pdf?rlkey=o88eezibur5lehi9mjqs9mjzd&amp;st=k0lyjkd7&amp;dl=0" class="btn btn-primary">Descargar presentación</a></p>
+
+<p><strong>Spring</strong> es el framework Java más utilizado en entornos empresariales. <strong>Spring Boot</strong> es una capa encima de Spring que elimina casi toda la configuración manual y te proporciona <em>proyectos listos para ejecutarse en dos minutos</em>.</p>
+
+<p>Igual que Laravel incluye servidores de desarrollo (como <strong>Sail</strong>), Spring Boot incluye un <strong>servidor web embebido</strong> (Tomcat). No necesitas instalar ni configurar ningún servidor externo.</p>
+
+<h3 id="511-laravel-vs-spring-boot">5.1.1. Laravel vs Spring Boot</h3>
+
+<p>Para introducir Spring Boot lo más deprisa posible, probablemente lo mejor sea ver un cuadro comparativo con lo que ya conoces (Laravel):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Concepto</th>
+      <th style="text-align: left">Laravel (PHP)</th>
+      <th style="text-align: left">Spring Boot (Java)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">ORM / Modelo</td>
+      <td style="text-align: left">Eloquent Model</td>
+      <td style="text-align: left">Entity + JPA/Hibernate</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Acceso a BD</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Product::all()</code>, <code class="language-plaintext highlighter-rouge">find()</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">JpaRepository</code> (generado)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Lógica de negocio</td>
+      <td style="text-align: left">Directamente en Controlador</td>
+      <td style="text-align: left">Clase <code class="language-plaintext highlighter-rouge">@Service</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Controlador</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ProductController.php</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ProductController.java</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Vistas (SSR)</td>
+      <td style="text-align: left">Blade (<code class="language-plaintext highlighter-rouge">.blade.php</code>)</td>
+      <td style="text-align: left">Thymeleaf (<code class="language-plaintext highlighter-rouge">.html</code>)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Rutas</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">routes/web.php</code></td>
+      <td style="text-align: left">Anotaciones en el controlador</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Configuración</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">.env</code> + <code class="language-plaintext highlighter-rouge">config/</code></td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">application.properties</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Migraciones</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">php artisan migrate</code></td>
+      <td style="text-align: left">Hibernate <code class="language-plaintext highlighter-rouge">ddl-auto</code> (genera tablas)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="512-características-de-spring-boot">5.1.2. Características de Spring Boot</h3>
+
+<p>Spring Boot facilita el desarrollo principalmente de tres maneras:</p>
+
+<ol>
+  <li>Configura automáticamente muchas cosas. El framework analiza el proyecto y, a partir de las dependencias que utilizamos, intenta deducir qué configuración es necesaria.</li>
+  <li>Incluye un servidor web embebido. Esto significa que no necesitamos instalar ni configurar un servidor externo para ejecutar nuestra aplicación.</li>
+  <li>Simplifica la gestión de dependencias, algo que en proyectos Java grandes puede llegar a ser bastante tedioso.</li>
+</ol>
+
+<p>Gracias a estas características, Spring Boot permite crear aplicaciones web y APIs REST de forma muy rápida, con menos código y configuración que en generaciones anteriores de frameworks Java.</p>
+
+<p>Para entender mejor cómo funciona, conviene fijarse en cinco ideas fundamentales sobre las que se basa Spring Boot:</p>
+
+<ul>
+  <li><strong>autoconfiguración</strong></li>
+  <li><strong>starter dependencies</strong></li>
+  <li><strong>servidor web embebido</strong></li>
+  <li><strong>inversión de control</strong></li>
+  <li><strong>inyección de dependencias</strong></li>
+</ul>
+
+<p>Vamos a verlas muy brevemente.</p>
+
+<h3 id="513-autoconfiguración">5.1.3. Autoconfiguración</h3>
+
+<p>Una de las características más importantes de Spring Boot es la autoconfiguración.</p>
+
+<p>La idea es sencilla: el framework intenta detectar automáticamente qué necesita la aplicación y configura esos componentes por nosotros.</p>
+
+<p>Por ejemplo, si en el proyecto añadimos una dependencia para trabajar con aplicaciones web, Spring Boot asume que necesitaremos un servidor HTTP y configura automáticamente todo lo necesario para que la aplicación pueda recibir peticiones web.</p>
+
+<p>Del mismo modo, si añadimos dependencias para trabajar con bases de datos, Spring Boot prepara la infraestructura necesaria para gestionar conexiones, transacciones y otras tareas relacionadas.</p>
+
+<p>Esto no significa que no se pueda personalizar la configuración, ni que la autoconfiguración siempre funcione a la perfección. En proyectos reales es bastante habitual que algo falle y haya que configurarlo a mano. Pero lo importante es que no es necesario configurar todo desde cero para empezar a trabajar.</p>
+
+<h3 id="514-starter-dependencies">5.1.4. Starter dependencies</h3>
+
+<p>Otro concepto muy importante en Spring Boot es el de starter dependencies.</p>
+
+<p>En proyectos Java tradicionales, cuando queremos añadir una nueva funcionalidad solemos tener que incluir varias librerías distintas. A veces estas librerías dependen a su vez de otras, lo que puede generar configuraciones bastante complejas que se intentan gestionar con gestores de proyectos como Maven.</p>
+
+<p>Spring Boot simplifica este proceso agrupando conjuntos de dependencias que suelen utilizarse juntas. Estos conjuntos se llaman starters.</p>
+
+<p>Por ejemplo, existe un starter específico para desarrollar aplicaciones web. Al incluir ese starter en el proyecto, automáticamente se añaden todas las librerías necesarias para construir un backend HTTP utilizando Spring.</p>
+
+<p>En lugar de tener que investigar qué dependencias necesitamos una por una, basta con incluir el starter adecuado y Spring Boot se encarga del resto.</p>
+
+<h3 id="515-servidor-web-embebido">5.1.5. Servidor web embebido</h3>
+
+<p>En las aplicaciones web Java tradicionales era necesario instalar y configurar un servidor de aplicaciones por separado. Uno de los más conocidos es Tomcat.</p>
+
+<p>Después de compilar nuestra aplicación, normalmente se generaba un archivo especial (un archivo WAR) que debía desplegarse dentro de ese servidor para poder ejecutarse.</p>
+
+<p>Spring Boot cambia completamente esta forma de trabajar. Las aplicaciones creadas con Spring Boot incluyen un servidor web embebido dentro del propio programa. Esto significa que no necesitamos instalar nada adicional.</p>
+
+<p>Cuando ejecutamos la aplicación, el propio programa arranca su servidor web interno y empieza a aceptar peticiones HTTP. Desde el punto de vista del desarrollador, esto hace que trabajar con aplicaciones web sea mucho más sencillo: basta con ejecutar el proyecto como cualquier otra aplicación Java.</p>
+
+<p>Este servidor embebido, que suele ser Tomcat (aunque hay otros), no solo se usa en desarrollo, sino que también, cada vez más, se usa en producción.</p>
+
+<h3 id="516-inversión-de-control-ioc-e-inyección-de-dependencias">5.1.6. Inversión de control (IoC) e inyección de dependencias</h3>
+
+<p>¿Te has fijado que en Laravel nunca tenía que crear controladores o modelos? Nunca escribías nada como <code class="language-plaintext highlighter-rouge">$c = new ProductController()</code>. Eso es porque una pieza del núcleo de Laravel llamada <em>Service Container</em> inyectaba automáticamente todos esos objetos ya creados en tus archivos.</p>
+
+<p>Spring Boot hace exactamente lo mismo. Se llama <strong>IoC</strong> (<strong><em>Inversion of Control</em></strong>): en lugar de crear objetos manualmente con <code class="language-plaintext highlighter-rouge">new</code>, es el framework quien los crea y conecta entre sí.</p>
+
+<p>La diferencia es que en Laravel esto es casi transparente (tú no te enteras de cuándo ni cómo se está haciendo) y en Spring Boot <strong>hay que indicarlo explícitamente con una anotación (<code class="language-plaintext highlighter-rouge">@Autowired</code>) o con un constructor</strong>. Ya veremos exactamente cómo, pero la idea de fondo es la misma.</p>
+:ET

@@ -15,11 +15,7 @@ has_children: false
 - TOC
 {:toc}
 
-<div style="text-align: center; padding: 20px; background-color: #ccc">
-<a href="https://www.dropbox.com/scl/fi/flg4ebu3ki0xq0vhwwlld/03_07_relaciones.pdf?rlkey=1ovloxawl8z60ww08d8x2hfp1&st=klfamn7k&dl=0">
-DESCARGAR PRESENTACIÓN
-</a>
-</div>
+[Descargar presentación](https://www.dropbox.com/scl/fi/flg4ebu3ki0xq0vhwwlld/03_07_relaciones.pdf?rlkey=1ovloxawl8z60ww08d8x2hfp1&st=klfamn7k&dl=0){: .btn .btn-primary }
 
 Las **relaciones entre tablas** también se pueden manejar con Eloquent sin necesidad de andar escribiendo larguísimos `INNER JOIN` y otros miembros de su nutrida familia, con todos los errores de escritura que suelen hacernos perder el tiempo depurando SQL.
 

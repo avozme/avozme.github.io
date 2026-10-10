@@ -14,11 +14,7 @@ has_children: false
 - TOC
 {:toc}
 
-<div style="text-align: center; padding: 20px; background-color: #ccc">
-<a href="https://www.dropbox.com/scl/fi/00z2rkkux39c3r07i0frl/03_06_eloquent.pdf?rlkey=z3rn4iwtjykirverrnm7o60cf&st=s28d9xuv&dl=0">
-DESCARGAR PRESENTACIÓN
-</a>
-</div>
+[Descargar presentación](https://www.dropbox.com/scl/fi/00z2rkkux39c3r07i0frl/03_06_eloquent.pdf?rlkey=z3rn4iwtjykirverrnm7o60cf&st=s28d9xuv&dl=0){: .btn .btn-primary }
 
 Eloquent uno de los componentes de Laravel que permiten al desarrollador manipular los datos de la BD sin rebajarse a escribir sucio SQL. Y lo consigue mediante un mecanismo simple y elegante: el mapeo objeto-relacional.
 

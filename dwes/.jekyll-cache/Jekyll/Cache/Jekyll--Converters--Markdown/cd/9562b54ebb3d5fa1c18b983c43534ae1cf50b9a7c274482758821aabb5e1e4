@@ -1,0 +1,7 @@
+I"�<h1 class="no_toc" id="5-ssr-y-api-rest-con-spring-boot">5. SSR y API REST con Spring Boot</h1>
+
+
+<p>Ya conoces Laravel: has construido aplicaciones SSR con Blade, API RESTful devolviendo JSON y has trabajado con Eloquent ORM. <strong>Spring Boot hace lo mismo, pero desde el ecosistema Java</strong>.</p>
+
+<p>La buena noticia es que los conceptos son idénticos: controladores, modelos, vistas, rutas, ORM, autenticación, JSON… Solo cambia el lenguaje (Java en lugar de PHP) y algunos detalles de la herramienta. Por ejemplo, cuando veas “Entity + Repository + Service” piensa en “Modelo + Eloquent” y encajará en tu cabeza a la primera.</p>
+:ET

@@ -14,11 +14,8 @@ grand_parent: Desarrollo Web en Entorno Servidor
 - TOC
 {:toc}
 
-<div style="text-align: center; padding: 20px; background-color: #ccc">
-<a href="https://www.dropbox.com/scl/fi/bxcnbncmj4fzq27t7k51g/02_03_sintaxis_PHP.pdf?rlkey=bqzrcgjw6ub800lumpmfdfesg&st=fkclczf3&dl=0">
-DESCARGAR PRESENTACIÓN
-</a>
-</div>
+[Descargar presentación](https://www.dropbox.com/scl/fi/bxcnbncmj4fzq27t7k51g/02_03_sintaxis_PHP.pdf?rlkey=bqzrcgjw6ub800lumpmfdfesg&st=fkclczf3&dl=0){: .btn .btn-primary }
+
 
 ### 2.3.1. Cómo incrustar PHP dentro de HTML
 

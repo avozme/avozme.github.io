@@ -14,12 +14,7 @@ has_children: false
 - TOC
 {:toc}
 
-
-<div style="text-align: center; padding: 20px; background-color: #ccc">
-<a href="https://www.dropbox.com/scl/fi/tyxjbnv9a64bdif1xyos1/03_08_sesiones_autenticacion_middlewares.pdf?rlkey=eojvhckzw9ne2n2wy4td7agf9&st=69ebgjg5&dl=0">
-DESCARGAR PRESENTACIÓN
-</a>
-</div>
+[Descargar presentación](https://www.dropbox.com/scl/fi/tyxjbnv9a64bdif1xyos1/03_08_sesiones_autenticacion_middlewares.pdf?rlkey=eojvhckzw9ne2n2wy4td7agf9&st=69ebgjg5&dl=0){: .btn .btn-primary }
 
 Como es lógico, Laravel también proporciona su propio sistema de manejo de **variables de sesión**, es decir, variables persistentes en el servidor asociadas a cada cliente.
 

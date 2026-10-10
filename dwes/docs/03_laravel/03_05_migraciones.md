@@ -14,11 +14,7 @@ has_children: false
 - TOC
 {:toc}
 
-<div style="text-align: center; padding: 20px; background-color: #ccc">
-<a href="https://www.dropbox.com/scl/fi/vwx4ihlhxzrutpa853r1u/03_05_migraciones.pdf?rlkey=4b6ir3qwfpq6xllw40qeqermb&st=6fu1iba2&dl=0">
-DESCARGAR PRESENTACIÓN
-</a>
-</div>
+[Descargar presentación](https://www.dropbox.com/scl/fi/vwx4ihlhxzrutpa853r1u/03_05_migraciones.pdf?rlkey=4b6ir3qwfpq6xllw40qeqermb&st=6fu1iba2&dl=0){: .btn .btn-primary }
 
 Las **migraciones** constituyen una especie de control de versiones para la base de datos de la aplicación. Permiten crear y modificar tablas de la BD con independencia del SGBD que estemos usando.
 

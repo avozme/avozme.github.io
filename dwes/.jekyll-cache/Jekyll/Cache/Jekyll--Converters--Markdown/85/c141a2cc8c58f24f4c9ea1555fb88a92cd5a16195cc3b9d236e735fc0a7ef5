@@ -1,0 +1,447 @@
+I"�<h2 class="no_toc" id="63-creación-de-endpoints-rest-y-validación-con-pydantic">6.3. Creación de endpoints REST y validación con Pydantic</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#631-operaciones-crud-básicas-con-decoradores" id="markdown-toc-631-operaciones-crud-básicas-con-decoradores">6.3.1. Operaciones CRUD básicas con decoradores</a></li>
+  <li><a href="#632-parámetros-de-entrada" id="markdown-toc-632-parámetros-de-entrada">6.3.2. Parámetros de entrada</a></li>
+  <li><a href="#633-modelado-y-validación-de-datos-con-pydantic" id="markdown-toc-633-modelado-y-validación-de-datos-con-pydantic">6.3.3. Modelado y validación de datos con Pydantic</a></li>
+  <li><a href="#634-documentación-automática-openapi-swagger-ui-y-redoc" id="markdown-toc-634-documentación-automática-openapi-swagger-ui-y-redoc">6.3.4. Documentación automática OpenAPI: Swagger UI y ReDoc</a></li>
+</ul>
+
+<p><a href="https://www.dropbox.com/scl/fi/yvh5n9lda0ivzp98yv3pw/06_03_endpoints_REST_validacion_Pydantic.pdf?rlkey=rr0sufv4imz654rys2mt9n96x&amp;st=k5e0bgd7&amp;dl=0" class="btn btn-primary">Descargar presentación</a></p>
+
+<p>Ya sabemos qué es FastAPI, cómo se ejecuta con Uvicorn y cómo funciona su modelo asíncrono. Ahora toca lo que toca es aprender a <strong>crear endpoints</strong> para <strong>montar un servicio web</strong>.</p>
+
+<p>A lo largo del apartado trabajaremos con un ejemplo guía: una pequeña <strong>API de productos</strong>, que podría ser el microservicio de Catálogo del esquema que vimos en 6.2.1. Por ahora los datos vivirán en memoria (una estructura de Python). Más adelante los conectaremos a una base de datos real.</p>
+
+<h3 id="631-operaciones-crud-básicas-con-decoradores">6.3.1. Operaciones CRUD básicas con decoradores</h3>
+
+<h4 id="qué-es-un-decorador">Qué es un decorador</h4>
+
+<p>En FastAPI las rutas se declaran con <strong>decoradores</strong>, que son como las <strong>anotaciones</strong> de Spring Boot. Es decir,  líneas que empiezan por <code class="language-plaintext highlighter-rouge">@</code> y se colocan justo encima de una función.</p>
+
+<p>Un decorador es, a grandes rasgos, algo que “envuelve” a una función para añadirle comportamiento. Podemos crear nuestros propios decoradores, pero eso excede el propósito de esta intrudcción. Con los que ya trae FastAPI tenemos suficiente.</p>
+
+<p>Observa este ejemplo:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/productos"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">listar_productos</span><span class="p">():</span>
+    <span class="p">...</span>
+</code></pre></div></div>
+
+<p>Esto significa: “cuando llegue una Request <code class="language-plaintext highlighter-rouge">GET /productos</code>, ejecuta esta función”.</p>
+
+<h4 id="los-cuatro-decoradores-del-crud">Los cuatro decoradores del CRUD</h4>
+
+<p>En Laravel, <code class="language-plaintext highlighter-rouge">Route::apiResource</code> genera de golpe las rutas CRUD de un recurso. En FastAPI no hay una atajo equivalente. Tienes que declarar cada operación de forma explícita.</p>
+
+<p>Cada operación CRUD tiene su método HTTP, su decorador y su código de estado habitual:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operación</th>
+      <th>Método HTTP</th>
+      <th>Decorador</th>
+      <th>Ruta típica</th>
+      <th>Código de éxito</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Obtener todos</td>
+      <td>GET</td>
+      <td><code class="language-plaintext highlighter-rouge">@app.get()</code></td>
+      <td><code class="language-plaintext highlighter-rouge">/productos</code></td>
+      <td>200</td>
+    </tr>
+    <tr>
+      <td>Obtener uno</td>
+      <td>GET</td>
+      <td><code class="language-plaintext highlighter-rouge">@app.get()</code></td>
+      <td><code class="language-plaintext highlighter-rouge">/productos/{id}</code></td>
+      <td>200 (404 si no existe)</td>
+    </tr>
+    <tr>
+      <td>Crear</td>
+      <td>POST</td>
+      <td><code class="language-plaintext highlighter-rouge">@app.post()</code></td>
+      <td><code class="language-plaintext highlighter-rouge">/productos</code></td>
+      <td>201</td>
+    </tr>
+    <tr>
+      <td>Actualizar</td>
+      <td>PUT</td>
+      <td><code class="language-plaintext highlighter-rouge">@app.put()</code></td>
+      <td><code class="language-plaintext highlighter-rouge">/productos/{id}</code></td>
+      <td>200</td>
+    </tr>
+    <tr>
+      <td>Eliminar</td>
+      <td>DELETE</td>
+      <td><code class="language-plaintext highlighter-rouge">@app.delete()</code></td>
+      <td><code class="language-plaintext highlighter-rouge">/productos/{id}</code></td>
+      <td>204 (sin cuerpo)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Existe también <code class="language-plaintext highlighter-rouge">@app.patch()</code> para actualizaciones parciales, que funciona igual que los demás.</p>
+
+<h4 id="un-crud-completo-en-memoria">Un CRUD completo en memoria</h4>
+
+<p>Este es el archivo <code class="language-plaintext highlighter-rouge">main.py</code> completo para implementar un CRUD de productos (solo falta el acceso a BD, los datos van a estar de momento en memoria).</p>
+
+<p>Léelo con calma. Casi todo te sonará y los detalles nuevos los explicamos justo debajo.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">HTTPException</span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="c1"># Declaración de atributos del modelo Pydantic
+</span><span class="k">class</span> <span class="nc">Producto</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">precio</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">stock</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># "Base de datos" provisional en memoria: diccionario id -&gt; producto
+</span><span class="n">productos</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/productos"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">listar_productos</span><span class="p">():</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">productos</span><span class="p">.</span><span class="n">values</span><span class="p">())</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/productos/{producto_id}"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">obtener_producto</span><span class="p">(</span><span class="n">producto_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">producto_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">productos</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s">"Producto no encontrado"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">productos</span><span class="p">[</span><span class="n">producto_id</span><span class="p">]</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">"/productos"</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="mi">201</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">crear_producto</span><span class="p">(</span><span class="n">producto</span><span class="p">:</span> <span class="n">Producto</span><span class="p">):</span>
+    <span class="n">nuevo_id</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">productos</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>   <span class="c1"># el mayor id actual + 1
+</span>    <span class="n">productos</span><span class="p">[</span><span class="n">nuevo_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s">"id"</span><span class="p">:</span> <span class="n">nuevo_id</span><span class="p">,</span> <span class="o">**</span><span class="n">producto</span><span class="p">.</span><span class="n">model_dump</span><span class="p">()}</span>
+    <span class="k">return</span> <span class="n">productos</span><span class="p">[</span><span class="n">nuevo_id</span><span class="p">]</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="s">"/productos/{producto_id}"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">actualizar_producto</span><span class="p">(</span><span class="n">producto_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">producto</span><span class="p">:</span> <span class="n">Producto</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">producto_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">productos</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s">"Producto no encontrado"</span><span class="p">)</span>
+    <span class="n">productos</span><span class="p">[</span><span class="n">producto_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s">"id"</span><span class="p">:</span> <span class="n">producto_id</span><span class="p">,</span> <span class="o">**</span><span class="n">producto</span><span class="p">.</span><span class="n">model_dump</span><span class="p">()}</span>
+    <span class="k">return</span> <span class="n">productos</span><span class="p">[</span><span class="n">producto_id</span><span class="p">]</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="s">"/productos/{producto_id}"</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="mi">204</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">eliminar_producto</span><span class="p">(</span><span class="n">producto_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">producto_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">productos</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s">"Producto no encontrado"</span><span class="p">)</span>
+    <span class="k">del</span> <span class="n">productos</span><span class="p">[</span><span class="n">producto_id</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Algunas aclaraciones sobre el código anterior:</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">Producto</code></strong> es un modelo de Pydantic: describe la forma del JSON que esperamos recibir. Lo analizamos a fondo en 6.3.3; por ahora quédate con que es una clase que dice “esto tiene <code class="language-plaintext highlighter-rouge">nombre</code>, <code class="language-plaintext highlighter-rouge">precio</code> y, opcionalmente, <code class="language-plaintext highlighter-rouge">stock</code>”.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">status_code=201</code> en el decorador</strong>: por defecto FastAPI responde con <code class="language-plaintext highlighter-rouge">200</code>. Si quieres otro código de éxito más específico, lo indicas en el decorador.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">HTTPException</code></strong>: las excepciones en Python se lanzan con <code class="language-plaintext highlighter-rouge">raise</code> (como un <code class="language-plaintext highlighter-rouge">throw</code> en Java o PHP) y FastAPI las convierte en una respuesta HTTP con ese código y un JSON con los detalles.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">{"id": nuevo_id, **producto.model_dump()}</code></strong>: <code class="language-plaintext highlighter-rouge">model_dump()</code> convierte el modelo Pydantic en un <code class="language-plaintext highlighter-rouge">dict</code>, y <code class="language-plaintext highlighter-rouge">**</code> lo “desempaqueta” dentro del nuevo diccionario.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">max(productos, default=0)</code></strong>: recorre las claves del diccionario y devuelve la mayor; si está vacío, devuelve <code class="language-plaintext highlighter-rouge">0</code> (solo es un truco para generar identificadores mientras no tengamos una base de datos que lo haga por nosotros).</li>
+</ul>
+
+<p><strong>Puedes probarlo con Postman</strong>. Solo arranca el servidor (<code class="language-plaintext highlighter-rouge">uvicorn main:app --reload</code>) y prueba esta secuencia:</p>
+
+<ol>
+  <li>Crear un producto nuevo: <code class="language-plaintext highlighter-rouge">POST http://127.0.0.1:8000/productos</code> con este cuerpo (<em>Body → raw → JSON</em>): <code class="language-plaintext highlighter-rouge">{ "nombre": "Teclado mecánico", "precio": 59.9, "stock": 12 }</code>
+ Recibirás un <code class="language-plaintext highlighter-rouge">201</code> con el producto y su <code class="language-plaintext highlighter-rouge">id</code>.</li>
+  <li>Comprobar que el producto existe: <code class="language-plaintext highlighter-rouge">GET /productos</code> y <code class="language-plaintext highlighter-rouge">GET /productos/1</code>.</li>
+  <li>Modifica el producto con <code class="language-plaintext highlighter-rouge">PUT /productos/1</code> y un JSON modificado.</li>
+  <li>Borrar el producto con <code class="language-plaintext highlighter-rouge">DELETE /productos/1</code> (recibirás <code class="language-plaintext highlighter-rouge">204</code> sin cuerpo)</li>
+  <li>Comprobar que el producto ya no existe: vueve a pedir <code class="language-plaintext highlighter-rouge">GET /productos/1</code> para obtener un <code class="language-plaintext highlighter-rouge">404</code>.</li>
+</ol>
+
+<h3 id="632-parámetros-de-entrada">6.3.2. Parámetros de entrada</h3>
+
+<p>Una petición HTTP, como sabemos, puede traer datos por tres vías:</p>
+
+<ol>
+  <li>Dentro de la <strong>ruta</strong>, en forma de <strong>parámetros de ruta o segmentos</strong> (como en la ruta <code class="language-plaintext highlighter-rouge">/products/delete/38</code>; contiene bastante información en sí misma, ¿no te parece?)</li>
+  <li>En la <strong>cadena de consulta</strong> o <strong>query string</strong> (del estilo <code class="language-plaintext highlighter-rouge">?clave=valor</code>, como en <code class="language-plaintext highlighter-rouge">/products?action=delete&amp;id=38</code>).</li>
+  <li>En el <strong>cuerpo</strong> de la propia petición http (en este caso los datos no son visibles en la ruta, que quedaría como <code class="language-plaintext highlighter-rouge">/products</code>, como si no hubiera datos en absoluto)</li>
+</ol>
+
+<p>FastAPI las distingue a partir de cómo declares los parámetros de tu función. No son necesarias anotaciones especiales en los casos habituales:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Si el parámetro de la función…</th>
+      <th>FastAPI lo trata como…</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Aparece entre llaves en la ruta (<code class="language-plaintext highlighter-rouge">{id}</code>)</td>
+      <td>Parámetro de ruta (segmento), como en <code class="language-plaintext highlighter-rouge">/products/delete/38</code></td>
+    </tr>
+    <tr>
+      <td>Es de tipo simple (<code class="language-plaintext highlighter-rouge">int</code>, <code class="language-plaintext highlighter-rouge">str</code>, <code class="language-plaintext highlighter-rouge">bool</code>…) y no está en la ruta</td>
+      <td>Cadena de consulta (query string), como en <code class="language-plaintext highlighter-rouge">/products?action=delete&amp;id=38</code></td>
+    </tr>
+    <tr>
+      <td>Es un modelo Pydantic</td>
+      <td>Cuerpo de la petición http (los datos no se ven en la ruta)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Vamos a ver cómo construir cada una de ellas.</p>
+
+<h4 id="a-parámetros-de-ruta-path-parameters-o-segmentos">A) Parámetros de ruta (path parameters) o segmentos</h4>
+
+<p>Estos datos aparecen integrados en la propia URL en forma de segmentos, como en <code class="language-plaintext highlighter-rouge">/productos/delete/38</code>.</p>
+
+<p>Los datos se representan <strong>entre llaves</strong> en el decorador. El <strong>nombre</strong> entre llaves <em>debe coincidir con el de un parámetro de la función</em>, y su <strong>tipo</strong> determina la conversión y la validación:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/productos/{producto_id}"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">obtener_producto</span><span class="p">(</span><span class="n">producto_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="p">...</span>
+</code></pre></div></div>
+
+<p>En este ejemplo:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">GET /productos/3</code> → <code class="language-plaintext highlighter-rouge">producto_id</code> vale <code class="language-plaintext highlighter-rouge">3</code> (ya convertido a <code class="language-plaintext highlighter-rouge">int</code>).</li>
+  <li><code class="language-plaintext highlighter-rouge">GET /productos/abc</code> → FastAPI responde automáticamente un error <code class="language-plaintext highlighter-rouge">422</code> y no ejecuta la función, porque <code class="language-plaintext highlighter-rouge">abc</code> no es un entero, sin necesidad de escribir ninguna validación.</li>
+</ul>
+
+<p><strong>Cuidado con el orden de las rutas.</strong> FastAPI las evalúa en el orden en que las declaras. Si tienes una ruta fija y otra con parámetro que podrían coincidir, la fija debe ir <strong>antes</strong>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/productos/resumen"</span><span class="p">)</span>         <span class="c1"># va primero
+</span><span class="k">def</span> <span class="nf">resumen</span><span class="p">():</span> <span class="p">...</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/productos/{producto_id}"</span><span class="p">)</span>   <span class="c1"># si fuera primero, "resumen" se interpretaría como un id
+</span><span class="k">def</span> <span class="nf">get_product</span><span class="p">(</span><span class="n">producto_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span> <span class="p">...</span>
+</code></pre></div></div>
+
+<h4 id="b-cadenas-de-consulta-query-strings">B) Cadenas de consulta (query strings)</h4>
+
+<p>Estos datos son los que aparecen tras el <code class="language-plaintext highlighter-rouge">?</code> en la URL, como en <code class="language-plaintext highlighter-rouge">/productos?action=delete&amp;id=38</code></p>
+
+<p>En este caso, los parámetros que vienen por la URL no se indican en el decorador, sino en los parámetros de la función.</p>
+
+<p>Cualquier parámetro de tipo simple que aparezca en la URL y no esté en la ruta del decorador, se considera parte de la query consulta.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/productos"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">listar_productos</span><span class="p">(</span>
+    <span class="n">buscar</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">precio_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">limite</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Query</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">100</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="p">...</span>
+</code></pre></div></div>
+
+<p>Aquí estamos diciendo que la ruta es <code class="language-plaintext highlighter-rouge">GET /productos</code> y que a continuación podría llevar 3 variables en forma de query string:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">buscar</code> → un string optativo (si no está en la URL, se le asigna el valor por defecto <code class="language-plaintext highlighter-rouge">None</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">precio_max</code> → un float también optativo (valor por defecto <code class="language-plaintext highlighter-rouge">None</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">limite</code> → un int optativo (valor por defecto <code class="language-plaintext highlighter-rouge">10</code>). Este, además, tiene más restricciones: tiene que se mayor o igual que 1 y menor o igual que 100.</li>
+</ul>
+
+<p>Así que todas estas rutas son válidas y ejecutarán <code class="language-plaintext highlighter-rouge">listar_productos()</code>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /productos
+GET /productos?buscar=teclado
+GET /productos?buscar=teclado&amp;precio_max=50&amp;limite=5
+</code></pre></div></div>
+
+<p>En cambio, algo como <code class="language-plaintext highlighter-rouge">GET /productos?limite=500</code> devolverá un <code class="language-plaintext highlighter-rouge">422</code>, porque hemos dicho que que <code class="language-plaintext highlighter-rouge">limite</code> debe estar entre 1 y 100 y esta URL no lo cumple.</p>
+
+<p>Podemos escribir una versión completa (aunque aún con datos en memoria) de la función:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">Query</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/productos"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">listar_productos</span><span class="p">(</span>
+    <span class="n">buscar</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">precio_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">limite</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Query</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">100</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="n">resultado</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">productos</span><span class="p">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">buscar</span><span class="p">:</span>
+        <span class="n">resultado</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">resultado</span> <span class="k">if</span> <span class="n">buscar</span><span class="p">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">p</span><span class="p">[</span><span class="s">"nombre"</span><span class="p">].</span><span class="n">lower</span><span class="p">()]</span>
+    <span class="k">if</span> <span class="n">precio_max</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">resultado</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">resultado</span> <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="s">"precio"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">precio_max</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">resultado</span><span class="p">[:</span><span class="n">limite</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Con esto, todas estas llamadas son válidas:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /productos
+GET /productos?buscar=teclado
+GET /productos?buscar=teclado&amp;precio_max=50&amp;limite=5
+</code></pre></div></div>
+
+<p>Y <code class="language-plaintext highlighter-rouge">GET /productos?limite=500</code> devolverá un <code class="language-plaintext highlighter-rouge">422</code>, porque has declarado que <code class="language-plaintext highlighter-rouge">limite</code> debe estar entre 1 y 100. Fíjate en cómo se retoman aquí los type hints y <code class="language-plaintext highlighter-rouge">str | None</code> de 6.1.2: ahora cada anotación tiene consecuencias reales en el comportamiento de la API.</p>
+
+<p>Los booleanos aceptan varias formas: <code class="language-plaintext highlighter-rouge">?activo=true</code>, <code class="language-plaintext highlighter-rouge">?activo=1</code>, <code class="language-plaintext highlighter-rouge">?activo=yes</code> u <code class="language-plaintext highlighter-rouge">on</code> se interpretan como verdadero.</p>
+
+<h4 id="c-cuerpo-de-la-petición-request-body">C) Cuerpo de la petición (request body)</h4>
+
+<p>En este caso, en la URL no se ven los datos, sino que van empaquetados en la petición http (puedes verlos analizando el paquete http con las herramientas de desarrollador de tu navegador web o con Postman)</p>
+
+<p>La URL sería algo como <code class="language-plaintext highlighter-rouge">/products</code>. Parece que no lleva datos, pero sí los lleva, escondidos en el cuerpo de la request.</p>
+
+<p>FastAPI esperará que los datos lleguen de esta manera cuando un parámetro de la función es un <strong>modelo Pydantic</strong>, es decir, una clase que hereda de <code class="language-plaintext highlighter-rouge">BaseModel</code>.</p>
+
+<p>Esto solo puede usarse con <code class="language-plaintext highlighter-rouge">POST</code>, <code class="language-plaintext highlighter-rouge">PUT</code> y <code class="language-plaintext highlighter-rouge">PATCH</code> (con <code class="language-plaintext highlighter-rouge">GET</code> se podría hacer, pero está desaconsejado).</p>
+
+<p>Observa este ejemplo, donde el parámetro de la funció <code class="language-plaintext highlighter-rouge">crear_producto</code> es un objeto de tipo <code class="language-plaintext highlighter-rouge">Producto</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">"/productos"</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="mi">201</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">crear_producto</span><span class="p">(</span><span class="n">producto</span><span class="p">:</span> <span class="n">Producto</span><span class="p">):</span>
+    <span class="p">...</span>
+</code></pre></div></div>
+
+<p>Con ese único parámetro, FastAPI hace por ti todo esto:</p>
+
+<ol>
+  <li>Lee el cuerpo de la request.</li>
+  <li>Comprueba que contiene los campos requeridos para el objeto de tipo <code class="language-plaintext highlighter-rouge">Producto</code> y que los tipos son correctos.</li>
+  <li>Te entrega una instancia de <code class="language-plaintext highlighter-rouge">Producto</code> lista para usar (con todos sus datos en su sitio: <code class="language-plaintext highlighter-rouge">producto.nombre</code>, <code class="language-plaintext highlighter-rouge">producto.precio</code>…).</li>
+  <li>Y, si algo falla, responde un error <code class="language-plaintext highlighter-rouge">422</code> sin llegar a ejecutar la función y sin necesidad de escribir validaciones explícitas.</li>
+</ol>
+
+<p>Por ejemplo, si envías en el cuerpo de una request POST algo como <code class="language-plaintext highlighter-rouge">{"nombre": "Teclado"}</code> (sin <code class="language-plaintext highlighter-rouge">precio</code>), recibirás de FastAPI una respuesta parecida a esta:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"detail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"missing"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"loc"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"body"</span><span class="p">,</span><span class="w"> </span><span class="s2">"precio"</span><span class="p">],</span><span class="w">
+      </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Field required"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"input"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"nombre"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Teclado"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Observa que <code class="language-plaintext highlighter-rouge">loc</code> incluso te indica <strong>dónde</strong> está el problema.</p>
+
+<h4 id="combinar-los-3-métodos-en-la-misma-función">Combinar los 3 métodos en la misma función</h4>
+
+<p>También se pueden combinar los tres tipos de parámetro (parámetro de ruta, cadena de consulta y cuerpo del request) en una misma función, y FastAPI sabrá distinguir dónde viene cada dato.</p>
+
+<p>Por ejemplo:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="s">"/productos/{producto_id}"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">actualizar_producto</span><span class="p">(</span>
+    <span class="n">producto_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>          <span class="c1"># parámetro de ruta (es parte de la ruta indicada en el decorador)
+</span>    <span class="n">producto</span><span class="p">:</span> <span class="n">Producto</span><span class="p">,</span>        <span class="c1"># cuerpo del request (es un modelo Pydantic)
+</span>    <span class="n">notificar</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span>   <span class="c1"># cadena de consulta (es un tipo simple fuera de la ruta)
+</span><span class="p">):</span>
+    <span class="p">...</span>
+</code></pre></div></div>
+
+<h3 id="633-modelado-y-validación-de-datos-con-pydantic">6.3.3. Modelado y validación de datos con Pydantic</h3>
+
+<h4 id="definir-esquemas-heredando-de-basemodel">Definir esquemas heredando de BaseModel</h4>
+
+<p>Ya hemos visto que un <strong>esquema</strong> (o modelo) en Pydantic es una clase que hereda de <code class="language-plaintext highlighter-rouge">BaseModel</code> cuyos atributos son los campos del objeto, anotados con su tipo:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+
+<span class="k">class</span> <span class="nc">Producto</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span>                      <span class="c1"># obligatorio
+</span>    <span class="n">descripcion</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="bp">None</span>   <span class="c1"># opcional (puede ser None)
+</span>    <span class="n">precio</span><span class="p">:</span> <span class="nb">float</span>                    <span class="c1"># obligatorio
+</span>    <span class="n">stock</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>                   <span class="c1"># opcional, con valor por defecto
+</span></code></pre></div></div>
+
+<p>Las reglas son muy sencillas:</p>
+
+<ul>
+  <li><strong>Sin valor por defecto</strong> → el campo es <strong>obligatorio</strong>.</li>
+  <li><strong>Con valor por defecto</strong> → el campo es opcional y toma ese valor si no llega.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">tipo | None = None</code></strong> → el campo es opcional y además admite <code class="language-plaintext highlighter-rouge">None</code> (como null) explícito.</li>
+</ul>
+
+<p>Por tanto:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="n">Producto</span><span class="p">(</span><span class="n">nombre</span><span class="o">=</span><span class="s">"Ratón"</span><span class="p">,</span> <span class="n">precio</span><span class="o">=</span><span class="mf">19.9</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">stock</span><span class="p">)</span>         <span class="c1"># 0 (valor por defecto)
+</span><span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">model_dump</span><span class="p">())</span>  <span class="c1"># {'nombre': 'Ratón', 'descripcion': None, 'precio': 19.9, 'stock': 0}
+</span></code></pre></div></div>
+
+<h4 id="validación-automática">Validación automática</h4>
+
+<p>Pydantic valida el modelo <strong>al crear la instancia</strong>. Y no solo comprueba los tipos, sino que también los <strong>convierte</strong> cuando es seguro hacerlo:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">{"precio": "19.99"}</code> → se convierte a <code class="language-plaintext highlighter-rouge">19.99</code> (un <code class="language-plaintext highlighter-rouge">str</code> que representa un número es válido para un <code class="language-plaintext highlighter-rouge">float</code>).</li>
+  <li><code class="language-plaintext highlighter-rouge">{"stock": "5"}</code> → se convierte al entero <code class="language-plaintext highlighter-rouge">5</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">{"stock": "muchos"}</code> o <code class="language-plaintext highlighter-rouge">{"stock": 3.5}</code> → esto da un <strong>error</strong> (no se puede convertir a <code class="language-plaintext highlighter-rouge">int</code> sin perder información).</li>
+  <li>Los <strong>campos que no están en el modelo se ignoran</strong>, lo que evita que un cliente te “cuele” datos que no esperabas.</li>
+</ul>
+
+<p>Para <strong>otras restricciones</strong> más finas puede usarse <code class="language-plaintext highlighter-rouge">Field()</code>, como en este ejemplo:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+
+<span class="k">class</span> <span class="nc">Producto</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">min_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">descripcion</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="bp">None</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">precio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">stock</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Aquí estamos exigiendo que el nombre tenga entre 3 y 50 caracteres, el precio sea mayor que cero y el stock no puede ser negativo.</p>
+
+<h4 id="esquemas-distintos-para-entrada-y-salida">Esquemas distintos para entrada y salida</h4>
+
+<p>Hay un detalle del CRUD de ejemplo anterior que no es del todo correcto: al crear un producto, el cliente <strong>no</strong> debería enviar el <code class="language-plaintext highlighter-rouge">id</code> (lo genera el servidor), pero en la respuesta <strong>sí</strong> queremos devolverlo.</p>
+
+<p>Para eso es necesario usar <strong>dos esquemas</strong> ligeramente distintos (uno con <code class="language-plaintext highlighter-rouge">id</code> y otro sin él). La herencia de clases resuelve el problema sin repetir código:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Esta clase es lo que se espera recibir al crear un producto
+</span><span class="k">class</span> <span class="nc">ProductoCrear</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">min_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">precio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">stock</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Esta clase es lo que se devolverá al crear un producto
+# Es idéntica a la anterior, pero añade el id
+</span><span class="k">class</span> <span class="nc">ProductoRespuesta</span><span class="p">(</span><span class="n">ProductoCrear</span><span class="p">):</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span>
+</code></pre></div></div>
+
+<p>Ahora solo quedaría <strong>indicarlo en los endpoints</strong>, usando <code class="language-plaintext highlighter-rouge">response_model</code> para decirle a FastAPI cómo debe ser la respuesta:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">"/productos"</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="mi">201</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">ProductoRespuesta</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">crear_producto</span><span class="p">(</span><span class="n">producto</span><span class="p">:</span> <span class="n">ProductoCrear</span><span class="p">):</span>
+    <span class="n">nuevo_id</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">productos</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">productos</span><span class="p">[</span><span class="n">nuevo_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s">"id"</span><span class="p">:</span> <span class="n">nuevo_id</span><span class="p">,</span> <span class="o">**</span><span class="n">producto</span><span class="p">.</span><span class="n">model_dump</span><span class="p">()}</span>
+    <span class="k">return</span> <span class="n">productos</span><span class="p">[</span><span class="n">nuevo_id</span><span class="p">]</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/productos"</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="nb">list</span><span class="p">[</span><span class="n">ProductoRespuesta</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">listar_productos</span><span class="p">():</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">productos</span><span class="p">.</span><span class="n">values</span><span class="p">())</span>
+</code></pre></div></div>
+
+<p>Con <code class="language-plaintext highlighter-rouge">response_model</code>, FastAPI <strong>filtra y valida lo que devuelves</strong>: si tu función devolviera campos de más (por ejemplo, una contraseña en un modelo de usuario), no saldrían en el JSON.</p>
+
+<h3 id="634-documentación-automática-openapi-swagger-ui-y-redoc">6.3.4. Documentación automática OpenAPI: Swagger UI y ReDoc</h3>
+
+<p><strong>OpenAPI</strong> es un estándar para <strong>describir</strong> APIs REST en un archivo JSON</p>
+
+<p>La descripción incluye cosas como qué endpoints existen, qué parámetros aceptan, qué cuerpo esperan y qué respuestas devuelven. Antes se conocía como <em>especificación <strong>Swagger</strong></em>, y por eso en algunos sitios se sigue llamando así.</p>
+
+<p><strong>No tienes que escribir ese archivo</strong>. FastAPI lo genera automáticamente leyendo tus rutas, tus <em>type hints</em> y tus modelos Pydantic.</p>
+
+<p>Con el servidor en marcha, la documentación se autogenera en tres endpoints:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">/docs</code> - Aquí está <strong>Swagger UI</strong>, es decir, un interfaz de usuario donde un humano puede leer la documentación de forma interactiva. ¡E incluso probar la API!</li>
+  <li><code class="language-plaintext highlighter-rouge">/redoc</code> - Aquí está la misma documentación en un formato más pensado para lectura tradicional.</li>
+  <li><code class="language-plaintext highlighter-rouge">/openapi.json</code> - Aquí está el “contrato” OpenAPI en bruto, en formato JSON.</li>
+</ul>
+
+:ET

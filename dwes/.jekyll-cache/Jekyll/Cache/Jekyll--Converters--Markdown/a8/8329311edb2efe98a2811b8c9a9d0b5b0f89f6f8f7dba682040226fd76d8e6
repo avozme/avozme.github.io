@@ -1,0 +1,463 @@
+I"��<h2 class="no_toc" id="54-autenticación-con-spring-security">5.4. Autenticación con Spring Security</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#541-instalar-spring-security" id="markdown-toc-541-instalar-spring-security">5.4.1. Instalar Spring Security</a></li>
+  <li><a href="#542-autenticación-en-aplicaciones-ssr-con-formulario-de-login" id="markdown-toc-542-autenticación-en-aplicaciones-ssr-con-formulario-de-login">5.4.2. Autenticación en aplicaciones SSR con formulario de login</a></li>
+  <li><a href="#543-autenticación-en-api-rest-con-jwt" id="markdown-toc-543-autenticación-en-api-rest-con-jwt">5.4.3. Autenticación en API REST con JWT</a></li>
+</ul>
+
+<p><a href="https://www.dropbox.com/scl/fi/yny3mgozp2k0ntmruva51/05_04_autenticacion.pdf?rlkey=ibv17or3e0dqidqg5jxckrozp&amp;st=o2daneot&amp;dl=0" class="btn btn-primary">Descargar presentación</a></p>
+
+<p>En Laravel teníamos los Starter Kits con autenticación, de los que probamos Breeze con el Middleware <code class="language-plaintext highlighter-rouge">auth</code>.</p>
+
+<p>Pues bien, <strong>Spring Security</strong> hace las mismas funciones en Spring Boot. Vamos a ver, muy brevemente, cómo usarlo.</p>
+
+<h3 id="541-instalar-spring-security">5.4.1. Instalar Spring Security</h3>
+
+<p><strong>Spring Security</strong> no se instala por defecto con Spring Boot.</p>
+
+<p>Cuando crees el proyecto con Spring Initializr puedes seleccionar el módulo <strong>Spring Security</strong>. O, si el proyecto ya existe, puedes añadir el módulo manualmente al archivo <code class="language-plaintext highlighter-rouge">pom.xml</code> de Maven:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-security<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<p>A partir de ahora, Spring Security <strong>protegerá todos los endpoints</strong> automáticamente y mostrará una pantalla de login por defecto si intenta acceder un usuario no autenticado. <em>La contraseña generada aparece en la consola al arrancar la aplicación</em>.</p>
+
+<h3 id="542-autenticación-en-aplicaciones-ssr-con-formulario-de-login">5.4.2. Autenticación en aplicaciones SSR con formulario de login</h3>
+
+<p>Como hemos visto, cuando añades Spring Security al proyecto, <strong>todos los endpoints quedan protegidos por defecto</strong>: si el usuario intenta acceder a cualquier URL sin haberse autenticado, Spring Security le redirigirá automáticamente a un formulario de login.</p>
+
+<p>Pero normalmente querremos más control: definir qué rutas son públicas, qué rutas son privadas y personalizar el formulario de login. Para eso, se crea una <strong>clase de configuración</strong> anotada con <code class="language-plaintext highlighter-rouge">@Configuration</code> que le dice a Spring Security cómo comportarse.</p>
+
+<p>A continuación veremos el proceso completo, paso a paso.</p>
+
+<p><strong>Paso 1: La clase <code class="language-plaintext highlighter-rouge">SecurityConfig</code> (equivale al Middleware <code class="language-plaintext highlighter-rouge">auth</code> de Laravel)</strong></p>
+
+<p>Esta clase define las reglas de acceso:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.web.builders.HttpSecurity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.web.SecurityFilterChain</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SecurityConfig</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">SecurityFilterChain</span> <span class="nf">filterChain</span><span class="o">(</span><span class="nc">HttpSecurity</span> <span class="n">http</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="n">http</span>
+            <span class="c1">// 1. Definir qué rutas son públicas y cuáles requieren login</span>
+            <span class="o">.</span><span class="na">authorizeHttpRequests</span><span class="o">(</span><span class="n">auth</span> <span class="o">-&gt;</span> <span class="n">auth</span>
+                <span class="o">.</span><span class="na">requestMatchers</span><span class="o">(</span><span class="s">"/"</span><span class="o">,</span> <span class="s">"/login"</span><span class="o">,</span> <span class="s">"/css/**"</span><span class="o">).</span><span class="na">permitAll</span><span class="o">()</span>  <span class="c1">// Rutas públicas</span>
+                <span class="o">.</span><span class="na">anyRequest</span><span class="o">().</span><span class="na">authenticated</span><span class="o">()</span>                            <span class="c1">// El resto, privadas</span>
+            <span class="o">)</span>
+            <span class="c1">// 2. Configurar el formulario de login</span>
+            <span class="o">.</span><span class="na">formLogin</span><span class="o">(</span><span class="n">form</span> <span class="o">-&gt;</span> <span class="n">form</span>
+                <span class="o">.</span><span class="na">loginPage</span><span class="o">(</span><span class="s">"/login"</span><span class="o">)</span>           <span class="c1">// URL de tu formulario de login personalizado</span>
+                <span class="o">.</span><span class="na">loginProcessingUrl</span><span class="o">(</span><span class="s">"/login"</span><span class="o">)</span>  <span class="c1">// URL a la que envía el POST el formulario</span>
+                <span class="o">.</span><span class="na">defaultSuccessUrl</span><span class="o">(</span><span class="s">"/inicio"</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span>  <span class="c1">// A dónde ir tras un login correcto</span>
+                <span class="o">.</span><span class="na">failureUrl</span><span class="o">(</span><span class="s">"/login?error"</span><span class="o">)</span>    <span class="c1">// A dónde ir si el login falla</span>
+                <span class="o">.</span><span class="na">permitAll</span><span class="o">()</span>
+            <span class="o">)</span>
+            <span class="c1">// 3. Configurar el logout</span>
+            <span class="o">.</span><span class="na">logout</span><span class="o">(</span><span class="n">logout</span> <span class="o">-&gt;</span> <span class="n">logout</span>
+                <span class="o">.</span><span class="na">logoutUrl</span><span class="o">(</span><span class="s">"/logout"</span><span class="o">)</span>          <span class="c1">// URL que activa el cierre de sesión</span>
+                <span class="o">.</span><span class="na">logoutSuccessUrl</span><span class="o">(</span><span class="s">"/login?logout"</span><span class="o">)</span>  <span class="c1">// A dónde ir tras el logout</span>
+                <span class="o">.</span><span class="na">permitAll</span><span class="o">()</span>
+            <span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">http</span><span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Paso 2: Dónde están los usuarios — <code class="language-plaintext highlighter-rouge">UserDetailsService</code></strong></p>
+
+<p>Spring Security necesita saber de dónde sacar los usuarios para verificar sus contraseñas. Eso se define implementando la interfaz <code class="language-plaintext highlighter-rouge">UserDetailsService</code>. En desarrollo puedes usar usuarios en memoria para ir rápido:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.core.userdetails.User</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.core.userdetails.UserDetailsService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.provisioning.InMemoryUserDetailsManager</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.crypto.password.PasswordEncoder</span><span class="o">;</span>
+
+<span class="c1">// Añade estos beans dentro de tu clase SecurityConfig:</span>
+
+<span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="nc">UserDetailsService</span> <span class="nf">userDetailsService</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">// Creamos un usuario "admin" con contraseña "1234" (guardada hasheada con BCrypt)</span>
+    <span class="kt">var</span> <span class="n">admin</span> <span class="o">=</span> <span class="nc">User</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">username</span><span class="o">(</span><span class="s">"admin"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">password</span><span class="o">(</span><span class="n">passwordEncoder</span><span class="o">().</span><span class="na">encode</span><span class="o">(</span><span class="s">"1234"</span><span class="o">))</span>  <span class="c1">// ¡Nunca guardes contraseñas en texto plano!</span>
+        <span class="o">.</span><span class="na">roles</span><span class="o">(</span><span class="s">"ADMIN"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">InMemoryUserDetailsManager</span><span class="o">(</span><span class="n">admin</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="nc">PasswordEncoder</span> <span class="nf">passwordEncoder</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">BCryptPasswordEncoder</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Para aplicaciones reales, en lugar de <code class="language-plaintext highlighter-rouge">InMemoryUserDetailsManager</code>, implementarías el <code class="language-plaintext highlighter-rouge">UserDetailsService</code> para cargar los usuarios desde tu base de datos. Por ejemplo:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MiUserDetailsService</span> <span class="kd">implements</span> <span class="nc">UserDetailsService</span> <span class="o">{</span>
+
+    <span class="c1">// Suponemos que tienes un repositorio de usuarios en la BD</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">UsuarioRepository</span> <span class="n">usuarioRepository</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">MiUserDetailsService</span><span class="o">(</span><span class="nc">UsuarioRepository</span> <span class="n">usuarioRepository</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">usuarioRepository</span> <span class="o">=</span> <span class="n">usuarioRepository</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">UserDetails</span> <span class="nf">loadUserByUsername</span><span class="o">(</span><span class="nc">String</span> <span class="n">email</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">UsernameNotFoundException</span> <span class="o">{</span>
+        <span class="c1">// Busca el usuario en la base de datos</span>
+        <span class="nc">Usuario</span> <span class="n">usuario</span> <span class="o">=</span> <span class="n">usuarioRepository</span><span class="o">.</span><span class="na">findByEmail</span><span class="o">(</span><span class="n">email</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">orElseThrow</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">UsernameNotFoundException</span><span class="o">(</span><span class="s">"Usuario no encontrado: "</span> <span class="o">+</span> <span class="n">email</span><span class="o">));</span>
+
+        <span class="c1">// Devuelve un objeto UserDetails que Spring Security entiende</span>
+        <span class="k">return</span> <span class="nc">User</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">username</span><span class="o">(</span><span class="n">usuario</span><span class="o">.</span><span class="na">getEmail</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">password</span><span class="o">(</span><span class="n">usuario</span><span class="o">.</span><span class="na">getPassword</span><span class="o">())</span>  <span class="c1">// La contraseña DEBE estar hasheada en la BD</span>
+            <span class="o">.</span><span class="na">roles</span><span class="o">(</span><span class="s">"USER"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Paso 3: El controlador de login</strong></p>
+
+<p>Necesitas un controlador con un endpoint <code class="language-plaintext highlighter-rouge">GET /login</code> que devuelva la vista del formulario:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthController</span> <span class="o">{</span>
+
+    <span class="c1">// GET /login → muestra el formulario</span>
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/login"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">mostrarLogin</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">"auth/login"</span><span class="o">;</span>  <span class="c1">// → templates/auth/login.html</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Observa que <strong>no necesitas un endpoint <code class="language-plaintext highlighter-rouge">POST /login</code></strong> en tu controlador: Spring Security intercepta automáticamente el POST a <code class="language-plaintext highlighter-rouge">/login</code> (según lo configurado en <code class="language-plaintext highlighter-rouge">loginProcessingUrl</code>), verifica las credenciales usando tu <code class="language-plaintext highlighter-rouge">UserDetailsService</code> y gestiona la sesión.</p>
+
+<p><strong>Paso 4: La vista del formulario de login</strong></p>
+
+<p>El formulario de login es HTML estándar con un atributo crucial: los campos deben llamarse <strong><code class="language-plaintext highlighter-rouge">username</code></strong> y <strong><code class="language-plaintext highlighter-rouge">password</code></strong> para que Spring Security los reconozca. Podría ser algo así:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- templates/auth/login.html --&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">xmlns:th=</span><span class="s">"http://www.thymeleaf.org"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;&lt;title&gt;</span>Login<span class="nt">&lt;/title&gt;&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Iniciar sesión<span class="nt">&lt;/h1&gt;</span>
+
+    <span class="c">&lt;!-- Mensaje de error si el login falló --&gt;</span>
+    <span class="nt">&lt;p</span> <span class="na">th:if=</span><span class="s">"${param.error}"</span> <span class="na">style=</span><span class="s">"color: red;"</span><span class="nt">&gt;</span>Email o contraseña incorrectos.<span class="nt">&lt;/p&gt;</span>
+    <span class="c">&lt;!-- Mensaje tras logout --&gt;</span>
+    <span class="nt">&lt;p</span> <span class="na">th:if=</span><span class="s">"${param.logout}"</span> <span class="na">style=</span><span class="s">"color: green;"</span><span class="nt">&gt;</span>Sesión cerrada correctamente.<span class="nt">&lt;/p&gt;</span>
+
+    <span class="c">&lt;!-- IMPORTANTE: los campos se llaman 'username' y 'password' --&gt;</span>
+    <span class="nt">&lt;form</span> <span class="na">th:action=</span><span class="s">"@{/login}"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div&gt;</span>
+            <span class="nt">&lt;label&gt;</span>Email:<span class="nt">&lt;/label&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"username"</span> <span class="na">required</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div&gt;</span>
+            <span class="nt">&lt;label&gt;</span>Contraseña:<span class="nt">&lt;/label&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"password"</span> <span class="na">name=</span><span class="s">"password"</span> <span class="na">required</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span><span class="nt">&gt;</span>Entrar<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/form&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Paso 5: Mostrar u ocultar elementos según el estado de autenticación</strong></p>
+
+<p>En las vistas Thymeleaf, puedes usar el dialecto de Spring Security (añade la dependencia <code class="language-plaintext highlighter-rouge">thymeleaf-extras-springsecurity6</code> en tu <code class="language-plaintext highlighter-rouge">pom.xml</code>) para mostrar u ocultar contenido según si el usuario está autenticado:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- Añade esto al &lt;html&gt; de tus plantillas: --&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">xmlns:th=</span><span class="s">"http://www.thymeleaf.org"</span>
+      <span class="na">xmlns:sec=</span><span class="s">"http://www.thymeleaf.org/extras/spring-security"</span><span class="nt">&gt;</span>
+
+<span class="c">&lt;!-- Mostrar solo si hay sesión (equivale a @auth de Blade) --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">sec:authorize=</span><span class="s">"isAuthenticated()"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Bienvenido, <span class="nt">&lt;span</span> <span class="na">sec:authentication=</span><span class="s">"name"</span><span class="nt">&gt;&lt;/span&gt;</span>!<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;form</span> <span class="na">th:action=</span><span class="s">"@{/logout}"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span><span class="nt">&gt;</span>Cerrar sesión<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/form&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="c">&lt;!-- Mostrar solo si NO hay sesión (equivale a @guest de Blade) --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">sec:authorize=</span><span class="s">"isAnonymous()"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">th:href=</span><span class="s">"@{/login}"</span><span class="nt">&gt;</span>Iniciar sesión<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="c">&lt;!-- Mostrar solo si el usuario tiene rol ADMIN --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">sec:authorize=</span><span class="s">"hasRole('ADMIN')"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">th:href=</span><span class="s">"@{/admin}"</span><span class="nt">&gt;</span>Panel de administración<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>¡ATENCIÓN!</strong>
+El botón de logout <strong>debe ser un formulario POST</strong>, no un simple enlace GET. Spring Security, por razones de seguridad (protección CSRF), rechaza los logout que llegan por GET.</p>
+</blockquote>
+
+<h3 id="543-autenticación-en-api-rest-con-jwt">5.4.3. Autenticación en API REST con JWT</h3>
+
+<p>En las aplicaciones SSR, la sesión del usuario se mantiene mediante una <strong>cookie</strong> que el navegador envía automáticamente en cada petición. Sin embargo, en una API REST pura los clientes pueden ser apps móviles, scripts o frontends SPA que no manejan cookies de esa manera. Por eso las APIs usan, como ya vimos con Laravel, un mecanismo diferente: <strong>los tokens</strong>.</p>
+
+<p>El estándar más extendido hoy en día son los <strong>JWT (JSON Web Tokens)</strong>. Son cadenas de texto codificadas que el servidor genera cuando el usuario se autentica y que el cliente debe incluir en todas sus peticiones posteriores. <em>Equivalen exactamente a los tokens de Sanctum que ya conoces de Laravel</em>.</p>
+
+<p>Un JWT tiene tres partes separadas por puntos (<code class="language-plaintext highlighter-rouge">.</code>):</p>
+<ul>
+  <li><strong>Header</strong>: indica el algoritmo de firma</li>
+  <li><strong>Payload</strong>: contiene datos del usuario (id, email, rol, fecha de expiración)</li>
+  <li><strong>Signature</strong>: garantiza que nadie ha manipulado el token</li>
+</ul>
+
+<p>El flujo completo es así:</p>
+<ol>
+  <li>El cliente hace <code class="language-plaintext highlighter-rouge">POST /api/auth/login</code> enviando <code class="language-plaintext highlighter-rouge">email</code> y <code class="language-plaintext highlighter-rouge">password</code> en JSON.</li>
+  <li>El servidor verifica las credenciales contra la base de datos.</li>
+  <li>Si son correctas, el servidor genera un JWT firmado con una clave secreta y se lo devuelve al cliente.</li>
+  <li>A partir de ese momento, en cada petición protegida, el cliente incluye la cabecera: <code class="language-plaintext highlighter-rouge">Authorization: Bearer &lt;el_token&gt;</code>. <strong>Si no lo hace, sus peticiones serán rechazadas</strong>.</li>
+  <li>Spring Security intercepta la petición, extrae el token, verifica su firma y, si es válido, da acceso al recurso.</li>
+</ol>
+
+<p><strong>Implementación con la librería <code class="language-plaintext highlighter-rouge">jjwt</code></strong></p>
+
+<p>La forma más habitual de implementar JWT en Spring Boot es con la librería <code class="language-plaintext highlighter-rouge">jjwt</code>. Añádela a tu <code class="language-plaintext highlighter-rouge">pom.xml</code>:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>io.jsonwebtoken<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>jjwt-api<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.12.6<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>io.jsonwebtoken<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>jjwt-impl<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.12.6<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>io.jsonwebtoken<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>jjwt-jackson<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.12.6<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<p>Y define la clave secreta en <code class="language-plaintext highlighter-rouge">application.properties</code>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Clave para firmar los tokens. Debe ser larga y secreta (¡no la subas a Git!)
+</span><span class="py">app.jwt.secret</span><span class="p">=</span><span class="s">clave-super-secreta-y-muy-larga-para-firmar-tokens-jwt-2024</span>
+<span class="py">app.jwt.expiration</span><span class="p">=</span><span class="s">86400000  # 24 horas en milisegundos</span>
+</code></pre></div></div>
+
+<p><strong>Clase <code class="language-plaintext highlighter-rouge">JwtUtil</code>: generar y validar tokens</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">io.jsonwebtoken.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">io.jsonwebtoken.security.Keys</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Value</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.crypto.SecretKey</span><span class="o">;</span>
+
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JwtUtil</span> <span class="o">{</span>
+
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">"${app.jwt.secret}"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">secret</span><span class="o">;</span>
+
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">"${app.jwt.expiration}"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="kt">long</span> <span class="n">expiration</span><span class="o">;</span>
+
+    <span class="c1">// Genera un token JWT para un usuario dado su email (u otro identificador)</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">generateToken</span><span class="o">(</span><span class="nc">String</span> <span class="n">email</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">SecretKey</span> <span class="n">key</span> <span class="o">=</span> <span class="nc">Keys</span><span class="o">.</span><span class="na">hmacShaKeyFor</span><span class="o">(</span><span class="n">secret</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+        <span class="k">return</span> <span class="nc">Jwts</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">subject</span><span class="o">(</span><span class="n">email</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">issuedAt</span><span class="o">(</span><span class="k">new</span> <span class="nc">Date</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">expiration</span><span class="o">(</span><span class="k">new</span> <span class="nc">Date</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">+</span> <span class="n">expiration</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">signWith</span><span class="o">(</span><span class="n">key</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">compact</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Extrae el email del payload del token</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">extractEmail</span><span class="o">(</span><span class="nc">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">parseClaims</span><span class="o">(</span><span class="n">token</span><span class="o">).</span><span class="na">getSubject</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Valida que el token es correcto y no ha expirado</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isValid</span><span class="o">(</span><span class="nc">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">parseClaims</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">JwtException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="nc">Claims</span> <span class="nf">parseClaims</span><span class="o">(</span><span class="nc">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">SecretKey</span> <span class="n">key</span> <span class="o">=</span> <span class="nc">Keys</span><span class="o">.</span><span class="na">hmacShaKeyFor</span><span class="o">(</span><span class="n">secret</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+        <span class="k">return</span> <span class="nc">Jwts</span><span class="o">.</span><span class="na">parser</span><span class="o">().</span><span class="na">verifyWith</span><span class="o">(</span><span class="n">key</span><span class="o">).</span><span class="na">build</span><span class="o">().</span><span class="na">parseSignedClaims</span><span class="o">(</span><span class="n">token</span><span class="o">).</span><span class="na">getPayload</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Controlador de autenticación (<code class="language-plaintext highlighter-rouge">/api/auth</code>)</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.http.ResponseEntity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.authentication.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.*</span><span class="o">;</span>
+
+<span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/api/auth"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthApiController</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">AuthenticationManager</span> <span class="n">authManager</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">JwtUtil</span> <span class="n">jwtUtil</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">AuthApiController</span><span class="o">(</span><span class="nc">AuthenticationManager</span> <span class="n">authManager</span><span class="o">,</span> <span class="nc">JwtUtil</span> <span class="n">jwtUtil</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">authManager</span> <span class="o">=</span> <span class="n">authManager</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">jwtUtil</span> <span class="o">=</span> <span class="n">jwtUtil</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// POST /api/auth/login → recibe {"email":"...", "password":"..."}</span>
+    <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/login"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;?&gt;</span> <span class="n">login</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="nc">LoginRequest</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="c1">// Spring Security verifica las credenciales</span>
+            <span class="n">authManager</span><span class="o">.</span><span class="na">authenticate</span><span class="o">(</span>
+                <span class="k">new</span> <span class="nf">UsernamePasswordAuthenticationToken</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">email</span><span class="o">(),</span> <span class="n">request</span><span class="o">.</span><span class="na">password</span><span class="o">())</span>
+            <span class="o">);</span>
+            <span class="c1">// Si llega aquí, las credenciales son correctas. Generamos el token.</span>
+            <span class="nc">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">jwtUtil</span><span class="o">.</span><span class="na">generateToken</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">email</span><span class="o">());</span>
+            <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="k">new</span> <span class="nc">LoginResponse</span><span class="o">(</span><span class="n">token</span><span class="o">));</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">BadCredentialsException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="mi">401</span><span class="o">).</span><span class="na">body</span><span class="o">(</span><span class="s">"Credenciales incorrectas"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Records de Java (equivalen a DTOs simples)</span>
+    <span class="kd">public</span> <span class="n">record</span> <span class="nf">LoginRequest</span><span class="o">(</span><span class="nc">String</span> <span class="n">email</span><span class="o">,</span> <span class="nc">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{}</span>
+    <span class="kd">public</span> <span class="n">record</span> <span class="nf">LoginResponse</span><span class="o">(</span><span class="nc">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Filtro JWT: interceptar peticiones y validar el token</strong></p>
+
+<p>Este es el componente que intercepta cada petición entrante, extrae el token de la cabecera <code class="language-plaintext highlighter-rouge">Authorization</code>, lo valida y, si es correcto, autentica al usuario en el contexto de Spring Security:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">jakarta.servlet.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">jakarta.servlet.http.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.authentication.UsernamePasswordAuthenticationToken</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.core.context.SecurityContextHolder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.core.userdetails.UserDetailsService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.filter.OncePerRequestFilter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JwtFilter</span> <span class="kd">extends</span> <span class="nc">OncePerRequestFilter</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">JwtUtil</span> <span class="n">jwtUtil</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">UserDetailsService</span> <span class="n">userDetailsService</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">JwtFilter</span><span class="o">(</span><span class="nc">JwtUtil</span> <span class="n">jwtUtil</span><span class="o">,</span> <span class="nc">UserDetailsService</span> <span class="n">userDetailsService</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">jwtUtil</span> <span class="o">=</span> <span class="n">jwtUtil</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">userDetailsService</span> <span class="o">=</span> <span class="n">userDetailsService</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doFilterInternal</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span>
+                                    <span class="nc">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span>
+                                    <span class="nc">FilterChain</span> <span class="n">chain</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">ServletException</span><span class="o">,</span> <span class="nc">IOException</span> <span class="o">{</span>
+
+        <span class="nc">String</span> <span class="n">header</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">);</span>
+
+        <span class="c1">// Si no hay cabecera Bearer, dejamos pasar la petición (puede ser una ruta pública)</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">header</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="o">!</span><span class="n">header</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="s">"Bearer "</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">chain</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="nc">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">7</span><span class="o">);</span> <span class="c1">// Quitamos "Bearer "</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">jwtUtil</span><span class="o">.</span><span class="na">isValid</span><span class="o">(</span><span class="n">token</span><span class="o">))</span> <span class="o">{</span>
+            <span class="nc">String</span> <span class="n">email</span> <span class="o">=</span> <span class="n">jwtUtil</span><span class="o">.</span><span class="na">extractEmail</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
+            <span class="kt">var</span> <span class="n">userDetails</span> <span class="o">=</span> <span class="n">userDetailsService</span><span class="o">.</span><span class="na">loadUserByUsername</span><span class="o">(</span><span class="n">email</span><span class="o">);</span>
+            <span class="kt">var</span> <span class="n">auth</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">UsernamePasswordAuthenticationToken</span><span class="o">(</span>
+                <span class="n">userDetails</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">userDetails</span><span class="o">.</span><span class="na">getAuthorities</span><span class="o">()</span>
+            <span class="o">);</span>
+            <span class="c1">// Registramos al usuario como autenticado en el contexto de Spring Security</span>
+            <span class="nc">SecurityContextHolder</span><span class="o">.</span><span class="na">getContext</span><span class="o">().</span><span class="na">setAuthentication</span><span class="o">(</span><span class="n">auth</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="n">chain</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Configuración de Spring Security para API JWT</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SecurityConfig</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">JwtFilter</span> <span class="n">jwtFilter</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">SecurityConfig</span><span class="o">(</span><span class="nc">JwtFilter</span> <span class="n">jwtFilter</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">jwtFilter</span> <span class="o">=</span> <span class="n">jwtFilter</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">SecurityFilterChain</span> <span class="nf">filterChain</span><span class="o">(</span><span class="nc">HttpSecurity</span> <span class="n">http</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="n">http</span>
+            <span class="o">.</span><span class="na">csrf</span><span class="o">(</span><span class="n">csrf</span> <span class="o">-&gt;</span> <span class="n">csrf</span><span class="o">.</span><span class="na">disable</span><span class="o">())</span>  <span class="c1">// Las APIs REST no necesitan protección CSRF</span>
+            <span class="o">.</span><span class="na">sessionManagement</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="n">s</span><span class="o">.</span><span class="na">sessionCreationPolicy</span><span class="o">(</span><span class="nc">SessionCreationPolicy</span><span class="o">.</span><span class="na">STATELESS</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">authorizeHttpRequests</span><span class="o">(</span><span class="n">auth</span> <span class="o">-&gt;</span> <span class="n">auth</span>
+                <span class="o">.</span><span class="na">requestMatchers</span><span class="o">(</span><span class="s">"/api/auth/**"</span><span class="o">).</span><span class="na">permitAll</span><span class="o">()</span>  <span class="c1">// Login libre</span>
+                <span class="o">.</span><span class="na">anyRequest</span><span class="o">().</span><span class="na">authenticated</span><span class="o">()</span>                 <span class="c1">// El resto requiere token</span>
+            <span class="o">)</span>
+            <span class="c1">// Añadimos nuestro filtro JWT ANTES del filtro de autenticación por defecto</span>
+            <span class="o">.</span><span class="na">addFilterBefore</span><span class="o">(</span><span class="n">jwtFilter</span><span class="o">,</span> <span class="nc">UsernamePasswordAuthenticationFilter</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">http</span><span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">AuthenticationManager</span> <span class="nf">authenticationManager</span><span class="o">(</span><span class="nc">AuthenticationConfiguration</span> <span class="n">config</span><span class="o">)</span>
+            <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="na">getAuthenticationManager</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Cómo se usa en Postman</strong></p>
+
+<ol>
+  <li>Haz <code class="language-plaintext highlighter-rouge">POST http://localhost:8080/api/auth/login</code> con el body:
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w"> </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"admin@ejemplo.com"</span><span class="p">,</span><span class="w"> </span><span class="nl">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+  <li>Copia el token que devuelve el servidor.</li>
+  <li>En las siguientes peticiones, ve a la pestaña <strong>Authorization</strong> → <strong>Bearer Token</strong> y pega el token.</li>
+</ol>
+
+<p>A partir de ahí, Postman incluirá automáticamente la cabecera <code class="language-plaintext highlighter-rouge">Authorization: Bearer &lt;token&gt;</code> en todas tus peticiones.</p>
+
+<blockquote>
+  <p><strong>¡ATENCIÓN!</strong>
+La implementación de JWT tiene bastante código de infraestructura (el filtro, la clase <code class="language-plaintext highlighter-rouge">JwtUtil</code>, la configuración). Esto es completamente normal en Spring Boot: es código que se escribe una vez y luego no se toca. Compáralo con Sanctum en Laravel, donde también existía ese código de infraestructura, pero lo instalaba Breeze automáticamente.</p>
+</blockquote>
+:ET

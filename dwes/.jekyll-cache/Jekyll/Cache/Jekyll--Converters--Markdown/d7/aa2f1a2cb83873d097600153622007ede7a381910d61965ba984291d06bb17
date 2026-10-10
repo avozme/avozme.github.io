@@ -1,0 +1,652 @@
+I"�<h1 class="no_toc" id="7-consumo-de-apis-y-frontend-reactivo-para-spa">7. Consumo de APIs y frontend reactivo para SPA</h1>
+
+<div style="color:red; font-size: 150%"><strong>ESTE MATERIAL AÚN ESTÁ EN DESARROLLO</strong></div>
+
+<ul id="markdown-toc">
+  <li><a href="#71-qué-es-vuejs-y-por-qué-usarlo" id="markdown-toc-71-qué-es-vuejs-y-por-qué-usarlo">7.1. ¿Qué es Vue.js y por qué usarlo?</a>    <ul>
+      <li><a href="#711-iniciando-un-proyecto-moderno-con-vite" id="markdown-toc-711-iniciando-un-proyecto-moderno-con-vite">7.1.1. Iniciando un proyecto moderno con Vite</a></li>
+    </ul>
+  </li>
+  <li><a href="#72-conceptos-básicos-reactividad-y-componentes-sfc" id="markdown-toc-72-conceptos-básicos-reactividad-y-componentes-sfc">7.2. Conceptos básicos: Reactividad y Componentes (SFC)</a>    <ul>
+      <li><a href="#721-reactividad-con-la-composition-api" id="markdown-toc-721-reactividad-con-la-composition-api">7.2.1. Reactividad con la Composition API</a></li>
+      <li><a href="#722-directivas-esenciales-de-vue" id="markdown-toc-722-directivas-esenciales-de-vue">7.2.2. Directivas esenciales de Vue</a></li>
+    </ul>
+  </li>
+  <li><a href="#73-consumo-de-apis-y-problemas-de-cors" id="markdown-toc-73-consumo-de-apis-y-problemas-de-cors">7.3. Consumo de APIs y problemas de CORS</a>    <ul>
+      <li><a href="#731-haciendo-una-petición-básica-con-axios" id="markdown-toc-731-haciendo-una-petición-básica-con-axios">7.3.1. Haciendo una petición básica con Axios</a></li>
+      <li><a href="#732-el-temido-error-de-cors" id="markdown-toc-732-el-temido-error-de-cors">7.3.2. El temido error de CORS</a></li>
+    </ul>
+  </li>
+  <li><a href="#74-autenticación-y-manejo-de-estado-tokens" id="markdown-toc-74-autenticación-y-manejo-de-estado-tokens">7.4. Autenticación y manejo de estado (Tokens)</a>    <ul>
+      <li><a href="#paso-1-el-componente-de-login-en-vue" id="markdown-toc-paso-1-el-componente-de-login-en-vue">Paso 1: El componente de Login en Vue</a></li>
+      <li><a href="#paso-2-usar-el-token-en-rutas-protegidas" id="markdown-toc-paso-2-usar-el-token-en-rutas-protegidas">Paso 2: Usar el token en rutas protegidas</a></li>
+      <li><a href="#paso-3-cerrar-sesión-logout" id="markdown-toc-paso-3-cerrar-sesión-logout">Paso 3: Cerrar sesión (Logout)</a></li>
+    </ul>
+  </li>
+  <li><a href="#75-ejemplo-completo-un-crud-con-vue-y-axios" id="markdown-toc-75-ejemplo-completo-un-crud-con-vue-y-axios">7.5. Ejemplo completo: Un CRUD con Vue y Axios</a></li>
+  <li><a href="#76-práctica-final-frontend-para-gestión-de-academias" id="markdown-toc-76-práctica-final-frontend-para-gestión-de-academias">7.6. Práctica final: Frontend para Gestión de Academias</a>    <ul>
+      <li><a href="#requisitos-técnicos" id="markdown-toc-requisitos-técnicos">Requisitos Técnicos</a></li>
+      <li><a href="#flujo-y-vistas-a-implementar" id="markdown-toc-flujo-y-vistas-a-implementar">Flujo y Vistas a implementar</a></li>
+      <li><a href="#normas-de-entrega" id="markdown-toc-normas-de-entrega">Normas de entrega</a></li>
+      <li><a href="#rúbrica-de-calificación" id="markdown-toc-rúbrica-de-calificación">Rúbrica de calificación</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="71-qué-es-vuejs-y-por-qué-usarlo">7.1. ¿Qué es Vue.js y por qué usarlo?</h2>
+
+<p>Hasta ahora, en asignaturas anteriores o en los primeros temas de este módulo, hemos construido aplicaciones web tradicionales utilizando <strong>SSR (Server-Side Rendering)</strong> con herramientas como Blade en Laravel. En ese modelo, cada vez que el usuario hace clic en un enlace o envía un formulario, el servidor (PHP) procesa la petición, genera una página HTML completa desde cero y se la envía al navegador. Esto obliga al navegador a recargar la página entera constantemente.</p>
+
+<p><strong>Vue.js</strong> es un <strong>framework progresivo de Javascript</strong> que nos permite cambiar completamente este paradigma para crear aplicaciones <strong>SPA (<em>Single Page Applications</em>)</strong>.</p>
+
+<p>En una SPA, el navegador carga una única página HTML al principio. A partir de ahí, es el código Javascript (en este caso, controlado por Vue.js) el que se encarga de reescribir y actualizar el contenido de la pantalla dinámicamente. Cuando necesitamos leer o guardar datos en la base de datos, Javascript se comunica con nuestro servidor en segundo plano (nuestra API REST), recibe los datos en formato JSON y actualiza solo las partes necesarias de la interfaz, sin que la página parpadee ni se recargue nunca.</p>
+
+<p>Puesto que ya conoces Javascript, Typescript y has trasteado con Angular, los conceptos básicos te resultarán muy familiares. Vue ofrece las mismas ventajas (componentes, reactividad, enlace de datos) pero con una curva de aprendizaje que muchos desarrolladores consideran más amable.</p>
+
+<h3 id="711-iniciando-un-proyecto-moderno-con-vite">7.1.1. Iniciando un proyecto moderno con Vite</h3>
+
+<p>Antiguamente, era común importar Vue simplemente añadiendo una etiqueta <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> en un archivo HTML (usando un CDN) o empaquetarlo dentro del propio proyecto de Laravel con herramientas antiguas.</p>
+
+<p>Hoy en día, la arquitectura moderna exige separar completamente el código del <em>frontend</em> (la interfaz de usuario hecha con Vue) del <em>backend</em> (la API hecha con Laravel). Son dos proyectos distintos que correrán en puertos distintos.</p>
+
+<p>Para crear un proyecto frontend profesional con Vue, el estándar actual de la industria es utilizar <strong>Vite</strong>, una herramienta de construcción ultrarrápida. Para crear tu proyecto, solo tienes que abrir tu terminal en una carpeta nueva (fuera de tu proyecto Laravel) y ejecutar:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm create vue@latest
+</code></pre></div></div>
+
+<p>El asistente te hará varias preguntas (puedes decirle que “Sí” a Vue Router si tu app tendrá varias pantallas, y que “No” a cosas más avanzadas como Pinia o Testing por ahora). Una vez creado el proyecto, debes entrar en la carpeta, instalar las dependencias e iniciar el servidor de desarrollo:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>nombre-de-tu-proyecto
+npm <span class="nb">install
+</span>npm run dev
+</code></pre></div></div>
+
+<p>Esto levantará un servidor web local (generalmente en <code class="language-plaintext highlighter-rouge">http://localhost:5173</code>) donde podrás ver tu aplicación Vue funcionando.</p>
+
+<h2 id="72-conceptos-básicos-reactividad-y-componentes-sfc">7.2. Conceptos básicos: Reactividad y Componentes (SFC)</h2>
+
+<p>En un proyecto Vue moderno, no trabajamos con archivos <code class="language-plaintext highlighter-rouge">.html</code> sueltos. Trabajamos con <strong>Single-File Components (SFC)</strong>. Esto significa que cada pieza de nuestra interfaz (un botón, un formulario de login, una barra de navegación) se guarda en un archivo con extensión <code class="language-plaintext highlighter-rouge">.vue</code>.</p>
+
+<p>Un archivo <code class="language-plaintext highlighter-rouge">.vue</code> agrupa en un mismo lugar las tres tecnologías de la web: HTML, Javascript y CSS. Tiene esta estructura:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">&lt;template&gt;</code>: Aquí va el código HTML.</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;script setup&gt;</code>: Aquí va la lógica en Javascript (o Typescript).</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;style scoped&gt;</code>: Aquí van los estilos CSS que se aplicarán <em>solo</em> a este componente.</li>
+</ol>
+
+<h3 id="721-reactividad-con-la-composition-api">7.2.1. Reactividad con la Composition API</h3>
+
+<p>El concepto más importante de Vue es la <strong>Reactividad</strong>. En Javascript tradicional, si cambias el valor de una variable, tienes que buscar manualmente el elemento en el HTML (con <code class="language-plaintext highlighter-rouge">document.getElementById</code>) y actualizar su texto.</p>
+
+<p>En Vue, declaramos variables <strong>reactivas</strong>. Si el valor de esa variable cambia en Javascript, Vue se da cuenta automáticamente y actualiza el HTML donde esa variable esté siendo usada. ¡Magia!</p>
+
+<p>Para hacer esto, utilizamos la <strong>Composition API</strong>, que es el estándar en Vue 3. Simplemente importamos la función <code class="language-plaintext highlighter-rouge">ref</code> y envolvemos nuestros datos con ella.</p>
+
+<p>Fíjate en este ejemplo sencillo de un archivo <code class="language-plaintext highlighter-rouge">Contador.vue</code>:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"caja-contador"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- Usamos dobles llaves para mostrar la variable reactiva --&gt;</span>
+    <span class="nt">&lt;h2&gt;</span>El contador vale: <span class="nt">&lt;/h2&gt;</span>
+    
+    <span class="c">&lt;!-- Al hacer click, llamamos a la función incrementar --&gt;</span>
+    <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"incrementar"</span><span class="nt">&gt;</span>Sumar 1<span class="nt">&lt;/button&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">setup</span><span class="nt">&gt;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">ref</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="c1">// Al usar ref(), convertimos un simple 0 en una variable reactiva</span>
+<span class="kd">const</span> <span class="nx">contador</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">incrementar</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// ATENCIÓN: En Javascript, para modificar el valor de un ref, </span>
+  <span class="c1">// SIEMPRE debemos acceder a la propiedad .value</span>
+  <span class="nx">contador</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">contador</span><span class="p">.</span><span class="nx">value</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="nt">&lt;/script&gt;</span>
+
+<span class="nt">&lt;style </span><span class="na">scoped</span><span class="nt">&gt;</span>
+<span class="nc">.caja-contador</span> <span class="p">{</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">blue</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Puntos clave a recordar:</strong></p>
+<ul>
+  <li>En el <code class="language-plaintext highlighter-rouge">&lt;template&gt;</code>, puedes usar la variable directamente escribiendo ``. Vue extrae el valor por ti.</li>
+  <li>En el <code class="language-plaintext highlighter-rouge">&lt;script setup&gt;</code>, como <code class="language-plaintext highlighter-rouge">contador</code> es un objeto reactivo creado con <code class="language-plaintext highlighter-rouge">ref()</code>, para leer o modificar su valor real tienes que escribir <code class="language-plaintext highlighter-rouge">contador.value</code>.</li>
+</ul>
+
+<h3 id="722-directivas-esenciales-de-vue">7.2.2. Directivas esenciales de Vue</h3>
+
+<p>Las directivas son atributos especiales que añadimos a las etiquetas HTML para dotarlas de lógica. Empiezan siempre por <code class="language-plaintext highlighter-rouge">v-</code>. Como ya conoces Angular (donde usabas <code class="language-plaintext highlighter-rouge">*ngIf</code>, <code class="language-plaintext highlighter-rouge">*ngFor</code>), esto te resultará idéntico.</p>
+
+<p><strong>1. Atributos dinámicos (<code class="language-plaintext highlighter-rouge">v-bind</code> o <code class="language-plaintext highlighter-rouge">:</code>):</strong>
+Si quieres que el atributo de una etiqueta HTML (como un <code class="language-plaintext highlighter-rouge">src</code>, un <code class="language-plaintext highlighter-rouge">href</code> o una <code class="language-plaintext highlighter-rouge">class</code>) tome su valor de una variable de Javascript, no puedes usar llaves dobles. Debes usar <code class="language-plaintext highlighter-rouge">:</code> delante del atributo.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;img</span> <span class="na">:src=</span><span class="s">"urlDeLaImagen"</span> <span class="na">:alt=</span><span class="s">"textoAlternativo"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">:href=</span><span class="s">"enlaceDinamico"</span><span class="nt">&gt;</span>Haz clic aquí<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+<p><strong>2. Renderizado condicional (<code class="language-plaintext highlighter-rouge">v-if</code> y <code class="language-plaintext highlighter-rouge">v-else</code>):</strong>
+Permite mostrar u ocultar partes del HTML dependiendo de si una condición se cumple o no. Vue inserta o elimina físicamente los elementos del DOM.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p</span> <span class="na">v-if=</span><span class="s">"usuarioLogueado"</span><span class="nt">&gt;</span>¡Hola, bienvenido de nuevo!<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;p</span> <span class="na">v-else</span><span class="nt">&gt;</span>Por favor, inicia sesión para continuar.<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<p><strong>3. Bucles (<code class="language-plaintext highlighter-rouge">v-for</code>):</strong>
+Permite repetir un bloque de HTML por cada elemento de un array. Es obligatorio acompañarlo de un atributo <code class="language-plaintext highlighter-rouge">:key</code> único (suele ser el ID del elemento) para que Vue no se vuelva loco actualizando listas grandes.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">v-for=</span><span class="s">"tarea in listaDeTareas"</span> <span class="na">:key=</span><span class="s">"tarea.id"</span><span class="nt">&gt;</span>
+    {{ tarea.titulo }} - {{ tarea.estado }}
+  <span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+
+<p><strong>4. Eventos (<code class="language-plaintext highlighter-rouge">v-on</code> o <code class="language-plaintext highlighter-rouge">@</code>):</strong>
+Se usa para escuchar eventos del usuario (clics, pulsaciones de teclas, envíos de formulario).</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"guardarDatos"</span><span class="nt">&gt;</span>Guardar<span class="nt">&lt;/button&gt;</span>
+<span class="c">&lt;!-- El modificador .prevent evita que el navegador recargue la página (equivale a event.preventDefault()) --&gt;</span>
+<span class="nt">&lt;form</span> <span class="err">@</span><span class="na">submit.prevent=</span><span class="s">"procesarFormulario"</span><span class="nt">&gt;</span>
+  ...
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p><strong>5. Formularios (<code class="language-plaintext highlighter-rouge">v-model</code>):</strong>
+Esta directiva es crucial. Establece una conexión bidireccional (<em>two-way data binding</em>) entre un <em>input</em> del HTML y una variable reactiva de Javascript. Si el usuario escribe en la caja de texto, la variable se actualiza al instante. Y si la variable cambia en Javascript, la caja de texto muestra el nuevo valor automáticamente.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">v-model=</span><span class="s">"nombreUsuario"</span> <span class="na">placeholder=</span><span class="s">"Escribe tu nombre"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;p&gt;</span>Hola, {{ nombreUsuario }}<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">setup</span><span class="nt">&gt;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">ref</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">nombreUsuario</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="dl">''</span><span class="p">);</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<h2 id="73-consumo-de-apis-y-problemas-de-cors">7.3. Consumo de APIs y problemas de CORS</h2>
+
+<p>Llegamos a la parte central de este tema. Nuestra maravillosa interfaz en Vue no sirve de mucho si los datos están aislados. Necesitamos comunicarnos con nuestra API REST (construida en Laravel o FastAPI) para obtener la información real de la base de datos y enviar los cambios que haga el usuario.</p>
+
+<p>Para hacer peticiones HTTP asíncronas desde Javascript, el navegador nos proporciona la función nativa <code class="language-plaintext highlighter-rouge">fetch</code>. Sin embargo, en el ecosistema Vue (y React), la inmensa mayoría de los desarrolladores prefiere utilizar una librería externa llamada <strong>Axios</strong>.</p>
+
+<p>Axios es más cómoda porque:</p>
+<ol>
+  <li>Convierte automáticamente las respuestas a JSON (con <code class="language-plaintext highlighter-rouge">fetch</code> tienes que hacer un <code class="language-plaintext highlighter-rouge">.json()</code> intermedio).</li>
+  <li>Lanza errores automáticamente si el servidor responde con un código 400 o 500 (con <code class="language-plaintext highlighter-rouge">fetch</code> tienes que comprobar el <code class="language-plaintext highlighter-rouge">response.ok</code> a mano).</li>
+  <li>Es más fácil de configurar globalmente (por ejemplo, para enviar tokens de seguridad en todas las peticiones).</li>
+</ol>
+
+<p>Para usar Axios, primero debemos instalarlo en nuestro proyecto Vue:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install </span>axios
+</code></pre></div></div>
+
+<h3 id="731-haciendo-una-petición-básica-con-axios">7.3.1. Haciendo una petición básica con Axios</h3>
+
+<p>Observa cómo obtenemos una lista de libros. Para asegurarnos de que la petición se hace nada más cargar la página, utilizamos el <em>lifecycle hook</em> <code class="language-plaintext highlighter-rouge">onMounted</code>, que ejecuta el código que le pasemos justo en el momento en que el componente se dibuja en la pantalla.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">ref</span><span class="p">,</span> <span class="nx">onMounted</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">axios</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">axios</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">libros</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">([]);</span>
+
+<span class="c1">// Se ejecuta automáticamente al cargar el componente</span>
+<span class="nx">onMounted</span><span class="p">(</span><span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="c1">// Hacemos una petición GET a nuestra API</span>
+    <span class="kd">const</span> <span class="nx">respuesta</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://localhost:8000/api/libros</span><span class="dl">'</span><span class="p">);</span>
+    <span class="c1">// Guardamos los datos que nos envía el servidor en nuestra variable reactiva</span>
+    <span class="nx">libros</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">respuesta</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hubo un error al descargar los libros</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="732-el-temido-error-de-cors">7.3.2. El temido error de CORS</h3>
+
+<p>Si copias el código anterior, levantas tu API en Laravel (<code class="language-plaintext highlighter-rouge">localhost:8000</code>) y ejecutas tu frontend en Vue (<code class="language-plaintext highlighter-rouge">localhost:5173</code>), verás que <strong>no funciona</strong>. Al abrir la consola del navegador (F12), te encontrarás con un error enorme en rojo que menciona la palabra <strong>CORS</strong>.</p>
+
+<p><strong>¿Qué es el CORS?</strong>
+CORS (<em>Cross-Origin Resource Sharing</em>) es un mecanismo de seguridad implementado <strong>por el navegador web</strong> (Chrome, Firefox, etc.). Por defecto, los navegadores bloquean cualquier petición asíncrona que tu código Javascript intente hacer hacia un dominio, subdominio o puerto diferente al de la página en la que estás.</p>
+
+<p>En nuestro caso, el navegador se queja: <em>“¡Oye! Has cargado este Javascript desde el puerto 5173, pero estás intentando robar datos del puerto 8000. ¡Eso es sospechoso y lo voy a bloquear!”</em>.</p>
+
+<p><strong>¿Cómo se soluciona?</strong>
+El CORS <strong>no se soluciona en el frontend (Vue)</strong>. Es el servidor Backend (tu API en Laravel o tu microservicio en FastAPI) el que debe responderle al navegador y decirle: <em>“Tranquilo, conozco a este frontend y le doy permiso para acceder a mis datos”</em>.</p>
+
+<ul>
+  <li><strong>En Laravel:</strong> Abre el archivo <code class="language-plaintext highlighter-rouge">config/cors.php</code>. Busca la clave <code class="language-plaintext highlighter-rouge">'allowed_origins'</code> y añade la URL de tu frontend:
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">'allowed_origins'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'http://localhost:5173'</span><span class="p">],</span>
+</code></pre></div>    </div>
+    <p><em>(Nota: En las versiones más recientes de Laravel 11, CORS ya viene bastante permisivo por defecto o se configura en el archivo <code class="language-plaintext highlighter-rouge">bootstrap/app.php</code>)</em>.</p>
+  </li>
+  <li>
+    <p><strong>En FastAPI:</strong> Tienes que usar el <strong>middleware <code class="language-plaintext highlighter-rouge">CORSMiddleware</code></strong>, que ya viene incluido con el paquete estándar. En este ejemplo se ilustra cómo se usa:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">import</span> <span class="nn">os</span>
+
+  <span class="kn">from</span> <span class="nn">fastapi.middleware.cors</span> <span class="kn">import</span> <span class="n">CORSMiddleware</span>
+
+  <span class="n">ORIGENES_PERMITIDOS</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">"ORIGENES_PERMITIDOS"</span><span class="p">,</span> <span class="s">"http://localhost:5173"</span><span class="p">).</span><span class="n">split</span><span class="p">(</span><span class="s">","</span><span class="p">)</span>
+
+  <span class="n">app</span><span class="p">.</span><span class="n">add_middleware</span><span class="p">(</span>
+      <span class="n">CORSMiddleware</span><span class="p">,</span>
+      <span class="n">allow_origins</span><span class="o">=</span><span class="n">ORIGENES_PERMITIDOS</span><span class="p">,</span>
+      <span class="n">allow_methods</span><span class="o">=</span><span class="p">[</span><span class="s">"GET"</span><span class="p">,</span> <span class="s">"POST"</span><span class="p">,</span> <span class="s">"PUT"</span><span class="p">,</span> <span class="s">"PATCH"</span><span class="p">,</span> <span class="s">"DELETE"</span><span class="p">],</span>
+      <span class="n">allow_headers</span><span class="o">=</span><span class="p">[</span><span class="s">"*"</span><span class="p">],</span>
+  <span class="p">)</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li><strong><code class="language-plaintext highlighter-rouge">allow_origins</code></strong>: la lista de orígenes autorizados. Aquí hemos puesto el servidor de desarrollo de Vue (que trabajaremos en el tema próximo). Lo hemos tomado de una variable de entorno para poder cambiarla en producción. Evita usar <code class="language-plaintext highlighter-rouge">allow_origins=["*"]</code> salvo en pruebas rápidas o en APIs verdaderamente públicas, porque eso autoriza a cualquier web del mundo.</li>
+      <li><strong><code class="language-plaintext highlighter-rouge">allow_methods</code></strong>: qué métodos HTTP se permiten.</li>
+      <li><strong><code class="language-plaintext highlighter-rouge">allow_headers</code></strong>: qué cabeceras puede enviar el cliente.</li>
+    </ul>
+
+    <p>Añade este middleware a <strong>los servicios a los que llamará el frontend directamente</strong>. En nuestro ejemplo de usuarios y pedidos, serían tanto el servicio de usuarios como servicio de pedidos. En arquitecturas más grandes se suele poner un único punto de entrada (llamado <em>gateway</em>) y se configura CORS solo allí.</p>
+
+    <p>Una vez configurado tu backend para permitir peticiones cruzadas, el navegador dejará pasar la información y tu Vue por fin recibirá el JSON con los datos. Ten muy presente este error, porque es el problema número uno al que te enfrentarás al separar frontend y backend, independientemente de si hablas con un monolito o con decenas de microservicios.</p>
+  </li>
+</ul>
+
+<h2 id="74-autenticación-y-manejo-de-estado-tokens">7.4. Autenticación y manejo de estado (Tokens)</h2>
+
+<p>Otro cambio radical al pasar de SSR a una SPA es la forma en la que los usuarios inician sesión.</p>
+
+<p>En aplicaciones web tradicionales de Laravel (SSR con Blade), cuando un usuario hacía login, PHP creaba una <strong>Sesión</strong> en la memoria del servidor y le metía una <strong>Cookie</strong> al navegador del usuario. En cada clic posterior, el navegador enviaba esa Cookie automáticamente, y Laravel sabía quién era el usuario.</p>
+
+<p>Sin embargo, las APIs RESTful son por definición <strong>“Stateless” (Sin estado)</strong>. No recuerdan nada de una petición a otra, y no utilizan Cookies de sesión. Entonces, ¿cómo demostramos quiénes somos al intentar crear un nuevo curso o borrar una academia en la base de datos?</p>
+
+<p>La respuesta son los <strong>Tokens (como JWT o Laravel Sanctum)</strong>. El flujo es el siguiente:</p>
+
+<ol>
+  <li><strong>Login:</strong> El usuario teclea su email y contraseña en un formulario hecho en Vue. Vue envía esos datos a la ruta <code class="language-plaintext highlighter-rouge">/api/login</code> del backend mediante una petición <code class="language-plaintext highlighter-rouge">POST</code> normal.</li>
+  <li><strong>Generación del Token:</strong> El backend verifica que la contraseña sea correcta en la base de datos. Si lo es, genera una cadena de texto muy larga, cifrada y firmada (el <strong>Token</strong>) y se la devuelve a Vue en formato JSON.</li>
+  <li><strong>Almacenamiento:</strong> Vue recibe el Token y debe guardarlo en algún lugar seguro del navegador que no se borre al cerrar la pestaña. Lo ideal es guardarlo en el <strong><code class="language-plaintext highlighter-rouge">localStorage</code></strong>.</li>
+  <li><strong>Peticiones posteriores:</strong> Cada vez que Vue intente acceder a una ruta protegida de la API (por ejemplo, para borrar algo), deberá adjuntar ese Token manualmente en las cabeceras HTTP (los <em>Headers</em>) de la petición, específicamente en una cabecera llamada <code class="language-plaintext highlighter-rouge">Authorization: Bearer &lt;el_token&gt;</code>.</li>
+</ol>
+
+<p>Vamos a ver cómo se programa esto paso a paso.</p>
+
+<h3 id="paso-1-el-componente-de-login-en-vue">Paso 1: El componente de Login en Vue</h3>
+
+<p>Imagina que tenemos un archivo <code class="language-plaintext highlighter-rouge">Login.vue</code>. Vamos a crear un formulario, capturar los datos y enviarlos a la API.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"login-form"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h2&gt;</span>Iniciar Sesión<span class="nt">&lt;/h2&gt;</span>
+    <span class="c">&lt;!-- .prevent evita que la página se recargue --&gt;</span>
+    <span class="nt">&lt;form</span> <span class="err">@</span><span class="na">submit.prevent=</span><span class="s">"iniciarSesion"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div&gt;</span>
+        <span class="nt">&lt;label&gt;</span>Email:<span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"email"</span> <span class="na">v-model=</span><span class="s">"credenciales.email"</span> <span class="na">required</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div&gt;</span>
+        <span class="nt">&lt;label&gt;</span>Contraseña:<span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"password"</span> <span class="na">v-model=</span><span class="s">"credenciales.password"</span> <span class="na">required</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span><span class="nt">&gt;</span>Entrar<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/form&gt;</span>
+    
+    <span class="c">&lt;!-- Mostramos errores si los hay --&gt;</span>
+    <span class="nt">&lt;p</span> <span class="na">style=</span><span class="s">"color: red;"</span> <span class="na">v-if=</span><span class="s">"errorMsg"</span><span class="nt">&gt;&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">setup</span><span class="nt">&gt;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">ref</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">axios</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">axios</span><span class="dl">'</span><span class="p">;</span>
+<span class="c1">// Si usas Vue Router, importarás el router para redirigir al usuario</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">useRouter</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-router</span><span class="dl">'</span><span class="p">;</span> 
+
+<span class="kd">const</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">useRouter</span><span class="p">();</span>
+
+<span class="kd">const</span> <span class="nx">credenciales</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">({</span>
+  <span class="na">email</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+  <span class="na">password</span><span class="p">:</span> <span class="dl">''</span>
+<span class="p">});</span>
+<span class="kd">const</span> <span class="nx">errorMsg</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="dl">''</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">iniciarSesion</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">errorMsg</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="dl">''</span><span class="p">;</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="c1">// 1. Enviamos el POST al backend</span>
+    <span class="kd">const</span> <span class="nx">respuesta</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://localhost:8000/api/login</span><span class="dl">'</span><span class="p">,</span> <span class="nx">credenciales</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+    
+    <span class="c1">// 2. El servidor responde con éxito y nos entrega un JSON que contiene el token.</span>
+    <span class="c1">// Supongamos que viene en respuesta.data.token</span>
+    <span class="kd">const</span> <span class="nx">tokenGenerado</span> <span class="o">=</span> <span class="nx">respuesta</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">token</span><span class="p">;</span>
+    
+    <span class="c1">// 3. Guardamos el token en la caja fuerte del navegador (localStorage)</span>
+    <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="dl">'</span><span class="s1">miTokenSeguro</span><span class="dl">'</span><span class="p">,</span> <span class="nx">tokenGenerado</span><span class="p">);</span>
+    
+    <span class="c1">// 4. Redirigimos al usuario a la pantalla principal de la aplicación</span>
+    <span class="nx">router</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="dl">'</span><span class="s1">/dashboard</span><span class="dl">'</span><span class="p">);</span>
+    
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Si la contraseña está mal, el servidor devolverá un código de error (ej: 401)</span>
+    <span class="nx">errorMsg</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Credenciales incorrectas. Vuelve a intentarlo.</span><span class="dl">'</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<h3 id="paso-2-usar-el-token-en-rutas-protegidas">Paso 2: Usar el token en rutas protegidas</h3>
+
+<p>Ahora el usuario ya está logueado y tiene su token en el <code class="language-plaintext highlighter-rouge">localStorage</code>. Supongamos que quiere ver la lista de sus academias privadas, o crear una nueva. Si intentamos hacer <code class="language-plaintext highlighter-rouge">axios.post('/api/academias')</code> sin más, Laravel rechazará la petición con un error 401 (No autorizado) porque no sabe quiénes somos.</p>
+
+<p>Debemos <strong>adjuntar el token</strong> sacándolo previamente del <code class="language-plaintext highlighter-rouge">localStorage</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">crearAcademia</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">datosNuevaAcademia</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="c1">// Recuperamos el token de la caja fuerte</span>
+    <span class="kd">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="dl">'</span><span class="s1">miTokenSeguro</span><span class="dl">'</span><span class="p">);</span>
+    
+    <span class="c1">// Realizamos la petición POST, pasando los datos, y un tercer parámetro</span>
+    <span class="c1">// que es un objeto de configuración para Axios donde metemos las cabeceras (Headers)</span>
+    <span class="kd">const</span> <span class="nx">respuesta</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://localhost:8000/api/academias</span><span class="dl">'</span><span class="p">,</span> <span class="nx">datosNuevaAcademia</span><span class="p">,</span> <span class="p">{</span>
+      <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">'</span><span class="s1">Authorization</span><span class="dl">'</span><span class="p">:</span> <span class="s2">`Bearer </span><span class="p">${</span><span class="nx">token</span><span class="p">}</span><span class="s2">`</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+    
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">¡Academia creada con éxito!</span><span class="dl">"</span><span class="p">,</span> <span class="nx">respuesta</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error al crear. ¿Estás seguro de que tienes un token válido?</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p><em>(Nota técnica: En proyectos profesionales, para no tener que escribir esto del <code class="language-plaintext highlighter-rouge">localStorage</code> y el <code class="language-plaintext highlighter-rouge">Header</code> en TODAS Y CADA UNA de las peticiones que hagas en tu aplicación, se configuran los “Interceptors” de Axios, que son trozos de código que se ejecutan automáticamente antes de cada petición para inyectar el token por ti. Pero entender el proceso manual es vital para comprender cómo funciona la seguridad en las APIs modernas).</em></p>
+
+<h3 id="paso-3-cerrar-sesión-logout">Paso 3: Cerrar sesión (Logout)</h3>
+
+<p>Hacer <em>logout</em> en un frontend tipo SPA es la cosa más sencilla del mundo. Al no haber sesiones en el servidor que destruir (aunque sí puedes invalidar el token en la BD si tu API lo permite), a nivel de interfaz de usuario basta con <strong>borrar el token</strong> del <code class="language-plaintext highlighter-rouge">localStorage</code> y redirigir al Login.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">cerrarSesion</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">localStorage</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="dl">'</span><span class="s1">miTokenSeguro</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nx">router</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="dl">'</span><span class="s1">/login</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div></div>
+<p>Si el token no está, tu código ya no podrá adjuntarlo, y cualquier petición a la API fallará bloqueando el acceso al usuario.</p>
+
+<h2 id="75-ejemplo-completo-un-crud-con-vue-y-axios">7.5. Ejemplo completo: Un CRUD con Vue y Axios</h2>
+
+<p>Para afianzar todos los conocimientos, vamos a ver el código completo de un componente diseñado para gestionar libros (Listarlos, crearlos y borrarlos). Estudia detenidamente los comentarios del código para entender qué hace cada parte de la plantilla y cada función del <em>script</em>.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"contenedor"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h2&gt;</span>Gestión de Libros de la Biblioteca<span class="nt">&lt;/h2&gt;</span>
+    
+    <span class="c">&lt;!-- 1. FORMULARIO PARA CREAR NUEVOS LIBROS --&gt;</span>
+    <span class="c">&lt;!-- .prevent captura el evento submit y ejecuta la función crearLibro --&gt;</span>
+    <span class="nt">&lt;form</span> <span class="err">@</span><span class="na">submit.prevent=</span><span class="s">"crearLibro"</span> <span class="na">class=</span><span class="s">"formulario-creacion"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">v-model=</span><span class="s">"nuevoLibro.titulo"</span> <span class="na">placeholder=</span><span class="s">"Escribe el título"</span> <span class="na">required</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">v-model=</span><span class="s">"nuevoLibro.autor"</span> <span class="na">placeholder=</span><span class="s">"Escribe el autor"</span> <span class="na">required</span><span class="nt">&gt;</span>
+      <span class="c">&lt;!-- Desactivamos el botón si estamos guardando para evitar dobles clics --&gt;</span>
+      <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">:disabled=</span><span class="s">"estaGuardando"</span><span class="nt">&gt;</span>
+        {{ estaGuardando ? 'Guardando...' : 'Añadir Libro' }}
+      <span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/form&gt;</span>
+
+    <span class="nt">&lt;hr&gt;</span>
+
+    <span class="c">&lt;!-- 2. ESTADO DE CARGA --&gt;</span>
+    <span class="nt">&lt;p</span> <span class="na">v-if=</span><span class="s">"estaCargando"</span><span class="nt">&gt;</span>Conectando con el servidor para descargar los libros...<span class="nt">&lt;/p&gt;</span>
+    
+    <span class="c">&lt;!-- 3. LISTADO PRINCIPAL --&gt;</span>
+    <span class="c">&lt;!-- Se muestra solo si no está cargando y hay al menos un libro --&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">v-else-if=</span><span class="s">"libros.length &gt; 0"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;li</span> <span class="na">v-for=</span><span class="s">"libro in libros"</span> <span class="na">:key=</span><span class="s">"libro.id"</span> <span class="na">class=</span><span class="s">"elemento-lista"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;strong&gt;</span>{{ libro.titulo }}<span class="nt">&lt;/strong&gt;</span> escrito por <span class="nt">&lt;em&gt;</span>{{ libro.autor }}<span class="nt">&lt;/em&gt;</span>
+        
+        <span class="c">&lt;!-- Botón para borrar pasándole el ID exacto de este libro en concreto --&gt;</span>
+        <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"borrarLibro(libro.id)"</span> <span class="na">class=</span><span class="s">"boton-peligro"</span><span class="nt">&gt;</span>Eliminar<span class="nt">&lt;/button&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+
+    <span class="c">&lt;!-- 4. ESTADO VACÍO --&gt;</span>
+    <span class="nt">&lt;p</span> <span class="na">v-else</span><span class="nt">&gt;</span>No hay ningún libro en la base de datos todavía.<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">setup</span><span class="nt">&gt;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">ref</span><span class="p">,</span> <span class="nx">onMounted</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">axios</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">axios</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="c1">// --- VARIABLES REACTIVAS DE ESTADO ---</span>
+<span class="c1">// Almacena el array de libros que vendrá del servidor</span>
+<span class="kd">const</span> <span class="nx">libros</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">([]);</span>
+<span class="c1">// Controla si se muestra el mensaje de carga general</span>
+<span class="kd">const</span> <span class="nx">estaCargando</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="c1">// Controla si el formulario está en proceso de envío</span>
+<span class="kd">const</span> <span class="nx">estaGuardando</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+
+<span class="c1">// Objeto reactivo enlazado bidireccionalmente con los inputs del formulario</span>
+<span class="kd">const</span> <span class="nx">nuevoLibro</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">({</span>
+  <span class="na">titulo</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+  <span class="na">autor</span><span class="p">:</span> <span class="dl">''</span>
+<span class="p">});</span>
+
+<span class="c1">// URL base de nuestra API REST</span>
+<span class="kd">const</span> <span class="nx">API_URL</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">http://localhost:8000/api/libros</span><span class="dl">'</span><span class="p">;</span>
+
+
+<span class="c1">// --- MÉTODOS Y LÓGICA ---</span>
+
+<span class="c1">// Este código se ejecuta automáticamente nada más cargar la página</span>
+<span class="nx">onMounted</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">obtenerTodosLosLibros</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="kd">const</span> <span class="nx">obtenerTodosLosLibros</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">estaCargando</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">respuesta</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">API_URL</span><span class="p">);</span>
+    <span class="c1">// El servidor ha respondido bien, guardamos el JSON en nuestra variable</span>
+    <span class="nx">libros</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">respuesta</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error de conexión al obtener el listado.</span><span class="dl">"</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+    <span class="c1">// Pase lo que pase (éxito o error), ocultamos el mensaje de carga</span>
+    <span class="nx">estaCargando</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span> 
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">crearLibro</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">estaGuardando</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="c1">// Enviamos un POST adjuntando el objeto nuevoLibro como cuerpo (Body) JSON</span>
+    <span class="kd">const</span> <span class="nx">respuesta</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">API_URL</span><span class="p">,</span> <span class="nx">nuevoLibro</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+    
+    <span class="c1">// Si ha ido bien, en lugar de recargar TODA la lista desde el servidor, </span>
+    <span class="c1">// simplemente inyectamos el nuevo libro que nos devuelve el servidor al final de nuestro array local.</span>
+    <span class="c1">// Esto es rapidísimo y la interfaz se actualizará al instante.</span>
+    <span class="nx">libros</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">respuesta</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+    
+    <span class="c1">// Vaciamos las cajas de texto del formulario restaurando los valores por defecto</span>
+    <span class="nx">nuevoLibro</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="p">{</span> <span class="na">titulo</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span> <span class="na">autor</span><span class="p">:</span> <span class="dl">''</span> <span class="p">};</span> 
+    
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Ha ocurrido un problema al guardar el libro en la base de datos.</span><span class="dl">"</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+    <span class="nx">estaGuardando</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">borrarLibro</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">idAEliminar</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// Siempre es buena idea pedir confirmación al usuario</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">confirm</span><span class="p">(</span><span class="dl">"</span><span class="s2">¿Estás completamente seguro de borrar este libro?</span><span class="dl">"</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="c1">// Enviamos el verbo DELETE a la URL específica del libro</span>
+    <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">API_URL</span><span class="p">}</span><span class="s2">/</span><span class="p">${</span><span class="nx">idAEliminar</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+    
+    <span class="c1">// Borrado exitoso en el servidor. Ahora limpiamos la interfaz gráfica.</span>
+    <span class="c1">// Sobrescribimos el array de libros filtrando y dejando fuera el libro que acabamos de borrar.</span>
+    <span class="nx">libros</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">libros</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">libro</span> <span class="o">=&gt;</span> <span class="nx">libro</span><span class="p">.</span><span class="nx">id</span> <span class="o">!==</span> <span class="nx">idAEliminar</span><span class="p">);</span>
+    
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error al intentar borrar el libro.</span><span class="dl">"</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="nt">&lt;/script&gt;</span>
+
+<span class="nt">&lt;style </span><span class="na">scoped</span><span class="nt">&gt;</span>
+<span class="c">/* Un poco de CSS para que no se vea feo, solo afectará a este componente */</span>
+<span class="nc">.contenedor</span> <span class="p">{</span> <span class="nl">max-width</span><span class="p">:</span> <span class="m">600px</span><span class="p">;</span> <span class="nl">margin</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span> <span class="nl">font-family</span><span class="p">:</span> <span class="nb">sans-serif</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.formulario-creacion</span> <span class="p">{</span> <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span> <span class="py">gap</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span> <span class="nl">margin-bottom</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.elemento-lista</span> <span class="p">{</span> <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span> <span class="nl">justify-content</span><span class="p">:</span> <span class="n">space-between</span><span class="p">;</span> <span class="nl">padding</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span> <span class="nl">border-bottom</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="m">#ccc</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.boton-peligro</span> <span class="p">{</span> <span class="nl">background-color</span><span class="p">:</span> <span class="m">#d9534f</span><span class="p">;</span> <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span> <span class="nl">border</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span> <span class="nl">padding</span><span class="p">:</span> <span class="m">5px</span> <span class="m">10px</span><span class="p">;</span> <span class="nl">cursor</span><span class="p">:</span> <span class="nb">pointer</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.boton-peligro</span><span class="nd">:hover</span> <span class="p">{</span> <span class="nl">background-color</span><span class="p">:</span> <span class="m">#c9302c</span><span class="p">;</span> <span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+</code></pre></div></div>
+
+<h2 id="76-práctica-final-frontend-para-gestión-de-academias">7.6. Práctica final: Frontend para Gestión de Academias</h2>
+
+<p>Es hora de crear la interfaz gráfica para la API RESTful de la Unidad 4.</p>
+
+<p>Vas a desarrollar un <strong>Frontend SPA completo y funcional</strong> utilizando <strong>Vue.js 3 y Vite</strong>, que se comunique con la API de Gestión de Academias que desarrollaste previamente. Todo lo que has aprendido en las secciones anteriores deberás ponerlo en práctica aquí.</p>
+
+<h3 id="requisitos-técnicos">Requisitos Técnicos</h3>
+
+<ol>
+  <li><strong>Creación del Proyecto:</strong> Debes inicializar tu frontend usando Vite (<code class="language-plaintext highlighter-rouge">npm create vue@latest</code>). Usa <strong>Vue Router</strong> (dile que sí en el asistente de instalación) para poder tener navegación real entre páginas (pantalla de login, pantalla principal, etc).</li>
+  <li><strong>Librerías HTTP:</strong> Instala y usa Axios (<code class="language-plaintext highlighter-rouge">npm install axios</code>) para realizar todas las peticiones a la API.</li>
+  <li><strong>Gestión del Estado:</strong> Debes guardar el token de autenticación en el <code class="language-plaintext highlighter-rouge">localStorage</code> del navegador. Si intentas entrar a una URL privada sin token, la aplicación debería impedírtelo.</li>
+  <li><strong>Diseño Visual:</strong> Puedes usar CSS puro, o cualquier framework que prefieras (Bootstrap, TailwindCSS, Vuetify), pero la aplicación debe lucir decente, limpia y ser usable.</li>
+</ol>
+
+<h3 id="flujo-y-vistas-a-implementar">Flujo y Vistas a implementar</h3>
+
+<p>Deberás implementar las siguientes pantallas (componentes rutados en tu Vue Router):</p>
+
+<h4 id="1-sistema-de-autenticación">1. Sistema de Autenticación</h4>
+<ul>
+  <li><strong>Vista de Registro:</strong> Un formulario para que un usuario se registre (<code class="language-plaintext highlighter-rouge">POST /api/register</code>).</li>
+  <li><strong>Vista de Login:</strong> Un formulario para iniciar sesión (<code class="language-plaintext highlighter-rouge">POST /api/login</code>). Debe recoger el Token Sanctum que devuelve la API y almacenarlo en <code class="language-plaintext highlighter-rouge">localStorage</code>. Si el login es correcto, redírigelo a la vista principal.</li>
+  <li><strong>Botón de Logout:</strong> Presente en la barra de navegación cuando el usuario está logueado. Debe eliminar el token del <code class="language-plaintext highlighter-rouge">localStorage</code> y devolverte a la pantalla de Login.</li>
+</ul>
+
+<h4 id="2-gestión-de-academias-solo-usuarios-autenticados">2. Gestión de Academias (Solo usuarios autenticados)</h4>
+<ul>
+  <li><strong>Listado de Academias:</strong> Muestra las academias creadas por el usuario autenticado. Al cargar esta vista, debes hacer un <code class="language-plaintext highlighter-rouge">GET /api/academies</code> incluyendo el Token en la cabecera, de lo contrario la API te rechazará.</li>
+  <li><strong>Crear Academia:</strong> Formulario para añadir una nueva academia (<code class="language-plaintext highlighter-rouge">POST /api/academies</code>).</li>
+  <li><strong>Eliminar Academia:</strong> Botones junto a cada academia en el listado para borrar academias. Debe enviar la petición <code class="language-plaintext highlighter-rouge">DELETE</code> a la API.</li>
+</ul>
+
+<h4 id="3-cursos-y-estudiantes">3. Cursos y Estudiantes</h4>
+<ul>
+  <li><strong>Listado de Cursos:</strong> Una vista que muestre todos los cursos disponibles en las academias.</li>
+  <li><strong>Inscripción de Estudiantes:</strong> Dentro de los detalles de un curso, debe haber un formulario, selector o listado para poder inscribir a un Estudiante a dicho curso (llamando al endpoint de la tabla pivote de tu API que desarrollaste en el tema 4).</li>
+</ul>
+
+<h3 id="normas-de-entrega">Normas de entrega</h3>
+
+<p>El incumplimiento de cualquiera de los siguientes requisitos conllevará penalización o rechazo de la entrega:</p>
+
+<ol>
+  <li><strong>API y Base de Datos corriendo:</strong> Para poder evaluar la práctica, el profesor necesitará poder levantar tanto tu frontend como tu backend.</li>
+  <li><strong>Código fuente del Frontend:</strong> Sube a Moodle Centros un archivo ZIP con tu proyecto Vue, <strong>excluyendo estrictamente la carpeta <code class="language-plaintext highlighter-rouge">/node_modules</code></strong> (esta carpeta es gigantesca, si la subes suspenderás la entrega).</li>
+  <li><strong>Repositorio público:</strong> Enlace a tu repositorio público en GitHub o GitLab, con commits periódicos y descriptivos.</li>
+  <li><strong>Vídeo de demostración:</strong> Graba un vídeo capturando tu pantalla, con <strong>tu propia voz</strong> haciendo una demostración completa del uso del frontend en el navegador (registrarse, hacer login, ver cómo cambia la interfaz al loguearse, crear una academia, verla en el listado, e inscribir un estudiante). El vídeo debe demostrar visualmente que tu frontend funciona bien.</li>
+  <li><strong>Conversación con la IA:</strong> Sube un archivo .docx o .odt con TODA tu conversación con la IA, si la has utilizado para resolver bugs o entender conceptos. Necesitamos ver cómo has interactuado con la Inteligencia Artificial.</li>
+</ol>
+
+<h3 id="rúbrica-de-calificación">Rúbrica de calificación</h3>
+
+<p>La evaluación se realizará según los siguientes ítems (niveles 0 a 3):</p>
+<ul>
+  <li><strong>0</strong>: Sin hacer o sin evidencia de esfuerzo.</li>
+  <li><strong>1</strong>: Hecho, pero con errores graves o funcionamiento muy deficiente.</li>
+  <li><strong>2</strong>: Hecho y funcional, pero mejorable (falta alguna validación, bugs menores, no cumple el 100% de la lógica).</li>
+  <li><strong>3</strong>: Perfecto, cumple todos los requisitos con excelencia y código limpio.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Ítem Evaluable</th>
+      <th style="text-align: center">Peso</th>
+      <th style="text-align: left">Nivel 0</th>
+      <th style="text-align: left">Nivel 1</th>
+      <th style="text-align: left">Nivel 2</th>
+      <th style="text-align: left">Nivel 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>0. Uso ético y eficiente de la IA (Eliminatorio)</strong></td>
+      <td style="text-align: center"><strong>Requisito</strong></td>
+      <td style="text-align: left">No defiende el código. Uso fraudulento.</td>
+      <td style="text-align: left">(No se aplica)</td>
+      <td style="text-align: left">(No se aplica)</td>
+      <td style="text-align: left">Entiende y explica el funcionamiento de los componentes y la comunicación asíncrona perfectamente en una prueba oral o escrita.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>1. Entrega en tiempo y forma</strong></td>
+      <td style="text-align: center"><strong>10%</strong></td>
+      <td style="text-align: left">No entregado / Formato erróneo.</td>
+      <td style="text-align: left">Faltan requisitos (ej. node_modules incluido) o falta vídeo.</td>
+      <td style="text-align: left">Cumple mayoría, fallos en explicación del vídeo o faltan flujos menores.</td>
+      <td style="text-align: left">Cumple 100% de la norma. Vídeo nítido, bien narrado y demostrativo.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>2. Enrutamiento Vue Router y Componentes</strong></td>
+      <td style="text-align: center"><strong>20%</strong></td>
+      <td style="text-align: left">No usa Vue Router. Todo metido a la fuerza en App.vue.</td>
+      <td style="text-align: left">Navegación rota, componentes mal estructurados.</td>
+      <td style="text-align: left">Rutas funcionales pero sin protección de acceso para usuarios no logueados (Cualquiera puede entrar a ver academias tecleando la URL).</td>
+      <td style="text-align: left">Estructura SFC impecable, rutas públicas y privadas correctamente protegidas.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>3. Autenticación Frontend (Token)</strong></td>
+      <td style="text-align: center"><strong>20%</strong></td>
+      <td style="text-align: left">No hay login funcional en el frontend.</td>
+      <td style="text-align: left">Login funciona pero el token no se guarda correctamente, obligando a recargar.</td>
+      <td style="text-align: left">Guarda el token, pero su manejo es ineficiente o repetitivo en el código.</td>
+      <td style="text-align: left">Login y Logout perfectos. Almacenamiento seguro del token en <code class="language-plaintext highlighter-rouge">localStorage</code> y cabeceras bien construidas.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>4. Consumo de API CRUD (Academias)</strong></td>
+      <td style="text-align: center"><strong>20%</strong></td>
+      <td style="text-align: left">Falla la petición a la API.</td>
+      <td style="text-align: left">Listado estático, no sincroniza con la API, o CORS bloqueando peticiones de forma continua.</td>
+      <td style="text-align: left">Lee y escribe en la API, pero el estado de la UI no se actualiza al momento (hay que recargar página manualmente para ver los cambios).</td>
+      <td style="text-align: left">Reactividad perfecta: Listar, crear y borrar se refleja inmediatamente en el HTML del frontend sin recargas.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>5. Consumo relaciones N:M (Inscripciones)</strong></td>
+      <td style="text-align: center"><strong>20%</strong></td>
+      <td style="text-align: left">No interactúa con endpoints relacionales de la API.</td>
+      <td style="text-align: left">Falla al enviar los datos estructurados que espera la API para matricular alumnos.</td>
+      <td style="text-align: left">Funciona, pero la UI es muy confusa y no queda claro qué estudiante va a qué curso.</td>
+      <td style="text-align: left">Frontend inscribe estudiantes a cursos de forma limpia, mostrando avisos de éxito o de error.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>6. Diseño y Experiencia de Usuario (UI/UX)</strong></td>
+      <td style="text-align: center"><strong>10%</strong></td>
+      <td style="text-align: left">HTML puro sin CSS. Totalmente feo e inusable.</td>
+      <td style="text-align: left">Aspecto visual muy pobre o descuadrado.</td>
+      <td style="text-align: left">Diseño funcional pero tosco, sin feedback para el usuario (ni spinners de carga, ni mensajes de error).</td>
+      <td style="text-align: left">Interfaz atractiva y usable (usando CSS propio o Framework), da feedback visual durante cargas (loaders) y alerta en caso de fallos.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>Nota: Recuerda que para aprobar es obligatorio obtener el Nivel 3 en el ítem 0 y que este ítem se valorará con posterioridad al resto de la práctica (en entrevistas o pruebas individuales o durante el examen).</em></p>
+:ET

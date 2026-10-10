@@ -14,11 +14,7 @@ has_children: false
 - TOC
 {:toc}
 
-<div style="text-align: center; padding: 20px; background-color: #ccc">
-<a href="https://www.dropbox.com/scl/fi/uoeio1cjc4unwkbwa7xiw/03_04_blade.pdf?rlkey=u1mnhgra5lopxuuchbkog9es4&st=g1ww6k2c&dl=0">
-DESCARGAR PRESENTACIÓN
-</a>
-</div>
+[Descargar presentación](https://www.dropbox.com/scl/fi/uoeio1cjc4unwkbwa7xiw/03_04_blade.pdf?rlkey=u1mnhgra5lopxuuchbkog9es4&st=g1ww6k2c&dl=0){: .btn .btn-primary }
 
 **Blade es un poderoso y sencillo sub-lenguaje** que nos permitirá **generar plantillas de vistas** para minimizar el código que necesitaremos para nuestras vistas.
 

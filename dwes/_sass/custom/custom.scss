@@ -1,3 +1,12 @@
+body {
+  font-family: "Inter", sans-serif;
+}
+
+code,
+pre {
+  font-family: "JetBrains Mono", monospace;
+}
+
 h1 {
   font-size: 26pt !important;
   font-weight: bold;
@@ -24,3 +33,36 @@ h6 {
   margin-bottom: 3em !important;
   text-align: center;
 } 
+
+// Anchura y legibilidad del contenido
+.main-content {
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+// Títulos
+.main-content h1 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.main-content h2 {
+  margin-top: 2.5rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid $border-color;
+}
+
+// Código
+.highlight {
+  border-radius: 6px;
+}
+
+// Tablas
+.table-wrapper {
+  border-radius: 6px;
+}
+
+// Sidebar
+.nav-list .nav-list-item > .nav-list-link {
+  border-radius: 5px;
+}

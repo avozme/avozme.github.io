@@ -1,0 +1,253 @@
+I"�C<h2 class="no_toc" id="56-práctica-final-ssr-tienda-de-productos-con-categorías">5.6. Práctica final SSR: Tienda de productos con categorías</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#objetivos" id="markdown-toc-objetivos">Objetivos</a></li>
+  <li><a href="#uso-de-la-inteligencia-artificial-ia" id="markdown-toc-uso-de-la-inteligencia-artificial-ia">Uso de la Inteligencia Artificial (IA)</a></li>
+  <li><a href="#paso-0-crear-el-proyecto" id="markdown-toc-paso-0-crear-el-proyecto">PASO 0. Crear el proyecto</a></li>
+  <li><a href="#paso-1-configurar-la-base-de-datos" id="markdown-toc-paso-1-configurar-la-base-de-datos">PASO 1. Configurar la base de datos</a></li>
+  <li><a href="#paso-2-entidades" id="markdown-toc-paso-2-entidades">PASO 2. Entidades</a></li>
+  <li><a href="#paso-3-repositorios-y-servicios" id="markdown-toc-paso-3-repositorios-y-servicios">PASO 3. Repositorios y Servicios</a></li>
+  <li><a href="#paso-4-controladores-ssr" id="markdown-toc-paso-4-controladores-ssr">PASO 4. Controladores SSR</a></li>
+  <li><a href="#paso-5-vistas-thymeleaf" id="markdown-toc-paso-5-vistas-thymeleaf">PASO 5. Vistas Thymeleaf</a></li>
+  <li><a href="#paso-6-ampliación-autenticación" id="markdown-toc-paso-6-ampliación-autenticación">PASO 6. (AMPLIACIÓN) Autenticación</a></li>
+  <li><a href="#paso-7-testear" id="markdown-toc-paso-7-testear">PASO 7. Testear</a></li>
+  <li><a href="#entrega" id="markdown-toc-entrega">Entrega</a></li>
+  <li><a href="#rúbrica-de-calificación" id="markdown-toc-rúbrica-de-calificación">Rúbrica de calificación</a></li>
+</ul>
+
+<p>Vamos a construir una aplicación web SSR (con Thymeleaf) que gestione una tienda online sencilla con productos y categorías.</p>
+
+<h3 id="objetivos">Objetivos</h3>
+
+<ul>
+  <li>Configurar un proyecto Spring Boot con MySQL, Spring Web, Spring Data JPA y Thymeleaf.</li>
+  <li>Crear las entidades <code class="language-plaintext highlighter-rouge">Product</code> y <code class="language-plaintext highlighter-rouge">Category</code> con relación 1:N.</li>
+  <li>Implementar repositorios, servicios y controladores para ambas.</li>
+  <li>Construir las vistas Thymeleaf para el CRUD completo.</li>
+  <li>AMPLIACIÓN: Proteger las rutas de creación/edición/borrado con Spring Security.</li>
+</ul>
+
+<h3 id="uso-de-la-inteligencia-artificial-ia">Uso de la Inteligencia Artificial (IA)</h3>
+
+<p>Puedes y debes usar la IA para ayudarte, pero, como en ocasiones anteriores, de forma <strong>ética y eficiente</strong>:</p>
+
+<ol>
+  <li><strong>Construye pieza a pieza</strong>: empieza por la entidad, luego el repositorio, luego el servicio, luego el controlador, luego la vista. No pidas todo a la vez.</li>
+  <li><strong>Entiende cada línea</strong>: si la IA te genera una anotación que no reconoces, pregúntale qué hace. Tendrás que explicarla en la defensa.</li>
+</ol>
+
+<blockquote>
+  <p><strong>¡ATENCIÓN!</strong>
+Recueda que se realizarán preguntas orales y/o escritas sin IA sobre el código entregado en encuentros con el profesor o durante el propio examen. No superar esta fase implica suspender la práctica.</p>
+</blockquote>
+
+<h3 id="paso-0-crear-el-proyecto">PASO 0. Crear el proyecto</h3>
+
+<p>Crea un proyecto nuevo con Spring Initializr (desde VS Code o desde <a href="https://start.spring.io/">start.spring.io</a>) con estas dependencias:</p>
+<ul>
+  <li>Spring Web</li>
+  <li>Spring Data JPA</li>
+  <li>MySQL Driver</li>
+  <li>Thymeleaf</li>
+  <li>Spring Security</li>
+</ul>
+
+<h3 id="paso-1-configurar-la-base-de-datos">PASO 1. Configurar la base de datos</h3>
+
+<p>Edita <code class="language-plaintext highlighter-rouge">src/main/resources/application.properties</code>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">spring.datasource.url</span><span class="p">=</span><span class="s">jdbc:mysql://localhost:3306/tienda_spring</span>
+<span class="py">spring.datasource.username</span><span class="p">=</span><span class="s">root</span>
+<span class="py">spring.datasource.password</span><span class="p">=</span><span class="s">tu_password</span>
+<span class="py">spring.jpa.hibernate.ddl-auto</span><span class="p">=</span><span class="s">update</span>
+<span class="py">spring.jpa.show-sql</span><span class="p">=</span><span class="s">true</span>
+</code></pre></div></div>
+
+<p>Crea la base de datos <code class="language-plaintext highlighter-rouge">tienda_spring</code> manualmente en MySQL:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">DATABASE</span> <span class="n">tienda_spring</span> <span class="nb">CHARACTER</span> <span class="k">SET</span> <span class="n">utf8mb4</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="paso-2-entidades">PASO 2. Entidades</h3>
+
+<p><strong>Entidad <code class="language-plaintext highlighter-rouge">Category</code>:</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> (Long, clave primaria, autoincrementable)</li>
+  <li><code class="language-plaintext highlighter-rouge">name</code> (String, no nulo)</li>
+  <li>Relación <code class="language-plaintext highlighter-rouge">@OneToMany</code> con <code class="language-plaintext highlighter-rouge">Product</code></li>
+</ul>
+
+<p><strong>Entidad <code class="language-plaintext highlighter-rouge">Product</code>:</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code> (Long, clave primaria, autoincrementable)</li>
+  <li><code class="language-plaintext highlighter-rouge">name</code> (String, no nulo)</li>
+  <li><code class="language-plaintext highlighter-rouge">description</code> (String, puede ser nulo)</li>
+  <li><code class="language-plaintext highlighter-rouge">price</code> (Double, no nulo)</li>
+  <li>Relación 1:N con <code class="language-plaintext highlighter-rouge">Category</code></li>
+</ul>
+
+<p>Hibernate creará las tablas automáticamente al arrancar la aplicación.</p>
+
+<h3 id="paso-3-repositorios-y-servicios">PASO 3. Repositorios y Servicios</h3>
+
+<p>Crea:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">CategoryRepository extends JpaRepository&lt;Category, Long&gt;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">ProductRepository extends JpaRepository&lt;Product, Long&gt;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">CategoryService</code> con los métodos <code class="language-plaintext highlighter-rouge">findAll()</code>, <code class="language-plaintext highlighter-rouge">findById()</code>, <code class="language-plaintext highlighter-rouge">save()</code>, <code class="language-plaintext highlighter-rouge">delete()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">ProductService</code> con los mismos métodos</li>
+</ul>
+
+<h3 id="paso-4-controladores-ssr">PASO 4. Controladores SSR</h3>
+
+<p>Crea <code class="language-plaintext highlighter-rouge">CategoryController</code> y <code class="language-plaintext highlighter-rouge">ProductController</code> con estos endpoints:</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">CategoryController</code></strong> (ruta base <code class="language-plaintext highlighter-rouge">/categories</code>):</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">GET /categories</code> → lista de categorías</li>
+  <li><code class="language-plaintext highlighter-rouge">GET /categories/nuevo</code> → formulario nueva categoría</li>
+  <li><code class="language-plaintext highlighter-rouge">POST /categories/guardar</code> → guardar</li>
+  <li><code class="language-plaintext highlighter-rouge">GET /categories/editar/{id}</code> → formulario editar</li>
+  <li><code class="language-plaintext highlighter-rouge">GET /categories/eliminar/{id}</code> → eliminar</li>
+</ul>
+
+<p><strong><code class="language-plaintext highlighter-rouge">ProductController</code></strong> (ruta base <code class="language-plaintext highlighter-rouge">/products</code>):</p>
+<ul>
+  <li>Los mismos endpoints de categorías, pero para productos</li>
+  <li>En el formulario de producto, incluye un <code class="language-plaintext highlighter-rouge">&lt;select&gt;</code> para elegir la categoría</li>
+</ul>
+
+<h3 id="paso-5-vistas-thymeleaf">PASO 5. Vistas Thymeleaf</h3>
+
+<p>Crea las vistas en <code class="language-plaintext highlighter-rouge">src/main/resources/templates/</code>:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">categories/list.html</code>: tabla con todas las categorías y links de acción</li>
+  <li><code class="language-plaintext highlighter-rouge">categories/form.html</code>: formulario para crear y editar (el mismo, como en Laravel)</li>
+  <li><code class="language-plaintext highlighter-rouge">products/list.html</code>: tabla con nombre, precio y categoría de cada producto</li>
+  <li><code class="language-plaintext highlighter-rouge">products/form.html</code>: formulario que incluye un <code class="language-plaintext highlighter-rouge">&lt;select&gt;</code> con las categorías disponibles</li>
+</ul>
+
+<h3 id="paso-6-ampliación-autenticación">PASO 6. (AMPLIACIÓN) Autenticación</h3>
+
+<p>Añade una clase <code class="language-plaintext highlighter-rouge">SecurityConfig</code> que deje públicas las rutas <code class="language-plaintext highlighter-rouge">GET /products</code> y <code class="language-plaintext highlighter-rouge">GET /categories</code>, y exija autenticación para crear, editar y borrar.</p>
+
+<p>Para esta práctica, puedes usar usuarios en memoria. Por ejemplo, añade en <code class="language-plaintext highlighter-rouge">SecurityConfig</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="nc">UserDetailsService</span> <span class="nf">users</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">UserDetails</span> <span class="n">admin</span> <span class="o">=</span> <span class="nc">User</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">username</span><span class="o">(</span><span class="s">"admin"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">password</span><span class="o">(</span><span class="s">"{noop}admin123"</span><span class="o">)</span>  <span class="c1">// {noop} = sin encriptación (¡solo para pruebas!)</span>
+        <span class="o">.</span><span class="na">roles</span><span class="o">(</span><span class="s">"ADMIN"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">InMemoryUserDetailsManager</span><span class="o">(</span><span class="n">admin</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="paso-7-testear">PASO 7. Testear</h3>
+
+<p>Arranca la aplicación ejecutando la clase principal desde tu IDE. Abre el navegador en <code class="language-plaintext highlighter-rouge">http://localhost:8080/products</code>.</p>
+
+<h3 id="entrega">Entrega</h3>
+
+<p>La entrega debe cumplir <strong>estrictamente</strong> con estos requisitos. El incumplimiento de cualquiera de ellos conllevará penalización o rechazo de la entrega:</p>
+
+<ol>
+  <li><strong>Código fuente comprimido</strong>: Sube a Moodle Centros un archivo ZIP con tu proyecto. <strong>EXCEPTUANDO la carpeta <code class="language-plaintext highlighter-rouge">/target</code></strong>. (Si la incluye, serás penalizado).</li>
+  <li><strong>Vídeo demostrativo</strong>: Graba un vídeo capturando tu pantalla y demostrando el funcionamiento de tu aplicación. Debes explicarlo <strong>con tu propia voz</strong> (nada de voces sintetizadas o IA). Sube el vídeo a Moodle Centros o un enlace a YouTube/Drive, como prefieras.</li>
+  <li><strong>Repositorio público</strong>: Incluye un enlace a tu repositorio público en GitHub o GitLab. <em>Se revisará el historial de commits</em>.</li>
+  <li><strong>Conversación con la IA</strong>: Sube un archivo .docx o .odt con TODA tu conversación con la IA. Necesitamos ver cómo has interactuado con la Inteligencia Artificial.</li>
+  <li><strong>Reproducibilidad</strong>: El profesor descargará tu ZIP (o clonará tu repo) y compilará todo el paquete. <strong>La aplicación debe funcionar inmediatamente</strong> sin necesidad de tocar nada más.</li>
+</ol>
+
+<h3 id="rúbrica-de-calificación">Rúbrica de calificación</h3>
+
+<p>La evaluación se realizará según los siguientes ítems. Cada nivel de logro otorga una puntuación:</p>
+<ul>
+  <li><strong>0</strong>: Sin hacer o sin evidencia de esfuerzo.</li>
+  <li><strong>1</strong>: Hecho, pero con errores graves o muy incompleto.</li>
+  <li><strong>2</strong>: Hecho y funcional, pero mejorable (faltan detalles, bugs menores).</li>
+  <li><strong>3</strong>: Perfecto, cumple todos los requisitos con excelencia.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Ítem Evaluable</th>
+      <th style="text-align: center">Peso</th>
+      <th style="text-align: left">Nivel 0</th>
+      <th style="text-align: left">Nivel 1</th>
+      <th style="text-align: left">Nivel 2</th>
+      <th style="text-align: left">Nivel 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>0. Uso ético y eficiente de la IA (Eliminatorio)</strong></td>
+      <td style="text-align: center"><strong>Requisito</strong></td>
+      <td style="text-align: left">No defiende el código. Uso fraudulento.</td>
+      <td style="text-align: left">(no aplica)</td>
+      <td style="text-align: left">(no aplica)</td>
+      <td style="text-align: left">Explica y defiende el código sin IA.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>1. Entrega en tiempo y forma</strong></td>
+      <td style="text-align: center"><strong>10%</strong></td>
+      <td style="text-align: left">No entregado o sin ejecutar.</td>
+      <td style="text-align: left">Falta vídeo o instrucciones de ejecución.</td>
+      <td style="text-align: left">Cumple casi todo.</td>
+      <td style="text-align: left">Entrega completa y reproducible.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>2. Control de versiones (Git)</strong></td>
+      <td style="text-align: center"><strong>10%</strong></td>
+      <td style="text-align: left">Sin repositorio.</td>
+      <td style="text-align: left">Un único commit final.</td>
+      <td style="text-align: left">Varios commits irregulares.</td>
+      <td style="text-align: left">Commits frecuentes y descriptivos.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>3. Entidades y relaciones (BD)</strong></td>
+      <td style="text-align: center"><strong>20%</strong></td>
+      <td style="text-align: left">Sin entidades.</td>
+      <td style="text-align: left">Entidades sin relaciones o con errores.</td>
+      <td style="text-align: left">Relaciones 1:N correctas, falla la N:N.</td>
+      <td style="text-align: left">Todas las relaciones perfectas.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>4. Capas del proyecto (Service, Repository)</strong></td>
+      <td style="text-align: center"><strong>25%</strong></td>
+      <td style="text-align: left">Todo en el controller.</td>
+      <td style="text-align: left">Capas incompletas o mezcladas.</td>
+      <td style="text-align: left">Estructura correcta con pequeños errores.</td>
+      <td style="text-align: left">Separación de capas impecable.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>5. Controladores y endpoints</strong></td>
+      <td style="text-align: center"><strong>25%</strong></td>
+      <td style="text-align: left">No responde a las URLs.</td>
+      <td style="text-align: left">Endpoints desorganizados o con errores.</td>
+      <td style="text-align: left">CRUD funcional con pequeños problemas.</td>
+      <td style="text-align: left">Endpoints REST correctos, validaciones.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>6. Autenticación</strong></td>
+      <td style="text-align: center"><strong>10%</strong> adicional</td>
+      <td style="text-align: left">Sin protección.</td>
+      <td style="text-align: left">Auth añadida pero no protege correctamente.</td>
+      <td style="text-align: left">Rutas protegidas, falla algún caso.</td>
+      <td style="text-align: left">Auth perfecta, rutas bien diferenciadas.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>7. Calidad del código</strong></td>
+      <td style="text-align: center"><strong>10%</strong></td>
+      <td style="text-align: left">Código ilegible.</td>
+      <td style="text-align: left">Código desordenado o con mucho código repetido.</td>
+      <td style="text-align: left">Ordenado con algunas deficiencias.</td>
+      <td style="text-align: left">Código limpio, nomenclatura coherente.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>Nota: para aprobar es obligatorio superar el ítem 0 (Uso ético y eficiente de la IA).</em></p>
+:ET

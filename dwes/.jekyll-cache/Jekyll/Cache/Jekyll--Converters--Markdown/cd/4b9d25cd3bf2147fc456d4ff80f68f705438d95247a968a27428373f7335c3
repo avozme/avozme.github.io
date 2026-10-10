@@ -1,0 +1,264 @@
+I" K<h2 class="no_toc" id="práctica-final-api-biblioteca">Práctica final API: Biblioteca</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#objetivos" id="markdown-toc-objetivos">Objetivos</a></li>
+  <li><a href="#uso-de-la-inteligencia-artificial-ia" id="markdown-toc-uso-de-la-inteligencia-artificial-ia">Uso de la Inteligencia Artificial (IA)</a></li>
+  <li><a href="#paso-0-crear-el-proyecto" id="markdown-toc-paso-0-crear-el-proyecto">PASO 0. Crear el proyecto</a></li>
+  <li><a href="#paso-1-configurar-la-base-de-datos" id="markdown-toc-paso-1-configurar-la-base-de-datos">PASO 1. Configurar la base de datos</a></li>
+  <li><a href="#paso-2-entidades-y-relaciones" id="markdown-toc-paso-2-entidades-y-relaciones">PASO 2. Entidades y relaciones</a></li>
+  <li><a href="#paso-3-repositorios-y-servicios" id="markdown-toc-paso-3-repositorios-y-servicios">PASO 3. Repositorios y Servicios</a></li>
+  <li><a href="#paso-4-controladores-api" id="markdown-toc-paso-4-controladores-api">PASO 4. Controladores API</a></li>
+  <li><a href="#paso-5-ampliación-autenticación-basic-auth" id="markdown-toc-paso-5-ampliación-autenticación-basic-auth">PASO 5. AMPLIACIÓN: Autenticación (Basic Auth)</a></li>
+  <li><a href="#paso-6-testear-con-postman" id="markdown-toc-paso-6-testear-con-postman">PASO 6. Testear con Postman</a></li>
+  <li><a href="#entrega" id="markdown-toc-entrega">Entrega</a></li>
+  <li><a href="#rúbrica-de-calificación" id="markdown-toc-rúbrica-de-calificación">Rúbrica de calificación</a></li>
+</ul>
+
+<p>Vas a construir una API RESTful con Spring Boot para gestionar una biblioteca: autores, libros y lectores. Sin vistas, sin Thymeleaf. Solo controladores que devuelven JSON, testeados con Postman.</p>
+
+<h3 id="objetivos">Objetivos</h3>
+
+<ul>
+  <li>Crear las entidades <code class="language-plaintext highlighter-rouge">Author</code>, <code class="language-plaintext highlighter-rouge">Book</code> y <code class="language-plaintext highlighter-rouge">Reader</code> con relaciones 1:N y N:N.</li>
+  <li>Exponer endpoints RESTful que devuelvan y reciban JSON.</li>
+  <li>Proteger los endpoints de escritura con autenticación (Basic Auth para simplificar).</li>
+  <li>Testear todos los endpoints con Postman.</li>
+</ul>
+
+<h3 id="uso-de-la-inteligencia-artificial-ia">Uso de la Inteligencia Artificial (IA)</h3>
+
+<p>Las mismas reglas que en la práctica SSR: usa la IA para tareas concretas, entiende el código generado y prepárate para defenderlo.</p>
+
+<blockquote>
+  <p><strong>¡ATENCIÓN!</strong>
+Defensa del código sin IA: elimatoria. No superarla implica suspender la práctica.</p>
+</blockquote>
+
+<h3 id="paso-0-crear-el-proyecto">PASO 0. Crear el proyecto</h3>
+
+<p>Crea un proyecto Spring Boot con estas dependencias:</p>
+<ul>
+  <li>Spring Web</li>
+  <li>Spring Data JPA</li>
+  <li>MySQL Driver</li>
+  <li>Spring Security</li>
+</ul>
+
+<p><em>(No incluyas Thymeleaf: esta es una API pura, sin vistas).</em></p>
+
+<h3 id="paso-1-configurar-la-base-de-datos">PASO 1. Configurar la base de datos</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">spring.datasource.url</span><span class="p">=</span><span class="s">jdbc:mysql://localhost:3306/biblioteca_spring</span>
+<span class="py">spring.datasource.username</span><span class="p">=</span><span class="s">root</span>
+<span class="py">spring.datasource.password</span><span class="p">=</span><span class="s">tu_password</span>
+<span class="py">spring.jpa.hibernate.ddl-auto</span><span class="p">=</span><span class="s">update</span>
+<span class="py">spring.jpa.show-sql</span><span class="p">=</span><span class="s">true</span>
+</code></pre></div></div>
+
+<h3 id="paso-2-entidades-y-relaciones">PASO 2. Entidades y relaciones</h3>
+
+<p><strong>Entidad <code class="language-plaintext highlighter-rouge">Author</code>:</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code>, <code class="language-plaintext highlighter-rouge">name</code> (no nulo), <code class="language-plaintext highlighter-rouge">nationality</code> (puede ser nulo)</li>
+  <li>Relación 1:N con <code class="language-plaintext highlighter-rouge">Book</code></li>
+</ul>
+
+<p><strong>Entidad <code class="language-plaintext highlighter-rouge">Book</code>:</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code>, <code class="language-plaintext highlighter-rouge">title</code> (no nulo), <code class="language-plaintext highlighter-rouge">isbn</code> (único), <code class="language-plaintext highlighter-rouge">publishedYear</code></li>
+  <li>Relación 1:N con <code class="language-plaintext highlighter-rouge">Author</code></li>
+  <li>Relación N:N con <code class="language-plaintext highlighter-rouge">Reader</code> (un libro puede ser leído por muchos lectores, y un lector puede haber leído muchos libros)</li>
+</ul>
+
+<p><strong>Entidad <code class="language-plaintext highlighter-rouge">Reader</code>:</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id</code>, <code class="language-plaintext highlighter-rouge">name</code>, <code class="language-plaintext highlighter-rouge">email</code> (único)</li>
+  <li>Relación N:N mapeada con <code class="language-plaintext highlighter-rouge">Book</code></li>
+</ul>
+
+<h3 id="paso-3-repositorios-y-servicios">PASO 3. Repositorios y Servicios</h3>
+
+<p>Crea los repositorios y servicios para las tres entidades. Los servicios deben permitir:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">AuthorService</code>: CRUD completo de autores</li>
+  <li><code class="language-plaintext highlighter-rouge">BookService</code>: CRUD completo de libros, más un método <code class="language-plaintext highlighter-rouge">addReader(bookId, readerId)</code> y <code class="language-plaintext highlighter-rouge">removeReader(bookId, readerId)</code> para gestionar la relación N:N</li>
+  <li><code class="language-plaintext highlighter-rouge">ReaderService</code>: CRUD completo de lectores</li>
+</ul>
+
+<h3 id="paso-4-controladores-api">PASO 4. Controladores API</h3>
+
+<p>Crea tres controladores con <code class="language-plaintext highlighter-rouge">@RestController</code>:</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">AuthorApiController</code></strong> (ruta base <code class="language-plaintext highlighter-rouge">/api/authors</code>):</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">GET /api/authors</code> → lista de autores en JSON</li>
+  <li><code class="language-plaintext highlighter-rouge">GET /api/authors/{id}</code> → detalle de un autor</li>
+  <li><code class="language-plaintext highlighter-rouge">POST /api/authors</code> → crear (recibe JSON con <code class="language-plaintext highlighter-rouge">@RequestBody</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">PUT /api/authors/{id}</code> → actualizar</li>
+  <li><code class="language-plaintext highlighter-rouge">DELETE /api/authors/{id}</code> → eliminar (solo si no tiene libros asociados)</li>
+</ul>
+
+<p><strong><code class="language-plaintext highlighter-rouge">BookApiController</code></strong> (ruta base <code class="language-plaintext highlighter-rouge">/api/books</code>):</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">GET /api/books</code> → lista de libros (incluye nombre del autor)</li>
+  <li><code class="language-plaintext highlighter-rouge">GET /api/books/{id}</code> → detalle con lista de lectores</li>
+  <li><code class="language-plaintext highlighter-rouge">POST /api/books</code> → crear</li>
+  <li><code class="language-plaintext highlighter-rouge">PUT /api/books/{id}</code> → actualizar</li>
+  <li><code class="language-plaintext highlighter-rouge">DELETE /api/books/{id}</code> → eliminar</li>
+  <li><code class="language-plaintext highlighter-rouge">POST /api/books/{id}/readers/{readerId}</code> → añadir lector al libro</li>
+  <li><code class="language-plaintext highlighter-rouge">DELETE /api/books/{id}/readers/{readerId}</code> → quitar lector del libro</li>
+</ul>
+
+<p><strong><code class="language-plaintext highlighter-rouge">ReaderApiController</code></strong> (ruta base <code class="language-plaintext highlighter-rouge">/api/readers</code>):</p>
+<ul>
+  <li>CRUD estándar de lectores</li>
+</ul>
+
+<h3 id="paso-5-ampliación-autenticación-basic-auth">PASO 5. AMPLIACIÓN: Autenticación (Basic Auth)</h3>
+
+<p>Para simplificar, configura Spring Security con autenticación HTTP Basic. Deja públicos los endpoints GET y protege los demás:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SecurityConfig</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">SecurityFilterChain</span> <span class="nf">filterChain</span><span class="o">(</span><span class="nc">HttpSecurity</span> <span class="n">http</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="n">http</span>
+            <span class="o">.</span><span class="na">csrf</span><span class="o">(</span><span class="n">csrf</span> <span class="o">-&gt;</span> <span class="n">csrf</span><span class="o">.</span><span class="na">disable</span><span class="o">())</span>  <span class="c1">// Necesario para APIs REST</span>
+            <span class="o">.</span><span class="na">authorizeHttpRequests</span><span class="o">(</span><span class="n">auth</span> <span class="o">-&gt;</span> <span class="n">auth</span>
+                <span class="o">.</span><span class="na">requestMatchers</span><span class="o">(</span><span class="nc">HttpMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span> <span class="s">"/api/**"</span><span class="o">).</span><span class="na">permitAll</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">anyRequest</span><span class="o">().</span><span class="na">authenticated</span><span class="o">()</span>
+            <span class="o">)</span>
+            <span class="o">.</span><span class="na">httpBasic</span><span class="o">(</span><span class="nc">Customizer</span><span class="o">.</span><span class="na">withDefaults</span><span class="o">());</span> <span class="c1">// Autenticación Basic</span>
+
+        <span class="k">return</span> <span class="n">http</span><span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">UserDetailsService</span> <span class="nf">users</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">UserDetails</span> <span class="n">user</span> <span class="o">=</span> <span class="nc">User</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">username</span><span class="o">(</span><span class="s">"admin"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">password</span><span class="o">(</span><span class="s">"{noop}admin123"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">roles</span><span class="o">(</span><span class="s">"ADMIN"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">InMemoryUserDetailsManager</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="paso-6-testear-con-postman">PASO 6. Testear con Postman</h3>
+
+<p>Crea una colección en Postman con todas las peticiones. Para los endpoints protegidos, ve a la pestaña <strong>Authorization</strong> → <strong>Basic Auth</strong> y usa <code class="language-plaintext highlighter-rouge">admin</code> / <code class="language-plaintext highlighter-rouge">admin123</code>.</p>
+
+<p>Prueba al menos:</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">GET /api/books</code> → debe devolver JSON con la lista de libros y el nombre del autor</li>
+  <li><code class="language-plaintext highlighter-rouge">POST /api/authors</code> → crea un autor (body JSON: <code class="language-plaintext highlighter-rouge">{"name": "García Márquez", "nationality": "Colombiana"}</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">POST /api/books</code> → crea un libro asociado al autor anterior</li>
+  <li><code class="language-plaintext highlighter-rouge">POST /api/books/{id}/readers/{readerId}</code> → añade un lector a un libro y comprueba que la tabla intermedia se actualiza</li>
+  <li><code class="language-plaintext highlighter-rouge">DELETE /api/books/{id}/readers/{readerId}</code> → quita ese lector y verifica</li>
+</ol>
+
+<h3 id="entrega">Entrega</h3>
+
+<p>La entrega debe cumplir <strong>estrictamente</strong> con estos requisitos. El incumplimiento de cualquiera de ellos conllevará penalización o rechazo de la entrega:</p>
+
+<ol>
+  <li><strong>Código fuente comprimido</strong>: Sube a Moodle Centros un archivo ZIP con tu proyecto. <strong>EXCEPTUANDO la carpeta <code class="language-plaintext highlighter-rouge">/target</code></strong>. (Si la incluye, serás penalizado).</li>
+  <li><strong>Vídeo demostrativo</strong>: Graba un vídeo capturando tu pantalla y demostrando el funcionamiento de tu aplicación. Debes explicarlo <strong>con tu propia voz</strong> (nada de voces sintetizadas o IA). Sube el vídeo a Moodle Centros o un enlace a YouTube/Drive, como prefieras.</li>
+  <li><strong>Repositorio público</strong>: Incluye un enlace a tu repositorio público en GitHub o GitLab. <em>Se revisará el historial de commits</em>.</li>
+  <li><strong>Conversación con la IA</strong>: Sube un archivo .docx o .odt con TODA tu conversación con la IA. Necesitamos ver cómo has interactuado con la Inteligencia Artificial.</li>
+  <li><strong>Reproducibilidad</strong>: El profesor descargará tu ZIP (o clonará tu repo) y compilará todo el paquete. <strong>La aplicación debe funcionar inmediatamente</strong> sin necesidad de tocar nada más.</li>
+</ol>
+
+<h3 id="rúbrica-de-calificación">Rúbrica de calificación</h3>
+
+<p>La evaluación se realizará según los siguientes ítems. Cada nivel de logro otorga una puntuación:</p>
+<ul>
+  <li><strong>0</strong>: Sin hacer o sin evidencia de esfuerzo.</li>
+  <li><strong>1</strong>: Hecho, pero con errores graves o muy incompleto.</li>
+  <li><strong>2</strong>: Hecho y funcional, pero mejorable (faltan detalles, bugs menores).</li>
+  <li><strong>3</strong>: Perfecto, cumple todos los requisitos con excelencia.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Ítem Evaluable</th>
+      <th style="text-align: center">Peso</th>
+      <th style="text-align: left">Nivel 0</th>
+      <th style="text-align: left">Nivel 1</th>
+      <th style="text-align: left">Nivel 2</th>
+      <th style="text-align: left">Nivel 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>0. Uso ético y eficiente de la IA (Eliminatorio)</strong></td>
+      <td style="text-align: center"><strong>Requisito</strong></td>
+      <td style="text-align: left">No defiende el código. Uso fraudulento.</td>
+      <td style="text-align: left">(no aplica)</td>
+      <td style="text-align: left">(no aplica)</td>
+      <td style="text-align: left">Explica y defiende el código sin IA.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>1. Entrega en tiempo y forma</strong></td>
+      <td style="text-align: center"><strong>10%</strong></td>
+      <td style="text-align: left">No entregado o sin ejecutar.</td>
+      <td style="text-align: left">Falta vídeo o instrucciones de ejecución.</td>
+      <td style="text-align: left">Cumple casi todo.</td>
+      <td style="text-align: left">Entrega completa y reproducible.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>2. Control de versiones (Git)</strong></td>
+      <td style="text-align: center"><strong>10%</strong></td>
+      <td style="text-align: left">Sin repositorio.</td>
+      <td style="text-align: left">Un único commit final.</td>
+      <td style="text-align: left">Varios commits irregulares.</td>
+      <td style="text-align: left">Commits frecuentes y descriptivos.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>3. Entidades y relaciones (BD)</strong></td>
+      <td style="text-align: center"><strong>20%</strong></td>
+      <td style="text-align: left">Sin entidades.</td>
+      <td style="text-align: left">Entidades sin relaciones o con errores.</td>
+      <td style="text-align: left">Relaciones 1:N correctas, falla la N:N.</td>
+      <td style="text-align: left">Todas las relaciones perfectas.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>4. Capas del proyecto (Service, Repository)</strong></td>
+      <td style="text-align: center"><strong>25%</strong></td>
+      <td style="text-align: left">Todo en el controller.</td>
+      <td style="text-align: left">Capas incompletas o mezcladas.</td>
+      <td style="text-align: left">Estructura correcta con pequeños errores.</td>
+      <td style="text-align: left">Separación de capas impecable.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>5. Controladores y endpoints</strong></td>
+      <td style="text-align: center"><strong>25%</strong></td>
+      <td style="text-align: left">No responde a las URLs.</td>
+      <td style="text-align: left">Endpoints desorganizados o con errores.</td>
+      <td style="text-align: left">CRUD funcional con pequeños problemas.</td>
+      <td style="text-align: left">Endpoints REST correctos, validaciones.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>6. Autenticación</strong></td>
+      <td style="text-align: center"><strong>10%</strong> adicional</td>
+      <td style="text-align: left">Sin protección.</td>
+      <td style="text-align: left">Auth añadida pero no protege correctamente.</td>
+      <td style="text-align: left">Rutas protegidas, falla algún caso.</td>
+      <td style="text-align: left">Auth perfecta, rutas bien diferenciadas.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>7. Calidad del código</strong></td>
+      <td style="text-align: center"><strong>10%</strong></td>
+      <td style="text-align: left">Código ilegible.</td>
+      <td style="text-align: left">Código desordenado o con mucho código repetido.</td>
+      <td style="text-align: left">Ordenado con algunas deficiencias.</td>
+      <td style="text-align: left">Código limpio, nomenclatura coherente.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>Nota: para aprobar es obligatorio superar el ítem 0 (Uso ético y eficiente de la IA).</em></p>
+:ET

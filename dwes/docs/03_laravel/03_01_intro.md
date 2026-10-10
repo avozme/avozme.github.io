@@ -14,11 +14,7 @@ has_children: false
 - TOC
 {:toc}
 
-<div style="text-align: center; padding: 20px; background-color: #ccc">
-<a href="https://www.dropbox.com/scl/fi/olhshd6rhn5ah6c750ru7/03_01_frameworks_mvc.pdf?rlkey=vjf5pzv3mzj8xcqf56qjozi3r&st=dhdlwcbi&dl=0">
-DESCARGAR PRESENTACIÓN
-</a>
-</div>
+[Descargar presentación](https://www.dropbox.com/scl/fi/olhshd6rhn5ah6c750ru7/03_01_frameworks_mvc.pdf?rlkey=vjf5pzv3mzj8xcqf56qjozi3r&st=dhdlwcbi&dl=0){: .btn .btn-primary }
 
 Un **framework** es un conjunto estandarizado de prácticas de programación, herramientas y componentes para resolver una serie de problemas habituales.
 

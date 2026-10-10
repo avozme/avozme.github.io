@@ -1,0 +1,538 @@
+I"ɯ<h2 class="no_toc" id="62-fundamentos-de-fastapi">6.2. Fundamentos de FastAPI</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#621-qué-es-fastapi-y-por-qué-microservicios" id="markdown-toc-621-qué-es-fastapi-y-por-qué-microservicios">6.2.1. ¿Qué es FastAPI y por qué microservicios?</a></li>
+  <li><a href="#622-servidores-asgi-y-wsgi-introducción-a-uvicorn" id="markdown-toc-622-servidores-asgi-y-wsgi-introducción-a-uvicorn">6.2.2. Servidores ASGI y WSGI: introducción a Uvicorn</a></li>
+  <li><a href="#623-asincronía-en-servidor" id="markdown-toc-623-asincronía-en-servidor">6.2.3. Asincronía en servidor</a></li>
+</ul>
+
+<p><a href="https://www.dropbox.com/scl/fi/1sm0ylqazvzdoi4zcou1y/06_02_fundamentos_fastapi.pdf?rlkey=yarj7nzynwxasiwyejalb0e1v&amp;st=sssxfs9s&amp;dl=0" class="btn btn-primary">Descargar presentación</a></p>
+
+<p>Ya sabes lo básico de Python, así que toca conocer la herramienta principal de esta unidad. En este apartado vas a ver qué es FastAPI, por qué se usa tanto para construir microservicios, qué papel juega el servidor que lo ejecuta (Uvicorn) y, sobre todo, cómo funciona su modelo de <strong>concurrencia</strong> basado en <code class="language-plaintext highlighter-rouge">async</code> / <code class="language-plaintext highlighter-rouge">await</code>. Esto último es lo que más lo diferencia de lo que has hecho hasta ahora con Laravel y Spring Boot, así que merece que le dediques tiempo.</p>
+
+<hr />
+
+<h3 id="621-qué-es-fastapi-y-por-qué-microservicios">6.2.1. ¿Qué es FastAPI y por qué microservicios?</h3>
+
+<h4 id="qué-es-un-microservicio">Qué es un microservicio</h4>
+
+<p>Hasta ahora has trabajado con aplicaciones <strong>monolíticas</strong>, es decir, con un único gran proyecto Laravel (o Spring Boot) que contiene todo, desde las rutas hasta la lógica de negocio y el acceso a datos, y que se despliega como una sola pieza.</p>
+
+<p>Una arquitectura de <strong>microservicios</strong> propone lo contrario: dividir la aplicación en varios servicios pequeños, cada uno responsable de <strong>una capacidad concreta del negocio</strong>, que se desarrollan, despliegan y escalan de forma independiente y se comunican entre sí por red (normalmente mediante HTTP con JSON, es decir, APIs REST como las que ya conoces).</p>
+
+<p>Imaginemos, por ejemplo, una tienda online dividida en 4 servicios:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                     ┌──────────────────┐
+                     │   Cliente (web,  │
+                     │  app móvil, etc) │
+                     └────────┬─────────┘
+                              │
+      ┌───────────────┬───────┴────────┬────────────────┐
+      ▼               ▼                ▼                ▼
+┌───────────┐   ┌───────────┐   ┌───────────┐   ┌───────────┐
+│ Usuarios  │   │ Catálogo  │   │  Pedidos  │   │   Pagos   │
+│ (Laravel) │   │ (FastAPI) │   │(Spring B.)│   │ (FastAPI) │
+│   BD 1    │   │   BD 2    │   │   BD 3    │   │   BD 4    │
+└───────────┘   └───────────┘   └───────────┘   └───────────┘
+</code></pre></div></div>
+
+<p>Hay dos ideas clave del esquema:</p>
+
+<ul>
+  <li><strong>Cada servicio es autónomo</strong>: tiene su propio código, su propia base de datos y su propio despliegue (casi siempre en un contenedor Docker). Incluso su propio equipo de desarrollo independiente.</li>
+  <li><strong>Pueden estar construidos con tecnologías distintas</strong>, porque se comunican en JSON a través de sus endpoints. Un equipo puede programar el <em>Catálogo</em> en FastAPI y otro encargarse de <em>Pedidos</em> en Spring Boot.</li>
+</ul>
+
+<p>Pero usar microservicios también tiene <strong>inconvenientes</strong> que no se deben dejar de lado al valorar qué solución conviene adoptar para montar un servidor:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ventajas de los microservicios</th>
+      <th>Inconvenientes de los microservicios</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Cuando es necesario cambiar o modificar algo, solo se toca el servicio que lo necesita</td>
+      <td>Más complejidad operativa porque hay muchos servicios que desplegar y vigilar</td>
+    </tr>
+    <tr>
+      <td>Un fallo queda más aislado</td>
+      <td>La comunicación por red añade latencia (es más lento) y posibles puntos de fallo</td>
+    </tr>
+    <tr>
+      <td>Equipos y tecnologías independientes</td>
+      <td>Mantener la consistencia de los datos entre servicios puede ser difícil</td>
+    </tr>
+    <tr>
+      <td>Despliegues pequeños y frecuentes</td>
+      <td>Depurar una petición que atraviesa varios servicios es más costoso</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>La conclusión realista: <strong>los microservicios no son mejores que un monolito por defecto</strong>:</p>
+
+<ul>
+  <li>Para una aplicación pequeña, un monolito bien organizado suele ser la mejor opción.</li>
+  <li>Los microservicios compensan cuando el sistema, o el equipo, crece lo suficiente como para necesitar esa independencia.</li>
+</ul>
+
+<p>Por último, te menciono algunos de los <strong>errores típicos</strong> que se cometen al usar microservicios:</p>
+
+<ul>
+  <li><strong>Monolitos distribuidos</strong>: si tienes microservicios que no pueden desplegarse ni funcionar el uno sin el otro, en el fondo no son independientes. Si los montas como microservicios tienes todos los inconvenientes de los microservicios y ninguna ventaja. Mejor un monolito grande y bien hecho que diez microservicios pequeños y mal hechos.</li>
+  <li><strong>Base de datos compartida</strong>: dos microservicios leyendo y escribiendo las mismas tablas es un error clásico. Rompe la independencia de los microservicios porque cualquier cambio en una tabla afecta a ambos. <strong>Cada microservicio debe ser dueño de sus datos</strong> y el resto accede a esos datos a través del API del propio microservicio.</li>
+  <li><strong>Cadenas largas de llamadas síncronas</strong>: el microservicio A llama a B, que llama a C, que llama a D. Si todas las llamadas son síncronas, la latencia se va sumando suma y la probabilidad de fallo también. Los mecanismos de asincronía de los microservicios los hacen más complicados de programar pero también más eficientes.</li>
+  <li><strong>Servicios demasiado pequeños</strong>: si para crear un pedido hay que coordinar diez microservicios, algo está mal en el diseño de la arquitectura de la aplicación.</li>
+</ul>
+
+<h4 id="qué-es-fastapi">Qué es FastAPI</h4>
+
+<p><strong>FastAPI</strong> es un framework de Python para construir APIs. Lo creó Sebastián Ramírez y se publicó en 2018.</p>
+
+<p>Aunque FastAPI puede usarse para montar una aplicación tipo monolito, como Laravel o Spring Boot, no suele ser así. Los microservicios deben ser pequeños, arrancar rápido, consumir pocos recursos y dejar claro al resto de servicios cuál es su interfaz (qué endpoints expone y qué respuestas produce). <strong>FastAPI es perfecto para todo eso</strong>:</p>
+
+<ul>
+  <li><strong>Poco código</strong>: un endpoint se monta con tres o cuatro líneas, sin configuración previa.</li>
+  <li><strong>Arranque rápido y poco consumo de memoria</strong>, lo que lo hace muy cómodo de empaquetar en imágenes Docker ligeras desplegables en cualquier sitio.</li>
+  <li><strong>Autodocumentación</strong>: la documentación se genera sola a partir del código y eso facilita mucho que otros equipos sepan cómo usar el microservicio.</li>
+  <li><strong>Validación integrada</strong>: cada servicio se protege de datos mal formados sin escribir reglas a mano.</li>
+  <li><strong>Asincronía nativa</strong>: esto, que aún no hemos visto, es perfecto para servicios que pasan mucho tiempo esperando (bases de datos, por ejemplo), que es justo el caso de muchos microservicios.</li>
+</ul>
+
+<p>FastAPI se apoya en dos librerías principalmente:</p>
+
+<ul>
+  <li><strong>Starlette</strong>: se encarga de la parte web (rutas, peticiones, respuestas, WebSockets).</li>
+  <li><strong>Pydantic</strong>: se encarga de la validación y conversión de datos a partir de los type hints que ya hemos visto.</li>
+</ul>
+
+<h4 id="primeros-pasos-con-fastapi">Primeros pasos con FastAPI</h4>
+
+<p>Lo primero es crear un entorno virtual (venv) para nuestro proyecto FastAPI y activarlo:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>python <span class="nt">-m</span> venv .venv
+<span class="nv">$ </span><span class="nb">source</span> .venv/bin/activate    <span class="c"># .venv\Scripts\Activate.ps1 en Windows</span>
+</code></pre></div></div>
+
+<p>Ahora vamos a instalar las dependencias necesarias para FastAPI:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>python <span class="nt">-m</span> pip <span class="nb">install</span> <span class="nt">--upgrade</span> pip  <span class="c"># Optativo: actualiza pip antes de instalar nada</span>
+<span class="nv">$ </span>pip <span class="nb">install</span> <span class="s2">"fastapi[standard]"</span>      <span class="c"># Instala versión actual de FastAPI y sus dependencias estándar</span>
+<span class="nv">$ </span>pip freeze <span class="o">&gt;</span> requirements.txt        <span class="c"># Guardamos las dependencias para poder replicarlas más tarde</span>
+</code></pre></div></div>
+
+<p>¡Ya puedes probar el servidor que viene integrado con FastAPI! Crea un archivo llamado <code class="language-plaintext highlighter-rouge">main.py</code> con este contenido:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">raiz</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"mensaje"</span><span class="p">:</span> <span class="s">"Hola desde FastAPI"</span><span class="p">}</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/saludo/{nombre}"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">saludo</span><span class="p">(</span><span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mayusculas</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+    <span class="n">texto</span> <span class="o">=</span> <span class="sa">f</span><span class="s">"Hola, </span><span class="si">{</span><span class="n">nombre</span><span class="si">}</span><span class="s">"</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"mensaje"</span><span class="p">:</span> <span class="n">texto</span><span class="p">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">if</span> <span class="n">mayusculas</span> <span class="k">else</span> <span class="n">texto</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>Ahora lanza el <strong>servidor Uvicorn</strong>, que viene con FastAPI, así:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>uvicorn main:app <span class="nt">--reload</span>
+</code></pre></div></div>
+
+<p>El servidor estará escuchando en <code class="language-plaintext highlighter-rouge">http://127.0.0.1:8000</code> (puedes probar con <code class="language-plaintext highlighter-rouge">http://127.0.0.1:8000/saludo/Ana?mayusculas=true</code>).</p>
+
+<p>Hay varias cosas que ocurren aquí y que conviene que identifiques antes de entrar en detalles:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">nombre: str</code> es un <strong>parámetro de ruta</strong> y <code class="language-plaintext highlighter-rouge">mayusculas: bool = False</code> un <strong>parámetro de consulta</strong> (<em>query param</em>) opcional. 
+  FastAPI sabe cuál es cuál por cómo aparecen en la ruta (<code class="language-plaintext highlighter-rouge">@app.get("/saludo/{nombre}")</code>) y valida y convierte los tipos por ti.</li>
+  <li>Devolver un <code class="language-plaintext highlighter-rouge">dict</code> es suficiente: FastAPI lo convierte a JSON automáticamente.</li>
+  <li>Si pruebas <code class="language-plaintext highlighter-rouge">/saludo/Ana?mayusculas=quizás</code>, recibirás un error <code class="language-plaintext highlighter-rouge">422</code> con un JSON explicando qué ha fallado. ¡Sin que hayas escrito ninguna validación!</li>
+  <li><strong>Documentación automática</strong>: abre <code class="language-plaintext highlighter-rouge">http://127.0.0.1:8000/docs</code> y verás una interfaz interactiva (llamada <strong>Swagger UI</strong>) con todos tus endpoints. Puedes incluso probarlos desde ahí. También existe <code class="language-plaintext highlighter-rouge">/redoc</code> y <code class="language-plaintext highlighter-rouge">/openapi.json</code>.</li>
+</ul>
+
+<blockquote>
+  <p><strong>Nota</strong>: las versiones recientes de FastAPI incluyen también un comando propio, <code class="language-plaintext highlighter-rouge">fastapi dev main.py</code>, que se instala con <code class="language-plaintext highlighter-rouge">pip install "fastapi[standard]"</code> y por debajo usa Uvicorn con el mismo resultado que hemos visto aquí.</p>
+</blockquote>
+
+<h4 id="fastapi-frente-a-spring-boot-y-laravel">FastAPI frente a Spring Boot y Laravel</h4>
+
+<p>Vamos a comparar los tres frameworks en términos de <strong>simplicidad</strong> y <strong>rendimiento</strong>, con matices, porque aquí es fácil caer en tópicos.</p>
+
+<p><strong>SIMPLICIDAD.</strong> Observa el mismo endpoint (<code class="language-plaintext highlighter-rouge">GET /saludo/{nombre}</code>), que solo devuelve un JSON con un saludo, montado en los tres frameworks:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Laravel (routes/api.php)</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/saludo/{nombre}'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="kt">string</span> <span class="nv">$nombre</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span><span class="s1">'mensaje'</span> <span class="o">=&gt;</span> <span class="s2">"Hola, </span><span class="nv">$nombre</span><span class="s2">"</span><span class="p">];</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Spring Boot</span>
+<span class="nd">@RestController</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SaludoController</span> <span class="o">{</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/saludo/{nombre}"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="nf">saludo</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="nc">String</span> <span class="n">nombre</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"mensaje"</span><span class="o">,</span> <span class="s">"Hola, "</span> <span class="o">+</span> <span class="n">nombre</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># FastAPI
+</span><span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/saludo/{nombre}"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">saludo</span><span class="p">(</span><span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"mensaje"</span><span class="p">:</span> <span class="sa">f</span><span class="s">"Hola, </span><span class="si">{</span><span class="n">nombre</span><span class="si">}</span><span class="s">"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>Laravel y FastAPI son claramente más simples y Spring Boot exige el típico “ceremonial” de Java (clase, anotaciones, imports, tipos…).</p>
+
+<p><strong>RENDIMIENTO.</strong> Aquí hay que hablar con precaución, porque depende de qué se mida:</p>
+
+<ul>
+  <li><strong>Laravel (con PHP-FPM)</strong> arranca el framework en cada petición, y cada petición ocupa un proceso mientras se atiende. Es muy productivo, pero por petición es el que más recursos consume. Existen alternativas como Laravel Octane (Swoole, RoadRunner…) que mantienen la aplicación en memoria y mejoran mucho esos números.</li>
+  <li><strong>Spring Boot</strong> es excelente en rendimiento porque la JVM optimiza el código mientras se ejecuta y, para trabajo intensivo de CPU, suele ser el mejor de los tres con diferencia. Su contrapartida es un <strong>arranque más lento y un mayor consumo de memoria</strong>, algo que pesa cuando tienes muchos microservicios pequeños.</li>
+  <li><strong>FastAPI</strong> ofrece un rendimiento muy bueno <strong>gracias a su modelo asíncrono</strong>, comparable al de otros frameworks asíncronos como los de <strong>Node.js</strong>. En un servicio que pasa la mayor parte del tiempo esperando entradas/salida (consultas a base de datos, llamadas a otros servicios), es capaz de manejar muchas peticiones simultáneas con menos recursos que los otros dos.</li>
+</ul>
+
+<p>Pero ten en cuenta que, en la mayoría de aplicaciones reales, <strong>el cuello de botella no es el framework</strong>, sino la base de datos, la red o la forma de escribir el código.</p>
+
+<p>Es decir, que elegir FastAPI no te hace automáticamente más rápido que Spring Boot o Laravel. Solo te da un modelo más ligero para servicios con muchos tiempos de espera entre peticiones.</p>
+
+<h4 id="tabla-resumen-comparativa-fastapi-vs-spring-boot-vs-laravel">Tabla resumen comparativa FastAPI vs Spring Boot vs Laravel</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Aspecto</th>
+      <th>FastAPI</th>
+      <th>Spring Boot</th>
+      <th>Laravel</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Lenguaje</td>
+      <td>Python</td>
+      <td>Java</td>
+      <td>PHP</td>
+    </tr>
+    <tr>
+      <td>Código necesario para un endpoint simple</td>
+      <td>Muy poco</td>
+      <td>Bastante</td>
+      <td>Muy poco</td>
+    </tr>
+    <tr>
+      <td>Arranque y memoria</td>
+      <td>Ligero</td>
+      <td>Pesado</td>
+      <td>Ligero (con PHP-FPM)</td>
+    </tr>
+    <tr>
+      <td>Modelo de concurrencia</td>
+      <td>Asíncrono (bucle de eventos)</td>
+      <td>Hilos (modo reactivo opcional)</td>
+      <td>Un proceso por petición (Octane opcional)</td>
+    </tr>
+    <tr>
+      <td>Velocidad de ejecución una vez arrancado</td>
+      <td>Limitada</td>
+      <td>Muy buena</td>
+      <td>Limitada</td>
+    </tr>
+    <tr>
+      <td>Validación de Request</td>
+      <td>Integrada con el sistema</td>
+      <td>Se consiguen anotaciones</td>
+      <td>Se consiguen con reglas</td>
+    </tr>
+    <tr>
+      <td>Documentación</td>
+      <td>Automática</td>
+      <td>Se necesitan librerías adicionales</td>
+      <td>Se necesitan paquetes extra</td>
+    </tr>
+    <tr>
+      <td>Madurez y ecosistema</td>
+      <td>Joven, en fuerte crecimiento, muchos cambios</td>
+      <td>Maduro y estable</td>
+      <td>Maduro y estable</td>
+    </tr>
+    <tr>
+      <td>Ideal para</td>
+      <td>Microservicios y APIs con mucha E/S</td>
+      <td>Sistemas empresariales grandes</td>
+      <td>Aplicaciones web completas (SSR, API REST…)</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h3 id="622-servidores-asgi-y-wsgi-introducción-a-uvicorn">6.2.2. Servidores ASGI y WSGI: introducción a Uvicorn</h3>
+
+<h4 id="un-framework-no-atiende-peticiones-por-sí-solo">Un framework no atiende peticiones por sí solo</h4>
+
+<p>Para que Laravel funcione necesitas arrancar antes un servidor, bien con Docker (como hace Laravel Sail), con <code class="language-plaintext highlighter-rouge">php artisan serve</code> o instalando tu propio Apache o Nginx nativo en tu máquina.</p>
+
+<p>En cambio, con Spring Boot, el servidor (Tomcat) viene <strong>embebido</strong> y se inicia al arrancar la aplicación.</p>
+
+<p><strong>¿Cómo lo hace FastAPI?</strong></p>
+
+<p>FastAPI se parece en esto más a Laravel que a Spring Boot, porque separa explícitamente el framework del servidor:</p>
+
+<ul>
+  <li>El <strong>framework</strong> (FastAPI propiamente dicho) contiene la lógica de la aplicación: rutas, validaciones, consultas de datos, respuestas…</li>
+  <li>El <strong>servidor</strong> abre el puerto, recibe las conexiones HTTP y le pasa cada petición al framework.</li>
+</ul>
+
+<p>Para que ambos se entiendan, Python usa un <strong>protocolo de comunicación</strong> entre servidor y aplicación. Y aquí viene el primer escollo: existen dos, llamado <strong>WSGI</strong> y <strong>ASGI</strong>.</p>
+
+<h4 id="wsgi-el-estándar-clásico-síncrono">WSGI: el estándar clásico (síncrono)</h4>
+
+<p><strong>WSGI</strong> (<em>Web Server Gateway Interface</em>) es el <strong>estándar histórico</strong> de Python, usado por otros frameworks como <strong>Flask</strong> o <strong>Django</strong>, con servidores como <strong>Gunicorn</strong>.</p>
+
+<p>Su modelo es <strong>síncrono</strong>: un trabajador (proceso o hilo) atiende una petición de principio a fin y, mientras espera algo (una consulta SQL, por ejemplo), <strong>permanece ocupado sin hacer nada</strong>.</p>
+
+<p>Es un modelo que ya conoces: es el mismo planteamiento de Laravel o de Spring Boot. Funciona bien, pero para atender más peticiones simultáneas necesitas más trabajadores (que a veces pasan mucho rato sin hacer nada, solo esperando), y cada uno necesita su memoria y su cuota de CPU.</p>
+
+<h4 id="asgi-el-estándar-moderno-asíncrono">ASGI: el estándar moderno (asíncrono)</h4>
+
+<p><strong>ASGI</strong> (<em>Asynchronous Server Gateway Interface</em>) es el sucesorde WSGI. Permite que la aplicación sea <strong>asíncrona</strong>, es decir, que mientras una petición espera una respuesta de la base de datos o de quien sea, el servidor puede <strong>atender otras</strong> en el mismo proceso.</p>
+
+<p>Además, soporta conexiones de larga duración como los <strong>WebSockets</strong>, algo que WSGI no puede hacer de forma natural.</p>
+
+<p><strong>FastAPI usa ASGI</strong>, así que necesita un servidor ASGI. Y el más usado es <strong>Uvicorn</strong>.</p>
+
+<h4 id="el-servidor-uvicorn">El servidor Uvicorn</h4>
+
+<p>Uvicorn es un <strong>servidor ASGI rápido y ligero</strong>. Al instalarlo con <code class="language-plaintext highlighter-rouge">pip install uvicorn[standard]</code> o con <code class="language-plaintext highlighter-rouge">pip install fastapi[standard]</code>, incluye todos los componentes necesarios para funcionar.</p>
+
+<p>Para lanzar una aplicación Python con este servidor, solo teclea:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uvicorn main:app <span class="nt">--reload</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">main</code></strong> es, obviamente, el nombre del archivo Python que deseas ejecutar (sin la extensión <code class="language-plaintext highlighter-rouge">.py</code>).</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">app</code></strong> es el nombre de la variable dentro del archivo donde se hace <code class="language-plaintext highlighter-rouge">app = FastAPI()</code>.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">--reload</code></strong>: reinicia el servidor automáticamente cada vez que guardas un cambio en el código. Es muy cómodo <strong>en desarrollo</strong>, pero <strong>no debe usarse en producción</strong>.</li>
+</ul>
+
+<p>Uvicorn puede lanzarse con otras opciones en la línea de comandos, como:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uvicorn main:app <span class="nt">--port</span> 9000            <span class="c"># cambiar el puerto (por defecto, 8000)</span>
+uvicorn main:app <span class="nt">--host</span> 0.0.0.0         <span class="c"># escuchar en todas las interfaces</span>
+uvicorn main:app <span class="nt">--workers</span> 4            <span class="c"># varios procesos (producción, sin --reload)</span>
+</code></pre></div></div>
+
+<p>Fíjate en <code class="language-plaintext highlighter-rouge">--host 0.0.0.0</code>: por defecto Uvicorn solo escucha en <code class="language-plaintext highlighter-rouge">127.0.0.1</code>, es decir, en tu propia máquina. Cuando metas la aplicación en un contenedor Docker, necesitarás lanzarlo con <code class="language-plaintext highlighter-rouge">0.0.0.0</code> para poder acceder desde fuera del contenedor.</p>
+
+<p>En cuanto a <code class="language-plaintext highlighter-rouge">--workers</code>, debes saber que un solo proceso de Uvicorn ya puede atender muchas peticiones concurrentes gracias al modelo asíncrono, pero solo usa <strong>un núcleo</strong> de CPU. En un servidor con varios núcleos, lo lógico es lanzar varios procesos para poder atender aún más peticiones simultáneas.</p>
+
+<hr />
+
+<h3 id="623-asincronía-en-servidor">6.2.3. Asincronía en servidor</h3>
+
+<h4 id="async--await-en-python">async / await en Python</h4>
+
+<p>En el módulo de Desarrollo Web en Entorno Cliente, y también en el módulo optativo, has debido trabajar con <code class="language-plaintext highlighter-rouge">async</code> / <code class="language-plaintext highlighter-rouge">await</code> en JavaScript.</p>
+
+<p>En Python es muy parecido. Solo necesitas usar dos palabras clave:</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">async def</code></strong> para definir una función asíncrona (llamada <strong>coroutine</strong> o co-rutina)</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">await</code></strong> dentro de la función asíncrona para ponerla en pausa hasta que el proceso termine.</li>
+</ul>
+
+<p>Míralo en este ejemplo:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">esperar</span><span class="p">(</span><span class="n">tiempo</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Esperando </span><span class="si">{</span><span class="n">tiempo</span><span class="si">}</span><span class="s"> segundos..."</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">tiempo</span><span class="p">)</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s">"He terminado de esperar </span><span class="si">{</span><span class="n">tiempo</span><span class="si">}</span><span class="s"> segundos"</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">resultado</span> <span class="o">=</span> <span class="k">await</span> <span class="n">esperar</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">resultado</span><span class="p">)</span>
+
+<span class="n">asyncio</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>               <span class="c1"># arranca el bucle de eventos y ejecuta main()
+</span></code></pre></div></div>
+
+<p>Fíjate en <code class="language-plaintext highlighter-rouge">asyncio.sleep()</code>: es la versión <strong>asíncrona</strong> de <code class="language-plaintext highlighter-rouge">sleep()</code>. Mientras este proceso duerme, el bucle de eventos puede dedicarse a otra cosa, como ejecutar otros programas asíncronos. En cambio, con la versión síncrona (<code class="language-plaintext highlighter-rouge">time.sleep()</code>), el programa se quedaría “colgado” y consumiendo recursos mientras espera.</p>
+
+<h4 id="asynciogather">asyncio.gather</h4>
+
+<p>El verdadero beneficio de <code class="language-plaintext highlighter-rouge">async</code> aparece cuando lanzas varias cosas a la vez con <code class="language-plaintext highlighter-rouge">asyncio.gather</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">consultar</span><span class="p">(</span><span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">segundos</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Inicio: </span><span class="si">{</span><span class="n">nombre</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">segundos</span><span class="p">)</span>  <span class="c1"># simula lo que tarda una BD en responder
+</span>    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Fin: </span><span class="si">{</span><span class="n">nombre</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s">"datos de </span><span class="si">{</span><span class="n">nombre</span><span class="si">}</span><span class="s">"</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">inicio</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">perf_counter</span><span class="p">()</span>   <span class="c1"># anota instante de inicio de la ejecución
+</span>
+    <span class="n">resultados</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="p">.</span><span class="n">gather</span><span class="p">(</span>
+        <span class="n">consultar</span><span class="p">(</span><span class="s">"usuarios"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="n">consultar</span><span class="p">(</span><span class="s">"pedidos"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="n">consultar</span><span class="p">(</span><span class="s">"productos"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="n">resultados</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Tiempo total: </span><span class="si">{</span><span class="n">time</span><span class="p">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">inicio</span><span class="si">:</span><span class="p">.</span><span class="mi">1</span><span class="n">f</span><span class="si">}</span><span class="s"> s"</span><span class="p">)</span>
+
+<span class="n">asyncio</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div></div>
+
+<p>La salida de este programa será algo como:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Inicio: usuarios
+Inicio: pedidos
+Inicio: productos
+Fin: usuarios
+Fin: pedidos
+Fin: productos
+['datos de usuarios', 'datos de pedidos', 'datos de productos']
+Tiempo total: 2.0 s
+</code></pre></div></div>
+
+<p>Es decir, que tres esperas de 2 segundos han tardado <strong>2 segundos en total</strong>, no 6, porque se han <em>solapado</em>.</p>
+
+<p>Si hubiéramos hecho tres <code class="language-plaintext highlighter-rouge">await consultar(...)</code> seguidos, uno tras otro, sí habrías tardado unos 6 segundos. Este es exactamente el tipo de situación que se da en un microservicio que necesita consultar varias fuentes para armar una respuesta.</p>
+
+<h4 id="comparación-de-async-entre-python-y-javascript">Comparación de async entre Python y JavaScript</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Concepto</th>
+      <th>JavaScript</th>
+      <th>Python</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Función asíncrona</td>
+      <td><code class="language-plaintext highlighter-rouge">async function f()</code></td>
+      <td><code class="language-plaintext highlighter-rouge">async def f()</code></td>
+    </tr>
+    <tr>
+      <td>Esperar un resultado</td>
+      <td><code class="language-plaintext highlighter-rouge">await</code></td>
+      <td><code class="language-plaintext highlighter-rouge">await</code></td>
+    </tr>
+    <tr>
+      <td>Qué devuelve al llamarla</td>
+      <td>Una <code class="language-plaintext highlighter-rouge">Promise</code></td>
+      <td>Una co-rutina (<em>coroutine</em>)</td>
+    </tr>
+    <tr>
+      <td>¿Se ejecuta al llamarla?</td>
+      <td>Sí, de inmediato</td>
+      <td><strong>No</strong>: hay que esperarla con <code class="language-plaintext highlighter-rouge">await</code> o planificarla</td>
+    </tr>
+    <tr>
+      <td>Bucle de eventos</td>
+      <td>Incluido en el motor</td>
+      <td>Módulo <code class="language-plaintext highlighter-rouge">asyncio</code> (lo gestiona Uvicorn en FastAPI)</td>
+    </tr>
+    <tr>
+      <td>Varias a la vez</td>
+      <td><code class="language-plaintext highlighter-rouge">Promise.all([...])</code></td>
+      <td><code class="language-plaintext highlighter-rouge">asyncio.gather(...)</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>La diferencia que más despista es la cuarta. En Python, llamar a una función <code class="language-plaintext highlighter-rouge">async</code> <strong>sin</strong> <code class="language-plaintext highlighter-rouge">await</code> no ejecuta nada, solo crea el objeto co-rutina:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="k">def</span> <span class="nf">saludar</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s">"hola"</span>
+
+<span class="n">saludar</span><span class="p">()</span>          <span class="c1"># ¡No hace nada! Devuelve &lt;coroutine object ...&gt; y un aviso
+</span><span class="k">await</span> <span class="n">saludar</span><span class="p">()</span>    <span class="c1"># Esto sí la ejecuta (dentro de otra función async)
+</span></code></pre></div></div>
+
+<p>Si ves el aviso <em>“coroutine was never awaited”</em>, casi seguro que se te ha olvidado un <code class="language-plaintext highlighter-rouge">await</code>.</p>
+
+<h4 id="async-en-los-endpoints-de-fastapi">async en los endpoints de FastAPI</h4>
+
+<p>En FastAPI puedes declarar tus endpoints de dos formas y las dos funcionan:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/a"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">endpoint_async</span><span class="p">():</span>     <span class="c1"># se ejecuta directamente en el bucle de eventos
+</span>    <span class="p">...</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/b"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">endpoint_normal</span><span class="p">():</span>          <span class="c1"># FastAPI lo ejecuta en un hilo aparte
+</span>    <span class="p">...</span>
+</code></pre></div></div>
+
+<p>Para saber si un endpoint debe ser <code class="language-plaintext highlighter-rouge">def</code> o <code class="language-plaintext highlighter-rouge">async def</code> puedes tener presente esta regal:</p>
+<ul>
+  <li>Usa <code class="language-plaintext highlighter-rouge">async def</code> si dentro del endpoint usas librerías <strong>asíncronas</strong> (como los drivers de BD asíncronos) con <code class="language-plaintext highlighter-rouge">await</code></li>
+  <li>Usa <code class="language-plaintext highlighter-rouge">def</code> si dentro del endpoint usas librerías <strong>bloqueantes</strong> (como <code class="language-plaintext highlighter-rouge">requests</code>, drivers de BD síncronos, etc)</li>
+  <li>Usa <code class="language-plaintext highlighter-rouge">def</code> si <strong>no estás seguro</strong>. El servidor puede funcionar más lento pero <em>no se bloqueará</em>.</li>
+</ul>
+
+<p>Efectivamente, el mayor peligro de usar <code class="language-plaintext highlighter-rouge">async def</code> incorrectamente en un endpoint es que <strong>cualquier operación bloqueante congelará el bucle de eventos completo</strong>, y con él, a todos los clientes. ¡El servidor dejará de responder!</p>
+
+<p>Compruébalo tú mismo con este código:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/ping"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">ping</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"mensaje"</span><span class="p">:</span> <span class="s">"pong"</span><span class="p">}</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/espera-correcta"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">espera_correcta</span><span class="p">():</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>          <span class="c1"># cede el control: el servidor sigue atendiendo
+</span>    <span class="k">return</span> <span class="p">{</span><span class="s">"mensaje"</span><span class="p">:</span> <span class="s">"terminé sin bloquear"</span><span class="p">}</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/espera-mala"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">espera_mala</span><span class="p">():</span>
+    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>                   <span class="c1"># ¡MAL! bloquea todo el servidor
+</span>    <span class="k">return</span> <span class="p">{</span><span class="s">"mensaje"</span><span class="p">:</span> <span class="s">"terminé bloqueando"</span><span class="p">}</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/espera-en-hilo"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">espera_en_hilo</span><span class="p">():</span>
+    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>                   <span class="c1"># Bien: al ser def, va a un hilo aparte
+</span>    <span class="k">return</span> <span class="p">{</span><span class="s">"mensaje"</span><span class="p">:</span> <span class="s">"terminé en un hilo"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>Puedes probar este sencillo código con Postman o con tu navegador web:</p>
+
+<ol>
+  <li>Lanza una petición a <code class="language-plaintext highlighter-rouge">/espera-correcta</code> y, sin esperar, otra a <code class="language-plaintext highlighter-rouge">/ping</code>. <code class="language-plaintext highlighter-rouge">/ping</code> responderá al instante aunque la otra petición aún no haya finalizado.</li>
+  <li>Lanza ahora la petición <code class="language-plaintext highlighter-rouge">/espera-mala</code> y, sin esperar, lanza <code class="language-plaintext highlighter-rouge">/ping</code>. Esta vez <strong><code class="language-plaintext highlighter-rouge">/ping</code> tarda unos 10 segundos</strong> en responder, porque el servidor entero estaba bloqueado por <code class="language-plaintext highlighter-rouge">/espera-mala</code>.</li>
+  <li>Lanza <code class="language-plaintext highlighter-rouge">/espera-en-hilo</code> y <code class="language-plaintext highlighter-rouge">/ping</code>. <code class="language-plaintext highlighter-rouge">/ping</code> volverá a responder al instante.</li>
+</ol>
+
+<h4 id="qué-cosas-no-resuelve-la-asincronía">Qué cosas no resuelve la asincronía</h4>
+
+<p>La asincronía está muy bien para aprovechar mejor los recursos del servidor, pero no hace magia:</p>
+
+<ul>
+  <li><strong>No acelera el trabajo de CPU</strong> (cálculos pesados, procesar imágenes…). Esa carga sigue ocupando el único hilo del bucle de eventos. Para eso hacen falta varios procesos (<code class="language-plaintext highlighter-rouge">--workers</code>) u otras estrategias.</li>
+  <li><strong>No hace que cada petición individual sea más rápida</strong>: una consulta que tarda 2 segundos seguirá tardando 2 segundos. Lo que mejora es cuántas peticiones puede gestionar el servidor <strong>a la vez</strong> con los mismos recursos.</li>
+  <li><strong>Tiene un coste de complejidad</strong>: el código asíncrono es más difícil de depurar y exige usar librerías compatibles. Si tu servicio es simple y poco concurrente, un <code class="language-plaintext highlighter-rouge">def</code> normal es perfectamente válido.</li>
+</ul>
+:ET

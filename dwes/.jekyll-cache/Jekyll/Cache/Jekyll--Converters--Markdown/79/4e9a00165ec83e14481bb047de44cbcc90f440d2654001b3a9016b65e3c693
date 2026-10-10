@@ -1,0 +1,237 @@
+I"X<h1 class="no_toc" id="apéndice-i-openstack">Apéndice I. Openstack</h1>
+
+<div style="color:red; font-size: 150%"><strong>ESTE MATERIAL AÚN ESTÁ EN DESARROLLO</strong></div>
+
+<ul id="markdown-toc">
+  <li><a href="#a11-qué-es-openstack" id="markdown-toc-a11-qué-es-openstack">A1.1. ¿Qué es Openstack?</a></li>
+  <li><a href="#a12-creando-vps-en-openstack" id="markdown-toc-a12-creando-vps-en-openstack">A1.2. Creando VPS en Openstack</a></li>
+  <li><a href="#a13-desplegar-en-openstack-una-aplicación-web-escrita-en-php" id="markdown-toc-a13-desplegar-en-openstack-una-aplicación-web-escrita-en-php">A1.3. Desplegar en Openstack una aplicación web escrita en PHP</a></li>
+  <li><a href="#a14-desplegar-en-openstack-una-aplicación-web-o-api-hecha-con-laravel" id="markdown-toc-a14-desplegar-en-openstack-una-aplicación-web-o-api-hecha-con-laravel">A1.4. Desplegar en Openstack una aplicación web o API hecha con Laravel</a></li>
+  <li><a href="#a15-desplegar-en-openstack-un-backend-hecho-con-spring-boot" id="markdown-toc-a15-desplegar-en-openstack-un-backend-hecho-con-spring-boot">A1.5. Desplegar en Openstack un backend hecho con Spring Boot</a></li>
+  <li><a href="#a16-desplegar-en-openstack-una-api-hecha-con-fastapi" id="markdown-toc-a16-desplegar-en-openstack-una-api-hecha-con-fastapi">A1.6. Desplegar en Openstack una API hecha con FastAPI</a></li>
+  <li><a href="#a17-desplegar-en-openstack-un-frontend-spa-vuejs-angular-o-react" id="markdown-toc-a17-desplegar-en-openstack-un-frontend-spa-vuejs-angular-o-react">A1.7. Desplegar en Openstack un frontend SPA (Vue.js, Angular o React)</a></li>
+</ul>
+
+<h2 id="a11-qué-es-openstack">A1.1. ¿Qué es Openstack?</h2>
+
+<p><strong>OpenStack</strong> es un proyecto <em>open source</em> que permite gestionar recursos virtuales de computación, redes, almacenamiento e imágenes, para diseñar y gestionar nubes privadas y públicas. Proporciona una virtualización de “infraestructura como servicio” o <em>IaaS</em> (Infraestructure as a Service).</p>
+
+<p>En palabras más simples, Openstack nos permite desplegar una nube en la que virtualizar cualquier infraestructura hardware razonablemente concebible: ordenadores, redes, dispositivos de almacenamiento, etc. Y, además, nos permite interconectar todos esos componentes entre sí.</p>
+
+<p>Por lo tanto, Openstack es perfecto para montar servidores web y de bases de datos adaptados a nuestras necesidades, de manera que podamos desplegar en ellos nuestras aplicaciones web.</p>
+
+<p>Como son servidores virtuales, es fácil crearlos, replicarlos, eliminarlos o modificarlos, incluso en caliente. Por ejemplo, puedes añadir más memoria RAM a un servidor sin necesidad siquiera de apagarlo.</p>
+
+<h2 id="a12-creando-vps-en-openstack">A1.2. Creando VPS en Openstack</h2>
+
+<p>El profesor José Juan Sánchez, del Departamento de Informática del IES Celia Viñas, ha elaborado una completa documentación sobre Openstack. La podéis encontrar aquí:</p>
+
+<p><a href="https://josejuansanchez.org/openstack-celia/">https://josejuansanchez.org/openstack-celia/</a></p>
+
+<p>No vamos a repetir lo que ya pone en esa guía, porque además corresponde al módulo de “Despliegue de Aplicaciones Web”. Aquí solo resumiremos los pasos necesarios para crear un servidor en Openstack adecuado para desplegar tus aplicaciones:</p>
+
+<ol>
+  <li>
+    <p><strong>Accede a Openstack</strong> en <a href="https://172.16.0.11">https://172.16.0.11</a>. Lógicamente, necesitarás una cuenta de usuario en vigor. <em>Si estás fuera de la red de IES Celia Viñas, necesitarás una cuenta en nuestra VPN para acceder</em>.</p>
+  </li>
+  <li>
+    <p><strong>Crea una instancia nueva</strong> (por ejemplo, un Ubuntu 24.04 con 20 GB de disco y 2 GB de RAM debería ser suficiente para un servidor normalito).</p>
+  </li>
+  <li>
+    <p><strong>Asocia una IP flotante</strong> a la instancia. Es la única forma de poder entrar a tu máquina virtual posteriormente.</p>
+  </li>
+  <li>
+    <p><strong>Lanza la instancia y conéctate por SSH</strong> con ella. Necesitarás crear un par de claves SSH y guardar tu clave privada en un archivo llamado “id_rsa” de tu usuario (la ubicación de este archivo depende del sistema operativo; tendrás que consultar dónde hacerlo según que sistema uses):</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ssh ubuntu@dirección_IP
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Añade una regla al grupo de seguridad de Openstack para poder acceder al servidor por http y https</strong>. Esto se hace desde el panel de administración de Openstack, siguiendo esta ruta: <em>Red -&gt; Grupos de seguridad -&gt; Administrar reglas -&gt; Agregar regla</em>. Después, elije las reglas predefinidas que se llaman “HTTP” y “HTTPS” (puertos 80 y 443).</p>
+  </li>
+  <li>
+    <p><strong>Añade una regla al grupo de seguridad de Openstack para poder acceder a tu Base de Datos</strong> (si la necesitas exponer). Desde el mismo panel, puedes abrir el puerto 3306 si usas MySQL/MariaDB o el 5432 si usas PostgreSQL.</p>
+  </li>
+  <li>
+    <p><strong>Instala docker, docker-compose y git</strong> en la máquina virtual (y cualquier otra cosa que te sea necesaria, como <strong>composer</strong> o <strong>npm</strong>). <em>Recuerda conectarte antes a tu máquina virtual por SSH</em>. Por ejemplo:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span><span class="nb">sudo </span>apt update
+ <span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install </span>docker.io docker-compose git composer
+ <span class="nv">$ </span><span class="nb">sudo </span>adduser ubuntu docker  <span class="c"># Añadir usuario "ubuntu" al grupo "docker"</span>
+ <span class="c"># Cierra sesión y vuelve a entrar por SSH para que el grupo docker surta efecto</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Instala el software necesario para que tu aplicación web funcione</strong>. Esto se puede hacer de forma nativa (instalando Apache, MySQL, etc.) o virtualizando esos componentes con Docker, que es más fácil, limpio y escalable.</p>
+
+    <p>Como es diferente desplegar una aplicación web escrita en PHP clásico que hacerlo con otros frameworks o lenguajes, vamos a mostrar los siguientes pasos de forma diferenciada para cada tecnología.</p>
+  </li>
+</ol>
+
+<h2 id="a13-desplegar-en-openstack-una-aplicación-web-escrita-en-php">A1.3. Desplegar en Openstack una aplicación web escrita en PHP</h2>
+
+<p>Asegúrate de que has seguido correctamente los pasos previos expuestos en el <a href="#a12-creando-vps-en-openstack">apartado A1.2</a> antes de continuar por aquí.</p>
+
+<ol>
+  <li>
+    <p><strong>Monta los contenedores Docker necesarios para crear un servidor web</strong>. Para ello, puedes seguir los pasos que detallamos en el ejemplo del Apéndice 2, donde montamos un servidor con Apache, PHP, MariaDB y PHPMyAdmin. Esos pasos los tienes que ejecutar en tu máquina virtual de Openstack, conectándote a ella por SSH.</p>
+  </li>
+  <li>
+    <p><strong>Despliega tu código</strong>. Si usas <em>git</em>, es tan simple como hacer <code class="language-plaintext highlighter-rouge">git clone</code> de tu repositorio dentro de la carpeta que hayas mapeado como volumen en tu Docker para el servidor web.</p>
+  </li>
+  <li>
+    <p><strong>Lanza los contenedores con <em>docker-compose</em></strong>. Navega al directorio donde esté tu archivo <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> y ejecuta:</p>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>docker-compose up <span class="nt">-d</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>¡Listo! Tu aplicación estará respondiendo en la IP flotante de tu máquina.</p>
+
+<h2 id="a14-desplegar-en-openstack-una-aplicación-web-o-api-hecha-con-laravel">A1.4. Desplegar en Openstack una aplicación web o API hecha con Laravel</h2>
+
+<p>Asegúrate de que has seguido correctamente los pasos del <a href="#a12-creando-vps-en-openstack">apartado A1.2</a>.</p>
+
+<p>Para desplegar Laravel, la forma más cómoda es apoyarnos en <strong>Laravel Sail</strong> (que usa Docker por debajo), ya que nos instala todas las dependencias (PHP, MySQL, Redis, etc.) sin ensuciar el servidor.</p>
+
+<ol>
+  <li><strong>Clona tu repositorio</strong>. Conéctate por SSH y baja tu código:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>git clone https://github.com/tu-usuario/tu-repo-laravel.git mi-app
+ <span class="nv">$ </span><span class="nb">cd </span>mi-app
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Configura las variables de entorno</strong>.
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span><span class="nb">cp</span> .env.example .env
+ <span class="nv">$ </span>nano .env
+</code></pre></div>    </div>
+    <p>Configura tus credenciales de base de datos. Recuerda poner <code class="language-plaintext highlighter-rouge">APP_ENV=production</code> y <code class="language-plaintext highlighter-rouge">APP_DEBUG=false</code> en un entorno real.</p>
+  </li>
+  <li><strong>Instala las dependencias de PHP</strong>. Como aún no tienes Sail levantado porque no tienes la carpeta <code class="language-plaintext highlighter-rouge">vendor</code>, puedes usar un contenedor temporal para instalarlas:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>docker run <span class="nt">--rm</span> <span class="nt">-v</span> <span class="si">$(</span><span class="nb">pwd</span><span class="si">)</span>:/var/www/html <span class="nt">-w</span> /var/www/html laravelsail/php83-composer:latest composer <span class="nb">install</span> <span class="nt">--ignore-platform-reqs</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Levanta Sail y prepara la base de datos</strong>.
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>./vendor/bin/sail up <span class="nt">-d</span>
+ <span class="nv">$ </span>./vendor/bin/sail artisan key:generate
+ <span class="nv">$ </span>./vendor/bin/sail artisan migrate <span class="nt">--force</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Compilar el frontend (Solo si tu app usa Blade/Vue/React integrado)</strong>. Si tu aplicación usa Vite para compilar recursos estáticos, <strong>NUNCA debes ejecutar <code class="language-plaintext highlighter-rouge">npm run dev</code> en un servidor de producción</strong>. Ese comando es solo para desarrollo local y bloqueará la terminal. En producción, debes compilar los archivos:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>./vendor/bin/sail npm <span class="nb">install</span>
+ <span class="nv">$ </span>./vendor/bin/sail npm run build
+</code></pre></div>    </div>
+    <p>Esto generará los archivos optimizados en la carpeta <code class="language-plaintext highlighter-rouge">public/build/</code>.</p>
+  </li>
+  <li><strong>Permisos</strong>. Si Laravel da un error de permisos en <code class="language-plaintext highlighter-rouge">storage</code> o <code class="language-plaintext highlighter-rouge">bootstrap/cache</code>, corrígelo:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span><span class="nb">sudo chmod</span> <span class="nt">-R</span> 775 storage bootstrap/cache
+ <span class="nv">$ </span><span class="nb">sudo chown</span> <span class="nt">-R</span> <span class="nv">$USER</span>:www-data storage bootstrap/cache
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h2 id="a15-desplegar-en-openstack-un-backend-hecho-con-spring-boot">A1.5. Desplegar en Openstack un backend hecho con Spring Boot</h2>
+
+<p>Desplegar una aplicación Java con <strong>Spring Boot</strong> es extremadamente sencillo, ya que Spring Boot empaqueta un servidor web interno (Tomcat normalmente) dentro del propio archivo ejecutable.</p>
+
+<ol>
+  <li><strong>Instala Java y Maven en tu servidor</strong>. Conéctate por SSH y ejecuta:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span><span class="nb">sudo </span>apt update
+ <span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install </span>openjdk-17-jdk maven  <span class="c"># O la versión de Java que uses (17, 21...)</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Clona tu repositorio</strong>.
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>git clone https://github.com/tu-usuario/tu-repo-spring.git mi-api-spring
+ <span class="nv">$ </span><span class="nb">cd </span>mi-api-spring
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Configura tu aplicación</strong>. Modifica el archivo <code class="language-plaintext highlighter-rouge">src/main/resources/application.properties</code> (o <code class="language-plaintext highlighter-rouge">application.yml</code>) para asegurarte de que apunta a la base de datos correcta en producción. Si usas MySQL, tendrás que instalarlo en tu servidor (nativamente o con Docker) y crear la base de datos que Spring Boot espera encontrar.</p>
+  </li>
+  <li><strong>Empaqueta la aplicación</strong>. Este comando descargará las dependencias y compilará el código, generando un archivo <code class="language-plaintext highlighter-rouge">.jar</code> en la carpeta <code class="language-plaintext highlighter-rouge">target/</code>.
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>mvn clean package <span class="nt">-DskipTests</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Ejecuta la aplicación</strong>. Puedes lanzar el servidor directamente. Por defecto escuchará en el puerto 8080. Si quieres que se quede ejecutando en segundo plano aunque cierres la terminal, puedes usar <code class="language-plaintext highlighter-rouge">nohup</code>:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span><span class="nb">nohup </span>java <span class="nt">-jar</span> target/mi-aplicacion-0.0.1-SNAPSHOT.jar <span class="o">&gt;</span> log.txt 2&gt;&amp;1 &amp;
+</code></pre></div>    </div>
+    <p><em>(Asegúrate de tener el puerto 8080 abierto en el Grupo de Seguridad de Openstack, o cambia el puerto al 80 en el <code class="language-plaintext highlighter-rouge">application.properties</code> ejecutando el comando como <code class="language-plaintext highlighter-rouge">sudo</code>).</em></p>
+  </li>
+</ol>
+
+<h2 id="a16-desplegar-en-openstack-una-api-hecha-con-fastapi">A1.6. Desplegar en Openstack una API hecha con FastAPI</h2>
+
+<p>Para desplegar una API en Python construida con <strong>FastAPI</strong>, lo habitual es usar un entorno virtual de Python y lanzar el servidor ASGI llamado <code class="language-plaintext highlighter-rouge">uvicorn</code>.</p>
+
+<ol>
+  <li><strong>Instala Python y virtualenv en tu servidor</strong>.
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span><span class="nb">sudo </span>apt update
+ <span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install </span>python3 python3-venv python3-pip
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Clona tu repositorio</strong>.
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>git clone https://github.com/tu-usuario/tu-repo-fastapi.git mi-api-fastapi
+ <span class="nv">$ </span><span class="nb">cd </span>mi-api-fastapi
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Crea un entorno virtual e instala las dependencias</strong>. Esto aísla las librerías de tu aplicación del resto del sistema operativo.
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>python3 <span class="nt">-m</span> venv venv
+ <span class="nv">$ </span><span class="nb">source </span>venv/bin/activate
+ <span class="nv">$ </span>pip <span class="nb">install</span> <span class="nt">-r</span> requirements.txt
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Ejecuta Uvicorn</strong>. Para desplegar en producción, le diremos a Uvicorn que escuche en todas las interfaces de red (<code class="language-plaintext highlighter-rouge">0.0.0.0</code>) y en el puerto 8000. Si lo ejecutamos en segundo plano:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span><span class="nb">nohup </span>uvicorn main:app <span class="nt">--host</span> 0.0.0.0 <span class="nt">--port</span> 8000 <span class="o">&gt;</span> log.txt 2&gt;&amp;1 &amp;
+</code></pre></div>    </div>
+    <p><em>(Nota: Reemplaza <code class="language-plaintext highlighter-rouge">main:app</code> por el nombre de tu archivo Python y el nombre de tu instancia de FastAPI. Recuerda abrir el puerto 8000 en el panel de seguridad de Openstack).</em></p>
+  </li>
+</ol>
+
+<h2 id="a17-desplegar-en-openstack-un-frontend-spa-vuejs-angular-o-react">A1.7. Desplegar en Openstack un frontend SPA (Vue.js, Angular o React)</h2>
+
+<p>Desplegar una aplicación frontend de tipo SPA es muy distinto a desplegar un backend. Una SPA, una vez terminada, <strong>no necesita Node.js ni ningún motor de ejecución en el servidor</strong>. Son solo archivos estáticos (HTML, CSS y JS). El servidor web solo tiene que entregarlos al navegador.</p>
+
+<p>Para ello, usaremos el servidor web más rápido y popular para archivos estáticos: <strong>Nginx</strong>.</p>
+
+<ol>
+  <li><strong>Instala Nginx y Node.js en tu servidor</strong>.
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span><span class="nb">sudo </span>apt update
+ <span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install </span>nginx
+ <span class="c"># Instalamos Node desde los repositorios para poder compilar nuestro frontend:</span>
+ <span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install </span>nodejs npm
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Clona el repositorio de tu frontend</strong>.
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>git clone https://github.com/tu-usuario/tu-repo-vue.git mi-frontend
+ <span class="nv">$ </span><span class="nb">cd </span>mi-frontend
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Configura la URL de tu API (IMPORTANTE)</strong>. Antes de compilar, asegúrate de que tu código frontend apunta a la IP pública (o dominio) de tu servidor Backend en Openstack, y NO a <code class="language-plaintext highlighter-rouge">localhost</code>. Si usas variables de entorno (ej. <code class="language-plaintext highlighter-rouge">.env.production</code>), ajústalas ahora.</p>
+  </li>
+  <li><strong>Instala y compila para producción</strong>.
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>npm <span class="nb">install</span>
+ <span class="nv">$ </span>npm run build
+</code></pre></div>    </div>
+    <p>Este proceso generará una carpeta llamada <code class="language-plaintext highlighter-rouge">dist</code> (o <code class="language-plaintext highlighter-rouge">build</code> dependiendo del framework) con el código final optimizado para el navegador.</p>
+  </li>
+  <li><strong>Copia los archivos a Nginx</strong>. El servidor Nginx, por defecto en Ubuntu, sirve los archivos alojados en <code class="language-plaintext highlighter-rouge">/var/www/html</code>. Solo tenemos que copiar el contenido de nuestra carpeta <code class="language-plaintext highlighter-rouge">dist</code> allí.
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span><span class="nb">sudo rm</span> <span class="nt">-rf</span> /var/www/html/<span class="k">*</span>
+ <span class="nv">$ </span><span class="nb">sudo cp</span> <span class="nt">-r</span> dist/<span class="k">*</span> /var/www/html/
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Configura el enrutamiento para SPA en Nginx (Opcional pero muy recomendado)</strong>. Si usas Vue Router (o Angular Router) en modo “History”, si un usuario recarga la página en una ruta como <code class="language-plaintext highlighter-rouge">/academias</code>, Nginx dará un error 404 porque no existe ese archivo físico. Nginx debe redirigir todo a <code class="language-plaintext highlighter-rouge">index.html</code>.
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span><span class="nb">sudo </span>nano /etc/nginx/sites-available/default
+</code></pre></div>    </div>
+    <p>Busca el bloque <code class="language-plaintext highlighter-rouge">location / { ... }</code> y déjalo así:</p>
+    <div class="language-nginx highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">location</span> <span class="n">/</span> <span class="p">{</span>
+     <span class="kn">try_files</span> <span class="nv">$uri</span> <span class="nv">$uri</span><span class="n">/</span> <span class="n">/index.html</span><span class="p">;</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+    <p>Reinicia Nginx para aplicar los cambios:</p>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span><span class="nb">sudo </span>systemctl restart nginx
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>¡Ya está! Si introduces la IP flotante de tu servidor en tu navegador, Nginx entregará tu frontend SPA, y este a su vez se comunicará con tu API en el backend.</p>
+:ET
