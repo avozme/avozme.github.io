@@ -1,4 +1,4 @@
-I"?�<h2 class="no_toc" id="11-control-de-versiones-con-git">1.1. Control de versiones con Git</h2>
+I".�<h2 class="no_toc" id="11-control-de-versiones-con-git">1.1. Control de versiones con Git</h2>
 
 <ul id="markdown-toc">
   <li><a href="#111-sistemas-de-control-de-versiones" id="markdown-toc-111-sistemas-de-control-de-versiones">1.1.1. Sistemas de control de versiones</a></li>
@@ -662,7 +662,7 @@ CAPTURA 2: guarda una captura de pantalla del Pull Request ya fusionado (estado 
 
 <h4 id="paso-8--preparar-el-conflicto-a-propósito">Paso 8 — Preparar el conflicto (a propósito)</h4>
 
-<div style="color: red">¡ATENCIÓN! Esta parte se debe hacer <strong>POR PAREJAS (alumno A y alumno B)</strong></div>
+<p class="importante">Esta parte se debe hacer <strong>POR PAREJAS</strong> (alumno A y alumno B)</p>
 
 <p>Uno de los dos añade al otro como colaborador de su repositorio (<em>Settings → Collaborators</em>).</p>
 
