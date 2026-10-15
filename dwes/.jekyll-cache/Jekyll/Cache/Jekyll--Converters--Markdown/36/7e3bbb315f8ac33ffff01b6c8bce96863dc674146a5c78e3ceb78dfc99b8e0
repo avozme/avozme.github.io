@@ -1,4 +1,4 @@
-I"-$<h2 class="no_toc" id="21-el-protocolo-http-y-https">2.1. El protocolo HTTP y HTTPS</h2>
+I":$<h2 class="no_toc" id="21-el-protocolo-http-y-https">2.1. El protocolo HTTP y HTTPS</h2>
 
 <ul id="markdown-toc">
   <li><a href="#211-arquitectura-cliente-servidor" id="markdown-toc-211-arquitectura-cliente-servidor">2.1.1. Arquitectura Cliente-Servidor</a></li>
@@ -33,7 +33,7 @@
 
 <p>¡Y ya está! Tras enviar su respuesta, el servidor se olvida completamente del cliente.</p>
 
-<p>Se dice que HTTP es un protocolo <strong>sin estado</strong> (<em>stateless</em>). Esto significa que no <em>recuerda</em> quiénes son los clientes ni lo que hicieron en las peticiones anteriores al mismo servidor. Ya veremos más adelante cómo nos las ingeniamos para que el servidor recuerde qué clientes han hecho qué cosas, porque, si no, difícilmente vamos a poder programar nada más complejo que una página web estática.</p>
+<p class="note">Se dice que HTTP es un protocolo <strong>sin estado</strong> (<em>stateless</em>). Esto significa que no <em>recuerda</em> quiénes son los clientes ni lo que hicieron en las peticiones anteriores al mismo servidor. Ya veremos más adelante cómo nos las ingeniamos para que el servidor recuerde qué clientes han hecho qué cosas, porque, si no, difícilmente vamos a poder programar nada más complejo que una página web estática.</p>
 
 <p><img src="../../assets/images/02-servicio-www.jpg" alt="Interacción cliente-servidor a través de http" /></p>
 

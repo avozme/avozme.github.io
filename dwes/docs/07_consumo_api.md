@@ -8,44 +8,59 @@ nav_order: 7
 # 7. Consumo de APIs y frontend reactivo para SPA
 {: .no_toc }
 
-<div style="color:red; font-size: 150%"><strong>ESTE MATERIAL AÚN ESTÁ EN DESARROLLO</strong></div>
-
 - TOC
 {:toc}
 
+[Descargar presentación](https://www.dropbox.com/scl/fi/1yagmh6bgjc02xg6blwnq/07_consumo_api_vue.pdf?rlkey=qvogcai2dwj1pm5pb77k8f7qx&st=muywgnfy&dl=0){: .btn .btn-primary }
+
+
 ## 7.1. ¿Qué es Vue.js y por qué usarlo?
+
+### 7.1.1. Aplicaciones SSR vs aplicaciones SPA
 
 Hasta ahora, en asignaturas anteriores o en los primeros temas de este módulo, hemos construido aplicaciones web tradicionales utilizando **SSR (Server-Side Rendering)** con herramientas como Blade en Laravel. En ese modelo, cada vez que el usuario hace clic en un enlace o envía un formulario, el servidor (PHP) procesa la petición, genera una página HTML completa desde cero y se la envía al navegador. Esto obliga al navegador a recargar la página entera constantemente.
 
-**Vue.js** es un **framework progresivo de Javascript** que nos permite cambiar completamente este paradigma para crear aplicaciones **SPA (*Single Page Applications*)**.
+También hemos aprendido a construir **APIs** (de tipo REST o de cualquier otro tipo) que no generan vistas, sino datos que deben ser consumidos por otro programa (como Postman) o por otro servicio (como hacen los microservicios de FastAPI).
 
-En una SPA, el navegador carga una única página HTML al principio. A partir de ahí, es el código Javascript (en este caso, controlado por Vue.js) el que se encarga de reescribir y actualizar el contenido de la pantalla dinámicamente. Cuando necesitamos leer o guardar datos en la base de datos, Javascript se comunica con nuestro servidor en segundo plano (nuestra API REST), recibe los datos en formato JSON y actualiza solo las partes necesarias de la interfaz, sin que la página parpadee ni se recargue nunca.
+**Vue.js** es un **framework progresivo de Javascript** que nos permite consumir servicios para crear aplicaciones web completas de tipo **SPA (*Single Page Applications*)**.
 
-Puesto que ya conoces Javascript, Typescript y has trasteado con Angular, los conceptos básicos te resultarán muy familiares. Vue ofrece las mismas ventajas (componentes, reactividad, enlace de datos) pero con una curva de aprendizaje que muchos desarrolladores consideran más amable.
+En una SPA, a diferencia de las SSR, **el navegador carga una única página HTML**. A partir de ahí, es el código Javascript (en este caso, controlado por Vue.js) el que se encarga de actualizar dinámicamente el contenido de ese documento ya cargado en el navegador.
 
-### 7.1.1. Iniciando un proyecto moderno con Vite
+Así, cuando necesitamos leer o guardar datos en la base de datos, Javascript se comunica con nuestro servidor (nuestra API REST) en segundo plano, recibe los datos en formato JSON y actualiza solo las partes necesarias de la pantalla, sin que la página parpadee ni se recargue por completo.
+
+Esto no solo **disminuye la latencia** (el tiempo de espera entre que el usuario hace algo y que la web responde), sino que también **mejora la experiencia del usuario**, que encuentra una aplicación mucho más interactiva. Como contrapartida, introduce una mayor complejidad en el desarrollo.
+
+*Es decir, que podríamos decir que las aplicaciones SPA son «buenas» para el usuario y «malas» para el programador.*
+
+Puesto que ya conoces Javascript, Typescript y has trasteado con Angular o React, los conceptos básicos te resultarán muy familiares. Vue ofrece las mismas ventajas (componentes, reactividad, enlace de datos) pero con una curva de aprendizaje que muchos desarrolladores consideran más amable.
+
+### 7.1.2. Crear un proyecto Vue.js con Vite
 
 Antiguamente, era común importar Vue simplemente añadiendo una etiqueta `<script>` en un archivo HTML (usando un CDN) o empaquetarlo dentro del propio proyecto de Laravel con herramientas antiguas.
 
-Hoy en día, la arquitectura moderna exige separar completamente el código del *frontend* (la interfaz de usuario hecha con Vue) del *backend* (la API hecha con Laravel). Son dos proyectos distintos que correrán en puertos distintos.
+Hoy en día, **muchos proyectos separan completamente el código del *frontend* del *backend***. Son dos proyectos distintos, desarrollados por equipos distintos, que correrán en puertos o incluso máquinas distintas.
 
-Para crear un proyecto frontend profesional con Vue, el estándar actual de la industria es utilizar **Vite**, una herramienta de construcción ultrarrápida. Para crear tu proyecto, solo tienes que abrir tu terminal en una carpeta nueva (fuera de tu proyecto Laravel) y ejecutar:
+Para **crear un proyecto frontend profesional con Vue**, el estándar actual de la industria es utilizar **Vite**, una herramienta de construcción ultrarrápida. Para crear tu proyecto, solo tienes que abrir tu terminal en una carpeta nueva (fuera de tu proyecto Laravel) y ejecutar:
 
 ```bash
-npm create vue@latest
+$ npm create vue@latest
 ```
+
+(Lógicamente, necesitas tener instalado `npm`, el compilador de *Node.js*)
 
 El asistente te hará varias preguntas (puedes decirle que "Sí" a Vue Router si tu app tendrá varias pantallas, y que "No" a cosas más avanzadas como Pinia o Testing por ahora). Una vez creado el proyecto, debes entrar en la carpeta, instalar las dependencias e iniciar el servidor de desarrollo:
 
 ```bash
-cd nombre-de-tu-proyecto
-npm install
-npm run dev
+$ cd nombre-de-tu-proyecto
+$ npm install   # Instala dependencias
+$ npm run dev   # Lanza servidor de desarrollo (susa npm run build para versión definitiva)
 ```
 
-Esto levantará un servidor web local (generalmente en `http://localhost:5173`) donde podrás ver tu aplicación Vue funcionando.
+Esto levantará un servidor de desarrollo local (generalmente en `http://localhost:5173`) donde podrás ver tu aplicación Vue funcionando. Los cambios que hagas se reflejarán inmediatamente en el resultado mientras `npm run dev` esté funcionando.
 
-## 7.2. Conceptos básicos: Reactividad y Componentes (SFC)
+Para generar una versión definitiva de la aplicación, ejecuta `$ npm run build` y los archivos compilados se generarán en la carpeta `/dist`.
+
+## 7.2. Conceptos básicos: reactividad y componentes (SFC)
 
 En un proyecto Vue moderno, no trabajamos con archivos `.html` sueltos. Trabajamos con **Single-File Components (SFC)**. Esto significa que cada pieza de nuestra interfaz (un botón, un formulario de login, una barra de navegación) se guarda en un archivo con extensión `.vue`.
 
@@ -59,7 +74,7 @@ Un archivo `.vue` agrupa en un mismo lugar las tres tecnologías de la web: HTML
 
 El concepto más importante de Vue es la **Reactividad**. En Javascript tradicional, si cambias el valor de una variable, tienes que buscar manualmente el elemento en el HTML (con `document.getElementById`) y actualizar su texto. 
 
-En Vue, declaramos variables **reactivas**. Si el valor de esa variable cambia en Javascript, Vue se da cuenta automáticamente y actualiza el HTML donde esa variable esté siendo usada. ¡Magia!
+**En Vue se declaran variables reactivas**. Si el valor de esa variable cambia en Javascript, *Vue se da cuenta automáticamente y actualiza el HTML donde esa variable esté siendo usada*. 
 
 Para hacer esto, utilizamos la **Composition API**, que es el estándar en Vue 3. Simplemente importamos la función `ref` y envolvemos nuestros datos con ella.
 
@@ -68,11 +83,11 @@ Fíjate en este ejemplo sencillo de un archivo `Contador.vue`:
 ```html
 <template>
   <div class="caja-contador">
-    <!-- Usamos dobles llaves para mostrar la variable reactiva -->
+    <!-- Usamos dobles llaves para mostrar la variable de Vue reactiva -->
     <h2>El contador vale: {{ contador }}</h2>
     
     <!-- Al hacer click, llamamos a la función incrementar -->
-    <button @click="incrementar">Sumar 1</button>
+    <button @click="incrementar">Sumar uno</button>
   </div>
 </template>
 
@@ -83,7 +98,7 @@ import { ref } from 'vue';
 const contador = ref(0);
 
 const incrementar = () => {
-  // ATENCIÓN: En Javascript, para modificar el valor de un ref, 
+  // ATENCIÓN: En Javascript, para modificar el valor de una variable ref, 
   // SIEMPRE debemos acceder a la propiedad .value
   contador.value = contador.value + 1;
 };
@@ -97,16 +112,20 @@ const incrementar = () => {
 </style>
 ```
 
-**Puntos clave a recordar:**
-* En el `<template>`, puedes usar la variable directamente escribiendo `{{ contador }}`. Vue extrae el valor por ti.
-* En el `<script setup>`, como `contador` es un objeto reactivo creado con `ref()`, para leer o modificar su valor real tienes que escribir `contador.value`.
+Observa que:
+
+* En el `<template>` está el código HTML. Podemos usar la variable Vue directamente escribiendo `{{ contador }}`.
+* En el `<script setup>` está el código Javascript o Typescript. Ahí se define `contador` es un objeto reactivo creado con `ref()` y se crea el método `incrementar()` que suma 1 al contador.
+* Fíjate en que, para leer o modificar el valor de una variable reactiva, tienes que escribir `nombre_variable.value`.
 
 ### 7.2.2. Directivas esenciales de Vue
 
-Las directivas son atributos especiales que añadimos a las etiquetas HTML para dotarlas de lógica. Empiezan siempre por `v-`. Como ya conoces Angular (donde usabas `*ngIf`, `*ngFor`), esto te resultará idéntico.
+Las **directivas** son **atributos especiales que añadimos a las etiquetas HTML** para dotarlas de lógica. 
+
+Las directivas de Vue empiezan siempre por `v-`. Si ya conoces Angular (donde se usan directivas como `*ngIf`, `*ngFor`), esto te resultará familiar.
 
 **1. Atributos dinámicos (`v-bind` o `:`):**
-Si quieres que el atributo de una etiqueta HTML (como un `src`, un `href` o una `class`) tome su valor de una variable de Javascript, no puedes usar llaves dobles. Debes usar `:` delante del atributo.
+Si quieres que el atributo de una etiqueta HTML (como un `src`, un `href` o una `class`) tome su valor de una variable de Javascript, no uses llaves dobles, sino que debes escribir `:` delante del atributo.
 
 ```html
 <img :src="urlDeLaImagen" :alt="textoAlternativo">
@@ -133,7 +152,7 @@ Permite repetir un bloque de HTML por cada elemento de un array. Es obligatorio 
 ```
 
 **4. Eventos (`v-on` o `@`):**
-Se usa para escuchar eventos del usuario (clics, pulsaciones de teclas, envíos de formulario).
+Se usa para escuchar eventos del usuario (clicks, pulsaciones de teclas, envíos de formulario, etc.).
 
 ```html
 <button @click="guardarDatos">Guardar</button>
@@ -144,7 +163,9 @@ Se usa para escuchar eventos del usuario (clics, pulsaciones de teclas, envíos 
 ```
 
 **5. Formularios (`v-model`):**
-Esta directiva es crucial. Establece una conexión bidireccional (*two-way data binding*) entre un *input* del HTML y una variable reactiva de Javascript. Si el usuario escribe en la caja de texto, la variable se actualiza al instante. Y si la variable cambia en Javascript, la caja de texto muestra el nuevo valor automáticamente.
+Esta directiva es crucial. Establece una conexión bidireccional (*two-way data binding*) entre un *input* del HTML y una variable reactiva de Javascript.
+
+Es decir: **si el usuario escribe en la caja de texto, la variable se actualiza al instante**. Y **si la variable cambia en Javascript, la caja de texto muestra el nuevo valor** automáticamente.
 
 ```html
 <template>
@@ -158,38 +179,47 @@ const nombreUsuario = ref('');
 </script>
 ```
 
-## 7.3. Consumo de APIs y problemas de CORS
+## 7.3. Consumo de APIs con Axios
 
-Llegamos a la parte central de este tema. Nuestra maravillosa interfaz en Vue no sirve de mucho si los datos están aislados. Necesitamos comunicarnos con nuestra API REST (construida en Laravel o FastAPI) para obtener la información real de la base de datos y enviar los cambios que haga el usuario.
+Llegamos a la parte central de este tema. 
 
-Para hacer peticiones HTTP asíncronas desde Javascript, el navegador nos proporciona la función nativa `fetch`. Sin embargo, en el ecosistema Vue (y React), la inmensa mayoría de los desarrolladores prefiere utilizar una librería externa llamada **Axios**.
+Queremos **construir un interfaz de usuario** con Vue para procesar **los datos servidos por nuestra API** (da igual cómo esté construida, con Laravel, Spring Boot, FastAPI o cualquier otra cosa).
 
-Axios es más cómoda porque:
+Así que nuestra maravillosa interfaz en Vue no sirve de nada si no nos comunicamos con nuestra API para obtener la información real de la base de datos y enviar los cambios que haga el usuario.
+
+Para **hacer peticiones HTTP asíncronas desde Javascript**, el navegador nos proporciona la función nativa llamada `fetch`. Sin embargo, en el ecosistema Vue (y React), la inmensa mayoría de los desarrolladores prefiere utilizar una librería externa llamada **Axios**.
+
+Axios es más cómoda que Fetch porque:
 1. Convierte automáticamente las respuestas a JSON (con `fetch` tienes que hacer un `.json()` intermedio).
 2. Lanza errores automáticamente si el servidor responde con un código 400 o 500 (con `fetch` tienes que comprobar el `response.ok` a mano).
 3. Es más fácil de configurar globalmente (por ejemplo, para enviar tokens de seguridad en todas las peticiones).
 
-Para usar Axios, primero debemos instalarlo en nuestro proyecto Vue:
+**Para usar Axios**, solo tienes que **instalarlo** en nuestro proyecto Vue:
 ```bash
-npm install axios
+$ npm install axios
 ```
 
-### 7.3.1. Haciendo una petición básica con Axios
+### 7.3.1. Petición básica con Axios
 
-Observa cómo obtenemos una lista de libros. Para asegurarnos de que la petición se hace nada más cargar la página, utilizamos el *lifecycle hook* `onMounted`, que ejecuta el código que le pasemos justo en el momento en que el componente se dibuja en la pantalla.
+Como casi siempre, lo mejor para entender cómo funciona algo es verlo en funcionamiento y fijarse atentamente en cómo trabaja.
+
+Observa cómo obtenemos, por ejemplo, una lista de libros. Para asegurarnos de que la petición se hace nada más cargar la página, utilizamos `onMounted`, que ejecuta el código que le pasemos justo en el momento en que el componente se dibuja en la pantalla.
+
+(Este código iría en la parte `<script setup>` del componente Vue que corresponda, ya veremos uno completo):
 
 ```javascript
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
-const libros = ref([]);
+const libros = ref([]);   // Lista vacía
 
 // Se ejecuta automáticamente al cargar el componente
 onMounted(async () => {
   try {
     // Hacemos una petición GET a nuestra API
-    const respuesta = await axios.get('http://localhost:8000/api/libros');
+    const respuesta = await axios.get('http://localhost/api/libros');
     // Guardamos los datos que nos envía el servidor en nuestra variable reactiva
+    // (Axios convierte el JSON recibido a un array Javascript automáticamente)
     libros.value = respuesta.data;
   } catch (error) {
     console.error("Hubo un error al descargar los libros", error);
@@ -199,21 +229,40 @@ onMounted(async () => {
 
 ### 7.3.2. El temido error de CORS
 
-Si copias el código anterior, levantas tu API en Laravel (`localhost:8000`) y ejecutas tu frontend en Vue (`localhost:5173`), verás que **no funciona**. Al abrir la consola del navegador (F12), te encontrarás con un error enorme en rojo que menciona la palabra **CORS**.
+Si copias el código anterior y levantas tu API, por ejemplo, en Laravel (en `localhost` o en `localhost:8000`) y ejecutas tu frontend en Vue (`localhost:5173`), verás que **no funciona**. 
 
-**¿Qué es el CORS?**
-CORS (*Cross-Origin Resource Sharing*) es un mecanismo de seguridad implementado **por el navegador web** (Chrome, Firefox, etc.). Por defecto, los navegadores bloquean cualquier petición asíncrona que tu código Javascript intente hacer hacia un dominio, subdominio o puerto diferente al de la página en la que estás. 
+Al abrir la consola del navegador (F12), te encontrarás con un error enorme en rojo que menciona la palabra **CORS**.
 
-En nuestro caso, el navegador se queja: *"¡Oye! Has cargado este Javascript desde el puerto 5173, pero estás intentando robar datos del puerto 8000. ¡Eso es sospechoso y lo voy a bloquear!"*.
+#### ¿Qué es el CORS?
+CORS (*Cross-Origin Resource Sharing*) es un mecanismo de seguridad implementado **por los navegadores web**. Por defecto, los navegadores bloquean cualquier petición asíncrona que tu código Javascript intente hacer hacia un dominio, subdominio o puerto diferente al de la página desde la que se sirvió la página. 
 
-**¿Cómo se soluciona?**
-El CORS **no se soluciona en el frontend (Vue)**. Es el servidor Backend (tu API en Laravel o tu microservicio en FastAPI) el que debe responderle al navegador y decirle: *"Tranquilo, conozco a este frontend y le doy permiso para acceder a mis datos"*.
+En nuestro caso, el navegador se queja porque *la página se cargó desde `localhost` o `localhost:8000` y la petición de datos está llegando desde `localhost:5173`*. Y, para el navegador, esos son dos servidores diferentes y lo interpreta como un **intento de ataque**.
+
+#### ¿Cómo se soluciona el error de CORS?
+
+El CORS **no se soluciona en el frontend (Vue)**. Es el servidor Backend (tu API en Laravel o tu microservicio en FastAPI) el que debe responderle al navegador y decirle algo como: *"tranquilo, conozco a este frontend y le doy permiso para acceder a mis datos"*.
 
 * **En Laravel:** Abre el archivo `config/cors.php`. Busca la clave `'allowed_origins'` y añade la URL de tu frontend:
   ```php
   'allowed_origins' => ['http://localhost:5173'],
   ```
-  *(Nota: En las versiones más recientes de Laravel 11, CORS ya viene bastante permisivo por defecto o se configura en el archivo `bootstrap/app.php`)*.
+  *(Nota: En las versiones posteriores a Laravel 11, CORS ya viene bastante permisivo por defecto o se configura en el archivo `bootstrap/app.php`)*.
+
+* **En Spring Boot** es fácil configurar CORS para un controlador concreto:
+
+  ```java
+  @RestController
+  @CrossOrigin(origins = "http://localhost:5173")
+  public class UsuarioController {
+
+      @GetMapping("/api/usuarios")
+      public String listarUsuarios() {
+          return "Lista de usuarios";
+      }
+  }
+  ```
+
+  En cambio, si quieres configurarlo globalmente para toda la API, la cosa se complica y es diferente si estás usando Spring Security o no. En este curso no entraremos en esos detalles avanzados.
 
 * **En FastAPI:** Tienes que usar el **middleware `CORSMiddleware`**, que ya viene incluido con el paquete estándar. En este ejemplo se ilustra cómo se usa:
 
@@ -238,16 +287,17 @@ El CORS **no se soluciona en el frontend (Vue)**. Es el servidor Backend (tu API
 
     Añade este middleware a **los servicios a los que llamará el frontend directamente**. En nuestro ejemplo de usuarios y pedidos, serían tanto el servicio de usuarios como servicio de pedidos. En arquitecturas más grandes se suele poner un único punto de entrada (llamado *gateway*) y se configura CORS solo allí.
 
+Una vez configurado tu backend para permitir peticiones cruzadas, el navegador dejará pasar la información y tu Vue por fin recibirá el JSON con los datos. 
 
-    Una vez configurado tu backend para permitir peticiones cruzadas, el navegador dejará pasar la información y tu Vue por fin recibirá el JSON con los datos. Ten muy presente este error, porque es el problema número uno al que te enfrentarás al separar frontend y backend, independientemente de si hablas con un monolito o con decenas de microservicios.
+**Ten muy presente este error, porque es el problema número uno al que te enfrentarás al separar frontend y backend**, independientemente de si hablas con un monolito o con decenas de microservicios.
 
 ## 7.4. Autenticación y manejo de estado (Tokens)
 
-Otro cambio radical al pasar de SSR a una SPA es la forma en la que los usuarios inician sesión.
+Otro cambio radical al pasar de una SSR a una SPA es **la forma en la que los usuarios inician sesión**.
 
-En aplicaciones web tradicionales de Laravel (SSR con Blade), cuando un usuario hacía login, PHP creaba una **Sesión** en la memoria del servidor y le metía una **Cookie** al navegador del usuario. En cada clic posterior, el navegador enviaba esa Cookie automáticamente, y Laravel sabía quién era el usuario. 
+En aplicaciones web tradicionales de Laravel, por ejemplo, cuando un usuario hacía login, PHP creaba una **Sesión** en la memoria del servidor y le metía una **Cookie** al navegador del usuario. En cada clic posterior, el navegador enviaba esa Cookie automáticamente, y Laravel sabía quién era el usuario. 
 
-Sin embargo, las APIs RESTful son por definición **"Stateless" (Sin estado)**. No recuerdan nada de una petición a otra, y no utilizan Cookies de sesión. Entonces, ¿cómo demostramos quiénes somos al intentar crear un nuevo curso o borrar una academia en la base de datos?
+Sin embargo, las APIs RESTful son por definición **"Stateless" (Sin estado)**. No recuerdan nada de una petición a otra y no utilizan Cookies de sesión. Entonces, ¿cómo demostramos quiénes somos al intentar crear un nuevo curso o borrar una academia en la base de datos?
 
 La respuesta son los **Tokens (como JWT o Laravel Sanctum)**. El flujo es el siguiente:
 
@@ -258,7 +308,7 @@ La respuesta son los **Tokens (como JWT o Laravel Sanctum)**. El flujo es el sig
 
 Vamos a ver cómo se programa esto paso a paso.
 
-### Paso 1: El componente de Login en Vue
+#### Paso 1: El componente de Login en Vue
 
 Imagina que tenemos un archivo `Login.vue`. Vamos a crear un formulario, capturar los datos y enviarlos a la API.
 
@@ -302,7 +352,7 @@ const iniciarSesion = async () => {
   errorMsg.value = '';
   try {
     // 1. Enviamos el POST al backend
-    const respuesta = await axios.post('http://localhost:8000/api/login', credenciales.value);
+    const respuesta = await axios.post('http://localhost/api/login', credenciales.value);
     
     // 2. El servidor responde con éxito y nos entrega un JSON que contiene el token.
     // Supongamos que viene en respuesta.data.token
@@ -322,9 +372,9 @@ const iniciarSesion = async () => {
 </script>
 ```
 
-### Paso 2: Usar el token en rutas protegidas
+#### Paso 2: Usar el token en rutas protegidas
 
-Ahora el usuario ya está logueado y tiene su token en el `localStorage`. Supongamos que quiere ver la lista de sus academias privadas, o crear una nueva. Si intentamos hacer `axios.post('/api/academias')` sin más, Laravel rechazará la petición con un error 401 (No autorizado) porque no sabe quiénes somos.
+Ahora el usuario ya está logueado y tiene su token en el `localStorage`. Supongamos que quiere ver la lista de sus academias privadas o crear una nueva. Si intentamos hacer `axios.post('/api/academias')` sin más, Laravel rechazará la petición con un error 401 (No autorizado) porque no sabe quiénes somos.
 
 Debemos **adjuntar el token** sacándolo previamente del `localStorage`:
 
@@ -336,7 +386,7 @@ const crearAcademia = async (datosNuevaAcademia) => {
     
     // Realizamos la petición POST, pasando los datos, y un tercer parámetro
     // que es un objeto de configuración para Axios donde metemos las cabeceras (Headers)
-    const respuesta = await axios.post('http://localhost:8000/api/academias', datosNuevaAcademia, {
+    const respuesta = await axios.post('http://localhost/api/academias', datosNuevaAcademia, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -349,9 +399,9 @@ const crearAcademia = async (datosNuevaAcademia) => {
 };
 ```
 
-*(Nota técnica: En proyectos profesionales, para no tener que escribir esto del `localStorage` y el `Header` en TODAS Y CADA UNA de las peticiones que hagas en tu aplicación, se configuran los "Interceptors" de Axios, que son trozos de código que se ejecutan automáticamente antes de cada petición para inyectar el token por ti. Pero entender el proceso manual es vital para comprender cómo funciona la seguridad en las APIs modernas).*
+*(Nota técnica: En proyectos profesionales, para no tener que escribir esto del `localStorage` y el `Header` en TODAS las peticiones que hagas en tu aplicación, se configuran los "Interceptors" de Axios, que son trozos de código que se ejecutan automáticamente antes de cada petición para inyectar el token por ti. Pero entender el proceso manual es vital para comprender cómo funciona la seguridad en las APIs modernas).*
 
-### Paso 3: Cerrar sesión (Logout)
+#### Paso 3: Cerrar sesión (Logout)
 
 Hacer *logout* en un frontend tipo SPA es la cosa más sencilla del mundo. Al no haber sesiones en el servidor que destruir (aunque sí puedes invalidar el token en la BD si tu API lo permite), a nivel de interfaz de usuario basta con **borrar el token** del `localStorage` y redirigir al Login.
 
@@ -361,7 +411,7 @@ const cerrarSesion = () => {
   router.push('/login');
 };
 ```
-Si el token no está, tu código ya no podrá adjuntarlo, y cualquier petición a la API fallará bloqueando el acceso al usuario.
+Si el token no está, tu código ya no podrá adjuntarlo y cualquier petición a la API fallará bloqueando el acceso al usuario.
 
 ## 7.5. Ejemplo completo: Un CRUD con Vue y Axios
 
@@ -423,7 +473,7 @@ const nuevoLibro = ref({
 });
 
 // URL base de nuestra API REST
-const API_URL = 'http://localhost:8000/api/libros';
+const API_URL = 'http://localhost/api/libros';
 
 
 // --- MÉTODOS Y LÓGICA ---
@@ -499,7 +549,7 @@ const borrarLibro = async (idAEliminar) => {
 </style>
 ```
 
-## 7.6. Práctica final: Frontend para Gestión de Academias
+## 7.6. Práctica final: frontend para Gestión de Academias
 
 Es hora de crear la interfaz gráfica para la API RESTful de la Unidad 4. 
 

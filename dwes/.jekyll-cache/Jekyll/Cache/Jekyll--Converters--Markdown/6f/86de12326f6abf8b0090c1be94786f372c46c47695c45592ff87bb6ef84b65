@@ -1,30 +1,24 @@
-I"�<h1 class="no_toc" id="7-consumo-de-apis-y-frontend-reactivo-para-spa">7. Consumo de APIs y frontend reactivo para SPA</h1>
-
-<div style="color:red; font-size: 150%"><strong>ESTE MATERIAL AÚN ESTÁ EN DESARROLLO</strong></div>
+I"� <h1 class="no_toc" id="7-consumo-de-apis-y-frontend-reactivo-para-spa">7. Consumo de APIs y frontend reactivo para SPA</h1>
 
 <ul id="markdown-toc">
   <li><a href="#71-qué-es-vuejs-y-por-qué-usarlo" id="markdown-toc-71-qué-es-vuejs-y-por-qué-usarlo">7.1. ¿Qué es Vue.js y por qué usarlo?</a>    <ul>
-      <li><a href="#711-iniciando-un-proyecto-moderno-con-vite" id="markdown-toc-711-iniciando-un-proyecto-moderno-con-vite">7.1.1. Iniciando un proyecto moderno con Vite</a></li>
+      <li><a href="#711-aplicaciones-ssr-vs-aplicaciones-spa" id="markdown-toc-711-aplicaciones-ssr-vs-aplicaciones-spa">7.1.1. Aplicaciones SSR vs aplicaciones SPA</a></li>
+      <li><a href="#712-crear-un-proyecto-vuejs-con-vite" id="markdown-toc-712-crear-un-proyecto-vuejs-con-vite">7.1.2. Crear un proyecto Vue.js con Vite</a></li>
     </ul>
   </li>
-  <li><a href="#72-conceptos-básicos-reactividad-y-componentes-sfc" id="markdown-toc-72-conceptos-básicos-reactividad-y-componentes-sfc">7.2. Conceptos básicos: Reactividad y Componentes (SFC)</a>    <ul>
+  <li><a href="#72-conceptos-básicos-reactividad-y-componentes-sfc" id="markdown-toc-72-conceptos-básicos-reactividad-y-componentes-sfc">7.2. Conceptos básicos: reactividad y componentes (SFC)</a>    <ul>
       <li><a href="#721-reactividad-con-la-composition-api" id="markdown-toc-721-reactividad-con-la-composition-api">7.2.1. Reactividad con la Composition API</a></li>
       <li><a href="#722-directivas-esenciales-de-vue" id="markdown-toc-722-directivas-esenciales-de-vue">7.2.2. Directivas esenciales de Vue</a></li>
     </ul>
   </li>
-  <li><a href="#73-consumo-de-apis-y-problemas-de-cors" id="markdown-toc-73-consumo-de-apis-y-problemas-de-cors">7.3. Consumo de APIs y problemas de CORS</a>    <ul>
-      <li><a href="#731-haciendo-una-petición-básica-con-axios" id="markdown-toc-731-haciendo-una-petición-básica-con-axios">7.3.1. Haciendo una petición básica con Axios</a></li>
+  <li><a href="#73-consumo-de-apis-con-axios" id="markdown-toc-73-consumo-de-apis-con-axios">7.3. Consumo de APIs con Axios</a>    <ul>
+      <li><a href="#731-petición-básica-con-axios" id="markdown-toc-731-petición-básica-con-axios">7.3.1. Petición básica con Axios</a></li>
       <li><a href="#732-el-temido-error-de-cors" id="markdown-toc-732-el-temido-error-de-cors">7.3.2. El temido error de CORS</a></li>
     </ul>
   </li>
-  <li><a href="#74-autenticación-y-manejo-de-estado-tokens" id="markdown-toc-74-autenticación-y-manejo-de-estado-tokens">7.4. Autenticación y manejo de estado (Tokens)</a>    <ul>
-      <li><a href="#paso-1-el-componente-de-login-en-vue" id="markdown-toc-paso-1-el-componente-de-login-en-vue">Paso 1: El componente de Login en Vue</a></li>
-      <li><a href="#paso-2-usar-el-token-en-rutas-protegidas" id="markdown-toc-paso-2-usar-el-token-en-rutas-protegidas">Paso 2: Usar el token en rutas protegidas</a></li>
-      <li><a href="#paso-3-cerrar-sesión-logout" id="markdown-toc-paso-3-cerrar-sesión-logout">Paso 3: Cerrar sesión (Logout)</a></li>
-    </ul>
-  </li>
+  <li><a href="#74-autenticación-y-manejo-de-estado-tokens" id="markdown-toc-74-autenticación-y-manejo-de-estado-tokens">7.4. Autenticación y manejo de estado (Tokens)</a></li>
   <li><a href="#75-ejemplo-completo-un-crud-con-vue-y-axios" id="markdown-toc-75-ejemplo-completo-un-crud-con-vue-y-axios">7.5. Ejemplo completo: Un CRUD con Vue y Axios</a></li>
-  <li><a href="#76-práctica-final-frontend-para-gestión-de-academias" id="markdown-toc-76-práctica-final-frontend-para-gestión-de-academias">7.6. Práctica final: Frontend para Gestión de Academias</a>    <ul>
+  <li><a href="#76-práctica-final-frontend-para-gestión-de-academias" id="markdown-toc-76-práctica-final-frontend-para-gestión-de-academias">7.6. Práctica final: frontend para Gestión de Academias</a>    <ul>
       <li><a href="#requisitos-técnicos" id="markdown-toc-requisitos-técnicos">Requisitos Técnicos</a></li>
       <li><a href="#flujo-y-vistas-a-implementar" id="markdown-toc-flujo-y-vistas-a-implementar">Flujo y Vistas a implementar</a></li>
       <li><a href="#normas-de-entrega" id="markdown-toc-normas-de-entrega">Normas de entrega</a></li>
@@ -33,37 +27,53 @@
   </li>
 </ul>
 
+<p><a href="https://www.dropbox.com/scl/fi/1yagmh6bgjc02xg6blwnq/07_consumo_api_vue.pdf?rlkey=qvogcai2dwj1pm5pb77k8f7qx&amp;st=muywgnfy&amp;dl=0" class="btn btn-primary">Descargar presentación</a></p>
+
 <h2 id="71-qué-es-vuejs-y-por-qué-usarlo">7.1. ¿Qué es Vue.js y por qué usarlo?</h2>
+
+<h3 id="711-aplicaciones-ssr-vs-aplicaciones-spa">7.1.1. Aplicaciones SSR vs aplicaciones SPA</h3>
 
 <p>Hasta ahora, en asignaturas anteriores o en los primeros temas de este módulo, hemos construido aplicaciones web tradicionales utilizando <strong>SSR (Server-Side Rendering)</strong> con herramientas como Blade en Laravel. En ese modelo, cada vez que el usuario hace clic en un enlace o envía un formulario, el servidor (PHP) procesa la petición, genera una página HTML completa desde cero y se la envía al navegador. Esto obliga al navegador a recargar la página entera constantemente.</p>
 
-<p><strong>Vue.js</strong> es un <strong>framework progresivo de Javascript</strong> que nos permite cambiar completamente este paradigma para crear aplicaciones <strong>SPA (<em>Single Page Applications</em>)</strong>.</p>
+<p>También hemos aprendido a construir <strong>APIs</strong> (de tipo REST o de cualquier otro tipo) que no generan vistas, sino datos que deben ser consumidos por otro programa (como Postman) o por otro servicio (como hacen los microservicios de FastAPI).</p>
 
-<p>En una SPA, el navegador carga una única página HTML al principio. A partir de ahí, es el código Javascript (en este caso, controlado por Vue.js) el que se encarga de reescribir y actualizar el contenido de la pantalla dinámicamente. Cuando necesitamos leer o guardar datos en la base de datos, Javascript se comunica con nuestro servidor en segundo plano (nuestra API REST), recibe los datos en formato JSON y actualiza solo las partes necesarias de la interfaz, sin que la página parpadee ni se recargue nunca.</p>
+<p><strong>Vue.js</strong> es un <strong>framework progresivo de Javascript</strong> que nos permite consumir servicios para crear aplicaciones web completas de tipo <strong>SPA (<em>Single Page Applications</em>)</strong>.</p>
 
-<p>Puesto que ya conoces Javascript, Typescript y has trasteado con Angular, los conceptos básicos te resultarán muy familiares. Vue ofrece las mismas ventajas (componentes, reactividad, enlace de datos) pero con una curva de aprendizaje que muchos desarrolladores consideran más amable.</p>
+<p>En una SPA, a diferencia de las SSR, <strong>el navegador carga una única página HTML</strong>. A partir de ahí, es el código Javascript (en este caso, controlado por Vue.js) el que se encarga de actualizar dinámicamente el contenido de ese documento ya cargado en el navegador.</p>
 
-<h3 id="711-iniciando-un-proyecto-moderno-con-vite">7.1.1. Iniciando un proyecto moderno con Vite</h3>
+<p>Así, cuando necesitamos leer o guardar datos en la base de datos, Javascript se comunica con nuestro servidor (nuestra API REST) en segundo plano, recibe los datos en formato JSON y actualiza solo las partes necesarias de la pantalla, sin que la página parpadee ni se recargue por completo.</p>
+
+<p>Esto no solo <strong>disminuye la latencia</strong> (el tiempo de espera entre que el usuario hace algo y que la web responde), sino que también <strong>mejora la experiencia del usuario</strong>, que encuentra una aplicación mucho más interactiva. Como contrapartida, introduce una mayor complejidad en el desarrollo.</p>
+
+<p><em>Es decir, que podríamos decir que las aplicaciones SPA son «buenas» para el usuario y «malas» para el programador.</em></p>
+
+<p>Puesto que ya conoces Javascript, Typescript y has trasteado con Angular o React, los conceptos básicos te resultarán muy familiares. Vue ofrece las mismas ventajas (componentes, reactividad, enlace de datos) pero con una curva de aprendizaje que muchos desarrolladores consideran más amable.</p>
+
+<h3 id="712-crear-un-proyecto-vuejs-con-vite">7.1.2. Crear un proyecto Vue.js con Vite</h3>
 
 <p>Antiguamente, era común importar Vue simplemente añadiendo una etiqueta <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> en un archivo HTML (usando un CDN) o empaquetarlo dentro del propio proyecto de Laravel con herramientas antiguas.</p>
 
-<p>Hoy en día, la arquitectura moderna exige separar completamente el código del <em>frontend</em> (la interfaz de usuario hecha con Vue) del <em>backend</em> (la API hecha con Laravel). Son dos proyectos distintos que correrán en puertos distintos.</p>
+<p>Hoy en día, <strong>muchos proyectos separan completamente el código del <em>frontend</em> del <em>backend</em></strong>. Son dos proyectos distintos, desarrollados por equipos distintos, que correrán en puertos o incluso máquinas distintas.</p>
 
-<p>Para crear un proyecto frontend profesional con Vue, el estándar actual de la industria es utilizar <strong>Vite</strong>, una herramienta de construcción ultrarrápida. Para crear tu proyecto, solo tienes que abrir tu terminal en una carpeta nueva (fuera de tu proyecto Laravel) y ejecutar:</p>
+<p>Para <strong>crear un proyecto frontend profesional con Vue</strong>, el estándar actual de la industria es utilizar <strong>Vite</strong>, una herramienta de construcción ultrarrápida. Para crear tu proyecto, solo tienes que abrir tu terminal en una carpeta nueva (fuera de tu proyecto Laravel) y ejecutar:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm create vue@latest
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>npm create vue@latest
 </code></pre></div></div>
+
+<p>(Lógicamente, necesitas tener instalado <code class="language-plaintext highlighter-rouge">npm</code>, el compilador de <em>Node.js</em>)</p>
 
 <p>El asistente te hará varias preguntas (puedes decirle que “Sí” a Vue Router si tu app tendrá varias pantallas, y que “No” a cosas más avanzadas como Pinia o Testing por ahora). Una vez creado el proyecto, debes entrar en la carpeta, instalar las dependencias e iniciar el servidor de desarrollo:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>nombre-de-tu-proyecto
-npm <span class="nb">install
-</span>npm run dev
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd </span>nombre-de-tu-proyecto
+<span class="nv">$ </span>npm <span class="nb">install</span>   <span class="c"># Instala dependencias</span>
+<span class="nv">$ </span>npm run dev   <span class="c"># Lanza servidor de desarrollo (susa npm run build para versión definitiva)</span>
 </code></pre></div></div>
 
-<p>Esto levantará un servidor web local (generalmente en <code class="language-plaintext highlighter-rouge">http://localhost:5173</code>) donde podrás ver tu aplicación Vue funcionando.</p>
+<p>Esto levantará un servidor de desarrollo local (generalmente en <code class="language-plaintext highlighter-rouge">http://localhost:5173</code>) donde podrás ver tu aplicación Vue funcionando. Los cambios que hagas se reflejarán inmediatamente en el resultado mientras <code class="language-plaintext highlighter-rouge">npm run dev</code> esté funcionando.</p>
 
-<h2 id="72-conceptos-básicos-reactividad-y-componentes-sfc">7.2. Conceptos básicos: Reactividad y Componentes (SFC)</h2>
+<p>Para generar una versión definitiva de la aplicación, ejecuta <code class="language-plaintext highlighter-rouge">$ npm run build</code> y los archivos compilados se generarán en la carpeta <code class="language-plaintext highlighter-rouge">/dist</code>.</p>
+
+<h2 id="72-conceptos-básicos-reactividad-y-componentes-sfc">7.2. Conceptos básicos: reactividad y componentes (SFC)</h2>
 
 <p>En un proyecto Vue moderno, no trabajamos con archivos <code class="language-plaintext highlighter-rouge">.html</code> sueltos. Trabajamos con <strong>Single-File Components (SFC)</strong>. Esto significa que cada pieza de nuestra interfaz (un botón, un formulario de login, una barra de navegación) se guarda en un archivo con extensión <code class="language-plaintext highlighter-rouge">.vue</code>.</p>
 
@@ -79,7 +89,7 @@ npm <span class="nb">install
 
 <p>El concepto más importante de Vue es la <strong>Reactividad</strong>. En Javascript tradicional, si cambias el valor de una variable, tienes que buscar manualmente el elemento en el HTML (con <code class="language-plaintext highlighter-rouge">document.getElementById</code>) y actualizar su texto.</p>
 
-<p>En Vue, declaramos variables <strong>reactivas</strong>. Si el valor de esa variable cambia en Javascript, Vue se da cuenta automáticamente y actualiza el HTML donde esa variable esté siendo usada. ¡Magia!</p>
+<p><strong>En Vue se declaran variables reactivas</strong>. Si el valor de esa variable cambia en Javascript, <em>Vue se da cuenta automáticamente y actualiza el HTML donde esa variable esté siendo usada</em>.</p>
 
 <p>Para hacer esto, utilizamos la <strong>Composition API</strong>, que es el estándar en Vue 3. Simplemente importamos la función <code class="language-plaintext highlighter-rouge">ref</code> y envolvemos nuestros datos con ella.</p>
 
@@ -87,11 +97,11 @@ npm <span class="nb">install
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
   <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"caja-contador"</span><span class="nt">&gt;</span>
-    <span class="c">&lt;!-- Usamos dobles llaves para mostrar la variable reactiva --&gt;</span>
+    <span class="c">&lt;!-- Usamos dobles llaves para mostrar la variable de Vue reactiva --&gt;</span>
     <span class="nt">&lt;h2&gt;</span>El contador vale: <span class="nt">&lt;/h2&gt;</span>
     
     <span class="c">&lt;!-- Al hacer click, llamamos a la función incrementar --&gt;</span>
-    <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"incrementar"</span><span class="nt">&gt;</span>Sumar 1<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"incrementar"</span><span class="nt">&gt;</span>Sumar uno<span class="nt">&lt;/button&gt;</span>
   <span class="nt">&lt;/div&gt;</span>
 <span class="nt">&lt;/template&gt;</span>
 
@@ -102,7 +112,7 @@ npm <span class="nb">install
 <span class="kd">const</span> <span class="nx">contador</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
 <span class="kd">const</span> <span class="nx">incrementar</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="c1">// ATENCIÓN: En Javascript, para modificar el valor de un ref, </span>
+  <span class="c1">// ATENCIÓN: En Javascript, para modificar el valor de una variable ref, </span>
   <span class="c1">// SIEMPRE debemos acceder a la propiedad .value</span>
   <span class="nx">contador</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">contador</span><span class="p">.</span><span class="nx">value</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 <span class="p">};</span>
@@ -116,18 +126,22 @@ npm <span class="nb">install
 <span class="nt">&lt;/style&gt;</span>
 </code></pre></div></div>
 
-<p><strong>Puntos clave a recordar:</strong></p>
+<p>Observa que:</p>
+
 <ul>
-  <li>En el <code class="language-plaintext highlighter-rouge">&lt;template&gt;</code>, puedes usar la variable directamente escribiendo ``. Vue extrae el valor por ti.</li>
-  <li>En el <code class="language-plaintext highlighter-rouge">&lt;script setup&gt;</code>, como <code class="language-plaintext highlighter-rouge">contador</code> es un objeto reactivo creado con <code class="language-plaintext highlighter-rouge">ref()</code>, para leer o modificar su valor real tienes que escribir <code class="language-plaintext highlighter-rouge">contador.value</code>.</li>
+  <li>En el <code class="language-plaintext highlighter-rouge">&lt;template&gt;</code> está el código HTML. Podemos usar la variable Vue directamente escribiendo ``.</li>
+  <li>En el <code class="language-plaintext highlighter-rouge">&lt;script setup&gt;</code> está el código Javascript o Typescript. Ahí se define <code class="language-plaintext highlighter-rouge">contador</code> es un objeto reactivo creado con <code class="language-plaintext highlighter-rouge">ref()</code> y se crea el método <code class="language-plaintext highlighter-rouge">incrementar()</code> que suma 1 al contador.</li>
+  <li>Fíjate en que, para leer o modificar el valor de una variable reactiva, tienes que escribir <code class="language-plaintext highlighter-rouge">nombre_variable.value</code>.</li>
 </ul>
 
 <h3 id="722-directivas-esenciales-de-vue">7.2.2. Directivas esenciales de Vue</h3>
 
-<p>Las directivas son atributos especiales que añadimos a las etiquetas HTML para dotarlas de lógica. Empiezan siempre por <code class="language-plaintext highlighter-rouge">v-</code>. Como ya conoces Angular (donde usabas <code class="language-plaintext highlighter-rouge">*ngIf</code>, <code class="language-plaintext highlighter-rouge">*ngFor</code>), esto te resultará idéntico.</p>
+<p>Las <strong>directivas</strong> son <strong>atributos especiales que añadimos a las etiquetas HTML</strong> para dotarlas de lógica.</p>
+
+<p>Las directivas de Vue empiezan siempre por <code class="language-plaintext highlighter-rouge">v-</code>. Si ya conoces Angular (donde se usan directivas como <code class="language-plaintext highlighter-rouge">*ngIf</code>, <code class="language-plaintext highlighter-rouge">*ngFor</code>), esto te resultará familiar.</p>
 
 <p><strong>1. Atributos dinámicos (<code class="language-plaintext highlighter-rouge">v-bind</code> o <code class="language-plaintext highlighter-rouge">:</code>):</strong>
-Si quieres que el atributo de una etiqueta HTML (como un <code class="language-plaintext highlighter-rouge">src</code>, un <code class="language-plaintext highlighter-rouge">href</code> o una <code class="language-plaintext highlighter-rouge">class</code>) tome su valor de una variable de Javascript, no puedes usar llaves dobles. Debes usar <code class="language-plaintext highlighter-rouge">:</code> delante del atributo.</p>
+Si quieres que el atributo de una etiqueta HTML (como un <code class="language-plaintext highlighter-rouge">src</code>, un <code class="language-plaintext highlighter-rouge">href</code> o una <code class="language-plaintext highlighter-rouge">class</code>) tome su valor de una variable de Javascript, no uses llaves dobles, sino que debes escribir <code class="language-plaintext highlighter-rouge">:</code> delante del atributo.</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;img</span> <span class="na">:src=</span><span class="s">"urlDeLaImagen"</span> <span class="na">:alt=</span><span class="s">"textoAlternativo"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;a</span> <span class="na">:href=</span><span class="s">"enlaceDinamico"</span><span class="nt">&gt;</span>Haz clic aquí<span class="nt">&lt;/a&gt;</span>
@@ -151,7 +165,7 @@ Permite repetir un bloque de HTML por cada elemento de un array. Es obligatorio 
 </code></pre></div></div>
 
 <p><strong>4. Eventos (<code class="language-plaintext highlighter-rouge">v-on</code> o <code class="language-plaintext highlighter-rouge">@</code>):</strong>
-Se usa para escuchar eventos del usuario (clics, pulsaciones de teclas, envíos de formulario).</p>
+Se usa para escuchar eventos del usuario (clicks, pulsaciones de teclas, envíos de formulario, etc.).</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"guardarDatos"</span><span class="nt">&gt;</span>Guardar<span class="nt">&lt;/button&gt;</span>
 <span class="c">&lt;!-- El modificador .prevent evita que el navegador recargue la página (equivale a event.preventDefault()) --&gt;</span>
@@ -161,7 +175,9 @@ Se usa para escuchar eventos del usuario (clics, pulsaciones de teclas, envíos 
 </code></pre></div></div>
 
 <p><strong>5. Formularios (<code class="language-plaintext highlighter-rouge">v-model</code>):</strong>
-Esta directiva es crucial. Establece una conexión bidireccional (<em>two-way data binding</em>) entre un <em>input</em> del HTML y una variable reactiva de Javascript. Si el usuario escribe en la caja de texto, la variable se actualiza al instante. Y si la variable cambia en Javascript, la caja de texto muestra el nuevo valor automáticamente.</p>
+Esta directiva es crucial. Establece una conexión bidireccional (<em>two-way data binding</em>) entre un <em>input</em> del HTML y una variable reactiva de Javascript.</p>
+
+<p>Es decir: <strong>si el usuario escribe en la caja de texto, la variable se actualiza al instante</strong>. Y <strong>si la variable cambia en Javascript, la caja de texto muestra el nuevo valor</strong> automáticamente.</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
   <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">v-model=</span><span class="s">"nombreUsuario"</span> <span class="na">placeholder=</span><span class="s">"Escribe tu nombre"</span><span class="nt">&gt;</span>
@@ -174,38 +190,47 @@ Esta directiva es crucial. Establece una conexión bidireccional (<em>two-way da
 <span class="nt">&lt;/script&gt;</span>
 </code></pre></div></div>
 
-<h2 id="73-consumo-de-apis-y-problemas-de-cors">7.3. Consumo de APIs y problemas de CORS</h2>
+<h2 id="73-consumo-de-apis-con-axios">7.3. Consumo de APIs con Axios</h2>
 
-<p>Llegamos a la parte central de este tema. Nuestra maravillosa interfaz en Vue no sirve de mucho si los datos están aislados. Necesitamos comunicarnos con nuestra API REST (construida en Laravel o FastAPI) para obtener la información real de la base de datos y enviar los cambios que haga el usuario.</p>
+<p>Llegamos a la parte central de este tema.</p>
 
-<p>Para hacer peticiones HTTP asíncronas desde Javascript, el navegador nos proporciona la función nativa <code class="language-plaintext highlighter-rouge">fetch</code>. Sin embargo, en el ecosistema Vue (y React), la inmensa mayoría de los desarrolladores prefiere utilizar una librería externa llamada <strong>Axios</strong>.</p>
+<p>Queremos <strong>construir un interfaz de usuario</strong> con Vue para procesar <strong>los datos servidos por nuestra API</strong> (da igual cómo esté construida, con Laravel, Spring Boot, FastAPI o cualquier otra cosa).</p>
 
-<p>Axios es más cómoda porque:</p>
+<p>Así que nuestra maravillosa interfaz en Vue no sirve de nada si no nos comunicamos con nuestra API para obtener la información real de la base de datos y enviar los cambios que haga el usuario.</p>
+
+<p>Para <strong>hacer peticiones HTTP asíncronas desde Javascript</strong>, el navegador nos proporciona la función nativa llamada <code class="language-plaintext highlighter-rouge">fetch</code>. Sin embargo, en el ecosistema Vue (y React), la inmensa mayoría de los desarrolladores prefiere utilizar una librería externa llamada <strong>Axios</strong>.</p>
+
+<p>Axios es más cómoda que Fetch porque:</p>
 <ol>
   <li>Convierte automáticamente las respuestas a JSON (con <code class="language-plaintext highlighter-rouge">fetch</code> tienes que hacer un <code class="language-plaintext highlighter-rouge">.json()</code> intermedio).</li>
   <li>Lanza errores automáticamente si el servidor responde con un código 400 o 500 (con <code class="language-plaintext highlighter-rouge">fetch</code> tienes que comprobar el <code class="language-plaintext highlighter-rouge">response.ok</code> a mano).</li>
   <li>Es más fácil de configurar globalmente (por ejemplo, para enviar tokens de seguridad en todas las peticiones).</li>
 </ol>
 
-<p>Para usar Axios, primero debemos instalarlo en nuestro proyecto Vue:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install </span>axios
+<p><strong>Para usar Axios</strong>, solo tienes que <strong>instalarlo</strong> en nuestro proyecto Vue:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>npm <span class="nb">install </span>axios
 </code></pre></div></div>
 
-<h3 id="731-haciendo-una-petición-básica-con-axios">7.3.1. Haciendo una petición básica con Axios</h3>
+<h3 id="731-petición-básica-con-axios">7.3.1. Petición básica con Axios</h3>
 
-<p>Observa cómo obtenemos una lista de libros. Para asegurarnos de que la petición se hace nada más cargar la página, utilizamos el <em>lifecycle hook</em> <code class="language-plaintext highlighter-rouge">onMounted</code>, que ejecuta el código que le pasemos justo en el momento en que el componente se dibuja en la pantalla.</p>
+<p>Como casi siempre, lo mejor para entender cómo funciona algo es verlo en funcionamiento y fijarse atentamente en cómo trabaja.</p>
+
+<p>Observa cómo obtenemos, por ejemplo, una lista de libros. Para asegurarnos de que la petición se hace nada más cargar la página, utilizamos <code class="language-plaintext highlighter-rouge">onMounted</code>, que ejecuta el código que le pasemos justo en el momento en que el componente se dibuja en la pantalla.</p>
+
+<p>(Este código iría en la parte <code class="language-plaintext highlighter-rouge">&lt;script setup&gt;</code> del componente Vue que corresponda, ya veremos uno completo):</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">ref</span><span class="p">,</span> <span class="nx">onMounted</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span><span class="p">;</span>
 <span class="k">import</span> <span class="nx">axios</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">axios</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="kd">const</span> <span class="nx">libros</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">([]);</span>
+<span class="kd">const</span> <span class="nx">libros</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">([]);</span>   <span class="c1">// Lista vacía</span>
 
 <span class="c1">// Se ejecuta automáticamente al cargar el componente</span>
 <span class="nx">onMounted</span><span class="p">(</span><span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="k">try</span> <span class="p">{</span>
     <span class="c1">// Hacemos una petición GET a nuestra API</span>
-    <span class="kd">const</span> <span class="nx">respuesta</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://localhost:8000/api/libros</span><span class="dl">'</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">respuesta</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://localhost/api/libros</span><span class="dl">'</span><span class="p">);</span>
     <span class="c1">// Guardamos los datos que nos envía el servidor en nuestra variable reactiva</span>
+    <span class="c1">// (Axios convierte el JSON recibido a un array Javascript automáticamente)</span>
     <span class="nx">libros</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">respuesta</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
   <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hubo un error al descargar los libros</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
@@ -215,21 +240,40 @@ Esta directiva es crucial. Establece una conexión bidireccional (<em>two-way da
 
 <h3 id="732-el-temido-error-de-cors">7.3.2. El temido error de CORS</h3>
 
-<p>Si copias el código anterior, levantas tu API en Laravel (<code class="language-plaintext highlighter-rouge">localhost:8000</code>) y ejecutas tu frontend en Vue (<code class="language-plaintext highlighter-rouge">localhost:5173</code>), verás que <strong>no funciona</strong>. Al abrir la consola del navegador (F12), te encontrarás con un error enorme en rojo que menciona la palabra <strong>CORS</strong>.</p>
+<p>Si copias el código anterior y levantas tu API, por ejemplo, en Laravel (en <code class="language-plaintext highlighter-rouge">localhost</code> o en <code class="language-plaintext highlighter-rouge">localhost:8000</code>) y ejecutas tu frontend en Vue (<code class="language-plaintext highlighter-rouge">localhost:5173</code>), verás que <strong>no funciona</strong>.</p>
 
-<p><strong>¿Qué es el CORS?</strong>
-CORS (<em>Cross-Origin Resource Sharing</em>) es un mecanismo de seguridad implementado <strong>por el navegador web</strong> (Chrome, Firefox, etc.). Por defecto, los navegadores bloquean cualquier petición asíncrona que tu código Javascript intente hacer hacia un dominio, subdominio o puerto diferente al de la página en la que estás.</p>
+<p>Al abrir la consola del navegador (F12), te encontrarás con un error enorme en rojo que menciona la palabra <strong>CORS</strong>.</p>
 
-<p>En nuestro caso, el navegador se queja: <em>“¡Oye! Has cargado este Javascript desde el puerto 5173, pero estás intentando robar datos del puerto 8000. ¡Eso es sospechoso y lo voy a bloquear!”</em>.</p>
+<h4 id="qué-es-el-cors">¿Qué es el CORS?</h4>
+<p>CORS (<em>Cross-Origin Resource Sharing</em>) es un mecanismo de seguridad implementado <strong>por los navegadores web</strong>. Por defecto, los navegadores bloquean cualquier petición asíncrona que tu código Javascript intente hacer hacia un dominio, subdominio o puerto diferente al de la página desde la que se sirvió la página.</p>
 
-<p><strong>¿Cómo se soluciona?</strong>
-El CORS <strong>no se soluciona en el frontend (Vue)</strong>. Es el servidor Backend (tu API en Laravel o tu microservicio en FastAPI) el que debe responderle al navegador y decirle: <em>“Tranquilo, conozco a este frontend y le doy permiso para acceder a mis datos”</em>.</p>
+<p>En nuestro caso, el navegador se queja porque <em>la página se cargó desde <code class="language-plaintext highlighter-rouge">localhost</code> o <code class="language-plaintext highlighter-rouge">localhost:8000</code> y la petición de datos está llegando desde <code class="language-plaintext highlighter-rouge">localhost:5173</code></em>. Y, para el navegador, esos son dos servidores diferentes y lo interpreta como un <strong>intento de ataque</strong>.</p>
+
+<h4 id="cómo-se-soluciona-el-error-de-cors">¿Cómo se soluciona el error de CORS?</h4>
+
+<p>El CORS <strong>no se soluciona en el frontend (Vue)</strong>. Es el servidor Backend (tu API en Laravel o tu microservicio en FastAPI) el que debe responderle al navegador y decirle algo como: <em>“tranquilo, conozco a este frontend y le doy permiso para acceder a mis datos”</em>.</p>
 
 <ul>
   <li><strong>En Laravel:</strong> Abre el archivo <code class="language-plaintext highlighter-rouge">config/cors.php</code>. Busca la clave <code class="language-plaintext highlighter-rouge">'allowed_origins'</code> y añade la URL de tu frontend:
     <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">'allowed_origins'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'http://localhost:5173'</span><span class="p">],</span>
 </code></pre></div>    </div>
-    <p><em>(Nota: En las versiones más recientes de Laravel 11, CORS ya viene bastante permisivo por defecto o se configura en el archivo <code class="language-plaintext highlighter-rouge">bootstrap/app.php</code>)</em>.</p>
+    <p><em>(Nota: En las versiones posteriores a Laravel 11, CORS ya viene bastante permisivo por defecto o se configura en el archivo <code class="language-plaintext highlighter-rouge">bootstrap/app.php</code>)</em>.</p>
+  </li>
+  <li>
+    <p><strong>En Spring Boot</strong> es fácil configurar CORS para un controlador concreto:</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestController</span>
+<span class="nd">@CrossOrigin</span><span class="o">(</span><span class="n">origins</span> <span class="o">=</span> <span class="s">"http://localhost:5173"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UsuarioController</span> <span class="o">{</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/api/usuarios"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">listarUsuarios</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">"Lista de usuarios"</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+
+    <p>En cambio, si quieres configurarlo globalmente para toda la API, la cosa se complica y es diferente si estás usando Spring Security o no. En este curso no entraremos en esos detalles avanzados.</p>
   </li>
   <li>
     <p><strong>En FastAPI:</strong> Tienes que usar el <strong>middleware <code class="language-plaintext highlighter-rouge">CORSMiddleware</code></strong>, que ya viene incluido con el paquete estándar. En este ejemplo se ilustra cómo se usa:</p>
@@ -255,18 +299,20 @@ El CORS <strong>no se soluciona en el frontend (Vue)</strong>. Es el servidor Ba
     </ul>
 
     <p>Añade este middleware a <strong>los servicios a los que llamará el frontend directamente</strong>. En nuestro ejemplo de usuarios y pedidos, serían tanto el servicio de usuarios como servicio de pedidos. En arquitecturas más grandes se suele poner un único punto de entrada (llamado <em>gateway</em>) y se configura CORS solo allí.</p>
-
-    <p>Una vez configurado tu backend para permitir peticiones cruzadas, el navegador dejará pasar la información y tu Vue por fin recibirá el JSON con los datos. Ten muy presente este error, porque es el problema número uno al que te enfrentarás al separar frontend y backend, independientemente de si hablas con un monolito o con decenas de microservicios.</p>
   </li>
 </ul>
 
+<p>Una vez configurado tu backend para permitir peticiones cruzadas, el navegador dejará pasar la información y tu Vue por fin recibirá el JSON con los datos.</p>
+
+<p><strong>Ten muy presente este error, porque es el problema número uno al que te enfrentarás al separar frontend y backend</strong>, independientemente de si hablas con un monolito o con decenas de microservicios.</p>
+
 <h2 id="74-autenticación-y-manejo-de-estado-tokens">7.4. Autenticación y manejo de estado (Tokens)</h2>
 
-<p>Otro cambio radical al pasar de SSR a una SPA es la forma en la que los usuarios inician sesión.</p>
+<p>Otro cambio radical al pasar de una SSR a una SPA es <strong>la forma en la que los usuarios inician sesión</strong>.</p>
 
-<p>En aplicaciones web tradicionales de Laravel (SSR con Blade), cuando un usuario hacía login, PHP creaba una <strong>Sesión</strong> en la memoria del servidor y le metía una <strong>Cookie</strong> al navegador del usuario. En cada clic posterior, el navegador enviaba esa Cookie automáticamente, y Laravel sabía quién era el usuario.</p>
+<p>En aplicaciones web tradicionales de Laravel, por ejemplo, cuando un usuario hacía login, PHP creaba una <strong>Sesión</strong> en la memoria del servidor y le metía una <strong>Cookie</strong> al navegador del usuario. En cada clic posterior, el navegador enviaba esa Cookie automáticamente, y Laravel sabía quién era el usuario.</p>
 
-<p>Sin embargo, las APIs RESTful son por definición <strong>“Stateless” (Sin estado)</strong>. No recuerdan nada de una petición a otra, y no utilizan Cookies de sesión. Entonces, ¿cómo demostramos quiénes somos al intentar crear un nuevo curso o borrar una academia en la base de datos?</p>
+<p>Sin embargo, las APIs RESTful son por definición <strong>“Stateless” (Sin estado)</strong>. No recuerdan nada de una petición a otra y no utilizan Cookies de sesión. Entonces, ¿cómo demostramos quiénes somos al intentar crear un nuevo curso o borrar una academia en la base de datos?</p>
 
 <p>La respuesta son los <strong>Tokens (como JWT o Laravel Sanctum)</strong>. El flujo es el siguiente:</p>
 
@@ -279,7 +325,7 @@ El CORS <strong>no se soluciona en el frontend (Vue)</strong>. Es el servidor Ba
 
 <p>Vamos a ver cómo se programa esto paso a paso.</p>
 
-<h3 id="paso-1-el-componente-de-login-en-vue">Paso 1: El componente de Login en Vue</h3>
+<h4 id="paso-1-el-componente-de-login-en-vue">Paso 1: El componente de Login en Vue</h4>
 
 <p>Imagina que tenemos un archivo <code class="language-plaintext highlighter-rouge">Login.vue</code>. Vamos a crear un formulario, capturar los datos y enviarlos a la API.</p>
 
@@ -322,7 +368,7 @@ El CORS <strong>no se soluciona en el frontend (Vue)</strong>. Es el servidor Ba
   <span class="nx">errorMsg</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="dl">''</span><span class="p">;</span>
   <span class="k">try</span> <span class="p">{</span>
     <span class="c1">// 1. Enviamos el POST al backend</span>
-    <span class="kd">const</span> <span class="nx">respuesta</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://localhost:8000/api/login</span><span class="dl">'</span><span class="p">,</span> <span class="nx">credenciales</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">respuesta</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://localhost/api/login</span><span class="dl">'</span><span class="p">,</span> <span class="nx">credenciales</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
     
     <span class="c1">// 2. El servidor responde con éxito y nos entrega un JSON que contiene el token.</span>
     <span class="c1">// Supongamos que viene en respuesta.data.token</span>
@@ -342,9 +388,9 @@ El CORS <strong>no se soluciona en el frontend (Vue)</strong>. Es el servidor Ba
 <span class="nt">&lt;/script&gt;</span>
 </code></pre></div></div>
 
-<h3 id="paso-2-usar-el-token-en-rutas-protegidas">Paso 2: Usar el token en rutas protegidas</h3>
+<h4 id="paso-2-usar-el-token-en-rutas-protegidas">Paso 2: Usar el token en rutas protegidas</h4>
 
-<p>Ahora el usuario ya está logueado y tiene su token en el <code class="language-plaintext highlighter-rouge">localStorage</code>. Supongamos que quiere ver la lista de sus academias privadas, o crear una nueva. Si intentamos hacer <code class="language-plaintext highlighter-rouge">axios.post('/api/academias')</code> sin más, Laravel rechazará la petición con un error 401 (No autorizado) porque no sabe quiénes somos.</p>
+<p>Ahora el usuario ya está logueado y tiene su token en el <code class="language-plaintext highlighter-rouge">localStorage</code>. Supongamos que quiere ver la lista de sus academias privadas o crear una nueva. Si intentamos hacer <code class="language-plaintext highlighter-rouge">axios.post('/api/academias')</code> sin más, Laravel rechazará la petición con un error 401 (No autorizado) porque no sabe quiénes somos.</p>
 
 <p>Debemos <strong>adjuntar el token</strong> sacándolo previamente del <code class="language-plaintext highlighter-rouge">localStorage</code>:</p>
 
@@ -355,7 +401,7 @@ El CORS <strong>no se soluciona en el frontend (Vue)</strong>. Es el servidor Ba
     
     <span class="c1">// Realizamos la petición POST, pasando los datos, y un tercer parámetro</span>
     <span class="c1">// que es un objeto de configuración para Axios donde metemos las cabeceras (Headers)</span>
-    <span class="kd">const</span> <span class="nx">respuesta</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://localhost:8000/api/academias</span><span class="dl">'</span><span class="p">,</span> <span class="nx">datosNuevaAcademia</span><span class="p">,</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">respuesta</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://localhost/api/academias</span><span class="dl">'</span><span class="p">,</span> <span class="nx">datosNuevaAcademia</span><span class="p">,</span> <span class="p">{</span>
       <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
         <span class="dl">'</span><span class="s1">Authorization</span><span class="dl">'</span><span class="p">:</span> <span class="s2">`Bearer </span><span class="p">${</span><span class="nx">token</span><span class="p">}</span><span class="s2">`</span>
       <span class="p">}</span>
@@ -368,9 +414,9 @@ El CORS <strong>no se soluciona en el frontend (Vue)</strong>. Es el servidor Ba
 <span class="p">};</span>
 </code></pre></div></div>
 
-<p><em>(Nota técnica: En proyectos profesionales, para no tener que escribir esto del <code class="language-plaintext highlighter-rouge">localStorage</code> y el <code class="language-plaintext highlighter-rouge">Header</code> en TODAS Y CADA UNA de las peticiones que hagas en tu aplicación, se configuran los “Interceptors” de Axios, que son trozos de código que se ejecutan automáticamente antes de cada petición para inyectar el token por ti. Pero entender el proceso manual es vital para comprender cómo funciona la seguridad en las APIs modernas).</em></p>
+<p><em>(Nota técnica: En proyectos profesionales, para no tener que escribir esto del <code class="language-plaintext highlighter-rouge">localStorage</code> y el <code class="language-plaintext highlighter-rouge">Header</code> en TODAS las peticiones que hagas en tu aplicación, se configuran los “Interceptors” de Axios, que son trozos de código que se ejecutan automáticamente antes de cada petición para inyectar el token por ti. Pero entender el proceso manual es vital para comprender cómo funciona la seguridad en las APIs modernas).</em></p>
 
-<h3 id="paso-3-cerrar-sesión-logout">Paso 3: Cerrar sesión (Logout)</h3>
+<h4 id="paso-3-cerrar-sesión-logout">Paso 3: Cerrar sesión (Logout)</h4>
 
 <p>Hacer <em>logout</em> en un frontend tipo SPA es la cosa más sencilla del mundo. Al no haber sesiones en el servidor que destruir (aunque sí puedes invalidar el token en la BD si tu API lo permite), a nivel de interfaz de usuario basta con <strong>borrar el token</strong> del <code class="language-plaintext highlighter-rouge">localStorage</code> y redirigir al Login.</p>
 
@@ -379,7 +425,7 @@ El CORS <strong>no se soluciona en el frontend (Vue)</strong>. Es el servidor Ba
   <span class="nx">router</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="dl">'</span><span class="s1">/login</span><span class="dl">'</span><span class="p">);</span>
 <span class="p">};</span>
 </code></pre></div></div>
-<p>Si el token no está, tu código ya no podrá adjuntarlo, y cualquier petición a la API fallará bloqueando el acceso al usuario.</p>
+<p>Si el token no está, tu código ya no podrá adjuntarlo y cualquier petición a la API fallará bloqueando el acceso al usuario.</p>
 
 <h2 id="75-ejemplo-completo-un-crud-con-vue-y-axios">7.5. Ejemplo completo: Un CRUD con Vue y Axios</h2>
 
@@ -440,7 +486,7 @@ El CORS <strong>no se soluciona en el frontend (Vue)</strong>. Es el servidor Ba
 <span class="p">});</span>
 
 <span class="c1">// URL base de nuestra API REST</span>
-<span class="kd">const</span> <span class="nx">API_URL</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">http://localhost:8000/api/libros</span><span class="dl">'</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">API_URL</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">http://localhost/api/libros</span><span class="dl">'</span><span class="p">;</span>
 
 
 <span class="c1">// --- MÉTODOS Y LÓGICA ---</span>
@@ -516,7 +562,7 @@ El CORS <strong>no se soluciona en el frontend (Vue)</strong>. Es el servidor Ba
 <span class="nt">&lt;/style&gt;</span>
 </code></pre></div></div>
 
-<h2 id="76-práctica-final-frontend-para-gestión-de-academias">7.6. Práctica final: Frontend para Gestión de Academias</h2>
+<h2 id="76-práctica-final-frontend-para-gestión-de-academias">7.6. Práctica final: frontend para Gestión de Academias</h2>
 
 <p>Es hora de crear la interfaz gráfica para la API RESTful de la Unidad 4.</p>
 

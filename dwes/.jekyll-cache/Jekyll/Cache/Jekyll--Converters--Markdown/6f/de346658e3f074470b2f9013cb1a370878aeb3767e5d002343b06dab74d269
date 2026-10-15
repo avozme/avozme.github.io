@@ -1,4 +1,4 @@
-I"vc<h2 class="no_toc" id="22-php-moderno">2.2. PHP moderno</h2>
+I"�c<h2 class="no_toc" id="22-php-moderno">2.2. PHP moderno</h2>
 
 <ul id="markdown-toc">
   <li><a href="#221-diferencias-de-php-con-respecto-a-java" id="markdown-toc-221-diferencias-de-php-con-respecto-a-java">2.2.1. Diferencias de PHP con respecto a Java</a></li>
@@ -69,7 +69,7 @@
   </tbody>
 </table>
 
-<p><strong>IMPORTANTE:</strong> Para usar PHP en un entorno Web, el código PHP debe ir precedido de la marca <code class="language-plaintext highlighter-rouge">&lt;?php</code>. ¡Si no, el servidor web creerá que estás escribiendo HTML, aunque la extensión del archivo sea <code class="language-plaintext highlighter-rouge">.php</code>!</p>
+<p class="important">Para usar PHP en un entorno Web, el código PHP debe ir precedido de la marca <code class="language-plaintext highlighter-rouge">&lt;?php</code>. ¡Si no, el servidor web creerá que estás escribiendo HTML, aunque la extensión del archivo sea <code class="language-plaintext highlighter-rouge">.php</code>!</p>
 
 <p>Y si necesitas intercalar PHP con HTML en el mismo archivo (una mala práctica que a veces es inevitable), puedes cerrar PHP con <code class="language-plaintext highlighter-rouge">?&gt;</code>:</p>
 
@@ -191,11 +191,11 @@
 <h4 id="autoloading">Autoloading</h4>
 
 <p>Para iniciar un proyecto con Composer, abres la terminal en tu carpeta y escribes:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer init
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>composer init
 </code></pre></div></div>
 <p>Esto te generará un archivo <code class="language-plaintext highlighter-rouge">composer.json</code>. Ahí se configura el Autoloading para que Composer pueda localizar y cargar automáticamente las clases.</p>
 
-<p>Por ejemplo,  que básicamente le dice a PHP: <em>“Oye, cuando veas que uso una clase del namespace <code class="language-plaintext highlighter-rouge">App\</code>, búscalo en la carpeta <code class="language-plaintext highlighter-rouge">src/</code>“</em>.</p>
+<p>Para lograr eso, básicamente hay que decirle a PHP: <em>“Cuando veas que uso una clase del namespace <code class="language-plaintext highlighter-rouge">App\</code>, búscala en realidad en la carpeta <code class="language-plaintext highlighter-rouge">src/</code>“</em>. Y eso se hace así:</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"autoload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">

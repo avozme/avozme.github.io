@@ -41,7 +41,8 @@ Pero existen ciertas diferencias importantes. A continuación te resumo las prin
 | Declaras un campo y luego lo asignas en el constructor (`this.titulo = titulo;`) | PHP 8 permite hacer las dos cosas en una sola línea, escribiendo el tipo de visibilidad delante del parámetro del constructor. Lo verás en la clase `Article`, y es una de las cosas que más se agradecen viniendo de Java. |
 | El código se compila a bytecode antes de ejecutarse | PHP es un lenguaje interpretado: guardas el archivo `.php`, recargas la página en el navegador, y el servidor lo interpreta en ese mismo instante. No hay paso de compilación. |
 
-**IMPORTANTE:** Para usar PHP en un entorno Web, el código PHP debe ir precedido de la marca `<?php`. ¡Si no, el servidor web creerá que estás escribiendo HTML, aunque la extensión del archivo sea `.php`! 
+{: .important }
+Para usar PHP en un entorno Web, el código PHP debe ir precedido de la marca `<?php`. ¡Si no, el servidor web creerá que estás escribiendo HTML, aunque la extensión del archivo sea `.php`! 
 
 Y si necesitas intercalar PHP con HTML en el mismo archivo (una mala práctica que a veces es inevitable), puedes cerrar PHP con `?>`:
 
@@ -167,11 +168,11 @@ Composer hace dos cosas fundamentales:
 
 Para iniciar un proyecto con Composer, abres la terminal en tu carpeta y escribes:
 ```bash
-composer init
+$ composer init
 ```
 Esto te generará un archivo `composer.json`. Ahí se configura el Autoloading para que Composer pueda localizar y cargar automáticamente las clases.
 
-Por ejemplo,  que básicamente le dice a PHP: *"Oye, cuando veas que uso una clase del namespace `App\`, búscalo en la carpeta `src/`"*.
+Para lograr eso, básicamente hay que decirle a PHP: *"Cuando veas que uso una clase del namespace `App\`, búscala en realidad en la carpeta `src/`"*. Y eso se hace así:
 
 ```json
 {
