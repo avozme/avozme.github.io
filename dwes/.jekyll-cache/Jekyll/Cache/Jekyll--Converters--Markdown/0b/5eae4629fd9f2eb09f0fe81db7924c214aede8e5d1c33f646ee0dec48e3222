@@ -1,4 +1,4 @@
-I"k{<h2 class="no_toc" id="27-una-aplicación-php-de-ejemplo">2.7. Una aplicación PHP de ejemplo</h2>
+I"n{<h2 class="no_toc" id="27-una-aplicación-php-de-ejemplo">2.7. Una aplicación PHP de ejemplo</h2>
 
 <ul id="markdown-toc">
   <li><a href="#271-vamos-a-construir-un-crud" id="markdown-toc-271-vamos-a-construir-un-crud">2.7.1. Vamos a construir un CRUD</a></li>
@@ -23,7 +23,7 @@
 
 <p><strong>CRUD</strong> es el acrónimo de <em>Create, Read, Update, Delete</em> (Crear, Leer, Actualizar, Borrar). Es la forma habitual de referirse a una aplicación o fragmento de aplicación que <strong>realiza el mantenimiento completo de una tabla de la base de datos</strong>.</p>
 
-<p>Imagínate que vamos a crear un trocito de una aplicación más grande: una tienda online. Para ser exactos, vamos ha programar la parte encargada de gestionar el <em>catálogo de la tienda</em>, es decir, los artículos que hay a la venta.</p>
+<p>Imagínate que vamos a crear un trocito de una aplicación más grande: una tienda online. Para ser exactos, vamos a programar la parte encargada de gestionar el <em>catálogo de la tienda</em>, es decir, los artículos que hay a la venta.</p>
 
 <p>Cada artículo tendrá un <em>título</em>, una <em>descripción</em>, un <em>precio</em> y un <em>stock</em> disponible. En una tienda real habría más cosas, como varias imágenes o unos gastos de envío, pero por ahora vamos a mantenerlo lo más simple posible.</p>
 
@@ -32,13 +32,13 @@
 <ul>
   <li>Un <strong>listado</strong> de todos los artículos.</li>
   <li>Un <strong>formulario</strong> para crear un artículo nuevo.</li>
-  <li>Un <strong>formulario</strong> para editar uno ya existente.</li>
+  <li>Un <strong>formulario</strong> para editar un artículo ya existente.</li>
   <li>Un <strong>botón</strong> para eliminar un artículo.</li>
 </ul>
 
 <p>Esto es lo que hace cualquier panel de administración sobre cualquier tabla maestra.</p>
 
-<p>Vamos a construirlo <strong>a mano, sin ningún framework</strong>, para que veas con tus propios ojos qué es lo que hay realmente detrás del patrón MVC antes de que empecemos a usar Laravel, que automatiza casi todo lo que aquí vamos a escribir aquí.</p>
+<p>Vamos a construirlo <strong>a mano, sin ningún framework</strong>, para que veas con tus propios ojos qué es lo que hay realmente detrás del patrón MVC antes de que empecemos a usar Laravel, que automatiza casi todo lo que vamos a escribir aquí.</p>
 
 <p>Este es el aspecto de las carpetas y archivos que vamos a crear. Puedes comprobar que es la misma estructura de la que ya hablamos en la sección anterior, aunque hemos añadido algunas cosas más:</p>
 
@@ -128,7 +128,7 @@
 
 <p>No le des muchas vueltas, porque configurar Apache escapa a las pretensiones de este módulo. Si lo traducimos a español, lo que hemos ordenado a Apache es: <em>“si la URL solicitada no corresponde a un archivo real que exista (una imagen, un CSS…), redirige la petición a <code class="language-plaintext highlighter-rouge">index.php</code>, conservando la cadena de consulta (<code class="language-plaintext highlighter-rouge">QSA</code>) y sin seguir mirando más reglas (<code class="language-plaintext highlighter-rouge">L</code>)”</em>.</p>
 
-<p>(Si, lo sé, la configuración de Apache parece un conjuro de magia, pero, por suerte, de esto suelen encargarse los administradores de sistemas).</p>
+<p>(Sí, lo sé, la configuración de Apache parece un conjuro de magia, pero, por suerte, de esto suelen encargarse los administradores de sistemas).</p>
 
 <h3 id="274-conexión-a-la-base-de-datos">2.7.4. Conexión a la base de datos</h3>
 

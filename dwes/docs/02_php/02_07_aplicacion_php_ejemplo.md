@@ -24,7 +24,7 @@ Vamos a hacer el **CRUD** de una tabla `articles`.
 
 **CRUD** es el acrónimo de *Create, Read, Update, Delete* (Crear, Leer, Actualizar, Borrar). Es la forma habitual de referirse a una aplicación o fragmento de aplicación que **realiza el mantenimiento completo de una tabla de la base de datos**.
 
-Imagínate que vamos a crear un trocito de una aplicación más grande: una tienda online. Para ser exactos, vamos ha programar la parte encargada de gestionar el *catálogo de la tienda*, es decir, los artículos que hay a la venta.
+Imagínate que vamos a crear un trocito de una aplicación más grande: una tienda online. Para ser exactos, vamos a programar la parte encargada de gestionar el *catálogo de la tienda*, es decir, los artículos que hay a la venta.
 
 Cada artículo tendrá un *título*, una *descripción*, un *precio* y un *stock* disponible. En una tienda real habría más cosas, como varias imágenes o unos gastos de envío, pero por ahora vamos a mantenerlo lo más simple posible.
 
@@ -32,12 +32,12 @@ La aplicación PHP que vamos a construir va a constar de:
 
 * Un **listado** de todos los artículos.
 * Un **formulario** para crear un artículo nuevo.
-* Un **formulario** para editar uno ya existente.
+* Un **formulario** para editar un artículo ya existente.
 * Un **botón** para eliminar un artículo.
 
 Esto es lo que hace cualquier panel de administración sobre cualquier tabla maestra. 
 
-Vamos a construirlo **a mano, sin ningún framework**, para que veas con tus propios ojos qué es lo que hay realmente detrás del patrón MVC antes de que empecemos a usar Laravel, que automatiza casi todo lo que aquí vamos a escribir aquí.
+Vamos a construirlo **a mano, sin ningún framework**, para que veas con tus propios ojos qué es lo que hay realmente detrás del patrón MVC antes de que empecemos a usar Laravel, que automatiza casi todo lo que vamos a escribir aquí.
 
 Este es el aspecto de las carpetas y archivos que vamos a crear. Puedes comprobar que es la misma estructura de la que ya hablamos en la sección anterior, aunque hemos añadido algunas cosas más:
 
@@ -132,7 +132,7 @@ RewriteRule ^ index.php [QSA,L]
 
 No le des muchas vueltas, porque configurar Apache escapa a las pretensiones de este módulo. Si lo traducimos a español, lo que hemos ordenado a Apache es: *"si la URL solicitada no corresponde a un archivo real que exista (una imagen, un CSS...), redirige la petición a `index.php`, conservando la cadena de consulta (`QSA`) y sin seguir mirando más reglas (`L`)"*.
 
-(Si, lo sé, la configuración de Apache parece un conjuro de magia, pero, por suerte, de esto suelen encargarse los administradores de sistemas).
+(Sí, lo sé, la configuración de Apache parece un conjuro de magia, pero, por suerte, de esto suelen encargarse los administradores de sistemas).
 
 ### 2.7.4. Conexión a la base de datos
 

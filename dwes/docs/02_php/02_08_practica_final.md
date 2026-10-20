@@ -73,13 +73,15 @@ Tareas:
 * Crear la estructura de carpetas: `src/Controllers`, `src/Models`, `src/Views`, `src/Core`, `public/`.
 * Inicializar Composer (`composer init`) y configurar el autoload PSR-4 para que el namespace `App\` apunte a `src/`.
 * Ejecutar `composer dump-autoload`.
-* Crear un archivo de configuración `config.php` **fuera del control de versiones** (añádelo a tu `.gitignore` — ver apartado 1.1), con las credenciales de tu base de datos:
+* Crear un archivo de configuración `config.php` o `.env` con las credenciales de tu base de datos. Este archivo suele dejarse **fuera del control de versiones** (añadiéndolo a `.gitignore` — ver apartado 1.1), pero en esta primera práctica puedes compartirlo en el repositorio remoto.
 
   ```php
-  // config.php
+  // Archivo de configuración. Se debe sacar del control de versiones (en esta práctica puedes dejarlo)
+  // Suele llamarse config.php o .env, pero en realidad puedes ponerle cualquier otro nombre.
+  // Los valores de estas variables deben coincidir con los de tu docker-compose.yml.
   return [
       'db' => [
-          'host'    => 'localhost',
+          'host'    => 'db',
           'dbname'  => 'tablon_nuncios',
           'user'    => 'root',
           'pass'    => 'laquesea',
@@ -98,9 +100,11 @@ Tareas:
      * `fetchAll(string $sql, array $params = []): ?array` -> Funciona como la anterior, pero devuelve el resultado en forma de array en lugar de devolver el PDOStatement (o null si no encuentra nada).
      * `fetchOne(string $sql, array $params = []): ?array` -> Igual que la anterior, pero devuelve solo el primer registro del resultado de la consulta en lugar de todos (o null si no encuentra nada).
 
-  La idea es que, de aquí en adelante, **ningún modelo cree su propia conexión PDO ni escriba `$pdo->prepare()` directamente**: todos van a apoyarse en esta **clase de abstracción de datos**. Es el mismo principio de "no te repitas" que ya conoces de la programación en Java, aplicado a la capa de datos.
+  La idea es que, de aquí en adelante, **ningún modelo cree su propia conexión PDO**: todos van a apoyarse en esta **clase de abstracción de datos**. Es el mismo principio de "no te repitas" que ya conoces de la programación en Java, aplicado a la capa de datos.
 
-* Diseñar y crear las tablas de tu base de datos: como mínimo, `users`, `posts` (con una clave foránea `user_id`) y `comments` (con claves foráneas `post_id` y `user_id`). Recuerda usar `password_hash()` para el campo de la contraseña de `users`, porque nunca se debe guardar una contraseña en texto plano en la BD.
+  (**Puedes ver un ejemplo de esta clase en el apartado 2.7**, donde usamos una clase Database para crear la conexión. A ese ejemplo habría que añadirle los métodos `fetch()` y `fetchAll()`)
+
+* Diseñar y crear las tablas de tu base de datos: como mínimo, `users`, `posts` (con una clave foránea `user_id`) y `comments` (con claves foráneas `post_id` y `user_id`). Recuerda usar `password_hash()` para el campo de la contraseña de `users`, porque nunca se debe guardar una contraseña en texto plano en la BD. **Para ahorrar tiempo, puedes pedirle a una IA que te cree el SQL para crear estas tablas y para insertar algunos datos de prueba**.
 
 ### PASO 2. Crear un modelo base para no repetirte
 
@@ -215,19 +219,27 @@ Añade al proyecto un archivo llamado `TESTING.md` en formato [Markdown](https:/
 
 ### Entrega de la práctica
 
-* **Comprime todo el código fuente**, incluyendo `TESTING.md`, y súbelo a Moodle Centros dentro del plazo indicado por el profesor.
-* **Graba un vídeo** en el que muestres la aplicación funcionando y donde se vea, en este orden, cómo funciona lo siguiente:
+Tienes que **subir 4 archivos a Moodle Centros** antes de la fecha límite:
+
+* **ARCHIVO 1**. Un ZIP con todo el **código fuente** de la aplicación *excepto el directorio `/vendor`*.
+
+   Incluye aquí un `database.sql` con un volcado de tu base de datos y el archivo `TESTING.md` (esto último solo si te ha dado tiempo a hacer el Paso 8).
+
+* **ARCHIVO 2**. Un **vídeo** capturando tu pantalla mientras muestras **la aplicación funcionando** y donde se vea, en este orden, cómo funciona lo siguiente:
   * La autenticación de usuarios (registro y login)
   * El CRUD de publicaciones (crear, listar, editar, borrar)
      * (Que se vea que un usuario solo puede editar y borrar sus propias publicaciones)
   * Publicación de comentarios
   * Búsqueda de publicaciones
-  Sube el vídeo a Moodle Centros junto con tu código fuente.
-* **Sube un archivo .docx o .odt con TODA tu conversación con la IA**. Necesitamos ver cómo has interactuado con la Inteligencia Artificial.
-* **Sube también el link a tu repositorio** GitHub o GitLab con el código del proyecto.
-* **El proyecto debe ser reproducible** nada más descargarlo en otro equipo sin más que lanzar el comando `docker compose up -d`
-* **Recuerda que puedes tener que hacer una defensa oral parcial y/o responder a preguntas sobre tu código** en un examen escrito **SIN IA**. Asegúrate de **ENTENDER** (no memorizar) todo el código que has entregado.
 
+  ¡OJO! El vídeo debe llevar tu voz explicando lo que estás haciendo, no sirven voces sintetizadas. Puedes ponerle voz mientras lo grabas o posteriormente.
+
+* **ARCHIVO 3**. Un `.docx`, `.odt` o `.pdf` con TODA **tu conversación con la IA**. Necesitamos ver cómo has interactuado con la Inteligencia Artificial.
+* **ARCHIVO 4**. Un archivo de texto que solo contenga un link a tu **repositorio** GitHub o GitLab con el código del proyecto.
+
+Ten en cuenta que **el proyecto debe ser reproducible** nada más descargarlo en otro equipo sin más que lanzar el comando `docker compose up -d`
+
+**Recuerda que tendrás que hacer una defensa oral y/o responder a preguntas sobre tu código**, todo ello **SIN IA**. Asegúrate de **ENTENDER** (no memorizar) todo el código que has entregado.
 
 ### Rúbrica de corrección
 

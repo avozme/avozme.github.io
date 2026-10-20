@@ -1,4 +1,4 @@
-I"B�<h2 class="no_toc" id="28-práctica-final">2.8. Práctica final</h2>
+I"��<h2 class="no_toc" id="28-práctica-final">2.8. Práctica final</h2>
 
 <ul id="markdown-toc">
   <li><a href="#antes-de-empezar-aviso-para-navegantes" id="markdown-toc-antes-de-empezar-aviso-para-navegantes">Antes de empezar (aviso para navegantes)</a></li>
@@ -81,12 +81,14 @@
   <li>Inicializar Composer (<code class="language-plaintext highlighter-rouge">composer init</code>) y configurar el autoload PSR-4 para que el namespace <code class="language-plaintext highlighter-rouge">App\</code> apunte a <code class="language-plaintext highlighter-rouge">src/</code>.</li>
   <li>Ejecutar <code class="language-plaintext highlighter-rouge">composer dump-autoload</code>.</li>
   <li>
-    <p>Crear un archivo de configuración <code class="language-plaintext highlighter-rouge">config.php</code> <strong>fuera del control de versiones</strong> (añádelo a tu <code class="language-plaintext highlighter-rouge">.gitignore</code> — ver apartado 1.1), con las credenciales de tu base de datos:</p>
+    <p>Crear un archivo de configuración <code class="language-plaintext highlighter-rouge">config.php</code> o <code class="language-plaintext highlighter-rouge">.env</code> con las credenciales de tu base de datos. Este archivo suele dejarse <strong>fuera del control de versiones</strong> (añadiéndolo a <code class="language-plaintext highlighter-rouge">.gitignore</code> — ver apartado 1.1), pero en esta primera práctica puedes compartirlo en el repositorio remoto.</p>
 
-    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// config.php</span>
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Archivo de configuración. Se debe sacar del control de versiones (en esta práctica puedes dejarlo)</span>
+<span class="c1">// Suele llamarse config.php o .env, pero en realidad puedes ponerle cualquier otro nombre.</span>
+<span class="c1">// Los valores de estas variables deben coincidir con los de tu docker-compose.yml.</span>
 <span class="k">return</span> <span class="p">[</span>
     <span class="s1">'db'</span> <span class="o">=&gt;</span> <span class="p">[</span>
-        <span class="s1">'host'</span>    <span class="o">=&gt;</span> <span class="s1">'localhost'</span><span class="p">,</span>
+        <span class="s1">'host'</span>    <span class="o">=&gt;</span> <span class="s1">'db'</span><span class="p">,</span>
         <span class="s1">'dbname'</span>  <span class="o">=&gt;</span> <span class="s1">'tablon_nuncios'</span><span class="p">,</span>
         <span class="s1">'user'</span>    <span class="o">=&gt;</span> <span class="s1">'root'</span><span class="p">,</span>
         <span class="s1">'pass'</span>    <span class="o">=&gt;</span> <span class="s1">'laquesea'</span><span class="p">,</span>
@@ -111,9 +113,11 @@
       </li>
     </ul>
 
-    <p>La idea es que, de aquí en adelante, <strong>ningún modelo cree su propia conexión PDO ni escriba <code class="language-plaintext highlighter-rouge">$pdo-&gt;prepare()</code> directamente</strong>: todos van a apoyarse en esta <strong>clase de abstracción de datos</strong>. Es el mismo principio de “no te repitas” que ya conoces de la programación en Java, aplicado a la capa de datos.</p>
+    <p>La idea es que, de aquí en adelante, <strong>ningún modelo cree su propia conexión PDO</strong>: todos van a apoyarse en esta <strong>clase de abstracción de datos</strong>. Es el mismo principio de “no te repitas” que ya conoces de la programación en Java, aplicado a la capa de datos.</p>
+
+    <p>(<strong>Puedes ver un ejemplo de esta clase en el apartado 2.7</strong>, donde usamos una clase Database para crear la conexión. A ese ejemplo habría que añadirle los métodos <code class="language-plaintext highlighter-rouge">fetch()</code> y <code class="language-plaintext highlighter-rouge">fetchAll()</code>)</p>
   </li>
-  <li>Diseñar y crear las tablas de tu base de datos: como mínimo, <code class="language-plaintext highlighter-rouge">users</code>, <code class="language-plaintext highlighter-rouge">posts</code> (con una clave foránea <code class="language-plaintext highlighter-rouge">user_id</code>) y <code class="language-plaintext highlighter-rouge">comments</code> (con claves foráneas <code class="language-plaintext highlighter-rouge">post_id</code> y <code class="language-plaintext highlighter-rouge">user_id</code>). Recuerda usar <code class="language-plaintext highlighter-rouge">password_hash()</code> para el campo de la contraseña de <code class="language-plaintext highlighter-rouge">users</code>, porque nunca se debe guardar una contraseña en texto plano en la BD.</li>
+  <li>Diseñar y crear las tablas de tu base de datos: como mínimo, <code class="language-plaintext highlighter-rouge">users</code>, <code class="language-plaintext highlighter-rouge">posts</code> (con una clave foránea <code class="language-plaintext highlighter-rouge">user_id</code>) y <code class="language-plaintext highlighter-rouge">comments</code> (con claves foráneas <code class="language-plaintext highlighter-rouge">post_id</code> y <code class="language-plaintext highlighter-rouge">user_id</code>). Recuerda usar <code class="language-plaintext highlighter-rouge">password_hash()</code> para el campo de la contraseña de <code class="language-plaintext highlighter-rouge">users</code>, porque nunca se debe guardar una contraseña en texto plano en la BD. <strong>Para ahorrar tiempo, puedes pedirle a una IA que te cree el SQL para crear estas tablas y para insertar algunos datos de prueba</strong>.</li>
 </ul>
 
 <h3 id="paso-2-crear-un-modelo-base-para-no-repetirte">PASO 2. Crear un modelo base para no repetirte</h3>
@@ -260,9 +264,15 @@
 
 <h3 id="entrega-de-la-práctica">Entrega de la práctica</h3>
 
+<p>Tienes que <strong>subir 4 archivos a Moodle Centros</strong> antes de la fecha límite:</p>
+
 <ul>
-  <li><strong>Comprime todo el código fuente</strong>, incluyendo <code class="language-plaintext highlighter-rouge">TESTING.md</code>, y súbelo a Moodle Centros dentro del plazo indicado por el profesor.</li>
-  <li><strong>Graba un vídeo</strong> en el que muestres la aplicación funcionando y donde se vea, en este orden, cómo funciona lo siguiente:
+  <li>
+    <p><strong>ARCHIVO 1</strong>. Un ZIP con todo el <strong>código fuente</strong> de la aplicación <em>excepto el directorio <code class="language-plaintext highlighter-rouge">/vendor</code></em>.</p>
+
+    <p>Incluye aquí un <code class="language-plaintext highlighter-rouge">database.sql</code> con un volcado de tu base de datos y el archivo <code class="language-plaintext highlighter-rouge">TESTING.md</code> (esto último solo si te ha dado tiempo a hacer el Paso 8).</p>
+  </li>
+  <li><strong>ARCHIVO 2</strong>. Un <strong>vídeo</strong> capturando tu pantalla mientras muestras <strong>la aplicación funcionando</strong> y donde se vea, en este orden, cómo funciona lo siguiente:
     <ul>
       <li>La autenticación de usuarios (registro y login)</li>
       <li>El CRUD de publicaciones (crear, listar, editar, borrar)
@@ -271,15 +281,18 @@
         </ul>
       </li>
       <li>Publicación de comentarios</li>
-      <li>Búsqueda de publicaciones
-Sube el vídeo a Moodle Centros junto con tu código fuente.</li>
+      <li>Búsqueda de publicaciones</li>
     </ul>
+
+    <p>¡OJO! El vídeo debe llevar tu voz explicando lo que estás haciendo, no sirven voces sintetizadas. Puedes ponerle voz mientras lo grabas o posteriormente.</p>
   </li>
-  <li><strong>Sube un archivo .docx o .odt con TODA tu conversación con la IA</strong>. Necesitamos ver cómo has interactuado con la Inteligencia Artificial.</li>
-  <li><strong>Sube también el link a tu repositorio</strong> GitHub o GitLab con el código del proyecto.</li>
-  <li><strong>El proyecto debe ser reproducible</strong> nada más descargarlo en otro equipo sin más que lanzar el comando <code class="language-plaintext highlighter-rouge">docker compose up -d</code></li>
-  <li><strong>Recuerda que puedes tener que hacer una defensa oral parcial y/o responder a preguntas sobre tu código</strong> en un examen escrito <strong>SIN IA</strong>. Asegúrate de <strong>ENTENDER</strong> (no memorizar) todo el código que has entregado.</li>
+  <li><strong>ARCHIVO 3</strong>. Un <code class="language-plaintext highlighter-rouge">.docx</code>, <code class="language-plaintext highlighter-rouge">.odt</code> o <code class="language-plaintext highlighter-rouge">.pdf</code> con TODA <strong>tu conversación con la IA</strong>. Necesitamos ver cómo has interactuado con la Inteligencia Artificial.</li>
+  <li><strong>ARCHIVO 4</strong>. Un archivo de texto que solo contenga un link a tu <strong>repositorio</strong> GitHub o GitLab con el código del proyecto.</li>
 </ul>
+
+<p>Ten en cuenta que <strong>el proyecto debe ser reproducible</strong> nada más descargarlo en otro equipo sin más que lanzar el comando <code class="language-plaintext highlighter-rouge">docker compose up -d</code></p>
+
+<p><strong>Recuerda que tendrás que hacer una defensa oral y/o responder a preguntas sobre tu código</strong>, todo ello <strong>SIN IA</strong>. Asegúrate de <strong>ENTENDER</strong> (no memorizar) todo el código que has entregado.</p>
 
 <h3 id="rúbrica-de-corrección">Rúbrica de corrección</h3>
 
