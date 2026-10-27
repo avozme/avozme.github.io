@@ -1,0 +1,108 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+#
+# If you need help with YAML syntax, here are some quick references for you: 
+# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
+# https://learnxinyminutes.com/docs/yaml/
+#
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+
+
+title: PROGRAMACIÓN - DOCS
+
+email: tu@email.es
+
+description: >-
+  Apuntes del módulo de Programación
+  de Primer curso de los Ciclos Formativos de Grado Superior
+  de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web,
+  impartidos en el IES Celia Viñas de Almería.
+
+baseurl: "/docs/prog/_site"
+url: "https://iescelia.org"
+
+github_username: avozme
+
+theme: just-the-docs
+
+plugins:
+  - jekyll-feed
+
+# --------------------------------------------------
+# JUST THE DOCS
+# --------------------------------------------------
+
+search_enabled: true
+
+search:
+  heading_level: 2
+  previews: 2
+  preview_words_before: 3
+  preview_words_after: 3
+  tokenizer_separator: /[\s/]+/
+  rel_url: true
+  button: false
+
+kramdown:
+  syntax_highlighter: rouge
+  input: GFM
+  auto_ids:       true
+  toc_levels:     1..3
+
+# Navegación
+nav_enabled: true
+
+# Mostrar enlaces de anclaje al pasar sobre los títulos
+heading_anchors: true
+
+# Esquema de color
+color_scheme: dwes
+
+# Logo
+logo: "/assets/images/logo.png"
+
+# Favicon
+# favicon_ico: "/docs/dwes/_site/assets/images/favicon.ico"
+
+# Enlaces superiores
+aux_links:
+  "IES Celia Viñas":
+    - "https://iescelia.org"
+
+aux_links_new_tab: true
+
+# --------------------------------------------------
+# CALLOUTS
+# --------------------------------------------------
+
+callouts:
+  note:
+    title: Nota
+    color: blue
+
+  important:
+    title: Importante
+    color: purple
+
+  warning:
+    title: Atención
+    color: yellow
+
+  danger:
+    title: Cuidado
+    color: red
+
+  tip:
+    title: Consejo
+    color: green

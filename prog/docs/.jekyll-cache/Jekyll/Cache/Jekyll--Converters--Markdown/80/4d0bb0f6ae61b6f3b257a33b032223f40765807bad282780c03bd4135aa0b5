@@ -1,4 +1,4 @@
-I"�V<h2 class="no_toc" id="32-hola-mundo-con-laravel">3.2. «Hola mundo» con Laravel</h2>
+I"X<h2 class="no_toc" id="32-hola-mundo-con-laravel">3.2. «Hola mundo» con Laravel</h2>
 
 <ul id="markdown-toc">
   <li><a href="#paso-0-prerrequisitos-para-que-laravel-funcione" id="markdown-toc-paso-0-prerrequisitos-para-que-laravel-funcione">PASO 0. Prerrequisitos para que Laravel funcione</a></li>
@@ -8,12 +8,22 @@
   <li><a href="#paso-4-echar-un-vistazo-a-la-arquitectura-de-laravel" id="markdown-toc-paso-4-echar-un-vistazo-a-la-arquitectura-de-laravel">PASO 4. Echar un vistazo a la arquitectura de Laravel</a></li>
   <li><a href="#paso-5-crear-el-archivo-env" id="markdown-toc-paso-5-crear-el-archivo-env">PASO 5. Crear el archivo <code class="language-plaintext highlighter-rouge">.env</code></a></li>
   <li><a href="#paso-6-probar-artisan-la-consola-de-laravel" id="markdown-toc-paso-6-probar-artisan-la-consola-de-laravel">PASO 6. Probar artisan, la consola de Laravel</a></li>
-  <li><a href="#paso-7-crear-nuestra-primera-ruta" id="markdown-toc-paso-7-crear-nuestra-primera-ruta">PASO 7. Crear nuestra primera ruta</a></li>
-  <li><a href="#paso-8-crear-una-ruta-con-un-parámetro" id="markdown-toc-paso-8-crear-una-ruta-con-un-parámetro">PASO 8. Crear una ruta con un parámetro</a></li>
+  <li><a href="#paso-7-crear-nuestra-primera-ruta" id="markdown-toc-paso-7-crear-nuestra-primera-ruta">PASO 7. Crear nuestra primera ruta</a>    <ul>
+      <li><a href="#qué-ha-ocurrido" id="markdown-toc-qué-ha-ocurrido">¿Qué ha ocurrido?</a></li>
+    </ul>
+  </li>
+  <li><a href="#paso-8-crear-una-ruta-con-un-parámetro" id="markdown-toc-paso-8-crear-una-ruta-con-un-parámetro">PASO 8. Crear una ruta con un parámetro</a>    <ul>
+      <li><a href="#qué-ha-ocurrido-1" id="markdown-toc-qué-ha-ocurrido-1">¿Qué ha ocurrido?</a></li>
+    </ul>
+  </li>
   <li><a href="#una-advertencia-final-desarrollo-frente-a-producción" id="markdown-toc-una-advertencia-final-desarrollo-frente-a-producción">Una advertencia final: desarrollo frente a producción</a></li>
 </ul>
 
-<p><a href="https://www.dropbox.com/scl/fi/ppsm8lcnpa7m6pi3gr69k/03_02_hola_mundo.pdf?rlkey=mdw4q3f0oem9m04bm5hcgk3vv&amp;st=vcbjnhgm&amp;dl=0" class="btn btn-primary">Descargar presentación</a></p>
+<div style="text-align: center; padding: 20px; background-color: #ccc">
+<a href="https://www.dropbox.com/scl/fi/ppsm8lcnpa7m6pi3gr69k/03_02_hola_mundo.pdf?rlkey=mdw4q3f0oem9m04bm5hcgk3vv&amp;st=vcbjnhgm&amp;dl=0">
+DESCARGAR PRESENTACIÓN
+</a>
+</div>
 
 <p>Ya sabemos qué es Laravel y por qué puede resultar útil utilizar un framework para desarrollar aplicaciones web.</p>
 

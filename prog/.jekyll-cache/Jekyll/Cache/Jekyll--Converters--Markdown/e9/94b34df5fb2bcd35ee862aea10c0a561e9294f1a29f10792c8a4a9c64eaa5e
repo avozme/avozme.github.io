@@ -1,0 +1,516 @@
+I"/�<h1 class="no_toc" id="ud-2-programación-estructurada">UD 2. Programación estructurada</h1>
+
+<p><img src="../assets/images/image_1_1.png" alt="Engranajes" /></p>
+
+<h1 class="no_toc" id="índice">Índice</h1>
+<ul id="markdown-toc">
+  <li><a href="#1-la-programación-estructurada" id="markdown-toc-1-la-programación-estructurada">1. La programación estructurada</a></li>
+  <li><a href="#2-estructura-secuencial" id="markdown-toc-2-estructura-secuencial">2. Estructura secuencial</a></li>
+  <li><a href="#3-estructuras-selectivas-condicionales" id="markdown-toc-3-estructuras-selectivas-condicionales">3. Estructuras selectivas (condicionales)</a>    <ul>
+      <li><a href="#31-condicional-simple" id="markdown-toc-31-condicional-simple">3.1. Condicional simple</a></li>
+      <li><a href="#32-condicional-doble" id="markdown-toc-32-condicional-doble">3.2. Condicional doble</a></li>
+      <li><a href="#33-condicional-múltiple" id="markdown-toc-33-condicional-múltiple">3.3. Condicional múltiple</a></li>
+    </ul>
+  </li>
+  <li><a href="#4-estructuras-repetitivas-bucles" id="markdown-toc-4-estructuras-repetitivas-bucles">4. Estructuras repetitivas (bucles)</a>    <ul>
+      <li><a href="#41-bucle-mientras-hacer" id="markdown-toc-41-bucle-mientras-hacer">4.1. Bucle “mientras… hacer”</a></li>
+      <li><a href="#42-bucle-hacer-mientras" id="markdown-toc-42-bucle-hacer-mientras">4.2. Bucle “Hacer… mientras”</a></li>
+      <li><a href="#43-bucle-para" id="markdown-toc-43-bucle-para">4.3. Bucle “para”</a></li>
+      <li><a href="#44-contadores-acumuladores-conmutadores" id="markdown-toc-44-contadores-acumuladores-conmutadores">4.4. Contadores, acumuladores, conmutadores</a></li>
+    </ul>
+  </li>
+  <li><a href="#5-instrucciones-de-salto" id="markdown-toc-5-instrucciones-de-salto">5. Instrucciones de salto</a>    <ul>
+      <li><a href="#511-break" id="markdown-toc-511-break">5.1.1. break</a></li>
+      <li><a href="#512-continue" id="markdown-toc-512-continue">5.1.2. continue</a></li>
+      <li><a href="#513-return" id="markdown-toc-513-return">5.1.3. return</a></li>
+    </ul>
+  </li>
+  <li><a href="#6-control-de-excepciones" id="markdown-toc-6-control-de-excepciones">6. Control de excepciones</a>    <ul>
+      <li><a href="#61-el-bloque-try-catch-finally" id="markdown-toc-61-el-bloque-try-catch-finally">6.1. El bloque try-catch-finally</a></li>
+      <li><a href="#62-try-with-resources" id="markdown-toc-62-try-with-resources">6.2. try-with-resources</a></li>
+      <li><a href="#63-el-manejo-de-excepciones-y-la-entrada-de-datos-por-teclado" id="markdown-toc-63-el-manejo-de-excepciones-y-la-entrada-de-datos-por-teclado">6.3. El manejo de excepciones y la entrada de datos por teclado</a></li>
+      <li><a href="#64-excepciones-poco-excepcionales-un-uso-incorrecto-de-las-excepciones" id="markdown-toc-64-excepciones-poco-excepcionales-un-uso-incorrecto-de-las-excepciones">6.4. Excepciones poco excepcionales: un uso incorrecto de las excepciones</a></li>
+    </ul>
+  </li>
+  <li><a href="#7-hemos-aprendido" id="markdown-toc-7-hemos-aprendido">7. Hemos aprendido…</a></li>
+</ul>
+
+<p>En este tema estudiaremos las estructuras de control que operan dentro de los métodos de los objetos, es decir, en los algoritmos que forman parte de nuestros programas. Es, pues, un tema clásico en los manuales de programación estructurada, solo que nosotros emplearemos las estructuras de control dentro de nuestras clases, de la forma en que lo hace la programación orientada a objetos.</p>
+
+<p>Después de revisar todas las estructuras y ver algunos ejemplos de cada una de ellas, expondremos algunas reglas de estilo fundamentales para aumentar la legibilidad y profesionalidad de nuestro código fuente.</p>
+
+<p>Hablaremos también del control de excepciones, tan importante en Java para lograr aplicaciones robustas y tolerantes a fallos, así como de la implicación del programador en el proceso de control de calidad del software.</p>
+
+<h2 id="1-la-programación-estructurada">1. La programación estructurada</h2>
+
+<p>El término programación estructurada se refiere a un conjunto de técnicas que han ido evolucionando desde los primeros trabajos del holandés E. Dijkstra. Pese a ser físico, Dijkstra fue uno de los más importantes científicos de la computación hasta su muerte en 2002. Una de sus frases más famosas es:</p>
+
+<blockquote>
+  <p>“La pregunta de si un computador puede pensar no es más interesante que la pregunta de si un submarino puede nadar”</p>
+</blockquote>
+
+<p>Estas técnicas de programación estructurada de Dijkstra aumentan la productividad del programador, reduciendo el tiempo requerido para escribir, verificar, depurar y mantener los programas, y por ese motivo han sido plenamente asimiladas por la programación orientada a objetos.</p>
+
+<p>Allá por mayo de 1966, Böhm y Jacopini demostraron (en la revista “Communications of the ACM”, vol. 9, nº 5) que se puede escribir cualquier programa propio utilizando solo tres tipos de estructuras de control: la secuencial, la selectiva (o condicional) y la repetitiva. A esto se le llama <strong>Teorema de la programación estructurada</strong>, y define un programa propio como un programa que cumple tres características:</p>
+
+<ul>
+  <li>Posee un sólo punto de inicio y un sólo punto de fin.</li>
+  <li>Existe al menos un camino que parte del inicio y llega hasta el fin pasando por todas las partes del programa.</li>
+  <li>No existen bucles infinitos.</li>
+</ul>
+
+<p>Realmente, el trabajo de Dijkstra basado en este teorema fue revolucionario, porque lo que venía a decir es que, para construir programas más potentes y en menos tiempo, lo que había que hacer era simplificar las herramientas que se utilizaban para hacerlos, en lugar de complicarlas más. Este regreso a la simplicidad, unido a las técnicas de ingeniería del software, acabó con la crisis del software de los años 70.</p>
+
+<p>Por lo tanto, los programas estructurados deben limitarse a usar tres estructuras:</p>
+
+<ul>
+  <li>Secuencial</li>
+  <li>Selectiva (o condicional)</li>
+  <li>Repetitiva</li>
+</ul>
+
+<p>La programación orientada a objetos, como vimos en el tema 1, es una evolución de la programación estructurada clásica en la que los algoritmos y los datos se encapsulan en clases que más tarde se instancian en objetos que interactúan entre sí. Pero lo que hay dentro de esos algoritmos siguen siendo programas estructurados. Es decir, la POO es un superconjunto de la programación estructurada clásica, y por eso es pertinente que, en este punto, estudiemos esas estructuras detenidamente.</p>
+
+<h2 id="2-estructura-secuencial">2. Estructura secuencial</h2>
+
+<p>La estructura secuencial es aquélla en la que una acción sigue a otra (en secuencia). Esta es la estructura algorítmica básica, en la que las instrucciones se ejecutan una tras otra, en el mismo orden en el que fueron escritas.</p>
+
+<p>La estructura secuencial, por lo tanto, es la más simple de las tres estructuras permitidas. A continuación vemos su representación mediante diagrama de flujo y Java:</p>
+
+<p><img src="../assets/images/image_3_1.png" alt="Diagrama de flujo - Secuencial" /></p>
+
+<p><img src="../assets/images/image_3_2.png" alt="Diagrama de flujo - Acciones secuenciales" /></p>
+
+<p><strong>Ejemplo:</strong> Vamos a escribir un algoritmo completamente secuencial que calcule la suma de dos números, a y b.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Algoritmo suma</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Suma</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">suma</span><span class="o">;</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">().</span><span class="na">readLine</span><span class="o">());</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">().</span><span class="na">readLine</span><span class="o">());</span>
+        <span class="n">suma</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">suma</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="3-estructuras-selectivas-condicionales">3. Estructuras selectivas (condicionales)</h2>
+
+<p>Los algoritmos que usan únicamente estructuras secuenciales están muy limitados y no tienen ninguna utilidad real. Esa utilidad aparece cuando existe la posibilidad de ejecutar una de entre varias secuencias de instrucciones dependiendo de alguna condición asociada a los datos del programa.</p>
+
+<p>Las estructuras selectivas pueden ser de tres tipos:</p>
+
+<ul>
+  <li>Simples</li>
+  <li>Dobles</li>
+  <li>Múltiples</li>
+</ul>
+
+<h3 id="31-condicional-simple">3.1. Condicional simple</h3>
+
+<p>La estructura condicional simple se escribe así:</p>
+
+<p><img src="../assets/images/image_4_1.png" alt="Diagrama de flujo - Condicional Simple" /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">condicion</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">acciones</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>La condición que aparece detrás de <code class="language-plaintext highlighter-rouge">if</code> es siempre una expresión lógica, es decir, una expresión cuyo resultado es “verdadero” o “falso”. Si el resultado es verdadero, entonces se ejecutan las acciones situadas entre <code class="language-plaintext highlighter-rouge">{</code> y <code class="language-plaintext highlighter-rouge">}</code>. Si es falso, se saltan las acciones y se prosigue por la siguiente instrucción (lo que haya debajo de la llave de cierre).</p>
+
+<p><strong>Ejemplo:</strong> El siguiente código calcula el área y el perímetro de un rectángulo usando un condicional simple:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">double</span> <span class="n">base</span><span class="o">,</span> <span class="n">altura</span><span class="o">,</span> <span class="n">area</span><span class="o">,</span> <span class="n">perimetro</span><span class="o">;</span>
+<span class="n">base</span> <span class="o">=</span> <span class="nc">Double</span><span class="o">.</span><span class="na">parseDouble</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">().</span><span class="na">readLine</span><span class="o">());</span>
+<span class="n">altura</span> <span class="o">=</span> <span class="nc">Double</span><span class="o">.</span><span class="na">parseDouble</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">().</span><span class="na">readLine</span><span class="o">());</span>
+
+<span class="k">if</span> <span class="o">((</span><span class="n">base</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">altura</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">))</span> <span class="o">{</span>
+    <span class="n">area</span> <span class="o">=</span> <span class="n">base</span> <span class="o">*</span> <span class="n">altura</span><span class="o">;</span>
+    <span class="n">perimetro</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">base</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">altura</span><span class="o">;</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Area = "</span> <span class="o">+</span> <span class="n">area</span><span class="o">);</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Perimetro = "</span> <span class="o">+</span> <span class="n">perimetro</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="k">if</span> <span class="o">((</span><span class="n">base</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="n">altura</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">))</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Los datos son incorrectos"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Observa que, en la primera instrucción condicional <code class="language-plaintext highlighter-rouge">if ((base &gt; 0) &amp;&amp; (altura &gt; 0))</code> se comprueba que los dos datos sean positivos; en caso de serlo, se procede al cálculo del área y el perímetro. Más abajo hay otra condicional <code class="language-plaintext highlighter-rouge">if ((base &lt;= 0) || (altura &lt;= 0))</code> para el caso de que alguno de los datos sea negativo o cero: en esta ocasión, se imprime en la pantalla un mensaje de error.</p>
+
+<h3 id="32-condicional-doble">3.2. Condicional doble</h3>
+
+<p>La forma doble de la instrucción condicional es:</p>
+
+<p><img src="../assets/images/image_5_1.png" alt="Diagrama de flujo - Condicional Doble" /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">condicion</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">acciones</span><span class="o">-</span><span class="mi">1</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="n">acciones</span><span class="o">-</span><span class="mi">2</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>En esta forma, la instrucción funciona del siguiente modo: si el resultado de la condición es verdadero, entonces se ejecutan las acciones de la primera parte, es decir, las <code class="language-plaintext highlighter-rouge">acciones-1</code>. Si es falso, se ejecutan las acciones de la parte <code class="language-plaintext highlighter-rouge">else</code>, es decir, las <code class="language-plaintext highlighter-rouge">acciones-2</code>.</p>
+
+<p><strong>Ejemplo:</strong> Podemos reescribir nuestro algoritmo del rectángulo usando una alternativa doble:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">double</span> <span class="n">base</span><span class="o">,</span> <span class="n">altura</span><span class="o">,</span> <span class="n">area</span><span class="o">,</span> <span class="n">perimetro</span><span class="o">;</span>
+<span class="n">base</span> <span class="o">=</span> <span class="nc">Double</span><span class="o">.</span><span class="na">parseDouble</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">().</span><span class="na">readLine</span><span class="o">());</span>
+<span class="n">altura</span> <span class="o">=</span> <span class="nc">Double</span><span class="o">.</span><span class="na">parseDouble</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">().</span><span class="na">readLine</span><span class="o">());</span>
+
+<span class="k">if</span> <span class="o">((</span><span class="n">base</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">altura</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">))</span> <span class="o">{</span>
+    <span class="n">area</span> <span class="o">=</span> <span class="n">base</span> <span class="o">*</span> <span class="n">altura</span><span class="o">;</span>
+    <span class="n">perimetro</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">base</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">altura</span><span class="o">;</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Area = "</span> <span class="o">+</span> <span class="n">area</span><span class="o">);</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Perimetro = "</span> <span class="o">+</span> <span class="n">perimetro</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Los datos son incorrectos"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Lo más interesante de este algoritmo es compararlo con el anterior, ya que hace exactamente lo mismo. ¡Siempre hay varias maneras de resolver el mismo problema! Pero esta solución es un poco más sencilla, al ahorrarse la segunda condición, que va implícita en el <code class="language-plaintext highlighter-rouge">else</code>.</p>
+
+<h3 id="33-condicional-múltiple">3.3. Condicional múltiple</h3>
+
+<p>En algunas ocasiones nos encontraremos con selecciones en las que hay más de dos alternativas (es decir, en las que no basta con los valores “verdadero” y “falso”). Siempre es posible plasmar estas selecciones complejas usando varias estructuras <code class="language-plaintext highlighter-rouge">if-else if-else if...</code> anidadas, pero, cuando el número de alternativas es grande, esta solución puede plantear grandes problemas de escritura y legibilidad.</p>
+
+<p>Sin embargo, hay que dejar clara una cosa: cualquier instrucción condicional múltiple puede ser sustituida por un conjunto de instrucciones condicionales simples y dobles totalmente equivalente.</p>
+
+<p>La estructura condicional múltiple sirve, por tanto, para simplificar estos casos de condiciones con muchas alternativas. Su sintaxis general es:</p>
+
+<p><img src="../assets/images/image_6_1.png" alt="Diagrama de flujo - Condicional Múltiple" /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">switch</span> <span class="o">(</span><span class="n">expresion</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nl">valor1:</span> 
+        <span class="n">acciones</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="nl">valor2:</span> 
+        <span class="n">acciones</span><span class="o">-</span><span class="mi">2</span><span class="o">;</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="nl">valor3:</span> 
+        <span class="n">acciones</span><span class="o">-</span><span class="mi">3</span><span class="o">;</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">default</span><span class="o">:</span> 
+        <span class="n">acciones</span><span class="o">-</span><span class="no">N</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Su funcionamiento es el siguiente: se evalúa <code class="language-plaintext highlighter-rouge">expresion</code>, que en esta ocasión no tiene que ser de tipo lógico, sino que puede ser entero, carácter, etc. El resultado de <code class="language-plaintext highlighter-rouge">expresion</code> se compara con cada uno de los valores <code class="language-plaintext highlighter-rouge">valor1</code>, <code class="language-plaintext highlighter-rouge">valor2</code>… <code class="language-plaintext highlighter-rouge">valorN</code>. Si coincide con alguno de ellos, se ejecutan únicamente las acciones situadas a la derecha del valor coincidente. Si ningún valor coincide, se ejecutan las acciones del bloque <code class="language-plaintext highlighter-rouge">default</code>. Esta última parte no es obligatoria.</p>
+
+<p><strong>Ejemplo:</strong> Construyamos un algoritmo que escriba los nombres de los días de la semana en función del valor de una variable entera llamada <code class="language-plaintext highlighter-rouge">dia</code>. Su valor se introducirá por teclado. Los valores posibles de la variable <code class="language-plaintext highlighter-rouge">dia</code> serán del 1 al 7: cualquier otro valor debe producir un error.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">dia</span><span class="o">;</span>
+<span class="n">dia</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">().</span><span class="na">readLine</span><span class="o">());</span>
+
+<span class="k">switch</span><span class="o">(</span><span class="n">dia</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Lunes"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Martes"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">3</span><span class="o">:</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Miércoles"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">4</span><span class="o">:</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Jueves"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">5</span><span class="o">:</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Viernes"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">6</span><span class="o">:</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Sábado"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">7</span><span class="o">:</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Domingo"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">default</span><span class="o">:</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Número incorrecto"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>En este programa, la variable <code class="language-plaintext highlighter-rouge">dia</code>, una vez leída, se compara con los siete valores posibles. Si no coincide con ninguno de los siete valores, se ejecuta la parte <code class="language-plaintext highlighter-rouge">default</code>.</p>
+
+<h2 id="4-estructuras-repetitivas-bucles">4. Estructuras repetitivas (bucles)</h2>
+
+<p>Los ordenadores se diseñaron inicialmente para realizar tareas sencillas y repetitivas. El ser humano es de lo más torpe acometiendo tareas repetitivas: pronto le falla la concentración y comienza a tener descuidos. Los ordenadores programables, en cambio, pueden realizar la misma tarea muchas veces por segundo durante años y nunca se aburren.</p>
+
+<p>La estructura repetitiva, por tanto, reside en la naturaleza misma de los ordenadores y consiste, simplemente, en repetir varias veces un conjunto de instrucciones. Las estructuras repetitivas también se llaman <strong>bucles</strong>, <strong>lazos</strong>, <strong>iteraciones</strong> o <strong>loops</strong>.</p>
+
+<p>Los bucles tienen que repetir un conjunto de instrucciones un número finito de veces. Si no, nos encontraremos con un bucle infinito y el algoritmo no funcionará. Para conseguir que el bucle se repita sólo un número finito de veces, tiene que existir una <strong>condición de salida</strong>.</p>
+
+<p>Por tanto, los bucles se componen, básicamente, de dos elementos:</p>
+
+<p>a. Un <strong>cuerpo del bucle</strong> o conjunto de instrucciones que se ejecutan repetidamente.
+b. Una <strong>condición de salida</strong> para dejar de repetir las instrucciones y continuar con el resto del algoritmo.</p>
+
+<p>Existen tres tipos de bucles:</p>
+
+<ul>
+  <li><strong>Bucle “mientras… hacer” (<code class="language-plaintext highlighter-rouge">while</code>)</strong>: la condición de salida está al principio del bucle.</li>
+  <li><strong>Bucle “hacer… mientras” (<code class="language-plaintext highlighter-rouge">do...while</code>)</strong>: la condición de salida está al final del bucle.</li>
+  <li><strong>Bucle “para” (<code class="language-plaintext highlighter-rouge">for</code>)</strong>: la condición de salida está al principio y se realiza con un contador automático.</li>
+</ul>
+
+<h3 id="41-bucle-mientras-hacer">4.1. Bucle “mientras… hacer”</h3>
+
+<p>El bucle <code class="language-plaintext highlighter-rouge">while</code> es una estructura que se repite mientras una condición sea verdadera:</p>
+
+<p><img src="../assets/images/image_8_1.jpg" alt="Diagrama de flujo - Bucle Mientras" /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> <span class="o">(</span><span class="n">condicion</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">acciones</span> <span class="o">(</span><span class="n">cuerpo</span> <span class="n">del</span> <span class="n">bucle</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Cuando se llega a una instrucción <code class="language-plaintext highlighter-rouge">while</code>, se evalúa la condición. Si es verdadera, se realizan las acciones y se regresa al principio de la instrucción <code class="language-plaintext highlighter-rouge">while</code>. Y así hasta que la condición se haga falsa.</p>
+
+<p><strong>Ejemplo:</strong> Escribir un algoritmo que muestre en la pantalla todos los números enteros entre 1 y 100.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">cont</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">while</span> <span class="o">(</span><span class="n">cont</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">cont</span> <span class="o">=</span> <span class="n">cont</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cont</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="42-bucle-hacer-mientras">4.2. Bucle “Hacer… mientras”</h3>
+
+<p>El bucle <code class="language-plaintext highlighter-rouge">do...while</code> evalúa la condición de salida al final del bucle:</p>
+
+<p><img src="../assets/images/image_9_1.png" alt="Diagrama de flujo - Bucle Hacer Mientras" /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">do</span> <span class="o">{</span>
+    <span class="n">acciones</span> <span class="o">(</span><span class="n">cuerpo</span> <span class="n">del</span> <span class="n">bucle</span><span class="o">)</span>
+<span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">condicion</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Las acciones del cuerpo de un bucle <code class="language-plaintext highlighter-rouge">do...while</code> se ejecutan <strong>al menos una vez</strong>, a diferencia del bucle <code class="language-plaintext highlighter-rouge">while</code>.</p>
+
+<p><strong>Ejemplo:</strong> Diseñar un algoritmo que escriba todos los números enteros entre 1 y 100 utilizando <code class="language-plaintext highlighter-rouge">do...while</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">cont</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">do</span> <span class="o">{</span>
+    <span class="n">cont</span> <span class="o">=</span> <span class="n">cont</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cont</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">cont</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="43-bucle-para">4.3. Bucle “para”</h3>
+
+<p>Cuando el número de repeticiones es fijo y conocido de antemano, lo más cómodo es usar un bucle <code class="language-plaintext highlighter-rouge">for</code>:</p>
+
+<p><img src="../assets/images/image_10_1.jpg" alt="Diagrama de flujo - Bucle Para" /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="n">inicializacion</span><span class="o">;</span> <span class="n">condicion</span><span class="o">;</span> <span class="n">incremento</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">acciones</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Ejemplo 1:</strong> Diseñar un algoritmo que escriba todos los números enteros entre 1 y 100 utilizando un bucle <code class="language-plaintext highlighter-rouge">for</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">cont</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">cont</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="o">;</span> <span class="n">cont</span> <span class="o">=</span> <span class="n">cont</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cont</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Ejemplo 2:</strong> Diseñar un algoritmo que escriba todos los números enteros impares entre 1 y 100:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">cont</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">cont</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="o">;</span> <span class="n">cont</span> <span class="o">=</span> <span class="n">cont</span> <span class="o">+</span> <span class="mi">2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cont</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="44-contadores-acumuladores-conmutadores">4.4. Contadores, acumuladores, conmutadores</h3>
+
+<h4 id="441-contadores">4.4.1. Contadores</h4>
+
+<p>Un contador es una variable (casi siempre de tipo entero) cuyo valor se incrementa o decrementa en cada repetición de un bucle. Se suelen denotar como <code class="language-plaintext highlighter-rouge">cont</code> o <code class="language-plaintext highlighter-rouge">i</code>.</p>
+
+<ul>
+  <li>Se inicializa antes del bucle (<code class="language-plaintext highlighter-rouge">i = 1</code>).</li>
+  <li>Se modifica dentro del bucle (<code class="language-plaintext highlighter-rouge">i++</code> o <code class="language-plaintext highlighter-rouge">i = i + 1</code>).</li>
+  <li>Se utiliza en la condición de salida (<code class="language-plaintext highlighter-rouge">i &lt;= 10</code>).</li>
+</ul>
+
+<p><strong>Ejemplo:</strong> Tabla de multiplicar de un número N:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">().</span><span class="na">readLine</span><span class="o">());</span>
+
+<span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">i</span><span class="o">);</span>
+    <span class="n">i</span><span class="o">++;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="442-acumuladores">4.4.2. Acumuladores</h4>
+
+<p>Las variables acumuladoras almacenan resultados sucesivos.</p>
+
+<p><strong>Ejemplo:</strong> Sumar 10 números introducidos por teclado:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">suma</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">().</span><span class="na">readLine</span><span class="o">());</span>
+    <span class="n">suma</span> <span class="o">=</span> <span class="n">suma</span> <span class="o">+</span> <span class="n">n</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">suma</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h4 id="443-conmutadores">4.4.3. Conmutadores</h4>
+
+<p>Un conmutador (o interruptor) es una variable booleana que cambia de estado según ciertas condiciones para controlar la salida del bucle.</p>
+
+<p><strong>Ejemplo:</strong> Sumar números positivos hasta introducir uno negativo:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">suma</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="kt">boolean</span> <span class="n">terminar</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+<span class="k">while</span> <span class="o">(!</span><span class="n">terminar</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Introduce un número (negativo para terminar):"</span><span class="o">);</span>
+    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">().</span><span class="na">readLine</span><span class="o">());</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">suma</span> <span class="o">=</span> <span class="n">suma</span> <span class="o">+</span> <span class="n">n</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">terminar</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">suma</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Uso equivalente con <strong>centinela</strong> y bucle <code class="language-plaintext highlighter-rouge">do...while</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">suma</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">n</span><span class="o">;</span>
+
+<span class="k">do</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Introduce un número (negativo para terminar):"</span><span class="o">);</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">().</span><span class="na">readLine</span><span class="o">());</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">suma</span> <span class="o">=</span> <span class="n">suma</span> <span class="o">+</span> <span class="n">n</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">);</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">suma</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h2 id="5-instrucciones-de-salto">5. Instrucciones de salto</h2>
+
+<h3 id="511-break">5.1.1. break</h3>
+
+<p>La sentencia <code class="language-plaintext highlighter-rouge">break</code> sale abruptamente del bloque actual (bucle o <code class="language-plaintext highlighter-rouge">switch</code>). El único uso recomendado de esta instrucción es dentro de un bloque <code class="language-plaintext highlighter-rouge">switch</code>.</p>
+
+<h3 id="512-continue">5.1.2. continue</h3>
+
+<p>La sentencia <code class="language-plaintext highlighter-rouge">continue</code> fuerza la finalización prematura de la iteración actual de un bucle, pasando a la siguiente. Su uso generalmente denota un bucle mal planteado.</p>
+
+<h3 id="513-return">5.1.3. return</h3>
+
+<p><code class="language-plaintext highlighter-rouge">return</code> debe ser la última instrucción de un método para devolver control o un valor. Se desaconseja el uso de múltiples <code class="language-plaintext highlighter-rouge">return</code> o <code class="language-plaintext highlighter-rouge">return</code> prematuros, salvo en salidas de emergencia excepcionales.</p>
+
+<h2 id="6-control-de-excepciones">6. Control de excepciones</h2>
+
+<p>El manejo de excepciones consiste en prever y capturar los posibles errores de ejecución para redirigirlos a una rutina de código preprogramada, evitando que el programa finalice inesperadamente.</p>
+
+<h3 id="61-el-bloque-try-catch-finally">6.1. El bloque try-catch-finally</h3>
+
+<p>Sintaxis en Java:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">{</span>
+    <span class="c1">// Sentencias que pueden fallar</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ExcepcionTipo1</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Control de la excepción 1</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ExcepcionTipo2</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Control de la excepción 2</span>
+<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+    <span class="c1">// Código opcional que se ejecuta siempre</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Ejemplo:</strong> Manejo de división por cero (<code class="language-plaintext highlighter-rouge">ArithmeticException</code>):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="o">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span> <span class="n">c</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ArithmeticException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error al hacer la división"</span><span class="o">);</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Resultado: "</span> <span class="o">+</span> <span class="n">c</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="62-try-with-resources">6.2. try-with-resources</h3>
+
+<p>Pensado para liberar recursos automáticamente (archivos, conexiones) al terminar el bloque:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">(</span><span class="nc">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileReader</span><span class="o">(</span><span class="s">"file.txt"</span><span class="o">)))</span> <span class="o">{</span>
+    <span class="c1">// Lectura de archivo</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Manejo de error</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="63-el-manejo-de-excepciones-y-la-entrada-de-datos-por-teclado">6.3. El manejo de excepciones y la entrada de datos por teclado</h3>
+
+<p>Ejemplo de clase completa para solicitar datos por teclado de forma segura:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.io.InputStreamReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Suma</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">InputStreamReader</span> <span class="n">isr</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">InputStreamReader</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+        <span class="nc">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span><span class="n">isr</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">s1</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span> <span class="n">s2</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"Sumando 1: "</span><span class="o">);</span>
+            <span class="n">s1</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">());</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"Sumando 2: "</span><span class="o">);</span>
+            <span class="n">s2</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Se ha producido un error. Asegúrese de haber introducido dos números."</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="kt">int</span> <span class="n">suma</span> <span class="o">=</span> <span class="n">s1</span> <span class="o">+</span> <span class="n">s2</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"La suma es "</span> <span class="o">+</span> <span class="n">s1</span> <span class="o">+</span> <span class="s">" + "</span> <span class="o">+</span> <span class="n">s2</span> <span class="o">+</span> <span class="s">" = "</span> <span class="o">+</span> <span class="n">suma</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="64-excepciones-poco-excepcionales-un-uso-incorrecto-de-las-excepciones">6.4. Excepciones poco excepcionales: un uso incorrecto de las excepciones</h3>
+
+<p>Utilizar excepciones para controlar el flujo normal de una aplicación es una mala práctica:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// *** ¡¡OJO!! CÓDIGO DE MALA CALIDAD - NO USAR ***</span>
+<span class="nc">Scanner</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+<span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"Introduce un número: "</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Has introducido: "</span> <span class="o">+</span> <span class="n">num</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Fin de la lectura (dato no válido)"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span> <span class="c1">// salida del bucle mediante excepción</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Las excepciones deben reservarse exclusivamente para situaciones excepcionales y errores inesperados.</p>
+
+<h2 id="7-hemos-aprendido">7. Hemos aprendido…</h2>
+
+<ul>
+  <li>Estructuras de control de la programación clásica: <strong>secuencia</strong>, <strong>selección</strong> e <strong>iteración</strong>.</li>
+  <li>Control y captura de <strong>excepciones</strong> para asegurar la robustez del código en Java.</li>
+  <li>Reglas de estilo y buenas prácticas de programación estructurada.</li>
+</ul>
+:ET

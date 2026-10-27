@@ -32,21 +32,37 @@ Para desarrollar una aplicación con Laravel necesitamos disponer de un entorno 
 
 Para Laravel 13, los prerrequisitos principales son:
 
+* **Laravel Installer**, la herramienta que nos permitirá crear nuevas aplicaciones Laravel. Hay varias, la mayoría de línea de comandos.
 * **PHP 8.3 o superior**.
 * **Composer**, el gestor de dependencias de PHP.
 * **Node.js y npm** si vamos a trabajar con CSS y JavaScript.
 * **MySQL** u otro gestor de bases de datos si vamos a usar base de datos.
-* **Laravel Installer**, la herramienta de línea de comandos que nos permitirá crear nuevas aplicaciones Laravel.
+* **Docker** si vamos a usar contenedores.
 
-En lugar de instalar todo esto en nuestra máquina, ya vimos en el Tema 1 que es más limpio y portable hacerlo con **contenedores Docker**, de modo que eso es lo primero que tenemos que hacer.
+En lugar de instalar todo esto en nuestra máquina, ya vimos en el Tema 1 que es más limpio y portable hacerlo con **contenedores Docker**, de modo que eso es lo primero que tenemos que hacer. En este caso, solo necesitaremos:
+
+* **Docker** y **Docker Compose**, acompañado de *Docker Desktop* si trabajas en Windows.
+* **Laravel Installer** para lanzar la instalación de Laravel.
 
 ### PASO 1: Crear la infraestructura con Docker: Laravel Sail
 
-Vamos a utilizar **docker** y **docker compose** pero, en lugar de crear manualmente nuestro `docker-compose.yml`, vamos a recurrir a **Laravel Sail**, una herramienta que Laravel proporciona para trabajar con docker y compose.
+Aunque hay muchas formas de instalar Laravel, la más limpia pasa por usar contenedores Docker.
 
-De esta forma, el ordenador de desarrollo **solo necesita tener instalado docker con docker compose**. PHP, Composer, Node.js, MySQL y el resto de servicios necesarios funcionarán dentro de contenedores. 
+Laravel proporciona su propia configuración de contenedores, así que, en lugar de usar **docker** y **docker compose** construyendo a mano nuestro `docker-compose.yml`, vamos a recurrir a **Laravel Sail**, la herramienta de Laravel proporciona que automatiza el uso de Docker.
+
+De esta forma, el ordenador de desarrollo **solo necesita tener instalado docker con docker compose** (más Docker Desktop en Windows). PHP, Composer, Node.js, MySQL y el resto de servicios necesarios funcionarán dentro de contenedores. 
 
 1. Instala Docker y Docker Compose en tu máquina (si no lo tienes ya). *Si no sabes cómo hacerlo, revisa el Tema 1*.
+    <div markdown="1" style="color: #a55; font-size: 80%; margin-left: 5%">
+    **OJO, USUARIOS DE WINDOWS**. Laravel sobre Docker no funciona bien en entornos Windows salvo que se use WSL (*Windows Subsystem for Linux*), la capa de Windows diseñada para ejecutar aplicaciones Linux. Así que, si vas a montar Laravel en Windows con Sail, te recomiendo que:
+
+    a) Instales primero WSL con una distribución como Ubuntu. Abre un terminal PowerShell y teclea: `wsl --install -d Ubuntu`
+
+    b) Activa en Docker Desktop la integración con Ubuntu: *Settings → Resources → WSL Integration*
+
+    c) Sigue los siguientes pasos con normalidad, pero **siempre desde dentro de la consola de WSL/Ubuntu**, no desde un cmd o un PowerShell de Windows.
+    </div>
+
 2. Abre un terminal de texto en tu carpeta de trabajo y teclea esto (sustituye `hola-laravel` por el nombre que le quieras dar a tu aplicación):
 
     ```bash
