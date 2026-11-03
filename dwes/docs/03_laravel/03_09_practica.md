@@ -68,10 +68,28 @@ La aplicación **debe ser visualmente atractiva**. No se aceptarán prácticas c
 
 Para no saturarte, te recomiendo encarecidamente que sigas este orden:
 
-1. **Fase 1: Preparación**. Crea el proyecto en Sail (usa un Laravel limpio, no con el que hemos estado trabajando durante el tema), configura la base de datos e instala la autenticación (Breeze). Haz tu primer *commit* en Git.
-2. **Fase 2: Modelos, migraciones, seeders**. Crea las migraciones para las tablas. Asegúrate de añadir las claves foráneas correctamente. Añade algún seeder para tener algunos datos de prueba en las tablas con los que puedas jugar.
-3. **Fase 3: CRUD básico**. Haz el controlador y las vistas Blade para crear, listar y borrar proyectos de forma simple.
-4. **Fase 4: Relaciones complejas**. Añade la lógica para asignar usuarios a proyectos desde la vista de detalle. Vas a tener que investigar cómo usar el método `attach()` y `sync()` enviando datos extra para la tabla pivote (lo tienes en los apuntes).
+1. **Fase 1: Preparación**. 
+
+  * Crea el proyecto en Sail (usa un Laravel limpio, aunque si tarda mucho en descargar puedes reutilizar el que hemos estado utilizando para hacer experimentos durante el tema) -> ![Más info en 3.2](/laravel/hola-mundo.html)
+  * Configura la base de datos editando el archivo `.env` -> ![Más info en 3.2](/laravel/hola-mundo.html)
+  * Instala la autenticación (Breeze) -> ![Más info en 3.8](/laravel/sesiones-autenticacion.html)
+  * Haz tu primer *commit* en Git. No olvides ir haciendo *commits* periódicos conforme avances en tu trabajo.
+
+2. **Fase 2: Modelos, migraciones, seeders**. 
+
+  * Crea las migraciones para las tablas. Asegúrate de añadir las claves foráneas correctamente -> ![Más info en 3.8](/laravel/sesiones-autenticacion.html)
+  * Añade algún seeder para tener algunos datos de prueba en las tablas con los que puedas jugar -> ![Más info en 3.8](/laravel/sesiones-autenticacion.html)
+
+3. **Fase 3: CRUD básico de Proyectos**. 
+
+  * Crea el modelo Proyecto -> ![Más info en 3.8](/laravel/sesiones-autenticacion.html)
+  * Haz el controlador de Proyectos -> ![Más info en 3.8](/laravel/sesiones-autenticacion.html)
+  * Haz las vistas necesarias para que ese controlador pueda mostrar, crear, borrar y modificar proyectos -> ![Más info en 3.8](/laravel/sesiones-autenticacion.html)
+
+4. **Fase 4: Relaciones complejas**. 
+
+  * Añade la lógica para asignar usuarios a proyectos desde la vista de detalle del proyecto. Vas a tener que investigar cómo usar el método `attach()` y `sync()` enviando datos extra para la tabla pivote (lo tienes en los apuntes) -> ![Más info en 3.8](/laravel/sesiones-autenticacion.html)
+
 5. **Fase 5: Diseño y pulido**. Dedica la última parte a maquetar con Tailwind CSS (¡investiga, investiga!), añadir colores, mejorar la navegación y pulir detalles funcionales y visuales.
 
 ---
