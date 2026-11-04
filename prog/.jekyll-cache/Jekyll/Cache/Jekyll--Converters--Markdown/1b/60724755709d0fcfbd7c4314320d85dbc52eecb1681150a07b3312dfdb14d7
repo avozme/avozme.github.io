@@ -1,0 +1,162 @@
+I"�O<h2 class="no_toc" id="26-control-de-excepciones">2.6. Control de excepciones</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#261-el-bloque-try-catch-finally" id="markdown-toc-261-el-bloque-try-catch-finally">2.6.1. El bloque try-catch-finally</a></li>
+  <li><a href="#262-try-with-resources" id="markdown-toc-262-try-with-resources">2.6.2. try-with-resources</a></li>
+  <li><a href="#263-el-manejo-de-excepciones-y-la-entrada-de-datos-por-teclado" id="markdown-toc-263-el-manejo-de-excepciones-y-la-entrada-de-datos-por-teclado">2.6.3. El manejo de excepciones y la entrada de datos por teclado</a></li>
+  <li><a href="#264-excepciones-poco-excepcionales-un-uso-incorrecto-de-las-excepciones" id="markdown-toc-264-excepciones-poco-excepcionales-un-uso-incorrecto-de-las-excepciones">2.6.4. Excepciones poco excepcionales: un uso incorrecto de las excepciones</a></li>
+</ul>
+
+<p>El manejo de excepciones consiste en <strong>prever y capturar los posibles errores de ejecución</strong> para redirigirlos a una rutina de código preprogramada, <strong>evitando que el programa finalice inesperadamente</strong>.</p>
+
+<p>El control de excepciones permite al programador evitar que el programa falle durante la ejecución de forma inesperada. Bueno, mejor dicho: no evita que el programa falle, pero sí que explote. Se suele usar, por lo tanto, en lugares sensibles donde podría ocurrir un error de ejecución. Normalmente, en entradas de datos del usuario o en operaciones aritméticas con valores impredecibles.</p>
+
+<h3 id="261-el-bloque-try-catch-finally">2.6.1. El bloque try-catch-finally</h3>
+
+<p>Este es el lugar donde más frecuentemente te vas a encontrar un manejador de excepciones programa.</p>
+
+<p>Un bloque <code class="language-plaintext highlighter-rouge">try-catch</code> tiene esta sintaxis genérica:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">{</span>
+    <span class="c1">// Sentencias que pueden fallar</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ExcepcionTipo1</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Control de la excepción 1</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ExcepcionTipo2</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Control de la excepción 2</span>
+<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+    <span class="c1">// Código opcional que se ejecuta siempre</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>La JVM <strong>intentará ejecutar las intrucciones del bloque <code class="language-plaintext highlighter-rouge">try</code></strong>. En caso de que <strong>ocurra un error</strong> de ejecución, buscará si ese error (o “excepción”, en jerga informática) está recogido en alguno de los bloques <code class="language-plaintext highlighter-rouge">catch</code>. En tal caso, <strong>ejecutará el bloque <code class="language-plaintext highlighter-rouge">catch</code></strong> y luego seguirá ejecutando el programa como si tal cosa.</p>
+
+<p>El bloque <code class="language-plaintext highlighter-rouge">finally</code> es opcional. Si existe, se ejecutará siempre, no importa si ha ocurrido una excepción (y se ejecutó un bloque <code class="language-plaintext highlighter-rouge">catch</code>) o si el bloque <code class="language-plaintext highlighter-rouge">try</code> terminó sin error.</p>
+
+<p><strong>Ejemplo:</strong> Este programa divide un número a entre otro b y muestra el resultado:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+      <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="o">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span> <span class="n">c</span><span class="o">;</span>
+      <span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">;</span>   <span class="c1">// ¡¡***ERROR DE DIVISIÓN POR CERO***!!</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Resultado: "</span> <span class="o">+</span> <span class="n">c</span><span class="o">);</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Si compilas esta clase verás que todo va bien, pero intenta ejecutarla y verás lo que pasa. Obtendrás algo así como:</p>
+
+<p><code class="language-plaintext highlighter-rouge">Exception in thread "main" java.lang.ArithmeticExcepcion: / by zero at test.main (test.java:6)</code></p>
+
+<p>¡Eso te pasa por intentar dividir entre 0! No queda muy bien que digamos que un programa profesional emita estos mensajes apocalípticos durante la ejecución, y menos aún que detenga su ejecución bruscalemnte.</p>
+
+<p>Para eso se usa el control de excepciones. Observa como aplicarlo al ejemplo anterior:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="o">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span> <span class="n">c</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ArithmeticException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error al hacer la división"</span><span class="o">);</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Resultado: "</span> <span class="o">+</span> <span class="n">c</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Ahora, si se produce una <code class="language-plaintext highlighter-rouge">ArithmeticException</code> al hacer la división, no salta la rutina por defecto de la JVM, sino que el error es redirigido a nuestro bloque <code class="language-plaintext highlighter-rouge">catch</code>, donde nuestro código toma las riendas de la situación y trata de redirigirla para que el programa pueda seguir ejecutándose y salir airoso del brete.</p>
+
+<h3 id="262-try-with-resources">2.6.2. try-with-resources</h3>
+
+<p>Desde Java 8 existe una forma ligeramente diferente de escribir bloques <code class="language-plaintext highlighter-rouge">try-catch</code> denominada <strong>try-with-resources</strong>. Está pensada para <strong>liberar los recursos reservados</strong> (como archivos abiertos, por ejemplo) de forma automática aunque ocurra una excepción en el código.</p>
+
+<p>Veremos con detalle esa sintaxis alternativa cuando trabajemos con ficheros y con conexiones remotas a bases de datos. De momento, solo lo mencionamos para que sepas lo que es, por si te lo encuentras por ahí.</p>
+
+<p>Visualmente, lo único que distingue un bloque <code class="language-plaintext highlighter-rouge">try-with-resources</code> de un <code class="language-plaintext highlighter-rouge">try-catch</code> tradicional es que, el primero, lleva una o varias instrucciones entre paréntesis a continuación del <code class="language-plaintext highlighter-rouge">try</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Bloque try-catch convencional</span>
+<span class="k">try</span> <span class="o">{</span>
+   <span class="c1">// Instrucciones que puede fallar</span>
+<span class="o">}</span>
+<span class="k">catch</span><span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+   <span class="c1">// Manejador de excepciones</span>
+<span class="o">}</span>
+
+
+<span class="c1">// Bloque try-with-resources</span>
+<span class="k">try</span> <span class="o">(</span><span class="n">instrucciones</span> <span class="n">que</span> <span class="n">bloquean</span> <span class="n">recursos</span><span class="o">)</span> <span class="o">{</span>
+   <span class="c1">// Instrucciones que pueden fallar</span>
+<span class="o">}</span>
+<span class="k">catch</span><span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+   <span class="c1">// Manejador de excepciones</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="263-el-manejo-de-excepciones-y-la-entrada-de-datos-por-teclado">2.6.3. El manejo de excepciones y la entrada de datos por teclado</h3>
+
+<p>El lugar donde más frecuentemente te vas a encontrar un manejador de excepciones es, sin duda, en las <strong>entradas de datos al programa</strong>. La razón es sencilla: cuando un usuario (u otro sistema) puede introducir datos en nuestro programa, por definición estamos creando un “coladero” por donde pueden entrar toda clase de cosas desagradables: errores tipográficos (una letra cuando el programa esperaba un número, por ejemplo), código malicioso, cadenas vacías y vaya usted a saber qué.</p>
+
+<p>Por eso, encontrarás <strong>la entrada de datos frecuentemente encerrada en un <code class="language-plaintext highlighter-rouge">try-catch</code> que la protege</strong>.</p>
+
+<p>Observa el siguiente ejemplo. Se trata de una clase que pide dos números por teclado y los suma:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Suma</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span> <span class="o">(</span><span class="nc">String</span> <span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">InputStreamReader</span> <span class="n">isr</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">InputStreamReader</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+        <span class="nc">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span> <span class="o">(</span><span class="n">isr</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">s1</span><span class="o">,</span> <span class="n">s2</span><span class="o">,</span> <span class="n">suma</span><span class="o">;</span>
+
+
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"Sumando 1 : "</span><span class="o">);</span>
+            <span class="n">s1</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">());</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"Sumando 2 : "</span><span class="o">);</span>
+            <span class="n">s2</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">());</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Se ha producido un error. 
+                       Asegúrese de haber introducido dos números"</span><span class="o">);</span>
+            <span class="n">s1</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">s2</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>  <span class="c1">// ¡Quitar esto de la versión final!</span>
+        <span class="o">}</span>
+        <span class="n">suma</span><span class="o">=</span><span class="n">s1</span><span class="o">+</span><span class="n">s2</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span> <span class="o">(</span><span class="s">"La suma es "</span> <span class="o">+</span> <span class="n">s1</span> <span class="o">+</span> <span class="s">"+"</span> <span class="o">+</span> <span class="n">s2</span> <span class="o">+</span><span class="s">"="</span><span class="o">+</span> <span class="n">suma</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Se ha encerrado toda la parte de entrada de datos en un bloque <code class="language-plaintext highlighter-rouge">try</code>, porque las dos entradas de datos se tienen que convertir a números enteros (<code class="language-plaintext highlighter-rouge">parseInt</code>) antes de procesarlas como sumandos, ya que las entradas de datos siempre son cadenas de caracteres. Y es ese proceso de conversión el que puede fallar.
+¿No te lo crees? Prueba a ejecutar el método anterior sin <code class="language-plaintext highlighter-rouge">try-catch</code> y, cuando el programa te pida un número, teclea una letra. El <code class="language-plaintext highlighter-rouge">parseInt()</code> se pegará un zurriagazo.</p>
+
+<p>Como sabemos que la forma más probable de fallo de este código es la conversión a entero, podemos capturar ese error de ejecución y tratarlo con nuestro propio código, en lugar de dejar a la JVM que se encargue ello y emita esos mensajes de error tan poco recomendables para el usuario final.</p>
+
+<p>Una última nota: observa como, en el bloque <code class="language-plaintext highlighter-rouge">catch</code>, hemos colocado una llamada al método <code class="language-plaintext highlighter-rouge">printStackTrace()</code>. Eso nos muestra información sobre la excepción y puede ser muy útil a la hora de <strong>depurar</strong> el programa porque nos dirá exactamente qué excepción se ha producido, y así podremos contemplar nuevas excepciones que se nos hubieran escapado. Pero <strong>en la versión definitiva</strong> del programa <strong>esa línea debería desaparecer</strong> para evitar, de nuevo, mensajes de error incomprensibles al usuario final (la podemos sustituir por un mensaje de error comprensible para el usuario, por ejemplo).</p>
+
+<h3 id="264-excepciones-poco-excepcionales-un-uso-incorrecto-de-las-excepciones">2.6.4. Excepciones poco excepcionales: un uso incorrecto de las excepciones</h3>
+
+<p>Algunos programadores usan las excepciones para situaciones “poco excepcionales” (¡Ojo!, incluso algunas IAs lo hacen a veces). Esto es una mala práctica de programación y deberías evitarla.
+¿Que a qué me refiero? Te lo explico mejor con un ejemplo. Mira la excepción de este código:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// *** ¡¡OJO!! ¡¡CÓDIGO DE MALA CALIDAD!! ¡¡NO USAR!! ***</span>
+
+<span class="nc">Scanner</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+<span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+         <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"Introduce un número: "</span><span class="o">);</span>
+         <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span> <span class="c1">// si no es número → excepción</span>
+         <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Has introducido: "</span> <span class="o">+</span> <span class="n">num</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+         <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Fin de la lectura (dato no válido)"</span><span class="o">);</span>
+         <span class="k">break</span><span class="o">;</span> <span class="c1">// salimos del bucle gracias a la excepción</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Este bucle de lectura de datos funciona, es decir, lee números hasta que se introduce una letra, pero utiliza un mecanismo excepcional (el manejador de excepciones) para controlar algo que es “normal” según la propia naturaleza del bucle (que el usuario teclee una letra).
+Este código se considera de mala calidad porque:
+Usa excepciones para controlar el flujo normal, no los errores (error grave de diseño)
+Las excepciones son costosas en tiempo de ejecución.
+El código es menos claro que si se hubiera planteado un bucle while() como es debido.
+Por tanto, recuerda: las excepciones deben reservarse para casos excepcionales. De ahí su nombre. Solo para errores excepcionales, por favor. La ejecución normal de un algoritmo jamás debería pasar por una excepción, o el diseño de algoritmos se convertirá en un infierno peor que el código espagueti de los tiempos prehistóricos.</p>
+:ET

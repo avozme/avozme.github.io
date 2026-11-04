@@ -1,0 +1,34 @@
+I"[<h2 class="no_toc" id="25-instrucciones-de-salto">2.5. Instrucciones de salto</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#251-break" id="markdown-toc-251-break">2.5.1. break</a></li>
+  <li><a href="#252-continue" id="markdown-toc-252-continue">2.5.2. continue</a></li>
+  <li><a href="#253-return" id="markdown-toc-253-return">2.5.3. return</a></li>
+</ul>
+
+<p>Las instrucciones de salto hacen que el flujo de ejecución normal del bloque en el que se encuentran <em>rompa su camino habitual</em>.</p>
+
+<p>Las instrucciones de salto son muy útiles en ciertas circunstancias, pero no se debe abusar de ellas o corremos el riesgo de convertir nuestro código en el temible <strong>código espagueti</strong>, imposible de comprender y de mantener.</p>
+
+<p>Solo deben usarse si simplifican la solución de manera razonable o como «salidas de emergencia» en caso de que un error grave impida continuar con la ejecución normal del bloque de código en el que se encuentran.</p>
+
+<h3 id="251-break">2.5.1. break</h3>
+
+<p>La sentencia <code class="language-plaintext highlighter-rouge">break</code> sale abruptamente del bloque actual (un bucle o un <code class="language-plaintext highlighter-rouge">switch</code>).</p>
+
+<p>Pueden usarse en los bucles con moderación, siempre que la lógica del bucle siga siendo clara y la solución se simplifique.</p>
+
+<p>En un bloque <code class="language-plaintext highlighter-rouge">switch</code> tradicional de Java, en cambio, es imperativo su uso para evitar ejecutar varios <code class="language-plaintext highlighter-rouge">case</code> consecutivos.</p>
+
+<h3 id="252-continue">2.5.2. continue</h3>
+
+<p>La sentencia <code class="language-plaintext highlighter-rouge">continue</code> fuerza la finalización prematura de la iteración actual de un bucle, pasando a la siguiente.</p>
+
+<p>Su uso generalmente denota un bucle mal planteado. Si te ves en la necesidad de usarlo, dedica unos minutos a repensar el bucle, porque probablemente hay una solución mejor.</p>
+
+<h3 id="253-return">2.5.3. return</h3>
+
+<p><code class="language-plaintext highlighter-rouge">return</code> debe ser la última instrucción de un método para devolver un valor al código que lo invocó (veremos qué significa esto en el tema siguiente). Este uso del <code class="language-plaintext highlighter-rouge">return</code> es normal y no plantea ningún inconveniente.</p>
+
+<p>Ahora bien, se puede interrumpir la ejecución de un método prematuramente colocando uno o varios <code class="language-plaintext highlighter-rouge">return</code> en mitad del código. Como en el caso de <code class="language-plaintext highlighter-rouge">break</code>, esto solo es justificable si la lógica del método sigue siendo bien comprensible a pesar de las múltiples salidas y si la solución son <code class="language-plaintext highlighter-rouge">return</code> prematuro es mucho más compleja.</p>
+:ET

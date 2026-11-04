@@ -1,0 +1,34 @@
+I"�
+<h2 class="no_toc" id="21-qué-es-la-programación-estructurada">2.1. Qué es la programación estructurada</h2>
+
+<h1 class="no_toc" id="índice">Índice</h1>
+
+
+<p>El término programación estructurada se refiere a un conjunto de técnicas que han ido evolucionando desde los primeros trabajos del holandés E. Dijkstra. Pese a ser físico, Dijkstra fue uno de los más importantes científicos de la computación hasta su muerte en 2002. Una de sus frases más famosas es:</p>
+
+<blockquote>
+  <p>“La pregunta de si un computador puede pensar no es más interesante que la pregunta de si un submarino puede nadar”</p>
+</blockquote>
+
+<p>Estas técnicas de programación estructurada de Dijkstra aumentan la productividad del programador, reduciendo el tiempo requerido para escribir, verificar, depurar y mantener los programas, y por ese motivo han sido plenamente asimiladas por la programación orientada a objetos.</p>
+
+<p>Allá por mayo de 1966, Böhm y Jacopini demostraron (en la revista “Communications of the ACM”, vol. 9, nº 5) que se puede escribir cualquier programa propio utilizando solo tres tipos de estructuras de control: la secuencial, la selectiva (o condicional) y la repetitiva. A esto se le llama <strong>Teorema de la programación estructurada</strong>, y define un programa propio como un programa que cumple tres características:</p>
+
+<ul>
+  <li>Posee un sólo punto de inicio y un sólo punto de fin.</li>
+  <li>Existe al menos un camino que parte del inicio y llega hasta el fin pasando por todas las partes del programa.</li>
+  <li>No existen bucles infinitos.</li>
+</ul>
+
+<p>Realmente, el trabajo de Dijkstra basado en este teorema fue revolucionario, porque lo que venía a decir es que, para construir programas más potentes y en menos tiempo, lo que había que hacer era simplificar las herramientas que se utilizaban para hacerlos, en lugar de complicarlas más. Este regreso a la simplicidad, unido a las técnicas de ingeniería del software, acabó con la crisis del software de los años 70.</p>
+
+<p>Por lo tanto, los programas estructurados deben limitarse a usar tres estructuras:</p>
+
+<ul>
+  <li>Secuencial</li>
+  <li>Selectiva (o condicional)</li>
+  <li>Repetitiva</li>
+</ul>
+
+<p>La programación orientada a objetos, como vimos en el tema 1, es una evolución de la programación estructurada clásica en la que los algoritmos y los datos se encapsulan en clases que más tarde se instancian en objetos que interactúan entre sí. Pero lo que hay dentro de esos algoritmos siguen siendo programas estructurados. Es decir, la POO es un superconjunto de la programación estructurada clásica, y por eso es pertinente que, en este punto, estudiemos esas estructuras detenidamente.</p>
+:ET

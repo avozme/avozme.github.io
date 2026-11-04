@@ -1,0 +1,20 @@
+I"�<h2 class="no_toc" id="25-instrucciones-de-salto">2.5. Instrucciones de salto</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#251-break" id="markdown-toc-251-break">2.5.1. break</a></li>
+  <li><a href="#252-continue" id="markdown-toc-252-continue">2.5.2. continue</a></li>
+  <li><a href="#253-return" id="markdown-toc-253-return">2.5.3. return</a></li>
+</ul>
+
+<h3 id="251-break">2.5.1. break</h3>
+
+<p>La sentencia <code class="language-plaintext highlighter-rouge">break</code> sale abruptamente del bloque actual (bucle o <code class="language-plaintext highlighter-rouge">switch</code>). El único uso recomendado de esta instrucción es dentro de un bloque <code class="language-plaintext highlighter-rouge">switch</code>.</p>
+
+<h3 id="252-continue">2.5.2. continue</h3>
+
+<p>La sentencia <code class="language-plaintext highlighter-rouge">continue</code> fuerza la finalización prematura de la iteración actual de un bucle, pasando a la siguiente. Su uso generalmente denota un bucle mal planteado.</p>
+
+<h3 id="253-return">2.5.3. return</h3>
+
+<p><code class="language-plaintext highlighter-rouge">return</code> debe ser la última instrucción de un método para devolver control o un valor. Se desaconseja el uso de múltiples <code class="language-plaintext highlighter-rouge">return</code> o <code class="language-plaintext highlighter-rouge">return</code> prematuros, salvo en salidas de emergencia excepcionales.</p>
+:ET

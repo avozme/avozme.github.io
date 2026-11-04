@@ -1,0 +1,25 @@
+I"r
+<h2 id="22-estructura-secuencal">2.2. Estructura secuencal</h2>
+
+<p>La estructura secuencial es aquélla en la que una acción sigue a otra (en secuencia). Esta es la estructura algorítmica básica, en la que las instrucciones se ejecutan una tras otra, en el mismo orden en el que fueron escritas.</p>
+
+<p>La estructura secuencial, por lo tanto, es la más simple de las tres estructuras permitidas. A continuación vemos su representación mediante diagrama de flujo y Java:</p>
+
+<p><img src="../../assets/images/image_3_1.png" alt="Diagrama de flujo - Secuencial" /></p>
+
+<p><img src="../../assets/images/image_3_2.png" alt="Diagrama de flujo - Acciones secuenciales" /></p>
+
+<p><strong>Ejemplo:</strong> Vamos a escribir un algoritmo completamente secuencial que calcule la suma de dos números, a y b.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Algoritmo suma</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Suma</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">suma</span><span class="o">;</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">().</span><span class="na">readLine</span><span class="o">());</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">().</span><span class="na">readLine</span><span class="o">());</span>
+        <span class="n">suma</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">suma</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+:ET

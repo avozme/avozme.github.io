@@ -1,0 +1,100 @@
+I"3%<h2 class="no_toc" id="24-estructura-repetitiva-bucles">2.4. Estructura repetitiva (bucles)</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#241-bucle-mientras-hacer" id="markdown-toc-241-bucle-mientras-hacer">2.4.1. Bucle mientras… hacer</a></li>
+  <li><a href="#242-bucle-hacer-mientras" id="markdown-toc-242-bucle-hacer-mientras">2.4.2. Bucle Hacer… mientras</a></li>
+  <li><a href="#243-bucle-para-for" id="markdown-toc-243-bucle-para-for">2.4.3. Bucle para (for)</a></li>
+</ul>
+
+<p>Los ordenadores se diseñaron inicialmente para realizar tareas sencillas y repetitivas. El ser humano es de lo más torpe acometiendo tareas repetitivas: pronto le falla la concentración y comienza a tener descuidos. Los ordenadores programables, en cambio, pueden realizar la misma tarea muchas veces por segundo durante años y nunca se aburren.</p>
+
+<p>La estructura repetitiva, por tanto, reside en la naturaleza misma de los ordenadores y consiste, simplemente, en repetir varias veces un conjunto de instrucciones. Las estructuras repetitivas también se llaman <strong>bucles</strong>, <strong>lazos</strong>, <strong>iteraciones</strong> o <strong>loops</strong>.</p>
+
+<p>Los bucles tienen que repetir un conjunto de instrucciones un número finito de veces. Si no, nos encontraremos con un bucle infinito y el algoritmo no funcionará. Para conseguir que el bucle se repita sólo un número finito de veces, tiene que existir una <strong>condición de salida</strong>.</p>
+
+<p>Por tanto, los bucles se componen, básicamente, de dos elementos:</p>
+
+<p>a. Un <strong>cuerpo del bucle</strong> o conjunto de instrucciones que se ejecutan repetidamente.
+b. Una <strong>condición de salida</strong> para dejar de repetir las instrucciones y continuar con el resto del algoritmo.</p>
+
+<p>Existen tres tipos de bucles:</p>
+
+<ul>
+  <li><strong>Bucle mientras… hacer (<code class="language-plaintext highlighter-rouge">while</code>)</strong>: la condición de salida está al principio del bucle.</li>
+  <li><strong>Bucle hacer… mientras (<code class="language-plaintext highlighter-rouge">do...while</code>)</strong>: la condición de salida está al final del bucle.</li>
+  <li><strong>Bucle para (<code class="language-plaintext highlighter-rouge">for</code>)</strong>: la condición de salida está al principio y se realiza con un contador automático.</li>
+</ul>
+
+<h3 id="241-bucle-mientras-hacer">2.4.1. Bucle mientras… hacer</h3>
+
+<p>El bucle <code class="language-plaintext highlighter-rouge">while</code> es una estructura que se repite mientras una condición sea verdadera:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> <span class="o">(</span><span class="n">condicion</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">acciones</span> <span class="o">(</span><span class="n">cuerpo</span> <span class="n">del</span> <span class="n">bucle</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Su representación gráfica es esta:</p>
+
+<p><img src="../../assets/images/image_8_1.jpg" alt="Diagrama de flujo - Bucle Mientras" /></p>
+
+<p>Cuando se llega a una instrucción <code class="language-plaintext highlighter-rouge">while</code>, se evalúa la condición. Si es verdadera, se realizan las acciones y se regresa al principio de la instrucción <code class="language-plaintext highlighter-rouge">while</code>. Y así hasta que la condición se haga falsa.</p>
+
+<p><strong>Ejemplo:</strong> Escribir un algoritmo que muestre en la pantalla todos los números enteros entre 1 y 100.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">cont</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">while</span> <span class="o">(</span><span class="n">cont</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">cont</span> <span class="o">=</span> <span class="n">cont</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cont</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="242-bucle-hacer-mientras">2.4.2. Bucle Hacer… mientras</h3>
+
+<p>El bucle <code class="language-plaintext highlighter-rouge">do...while</code> evalúa la condición de salida al final del bucle:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">do</span> <span class="o">{</span>
+    <span class="n">acciones</span> <span class="o">(</span><span class="n">cuerpo</span> <span class="n">del</span> <span class="n">bucle</span><span class="o">)</span>
+<span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">condicion</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><img src="../../assets/images/image_9_1.png" alt="Diagrama de flujo - Bucle Hacer Mientras" /></p>
+
+<p>Las acciones del cuerpo de un bucle <code class="language-plaintext highlighter-rouge">do...while</code> se ejecutan <strong>al menos una vez</strong>, a diferencia del bucle <code class="language-plaintext highlighter-rouge">while</code>.</p>
+
+<p><strong>Ejemplo:</strong> Diseñar un algoritmo que escriba todos los números enteros entre 1 y 100 utilizando <code class="language-plaintext highlighter-rouge">do...while</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">cont</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">do</span> <span class="o">{</span>
+    <span class="n">cont</span> <span class="o">=</span> <span class="n">cont</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cont</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">cont</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="243-bucle-para-for">2.4.3. Bucle para (for)</h3>
+
+<p>Cuando el número de repeticiones es fijo y conocido de antemano, lo más cómodo es usar un bucle <code class="language-plaintext highlighter-rouge">for</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="n">inicializacion</span><span class="o">;</span> <span class="n">condicion</span><span class="o">;</span> <span class="n">incremento</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">acciones</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>El bucle <code class="language-plaintext highlighter-rouge">for</code> se representa de deferentes formas según el tipo de diagrama de flujo. Una representación habitual es esta:</p>
+
+<p><img src="../../assets/images/image_10_1.jpg" alt="Diagrama de flujo - Bucle Para" /></p>
+
+<p><strong>Ejemplo 1:</strong> Diseñar un algoritmo que escriba todos los números enteros entre 1 y 100 utilizando un bucle <code class="language-plaintext highlighter-rouge">for</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">cont</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">cont</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="o">;</span> <span class="n">cont</span> <span class="o">=</span> <span class="n">cont</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cont</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Ejemplo 2:</strong> Diseñar un algoritmo que escriba todos los números enteros impares entre 1 y 100:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">cont</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">cont</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="o">;</span> <span class="n">cont</span> <span class="o">=</span> <span class="n">cont</span> <span class="o">+</span> <span class="mi">2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cont</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+:ET

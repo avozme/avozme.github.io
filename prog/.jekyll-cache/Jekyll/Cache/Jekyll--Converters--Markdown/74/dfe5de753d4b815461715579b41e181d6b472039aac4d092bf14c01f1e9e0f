@@ -1,0 +1,145 @@
+I"D<h2 class="no_toc" id="23-estructura-condicional">2.3. Estructura condicional</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#231-condicional-simple" id="markdown-toc-231-condicional-simple">2.3.1. Condicional simple</a></li>
+  <li><a href="#232-condicional-doble" id="markdown-toc-232-condicional-doble">2.3.2. Condicional doble</a></li>
+  <li><a href="#233-condicional-múltiple" id="markdown-toc-233-condicional-múltiple">2.3.3. Condicional múltiple</a></li>
+</ul>
+
+<p>Los algoritmos que usan únicamente estructuras secuenciales están muy limitados y no tienen ninguna utilidad real. Esa utilidad aparece cuando existe la posibilidad de ejecutar una de entre varias secuencias de instrucciones dependiendo de alguna condición asociada a los datos del programa.</p>
+
+<p>Las <strong>estructuras selectivas</strong> o <strong>condicionales</strong> pueden ser de tres tipos:</p>
+
+<ul>
+  <li>Simples</li>
+  <li>Dobles</li>
+  <li>Múltiples</li>
+</ul>
+
+<h3 id="231-condicional-simple">2.3.1. Condicional simple</h3>
+
+<p>La estructura condicional simple se escribe así:</p>
+
+<p><img src="../assets/images/image_4_1.png" alt="Diagrama de flujo - Condicional Simple" /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">condicion</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">acciones</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>La condición que aparece detrás de <code class="language-plaintext highlighter-rouge">if</code> es siempre una expresión lógica, es decir, una expresión cuyo resultado es “verdadero” o “falso”. Si el resultado es verdadero, entonces se ejecutan las acciones situadas entre <code class="language-plaintext highlighter-rouge">{</code> y <code class="language-plaintext highlighter-rouge">}</code>. Si es falso, se saltan las acciones y se prosigue por la siguiente instrucción (lo que haya debajo de la llave de cierre).</p>
+
+<p><strong>Ejemplo:</strong> El siguiente código calcula el área y el perímetro de un rectángulo usando un condicional simple:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">double</span> <span class="n">base</span><span class="o">,</span> <span class="n">altura</span><span class="o">,</span> <span class="n">area</span><span class="o">,</span> <span class="n">perimetro</span><span class="o">;</span>
+<span class="n">base</span> <span class="o">=</span> <span class="nc">Double</span><span class="o">.</span><span class="na">parseDouble</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">().</span><span class="na">readLine</span><span class="o">());</span>
+<span class="n">altura</span> <span class="o">=</span> <span class="nc">Double</span><span class="o">.</span><span class="na">parseDouble</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">().</span><span class="na">readLine</span><span class="o">());</span>
+
+<span class="k">if</span> <span class="o">((</span><span class="n">base</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">altura</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">))</span> <span class="o">{</span>
+    <span class="n">area</span> <span class="o">=</span> <span class="n">base</span> <span class="o">*</span> <span class="n">altura</span><span class="o">;</span>
+    <span class="n">perimetro</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">base</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">altura</span><span class="o">;</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Area = "</span> <span class="o">+</span> <span class="n">area</span><span class="o">);</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Perimetro = "</span> <span class="o">+</span> <span class="n">perimetro</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="k">if</span> <span class="o">((</span><span class="n">base</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="n">altura</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">))</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Los datos son incorrectos"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Observa que, en la primera instrucción condicional <code class="language-plaintext highlighter-rouge">if ((base &gt; 0) &amp;&amp; (altura &gt; 0))</code> se comprueba que los dos datos sean positivos; en caso de serlo, se procede al cálculo del área y el perímetro. Más abajo hay otra condicional <code class="language-plaintext highlighter-rouge">if ((base &lt;= 0) || (altura &lt;= 0))</code> para el caso de que alguno de los datos sea negativo o cero: en esta ocasión, se imprime en la pantalla un mensaje de error.</p>
+
+<h3 id="232-condicional-doble">2.3.2. Condicional doble</h3>
+
+<p>La forma doble de la instrucción condicional es:</p>
+
+<p><img src="../assets/images/image_5_1.png" alt="Diagrama de flujo - Condicional Doble" /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">condicion</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">acciones</span><span class="o">-</span><span class="mi">1</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="n">acciones</span><span class="o">-</span><span class="mi">2</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>En esta forma, la instrucción funciona del siguiente modo: si el resultado de la condición es verdadero, entonces se ejecutan las acciones de la primera parte, es decir, las <code class="language-plaintext highlighter-rouge">acciones-1</code>. Si es falso, se ejecutan las acciones de la parte <code class="language-plaintext highlighter-rouge">else</code>, es decir, las <code class="language-plaintext highlighter-rouge">acciones-2</code>.</p>
+
+<p><strong>Ejemplo:</strong> Podemos reescribir nuestro algoritmo del rectángulo usando una alternativa doble:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">double</span> <span class="n">base</span><span class="o">,</span> <span class="n">altura</span><span class="o">,</span> <span class="n">area</span><span class="o">,</span> <span class="n">perimetro</span><span class="o">;</span>
+<span class="n">base</span> <span class="o">=</span> <span class="nc">Double</span><span class="o">.</span><span class="na">parseDouble</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">().</span><span class="na">readLine</span><span class="o">());</span>
+<span class="n">altura</span> <span class="o">=</span> <span class="nc">Double</span><span class="o">.</span><span class="na">parseDouble</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">().</span><span class="na">readLine</span><span class="o">());</span>
+
+<span class="k">if</span> <span class="o">((</span><span class="n">base</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">altura</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">))</span> <span class="o">{</span>
+    <span class="n">area</span> <span class="o">=</span> <span class="n">base</span> <span class="o">*</span> <span class="n">altura</span><span class="o">;</span>
+    <span class="n">perimetro</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">base</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">altura</span><span class="o">;</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Area = "</span> <span class="o">+</span> <span class="n">area</span><span class="o">);</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Perimetro = "</span> <span class="o">+</span> <span class="n">perimetro</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Los datos son incorrectos"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Lo más interesante de este algoritmo es compararlo con el anterior, ya que hace exactamente lo mismo. ¡Siempre hay varias maneras de resolver el mismo problema! Pero esta solución es un poco más sencilla, al ahorrarse la segunda condición, que va implícita en el <code class="language-plaintext highlighter-rouge">else</code>.</p>
+
+<h3 id="233-condicional-múltiple">2.3.3. Condicional múltiple</h3>
+
+<p>En algunas ocasiones nos encontraremos con selecciones en las que hay más de dos alternativas (es decir, en las que no basta con los valores “verdadero” y “falso”). Siempre es posible plasmar estas selecciones complejas usando varias estructuras <code class="language-plaintext highlighter-rouge">if-else if-else if...</code> anidadas, pero, cuando el número de alternativas es grande, esta solución puede plantear grandes problemas de escritura y legibilidad.</p>
+
+<p>Sin embargo, hay que dejar clara una cosa: cualquier instrucción condicional múltiple puede ser sustituida por un conjunto de instrucciones condicionales simples y dobles totalmente equivalente.</p>
+
+<p>La estructura condicional múltiple sirve, por tanto, para simplificar estos casos de condiciones con muchas alternativas. Su sintaxis general es:</p>
+
+<p><img src="../assets/images/image_6_1.png" alt="Diagrama de flujo - Condicional Múltiple" /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">switch</span> <span class="o">(</span><span class="n">expresion</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nl">valor1:</span> 
+        <span class="n">acciones</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="nl">valor2:</span> 
+        <span class="n">acciones</span><span class="o">-</span><span class="mi">2</span><span class="o">;</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="nl">valor3:</span> 
+        <span class="n">acciones</span><span class="o">-</span><span class="mi">3</span><span class="o">;</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">default</span><span class="o">:</span> 
+        <span class="n">acciones</span><span class="o">-</span><span class="no">N</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Su funcionamiento es el siguiente: se evalúa <code class="language-plaintext highlighter-rouge">expresion</code>, que en esta ocasión no tiene que ser de tipo lógico, sino que puede ser entero, carácter, etc. El resultado de <code class="language-plaintext highlighter-rouge">expresion</code> se compara con cada uno de los valores <code class="language-plaintext highlighter-rouge">valor1</code>, <code class="language-plaintext highlighter-rouge">valor2</code>… <code class="language-plaintext highlighter-rouge">valorN</code>. Si coincide con alguno de ellos, se ejecutan únicamente las acciones situadas a la derecha del valor coincidente. Si ningún valor coincide, se ejecutan las acciones del bloque <code class="language-plaintext highlighter-rouge">default</code>. Esta última parte no es obligatoria.</p>
+
+<p><strong>Ejemplo:</strong> Construyamos un algoritmo que escriba los nombres de los días de la semana en función del valor de una variable entera llamada <code class="language-plaintext highlighter-rouge">dia</code>. Su valor se introducirá por teclado. Los valores posibles de la variable <code class="language-plaintext highlighter-rouge">dia</code> serán del 1 al 7: cualquier otro valor debe producir un error.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">dia</span><span class="o">;</span>
+<span class="n">dia</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">().</span><span class="na">readLine</span><span class="o">());</span>
+
+<span class="k">switch</span><span class="o">(</span><span class="n">dia</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Lunes"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Martes"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">3</span><span class="o">:</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Miércoles"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">4</span><span class="o">:</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Jueves"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">5</span><span class="o">:</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Viernes"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">6</span><span class="o">:</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Sábado"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">7</span><span class="o">:</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Domingo"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">default</span><span class="o">:</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Número incorrecto"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>En este programa, la variable <code class="language-plaintext highlighter-rouge">dia</code>, una vez leída, se compara con los siete valores posibles. Si no coincide con ninguno de los siete valores, se ejecuta la parte <code class="language-plaintext highlighter-rouge">default</code>.</p>
+:ET
