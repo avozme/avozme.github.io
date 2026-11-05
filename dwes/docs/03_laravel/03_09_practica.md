@@ -70,25 +70,25 @@ Para no saturarte, te recomiendo encarecidamente que sigas este orden:
 
 1. **Fase 1: Preparación**. 
 
-  * Crea el proyecto en Sail (usa un Laravel limpio, aunque si tarda mucho en descargar puedes reutilizar el que hemos estado utilizando para hacer experimentos durante el tema) -> ![Más info en 3.2](/laravel/hola-mundo.html)
-  * Configura la base de datos editando el archivo `.env` -> ![Más info en 3.2](/laravel/hola-mundo.html)
-  * Instala la autenticación (Breeze) -> ![Más info en 3.8](/laravel/sesiones-autenticacion.html)
+  * Crea el proyecto en Sail (usa un Laravel limpio, aunque si tarda mucho en descargar puedes reutilizar el que hemos estado utilizando para hacer experimentos durante el tema) -> [Más info en 3.2](/docs/dwes/_site/laravel/hola-mundo.html)
+  * Configura la base de datos editando el archivo `.env` -> [Más info en 3.2](/docs/dwes/_site/laravel/hola-mundo.html)
+  * Instala la autenticación (Breeze) -> [Más info en 3.8](/docs/dwes/_site/laravel/sesiones-autenticacion.html)
   * Haz tu primer *commit* en Git. No olvides ir haciendo *commits* periódicos conforme avances en tu trabajo.
 
 2. **Fase 2: Modelos, migraciones, seeders**. 
 
-  * Crea las migraciones para las tablas. Asegúrate de añadir las claves foráneas correctamente -> ![Más info en 3.5](/laravel/migraciones-seeders.html)
-  * Añade algún seeder para tener algunos datos de prueba en las tablas con los que puedas jugar -> ![Más info en 3.5](/laravel/migraciones-seeders.html)
+  * Crea las migraciones para las tablas. Asegúrate de añadir las claves foráneas correctamente -> [Más info en 3.5](/docs/dwes/_site/laravel/migraciones-seeders.html)
+  * Añade algún seeder para tener algunos datos de prueba en las tablas con los que puedas jugar -> [Más info en 3.5](/docs/dwes/_site/laravel/migraciones-seeders.html)
 
 3. **Fase 3: CRUD básico de Proyectos**. 
 
-  * Crea el modelo Eloquent para los proyectos -> ![Más info en 3.6](/laravel/eloquent.html)
-  * Haz el controlador de Proyectos y actualiza tu enrutador -> ![Más info en 3.3](/laravel/peticiones-rutas-controladores-respuestas.html)
-  * Haz las vistas necesarias para que ese controlador pueda mostrar, crear, borrar y modificar proyectos -> ![Más info en 3.4](/laravel/vistas-y-blade.html)
+  * Crea el modelo Eloquent para los proyectos -> [Más info en 3.6](/docs/dwes/_site/laravel/eloquent.html)
+  * Haz el controlador de Proyectos y actualiza tu enrutador -> [Más info en 3.3](/docs/dwes/_site/laravel/peticiones-rutas-controladores-respuestas.html)
+  * Haz las vistas necesarias para que ese controlador pueda mostrar, crear, borrar y modificar proyectos -> [Más info en 3.4](/docs/dwes/_site/laravel/vistas-y-blade.html)
 
 4. **Fase 4: Relaciones complejas**. 
 
-  * Añade la lógica para asignar usuarios a proyectos desde la vista de detalle del proyecto. Vas a tener que investigar cómo usar el método `attach()` y `sync()` enviando datos extra para la tabla pivote (lo tienes en los apuntes) -> ![Más info en 3.7](/laravel/relaciones.html)
+  * Añade la lógica para asignar usuarios a proyectos desde la vista de detalle del proyecto. Vas a tener que investigar cómo usar el método `attach()` y `sync()` enviando datos extra para la tabla pivote (lo tienes en los apuntes) -> [Más info en 3.7](/docs/dwes/_site/laravel/relaciones.html)
 
 5. **Fase 5: Diseño y pulido**. Dedica la última parte a maquetar con Tailwind CSS (¡investiga, investiga!), añadir colores, mejorar la navegación y pulir detalles funcionales y visuales.
 

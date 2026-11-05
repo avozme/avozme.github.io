@@ -1,4 +1,4 @@
-I":<h2 class="no_toc" id="39-práctica-final-plataforma-de-gestión-de-proyectos-colaborativos">3.9. Práctica final: Plataforma de gestión de proyectos colaborativos</h2>
+I"<?<h2 class="no_toc" id="39-práctica-final-plataforma-de-gestión-de-proyectos-colaborativos">3.9. Práctica final: Plataforma de gestión de proyectos colaborativos</h2>
 
 <ul id="markdown-toc">
   <li><a href="#importante-uso-de-ia-en-esta-práctica" id="markdown-toc-importante-uso-de-ia-en-esta-práctica">IMPORTANTE: uso de IA en esta práctica</a></li>
@@ -81,10 +81,44 @@
 <p>Para no saturarte, te recomiendo encarecidamente que sigas este orden:</p>
 
 <ol>
-  <li><strong>Fase 1: Preparación</strong>. Crea el proyecto en Sail (usa un Laravel limpio, no con el que hemos estado trabajando durante el tema), configura la base de datos e instala la autenticación (Breeze). Haz tu primer <em>commit</em> en Git.</li>
-  <li><strong>Fase 2: Modelos, migraciones, seeders</strong>. Crea las migraciones para las tablas. Asegúrate de añadir las claves foráneas correctamente. Añade algún seeder para tener algunos datos de prueba en las tablas con los que puedas jugar.</li>
-  <li><strong>Fase 3: CRUD básico</strong>. Haz el controlador y las vistas Blade para crear, listar y borrar proyectos de forma simple.</li>
-  <li><strong>Fase 4: Relaciones complejas</strong>. Añade la lógica para asignar usuarios a proyectos desde la vista de detalle. Vas a tener que investigar cómo usar el método <code class="language-plaintext highlighter-rouge">attach()</code> y <code class="language-plaintext highlighter-rouge">sync()</code> enviando datos extra para la tabla pivote (lo tienes en los apuntes).</li>
+  <li><strong>Fase 1: Preparación</strong>.</li>
+</ol>
+
+<ul>
+  <li>Crea el proyecto en Sail (usa un Laravel limpio, aunque si tarda mucho en descargar puedes reutilizar el que hemos estado utilizando para hacer experimentos durante el tema) -&gt; <a href="/docs/dwes/_site/laravel/hola-mundo.html">Más info en 3.2</a></li>
+  <li>Configura la base de datos editando el archivo <code class="language-plaintext highlighter-rouge">.env</code> -&gt; <a href="/docs/dwes/_site/laravel/hola-mundo.html">Más info en 3.2</a></li>
+  <li>Instala la autenticación (Breeze) -&gt; <a href="/docs/dwes/_site/laravel/sesiones-autenticacion.html">Más info en 3.8</a></li>
+  <li>Haz tu primer <em>commit</em> en Git. No olvides ir haciendo <em>commits</em> periódicos conforme avances en tu trabajo.</li>
+</ul>
+
+<ol>
+  <li><strong>Fase 2: Modelos, migraciones, seeders</strong>.</li>
+</ol>
+
+<ul>
+  <li>Crea las migraciones para las tablas. Asegúrate de añadir las claves foráneas correctamente -&gt; <a href="/docs/dwes/_site/laravel/migraciones-seeders.html">Más info en 3.5</a></li>
+  <li>Añade algún seeder para tener algunos datos de prueba en las tablas con los que puedas jugar -&gt; <a href="/docs/dwes/_site/laravel/migraciones-seeders.html">Más info en 3.5</a></li>
+</ul>
+
+<ol>
+  <li><strong>Fase 3: CRUD básico de Proyectos</strong>.</li>
+</ol>
+
+<ul>
+  <li>Crea el modelo Eloquent para los proyectos -&gt; <a href="/docs/dwes/_site/laravel/eloquent.html">Más info en 3.6</a></li>
+  <li>Haz el controlador de Proyectos y actualiza tu enrutador -&gt; <a href="/docs/dwes/_site/laravel/peticiones-rutas-controladores-respuestas.html">Más info en 3.3</a></li>
+  <li>Haz las vistas necesarias para que ese controlador pueda mostrar, crear, borrar y modificar proyectos -&gt; <a href="/docs/dwes/_site/laravel/vistas-y-blade.html">Más info en 3.4</a></li>
+</ul>
+
+<ol>
+  <li><strong>Fase 4: Relaciones complejas</strong>.</li>
+</ol>
+
+<ul>
+  <li>Añade la lógica para asignar usuarios a proyectos desde la vista de detalle del proyecto. Vas a tener que investigar cómo usar el método <code class="language-plaintext highlighter-rouge">attach()</code> y <code class="language-plaintext highlighter-rouge">sync()</code> enviando datos extra para la tabla pivote (lo tienes en los apuntes) -&gt; <a href="/docs/dwes/_site/laravel/relaciones.html">Más info en 3.7</a></li>
+</ul>
+
+<ol>
   <li><strong>Fase 5: Diseño y pulido</strong>. Dedica la última parte a maquetar con Tailwind CSS (¡investiga, investiga!), añadir colores, mejorar la navegación y pulir detalles funcionales y visuales.</li>
 </ol>
 
