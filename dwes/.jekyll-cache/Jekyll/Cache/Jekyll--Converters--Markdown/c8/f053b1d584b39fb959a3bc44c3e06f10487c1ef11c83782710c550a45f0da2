@@ -1,4 +1,4 @@
-I"Ԁ<h2 class="no_toc" id="35-migraciones-y-seeders">3.5. Migraciones y seeders</h2>
+I"��<h2 class="no_toc" id="35-migraciones-y-seeders">3.5. Migraciones y seeders</h2>
 
 <ul id="markdown-toc">
   <li><a href="#351-crear-tablas-mediante-las-migraciones" id="markdown-toc-351-crear-tablas-mediante-las-migraciones">3.5.1. Crear tablas mediante las migraciones</a></li>
@@ -40,7 +40,8 @@ DB_PASSWORD=mi_password_de_BD
 
 <p><strong>Paso 1</strong>: Crear la migración para la tabla Clients:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan make:migration create_clients_table
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan make:migration create_clients_table      <span class="c"># Si usas un servidor local</span>
+<span class="nv">$ </span>./vendor/bin/sail artisan make:migration create_clients_table   <span class="c"># Si usas Laravel Sail (Docker)</span>
 </code></pre></div></div>
 
 <p>Esto generará un fichero en la carpeta <code class="language-plaintext highlighter-rouge">database/migrations</code> cuyo nombre contendrá un <em>timestamp</em> o marca de tiempo. Vamos, que contendrá un numerajo con la fecha y hora actual. Algo tan bonito como <code class="language-plaintext highlighter-rouge">database/migrations/20241226072434_create_clients_table.php</code> (las versiones modernas de Laravel separan el nombre con guiones bajos).</p>
@@ -78,7 +79,8 @@ DB_PASSWORD=mi_password_de_BD
 
 <p><strong>Paso 3</strong>: Lanzar las migraciones.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan migrate
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan migrate    <span class="c"># Con PHP local</span>
+<span class="nv">$ </span>./vendor/bin/sail artisan migrate   <span class="c"># Con Laravel Sail</span>
 </code></pre></div></div>
 
 <p>Esto creará las tablas que no se hayan creado aún. Es decir, si una migración ya se ha lanzado con anterioridad, no se vuelve a ejecutar para no perder los datos que pudieran existir en esas tablas.</p>
@@ -87,17 +89,17 @@ DB_PASSWORD=mi_password_de_BD
 
 <p>Si necesitas revertir la creación de todas las tablas:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan migrate:rollback
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan migrate:rollback   <span class="c"># Sustituye php por ./vendor/bin/sail si usas Laravel Sail</span>
 </code></pre></div></div>
 
 <p>Para revertir solo el último paso en la creación de tablas:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php artisan migrate:rollback --step=1
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan migrate:rollback <span class="nt">--step</span><span class="o">=</span>1   <span class="c"># Sustituye php por ./vendor/bin/sail si usas Laravel Sail</span>
 </code></pre></div></div>
 
 <p>Para dejar la BD a su estado original (vacía):</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php artisan migrate:reset
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan migrate:reset   <span class="c"># Sustituye php por ./vendor/bin/sail si usas Laravel Sail</span>
 </code></pre></div></div>
 
 <p>¡Cuidado! Estas acciones son destructivas. Pero, por supuesto, hay una forma de modificar una tabla sin borrarla y volver a crearla. Es lo que vamos a hacer a continuación.</p>
@@ -117,7 +119,7 @@ DB_PASSWORD=mi_password_de_BD
 
 <p><strong>Paso 1</strong>. Crear la migración:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan make:migration add_email_to_clients <span class="nt">--table</span><span class="o">=</span>clients
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan make:migration add_email_to_clients <span class="nt">--table</span><span class="o">=</span>clients   <span class="c"># Sustituye php por ./vendor/bin/sail si usas Laravel Sail</span>
 </code></pre></div></div>
 
 <p>(Nota: puedes asignar el nombre que quieras a las migraciones, pero Laravel aconseja utilizar las convenciones que ves en estos ejemplos para simplificarnos la vida)</p>
@@ -170,7 +172,7 @@ DB_PASSWORD=mi_password_de_BD
 
 <p><strong>Paso 1</strong>. Ejecuta el comando (se aconseja la convención en singular <code class="language-plaintext highlighter-rouge">UserSeeder</code>):</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan make:seeder UserSeeder
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan make:seeder UserSeeder   <span class="c"># Sustituye php por ./vendor/bin/sail si usas Laravel Sail</span>
 </code></pre></div></div>
 
 <p><strong>Paso 2</strong>. Edita el archivo <code class="language-plaintext highlighter-rouge">database/seeders/UserSeeder.php</code> y añade el código de inserción al método <em>run()</em> (por supuesto, modifica el código para adaptarlo a tu tabla y a tus datos):</p>
@@ -201,7 +203,7 @@ DB_PASSWORD=mi_password_de_BD
 
 <p><strong>Paso 3</strong>. Ejecuta este comando para lanzar el seeder y que los datos se carguen en tu tabla:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan db:seed <span class="nt">--class</span><span class="o">=</span>UserSeeder
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan db:seed <span class="nt">--class</span><span class="o">=</span>UserSeeder   <span class="c"># Sustituye php por ./vendor/bin/sail si usas Laravel Sail</span>
 </code></pre></div></div>
 
 <p>Esto cargará solo dos registros en la tabla <em>users</em>. Si quieres más, solo tienes que crear nuevas líneas <em>insert()</em> en el método <em>up()</em>.</p>
@@ -222,7 +224,7 @@ DB_PASSWORD=mi_password_de_BD
 
 <p><strong>Paso 3</strong>. ¡Y listo! Al ejecutar el comando <code class="language-plaintext highlighter-rouge">db:seed</code> de Artisan, sin indicar la clase, se lanzarán todos los seeders que hayas añadido a <em>run()</em>.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php artisan db:seed
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan db:seed   <span class="c"># Sustituye php por ./vendor/bin/sail si usas Laravel Sail</span>
 </code></pre></div></div>
 
 <h3 id="356-chuleta-de-comandos-para-manejar-migraciones">3.5.6. Chuleta de comandos para manejar migraciones</h3>
@@ -233,61 +235,61 @@ DB_PASSWORD=mi_password_de_BD
   <li>
     <p>Lanzar todas las migraciones pendientes:</p>
 
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ php artisan migrate
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>php artisan migrate   <span class="c"># Sustituye php por ./vendor/bin/sail si usas Laravel Sail</span>
 </code></pre></div>    </div>
   </li>
   <li>
     <p>Crear la migración para crear una tabla:</p>
 
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ php artisan make:migration &lt;nombre&gt; --create=&lt;tabla&gt;
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>php artisan make:migration &lt;nombre&gt; <span class="nt">--create</span><span class="o">=</span>&lt;tabla&gt;   <span class="c"># Sustituye php por ./vendor/bin/sail si usas Laravel Sail</span>
 </code></pre></div>    </div>
   </li>
   <li>
     <p>Crear una migración para modificar una tabla ya existente:</p>
 
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ php artisan make:migration &lt;nombre&gt; --table=&lt;tabla&gt;
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>php artisan make:migration &lt;nombre&gt; <span class="nt">--table</span><span class="o">=</span>&lt;tabla&gt;   <span class="c"># Sustituye php por ./vendor/bin/sail si usas Laravel Sail</span>
 </code></pre></div>    </div>
   </li>
   <li>
     <p>Retroceder un paso en todas las migraciones:</p>
 
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ php artisan migrate:rollback
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>php artisan migrate:rollback   <span class="c"># Sustituye php por ./vendor/bin/sail si usas Laravel Sail</span>
 </code></pre></div>    </div>
   </li>
   <li>
     <p>Retroceder N pasos en todas las migraciones:</p>
 
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ php artisan migrate:rollback --step=&lt;N&gt;
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>php artisan migrate:rollback <span class="nt">--step</span><span class="o">=</span>&lt;N&gt;   <span class="c"># Sustituye php por ./vendor/bin/sail si usas Laravel Sail</span>
 </code></pre></div>    </div>
   </li>
   <li>
     <p>Deshacer todas las migraciones que se hayan ejecutado hasta ahora (resetear la base de datos):</p>
 
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ php artisan migrate:reset
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>php artisan migrate:reset   <span class="c"># Sustituye php por ./vendor/bin/sail si usas Laravel Sail</span>
 </code></pre></div>    </div>
   </li>
   <li>
     <p>Resetear la base de datos y volver a reconstruirla lanzando todas las migraciones:</p>
 
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ php artisan migrate:refresh
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>php artisan migrate:refresh   <span class="c"># Sustituye php por ./vendor/bin/sail si usas Laravel Sail</span>
 </code></pre></div>    </div>
   </li>
   <li>
     <p>Resetear la base de datos, reconstruirla y llenarla de datos con los seeders:</p>
 
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ php artisan migrate:refresh --seed
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>php artisan migrate:refresh <span class="nt">--seed</span>   <span class="c"># Sustituye php por ./vendor/bin/sail si usas Laravel Sail</span>
 </code></pre></div>    </div>
   </li>
   <li>
     <p>Eliminar todas las tablas y lanzar todas las migraciones de nuevo:</p>
 
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ php artisan migrate:fresh
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>php artisan migrate:fresh   <span class="c"># Sustituye php por ./vendor/bin/sail si usas Laravel Sail</span>
 </code></pre></div>    </div>
   </li>
   <li>
     <p>Eliminar todas las tablas y lanzar todas las migraciones y todos los seeders de nuevo:</p>
 
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ php artisan migrate:fresh --seed
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>php artisan migrate:fresh <span class="nt">--seed</span>   <span class="c"># Sustituye php por ./vendor/bin/sail si usas Laravel Sail</span>
 </code></pre></div>    </div>
   </li>
 </ul>

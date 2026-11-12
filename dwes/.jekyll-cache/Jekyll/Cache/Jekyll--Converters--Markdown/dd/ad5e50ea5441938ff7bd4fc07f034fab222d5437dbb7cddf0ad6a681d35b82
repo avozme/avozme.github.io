@@ -1,4 +1,4 @@
-I"�<h1 class="no_toc" id="4-apis-restful-con-laravel">4. APIs RESTful con Laravel</h1>
+I"��<h1 class="no_toc" id="4-apis-restful-con-laravel">4. APIs RESTful con Laravel</h1>
 
 <ul id="markdown-toc">
   <li><a href="#41-qué-es-un-servicio-web" id="markdown-toc-41-qué-es-un-servicio-web">4.1. ¿Qué es un servicio web?</a></li>
@@ -17,12 +17,7 @@
       <li><a href="#463-qué-más-puede-hacer-postman" id="markdown-toc-463-qué-más-puede-hacer-postman">4.6.3. ¿Qué más puede hacer Postman?</a></li>
     </ul>
   </li>
-  <li><a href="#47-práctica-final-api-rest-de-gestión-de-academias-y-cursos" id="markdown-toc-47-práctica-final-api-rest-de-gestión-de-academias-y-cursos">4.7. Práctica final: API REST de Gestión de Academias y Cursos</a>    <ul>
-      <li><a href="#especificación-de-requisitos" id="markdown-toc-especificación-de-requisitos">Especificación de requisitos</a></li>
-      <li><a href="#normas-de-entrega" id="markdown-toc-normas-de-entrega">Normas de entrega</a></li>
-      <li><a href="#rúbrica-de-calificación" id="markdown-toc-rúbrica-de-calificación">Rúbrica de calificación</a></li>
-    </ul>
-  </li>
+  <li><a href="#47-práctica-final-api-rest-de-gestión-de-academias-y-cursos" id="markdown-toc-47-práctica-final-api-rest-de-gestión-de-academias-y-cursos">4.7. Práctica final: API REST de Gestión de Academias y Cursos</a></li>
 </ul>
 
 <p><a href="https://www.dropbox.com/scl/fi/vyzfkk9peoo6an0g55qxw/04_api_laravel.pdf?rlkey=7i5hhqqen1n9r609vfgpaenpo&amp;st=rjn579w4&amp;dl=0" class="btn btn-primary">Descargar presentación</a></p>
@@ -430,20 +425,23 @@
 <p>Al igual que en la práctica anterior, <strong>puedes y debes usar la IA</strong> para ayudarte, pero recordando que el uso debe ser <strong>ético y eficiente</strong>. Es decir, que te ayude a apreder más, no a fingir que has aprendido:</p>
 
 <ol>
-  <li><strong>Construye pieza a pieza</strong>. No pidas la API completa de golpe. Pide ayuda para entidades aisladas: <em>“Hazme el controlador API Resource para el modelo Course en Laravel”</em>, o <em>“¿Cómo genero un token con Sanctum al hacer login?”</em>.</li>
-  <li><strong>Entiende el funcionamiento</strong>. El profesor revisará el código y te hará preguntas en la defensa oral o escrita, o en el examen.</li>
-  <li><strong>No uses herramientas que desconozcas</strong>. Si la IA te sugiere “Resources” complejos (<code class="language-plaintext highlighter-rouge">JsonResource</code>), “FormRequests” avanzados o repositorios que no dominas, pídele que simplifique el código para usar las técnicas que conoces y hemos visto en los apuntes, o bien que te explique qué narices está haciendo (simplificar suele ser mejor estrategia; a las IAs se les va la cabeza con facilidad).</li>
+  <li><strong>Construye pieza a pieza</strong>. No pidas la API completa de golpe. Pide ayuda para entidades aisladas: <em>“Explícame cómo crear el controlador API para el modelo Course en Laravel (y dile cómo es tu tabla Course, claro)”</em>, o <em>“¿Cómo genero un token con Sanctum al hacer login?”</em>.</li>
+  <li><strong>Entiende el funcionamiento</strong>. Recuerda que el profesor revisará el código y te hará preguntas sobre él en el examen. ¡SIN IA!</li>
+  <li><strong>No uses herramientas que desconozcas</strong>. Si la IA te sugiere “Resources” complejos (<code class="language-plaintext highlighter-rouge">JsonResource</code>), “FormRequests” avanzados o repositorios que no dominas, pídele que simplifique el código para usar las técnicas que conoces y hemos visto en clase, o bien que te explique qué narices está haciendo (simplificar suele ser mejor estrategia; a las IAs se les va la pinza con facilidad).</li>
 </ol>
 
 <blockquote>
-  <p><strong>Defensa del código (Eliminatorio)</strong>: Recuerda que se evaluará tu conocimiento de la aplicación mediante defensa oral o escrita de la práctica <strong>sin IA</strong> y/o con preguntas <strong>sin AI</strong> en el examen. No superar esto implica suspender automáticamente la práctica porque no habrás podido probar tu autoría.</p>
+  <p><strong>Defensa del código (Eliminatorio)</strong>: Recuerda que se evaluará tu conocimiento de la aplicación mediante defensa escrita <strong>sin IA</strong> durante el examen. No superar esto implica suspender automáticamente la práctica porque no habrás podido probar tu autoría.</p>
 </blockquote>
 
-<h3 id="especificación-de-requisitos">Especificación de requisitos</h3>
+<h4 id="especificación-de-requisitos">Especificación de requisitos</h4>
 
 <p>La aplicación será exclusivamente backend. No desarrollarás <strong>ninguna vista HTML ni Blade</strong>. Toda tu comunicación con ella debes hacerla con Postman, devolviendo y recibiendo JSON.</p>
 
-<h4 id="1-tablas-de-la-base-de-datos">1. Tablas de la base de datos</h4>
+<h4 id="requisito-r1-tablas-de-la-base-de-datos">REQUISITO R1. Tablas de la base de datos</h4>
+
+<p>Las tablas de la base de datos deben ser estas (usa los tipos de datos que te parezcan más lógicos):</p>
+
 <ul>
   <li><code class="language-plaintext highlighter-rouge">users</code>: id, name, email, password, timestamps</li>
   <li><code class="language-plaintext highlighter-rouge">academies</code>: id, user_id, name, description, address, phone, email, timestamps</li>
@@ -459,45 +457,72 @@
   <li><strong>Relación N:N</strong> entre <code class="language-plaintext highlighter-rouge">courses</code> y <code class="language-plaintext highlighter-rouge">students</code>, con una tabla pivote <code class="language-plaintext highlighter-rouge">course_student</code></li>
 </ul>
 
-<h4 id="2-endpoints-de-autenticación">2. Endpoints de Autenticación</h4>
+<h4 id="requisito-r2-endpoints-de-autenticación">REQUISITO R2. Endpoints de Autenticación</h4>
+
+<p>Crea estos endpoints no-REST (no estándar) para registrar y autenticar usuarios:</p>
+
 <ul>
   <li><strong>POST <code class="language-plaintext highlighter-rouge">/api/register</code></strong>: Recibe datos, crea un usuario (<code class="language-plaintext highlighter-rouge">User</code>) y devuelve su Token de acceso.</li>
-  <li><strong>POST <code class="language-plaintext highlighter-rouge">/api/login</code></strong>: Verifica credenciales de un <code class="language-plaintext highlighter-rouge">User</code> y devuelve un Token Sanctum.</li>
+  <li><strong>POST <code class="language-plaintext highlighter-rouge">/api/login</code></strong>: Verifica credenciales de un <code class="language-plaintext highlighter-rouge">User</code> y devuelve su Token de acceso.</li>
+  <li><strong>POST <code class="language-plaintext highlighter-rouge">/api/logout</code></strong>: Realiza el logout y destruye el Token.</li>
 </ul>
 
-<h4 id="3-endpoints-de-academias-1n">3. Endpoints de Academias (1:N)</h4>
-<p>Un usuario logueado puede crear y gestionar Academias. (Una Academia pertenece a un usuario, y un usuario puede tener varias Academias).
-Las rutas de Academias deben estar <strong>protegidas</strong> (Requieren Token).</p>
+<p>Utiliza <strong>Laravel Sanctum</strong> para la autenticación.</p>
+
+<h4 id="requisito-r3-endpoints-de-academias-1n">REQUISITO R3. Endpoints de Academias (1:N)</h4>
+<p>Un usuario logueado puede crear y gestionar Academias. Una Academia pertenece a un usuario, y un usuario puede tener varias Academias (relación 1:N).</p>
+
+<p>Haz el <strong>CRUD completo de <code class="language-plaintext highlighter-rouge">Academy</code></strong>. Usa <code class="language-plaintext highlighter-rouge">--apiResource</code> para generar el controlador y las rutas.</p>
+
 <ul>
-  <li><strong>CRUD Completo de <code class="language-plaintext highlighter-rouge">Academy</code></strong>: Rutas generadas por <code class="language-plaintext highlighter-rouge">apiResource</code>.</li>
-  <li><em>Autorización</em>: Un usuario solo podrá modificar o eliminar las Academias que él mismo haya creado.</li>
+  <li><em>Autenticación</em>: Las rutas de las Academias deben estar protegidas (requieren <em>Token de autenticación</em>). Los usuarios sin autenticar serán rechazados.</li>
+  <li><em>Autorización</em>: Un usuario solo podrá modificar o eliminar las Academias que él mismo haya creado, pero puede verlas todas.</li>
 </ul>
 
-<h4 id="4-endpoints-de-cursos-nn-con-estudiantes">4. Endpoints de Cursos (N:N con Estudiantes)</h4>
+<h4 id="requisito-r4-endpoints-de-cursos-1n">REQUISITO R4. Endpoints de Cursos (1:N)</h4>
+<p>Un usuario logueado también puede crear y gestionar Cursos dentro de sus academias. Un Curso pertenece a una academia, que a su vez pertenece a un usuario (relaciones 1:N).</p>
+
+<p>Haz el <strong>CRUD completo de <code class="language-plaintext highlighter-rouge">Course</code></strong>. Usa <code class="language-plaintext highlighter-rouge">--apiResource</code> para generar el controlador y las rutas.</p>
+
+<ul>
+  <li><em>Autenticación</em>: Las rutas de los Cursos deben estar protegidas (requieren <em>Token de autenticación</em>). Los usuarios sin autenticar serán rechazados.</li>
+  <li><em>Autorización</em>: Un usuario autenticado solo podrá modificar o eliminar los Cursos que pertenezcan a sus Academias, pero puede verlos todos.</li>
+</ul>
+
+<h4 id="requisito-r5-endpoints-adicionales-para-cursos-relación-nn-con-estudiantes">REQUISITO R5. Endpoints adicionales para Cursos (relación N:N con Estudiantes)</h4>
 <p>Cada Academia imparte varios Cursos (<code class="language-plaintext highlighter-rouge">Course</code>), y cada Curso pertenece a una Academia.
-A su vez, un Curso puede tener muchos Estudiantes inscritos, y un Estudiante puede matricularse en muchos Cursos (Relación N:N).</p>
+A su vez, un Curso puede tener muchos Estudiantes inscritos, y un Estudiante puede matricularse en muchos Cursos (relación N:N).</p>
+
 <ul>
-  <li>Implementa endpoints para poder ver los Cursos (esta ruta puede ser pública, sin token).</li>
-  <li>Implementa endpoints privados que permitan, mediante peticiones POST/DELETE a URLs específicas (ej: <code class="language-plaintext highlighter-rouge">/api/courses/{course}/enroll</code>), inscribir o desinscribir a un Estudiante (<code class="language-plaintext highlighter-rouge">Student</code>) en un Curso, modificando la tabla pivote.</li>
+  <li>Implementa un endpoint no-REST (no estándar) para poder ver los Cursos de una Academia. Esta ruta debe ser pública, sin token. Por ejemplo: <code class="language-plaintext highlighter-rouge">/api/academy/{academy}/courses</code></li>
+  <li>Implementa un endpoint no-REST (no estándar) para poder ver los Estudiantes de una Curso. Esta ruta solo será accesible a los usuarios autenticados (con token). Por ejemplo: <code class="language-plaintext highlighter-rouge">/api/course/{course}/students</code></li>
+  <li>Implementa varios endpoints no-REST (no estándar) que permitan, mediante peticiones POST/DELETE, enrolar y desenrolar estudiantes en un curso. Estas rutas deben ser autenticadas (con token) y autorizadas (solo los propietarios de la academia donde se imparte ese curso deben poder hacerlo). Las rutas pueden ser algo como: <code class="language-plaintext highlighter-rouge">/api/courses/{course}/enroll/{student}</code> o <code class="language-plaintext highlighter-rouge">/api/courses/{course}/unenroll/{student}</code>.</li>
 </ul>
 
-<hr />
+<h4 id="en-todos-los-casos">En todos los casos…</h4>
 
-<h3 id="normas-de-entrega">Normas de entrega</h3>
+<p>En <strong>todos los endpoints anteriores</strong> debes hacer las <strong>comprobaciones</strong> y <strong>validaciones</strong> oportunas y devolver el <strong>código http</strong> más adecuado y específico según la situación.</p>
 
-<p>El incumplimiento de cualquiera de los siguientes requisitos conllevará penalización o rechazo de la entrega:</p>
+<p>Por ejemplo, devolver un <code class="language-plaintext highlighter-rouge">200 OK</code> cuando todo ha ido bien es correcto, pero <code class="language-plaintext highlighter-rouge">201 Created</code> es más adecuado que 200 si acabas de crear un nuevo recurso (como un curso o una academia).</p>
+
+<p>Utiliza tu IA preferida para informarte sobre qué códigos son los más apropiados para cada respuesta.</p>
+
+<h4 id="normas-de-entrega">Normas de entrega</h4>
+
+<p>Revisa bien las normas de entrega. No son un capricho: en una empresa u organización, respetarlas escrupulosamente es signo de <strong>profesionalidad</strong>. Por eso, el incumplimiento de las normas de entrega conllevará penalización o rechazo de la práctica:</p>
 
 <ol>
-  <li><strong>Código fuente comprimido</strong>: Sube a Moodle Centros un archivo ZIP con tu proyecto, <strong>excluyendo la carpeta <code class="language-plaintext highlighter-rouge">/vendor</code> y <code class="language-plaintext highlighter-rouge">/node_modules</code></strong>.</li>
-  <li><strong>Repositorio público</strong>: Enlace a tu repositorio público en GitHub o GitLab, con commits periódicos y descriptivos.</li>
-  <li><strong>Vídeo de test con Postman</strong>: Graba un vídeo capturando tu pantalla, con <strong>tu propia voz</strong> explicando brevemente cómo haces peticiones a tu API en Postman (muestra el login, copia el token, inclúyelo en la cabecera <code class="language-plaintext highlighter-rouge">Bearer</code> y crea una academia o inscribe un estudiante). Debe verse claramente cómo el servidor responde con JSON.</li>
-  <li><strong>Conversación con la IA</strong>: Sube un archivo .docx o .odt con TODA tu conversación con la IA. Necesitamos ver cómo has interactuado con la Inteligencia Artificial.</li>
-  <li><strong>Reproducibilidad</strong>: El proyecto debe poder ejecutarse sin errores descargando el ZIP (o clonando el repositorio), lanzando <code class="language-plaintext highlighter-rouge">./vendor/bin/sail up -d</code> y <code class="language-plaintext highlighter-rouge">./vendor/bin/sail artisan migrate</code>.</li>
+  <li><strong>ARCHIVO 1: Código fuente comprimido</strong>: Sube a Moodle Centros un archivo ZIP con tu proyecto, <strong>excluyendo la carpeta <code class="language-plaintext highlighter-rouge">/vendor</code> y <code class="language-plaintext highlighter-rouge">/node_modules</code></strong>.</li>
+  <li><strong>ARCHIVO 2: Repositorio público</strong>: Sube un archivo de texto con un link a tu repositorio público en GitHub o GitLab. Se revisará el historial de commits y que los mensajes sean descriptivos.</li>
+  <li><strong>ARCHIVO 3: Vídeo de test con Postman</strong>: Graba un vídeo capturando tu pantalla, con <strong>tu propia voz</strong> explicando brevemente cómo haces peticiones a tu API en Postman. Debe verse cómo el servidor responde con JSON a cada petición.</li>
+  <li><strong>ARCHIVO 4: Conversación con la IA</strong>: Sube un archivo .md, .txt, .docx, .odt o .pdf con TODA tu conversación con la IA. Necesitamos ver cómo has interactuado con la Inteligencia Artificial.</li>
 </ol>
+
+<p>Recuerda que el proyecto debería poder ejecutarse sin errores descargando el ZIP (o clonando el repositorio) y lanzando <code class="language-plaintext highlighter-rouge">./vendor/bin/sail up -d</code> + <code class="language-plaintext highlighter-rouge">./vendor/bin/sail artisan migrate</code>.</p>
 
 <hr />
 
-<h3 id="rúbrica-de-calificación">Rúbrica de calificación</h3>
+<h4 id="rúbrica-de-calificación">Rúbrica de calificación</h4>
 
 <p>La evaluación se realizará según los siguientes ítems (niveles 0 a 3):</p>
 <ul>
@@ -544,47 +569,47 @@ A su vez, un Curso puede tener muchos Estudiantes inscritos, y un Estudiante pue
       <td style="text-align: left">Commits lógicos, frecuentes y descriptivos a medida que avanza.</td>
     </tr>
     <tr>
-      <td style="text-align: left"><strong>3. Endpoints y controladores API (Resource)</strong></td>
+      <td style="text-align: left"><strong>3. Endpoints y controladores API REST (CRUDs)</strong></td>
       <td style="text-align: center"><strong>20%</strong></td>
-      <td style="text-align: left">No responde en <code class="language-plaintext highlighter-rouge">/api</code>. Devuelve HTML.</td>
+      <td style="text-align: left">No responde en <code class="language-plaintext highlighter-rouge">/api</code>. Devuelve HTML o algo distinto a JSON.</td>
       <td style="text-align: left">Rutas fuera de los estándares REST. Devuelve strings en lugar de JSON estructurado.</td>
-      <td style="text-align: left">Uso parcial de <code class="language-plaintext highlighter-rouge">apiResource</code>. Faltan validaciones de entrada (<code class="language-plaintext highlighter-rouge">Request</code>).</td>
-      <td style="text-align: left">Rutas RESTful estrictas, uso impecable de respuestas JSON y validaciones.</td>
+      <td style="text-align: left">Uso parcial de <code class="language-plaintext highlighter-rouge">apiResource</code>. Faltan validaciones de entrada (<code class="language-plaintext highlighter-rouge">Request</code>) o respuestas http más específicas (201 en lugar de 200, por ejemplo, al crear un recurso).</td>
+      <td style="text-align: left">Rutas RESTful estrictas, uso impecable de respuestas y validaciones.</td>
     </tr>
     <tr>
-      <td style="text-align: left"><strong>4. Relaciones (1:N y N:N)</strong></td>
+      <td style="text-align: left"><strong>4. Relaciones (1:N y N:N) (endpoints no-REST)</strong></td>
       <td style="text-align: center"><strong>20%</strong></td>
-      <td style="text-align: left">No hay migraciones foráneas.</td>
-      <td style="text-align: left">Las relaciones fallan al insertar datos.</td>
-      <td style="text-align: left">Relación básica funciona, pero falla la tabla pivote de inscripción de estudiantes.</td>
-      <td style="text-align: left">Modelos perfectamente enlazados (hasMany, belongsToMany), uso de sync/attach impecable.</td>
+      <td style="text-align: left">No hay migraciones foráneas y/o no hay endpoints no-REST para usarlas.</td>
+      <td style="text-align: left">Las relaciones fallan al insertar datos o los endpoints no-REST no cumplen la especificación.</td>
+      <td style="text-align: left">Relación básica funciona, pero falla la tabla pivote al enrolar/desenrolar de estudiantes o no cumple totalmente con la especificación.</td>
+      <td style="text-align: left">Modelos perfectamente enlazados, uso de sync/attach impecable, endpoints respetan la especificación.</td>
     </tr>
     <tr>
       <td style="text-align: left"><strong>5. Autenticación (tokens con Sanctum)</strong></td>
       <td style="text-align: center"><strong>20%</strong></td>
       <td style="text-align: left">API pública e insegura.</td>
       <td style="text-align: left">Token generado pero no se usa para proteger rutas de manera efectiva.</td>
-      <td style="text-align: left">Rutas protegidas, token funcional, pero falla la autorización (puedo borrar cosas de otros).</td>
-      <td style="text-align: left">Login/Register devuelve Tokens perfectos. Protección <code class="language-plaintext highlighter-rouge">auth:sanctum</code> y Autorización de propiedad implacable.</td>
+      <td style="text-align: left">Rutas protegidas, token funcional, pero falla la autorización en algunos casos.</td>
+      <td style="text-align: left">Login/Register devuelve Tokens perfectos. Protección y autorización de propiedad impecable.</td>
     </tr>
     <tr>
       <td style="text-align: left"><strong>6. Uso de Postman</strong></td>
       <td style="text-align: center"><strong>10%</strong></td>
-      <td style="text-align: left">No usa Postman para el testeo o no muestra cómo lo hace.</td>
-      <td style="text-align: left">Usa Postman pero no testea todas las especificaciones o deja pasar muchos errores.</td>
-      <td style="text-align: left">Testea todas las especificaciones con Postman pero de forma poco eficiente o con algunos errores.</td>
-      <td style="text-align: left">Testea todas las especificaciones con Postman de forma eficiente y sin errores.</td>
+      <td style="text-align: left">No se usa Postman para el testeo o no se muestra en el vídeo.</td>
+      <td style="text-align: left">Se usa Postman pero no se testean todas las especificaciones o se dejan pasar muchos errores.</td>
+      <td style="text-align: left">Se testean todas las especificaciones con Postman pero de forma poco eficiente o dejando escapar algunos errores.</td>
+      <td style="text-align: left">Se testean todas las especificaciones con Postman de forma eficiente y sin errores.</td>
     </tr>
     <tr>
       <td style="text-align: left"><strong>7. Calidad del código</strong></td>
       <td style="text-align: center"><strong>10%</strong></td>
-      <td style="text-align: left">Archivos caóticos.</td>
-      <td style="text-align: left">Lógica de base de datos esparcida en archivos de rutas.</td>
-      <td style="text-align: left">Buen código, pero verboso o repetitivo.</td>
-      <td style="text-align: left">Nomenclatura clara en inglés, Controladores finos, uso elegante de Eloquent.</td>
+      <td style="text-align: left">Archivos caóticos y no respetuosos con las convenciones de Laravel.</td>
+      <td style="text-align: left">Lógica esparcida en archivos de rutas y/o código desordenado y/o ininteligible y/o ausencia de validaciones y responses adecuadas.</td>
+      <td style="text-align: left">Buen código, pero repetitivo o con identificadores no convencionales, o con rastros de uso masivo de IA.</td>
+      <td style="text-align: left">Nomenclatura clara en inglés, respeto de convenciones, controladores impecables, uso preciso de Eloquent.</td>
     </tr>
   </tbody>
 </table>
 
-<p><em>Nota: Recuerda que para aprobar es obligatorio obtener el Nivel 3 en el ítem 0 y que este ítem se valorará con posterioridad al resto de la práctica (en entrevistas o pruebas individuales o durante el examen)</em>.</p>
+<p><em>Nota: Recuerda que para aprobar es obligatorio obtener el Nivel 3 en el ítem 0 y que este ítem se valorará con posterioridad al resto de la práctica (durante el examen)</em>.</p>
 :ET
