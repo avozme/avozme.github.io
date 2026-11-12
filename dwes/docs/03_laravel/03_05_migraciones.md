@@ -46,7 +46,8 @@ De acuerdo. Creemos, paso a paso, las migraciones de esta tabla:
 **Paso 1**: Crear la migración para la tabla Clients:
 
 ```bash
-$ php artisan make:migration create_clients_table
+$ php artisan make:migration create_clients_table      # Si usas un servidor local
+$ ./vendor/bin/sail artisan make:migration create_clients_table   # Si usas Laravel Sail (Docker)
 ```
 
 Esto generará un fichero en la carpeta `database/migrations` cuyo nombre contendrá un *timestamp* o marca de tiempo. Vamos, que contendrá un numerajo con la fecha y hora actual. Algo tan bonito como `database/migrations/20241226072434_create_clients_table.php` (las versiones modernas de Laravel separan el nombre con guiones bajos).
@@ -84,7 +85,8 @@ return new class extends Migration {
 **Paso 3**: Lanzar las migraciones.
 
 ```bash
-$ php artisan migrate
+$ php artisan migrate    # Con PHP local
+$ ./vendor/bin/sail artisan migrate   # Con Laravel Sail
 ```
 
 Esto creará las tablas que no se hayan creado aún. Es decir, si una migración ya se ha lanzado con anterioridad, no se vuelve a ejecutar para no perder los datos que pudieran existir en esas tablas.
@@ -94,19 +96,19 @@ Esto creará las tablas que no se hayan creado aún. Es decir, si una migración
 Si necesitas revertir la creación de todas las tablas:
 
 ```bash
-$ php artisan migrate:rollback
+$ php artisan migrate:rollback   # Sustituye php por ./vendor/bin/sail si usas Laravel Sail
 ```
 
 Para revertir solo el último paso en la creación de tablas:
 
-```
-$ php artisan migrate:rollback --step=1
+```bash
+$ php artisan migrate:rollback --step=1   # Sustituye php por ./vendor/bin/sail si usas Laravel Sail
 ```
 
 Para dejar la BD a su estado original (vacía):
 
-```
-$ php artisan migrate:reset
+```bash
+$ php artisan migrate:reset   # Sustituye php por ./vendor/bin/sail si usas Laravel Sail
 ```
 
 ¡Cuidado! Estas acciones son destructivas. Pero, por supuesto, hay una forma de modificar una tabla sin borrarla y volver a crearla. Es lo que vamos a hacer a continuación.
@@ -125,7 +127,7 @@ Supongamos que queremos añadir un campo *email* a la tabla *Clients* del aparta
 **Paso 1**. Crear la migración:
 
 ```bash
-$ php artisan make:migration add_email_to_clients --table=clients
+$ php artisan make:migration add_email_to_clients --table=clients   # Sustituye php por ./vendor/bin/sail si usas Laravel Sail
 ```
 
 (Nota: puedes asignar el nombre que quieras a las migraciones, pero Laravel aconseja utilizar las convenciones que ves en estos ejemplos para simplificarnos la vida)
@@ -176,7 +178,7 @@ Para crear un *seeder* (por ejemplo, para la tabla *users*), sigue estos pasos:
 **Paso 1**. Ejecuta el comando (se aconseja la convención en singular `UserSeeder`):
 
 ```bash
-$ php artisan make:seeder UserSeeder
+$ php artisan make:seeder UserSeeder   # Sustituye php por ./vendor/bin/sail si usas Laravel Sail
 ```
 
 **Paso 2**. Edita el archivo `database/seeders/UserSeeder.php` y añade el código de inserción al método *run()* (por supuesto, modifica el código para adaptarlo a tu tabla y a tus datos):
@@ -209,7 +211,7 @@ class UserSeeder extends Seeder {
 **Paso 3**. Ejecuta este comando para lanzar el seeder y que los datos se carguen en tu tabla:
 
 ```bash
-$ php artisan db:seed --class=UserSeeder
+$ php artisan db:seed --class=UserSeeder   # Sustituye php por ./vendor/bin/sail si usas Laravel Sail
 ```
 
 Esto cargará solo dos registros en la tabla *users*. Si quieres más, solo tienes que crear nuevas líneas *insert()* en el método *up()*.
@@ -231,8 +233,8 @@ Lanzar los seeders de uno en uno puede ser muy tedioso. Puedes lanzar varios see
 
 **Paso 3**. ¡Y listo! Al ejecutar el comando `db:seed` de Artisan, sin indicar la clase, se lanzarán todos los seeders que hayas añadido a *run()*.
 
-```
-$ php artisan db:seed
+```bash
+$ php artisan db:seed   # Sustituye php por ./vendor/bin/sail si usas Laravel Sail
 ```
 
 
@@ -242,62 +244,62 @@ Por último, te muestro un resumen con los comandos más útiles sobre migracion
 
 * Lanzar todas las migraciones pendientes:
 
-   ```
-   $ php artisan migrate
+   ```bash
+   $ php artisan migrate   # Sustituye php por ./vendor/bin/sail si usas Laravel Sail
    ```
 
 * Crear la migración para crear una tabla:
 
-   ```
-   $ php artisan make:migration <nombre> --create=<tabla>
+   ```bash
+   $ php artisan make:migration <nombre> --create=<tabla>   # Sustituye php por ./vendor/bin/sail si usas Laravel Sail
    ```
 
 * Crear una migración para modificar una tabla ya existente: 
 
-   ```
-   $ php artisan make:migration <nombre> --table=<tabla>
+   ```bash
+   $ php artisan make:migration <nombre> --table=<tabla>   # Sustituye php por ./vendor/bin/sail si usas Laravel Sail
    ```
 
 * Retroceder un paso en todas las migraciones:
 
-   ```
-   $ php artisan migrate:rollback
+   ```bash
+   $ php artisan migrate:rollback   # Sustituye php por ./vendor/bin/sail si usas Laravel Sail
    ```
 
 * Retroceder N pasos en todas las migraciones:
 
-   ```
-   $ php artisan migrate:rollback --step=<N>
+   ```bash
+   $ php artisan migrate:rollback --step=<N>   # Sustituye php por ./vendor/bin/sail si usas Laravel Sail
    ```
 
 * Deshacer todas las migraciones que se hayan ejecutado hasta ahora (resetear la base de datos):
 
-   ```
-   $ php artisan migrate:reset
+   ```bash
+   $ php artisan migrate:reset   # Sustituye php por ./vendor/bin/sail si usas Laravel Sail
    ```
 
 * Resetear la base de datos y volver a reconstruirla lanzando todas las migraciones:
 
-   ```
-   $ php artisan migrate:refresh
+   ```bash
+   $ php artisan migrate:refresh   # Sustituye php por ./vendor/bin/sail si usas Laravel Sail
    ```
 
 * Resetear la base de datos, reconstruirla y llenarla de datos con los seeders:
 
-   ```
-   $ php artisan migrate:refresh --seed
+   ```bash
+   $ php artisan migrate:refresh --seed   # Sustituye php por ./vendor/bin/sail si usas Laravel Sail
    ```
 
 * Eliminar todas las tablas y lanzar todas las migraciones de nuevo:
 
-   ```
-   $ php artisan migrate:fresh
+   ```bash
+   $ php artisan migrate:fresh   # Sustituye php por ./vendor/bin/sail si usas Laravel Sail
    ```
 
 * Eliminar todas las tablas y lanzar todas las migraciones y todos los seeders de nuevo:
 
-   ```
-   $ php artisan migrate:fresh --seed
+   ```bash
+   $ php artisan migrate:fresh --seed   # Sustituye php por ./vendor/bin/sail si usas Laravel Sail
    ```   
 
 ### 3.5.7. Práctica con migraciones
