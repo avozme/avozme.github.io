@@ -118,26 +118,47 @@ for (int cont = 1; cont <= 100; cont = cont + 2) {
 }
 ```
 
-XXX
-Contadores, acumuladores, conmutadores
+
+### 2.4.4. Contadores, acumuladores, conmutadores
+
 Asociadas a los bucles se encuentran a menudo algunas variables auxiliares. Como siempre se utilizan de la misma manera, las llamamos con un nombre propio (contador, acumulador, etc.), pero hay que dejar claro que no son más que variables comunes, aunque se usan de un modo especial. 
-Contadores
+
+#### Contadores
+
 Un contador es una variable (casi siempre de tipo entero) cuyo valor se incrementa o decrementa en cada repetición de un bucle. Es habitual llamar a esta variable "cont" (de contador) o, con más frecuencia, "i" (de índice). A partir de ahora nosotros la llamaremos de este último modo.
+
 El contador suele usarse de este modo:
-1) Se inicializa antes de que comience el bucle. Es decir, se le da un valor inicial. Por ejemplo:
-i = 5;
-2) Se modifica dentro del cuerpo del bucle. Lo más habitual es que se incremente su valor en una unidad. Por ejemplo:
-i = i + 1;
+
+1) **Se inicializa antes de que comience el bucle**. Es decir, se le da un valor inicial. Por ejemplo:
+
+`i = 5;`
+
+2) **Se modifica dentro del cuerpo del bucle**. Lo más habitual es que se incremente su valor en una unidad. Por ejemplo:
+
+`i = i + 1;`
+
 Esto quiere decir que el valor de la variable "i" se incrementa en una unidad y es asignado de nuevo a la variable contador. Es decir, si i valía 5 antes de esta instrucción, i valdrá 6 después.
+
 Otra forma típica del contador es:
-i = i – 1;
+
+`i = i – 1;`
+
 En este caso, la variable se decrementa en una unidad; si cont valía 5 antes de la instrucción, tendremos que cont valdrá 4 después de su ejecución.
+
 El incremento o decremento no tiene por qué ser de una unidad. La cantidad que haya que incrementar o decrementar vendrá dada por la naturaleza del problema.
-Ten en cuenta que en Java, y en todos los lenguajes herederos de C, existe la sintaxis alternativa i++ e i-- para representar estos incrementos y decrementos.
+
+Ten en cuenta que en Java, y en todos los lenguajes herederos de C, existe la sintaxis alternativa `i++` e `i--` para representar estos incrementos y decrementos.
+
+```java
 i++;   // Equivalente a i = i + 1
 i--;   // Equivalente a i = i - 1
-3) Se utiliza en la condición de salida del bucle. Normalmente, se compara con el valor máximo (o mínimo) que debe alcanzar el contador para dejar de repetir las instrucciones del bucle.
+```
+
+3) **Se utiliza en la condición de salida del bucle**. Normalmente, se compara con el valor máximo (o mínimo) que debe alcanzar el contador para dejar de repetir las instrucciones del bucle.
+
 Ejemplo: Escribir un algoritmo que escriba la tabla de multiplicar hasta el 100 de un número N introducido por el usuario
+
+```java
 {
    int i, n;
    n = Integer.parseInt(System.console().readLine());
@@ -147,19 +168,35 @@ Ejemplo: Escribir un algoritmo que escriba la tabla de multiplicar hasta el 100 
       i++;
    }
 }
-El uso de contadores es casi omnipresente en bucles "mientras" y "repetir", aunque es posible crear bucles que funcionen sin contadores. Recuerda que siempre hay que asignar al contador un valor inicial para la primera ejecución del bucle (i = 1 en nuestro ejemplo) e ir incrementándolo (o decrementándolo, según el algoritmo) en cada repetición con una instrucción del tipo i = i + 1 o i++ en el cuerpo del bucle. De lo contrario habremos escrito un bucle infinito.
+```
+
+El uso de contadores es casi omnipresente en bucles "mientras" y "repetir", aunque es posible crear bucles que funcionen sin contadores. Recuerda que siempre hay que asignar al contador un valor inicial para la primera ejecución del bucle (i = 1 en nuestro ejemplo) e ir incrementándolo (o decrementándolo, según el algoritmo) en cada repetición con una instrucción del tipo `i = i + 1` o `i++` en el cuerpo del bucle. De lo contrario habremos escrito un bucle infinito.
+
 Por último, hay que prestar atención a la condición de salida, que debe estar asociada al valor del contador en la última repetición del bucle (en nuestro caso, 100). Mucho cuidado con el operador relacional (<, >, <=, >=, etc) que usemos, porque el bucle se puede ejecutar más o menos veces de lo previsto. Por cierto: suele ser buena idea evitar el operador "==" en las condiciones de salida de los bucles, sobre todo si estamos trabajando con números reales.
-Acumuladores
+
+#### Acumuladores
+
 Las variables acumuladoras tienen la misión de almacenar resultados sucesivos, es decir, de acumular resultados, de ahí su nombre.
+
+
 Las variables acumuladores también debe ser inicializadas. Si llamamos "acum" a un acumulador, escribiremos antes de iniciar el bucle algo como esto:
-acum = 0;
+
+`acum = 0;`
+
 Por supuesto, el valor inicial puede cambiar, dependiendo de la naturaleza del problema. Más tarde, en el cuerpo del bucle, la forma en la que nos la solemos encontrar es:
-acum = acum + n;
+
+`acum = acum + n;`
+
 ...siendo n otra variable. Si esta instrucción va seguida de otras:
-acum = acum + m;
-acum = acum + p;
+
+`acum = acum + m;`
+`acum = acum + p;`
+
 ...estaremos acumulando en la variable "acum" los valores de las variables n, m, p, etc, lo cual resulta a veces muy útil para resolver ciertos problemas repetitivos.
+
 Ejemplo: Escribir un algoritmo que pida 10 números por el teclado y los sume, mostrando el resultado.
+
+```java
 {
   int i, n, suma;
   suma = 0;
@@ -169,12 +206,21 @@ Ejemplo: Escribir un algoritmo que pida 10 números por el teclado y los sume, m
   }
   System.out.println(suma);
 }
+```
+
 En este algoritmo, i es una variable contador típica de bucle. Se ha usado un bucle "para", que es lo más sencillo cuando conocemos previamente el número de repeticiones (10 en este caso). La variable n se usa para cada uno de los números introducidos por el teclado, y la variable suma es el acumulador, donde se van sumando los diferentes valores que toma n en cada repetición.
+
 Observa como, al principio del algoritmo, se le asigna al acumulador el valor 0.  Esta es una precaución importante que se debe tomar siempre porque el valor que tenga una variable que no haya sido usada antes es desconocido (no tiene por qué ser 0)
-Conmutadores
+
+#### Conmutadores
+
 Un conmutador (o interruptor) es una variable que sólo puede tomar dos valores. Pueden ser, por tanto, de tipo booleano, aunque también pueden usarse variables enteras o de tipo carácter.
+
 La variable conmutador recibirá uno de los dos valores posibles antes de entrar en el bucle. Dentro del cuerpo del bucle, debe cambiarse ese valor bajo ciertas condiciones. Utilizando el conmuntador en la condición de salida del bucle, puede controlarse el número de repeticiones. 
+
 Ejemplo: Escribir un algoritmo que sume todos los números positivos introducidos por el usuario a través del teclado. Para terminar de introducir números, el usuario tecleará un número negativo.
+
+```java
 {
   int n, suma;
   boolean terminar;
@@ -194,10 +240,16 @@ Ejemplo: Escribir un algoritmo que sume todos los números positivos introducido
    }
    System.out.println(suma);
 }
+```
 Este algoritmo es una variación del ejemplo con acumuladores que vimos más atrás. Entonces el usuario introducía 10 números, y ahora puede ir introduciendo números indefinidamente, hasta que se canse. ¿Cómo indica al ordenador que ha terminado de introducir números? Simplemente, tecleando un número negativo.
+
 El bucle se controla por medio de la variable "terminar": es el conmutador. Sólo puede tomar dos valores: "verdadero", cuando el bucle debe terminar, y "falso", cuando el bucle debe repetirse una vez más. Por lo tanto, "terminar" valdrá "falso" al principio, y sólo cambiará a "verdadero" cuando el usuario introduzca un número negativo. 
+
 A veces, el conmutador puede tomar más de dos valores. Entonces ya no se le debe llamar, estrictamente hablando, conmutador. Cuando la variable toma un determinado valor especial, el bucle termina. A ese "valor especial" se le suele denominar valor centinela.
+
 Ejemplo: Escribir un algoritmo que sume todos los números positivos introducidos por el usuario a través del teclado. Para terminar de introducir números, el usuario tecleará un número negativo.
+
+```java
 {
   int n, suma;
 
@@ -214,5 +266,8 @@ Ejemplo: Escribir un algoritmo que sume todos los números positivos introducido
    while (n >= 0);
    System.out.println(suma);
 }
-En esta ocasión, las repeticiones se controlan con la variable n, de modo que el bucle termina cuando n < 0. Por lo tanto, n se utiliza para ir asignando valores al acumulador suma, y también para salir del bucle: es el valor centinela.
+```
+
+En esta ocasión, las repeticiones se controlan con la variable n, de modo que el bucle termina cuando `n < 0`. Por lo tanto, n se utiliza para ir asignando valores al acumulador suma, y también para salir del bucle: es el valor centinela.
+
 Observa que, en esta ocasión, ha sido más sencillo resolver el problema con un bucle "do... while" y un centinela que con un bucle "while" y un conmutador, porque nos ha quedado una solución más corta.
