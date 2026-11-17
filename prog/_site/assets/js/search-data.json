@@ -148,326 +148,319 @@
   },"21": {
     "doc": "3. Los objetos",
     "title": "UD 3. Los objetos. Una introducción a la POO",
-    "content": ". ",
+    "content": ". En este capítulo introduciremos los conceptos básicos sobre programación orientada a objetos (POO) y aprenderemos a construir nuestras primeras clases y, con ellas, nuestros primeros programas verdaderamente orientados a objetos. Expondremos en qué consiste el famoso paradigma de orientación a objetos utilizando para ello ejemplos y analogías que lo harán fácilmente comprensible. Después definiremos más formalmente los elementos principales tales como clases, objetos, métodos o atributos. Construiremos nuestras primeras clases y diremos algunas cosas interesantes sobre los métodos, el paso de parámetros y la devolución de resultados. Este tema solo es una introducción a la POO. Volveremos sobre todos estos asuntos más adelante en este curso y los ampliaremos en un proceso de aprendizaje continuo. ",
     "url": "/docs/prog/_site/objetos/#ud-3-los-objetos-una-introducci%C3%B3n-a-la-poo",
     
     "relUrl": "/objetos/#ud-3-los-objetos-una-introducción-a-la-poo"
   },"22": {
-    "doc": "3. Los objetos",
-    "title": "Índice",
-    "content": "En este capítulo introduciremos los conceptos básicos sobre programación orientada a objetos y aprenderemos a construir nuestras primeras clases y, con ellas, nuestros primeros programas verdaderamente orientados a objetos. En los manuales de introducción a la programación hay dos tendencias: una, que ha quedado un poco desfasada, consiste en ignorar todas las cuestiones relativas a los objetos y centrarse al principio en las estructuras de control. Este enfoque está heredado de los manuales de programación clásicos, pues consiste, básicamente, en aprender programación estructurada y, más adelante, encajar las destrezas aprendidas en el paradigma de orientación a objetos. La segunda tendencia, que es la que se está imponiendo en la actualidad y que seguiremos aquí, consiste en programar dentro del paradigma orientado a objetos desde el minuto cero, de modo que el aprendiz no tenga que hacer ninguna adaptación mental posterior: tus primeros programas ya serán aplicaciones 100% orientadas a objetos y, por tanto, asimilará ese modo de trabajar de manera paulatina y natural, sin los vicios ocultos que a veces tienen los programadores que llegan a la programación orientada a objetos procedentes de la programación estructurada clásica. En este tema expondremos en qué consiste el famoso paradigma, utilizando para ello ejemplos y analogías que lo harán fácilmente comprensible. Después definiremos los elementos principales tales como clases, objetos, métodos o atributos. Construiremos nuestras primeras clases y diremos algunas cosas interesantes sobre los paquetes de Java. Terminaremos el tema explicando cómo hacer operaciones de entrada/salida con el usuario, de manera que podamos empezar a construir programas interactivos y funcionales. ",
-    "url": "/docs/prog/_site/objetos/#%C3%ADndice",
-    
-    "relUrl": "/objetos/#índice"
-  },"23": {
     "doc": "3. Los objetos",
     "title": "3. Los objetos",
     "content": " ",
     "url": "/docs/prog/_site/objetos/",
     
     "relUrl": "/objetos/"
-  },"24": {
+  },"23": {
     "doc": "4. Estructuras de almacenamiento",
     "title": "UD 4. Estructuras de almacenamiento",
     "content": "ESTA PÁGINA ESTÁ EN DESARROLLO&lt;/div&gt; # Índice {: .no_toc } - TOC {:toc} ",
     "url": "/docs/prog/_site/estructuras-almacenamiento/#ud-4-estructuras-de-almacenamiento",
     
     "relUrl": "/estructuras-almacenamiento/#ud-4-estructuras-de-almacenamiento"
-  },"25": {
+  },"24": {
     "doc": "4. Estructuras de almacenamiento",
     "title": "4. Estructuras de almacenamiento",
     "content": " ",
     "url": "/docs/prog/_site/estructuras-almacenamiento/",
     
     "relUrl": "/estructuras-almacenamiento/"
-  },"26": {
+  },"25": {
     "doc": "5. Clases",
     "title": "UD 5. Clases: profundizando en la POO",
     "content": "ESTA PÁGINA ESTÁ EN DESARROLLO&lt;/div&gt; # Índice {: .no_toc } - TOC {:toc} ",
     "url": "/docs/prog/_site/clases/#ud-5-clases-profundizando-en-la-poo",
     
     "relUrl": "/clases/#ud-5-clases-profundizando-en-la-poo"
-  },"27": {
+  },"26": {
     "doc": "5. Clases",
     "title": "5. Clases",
     "content": " ",
     "url": "/docs/prog/_site/clases/",
     
     "relUrl": "/clases/"
-  },"28": {
+  },"27": {
     "doc": "6. Interfaz gráfica de usuario",
     "title": "UD 6. Interfaz gráfica de usuario",
     "content": "ESTA PÁGINA ESTÁ EN DESARROLLO&lt;/div&gt; # Índice {: .no_toc } - TOC {:toc} ",
     "url": "/docs/prog/_site/interfaz-grafica/#ud-6-interfaz-gr%C3%A1fica-de-usuario",
     
     "relUrl": "/interfaz-grafica/#ud-6-interfaz-gráfica-de-usuario"
-  },"29": {
+  },"28": {
     "doc": "6. Interfaz gráfica de usuario",
     "title": "6. Interfaz gráfica de usuario",
     "content": " ",
     "url": "/docs/prog/_site/interfaz-grafica/",
     
     "relUrl": "/interfaz-grafica/"
-  },"30": {
+  },"29": {
     "doc": "7. Programación avanzada",
     "title": "UD 7. Programación avanzada",
     "content": "ESTA PÁGINA ESTÁ EN DESARROLLO&lt;/div&gt; # Índice {: .no_toc } - TOC {:toc} ",
     "url": "/docs/prog/_site/programacion-avanzada/#ud-7-programaci%C3%B3n-avanzada",
     
     "relUrl": "/programacion-avanzada/#ud-7-programación-avanzada"
-  },"31": {
+  },"30": {
     "doc": "7. Programación avanzada",
     "title": "7. Programación avanzada",
     "content": " ",
     "url": "/docs/prog/_site/programacion-avanzada/",
     
     "relUrl": "/programacion-avanzada/"
-  },"32": {
+  },"31": {
     "doc": "8. Acceso a bases de datos relacionales",
     "title": "UD 8. Acceso a bases de datos relacionales",
     "content": "ESTA PÁGINA ESTÁ EN DESARROLLO&lt;/div&gt; # Índice {: .no_toc } - TOC {:toc} ",
     "url": "/docs/prog/_site/acceso-bd-relacionales/#ud-8-acceso-a-bases-de-datos-relacionales",
     
     "relUrl": "/acceso-bd-relacionales/#ud-8-acceso-a-bases-de-datos-relacionales"
-  },"33": {
+  },"32": {
     "doc": "8. Acceso a bases de datos relacionales",
     "title": "8. Acceso a bases de datos relacionales",
     "content": " ",
     "url": "/docs/prog/_site/acceso-bd-relacionales/",
     
     "relUrl": "/acceso-bd-relacionales/"
-  },"34": {
+  },"33": {
     "doc": "9. Ficheros",
     "title": "UD 9. Ficheros",
     "content": "ESTA PÁGINA ESTÁ EN DESARROLLO&lt;/div&gt; # Índice {: .no_toc } - TOC {:toc} ",
     "url": "/docs/prog/_site/ficheros/#ud-9-ficheros",
     
     "relUrl": "/ficheros/#ud-9-ficheros"
-  },"35": {
+  },"34": {
     "doc": "9. Ficheros",
     "title": "9. Ficheros",
     "content": " ",
     "url": "/docs/prog/_site/ficheros/",
     
     "relUrl": "/ficheros/"
-  },"36": {
+  },"35": {
     "doc": "10. Acceso a bases de datos NoSQL",
     "title": "UD 10. Acceso a bases de datos NoSQL",
     "content": "ESTA PÁGINA ESTÁ EN DESARROLLO&lt;/div&gt; # Índice {: .no_toc } - TOC {:toc} ",
     "url": "/docs/prog/_site/acceso-bd-nosql/#ud-10-acceso-a-bases-de-datos-nosql",
     
     "relUrl": "/acceso-bd-nosql/#ud-10-acceso-a-bases-de-datos-nosql"
-  },"37": {
+  },"36": {
     "doc": "10. Acceso a bases de datos NoSQL",
     "title": "10. Acceso a bases de datos NoSQL",
     "content": " ",
     "url": "/docs/prog/_site/acceso-bd-nosql/",
     
     "relUrl": "/acceso-bd-nosql/"
-  },"38": {
+  },"37": {
     "doc": "11. Introducción a Spring Boot",
     "title": "11. Introducción a Spring Boot",
     "content": "ESTA PÁGINA ESTÁ EN DESARROLLO&lt;/div&gt; # Índice {: .no_toc } - TOC {:toc} ",
     "url": "/docs/prog/_site/introduccion-spring-boot/",
     
     "relUrl": "/introduccion-spring-boot/"
-  },"39": {
+  },"38": {
     "doc": "A1. Paquetes",
     "title": "Apéndice 1. Paquetes",
     "content": "Qué son los paquetes en Java . Un paquete o package es un conjunto de clases relacionadas entre sí empaquetadas en un archivo. En el JDK existen multitud de paquetes estándar que usarás continuamente, y, además, puedes encontrar paquetes de terceros para hacer todo tipo de cosas. Y tú mismo aprenderás a hacer tus propios paquetes. Un paquete en Java es, pues, lo que en otros lenguajes se denomina librería o biblioteca. Por ejemplo, en el JDK existe un paquete llamado java.io, donde se agrupan todas las clases que permiten hacer la entrada/salida de datos (por consola y teclado, pero también escribir en archivos de disco, por ejemplo). El uso de paquetes permite agrupar las clases relacionadas en un solo lugar y, además, evitar posibles conflictos con nombres de clases y métodos que se repitan. Al estar en paquetes separados, ya no es posible la confusión. Para usar un paquete se utiliza la sentencia import. En este ejemplo puedes ver su uso: . // Para importar la clase System del paquete java.lang import java.lang.System; // Para importar TODAS las clases del paquete java.lang import java.lang.*; . Una vez importado un paquete, podemos usar los métodos del mismo sin indicar el nombre completo del paquete. Por ejemplo, en lugar de hacer esto: . System.out.println(\"Hola, mundo\"); . Podemos hacer esto: . import java.lang.System; out.println(\"Hola, mundo\"); . Para acceder correctamente a los paquetes, el compilador de Java necesita saber dónde están los archivos de la biblioteca de clases, es decir, tienes que configurar adecuadamente la variable de entorno CLASSPATH. Esto ya no es necesario en las última versiones de Java si hablamos de los paquetes estándar del JDK, pero sí lo será si utilizas paquetes de terceros. $ CLASSPATH = &lt;ruta a la biblioteca de clases&gt;:&lt;ruta 2&gt;:&lt;ruta 3&gt;:etc $ export CLASSPATH . (sustituye el carácter : por ; si estás trabajando en un sistema Windows) . Recuerda que, como vimos en el tema 1, también puedes compilar el programa con la opcion -cp, indicando a continuación el classpath de tu aplicación: . $ javac -cp /ruta/a/mis/clases nombre.java . Algunos paquetes notables del JDK . El JDK de Java, como hemos dicho, proporciona una colección realmente enorme de clases, todas ellas agrupadas en sus correspondientes paquetes. Puedes consultar la lista completa en la documentación oficial online de Oracle. Realmente, no existe ningún programador en el mundo que conozca en profundidad el funcionamiento de todas esas clases, ni falta que le hace para programar bien. Sería tan absurdo como suponer que una persona debe conocer a todos los habitantes de la ciudad en la que vive. Uno conoce a sus compañeros de trabajo o de clase, a su familia, tal vez a sus vecinos, y a un puñado más o menos extenso de amigos. Eso sucede también con la biblioteca de clases: acabarás conociendo con bastante detalle algunas clases a fuerza de usarlas una y otra vez, pero el resto serán como esa gente anónima que te cruzas continuamente por la calle. Eso sí, si algún día las necesitas, debes ser capaz de acudir a la documentación (mejor la oficial), mirar un par de ejemplos, y hacer uso de cualquier clase de la biblioteca que no habías conocido antes. Te presentamos aquí una lista con los paquetes más utilizados del JDK de Java, de modo que sepas por dónde empezar a buscar en caso necesario y que te vayan sonando los nombres: . | java.lang: Contiene la clases fundamentales del lenguaje. Se carga automáticamente con cuaquier programa, sin necesidad de hacer import. | java.util: Clases relacionadas con las colecciones y estructuras de datos: listas, colas, pilas, y muchas otras. | java.io, java.nio: Clases relacionadas con la entrada/salida por consola y por otras vías. | java.math: Clases para cálculos y operaciones matemáticas. | java.awt, java.swing: Clases para generar interfaces gráficos (ventanas, botones, etc) . | java.sql: Clases para gestionar el acceso a bases de datos externas. | java.net: Clases para gestionar el trabajo en red. | . ",
     "url": "/docs/prog/_site/apendices/paquetes#ap%C3%A9ndice-1-paquetes",
     
     "relUrl": "/apendices/paquetes#apéndice-1-paquetes"
-  },"40": {
+  },"39": {
     "doc": "A1. Paquetes",
     "title": "A1. Paquetes",
     "content": " ",
     "url": "/docs/prog/_site/apendices/paquetes",
     
     "relUrl": "/apendices/paquetes"
-  },"41": {
+  },"40": {
     "doc": "A2. Visual Studio Code",
     "title": "Apéndice 2. Visual Studio Code",
     "content": "Visual Studio Code es un editor de código fuente ligero, pero muy potente, creado por Microsoft con licencia libre. No suele considerarse un IDE completo como IntelliJ, Netbeans o Eclipse, pero puede convertirse en un entorno muy poderoso gracias a su sistema de extensiones o plugins. Nosotros recomendamos aprender a usarlo porque está muy presente a nivel profesional. Si te acosumbras a usar, por ejemplo, IntelliJ, solo te servirá para programar en Java y pocos lenguajes más. ¡Con Java, IntelliJ encaja como un guante porque es un herramienta diseñada a medida para ello! . En cambio, Visual Studio es más como una multiherramienta: sirve para todo, aunque no es 100% perfecta para nada. Pero esa versatilidad hace que esté presente en todas partes. Así que es casi seguro que te la vas a encontrar el día de mañana en tu vida profesional. ¿Por qué no empezar a usarla hoy mismo? . Las características clave de VS Code son: . | Es multilenguaje: funciona con Java, Python, JavaScript, C++, HTML, etc. | Funciona con extensiones o plugins: puedes añadir funcionalidades como depuración, autocompletado avanzado, soporte para frameworks, etc. | Tiene un terminal integrado: puedes correr comandos sin salir del editor. | Es ligero y rápido: abre proyectos grandes sin consumir tantos recursos como un IDE tradicional. | . | . ",
     "url": "/docs/prog/_site/apendices/vscode#ap%C3%A9ndice-2-visual-studio-code",
     
     "relUrl": "/apendices/vscode#apéndice-2-visual-studio-code"
-  },"42": {
+  },"41": {
     "doc": "A2. Visual Studio Code",
     "title": "Instalación de VS Code",
     "content": "Simplemente, ve a la web oficial: https://code.visualstudio.com y descarga la versión para tu sistema operativo (Windows, macOS, Linux). También puedes instalarlo desde la tienda o repositorio oficial de tu sistema operativo, aunque puede que ahí no tengas disponible la última versión (tampoco la necesitas para nada).1 . Al ejecutarlo por primera vez, te pedirá instalar algunas extensiones sugeridas. Instala al menos estas: . | Java Extension Pack de Microsoft. | Maven for Java. Maven es un gestor de proyectos Java que vamos a usar varias veces a lo largo del curso. | Debugger for Java. Importante para depurar programas en tiempo de ejecución. | . | . Para extensiones como las de GitHub, Copilot, Docker u otras, ya habrá tiempo de ir instalándolas conforme las necesites. Te desaconsejo encarecidamente que instales extensiones de autocompletado de código por IA: es el camino más seguro si lo que pretendes es no aprender a programar jamás. No te emociones instalando demasiadas extensiones: cuantas más instales, más recursos consumirá el editor. ",
     "url": "/docs/prog/_site/apendices/vscode#instalaci%C3%B3n-de-vs-code",
     
     "relUrl": "/apendices/vscode#instalación-de-vs-code"
-  },"43": {
+  },"42": {
     "doc": "A2. Visual Studio Code",
     "title": "Uso cotidiano de VS Code",
     "content": "En el módulo de Entornos de Desarrollo te explicarán las opciones típicas de VS Code y de otros IDEs, así que no tiene sentido repetirlo aquí. Solo vamos a centrarnos en las cuatro cosas básicas. Antes de nada, una advertencia: VS Code tiene muchísimas opciones, así que es fácil agobiarse al principio. Piensa que es un entorno de desarrollo profesional, así que no está diseñado para ser amigable, sino eficaz. Poco a poco te irás haciendo con el control. La pantalla de VS Code se divide en varias secciones básicas: . | Barra de actividades. Incluye iconos para abrir varios paneles: . | Explorer: para navegar archivos y carpetas. | Search: búsqueda de texto en todo el proyecto. | Source Control: integración con Git. | Run &amp; Debug: depuración de tu código. | Extensions: buscar e instalar extensiones. | . | Editor central: donde escribes tu código. Aquí estarás trabajando casi todo el tiempo. | Panel inferior: terminal integrado, salida de compilación, depuración, etc. | Barra de estado inferior: ofrece información sobre tu archivo, lenguaje detectado, Git, errores, etc. | Minimapa: es una especie de foto con zoom alejado de tu código. Te permite recorrerlo rápidamente y localizar errores a vista de pájaro. | . Además, cuando VS Code detecte un programa compilable y ejecutable, te mostrará el botón “Run” para lanzar la aplicación: . Si creas un archivo .java con un método main(), VS Code automáticamente montará un miniproyecto y te permitirá ejecutarlo (hará javac + java automáticamente). El resultado se mostrará en el terminal del panel inferior. Para un uso básico de VS Code no necesitas saber nada más. Poco a poco, conforme avance el curso, iremos profundizando más en este IDE y aprenderemos a depurar paso a paso los programas, instalar plugins avanzados o configurar proyectos complejos con Maven. ",
     "url": "/docs/prog/_site/apendices/vscode#uso-cotidiano-de-vs-code",
     
     "relUrl": "/apendices/vscode#uso-cotidiano-de-vs-code"
-  },"44": {
+  },"43": {
     "doc": "A2. Visual Studio Code",
     "title": "A2. Visual Studio Code",
     "content": " ",
     "url": "/docs/prog/_site/apendices/vscode",
     
     "relUrl": "/apendices/vscode"
-  },"45": {
+  },"44": {
     "doc": "A3. Maven",
     "title": "Apéndice 2. Maven",
     "content": "Maven es un gestor de proyectos para Java que permite gestionar las dependencias (es decir, descargar y actualizar librerías adicionales si son necesarias) y automatizar la compilación del código en proyectos grandes. También facilita la organización de archivos y carpetas en proyectos voluminosos. Existen alternativas a Maven como Gradle o Ant, pero Maven es el gestor de proyectos más popular en el ecosistema de Java. Maven es una herramienta externa a Java desarrollada por Apache Foundation, es decir, debes instalarla a parte de tu JDK. Todos los IDEs modernos permiten integración con Maven. Vamos a ver una introducción a lo que Maven puede hacer por nosotros y cómo lo podemos integrar con Visual Studio Code para desarrollar proyectos Java complejos. ",
     "url": "/docs/prog/_site/apendices/maven#ap%C3%A9ndice-2-maven",
     
     "relUrl": "/apendices/maven#apéndice-2-maven"
-  },"46": {
+  },"45": {
     "doc": "A3. Maven",
     "title": "Usar Maven desde la línea de comandos",
     "content": "Maven es una herramienta de consola, es decir, se usa, de forma nativa, desde el terminal de texto. Para usarlo de este modo, sigue estos pasos: . 1. Instala Maven desde la web oficial. 2. Abre un terminal en tu carpeta de trabajo. 3. Crea un proyecto Java Simple en Maven: . $ mvn archetype:generate . 4. Edita el archivo pom.xml para cambiar la configuración del proyecto (más abajo hablamos de este archivo). 5. Para compilar el proyecto: . $ mvn compile . 6. Para empaquetar el proyecto (generar el JAR): . $ mvn package . ",
     "url": "/docs/prog/_site/apendices/maven#usar-maven-desde-la-l%C3%ADnea-de-comandos",
     
     "relUrl": "/apendices/maven#usar-maven-desde-la-línea-de-comandos"
-  },"47": {
+  },"46": {
     "doc": "A3. Maven",
     "title": "El archivo pom.xml",
     "content": "Toda la configuración de Maven se hace en el archivo pom.xml, donde se definen cosas como: . | La versión de Java con la que se compila el proyecto . | El nombre del paquete principal y de la clase que contiene el main() | Las dependencias (librerías adicionales) con las que debe compilarse el proyecto | . | . Es raro que necesites escribir un pom.xml desde cero “a mano”. Tu IDE generará un pom.xml utilizable y tú, como mucho, tendrás que editarlo para añadir o quitar algunas cosas o afinar algunos detalles. Esta es una estructura típica de un archivo pom.xml simple: . &lt;project&gt; &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt; &lt;groupId&gt;com.example&lt;/groupId&gt; &lt;artifactId&gt;my-project&lt;/artifactId&gt; &lt;!-- Nombre del proyecto --&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;!-- Versión del proy. --&gt; &lt;properties&gt; &lt;maven.compiler.source&gt; 17 &lt;!-- Versión de Java --&gt; &lt;/maven.compiler.target&gt; &lt;/properties&gt; &lt;dependencies&gt; &lt;!-- Librerías externas --&gt; &lt;/dependencies&gt; &lt;/project&gt; . ",
     "url": "/docs/prog/_site/apendices/maven#el-archivo-pomxml",
     
     "relUrl": "/apendices/maven#el-archivo-pomxml"
-  },"48": {
+  },"47": {
     "doc": "A3. Maven",
     "title": "Usar Maven dentro de Visual Studio Code",
     "content": "Aunque de momento nuestras aplicaciones son demasiado simples como para necesitar montar un proyecto con Maven, te dejamos aquí, paso a paso, explicado cómo se hace porque, antes o después, vas a necesitar hacerlo conforme avances en este curso de programación. 1. Instala la extensión “Maven for Java” para VS Code, si aún no la tienes. 2. Crea un proyecto nuevo con Maven (Clic derecho en el navegador de archivos → New Java Project → Maven). Alternativamente, puedes hacerlo desde la consola con el comando: . mvn archetype:generate -DgroupId=com.tu.paquete -DartifactId=tuProyecto -Dversion=1.0-SNAPSHOT . 3. Visual Studio te preguntará varias cosas: el nombre del proyecto, el nombre del paquete, la versión (1.0-SNAPSHOT significa “en desarrollo”). Si has usado el comando de consola, no te preguntará nada porque toda esa información ya está incluida en el comando. 4. ¡Y listo! Tu código fuente se ubicará en src/main/java, dentro del paquete principal que hayas escogido. Ya puedes compilar, empaquetar o editar el pom.xml desde Visual Studio. Los comandos de Maven siempre están disponibles en la consola de texto, claro, pero puedes acceder a todos ellos desde la paleta de comandos de VS Code: . 1. Haz clic Ver → Paleta de comandos (o pulsa Ctrl + Mayús + P) . 2. Escribe “Maven” y te aparecerán todos los comandos disponibles para Maven. ",
     "url": "/docs/prog/_site/apendices/maven#usar-maven-dentro-de-visual-studio-code",
     
     "relUrl": "/apendices/maven#usar-maven-dentro-de-visual-studio-code"
-  },"49": {
+  },"48": {
     "doc": "A3. Maven",
     "title": "A3. Maven",
     "content": " ",
     "url": "/docs/prog/_site/apendices/maven",
     
     "relUrl": "/apendices/maven"
-  },"50": {
+  },"49": {
     "doc": "A4. JUnit",
     "title": "Apéndice 4. JUnit",
     "content": "Cuando un programa ha sido escrito, aún queda mucho trabajo: hay que comprobar que funciona como debe. Las pruebas de un programa deberían incluir las siguientes comprobaciones: . | Verificar que el programa no tiene errores de ejecución. | Verificar que el programa hace lo que se esperaba de él. | Verificar que el programa es eficiente, es decir, que no tarda una barbaridad en hacer su tarea. | . | . Existen herramientas de prueba y testeo semiautomáticas, como JUnit, que veremos someramente al final de este apéndice. El objetivo final es construir software de buena calidad. Pero, ¿qué demonios es un programa de “buena calidad”? Empezaremos por tratar de definir ese concepto tan escurridizo. ",
     "url": "/docs/prog/_site/apendices/junit#ap%C3%A9ndice-4-junit",
     
     "relUrl": "/apendices/junit#apéndice-4-junit"
-  },"51": {
+  },"50": {
     "doc": "A4. JUnit",
     "title": "II.1 La calidad en el software",
     "content": "La calidad no es un concepto fácil de definir. Dice un aforismo que “sólo se nota la existencia de la calidad en un producto cuando está ausente” . Además, el concepto de calidad en el software es diferente que en otros productos industriales porque: . | El software se desarrolla, no se fabrica. | El software no tiene existencia física: su calidad no depende del soporte. | El software no se degrada con el uso: su calidad no depende de su resistencia. | El software es muy complejo y la ingeniería del software es aún muy joven e inexperta: el software se entrega muchas veces con defectos conocidos o desconocidos. | El software se suele hacer a medida. | El software es más flexible que otros productos: puede cambiarse con más facilidad. | . | . Factores de calidad . Como el concepto de calidad es escurridizo, se suele hablar de los factores que afectan a la calidad, y que son, entre otros: . | Facilidad de uso, prueba y mantenimiento. | Eficiencia: que el sistema trabaje consumiendo la menor cantidad posible de recursos. | Fiabilidad: que el sistema no falle al realizar sus funciones. | Corrección: que el software haga lo que se espera de él. | Flexibilidad: que sea fácil de modificar. | Portabilidad: que sea fácil de migrar a otro entorno. | Eficacia: que resuelva todos los problemas de la mejor forma posible. | . | . Si el software cumple con estos requisitos, se supone que es de “buena calidad” . Estándares de calidad . Los estándares de calidad, como ISO 9001, establecen cómo debe funcionar la organización para asegurar un desarrollo de calidad: . | Realización de un plan de control de la calidad a lo largo de todo el proyecto. | Normas que el personal debe cumplir al desarrollar su trabajo para asegurar la calidad. | Actividades de revisión y auditorías periódicas. | Informes de problemas. | Controles sobre el análisis, el diseño, la codificación y la documentación | Planes de control y prueba a lo largo de todo el desarrollo. | Métricas de software para control del proyecto. | Etc. | . | . Pero, ojo, los estándares de calidad no aseguran que el producto desarrollado sea en efecto un producto de calidad, solo que habrá más posibilidades de que lo sea. Una tercera parte independiente evaluará el trabajo de desarrollo de software. Es lo que se denomina una auditoría externa. Si el auditor establece que el equipo de desarrollo ha cumplido las recomendaciones de ISO o AENOR, la empresa quedará certificada y avalada como fabricante de “software de calidad” . Las normas de calidad de la ISO (International Organization for Standarization) surgieron en sectores de seguridad crítica: nuclear, militar, aeroespacial. Con el tiempo se han extendido a todos los sectores. En concreto, la serie ISO 9000 es aplicable a las empresas fabricantes de software. La norma actual es la ISO 9001:2000 . Puedes encontrar más información en: http://www.iso.ch/iso/en/iso9000-14000/index.htm . En cuanto a AENOR (Asociación Española de Normalización y Certificación), recomienda usar la ISO 9001:2000, o una versión más antigua, ISO 9001:1994, ligeramente modificada para el desarrollo de software. AENOR tiene publicaciones donde explica cómo aplicar las normas ISO de calidad para obtener la certificación y se encarga de certificar, mediante auditorías, a las empresas que cumplen la norma ISO. ",
     "url": "/docs/prog/_site/apendices/junit#ii1-la-calidad-en-el-software",
     
     "relUrl": "/apendices/junit#ii1-la-calidad-en-el-software"
-  },"52": {
+  },"51": {
     "doc": "A4. JUnit",
     "title": "II.2 La fase de pruebas",
     "content": "Puede que estés pensando: vale, pero a mí, como programador o programadora, ¿todo esto de la calidad que narices me importa? . He visto a muchos programadores principiantes que se contentan con entregar versiones de sus programas mal resueltas, ineficientes, poco escalables o ilegibles escudándose en el hecho de que funcionan. “Es una porquería, lo sé, pero funciona”. Quizá cambiaron esa forma de trabajar con el transcurso de los años, pero no soy optimista al respecto. Creo que las personas tendemos a reproducir, en cada ámbito de nuestras vidas, la forma de trabajar que nos ha dado resultados en el pasado. Por lo tanto, aspirar a escribir programas de buena calidad (siendo, como hemos visto, un concepto escurridizo) debería ser nuestro objetivo desde el primer momento. No importa si estás haciendo algo tan simple como una tabla de multiplicar o algo tan complejo como un juego de ajedrez inteligente. Deberías conocer las técnicas que, como programador, te van a facilitar la labor de crear programas de calidad. Pues bien, el objetivo de la fase de pruebas es precisamente asegurar la calidad del software según los factores que hemos enumerado más arriba, y, ¡sorpresa!, el encargado de hacer esas pruebas, excepto en organizaciones muy grandes, suele ser el propio programador. Las pruebas consisten en dos acciones complementarias: . | Verificación: comprobar que el sistema funciona y no produce errores de ejecución. | Validación: comprobar que el sistema responde a las especificaciones de requisitos del cliente, es decir, que el programa hace lo que debe hacer. | . | . La acciones y técnicas de la fase de pruebas se llevan a cabo en todas las etapas del desarrollo del software, no solo al final. El momento del desarrollo en el que nos encontremos condiciona el tipo de pruebas que podremos realizar, pero las pruebas siempre están realimentando (o deberían) el proceso de desarrollo. ",
     "url": "/docs/prog/_site/apendices/junit#ii2-la-fase-de-pruebas",
     
     "relUrl": "/apendices/junit#ii2-la-fase-de-pruebas"
-  },"53": {
+  },"52": {
     "doc": "A4. JUnit",
     "title": "Pruebas según la forma de realización",
     "content": "La idea es que, como programador, no te pongas a probar tu código a lo loco. Todos comprobamos de alguna forma que nuestro código funciona: ejecutamos nuestro programa, introducimos unos cuantos datos de entrada, y comprobamos que la salida es correcta o que, al menos, lo parece. Pues no: eso no es suficiente. Necesitamos algo más sistemático, algún mecanismo que nos asegure que hemos comprobado todas las posibilidades. Esos mecanismos son las pruebas de caja negra y de caja blanca: . | De caja negra: comprueban el funcionamiento de un componente software (por ejemplo, un módulo) a través de su interfaz, sin ocuparse de su funcionamiento interno. | De caja blanca: comprueban el funcionamiento interno de un componente software. | . | . Pruebas de caja negra . Cada componente (p. ej., un método, o una clase) se prueba sin “mirar” en su interior. Es decir, se comprueba si el componente realiza correctamente sus funciones enviándole juegos de datos diferentes y estudiando su reacción. Los juegos de datos deben cubrir todos los casos posibles. Para ello, se aísla cada entrada del módulo y se establecen casos de prueba para: . | Datos válidos . | Datos no válidos | . | . El módulo debe reaccionar adecuadamente a cada conjunto de datos. Los conjuntos de datos similares se denominan clases de equivalencia. Por ejemplo, supón que estamos probando un método encargado de calcular la edad en años de una persona a partir de su fecha de nacimiento. El interfaz del método puede ser algo así: . int calcularEdad (int diaNac, int mesNac, int anoNac); . Para este método podemos establecer las siguientes clases de equivalencia y probar el módulo con datos pertenecientes a cada clase. Las clases de equivalencia pueden ser: . A) Clases de equivalencia válidas: . | DiaNac &gt;= 1 y DiaNac &lt;= 31 . | MesNac &gt;= 1 y MesNac &lt;= 12 . | AñoNac &gt; 1900 y AñoNac &lt;= [Año actual] . | . B) Clases de equivalencia inválidas: . | DiaNac &lt; 1 o DiaNac &gt; 31 . | MesNac &lt; 1 o MesNac &gt; 12 . | AñoNac &lt; 1900 o AñoNac &gt; [Año actual] . | . Si el módulo reacciona bien con datos de todas las clases, habrá superado la prueba de caja negra. Pero observa que no hay que probar TODOS los datos posibles: basta con hacer UNA prueba de cada clase de equivalencia. En este ejemplo bastaría con probar: . | Un día correcto (p. ej: 10) junto con un mes y un año correctos. | Un día correcto, un mes correcto y un año incorrecto (p. ej: 2020) . | Un día correcto junto con un mes y un año incorrectos. | Etc. | . Es, pues, necesario elaborar previamente una cuidadosa batería de pruebas para que no se nos pase ninguna posibilidad. Además, a veces no es nada fácil identificar todas las clases de equivalencia. Por ejemplo: si introducimos la fecha ‘30/02/1995’ el módulo debería interpretarlo como un error, pero según nuestro diseño de pruebas esa fecha es correcta. Además de hacer una prueba con cada clase de equivalencia, es recomendable añadir casos de prueba para: . | Valores límite (justo por encima y por debajo de los rangos válidos) . | Valores típicos de error (errores comunes que puedan cometer los usuarios) . | Valores imposibles (por ejemplo, introduciendo cadenas alfanuméricas donde se esperaban números enteros) . | . Pruebas de caja blanca . En las pruebas de caja blanca, cada componente (p. ej., un método) se prueba indagando en su lógica interna. Para ello se confeccionan baterías de prueba que hagan ejecutarse todos los posibles caminos al menos una vez. Por ejemplo, si en un módulo tenemos un fragmento de algoritmo con esta forma: . if (a &gt; 10) { acciones 1 } else { acciones 2 } . … habrá que probarlo con los datos a &gt; 10 y a &lt;= 10 para que el flujo de ejecución discurra por los dos caminos posibles. Para diseñar las baterías de pruebas de caja blanca hay que tener en cuenta, por tanto: . | Las condiciones o ramificaciones. | Las condiciones múltiples. | Los bucles (que se pueden ejecutar 0, 1 o varias veces) | Las invocaciones a otros bloques de código. | . | . ",
     "url": "/docs/prog/_site/apendices/junit#pruebas-seg%C3%BAn-la-forma-de-realizaci%C3%B3n",
     
     "relUrl": "/apendices/junit#pruebas-según-la-forma-de-realización"
-  },"54": {
+  },"53": {
     "doc": "A4. JUnit",
     "title": "II.3 Pruebas según el momento de realización",
     "content": "Según el momento en el que se realicen, las pruebas pueden ser: . | Unitarias: prueba de un componente individual aislado del resto del sistema. | De integración: prueba de varios componentes individuales cooperando entre sí. | De sistema: prueba de todos los componentes individuales ensamblados y cooperando entre sí. | De carga: prueba de integración con un volumen de datos real. | De aceptación: pruebas con la presencia del cliente para obtener su visto bueno. | . | . Pruebas unitarias . En las pruebas unitarias, cada componente (método, clase, paquete, etc.) debe ser probado de manera individual y aislado del resto, diseñando para ese componente pruebas de caja negra y de caja blanca. Pruebas de integración . Los componentes no trabajan en realidad aislados, sino que están acoplados: comparten información y se invocan unos a otros. Una vez probados individualmente, es necesario probar que los diferentes componentes funcionan bien cuando trabajan juntos. Los fallos en estas pruebas suelen deberse a problemas en la comunicación entre clases. Las pruebas de integración suelen hacerse poco a poco. Por ejemplo, primero se toman dos o tres clases ya probadas, y se les hace una prueba conjunta. Cuando la superan, se unen a otros dos o tres, y así sucesivamente. Las baterías de pruebas de integración deben ser de caja negra y de caja blanca. Pruebas de sistema . Cuando las pruebas de integración alcanzan a la totalidad del sistema, se denomina prueba de sistema. Si el sistema es grande, puede hablarse de subsistemas, pero estas pruebas no dejan de ser otra cosa que pruebas de integración cada vez más grandes. Las baterías de pruebas de sistema también serán de caja negra y de caja blanca. Pruebas de carga . Las pruebas suelen hacerse con baterías de prueba irreales, diseñadas para probar el sistema en condiciones controladas. Debe hacerse una prueba con un volumen de datos real para comprobar que el sistema reacciona correctamente. Por ejemplo, no es lo mismo manipular una tabla de una base de datos con 20 registros de prueba que una tabla real con 200.000 registros. Un programa que funcionaba estupendamente con 20 registros puede pegarse el batacazo padre con 200.000. Pruebas de aceptación . Se realizan en el domicilio del cliente. No son “demos” ni prototipos, sino muestras del sistema funcionando en tiempo real. Un tipo especial (y frecuente) de estas pruebas es la ejecución del sistema en paralelo con el viejo sistema al que va a sustituir. ",
     "url": "/docs/prog/_site/apendices/junit#ii3-pruebas-seg%C3%BAn-el-momento-de-realizaci%C3%B3n",
     
     "relUrl": "/apendices/junit#ii3-pruebas-según-el-momento-de-realización"
-  },"55": {
+  },"54": {
     "doc": "A4. JUnit",
     "title": "II.4 ¿Cuándo se realizan las pruebas?:",
     "content": "La fase de pruebas debe estar presente a lo largo de todo el desarrollo, y no sólo cuando el programa está terminado. Como criterios generales digamos que: . | Las pruebas unitarias se deben hacer al finalizar cada componente software (método, clase, paquete…) . | Las pruebas de integración se deben hacer cuando se disponga de varios componentes ya probados. | Las pruebas de sistema se deben hacer al final del desarrollo, cuando se dispone de todo el sistema. | Las pruebas de carga se deben hacer después de superar las pruebas de sistema. | Las pruebas de aceptación se harán siempre después de las de carga. | . | . Estrategia de arriba a abajo (top - down) . Consiste en comenzar las pruebas unitarias por las clases de alto nivel, más abstractos, que interactúan con el usuario o que controlan otras clases. Para probarlos, los componentes que están por debajo deben ser “simulados” mediante clases auxiliares vacías, que sólo se encargan de devolver las respuestas esperadas. Estrategia de abajo a arriba (bottom - up) . Consiste en comenzar las pruebas unitarias por las clases de bajo nivel, que interaccionan con otros sistemas (como bases de datos). Este enfoque no suele necesitar de módulos auxiliares, y además permite trabajar en paralelo (diferentes personas pueden probar diferentes módulos al mismo tiempo) . Como contrapartida, es una estrategia más difícil de planificar y gestionar. Estrategia combinada . Los componentes críticos se prueban en bottom – up, y el resto de top - down. ",
     "url": "/docs/prog/_site/apendices/junit#ii4-cu%C3%A1ndo-se-realizan-las-pruebas",
     
     "relUrl": "/apendices/junit#ii4-cuándo-se-realizan-las-pruebas"
-  },"56": {
+  },"55": {
     "doc": "A4. JUnit",
     "title": "II.5 Versiones de prueba del software de propósito general",
     "content": "Nosotros casi siempre nos referimos a sistemas de gestión hechos a medida, pero en el software comercial de propósito general las pruebas son diferentes, existiendo versiones alfa y versiones beta de los productos antes de lanzarlos al mercado. | Versión alfa: el producto aún es inestable, pero está completo. Se envía a un grupo reducido y escogido de usuarios para que lo prueben siguiendo ciertas pautas y comunicando los errores observados al equipo de desarrollo. | Versión beta: el producto es más estable que en la versión alfa, pero no está completamente probado. Se ofrece a un conjunto amplio de usuarios para que lo prueben (a veces, al público en general). Los usuarios deben tener algún mecanismo para poder comunicar, si lo desean, las incidencias que observen. A veces, una versión beta permanece en el mercado durante años. | Release candidate: versión del sistema terminada y probada, lista para su publicación salvo correcciones de última hora. | Versión de disponibilidad general o versión dorada: producto en su versión final que está en proceso de lanzamiento inminente. A veces se denomina versión RTM (Release To Manufacturing) | . | . ",
     "url": "/docs/prog/_site/apendices/junit#ii5-versiones-de-prueba-del-software-de-prop%C3%B3sito-general",
     
     "relUrl": "/apendices/junit#ii5-versiones-de-prueba-del-software-de-propósito-general"
-  },"57": {
+  },"56": {
     "doc": "A4. JUnit",
     "title": "II.6 Las pruebas en el software libre",
     "content": "Los sistemas de software libre son los distribuidos bajo licencia GPL o similar. Esta licencia permite usar, copiar, distribuir y modificar el código fuente libremente. Librerar el código hace que cualquiera pueda participar en la mejora del software. Esa colaboración hace que el software evolucione muy deprisa y con menor coste. ¡Pero “libre” no significa “gratis”! . El software libre sólo se refiere a la forma de distribución del programa, no a su desarrollo: el desarrollo del software libre sigue el mismo proceso de ingeniería que el software propietario. El Open source (código abierto) es un movimiento parecido al del software libre, pero basado en consideraciones técnicas en lugar de ideológicas. En la práctica, los dos movimientos se confunden. Las grandes compañías recelan del movimiento del software libre, por lo que apoyan principalmente el Open source. La diferencia entre los dos movimientos, por tanto, no es práctica, sino ideológica. | Software libre: el software debe compartirse para fomentar la colaboración entre usuarios, la cohesión social, el acceso de todos a la tecnología y la compartición de conocimiento (que hace a los programas avanzar más deprisa con menos coste) . | Open source: sólo se quedan con la última parte. | . | . El software libre y el open source tienen ciertas peculiaridades por la forma en que se distribuye este tipo de software: . | Las versiones beta son más abundantes que en el software propietario, y no suelen dirigirse a un público restringido, sino a todo el mundo. | A menudo, se liberan versiones inestables (cuya estabilidad no ha sido bien comprobada) | Las versiones estables suelen tener una cifra par en el segundo número de la versión. Por ejemplo: 4.6.18.8-0 | Las versiones inestables suelen tener una cifra impar en el segundo número de la versión. Ej. 4.7.18.8-0 | . | . ",
     "url": "/docs/prog/_site/apendices/junit#ii6-las-pruebas-en-el-software-libre",
     
     "relUrl": "/apendices/junit#ii6-las-pruebas-en-el-software-libre"
-  },"58": {
+  },"57": {
     "doc": "A4. JUnit",
     "title": "II.7 Recomendaciones finales para la fase de pruebas",
     "content": ". | Las pruebas deben ser realizadas por personas distintas a los diseñadores y programadores. | Los casos de prueba pueden ser tan numerosos que deben diseñarse y documentarse cuidadosamente. | La fase de pruebas debe extenderse a lo largo de todo el proceso de desarrollo y no solo al final. | La posibilidad de encontrar errores en un determinado componente del programa es proporcional al número de errores ya encontrados en ese mismo componente. | TODAS las fases de prueba encuentran errores. Si no los encontramos, no es que no existan, es que estamos haciendo mal las pruebas. | La fase de pruebas nunca termina: no podemos asegurar que “éste era el último error que quedaba”. Para dar por finalizada la fase de pruebas podemos usar dos criterios aproximados: . | Terminar cuando expire el tiempo asignado a las pruebas en la planificación del proyecto. | Terminar cuando los casos de prueba que hemos diseñado ya no detecten más errores. | . ",
     "url": "/docs/prog/_site/apendices/junit#ii7-recomendaciones-finales-para-la-fase-de-pruebas",
     
     "relUrl": "/apendices/junit#ii7-recomendaciones-finales-para-la-fase-de-pruebas"
-  },"59": {
+  },"58": {
     "doc": "A4. JUnit",
     "title": "II.8 JUnit: una introducción",
     "content": "JUnit es un marco de pruebas unitarias para Java. Permite automatizar las pruebas de tipo unitario para librar al programador de tener que hacerlas “a mano”. JUnit es software libre y se puede descargar de junit.org, aunque los IDEs más populares lo incluyen de un modo u otro. Más abajo explicamos cómo ponerlo en marcha en Netbeans y VS Code. Aunque veréis JUnit con más detalle en el módulo de Entornos de Desarrollo, vamos a presentaros aquí los conceptos fundamentales para que conozcáis una herramienta de automatización de pruebas. Ten en cuenta que JUnit no es la única herramienta de testing para Java. Existen muchas más, entre las que podemos mencionar: . | TestNG: alternativa popular a JUnit . | Arquillian: orientada a pruebas de integración más que unitarias | Mockito: para simular dependencias | Selenium: se usa para testing de aplicaciones web hechas con Java | . | . ",
     "url": "/docs/prog/_site/apendices/junit#ii8-junit-una-introducci%C3%B3n",
     
     "relUrl": "/apendices/junit#ii8-junit-una-introducción"
-  },"60": {
+  },"59": {
     "doc": "A4. JUnit",
     "title": "Cómo funciona JUnit",
     "content": "JUnit basa su funcionamiento en escribir programas de testeo que prueban métodos de otras clases para ver si devuelven lo que se supone que deben devolver. Por ejemplo, supongamos que tenemos una clase Calculadora cuyo funcionamiento queremos probar con JUnit: . public class Calculadora { . **`public int sumar(int a, int b) {`** **`return a + b;`** **`}`** **`public int restar(int a, int b) {`** **`return a - b;`** **`}`** **`}`** . Para JUnit tendremos que escribir una clase de prueba, que podemos llamar CalculadoraTest, con este aspecto: . public class CalculadoraTest { @Test public void testSumar() { Calculadora calculadora = new Calculadora(); int resultado = calculadora.sumar(2, 3); assertEquals(5, resultado, \"La suma debería ser 5\"); } @Test public void testRestar() { // Instanciamos la clase Calculadora Calculadora calculadora = new Calculadora(); . **`// Llamamos al método a probar y comparamos el resultado`** **`int resultado = calculadora.restar(5, 3);`** **`// Verificamos que el resultado sea el esperado`** **`assertEquals(2, resultado, \"La resta debería ser 2\");`** **`}`** **`}`** . | La anotación @Test indica que el método es una prueba o test de otro método. | assertEquals(expected, actual) se usa para comparar el valor esperado con el valor real obtenido. Si son iguales, la prueba queda superada; si no, la prueba falla y muestra el mensaje «La suma debería ser 5» o «La resta debería ser 2». | . ",
     "url": "/docs/prog/_site/apendices/junit#c%C3%B3mo-funciona-junit",
     
     "relUrl": "/apendices/junit#cómo-funciona-junit"
-  },"61": {
+  },"60": {
     "doc": "A4. JUnit",
     "title": "Los asserts",
     "content": "Los asserts que aparecen en las clases de prueba de JUnit son los que establecen qué clase de test se va a pasar en cada caso. Los hay de muchos tipos: . | assertEquals() → Para ver si un método devuelve un valor concreto . | assertNotEquals() → Al contrario que el anterior | assertTrue() → Para ver si una condición es verdadera | assertFalse() → Al contrario que el anterior | assertSame() → Para ver si dos objetos son el mismo (en memoria) | assertArrayEquals() → Para ver si dos arrays contienen lo mismo | assertThrows() → Para ver si se lanza una excepción determinada | assertTimeout() → Para ver si un proceso tarda menos de un tiempo determinado. | assertAll() → Para agrupar varios assert en un solo bloque. | . | . Hoy en día, lo más habitual es pasarle a una IA el código de la clase que queremos probar y pedirle que genere una clase de prueba. Luego solo tenemos que revisar el código generado por la IA para comprobar que los tests tienen sentido y que no queda nada importante por comprobar. ",
     "url": "/docs/prog/_site/apendices/junit#los-asserts",
     
     "relUrl": "/apendices/junit#los-asserts"
-  },"62": {
+  },"61": {
     "doc": "A4. JUnit",
     "title": "Configurar Maven para JUnit en VSCode",
     "content": "Solo asegúrate de que tu proyecto Maven tiene estas dependencias en el archivo pom.xml (si aún no sabes qué es Maven, mira el apéndice sobre Maven que acompaña a este mismo tema, donde explicamos cómo funciona este gestor de proyectos). De momento, no necesitas saber mucho de Maven salvo dos cosas: Maven te ayuda a enlazar tus programas Java con herramientas adicionales, como JUnit, y su configuración se controla desde un archivo llamado pom.xml, que debe contener esto para poder usar JUnit: . &lt;dependency&gt; &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt; &lt;artifactId&gt;junit-jupiter-api&lt;/artifactId&gt; &lt;version&gt;5.8.2&lt;/version&gt; &lt;scope&gt;test&lt;/scope&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt; &lt;artifactId&gt;junit-jupiter-engine&lt;/artifactId&gt; &lt;version&gt;5.8.2&lt;/version&gt; &lt;scope&gt;test&lt;/scope&gt; &lt;/dependency&gt; . (Jupiter es la biblioteca que permite crear las clases con anotaciones @Test) . ",
     "url": "/docs/prog/_site/apendices/junit#configurar-maven-para-junit-en-vscode",
     
     "relUrl": "/apendices/junit#configurar-maven-para-junit-en-vscode"
-  },"63": {
+  },"62": {
     "doc": "A4. JUnit",
     "title": "Ejecución de las pruebas",
     "content": "Una vez que tenemos programadas las clases de testeo y que hemos configurado el proyecto para usar JUnit, solo tenemos que lanzar los tests. A) Con NetBeans, Eclipse o IntelliJ: . Se lanzan las pruebas desde el propio IDE. P. ej: en NetBeans, se lanzan con Run → Test Project . B) Con Visual Studio Code . Necesitarás haber creado un proyecto Maven (o Gradle). Ahora puedes lanzar las pruebas a mano con el comando: . mvn test . O también puedes abrir la paleta de comandos (Ctrl+Shift+P) y buscar “Test Explorer”. Se abrirá la vista Test Explorer, desde donde puedes lanzar las pruebas sin salirte a la consola. Tras ejecutar las pruebas, JUnit nos dará un informe como este: . ------------------------------------------------------- T E S T S ------------------------------------------------------- Running CalculadoraTest Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.159 sec Results : (Aquí se indicarían los errores encontrados, en caso de haberlos) . ",
     "url": "/docs/prog/_site/apendices/junit#ejecuci%C3%B3n-de-las-pruebas",
     
     "relUrl": "/apendices/junit#ejecución-de-las-pruebas"
-  },"64": {
+  },"63": {
     "doc": "A4. JUnit",
     "title": "A4. JUnit",
     "content": " ",
     "url": "/docs/prog/_site/apendices/junit",
     
     "relUrl": "/apendices/junit"
-  },"65": {
+  },"64": {
     "doc": "Apéndices",
     "title": "Apéndices",
     "content": "ESTA PÁGINA ESTÁ EN DESARROLLO&lt;/div&gt; # Índice {: .no_toc } - TOC {:toc} ",
     "url": "/docs/prog/_site/apendices/",
     
     "relUrl": "/apendices/"
-  },"66": {
+  },"65": {
     "doc": "About",
     "title": "About",
     "content": "Estos apuntes han sido elaborados por el profesorado del Departamento de Informática del IES Celia Viñas a lo largo de los últimos 20 años. Se actualizan todos los años y se publican aquí con licencia CC BY 4.0, lo que quiere decir que eres libre de usar este material, copiarlo, distribuirlo y modificarlo siempre que el resultado de todo eso mantenga la misma licencia y cites la autoría original. Algunos fragmentos (pocos) están tomados y adaptados de otras fuentes. Cuando eso ocurre, lo indico claramente en el texto. Debes atenerte a la licencia de los sitios web de origen para esos fragmentos. ",
     "url": "/docs/prog/_site/about/",
     
     "relUrl": "/about/"
-  },"67": {
+  },"66": {
     "doc": "Programación",
     "title": "Programación",
     "content": "Esta es la documentación (apuntes) del módulo de Programación de los Ciclos Formativos de Grado Superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web impartidos en el IES Celia Viñas de Almería (España). Curso 2026/2027. Descargar presentación del módulo . ",

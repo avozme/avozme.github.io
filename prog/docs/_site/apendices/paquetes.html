@@ -1,0 +1,79 @@
+<h2 id="apéndice-1-paquetes">Apéndice 1. Paquetes</h2>
+
+<h4 id="qué-son-los-paquetes-en-java">Qué son los paquetes en Java</h4>
+
+<p>Un <strong>paquete</strong> o <strong>package</strong> es un conjunto de clases relacionadas entre sí empaquetadas en un archivo. En el JDK existen multitud de paquetes estándar que usarás continuamente, y, además, puedes encontrar paquetes de terceros para hacer todo tipo de cosas. Y tú mismo aprenderás a hacer tus propios paquetes.</p>
+
+<p>Un paquete en Java es, pues, lo que en otros lenguajes se denomina librería o biblioteca.</p>
+
+<p>Por ejemplo, en el JDK existe un paquete llamado java.io, donde se agrupan todas las clases que permiten hacer la entrada/salida de datos (por consola y teclado, pero también escribir en archivos de disco, por ejemplo).</p>
+
+<p>El uso de paquetes permite agrupar las clases relacionadas en un solo lugar y, además, evitar posibles conflictos con nombres de clases y métodos que se repitan. Al estar en paquetes separados, ya no es posible la confusión.</p>
+
+<p>Para usar un paquete se utiliza la sentencia import. En este ejemplo puedes ver su uso:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Para importar la clase System del paquete java.lang</span>
+<span class="kn">import</span> <span class="nn">java.lang.System</span><span class="o">;</span>
+
+<span class="c1">// Para importar TODAS las clases del paquete java.lang</span>
+<span class="kn">import</span> <span class="nn">java.lang.*</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Una vez importado un paquete, podemos usar los métodos del mismo sin indicar el nombre completo del paquete. Por ejemplo, en lugar de hacer esto:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hola, mundo"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Podemos hacer esto:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.lang.System</span><span class="o">;</span>
+<span class="n">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hola, mundo"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Para acceder correctamente a los paquetes, el compilador de Java necesita saber dónde están los archivos de la biblioteca de clases, es decir, tienes que configurar adecuadamente la variable de entorno CLASSPATH. Esto ya no es necesario en las última versiones de Java si hablamos de los paquetes estándar del JDK, pero sí lo será si utilizas paquetes de terceros.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>CLASSPATH <span class="o">=</span> &lt;ruta a la biblioteca de clases&gt;:&lt;ruta 2&gt;:&lt;ruta 3&gt;:etc
+<span class="nv">$ </span><span class="nb">export </span>CLASSPATH
+</code></pre></div></div>
+
+<p>(sustituye el carácter : por ; si estás trabajando en un sistema Windows)</p>
+
+<p>Recuerda que, como vimos en el tema 1, también puedes compilar el programa con la opcion -cp, indicando a continuación el classpath de tu aplicación:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>javac <span class="nt">-cp</span> /ruta/a/mis/clases nombre.java
+</code></pre></div></div>
+
+<h4 id="algunos-paquetes-notables-del-jdk">Algunos paquetes notables del JDK</h4>
+
+<p>El JDK de Java, como hemos dicho, proporciona una colección realmente enorme de clases, todas ellas agrupadas en sus correspondientes paquetes. Puedes consultar la lista completa en la documentación oficial online de Oracle.</p>
+
+<p>Realmente, no existe ningún programador en el mundo que conozca en profundidad el funcionamiento de todas esas clases, ni falta que le hace para programar bien. Sería tan absurdo como suponer que una persona debe conocer a todos los habitantes de la ciudad en la que vive. Uno conoce a sus compañeros de trabajo o de clase, a su familia, tal vez a sus vecinos, y a un puñado más o menos extenso de amigos. Eso sucede también con la biblioteca de clases: acabarás conociendo con bastante detalle algunas clases a fuerza de usarlas una y otra vez, pero el resto serán como esa gente anónima que te cruzas continuamente por la calle.</p>
+
+<p>Eso sí, si algún día las necesitas, debes ser capaz de acudir a la documentación (mejor la oficial), mirar un par de ejemplos, y hacer uso de cualquier clase de la biblioteca que no habías conocido antes.</p>
+
+<p>Te presentamos aquí una lista con los paquetes más utilizados del JDK de Java, de modo que sepas por dónde empezar a buscar en caso necesario y que te vayan sonando los nombres:</p>
+
+<ul>
+  <li>
+    <p><strong>java.lang</strong>: Contiene la clases fundamentales del lenguaje. Se carga automáticamente con cuaquier programa, sin necesidad de hacer import.</p>
+  </li>
+  <li>
+    <p><strong>java.util</strong>: Clases relacionadas con las colecciones y estructuras de datos: listas, colas, pilas, y muchas otras.</p>
+  </li>
+  <li>
+    <p><strong>java.io, java.nio</strong>: Clases relacionadas con la entrada/salida por consola y por otras vías.</p>
+  </li>
+  <li>
+    <p><strong>java.math</strong>: Clases para cálculos y operaciones matemáticas.</p>
+  </li>
+  <li>
+    <p><strong>java.awt, java.swing</strong>: Clases para generar interfaces gráficos (ventanas, botones, etc)</p>
+  </li>
+  <li>
+    <p><strong>java.sql</strong>: Clases para gestionar el acceso a bases de datos externas.</p>
+  </li>
+  <li>
+    <p><strong>java.net</strong>: Clases para gestionar el trabajo en red.</p>
+  </li>
+</ul>
+

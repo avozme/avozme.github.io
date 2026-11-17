@@ -1,0 +1,241 @@
+<h2 class="no_toc" id="34-métodos-paso-de-parámetros-y-devolución-de-resultados">3.4. Métodos: paso de parámetros y devolución de resultados</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#341-paso-de-parámetros" id="markdown-toc-341-paso-de-parámetros">3.4.1. Paso de parámetros</a></li>
+  <li><a href="#342-devolución-de-resultados" id="markdown-toc-342-devolución-de-resultados">3.4.2. Devolución de resultados</a></li>
+  <li><a href="#343-métodos-y-atributos-static" id="markdown-toc-343-métodos-y-atributos-static">3.4.3. Métodos y atributos static</a></li>
+  <li><a href="#344-constructores-primeros-pasos" id="markdown-toc-344-constructores-primeros-pasos">3.4.4. Constructores: primeros pasos</a></li>
+</ul>
+
+<h3 id="341-paso-de-parámetros">3.4.1. Paso de parámetros</h3>
+
+<p>Los métodos pueden recibir una serie de valores denominados parámetros. En la clase Persona del ejemplo anterior, el método setEdad(), por ejemplo, recibía un parámetro de tipo int llamado n. En ese parámetro se indica al método cuál es la edad que debe almacenarse en el estado del objeto.</p>
+
+<p>Por lo tanto, los parámetros son imprescindibles para que el objeto reciba los mensajes correctamente. Si no, ¿cómo le indicaríamos al objeto de tipo Persona cuál es la edad que tiene que almacenar?</p>
+
+<p>Un método puede tener una lista larguísima de parámetros, o ninguno. Lo más habitual es que tenga entre cero y unos pocos.</p>
+
+<p>En la declaración del método hay que indicar el tipo de cada parámetro. Observa este ejemplo:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">setDatos</span><span class="o">(</span><span class="nc">String</span> <span class="n">nombre</span><span class="o">,</span> <span class="nc">String</span> <span class="n">apellido</span><span class="o">,</span> <span class="kt">int</span> <span class="n">edad</span><span class="o">,</span> <span class="kt">char</span> <span class="n">sexo</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Este hipotético método setDatos() podría servir para asignar valor a todos los atributos de la clase Persona del ejemplo anterior. Por supuesto, cuando llamemos al método setDatos() para que se ejecute, será necesario pasarle cuatro datos que coincidan en tipo con los cuatro parámetros. Esta podría ser una posible invocación:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Persona</span><span class="o">();</span>
+<span class="n">p</span><span class="o">.</span><span class="na">setDatos</span><span class="o">(</span><span class="s">"Ana"</span><span class="o">,</span> <span class="s">"Sánchez"</span><span class="o">,</span> <span class="mi">45</span><span class="o">,</span> <span class="sc">'M'</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Esas dos líneas de código, pues, son equivalentes a estas otras:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Persona</span><span class="o">();</span>
+<span class="n">p</span><span class="o">.</span><span class="na">setNombre</span><span class="o">(</span><span class="s">"Ana"</span><span class="o">);</span>
+<span class="n">p</span><span class="o">.</span><span class="na">setApellido</span><span class="o">(</span><span class="s">"Sánchez"</span><span class="o">);</span>
+<span class="n">p</span><span class="o">.</span><span class="na">setEdad</span><span class="o">(</span><span class="mi">45</span><span class="o">);</span>
+<span class="n">p</span><span class="o">.</span><span class="na">setSexo</span><span class="o">(</span><span class="sc">'M'</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Al pasar un parámetro a un método, por tanto, <strong>se copia el valor de dato en el argumento</strong> del método. Por ejemplo, al hacer p.setEdad(45), estamos copiando un dato (el número 45) en el parámetro edad del método setEdad() del objeto de tipo Persona.</p>
+
+<p>Pero los valores no siempre se copian. De hecho, existen dos formas de enviar parámetros a un método:</p>
+
+<ul>
+  <li>
+    <p><strong>Paso de parámetros por valor</strong>: este es el caso que hemos visto hasta ahora. Los datos se copian en los argumentos del método. Esto quiere decir que el método trabaja con una copia de los datos originales. Si el método los altera de alguna manera, los datos originales NO se modifican, porque el método trabaja con su propia copia de los datos.</p>
+  </li>
+  <li>
+    <p><strong>Paso de parámetros por referencia</strong>: en este caso, el método no trabaja con una copia de los datos, sino con los datos mismos. Por lo tanto, si el método altera esos datos de alguna manera, los datos originales también se ven afectados, puesto que son los mismos.</p>
+  </li>
+</ul>
+
+<p>En Java, no se puede elegir el tipo de paso de parámetros que queremos usar, sino que Java lo decidirá por nosotros: el paso de parámetros por valor es el que Java utiliza con los tipos primitivos (variables de tipo int, double, char, etc). El paso de parámetros por referencia, en cambio, se usa con el resto objetos complejos (como String, ArrayList o muchos otros que iremos viendo a lo largo del curso)</p>
+
+<p>Por ahora no te preocupes demasiado por esto del paso de parámetros por valor y por referencia. Lo iremos comprendiendo poco a poco, con la práctica, y volveremos a ello desde un punto de vista más formal en el Tema 5. Si has seguido el curso con aprovechamiento hasta entonces, verás como lo comprendes todo mucho mejor.</p>
+
+<h3 id="342-devolución-de-resultados">3.4.2. Devolución de resultados</h3>
+
+<p>Probablemente habrás observado que algunos métodos terminan con la sentencia <strong>return</strong> y otros nos. Los que sí lo hacen devuelven un resultado al código que los llamó. Ese resultado puede ser de cualquier tipo y también hay que indicarlo en la declaración del método.</p>
+
+<p>El método seDatos() anterior no devuelve nada, por lo que, en la declaración, se usa la palabra void (vacío). Pero el método getEdad(), por ejemplo, devuelve un valor entero (la edad de la persona), y por eso se indica int en la declaración:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">int</span> <span class="nf">getEdad</span><span class="o">()</span> <span class="o">{</span>
+   <span class="k">return</span> <span class="n">edad</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="343-métodos-y-atributos-static">3.4.3. Métodos y atributos static</h3>
+
+<p>Algunos métodos, como algunos atributos, pueden estar precedidos de la palabra <strong>static</strong>.</p>
+
+<p>Esto quiere decir que, para esa clase, se creará solo una instancia de ese método o atributo. No importa si se crean 800 objetos de tipo Persona: el atributo o el método static solo se creará una vez, y los 800 objetos de esa clase, del primero al último, lo compartirán.</p>
+
+<p>Esto no solo permite ahorrar recursos en términos de memoria, sino que a veces resulta muy útil (si no, ¡no lo habrían inventado!). Por ejemplo, podemos usar un atributo static para llevar la cuenta del número de personas que se han creado:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Persona</span> <span class="o">{</span>
+
+   <span class="c1">// Al crear la primera persona, esta variable se pondrá a 0</span>
+   <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">numPersonas</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>   
+
+   <span class="kd">static</span> <span class="kt">void</span> <span class="nf">contarNuevaPersona</span><span class="o">()</span> <span class="o">{</span>
+      <span class="c1">// Incrementamos el contador de personas</span>
+      <span class="n">numPersonas</span><span class="o">++;</span>
+   <span class="o">}</span>
+
+   <span class="c1">// El resto de la clase sería igual que antes</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Si cada vez que creamos un objeto de la clase persona llamamos al método contarNuevaPersona(), el atributo numPersonas se incrementará en una unidad y contendrá el número total de objetos de esa clase que existen. En cambio, si no fuera un atributo static, cada objeto Persona tendría su propio atributo puesto a 0 en el momento de su creación, y la llamada a contarNuevaPersona() establecería su valor a 1.</p>
+
+<p>Eso sí, tendremos que acordarnos de llamar a nuevaPersona() cada vez que creamos un objeto de tipo Persona, o, si no, no llevaremos bien la cuenta:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Persona</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Persona</span><span class="o">();</span>
+<span class="n">p</span><span class="o">.</span><span class="na">contarNuevaPersona</span><span class="o">();</span>  <span class="c1">// Si se nos olvida esto, la cuenta de personas</span>
+                         <span class="c1">// ya no se será correcta.</span>
+<span class="n">p</span><span class="o">.</span><span class="na">setNombre</span><span class="o">(</span><span class="s">"Miguel"</span><span class="o">);</span>
+<span class="n">etc</span><span class="o">.</span>
+</code></pre></div></div>
+
+<p>Es lógico suponer que siempre querremos llamar a contarNuevaPersona() cada vez que creemos un objeto Persona, ¿no? También es de suponer que se trata de una situación habitual, esto eso, que a menudo hay algún método que debemos invocar siempre justo después de crear un objeto. ¿Existirá alguna forma de hacerlo automáticamente, sin necesidad de confiar en la buena memoria del programador?</p>
+
+<p>La respuesta, obviamente, es sí: los métodos constructores.</p>
+
+<h3 id="344-constructores-primeros-pasos">3.4.4. Constructores: primeros pasos</h3>
+
+<p>En Java existen dos tipos de métodos especiales llamados <strong>constructores</strong> y <strong>destructores</strong> de objetos. No es obligatorio programarlos para cada clase, pero sí que aparecen con frecuencia, sobre todo los constructores (de los destructores hablaremos más adelante)</p>
+
+<p>El constructor es un método que es invocado automáticamente al crear un objeto de la clase. Su función suele ser <strong>inicializar el estado del objeto</strong>.</p>
+
+<p>Por ejemplo, en la clase Persona de los ejemplos anteriores un posible constructor sería este:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Persona</span> <span class="o">{</span>
+
+   <span class="nc">Persona</span><span class="o">()</span> <span class="o">{</span>
+      <span class="n">nombre</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span> <span class="n">apellido</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+      <span class="n">edad</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+      <span class="n">sexo</span> <span class="o">=</span> <span class="sc">'X'</span><span class="o">;</span>
+      <span class="n">contarNuevaPersona</span><span class="o">();</span>
+   <span class="o">}</span>
+   <span class="c1">// El resto de la clase quedaría igual</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Observa varias cosas importantes:</p>
+
+<ul>
+  <li>
+    <p>El nombre del constructor debe coincidir con el de la clase.</p>
+  </li>
+  <li>
+    <p>El constructor se ha usado para inicializar con valores vacíos todos los atributos de la clase.</p>
+  </li>
+  <li>
+    <p>También se ha aprovechado para invocar el método nuevaPersona(), que contabiliza todos los objetos Persona creados por el programa. Así, esa contabilización se automatiza, porque nuevaPersona() será invocado siempre que se cree un objeto Persona. Ya no tenemos que confiar en la buena memoria del programador.</p>
+  </li>
+  <li>
+    <p>El constructor no devuelve nada ni se indica su visibilidad (por definición, tiene que ser public)</p>
+  </li>
+  <li>
+    <p>Los constructores pueden parametrizarse y, de hecho, sobrecargarse. Observa como en la siguiente variación de la clase Persona hay dos constructores, uno con parámetros y otro sin ellos:</p>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Persona</span> <span class="o">{</span>
+
+   <span class="nc">Persona</span><span class="o">()</span> <span class="o">{</span>
+      <span class="n">nombre</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span> <span class="n">apellido</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+      <span class="n">edad</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+      <span class="n">sexo</span> <span class="o">=</span> <span class="sc">'X'</span><span class="o">;</span>
+      <span class="n">nuevaPersona</span><span class="o">();</span>
+   <span class="o">}</span>
+
+   <span class="nc">Persona</span><span class="o">(</span><span class="nc">String</span> <span class="n">n</span><span class="o">,</span> <span class="nc">String</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">e</span><span class="o">,</span> <span class="kt">char</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">nombre</span> <span class="o">=</span> <span class="n">n</span><span class="o">;</span> <span class="n">apellido</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+      <span class="n">edad</span> <span class="o">=</span> <span class="n">e</span><span class="o">;</span>
+      <span class="n">sexo</span> <span class="o">=</span> <span class="n">s</span><span class="o">;</span>
+      <span class="n">nuevaPersona</span><span class="o">();</span>
+   <span class="o">}</span>
+
+   <span class="c1">// El resto de la clase quedaría igual</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Esto es una excelente idea, porque ahora podemos crear personas por dos vías diferentes con el mismo resultado. Lo ilustramos en este ejemplo:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Creamos una persona con el constructor sin parámetros</span>
+<span class="c1">// y luego le asignamos los valores</span>
+<span class="nc">Persona</span> <span class="n">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Persona</span><span class="o">();</span>
+<span class="n">p1</span><span class="o">.</span><span class="na">setNombre</span><span class="o">(</span><span class="s">"Miguel"</span><span class="o">);</span>
+<span class="n">p1</span><span class="o">.</span><span class="na">setApellido</span><span class="o">(</span><span class="s">"Pérez"</span><span class="o">);</span>
+<span class="n">p1</span><span class="o">.</span><span class="na">setEdad</span><span class="o">(</span><span class="mi">23</span><span class="o">);</span>
+<span class="n">p1</span><span class="o">.</span><span class="na">setSexo</span><span class="o">(</span><span class="sc">'H'</span><span class="o">);</span>
+<span class="c1">// Ahora creamos otra persona con el constructor parametrizado</span>
+<span class="nc">Persona</span> <span class="n">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Persona</span><span class="o">(</span><span class="s">"Luisa"</span><span class="o">,</span> <span class="s">"Martínez"</span><span class="o">,</span> <span class="mi">21</span><span class="o">,</span> <span class="sc">'M'</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Presentamos por último la versión “todo junto” de la clase Persona, con todos los elementos que hemos ido añadiendo (método static y constructor polimórfico)</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Versión definitiva de la clase Persona</span>
+
+<span class="kd">class</span> <span class="nc">Persona</span> <span class="o">{</span>
+
+   <span class="kd">private</span> <span class="nc">String</span> <span class="n">nombre</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="nc">String</span> <span class="n">apellido</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="kt">int</span> <span class="n">edad</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="kt">char</span> <span class="n">sexo</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">numPersonas</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>   <span class="c1">// Al crear la primera persona,</span>
+                                         <span class="c1">// esta variable se pondrá a 0</span>
+   <span class="c1">// Constructor sin parámetros</span>
+   <span class="nc">Persona</span><span class="o">()</span> <span class="o">{</span>
+      <span class="n">nombre</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span> <span class="n">apellido</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+      <span class="n">edad</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+      <span class="n">sexo</span> <span class="o">=</span> <span class="sc">'X'</span><span class="o">;</span>
+      <span class="n">nuevaPersona</span><span class="o">();</span>
+   <span class="o">}</span>
+
+   <span class="c1">// Constructor con parámetros</span>
+   <span class="nc">Persona</span><span class="o">(</span><span class="nc">String</span> <span class="n">n</span><span class="o">,</span> <span class="nc">String</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">e</span><span class="o">,</span> <span class="kt">char</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">nombre</span> <span class="o">=</span> <span class="n">n</span><span class="o">;</span> <span class="n">apellido</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+      <span class="n">edad</span> <span class="o">=</span> <span class="n">e</span><span class="o">;</span>
+      <span class="n">sexo</span> <span class="o">=</span> <span class="n">s</span><span class="o">;</span>
+      <span class="n">nuevaPersona</span><span class="o">();</span>
+   <span class="o">}</span>
+
+   <span class="c1">// Método estático para contar en número de personas creadas</span>
+   <span class="kd">static</span> <span class="kt">void</span> <span class="nf">nuevaPersona</span><span class="o">()</span> <span class="o">{</span>
+      <span class="n">numPersonas</span><span class="o">++;</span>   <span class="c1">// Se incrementa cada vez que se crea una persona</span>
+   <span class="o">}</span>
+
+   <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getNombre</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">nombre</span><span class="o">;</span>
+   <span class="o">}</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNombre</span><span class="o">(</span><span class="nc">String</span> <span class="n">txt</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">nombre</span> <span class="o">=</span> <span class="n">txt</span><span class="o">;</span>
+   <span class="o">}</span>
+
+   <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getApellido</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">apellido</span><span class="o">;</span>
+   <span class="o">}</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setApellido</span><span class="o">(</span><span class="nc">String</span> <span class="n">txt</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">apellido</span> <span class="o">=</span> <span class="n">txt</span><span class="o">;</span>
+   <span class="o">}</span>
+
+   <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getEdad</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">edad</span><span class="o">;</span>
+   <span class="o">}</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setEdad</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">edad</span> <span class="o">=</span> <span class="n">n</span><span class="o">;</span>
+   <span class="o">}</span>
+
+   <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getSexo</span><span class="o">()</span> <span class="o">{</span>
+      <span class="nc">String</span> <span class="n">s</span><span class="o">;</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">sexo</span> <span class="o">==</span> <span class="sc">'H'</span><span class="o">)</span> <span class="n">s</span> <span class="o">=</span> <span class="s">"Hombre"</span><span class="o">;</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">sexo</span> <span class="o">==</span> <span class="sc">'M'</span><span class="o">)</span> <span class="n">s</span> <span class="o">=</span> <span class="s">"Mujer"</span><span class="o">;</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">sexo</span> <span class="o">!=</span> <span class="sc">'H'</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">sexo</span> <span class="o">!=</span> <span class="sc">'M'</span><span class="o">)</span> <span class="n">s</span> <span class="o">=</span> <span class="s">"Desconocido"</span><span class="o">;</span>
+      <span class="k">return</span> <span class="n">s</span><span class="o">;</span>
+   <span class="o">}</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setSexo</span><span class="o">(</span><span class="kt">char</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">sexo</span> <span class="o">=</span> <span class="n">s</span><span class="o">;</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>

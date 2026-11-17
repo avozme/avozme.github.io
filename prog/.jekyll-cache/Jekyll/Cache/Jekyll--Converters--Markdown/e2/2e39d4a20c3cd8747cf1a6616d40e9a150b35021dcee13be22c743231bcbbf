@@ -1,0 +1,10 @@
+I"1<h1 class="no_toc" id="ud-3-los-objetos-una-introducción-a-la-poo">UD 3. Los objetos. Una introducción a la POO</h1>
+<p><img src="/docs/prog/_site/assets/images/03_intro.jpg" alt="Imagen de introducción al tema 3" /></p>
+
+
+<p>En este capítulo introduciremos los conceptos básicos sobre programación orientada a objetos (POO) y aprenderemos a construir nuestras primeras clases y, con ellas, nuestros primeros programas verdaderamente orientados a objetos.</p>
+
+<p>Expondremos en qué consiste el famoso paradigma de orientación a objetos utilizando para ello ejemplos y analogías que lo harán fácilmente comprensible. Después definiremos más formalmente los elementos principales tales como clases, objetos, métodos o atributos. Construiremos nuestras primeras clases y diremos algunas cosas interesantes sobre los métodos, el paso de parámetros y la devolución de resultados.</p>
+
+<p>Este tema solo es una introducción a la POO. Volveremos sobre todos estos asuntos más adelante en este curso y los ampliaremos en un proceso de aprendizaje continuo.</p>
+:ET

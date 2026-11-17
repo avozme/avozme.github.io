@@ -1,0 +1,9 @@
+En esta carpeta tengo parcialmente hecha una documentación sobre programación en Java en formato Markdown.
+
+Puedes ver la estructura que le estoy dando en el documento mirando, por ejemplo, el 02_prog_estructurada.md, que es la intro del tema 2 (o unidad didáctica 2) y que tiene todos sus subapartados en el subdirectorio 02_prog_estructurada (también archivos markdown)
+
+Las imágenes, cuando las hay, están guardadas en la carpeta images
+
+Las únicas unidades que están hechas ahora mismo son la 02 y la 03. El resto aún están en documentos .docx que encontrarás en el directorio raíz.
+
+Quiero que abras cada .docx correspondiente a cada unidad didáctica y generes el markdown correspondiente, respetando completamente todo el contenido (incluyendo texto e imágenes) y dándole un formato parecido al de la Unidad Didáctica 3 que ya está hecha. Separa cada sección de cada .docx en un documento markdown diferente, que debes colocar en el subdirectorio correspondiente a esa UD. Utiliza los títulos de esos apartados para componer los títulos de nivel 2 (##) o nivel 3 y 4 (### o ####), según corresponda. Añade los ejercicios propuestos de cada .docx como un archivo markdown adicional de esa unidad didáctica. Pero si en el .docx hay algún apéndice que no pertenezca al tema, añádelo como apéndice al directorio A0_apendices

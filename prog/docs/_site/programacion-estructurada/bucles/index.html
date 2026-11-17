@@ -1,0 +1,258 @@
+<h2 class="no_toc" id="24-estructura-repetitiva-bucles">2.4. Estructura repetitiva (bucles)</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#241-bucle-mientras" id="markdown-toc-241-bucle-mientras">2.4.1. Bucle mientras</a></li>
+  <li><a href="#242-bucle-hacer-mientras" id="markdown-toc-242-bucle-hacer-mientras">2.4.2. Bucle hacer… mientras</a></li>
+  <li><a href="#243-bucle-para-for" id="markdown-toc-243-bucle-para-for">2.4.3. Bucle para (for)</a></li>
+  <li><a href="#244-contadores-acumuladores-conmutadores" id="markdown-toc-244-contadores-acumuladores-conmutadores">2.4.4. Contadores, acumuladores, conmutadores</a>    <ul>
+      <li><a href="#contadores" id="markdown-toc-contadores">Contadores</a></li>
+      <li><a href="#acumuladores" id="markdown-toc-acumuladores">Acumuladores</a></li>
+      <li><a href="#conmutadores" id="markdown-toc-conmutadores">Conmutadores</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>Los ordenadores se diseñaron inicialmente para realizar tareas sencillas y repetitivas. El ser humano es de lo más torpe acometiendo tareas repetitivas: pronto le falla la concentración y comienza a tener descuidos. Los ordenadores programables, en cambio, pueden realizar la misma tarea muchas veces por segundo durante años y nunca se aburren.</p>
+
+<p>La estructura repetitiva, por tanto, reside en la naturaleza misma de los ordenadores y consiste, simplemente, en repetir varias veces un conjunto de instrucciones. Las estructuras repetitivas también se llaman <strong>bucles</strong>, <strong>lazos</strong>, <strong>iteraciones</strong> o <strong>loops</strong>.</p>
+
+<p>Los bucles tienen que repetir un conjunto de instrucciones un número finito de veces. Si no, nos encontraremos con un bucle infinito y el algoritmo no funcionará. Para conseguir que el bucle se repita sólo un número finito de veces, tiene que existir una <strong>condición de salida</strong>.</p>
+
+<p>Por tanto, los bucles se componen, básicamente, de dos elementos:</p>
+
+<p>a. Un <strong>cuerpo del bucle</strong> o conjunto de instrucciones que se ejecutan repetidamente.
+b. Una <strong>condición de salida</strong> para dejar de repetir las instrucciones y continuar con el resto del algoritmo.</p>
+
+<p>Existen tres tipos de bucles:</p>
+
+<ul>
+  <li><strong>Bucle mientras (<code class="language-plaintext highlighter-rouge">while</code>)</strong>: la condición de salida está al principio del bucle.</li>
+  <li><strong>Bucle hacer… mientras (<code class="language-plaintext highlighter-rouge">do...while</code>)</strong>: la condición de salida está al final del bucle.</li>
+  <li><strong>Bucle para (<code class="language-plaintext highlighter-rouge">for</code>)</strong>: la condición de salida está al principio y se realiza con un contador automático.</li>
+</ul>
+
+<h3 id="241-bucle-mientras">2.4.1. Bucle mientras</h3>
+
+<p>El bucle <code class="language-plaintext highlighter-rouge">while</code> es una estructura que se repite mientras una condición sea verdadera:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> <span class="o">(</span><span class="n">condicion</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">acciones</span> <span class="o">(</span><span class="n">cuerpo</span> <span class="n">del</span> <span class="n">bucle</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Su representación gráfica es esta:</p>
+
+<p><img src="../../assets/images/image_8_1.jpg" alt="Diagrama de flujo - Bucle Mientras" /></p>
+
+<p>Cuando se llega a una instrucción <code class="language-plaintext highlighter-rouge">while</code>, se evalúa la condición. Si es verdadera, se realizan las acciones y se regresa al principio de la instrucción <code class="language-plaintext highlighter-rouge">while</code>. Y así hasta que la condición se haga falsa.</p>
+
+<p><strong>Ejemplo:</strong> Escribir un algoritmo que muestre en la pantalla todos los números enteros entre 1 y 100.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">cont</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">while</span> <span class="o">(</span><span class="n">cont</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">cont</span> <span class="o">=</span> <span class="n">cont</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cont</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="242-bucle-hacer-mientras">2.4.2. Bucle hacer… mientras</h3>
+
+<p>El bucle <code class="language-plaintext highlighter-rouge">do...while</code> evalúa la condición de salida al final del bucle. Todo bucle <code class="language-plaintext highlighter-rouge">do... while</code> puede escribirse como un bucle <code class="language-plaintext highlighter-rouge">while</code>, pero al revés no siempre sucede.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">do</span> <span class="o">{</span>
+    <span class="n">acciones</span> <span class="o">(</span><span class="n">cuerpo</span> <span class="n">del</span> <span class="n">bucle</span><span class="o">)</span>
+<span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">condicion</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><img src="../../assets/images/image_9_1.png" alt="Diagrama de flujo - Bucle Hacer Mientras" /></p>
+
+<p>Las acciones del cuerpo de un bucle <code class="language-plaintext highlighter-rouge">do...while</code> se ejecutan <strong>al menos una vez</strong>, a diferencia del bucle <code class="language-plaintext highlighter-rouge">while</code>, que podría no llegar a ejecutarse ninguna vez.</p>
+
+<p><strong>Ejemplo:</strong> Diseñar un algoritmo que escriba todos los números enteros entre 1 y 100 utilizando <code class="language-plaintext highlighter-rouge">do...while</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">cont</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">do</span> <span class="o">{</span>
+    <span class="n">cont</span> <span class="o">=</span> <span class="n">cont</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cont</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">cont</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Hay determinadas situaciones donde un <code class="language-plaintext highlighter-rouge">do... while</code> puede ser más ventajoso, o generar un código más comprensible, que un bucle <code class="language-plaintext highlighter-rouge">while</code>convencional. Pero el bucle <code class="language-plaintext highlighter-rouge">while</code> siempre será una solución perfectamente aceptable para la estructura repetitiva.</p>
+
+<h3 id="243-bucle-para-for">2.4.3. Bucle para (for)</h3>
+
+<p>Cuando el número de repeticiones es fijo y conocido de antemano, lo más cómodo es usar un bucle <code class="language-plaintext highlighter-rouge">for</code>.</p>
+
+<p>Esta estructura repite las acciones del bucle un número prefijado de veces e incrementa automáticamente una variable contador en cada repetición. Su forma general es:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="n">inicializacion</span><span class="o">;</span> <span class="n">condicion</span><span class="o">;</span> <span class="n">incremento</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">acciones</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>La inicialización consiste en la asignación del valor inicial a una variable contador (por ejemplo, <code class="language-plaintext highlighter-rouge">cont</code> o <code class="language-plaintext highlighter-rouge">i</code>, de <em>índice</em>). La primera vez que se ejecutan las acciones del cuerpo del bucle, la variable <code class="language-plaintext highlighter-rouge">cont</code> tendrá el valor especificado en la inicialización. En la siguiente repetición, la variable contador se incrementará según lo expresado en la sección incremento (por ejemplo, <code class="language-plaintext highlighter-rouge">cont = cont + 1</code>, o bien su abreviatura <code class="language-plaintext highlighter-rouge">cont++</code>), y así sucesivamente. El bucle se repetirá mientras que se cumpla la condición.</p>
+
+<p>El bucle <code class="language-plaintext highlighter-rouge">for</code> se representa de deferentes formas según el tipo de diagrama de flujo. Una representación habitual es la que lo muestra como un bucle <code class="language-plaintext highlighter-rouge">while</code>, pues en el fondo es lo mismo que un <code class="language-plaintext highlighter-rouge">while</code> controlado por contador:</p>
+
+<p><img src="../../assets/images/image_10_1.jpg" alt="Diagrama de flujo - Bucle Para" /></p>
+
+<p><strong>Ejemplo 1:</strong> Diseñar un algoritmo que escriba todos los números enteros entre 1 y 100 utilizando un bucle <code class="language-plaintext highlighter-rouge">for</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">cont</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">cont</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="o">;</span> <span class="n">cont</span> <span class="o">=</span> <span class="n">cont</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cont</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Ejemplo 2:</strong> Diseñar un algoritmo que escriba todos los números enteros impares entre 1 y 100:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">cont</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">cont</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="o">;</span> <span class="n">cont</span> <span class="o">=</span> <span class="n">cont</span> <span class="o">+</span> <span class="mi">2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cont</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="244-contadores-acumuladores-conmutadores">2.4.4. Contadores, acumuladores, conmutadores</h3>
+
+<p>Asociadas a los bucles se encuentran a menudo algunas variables auxiliares. Como siempre se utilizan de la misma manera, las llamamos con un nombre propio (contador, acumulador, etc.), pero hay que dejar claro que no son más que variables comunes, aunque se usan de un modo especial.</p>
+
+<h4 id="contadores">Contadores</h4>
+
+<p>Un contador es una variable (casi siempre de tipo entero) cuyo valor se incrementa o decrementa en cada repetición de un bucle. Es habitual llamar a esta variable “cont” (de contador) o, con más frecuencia, “i” (de índice). A partir de ahora nosotros la llamaremos de este último modo.</p>
+
+<p>El contador suele usarse de este modo:</p>
+
+<p>1) <strong>Se inicializa antes de que comience el bucle</strong>. Es decir, se le da un valor inicial. Por ejemplo:</p>
+
+<p><code class="language-plaintext highlighter-rouge">i = 5;</code></p>
+
+<p>2) <strong>Se modifica dentro del cuerpo del bucle</strong>. Lo más habitual es que se incremente su valor en una unidad. Por ejemplo:</p>
+
+<p><code class="language-plaintext highlighter-rouge">i = i + 1;</code></p>
+
+<p>Esto quiere decir que el valor de la variable “i” se incrementa en una unidad y es asignado de nuevo a la variable contador. Es decir, si i valía 5 antes de esta instrucción, i valdrá 6 después.</p>
+
+<p>Otra forma típica del contador es:</p>
+
+<p><code class="language-plaintext highlighter-rouge">i = i – 1;</code></p>
+
+<p>En este caso, la variable se decrementa en una unidad; si cont valía 5 antes de la instrucción, tendremos que cont valdrá 4 después de su ejecución.</p>
+
+<p>El incremento o decremento no tiene por qué ser de una unidad. La cantidad que haya que incrementar o decrementar vendrá dada por la naturaleza del problema.</p>
+
+<p>Ten en cuenta que en Java, y en todos los lenguajes herederos de C, existe la sintaxis alternativa <code class="language-plaintext highlighter-rouge">i++</code> e <code class="language-plaintext highlighter-rouge">i--</code> para representar estos incrementos y decrementos.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">i</span><span class="o">++;</span>   <span class="c1">// Equivalente a i = i + 1</span>
+<span class="n">i</span><span class="o">--;</span>   <span class="c1">// Equivalente a i = i - 1</span>
+</code></pre></div></div>
+
+<p>3) <strong>Se utiliza en la condición de salida del bucle</strong>. Normalmente, se compara con el valor máximo (o mínimo) que debe alcanzar el contador para dejar de repetir las instrucciones del bucle.</p>
+
+<p>Ejemplo: Escribir un algoritmo que escriba la tabla de multiplicar hasta el 100 de un número N introducido por el usuario</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">{</span>
+   <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="n">n</span><span class="o">;</span>
+   <span class="n">n</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">().</span><span class="na">readLine</span><span class="o">());</span>
+   <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+   <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">i</span><span class="o">);</span>
+      <span class="n">i</span><span class="o">++;</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>El uso de contadores es casi omnipresente en bucles “mientras” y “repetir”, aunque es posible crear bucles que funcionen sin contadores. Recuerda que siempre hay que asignar al contador un valor inicial para la primera ejecución del bucle (i = 1 en nuestro ejemplo) e ir incrementándolo (o decrementándolo, según el algoritmo) en cada repetición con una instrucción del tipo <code class="language-plaintext highlighter-rouge">i = i + 1</code> o <code class="language-plaintext highlighter-rouge">i++</code> en el cuerpo del bucle. De lo contrario habremos escrito un bucle infinito.</p>
+
+<p>Por último, hay que prestar atención a la condición de salida, que debe estar asociada al valor del contador en la última repetición del bucle (en nuestro caso, 100). Mucho cuidado con el operador relacional (&lt;, &gt;, &lt;=, &gt;=, etc) que usemos, porque el bucle se puede ejecutar más o menos veces de lo previsto. Por cierto: suele ser buena idea evitar el operador “==” en las condiciones de salida de los bucles, sobre todo si estamos trabajando con números reales.</p>
+
+<h4 id="acumuladores">Acumuladores</h4>
+
+<p>Las variables acumuladoras tienen la misión de almacenar resultados sucesivos, es decir, de acumular resultados, de ahí su nombre.</p>
+
+<p>Las variables acumuladores también debe ser inicializadas. Si llamamos “acum” a un acumulador, escribiremos antes de iniciar el bucle algo como esto:</p>
+
+<p><code class="language-plaintext highlighter-rouge">acum = 0;</code></p>
+
+<p>Por supuesto, el valor inicial puede cambiar, dependiendo de la naturaleza del problema. Más tarde, en el cuerpo del bucle, la forma en la que nos la solemos encontrar es:</p>
+
+<p><code class="language-plaintext highlighter-rouge">acum = acum + n;</code></p>
+
+<p>…siendo n otra variable. Si esta instrucción va seguida de otras:</p>
+
+<p><code class="language-plaintext highlighter-rouge">acum = acum + m;</code>
+<code class="language-plaintext highlighter-rouge">acum = acum + p;</code></p>
+
+<p>…estaremos acumulando en la variable “acum” los valores de las variables n, m, p, etc, lo cual resulta a veces muy útil para resolver ciertos problemas repetitivos.</p>
+
+<p>Ejemplo: Escribir un algoritmo que pida 10 números por el teclado y los sume, mostrando el resultado.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">{</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="n">n</span><span class="o">,</span> <span class="n">suma</span><span class="o">;</span>
+  <span class="n">suma</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+  <span class="k">for</span> <span class="o">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+     <span class="n">n</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">.</span><span class="na">readLine</span><span class="o">());</span>
+     <span class="n">suma</span> <span class="o">=</span> <span class="n">suma</span> <span class="o">+</span> <span class="n">n</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">suma</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>En este algoritmo, i es una variable contador típica de bucle. Se ha usado un bucle “para”, que es lo más sencillo cuando conocemos previamente el número de repeticiones (10 en este caso). La variable n se usa para cada uno de los números introducidos por el teclado, y la variable suma es el acumulador, donde se van sumando los diferentes valores que toma n en cada repetición.</p>
+
+<p>Observa como, al principio del algoritmo, se le asigna al acumulador el valor 0.  Esta es una precaución importante que se debe tomar siempre porque el valor que tenga una variable que no haya sido usada antes es desconocido (no tiene por qué ser 0)</p>
+
+<h4 id="conmutadores">Conmutadores</h4>
+
+<p>Un conmutador (o interruptor) es una variable que sólo puede tomar dos valores. Pueden ser, por tanto, de tipo booleano, aunque también pueden usarse variables enteras o de tipo carácter.</p>
+
+<p>La variable conmutador recibirá uno de los dos valores posibles antes de entrar en el bucle. Dentro del cuerpo del bucle, debe cambiarse ese valor bajo ciertas condiciones. Utilizando el conmuntador en la condición de salida del bucle, puede controlarse el número de repeticiones.</p>
+
+<p>Ejemplo: Escribir un algoritmo que sume todos los números positivos introducidos por el usuario a través del teclado. Para terminar de introducir números, el usuario tecleará un número negativo.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">{</span>
+  <span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="n">suma</span><span class="o">;</span>
+  <span class="kt">boolean</span> <span class="n">terminar</span><span class="o">;</span>
+
+
+  <span class="n">suma</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+  <span class="n">terminar</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+  <span class="k">while</span> <span class="o">(</span><span class="n">terminar</span> <span class="o">==</span> <span class="n">falso</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Introduce un número (negativo para terminar)"</span><span class="o">);</span>
+      <span class="n">n</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">.</span><span class="na">readLine</span><span class="o">());</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+         <span class="n">suma</span> <span class="o">=</span> <span class="n">suma</span> <span class="o">+</span> <span class="n">n</span><span class="o">;</span>
+      <span class="o">}</span>
+      <span class="k">else</span> <span class="o">{</span>
+         <span class="n">terminar</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+      <span class="o">}</span>
+   <span class="o">}</span>
+   <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">suma</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>Este algoritmo es una variación del ejemplo con acumuladores que vimos más atrás. Entonces el usuario introducía 10 números, y ahora puede ir introduciendo números indefinidamente, hasta que se canse. ¿Cómo indica al ordenador que ha terminado de introducir números? Simplemente, tecleando un número negativo.</p>
+
+<p>El bucle se controla por medio de la variable “terminar”: es el conmutador. Sólo puede tomar dos valores: “verdadero”, cuando el bucle debe terminar, y “falso”, cuando el bucle debe repetirse una vez más. Por lo tanto, “terminar” valdrá “falso” al principio, y sólo cambiará a “verdadero” cuando el usuario introduzca un número negativo.</p>
+
+<p>A veces, el conmutador puede tomar más de dos valores. Entonces ya no se le debe llamar, estrictamente hablando, conmutador. Cuando la variable toma un determinado valor especial, el bucle termina. A ese “valor especial” se le suele denominar valor centinela.</p>
+
+<p>Ejemplo: Escribir un algoritmo que sume todos los números positivos introducidos por el usuario a través del teclado. Para terminar de introducir números, el usuario tecleará un número negativo.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">{</span>
+  <span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="n">suma</span><span class="o">;</span>
+
+
+  <span class="n">suma</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+  <span class="n">terminar</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+  <span class="k">do</span> <span class="o">{</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Introduce un número (negativo para terminar)"</span><span class="o">);</span>
+      <span class="n">n</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">.</span><span class="na">readLine</span><span class="o">());</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+         <span class="n">suma</span> <span class="o">=</span> <span class="n">suma</span> <span class="o">+</span> <span class="n">n</span><span class="o">;</span>
+      <span class="o">}</span>
+   <span class="o">}</span>
+   <span class="k">while</span> <span class="o">(</span><span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">);</span>
+   <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">suma</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>En esta ocasión, las repeticiones se controlan con la variable n, de modo que el bucle termina cuando <code class="language-plaintext highlighter-rouge">n &lt; 0</code>. Por lo tanto, n se utiliza para ir asignando valores al acumulador suma, y también para salir del bucle: es el valor centinela.</p>
+
+<p>Observa que, en esta ocasión, ha sido más sencillo resolver el problema con un bucle “do… while” y un centinela que con un bucle “while” y un conmutador, porque nos ha quedado una solución más corta.</p>
