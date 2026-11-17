@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 3.2. Definiciones y características
-permalink: /objetos/definiciones
+permalink: /objetos/definiciones/
 nav_order: 2
 has_children: true
 parent: 3. Los objetos

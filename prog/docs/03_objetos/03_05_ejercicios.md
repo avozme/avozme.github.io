@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 3.5. Ejercicios propuestos
-permalink: /objetos/ejercicios
+permalink: /objetos/ejercicios/
 nav_order: 5
 has_children: true
 parent: 3. Los objetos

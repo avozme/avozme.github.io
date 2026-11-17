@@ -1,13 +1,13 @@
 ---
 layout: page
-title: 2.7. Ejercicios propuestos
+title: 2.8. Ejercicios propuestos
 permalink: /programacion-estructurada/ejercicios/
-nav_order: 7
+nav_order: 8
 has_children: true
 parent: 2. Programación estructurada
 grandparent: Programación
 ---
-## 2.7. Ejercicios propuestos UD 2
+## 2.8. Ejercicios propuestos UD 2
 
 Verás que esta relación de ejercicios de este tema es bastante  más larga que la del anterior. Vamos a estar por aquí un buen rato, así que ponte cómodo/a. Ahora tenemos los elementos suficientes en la mano como para empezar a escribir programas que empiecen a hacer cosas de verdad.
 

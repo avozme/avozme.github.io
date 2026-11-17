@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 3.4. Métodos
-permalink: /objetos/metodos
+permalink: /objetos/metodos/
 nav_order: 4
 has_children: true
 parent: 3. Los objetos

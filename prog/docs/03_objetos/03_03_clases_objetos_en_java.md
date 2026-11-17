@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 3.3. Clases y objetos en Java
-permalink: /objetos/declaracion-clases-objetos-java
+permalink: /objetos/declaracion-clases-objetos-java/
 nav_order: 3
 has_children: true
 parent: 3. Los objetos

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 3.1. Introducción a la POO
-permalink: /objetos/introduccion-poo
+permalink: /objetos/introduccion-poo/
 nav_order: 1
 has_children: true
 parent: 3. Los objetos

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 2.5. Instrucciones de salto
-permalink: /programacion-estructurada/instrucciones-salto
+permalink: /programacion-estructurada/instrucciones-salto/
 nav_order: 5
 has_children: true
 parent: 2. Programación estructurada

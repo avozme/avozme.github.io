@@ -1,4 +1,19 @@
-## 3.7. Apéndice importante: entrada y salida por consola en Java
+---
+layout: page
+title: 2.7. Entrada y salida por consola
+permalink: /programacion-estructurada/entrada-salida-consola/
+nav_order: 7
+has_children: true
+parent: 2. Programación estructurada
+grandparent: Programación
+---
+
+## 2.7. Apéndice importante: entrada y salida por consola en Java
+{: .no_toc }
+
+- TOC
+{:toc}
+
 
 Vamos a terminar este tema mencionando la entrada de datos por teclado y la salida de datos por consola: dos cuestiones imprescindibles para realizar cualquier programa de empiece a hacer cosas interesantes.
 
