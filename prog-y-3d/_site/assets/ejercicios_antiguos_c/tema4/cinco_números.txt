@@ -1,8 +1,0 @@
-Los números son:
-5
-4
-50
-23
-2
-La suma es: 84
-La media es: 16.80
