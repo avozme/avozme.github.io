@@ -1,0 +1,106 @@
+---
+layout: page
+title: 3.1. Introducción a la POO
+permalink: /objetos/introduccion-poo
+nav_order: 1
+has_children: true
+parent: 3. Los objetos
+grandparent: Programación
+---
+
+## 3.1. Introducción a la POO
+{: .no_toc }
+
+- TOC
+{:toc}
+
+
+### 3.1.1. Entendiendo la programación orientada a objetos
+
+Java es un lenguaje orientado a objetos: pero, ¿qué significa exactamente “orientado a objetos”? Para responder a esta pregunta, primero tenemos que comprender en qué consiste la programación tradicional o “no orientada a objetos”.
+
+En programación tradicional, cualquier problema informático se resuelve codificando un conjunto de algoritmos que trabajan sobre un conjunto de datos. Es decir, los datos son elementos pasivos: es el código el que se encarga de hacer todo el trabajo por ellos. 
+
+A medida que los proyectos crecen, el código también lo hace, y llega un momento en el que es imposible saber cómo funciona todo el sistema. Surgen interacciones imprevistas e impredecibles entre distintas partes del programa. El fallo más tonto, como un error tipográfico, puede convertirse en una pesadilla cuya localización puede suponer muchas horas de trabajo (y, en consecuencia, mucho dinero). 
+
+Como dice Yukihiro Matsumoto, creador del lenguaje Ruby, el mantenimiento de estos programas se convierte en algo parecido a transportar un calamar gigante intentado que ninguno de sus tentáculos te alcance la cara.
+
+Lo que hace la programación orientada a objetos es cambiar la forma de trabajar. No supone una revolución con los métodos anteriores, sino un cambio en la forma en la que se hacen las mismas cosas de siempre. La mayoría del trabajo se delega a los propios datos, de modo que los datos ya no son estáticos, sino que se encargan de mantenerse en forma a sí mismos. De nuevo en palabras de Matsumoto: dejamos de tratar cada pieza de dato como una caja en la que se puede abrir su tapa y arrojar cosas en ella y empezamos a tratarlos como máquinas funcionales cerradas con unos pocos interruptores y diales bien definidos. 
+
+Lo que se define anteriormente como una “máquina” puede ser, en su interior, algo muy simple o muy complejo. No se puede saber desde el exterior y no se nos permite abrir la máquina (excepto cuando estamos completamente seguros de que algo está mal en su diseño), por lo que se nos obliga a utilizar los interruptores y leer los diales para interactuar con los datos. Una vez construida una de esas máquinas, no queremos tener que volver a pensar en cómo funciona internamente. 
+
+### 3.1.2. Un ejemplo sencillo para entender las clases y los objetos
+
+Pongamos un ejemplo sencillo para entender el concepto de objeto y de “máquina con unos pocos interruptores y diales”.
+
+Seguramente en tu cocina tienes un horno microondas (aunque, en realidad, para este ejemplo podrías elegir cualquier electrodoméstico). El horno consta, entre otros muchos subsistemas, de un temporizador. Su trabajo consiste en mantener el horno encendido durante un tiempo determinado por el usuario. ¿Cómo podríamos representar esto en un lenguaje de programación? En Java, por ejemplo, el temporizador podría ser, simplemente, una variable numérica de tipo float o double. El programa manipularía esa variable disminuyendo el valor una vez por segundo, y permitiría al usuario establecer el tiempo inicial del temporizador antes de poner el horno en marcha.
+
+Con este enfoque tradicionalista, un error en cualquier parte del programa podría terminar asignando un valor falso a la variable, como un número negativo o un tiempo de varias horas. Hay un número infinito de razones inesperadas por las que podría llegar a suceder esto. Cualquiera con cierta experiencia programando sabe que se pueden perder horas o días tratando de encontrar ese error.
+
+Pero si programamos con un lenguaje orientado a objetos, no pensaremos en el tipo de datos que mejor se ajusta a un temporizador de microondas, *sino en el modo en el que un temporizador de microondas funciona en el mundo real*. No parece una gran diferencia, pero lo es.
+
+El programador, o el diseñador, necesitará dedicar cierto tiempo a decidir qué es exactamente un temporizador de microondas y cómo se espera que el mundo exterior interactúe con el. Por fin, construirá una pequeña máquina (una pieza de software) con controles que permitan establecer, consultar y disminuir su valor.
+
+El temporizador se crea, por ejemplo, sin un mecanismo para asignarle un valor arbitrario, por la sencilla razón de que los temporizadores de microondas no trabajan de esa forma: solo permiten asignar múltiplos de 10 segundos, por lo general. Existen sólo unas cuantas cosas que un temporizador de microondas puede hacer, y sólo permitiremos esas cosas. Así, si alguien desde otra parte del programa trata de asignar algún valor no permitido al temporizador, como un número negativo, le resultará imposible hacerlo. Estaremos protegiendo una parte del programa de errores cometidos en otras partes y que, en programación tradicional, se propagan como el fuego en un tanque de gasolina.
+
+Por si fuera poco, los lenguajes orientados a objetos nos permiten que, una vez que hayamos diseñado un temporizador de microondas (o el objeto que sea), podamos fabricar tantos como sea necesario. Habremos creado un patrón o molde de temporizador y, a partir de ese molde, se pueden construir objetos diferentes (pero similares) indefinidamente.
+
+Pues bien, el molde se conoce como **clase**, y cada temporizador concreto que fabriquemos a partir de él se conoce como **objeto**.
+
+Aclaremos, sin embargo, que la programación orientada a objetos no es una solución milagrosa: nada impide, en cualquier lenguaje, escribir código poco claro, descuidado, inestable o directamente erróneo.
+
+A continuación hablaremos de los “interruptores y diales” del temporizador del microondas (**métodos**) y, en próximos temas, veremos como se construyen los moldes (**clases**).
+
+### 3.1.3. Métodos
+
+En la programación orientada a objetos, como acabamos de ver, no se piensa en manipular los datos directamente desde el exterior de un objeto, si no que son los propios objetos los que deciden cómo se debe operar sobre ellos. Se pasa un mensaje al objeto y este mensaje provoca algún tipo de acción o respuesta significativa por parte del objeto. Esto ocurre sin que nos importe cómo realiza el objeto, interiormente, el trabajo. 
+
+Las tareas que podemos pedir que un objeto realice (o lo que es lo mismo, los mensajes que comprende) son los **métodos**. 
+
+En Java, se llama a un método con la notación punto (como en C++, Python, Ruby o muchos otros lenguajes). El objeto con el que nos comunicamos se nombra a la izquierda del punto. Por ejemplo: 
+
+```java
+String mi_cadena = "Esto es una cadena de caracteres";
+System.out.println("La longitud de la cadena es: " + mi_cadena.length());
+```
+
+La salida por pantalla será:
+
+```text
+La longitud de la cadena es 32
+```
+
+Intuitivamente es fácil de comprender: a este objeto cadena se le está pidiendo que diga la longitud que tiene (y, como es una cadena de caracteres, nos responde con la cantidad total de letras de que consta). Técnicamente, lo que hemos hecho se llama *invocar el método length() del objeto mi\_cadena*. 
+
+Otros objetos pueden hacer una interpretación un poco diferente de length. La decisión sobre cómo responder a un mensaje, o si se responde en absoluto, se toma durante la ejecución del programa, y la acción cambiará dependiendo de la variable que se use. 
+
+```java
+String mi_cadena = "Esto es una cadena de caracteres";
+String[] mi_array = {mi_cadena, "Otra cadena"};
+System.out.println("La longitud de la cadena es: " + mi_cadena.length());
+System.out.println("La longitud del array es: " + mi_array.length());
+```
+
+La salida por pantalla será: 
+
+```text
+La longitud de la cadena es 32
+La longitud del array es 2
+```
+
+Por lo tanto, lo que haga length() variará dependiendo del objeto con el que estemos hablando. En el primer caso, le pedimos a mi\_cadena su longitud. Como se trata de una cadena de caracteres, solo hay una respuesta posible. En el segundo caso, se lo pedimos a mi\_array, que es una colección compuesta por dos cadenas. Podríamos pensar que el método length() pudiera contar todos los caracteres en total almacenados en el objeto (43 en total). Pero lo más plausible es que nos devuelva 2, que es el número de elementos del array.
+
+No importa si por el momento no entiendes bien lo que son los strings o los arrays. Lo que hay que tener en cuenta ahora es que el objeto array conoce lo que significa ser un array, y el string, lo que significa ser string, y ambos saben exactamente lo que tienen que hacer si les pedimos que nos calculen su propia longitud (lenght). 
+
+En Java, las piezas de datos llevan consigo ese conocimiento, por lo que las solicitudes que se les hace se pueden satisfacer en las formas adecuadas para el tipo de dato. Esto libera al programador de la carga de memorizar una gran cantidad de nombres de funciones, ya que una cantidad relativamente pequeña de nombres de métodos, que corresponden a conceptos que sabemos como expresar en lenguaje natural, se pueden aplicar a diferentes tipos de datos siendo el resultado el que lógicamente cabría esperar. Esta característica de los lenguajes orientados a objeto se conoce como **polimorfismo**. 
+
+Cuando un objeto recibe un mensaje que no conoce, se produce un error. Por lo tanto, hay que conocer qué métodos son aceptables para un objeto, aunque no se necesita saber como están programador por dentro. Los métodos, insistimos, son como los diales del horno microondas: como usuario, tienes que saber qué diales existen y cómo usarlos, pero no cómo están construidos por dentro.
+
+### 3.1.4. Atributos o propiedades
+
+Los **atributos** o **propiedades** de un objeto definen las características del mismo. Por ejemplo, un atributo del temporizador del microondas debería ser el número de segundos que éste debe permanecer activo, y un atributo de un objeto de tipo String debe de ser el número de caracteres de que consta la cadena.
+
+El conjunto de los valores que, en un momento dado, tengan las propiedades de un objeto describen su **estado**. Es decir, un objeto puede pasar por varios estados a lo largo de su vida, según cómo vayan cambiando los valores de sus propiedades.
+
+Al programador que usa un objeto deberían importarle un bledo los atributos del mismo. Él (o ella) se encargará de usar el objeto a través de sus métodos, y éstos operarán con los atributos, si ello es necesario, de forma totalmente transparente al programador. Es decir, los atributos raramente son accesibles desde el exterior del objeto, salvo que, por razones de diseño, el programador del objeto haya decidido lo contrario.
+

@@ -1,0 +1,247 @@
+I"]B<h2 id="35-ejercicios-propuestos">3.5. Ejercicios propuestos</h2>
+
+<h4 id="ejercicio-31-paso-de-parámetros-por-valor">Ejercicio 3.1: Paso de parámetros por valor</h4>
+
+<p>Analiza el siguiente código y predice qué mostrará por pantalla ANTES de ejecutarlo.</p>
+
+<p>Después, ejecútalo para comprobar si tenías razón.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ParametrosPorValor</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">numero</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Antes de llamar al método: numero = "</span> <span class="o">+</span> <span class="n">numero</span><span class="o">);</span>
+        <span class="n">duplica</span><span class="o">(</span><span class="n">numero</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Después de llamar al método: numero = "</span> <span class="o">+</span> <span class="n">numero</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">duplica</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="mi">2</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Dentro del método: n = "</span> <span class="o">+</span> <span class="n">n</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="ejercicio-32-paso-de-parámetros-por-referencia">Ejercicio 3.2: Paso de parámetros por referencia</h4>
+
+<p>Analiza el siguiente código y predice qué mostrará por pantalla ANTES de ejecutarlo.</p>
+
+<p>Después, ejecútalo para comprobar si tenías razón.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Persona</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">nombre</span> <span class="o">=</span> <span class="s">"Torcuato"</span><span class="o">;</span>
+    <span class="nc">String</span> <span class="nf">getNombre</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">nombre</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNombre</span><span class="o">(</span><span class="nc">String</span> <span class="n">nombre</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">nombre</span> <span class="o">=</span> <span class="n">nombre</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ParametrosPorReferencia</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Persona</span> <span class="n">miPersona</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Persona</span><span class="o">();</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Antes de llamar al método: nombre = "</span> <span class="o">+</span> <span class="n">miPersona</span><span class="o">.</span><span class="na">getNombre</span><span class="o">());</span>
+        <span class="n">asignaNombre</span><span class="o">(</span><span class="n">miPersona</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Después de llamar al método: nombre = "</span> <span class="o">+</span> <span class="n">miPersona</span><span class="o">.</span><span class="na">getNombre</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">asignaNombre</span><span class="o">(</span><span class="nc">Persona</span> <span class="n">p</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">p</span><span class="o">.</span><span class="na">setNombre</span><span class="o">(</span><span class="s">"Robustiana"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Dentro del método: nombre = "</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="na">getNombre</span><span class="o">());</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="ejercicio-33-uso-de-return">Ejercicio 3.3: Uso de return</h4>
+
+<p>Analiza el siguiente código y predice qué mostrará por pantalla ANTES de ejecutarlo.</p>
+
+<p>Después, ejecútalo para comprobar si tenías razón.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Ej2_03_UsoDeReturn</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">multiplicaPorDos</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Dentro del método: x = "</span> <span class="o">+</span> <span class="n">x</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">numero</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Antes de llamar al método: numero = "</span> <span class="o">+</span> <span class="n">numero</span><span class="o">);</span>
+
+        <span class="n">multiplicaPorDos</span><span class="o">(</span><span class="n">numero</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Después de llamar SIN guardar el resultado: numero = "</span> <span class="o">+</span> <span class="n">numero</span><span class="o">);</span>
+
+        <span class="n">numero</span> <span class="o">=</span> <span class="n">multiplicaPorDos</span><span class="o">(</span><span class="n">numero</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Después de llamar GUARDANDO el resultado: numero = "</span> <span class="o">+</span> <span class="n">numero</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="ejercicio-34-clase-relojsolar">Ejercicio 3.4: Clase RelojSolar</h4>
+
+<p>Crea una clase RelojSolar que permita convertir horas en distintos formatos:</p>
+
+<ul>
+  <li>segundosADias(double segundos)</li>
+  <li>horasAMinutos(double horas)</li>
+</ul>
+
+<p>Recuerda:</p>
+
+<ul>
+  <li>1 día = 24 horas</li>
+  <li>1 hora = 60 minutos</li>
+  <li>1 minuto = 60 segundos</li>
+</ul>
+
+<p>Crea otra clase para probar la anterior. Esta otra clase debe tener un método main() que pida al usuario una cantidad de tiempo (por ejemplo, segundos) y muestre su equivalente en días y horas.</p>
+
+<h4 id="ejercicio-35-clase-conversormonedas">Ejercicio 3.5: Clase ConversorMonedas</h4>
+
+<p>Crea una clase llamada ConversorMonedas que convierta <strong>yenes</strong> a <strong>euros</strong> y viceversa.<br />
+Incluye dos constructores:</p>
+
+<ul>
+  <li>ConversorMonedas() → establece el tipo de cambio a 0.006 (1 yen = 0.006 €)</li>
+  <li>ConversorMonedas(double tipoCambio) → permite configurar el tipo de cambio manualmente.</li>
+</ul>
+
+<p>Métodos:</p>
+
+<ul>
+  <li>double yenesAEuros(double yenes)</li>
+  <li>double eurosAYenes(double euros)</li>
+</ul>
+
+<p>Escribe además un método main() en otra clase que pida al usuario una cantidad y muestre ambas conversiones.</p>
+
+<h4 id="ejercicio-36-clase-micontador">Ejercicio 3.6: Clase MiContador</h4>
+
+<p>Crea una clase MiContador con los siguientes métodos:</p>
+
+<ul>
+  <li>Constructor sin parámetros → inicializa el contador a 0</li>
+  <li>Constructor con parámetro entero → asigna un valor inicial</li>
+  <li>incrementa(int cantidad)</li>
+  <li>decrementa(int cantidad)</li>
+  <li>reset()</li>
+  <li>getValor()</li>
+</ul>
+
+<p>Y además:</p>
+
+<ul>
+  <li>getDoble(), getTriple(), getCuadruple() — devuelven el doble, triple y cuádruple del valor actual.</li>
+</ul>
+
+<p>Escribe además una clase de prueba con el método main() que instancie un objeto MiContador y pruebe todos los métodos.</p>
+
+<h4 id="ejercicio-37-clase-naveespacial">Ejercicio 3.7: Clase NaveEspacial</h4>
+
+<p>Crea una clase NaveEspacial que permita calcular distancias:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">parsecsALightyears(double parsecs)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">kilometrosAMillas(double km)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">millasAMetros(double millas)</code></li>
+</ul>
+
+<p><em>(1 parsec = 3.26156 años luz, 1 milla = 1.609 km, 1 milla = 1609 m)</em></p>
+
+<p>Crea otra clase con el método main(), que pedirá al usuario una distancia y mostrará las conversiones usando para ello la clase NaveEspacial.</p>
+
+<h4 id="ejercicio-38-clase-panadería">Ejercicio 3.8: Clase Panadería</h4>
+
+<p>Una panadería artesanal necesita un programa que calcule cuántas <strong>baguettes</strong> puede hornear con la harina y el agua disponibles.</p>
+
+<p>Cada baguette requiere:</p>
+
+<ul>
+  <li>250 g de harina</li>
+  <li>150 ml de agua</li>
+</ul>
+
+<p>Crea una clase Panadería con estos métodos:</p>
+
+<ul>
+  <li>Panaderia(double harinaKg, double aguaLitros)</li>
+  <li>addHarina(double kg)</li>
+  <li>addAgua(double litros)</li>
+  <li>getNumBaguettes()</li>
+  <li>horneaBaguette() → descuenta los ingredientes de una baguette</li>
+  <li>getHarina() → devuelve la harina restante (kg)</li>
+  <li>getAgua() → devuelve el agua restante (litros)</li>
+</ul>
+
+<p>Crea además una clase de prueba con el método main(), que haga uso de la clase Panadería para probar que todos sus métodos funcionan.</p>
+
+<h4 id="ejercicio-39-clase-conversormedidasinformación">Ejercicio 3.9: Clase ConversorMedidasInformación</h4>
+
+<p>Crea una clase ConversorDatos capaz de convertir cualquier medida de información en cualquier otra.</p>
+
+<p>El constructor recibe un número y una unidad de medida (“bit”, “byte”, “KB”, “MB”, “GB”, “TB”).</p>
+
+<p>Los métodos de la clase deben ser:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">getBits()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">getBytes()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">getKB()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">getMB()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">getGB()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">getTB()</code></li>
+</ul>
+
+<p>Cada uno devolverá la cantidad de información almacenada en la clase, pero convertida a la unidad de medida correspondiente. Usa potencias de 1024 (no 1000) para las conversiones.</p>
+
+<p>Crea, como siempre, otra clase con el método main() que haga uso de ConversorDatos para probar todos los métodos.</p>
+
+<h4 id="ejercicio-310-gestión-de-alumnos-de-un-instituto">Ejercicio 3.10: Gestión de alumnos de un instituto</h4>
+
+<p>PARTE 1: Crea una <strong>clase Alumno</strong> en Java que contenga lo siguiente:</p>
+
+<p><strong>Atributos</strong>:</p>
+
+<ul>
+  <li>nombre (String)</li>
+  <li>numExpediente (int): Número de expediente único para cada estudiante.</li>
+  <li>curso (String): Ejemplo: “1º DAW A”, “4º ESO C”.</li>
+  <li>faltasJustificadas (int).</li>
+  <li>faltasInjustificadas (int).</li>
+</ul>
+
+<p><strong>Métodos constructores</strong>:</p>
+
+<ul>
+  <li>Un constructor que reciba todos los datos iniciales (excepto las faltas, que se inicializarán a cero).</li>
+  <li>Otros constructor que solo reciba el nombre y el expediente, y asigne un 0 a las faltas de asistencia y el curso “Desconocido”.</li>
+</ul>
+
+<p><strong>Getters y setters:</strong></p>
+
+<ul>
+  <li>Getters: Deben existir métodos de tipo get para todos los atributos de la clase.</li>
+  <li>Setters: Solo haremos un setter para modificar el cursoActual. No será posible cambiar el número de expediente de un alumno ya creado ni modificar los contadores de faltas, excepto con el método registrarFalta() que se describe más abajo.</li>
+</ul>
+
+<p><strong>Métodos</strong>:</p>
+
+<ul>
+  <li>registrarFalta(boolean esJustificada): Este método recibe un valor booleano. Si es true, incrementa el número de faltasJustificadas del alumno. Si es false, incrementa el número de faltasInjustificadas.</li>
+  <li>evaluarRiesgoExpulsion(): Devuelve un String indicando el nivel de riesgo en base a las faltas injustificadas. Si faltasInjustificadas es mayor o igual a 10, devuelve “Riesgo de expulsión muy alto”. Si faltasInjustificadas está entre 5 y 9 (ambos inclusive), devuelve “Riesgo medio de expulsión - Avisar a la familia”. En otro caso devuelve “Riesgo bajo de expulsión”.</li>
+  <li>mostrarInformeAcademico(): Muestra por consola un informe completo con toda la inforamación disponible del alumno: Nombre, número de expediente, curso, total de faltas (justificadas + injustificadas) y el riesgo actual de expulsión.</li>
+</ul>
+
+<p>PARTE 2: Una vez que tengas lista la clase Alumno, crea una segunda <strong>clase Instituto</strong>. Esta clase contendrá el método <em>main</em> y realizará las siguientes acciones:</p>
+
+<ul>
+  <li>Crear 3 objetos de tipo Alumno utilizando al menos una vez cada uno de los dos constructores definidos.</li>
+  <li>Utilizar el setter para cambiar el curso de uno de los alumnos.</li>
+  <li>Simular las faltas de algunos alumnos: Llama al método registrarFalta() varias veces para algunos de los alumnos, asegurándote de que al menos uno de ellos alcance el nivel de “Riesgo muy alto de expulsión”.</li>
+  <li>Imprimir por consola el informe académico completo de cada uno de los tres alumnos, comprobando que los datos obtenidos son los correctos.</li>
+</ul>
+:ET
