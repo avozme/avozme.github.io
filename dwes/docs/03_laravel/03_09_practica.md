@@ -114,6 +114,8 @@ La evaluación se realizará según los siguientes ítems. Cada nivel de logro o
 * **2**: Hecho y funcional, pero mejorable (faltan detalles, bugs menores).
 * **3**: Perfecto, cumple todos los requisitos con excelencia.
 
+*Nota: Los apartados 3, 4, 5 y 6 puntuarán doble.*
+
 | Ítem Evaluable | Peso | Nivel 0 | Nivel 1 | Nivel 2 | Nivel 3 |
 | :--- | :---: | :--- | :--- | :--- | :--- |
 | **0. Uso ético y eficiente de la IA (Eliminatorio)** | **Requisito imprescindible** | No sabe explicar el código. Uso fraudulento de IA. | (No se aplica) | (No se aplica) | Explica y defiende el código perfectamente. |
@@ -124,5 +126,7 @@ La evaluación se realizará según los siguientes ítems. Cada nivel de logro o
 | **5. Autenticación** | **15%** | Cualquiera puede acceder a todo. | Auth funcional, pero sin proteger todas las rutas privadas. | Rutas protegidas, pero falla la autorización (alguien puede borrar proyectos ajenos). | Sistema seguro. Autenticación y Autorización aplicadas correctamente. |
 | **6. Vistas blade y UX** | **15%** | No hay interfaz / Errores de renderizado. | Vistas muy básicas, sin herencia ni plantillas compartidas. | Uso correcto de Blade, interfaz funcional pero poco atractiva. | Excelente uso de componentes/layouts Blade y diseño UI muy atractivo. |
 | **7. Calidad y organización del código** | **10%** | Código ilegible, variables sin sentido. | Mala indentación, código duplicado o comentado innecesariamente. | Código ordenado pero con ligeras deficiencias de buenas prácticas. | Código limpio, variables autoexplicativas, indentación perfecta y modular. |
+
+CALIFICACIÓN MÁXIMA: 33 puntos (los apartados 3, 4, 5 y 6 puntúan doble).
 
 *Recuerda que, para aprobar, es obligatorio obtener un Nivel 3 en el ítem 0 (Uso ético de IA). Este ítem se valorará con posterioridad el resto de la práctica.*

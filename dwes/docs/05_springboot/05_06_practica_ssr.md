@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 5.6 Práctica final SSR
-permalink: /springboot/practica-ssr
+permalink: /springboot/practica-ssr/
 nav_order: 6
 has_children: true
 parent: 5 SSR y API REST con Spring Boot

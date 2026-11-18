@@ -8,7 +8,7 @@ parent: 2. Programación estructurada
 grandparent: Programación
 ---
 
-## 2.7. Apéndice importante: entrada y salida por consola en Java
+## 2.7. Entrada y salida por consola
 {: .no_toc }
 
 - TOC

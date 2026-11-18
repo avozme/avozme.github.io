@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 5.5 Ejemplo completo. CRUD de usuarios
-permalink: /springboot/ejemplo-crud
+permalink: /springboot/ejemplo-crud/
 nav_order: 5
 has_children: true
 parent: 5 SSR y API REST con Spring Boot
