@@ -113,20 +113,18 @@ La evaluación se realizará según los siguientes ítems. Cada nivel de logro o
 * **1**: Hecho, pero con errores graves o muy incompleto.
 * **2**: Hecho y funcional, pero mejorable (faltan detalles, bugs menores).
 * **3**: Perfecto, cumple todos los requisitos con excelencia.
-
-*Nota: Los apartados 3, 4, 5 y 6 puntuarán doble.*
-
+c
 | Ítem Evaluable | Peso | Nivel 0 | Nivel 1 | Nivel 2 | Nivel 3 |
 | :--- | :---: | :--- | :--- | :--- | :--- |
 | **0. Uso ético y eficiente de la IA (Eliminatorio)** | **Requisito imprescindible** | No sabe explicar el código. Uso fraudulento de IA. | (No se aplica) | (No se aplica) | Explica y defiende el código perfectamente. |
-| **1. Entrega en tiempo y forma** | **10%** | No entregado / Formato incorrecto. | Faltan requisitos de entrega o carpeta /vendor incluida. | Cumple mayoría de normas, falta algún detalle menor en vídeo/repo. | Cumple escrupulosamente todas las normas. |
-| **2. Control de versiones** | **10%** | Sin repositorio. | Un único commit al final del proyecto. | Varios commits, pero mensajes pobres o irregulares. | Uso continuado de Git, commits atómicos y descriptivos. |
-| **3. Base de datos y relaciones (1:N y N:N)** | **20%** | No hay migraciones funcionales. | Relaciones mal planteadas o migraciones con errores graves. | Relaciones funcionales, pero falla la tabla pivote compleja. | Diseño de BD perfecto, claves foráneas y tabla pivote extra correctas. |
-| **4. Controladores y rutas** | **20%** | No responde a las URL pedidas. | Rutas desorganizadas, código espagueti en controladores. | CRUD funcional, controladores correctos pero lógica mejorable. | Controladores limpios (resource), validación de request y lógica impecable. |
-| **5. Autenticación** | **15%** | Cualquiera puede acceder a todo. | Auth funcional, pero sin proteger todas las rutas privadas. | Rutas protegidas, pero falla la autorización (alguien puede borrar proyectos ajenos). | Sistema seguro. Autenticación y Autorización aplicadas correctamente. |
-| **6. Vistas blade y UX** | **15%** | No hay interfaz / Errores de renderizado. | Vistas muy básicas, sin herencia ni plantillas compartidas. | Uso correcto de Blade, interfaz funcional pero poco atractiva. | Excelente uso de componentes/layouts Blade y diseño UI muy atractivo. |
-| **7. Calidad y organización del código** | **10%** | Código ilegible, variables sin sentido. | Mala indentación, código duplicado o comentado innecesariamente. | Código ordenado pero con ligeras deficiencias de buenas prácticas. | Código limpio, variables autoexplicativas, indentación perfecta y modular. |
+| **1. Entrega en tiempo y forma** | **9%** | No entregado / Formato incorrecto. | Faltan requisitos de entrega o carpeta /vendor incluida. | Cumple mayoría de normas, falta algún detalle menor en vídeo/repo. | Cumple escrupulosamente todas las normas. |
+| **2. Control de versiones** | **9%** | Sin repositorio. | Un único commit al final del proyecto. | Varios commits, pero mensajes pobres o irregulares. | Uso continuado de Git, commits atómicos y descriptivos. |
+| **3. Base de datos y relaciones (1:N y N:N)** | **18%** | No hay migraciones funcionales. | Relaciones mal planteadas o migraciones con errores graves. | Relaciones funcionales, pero falla la tabla pivote compleja. | Diseño de BD perfecto, claves foráneas y tabla pivote extra correctas. |
+| **4. Controladores y rutas** | **18%** | No responde a las URL pedidas. | Rutas desorganizadas, código espagueti en controladores. | CRUD funcional, controladores correctos pero lógica mejorable. | Controladores limpios (resource), validación de request y lógica impecable. |
+| **5. Autenticación** | **18%** | Cualquiera puede acceder a todo. | Auth funcional, pero sin proteger todas las rutas privadas. | Rutas protegidas, pero falla la autorización (alguien puede borrar proyectos ajenos). | Sistema seguro. Autenticación y Autorización aplicadas correctamente. |
+| **6. Vistas blade y UX** | **18%** | No hay interfaz / Errores de renderizado. | Vistas muy básicas, sin herencia ni plantillas compartidas. | Uso correcto de Blade, interfaz funcional pero poco atractiva. | Excelente uso de componentes/layouts Blade y diseño UI muy atractivo. |
+| **7. Calidad y organización del código** | **9%** | Código ilegible, variables sin sentido. | Mala indentación, código duplicado o comentado innecesariamente. | Código ordenado pero con ligeras deficiencias de buenas prácticas. | Código limpio, variables autoexplicativas, indentación perfecta y modular. |
 
-CALIFICACIÓN MÁXIMA: 33 puntos (los apartados 3, 4, 5 y 6 puntúan doble).
+Nota: los apartados 3, 4, 5 y 6 tienen el doble de peso sobre la nota final que el resto.
 
 *Recuerda que, para aprobar, es obligatorio obtener un Nivel 3 en el ítem 0 (Uso ético de IA). Este ítem se valorará con posterioridad el resto de la práctica.*
