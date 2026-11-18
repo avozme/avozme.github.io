@@ -113,8 +113,8 @@ La evaluación se realizará según los siguientes ítems. Cada nivel de logro o
 * **1**: Hecho, pero con errores graves o muy incompleto.
 * **2**: Hecho y funcional, pero mejorable (faltan detalles, bugs menores).
 * **3**: Perfecto, cumple todos los requisitos con excelencia.
-c
-| Ítem Evaluable | Peso | Nivel 0 | Nivel 1 | Nivel 2 | Nivel 3 |
+
+| Elemento evaluable | Peso | Nivel 0 | Nivel 1 | Nivel 2 | Nivel 3 |
 | :--- | :---: | :--- | :--- | :--- | :--- |
 | **0. Uso ético y eficiente de la IA (Eliminatorio)** | **Requisito imprescindible** | No sabe explicar el código. Uso fraudulento de IA. | (No se aplica) | (No se aplica) | Explica y defiende el código perfectamente. |
 | **1. Entrega en tiempo y forma** | **9%** | No entregado / Formato incorrecto. | Faltan requisitos de entrega o carpeta /vendor incluida. | Cumple mayoría de normas, falta algún detalle menor en vídeo/repo. | Cumple escrupulosamente todas las normas. |
