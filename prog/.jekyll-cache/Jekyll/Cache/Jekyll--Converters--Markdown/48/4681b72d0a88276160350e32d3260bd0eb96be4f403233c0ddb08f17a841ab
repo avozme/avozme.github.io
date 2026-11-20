@@ -1,0 +1,74 @@
+I"N<h2 id="apéndice-2-visual-studio-code">Apéndice 2. Visual Studio Code</h2>
+
+<p><strong>Visual Studio Code</strong> es un editor de código fuente ligero, pero muy potente, creado por Microsoft con licencia libre.</p>
+
+<p><strong>No suele considerarse un IDE completo</strong> como IntelliJ, Netbeans o Eclipse, pero puede convertirse en un entorno muy poderoso gracias a su sistema de extensiones o plugins.</p>
+
+<p>Nosotros recomendamos aprender a usarlo porque está muy presente a nivel profesional. Si te acosumbras a usar, por ejemplo, IntelliJ, solo te servirá para programar en Java y pocos lenguajes más. ¡Con Java, IntelliJ encaja como un guante porque es un herramienta diseñada a medida para ello!</p>
+
+<p>En cambio, Visual Studio es más como una multiherramienta: <strong>sirve para todo, aunque no es 100% perfecta para nada</strong>. Pero esa versatilidad hace que <strong>esté presente en todas partes</strong>.</p>
+
+<p>Así que es casi seguro que te la vas a encontrar el día de mañana en tu vida profesional. ¿Por qué no empezar a usarla hoy mismo?</p>
+
+<p>Las características clave de VS Code son:</p>
+
+<ul>
+  <li><strong>Es multilenguaje</strong>: funciona con Java, Python, JavaScript, C++, HTML, etc.
+    <ul>
+      <li><strong>Funciona con extensiones o plugins</strong>: puedes añadir funcionalidades como depuración, autocompletado avanzado, soporte para frameworks, etc.</li>
+      <li><strong>Tiene un terminal integrado</strong>: puedes correr comandos sin salir del editor.</li>
+      <li><strong>Es ligero y rápido</strong>: abre proyectos grandes sin consumir tantos recursos como un IDE tradicional.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="instalación-de-vs-code"><strong>Instalación de VS Code</strong></h2>
+
+<p>Simplemente, ve a la web oficial: <a href="https://code.visualstudio.com">https://code.visualstudio.com</a> y descarga la versión para tu sistema operativo (Windows, macOS, Linux). También puedes instalarlo desde la tienda o repositorio oficial de tu sistema operativo, aunque puede que ahí no tengas disponible la última versión (tampoco la necesitas para nada).1</p>
+
+<p>Al ejecutarlo por primera vez, te pedirá instalar algunas extensiones sugeridas. Instala al menos estas:</p>
+
+<ul>
+  <li><strong>Java Extension Pack</strong> de Microsoft.</li>
+  <li><strong>Maven for Java</strong>. Maven es un gestor de proyectos Java que vamos a usar varias veces a lo largo del curso.</li>
+  <li><strong>Debugger for Java</strong>. Importante para depurar programas en tiempo de ejecución.</li>
+</ul>
+
+<p>Para extensiones como las de GitHub, Copilot, Docker u otras, ya habrá tiempo de ir instalándolas conforme las necesites. <strong>Te desaconsejo encarecidamente que instales extensiones de autocompletado de código por IA</strong>: es el camino más seguro si lo que pretendes es no aprender a programar jamás.</p>
+
+<p>No te emociones instalando demasiadas extensiones: cuantas más instales, más recursos consumirá el editor.</p>
+
+<h2 id="uso-cotidiano-de-vs-code"><strong>Uso cotidiano de VS Code</strong></h2>
+
+<p>En el módulo de Entornos de Desarrollo te explicarán las opciones típicas de VS Code y de otros IDEs, así que no tiene sentido repetirlo aquí. Solo vamos a centrarnos en las cuatro cosas básicas.</p>
+
+<p>Antes de nada, una advertencia: VS Code tiene muchísimas opciones, así que es fácil agobiarse al principio. Piensa que es un entorno de desarrollo <strong>profesional</strong>, así que <strong>no está diseñado para ser amigable, sino eficaz</strong>. Poco a poco te irás haciendo con el control.</p>
+
+<p>La pantalla de VS Code se divide en varias secciones básicas:</p>
+
+<p><img src="../../assets/images/A2_vscode_1.png" alt="Secciones de VS Code" /></p>
+
+<ul>
+  <li><strong>Barra de actividades</strong>. Incluye iconos para abrir varios paneles:
+    <ul>
+      <li>Explorer: para navegar archivos y carpetas.</li>
+      <li>Search: búsqueda de texto en todo el proyecto.</li>
+      <li>Source Control: integración con Git.</li>
+      <li>Run &amp; Debug: depuración de tu código.</li>
+      <li>Extensions: buscar e instalar extensiones.</li>
+    </ul>
+  </li>
+  <li><strong>Editor central</strong>: donde escribes tu código. Aquí estarás trabajando casi todo el tiempo.</li>
+  <li><strong>Panel inferior</strong>: terminal integrado, salida de compilación, depuración, etc.</li>
+  <li><strong>Barra de estado inferior</strong>: ofrece información sobre tu archivo, lenguaje detectado, Git, errores, etc.</li>
+  <li><strong>Minimapa</strong>: es una especie de foto con zoom alejado de tu código. Te permite recorrerlo rápidamente y localizar errores a vista de pájaro.</li>
+</ul>
+
+<p>Además, cuando VS Code detecte un programa compilable y ejecutable, te mostrará el <strong>botón “Run”</strong> para lanzar la aplicación:</p>
+
+<p><img src="../../assets/images/A2_vscode_2.png" alt="Botón &quot;run&quot; VS Code" /></p>
+
+<p>Si creas un archivo .java con un método main(), VS Code automáticamente montará un miniproyecto y te permitirá ejecutarlo (hará javac + java automáticamente). El resultado se mostrará en el terminal del panel inferior.</p>
+
+<p>Para un uso básico de VS Code no necesitas saber nada más. Poco a poco, conforme avance el curso, iremos profundizando más en este IDE y aprenderemos a depurar paso a paso los programas, instalar plugins avanzados o configurar proyectos complejos con Maven.</p>
+:ET

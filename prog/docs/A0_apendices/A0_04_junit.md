@@ -1,7 +1,7 @@
 ---
 layout: page
 title: A4. JUnit
-permalink: /apendices/junit
+permalink: /apendices/junit/
 nav_order: 4
 has_children: true
 parent: Apéndices

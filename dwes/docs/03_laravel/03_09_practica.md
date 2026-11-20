@@ -55,7 +55,7 @@ Debes implementar las siguientes funcionalidades:
 * **Autenticación**: Solo los usuarios logueados pueden ver y crear proyectos. Usa Laravel Breeze u otro Starter Kit simple.
 * **CRUD de Proyectos**: Listar, ver detalle, crear, editar y eliminar.
   * *Solo el propietario* de un proyecto puede editarlo o borrarlo (Autorización).
-* **Gestión de Participantes (N:N)**: Dentro de la vista detalle de un proyecto, el propietario debe poder añadir a otros usuarios registrados al proyecto, especificando qué `role` van a tener. También debe poder anotar cuántas horas ha trabajado cada usuario.
+* **Gestión de Participantes (N:N)**: Dentro de la vista detalle de un proyecto, el propietario debe poder añadir o editar los usuarios registrados en el proyecto, especificando qué `role` van a tener. También debe poder anotar cuántas horas ha trabajado cada usuario (`contribution_hours`).
 
 #### 3. Diseño visual
 La aplicación **debe ser visualmente atractiva**. No se aceptarán prácticas con HTML crudo o estilos descuidados.
@@ -88,7 +88,7 @@ Para no saturarte, te recomiendo encarecidamente que sigas este orden:
 
 4. **Fase 4: Relaciones complejas**. 
 
-  * Añade la lógica para asignar usuarios a proyectos desde la vista de detalle del proyecto. Vas a tener que investigar cómo usar el método `attach()` y `sync()` enviando datos extra para la tabla pivote (lo tienes en los apuntes) -> [Más info en 3.7](/docs/dwes/_site/laravel/relaciones.html)
+  * Añade la lógica para asignar usuarios a proyectos desde la vista de detalle del proyecto y editarlos posteriormente. Vas a tener que investigar cómo usar los métodos `attach()`, `sync()` y `detach()` para enviar datos extra a la tabla pivote (lo tienes en los apuntes) -> [Más info en 3.7](/docs/dwes/_site/laravel/relaciones.html)
 
 5. **Fase 5: Diseño y pulido**. Dedica la última parte a maquetar con Tailwind CSS (¡investiga, investiga!), añadir colores, mejorar la navegación y pulir detalles funcionales y visuales.
 
@@ -119,7 +119,7 @@ La evaluación se realizará según los siguientes ítems. Cada nivel de logro o
 | **0. Uso ético y eficiente de la IA (Eliminatorio)** | **Requisito imprescindible** | No sabe explicar el código. Uso fraudulento de IA. | (No se aplica) | (No se aplica) | Explica y defiende el código perfectamente. |
 | **1. Entrega en tiempo y forma** | **9%** | No entregado / Formato incorrecto. | Faltan requisitos de entrega o carpeta /vendor incluida. | Cumple mayoría de normas, falta algún detalle menor en vídeo/repo. | Cumple escrupulosamente todas las normas. |
 | **2. Control de versiones** | **9%** | Sin repositorio. | Un único commit al final del proyecto. | Varios commits, pero mensajes pobres o irregulares. | Uso continuado de Git, commits atómicos y descriptivos. |
-| **3. Base de datos y relaciones (1:N y N:N)** | **18%** | No hay migraciones funcionales. | Relaciones mal planteadas o migraciones con errores graves. | Relaciones funcionales, pero falla la tabla pivote compleja. | Diseño de BD perfecto, claves foráneas y tabla pivote extra correctas. |
+| **3. Base de datos y relaciones (1:N y N:N)** | **18%** | No hay migraciones funcionales. | Relaciones mal planteadas o migraciones con errores graves. | Relaciones funcionales, pero fallan aspectos de la tabla pivote compleja. | Diseño de BD perfecto, claves foráneas y tabla pivote extra correctas. |
 | **4. Controladores y rutas** | **18%** | No responde a las URL pedidas. | Rutas desorganizadas, código espagueti en controladores. | CRUD funcional, controladores correctos pero lógica mejorable. | Controladores limpios (resource), validación de request y lógica impecable. |
 | **5. Autenticación** | **18%** | Cualquiera puede acceder a todo. | Auth funcional, pero sin proteger todas las rutas privadas. | Rutas protegidas, pero falla la autorización (alguien puede borrar proyectos ajenos). | Sistema seguro. Autenticación y Autorización aplicadas correctamente. |
 | **6. Vistas blade y UX** | **18%** | No hay interfaz / Errores de renderizado. | Vistas muy básicas, sin herencia ni plantillas compartidas. | Uso correcto de Blade, interfaz funcional pero poco atractiva. | Excelente uso de componentes/layouts Blade y diseño UI muy atractivo. |

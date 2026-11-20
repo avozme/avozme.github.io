@@ -1,0 +1,87 @@
+I":<h2 id="apéndice-2-maven">Apéndice 2. Maven</h2>
+
+<p><strong>Maven</strong> es un <strong>gestor de proyectos</strong> para Java que permite gestionar las dependencias (es decir, descargar y actualizar librerías adicionales si son necesarias) y automatizar la compilación del código en proyectos grandes. También facilita la organización de  archivos y carpetas en proyectos voluminosos.</p>
+
+<p>Existen alternativas a Maven como <strong>Gradle</strong> o <strong>Ant</strong>, pero Maven es el gestor de proyectos más popular en el ecosistema de Java.</p>
+
+<p>Maven es una herramienta externa a Java desarrollada por Apache Foundation, es decir, debes instalarla a parte de tu JDK. Todos los IDEs modernos permiten integración con Maven.</p>
+
+<p>Vamos a ver una introducción a lo que Maven puede hacer por nosotros y cómo lo podemos integrar con Visual Studio Code para desarrollar proyectos Java complejos.</p>
+
+<h2 id="usar-maven-desde-la-línea-de-comandos"><strong>Usar Maven desde la línea de comandos</strong></h2>
+
+<p>Maven es una herramienta de consola, es decir, se usa, de forma nativa, desde el terminal de texto.</p>
+
+<p>Para usarlo de este modo, sigue estos pasos:</p>
+
+<p><strong>1. Instala Maven</strong> desde la web oficial.</p>
+
+<p><strong>2. Abre un terminal</strong> en tu carpeta de trabajo.</p>
+
+<p><strong>3. Crea un proyecto Java Simple</strong> en Maven:</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">$ mvn archetype:generate</code></strong></p>
+
+<p><strong>4. Edita el archivo pom.xml</strong> para cambiar la configuración del proyecto (más abajo hablamos de este archivo).</p>
+
+<p><strong>5. Para compilar</strong> el proyecto:</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">$ mvn compile</code></strong></p>
+
+<p><strong>6. Para empaquetar</strong> el proyecto (generar el JAR):</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">$ mvn package</code></strong></p>
+
+<h2 id="el-archivo-pomxml"><strong>El archivo pom.xml</strong></h2>
+
+<p>Toda la configuración de Maven se hace en el archivo <strong>pom.xml</strong>, donde se definen cosas como:</p>
+
+<ul>
+  <li>La versión de Java con la que se compila el proyecto
+    <ul>
+      <li>El nombre del paquete principal y de la clase que contiene el main()</li>
+      <li>Las dependencias (librerías adicionales) con las que debe compilarse el proyecto</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Es raro que necesites escribir un pom.xml desde cero “a mano”. Tu IDE generará un pom.xml utilizable y tú, como mucho, tendrás que editarlo para añadir o quitar algunas cosas o afinar algunos detalles.</p>
+
+<p>Esta es una <strong>estructura típica</strong> de un archivo pom.xml simple:</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">&lt;project&gt;</code></strong>   <br />
+  <strong><code class="language-plaintext highlighter-rouge">&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</code></strong><br />
+  <strong><code class="language-plaintext highlighter-rouge">&lt;groupId&gt;com.example&lt;/groupId&gt;</code></strong><br />
+  <strong><code class="language-plaintext highlighter-rouge">&lt;artifactId&gt;my-project&lt;/artifactId&gt;  &lt;!-- Nombre del proyecto --&gt;</code></strong><br />
+  <strong><code class="language-plaintext highlighter-rouge">&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;      &lt;!-- Versión del proy. --&gt;</code></strong><br />
+  <strong><code class="language-plaintext highlighter-rouge">&lt;properties&gt;</code></strong><br />
+    <strong><code class="language-plaintext highlighter-rouge">&lt;maven.compiler.source&gt;</code></strong><br />
+      <strong><code class="language-plaintext highlighter-rouge">17                               &lt;!-- Versión de Java --&gt;</code></strong><br />
+    <strong><code class="language-plaintext highlighter-rouge">&lt;/maven.compiler.target&gt;</code></strong>   <br />
+  <strong><code class="language-plaintext highlighter-rouge">&lt;/properties&gt;</code></strong><br />
+  <strong><code class="language-plaintext highlighter-rouge">&lt;dependencies&gt;                       &lt;!-- Librerías externas --&gt;</code></strong><br />
+  <strong><code class="language-plaintext highlighter-rouge">&lt;/dependencies&gt;</code></strong><br />
+<strong><code class="language-plaintext highlighter-rouge">&lt;/project&gt;</code></strong></p>
+
+<h2 id="usar-maven-dentro-de-visual-studio-code"><strong>Usar Maven dentro de Visual Studio Code</strong></h2>
+
+<p>Aunque de momento nuestras aplicaciones son demasiado simples como para necesitar montar un proyecto con Maven, te dejamos aquí, paso a paso, explicado cómo se hace porque, antes o después, vas a necesitar hacerlo conforme avances en este curso de programación.</p>
+
+<p><strong>1. Instala la extensión “Maven for Java”</strong> para VS Code, si aún no la tienes.</p>
+
+<p><strong>2. Crea un proyecto nuevo con Maven</strong> (Clic derecho en el navegador de archivos → New Java Project → Maven). Alternativamente, puedes hacerlo desde la consola con el comando:</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">mvn archetype:generate -DgroupId=com.tu.paquete -DartifactId=tuProyecto -Dversion=1.0-SNAPSHOT</code></strong></p>
+
+<p><strong>3. Visual Studio te preguntará varias cosas</strong>: el nombre del proyecto, el nombre del paquete, la versión (1.0-SNAPSHOT significa “en desarrollo”). Si has usado el comando de consola, no te preguntará nada porque toda esa información ya está incluida en el comando.</p>
+
+<p><strong>4. ¡Y listo! Tu código fuente se ubicará en src/main/java</strong>, dentro del paquete principal que hayas escogido. Ya puedes compilar, empaquetar o editar el pom.xml desde Visual Studio.</p>
+
+<p>Los comandos de Maven siempre están disponibles en la consola de texto, claro, pero puedes acceder a todos ellos desde la paleta de comandos de VS Code:</p>
+
+<p><strong>1. Haz clic Ver → Paleta de comandos</strong> (o pulsa Ctrl + Mayús + P)</p>
+
+<p><strong>2. Escribe “Maven”</strong> y te aparecerán todos los comandos disponibles para Maven.</p>
+
+<p><img src="../../assets/images/A3_maven.png" alt="Secciones de VS Code" /></p>
+:ET

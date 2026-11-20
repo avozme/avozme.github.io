@@ -9,9 +9,7 @@ parent: Programación
 # Apéndices
 {: .no_toc }
 
-<div style="color: red; font-size: 130%"><strong>ESTA PÁGINA ESTÁ EN DESARROLLO</div>
+Aquí encontrarás información de interés sobre programación con Java con no encaja en ninguna de las unidades didácticas del módulo pero que debes tener presente, o que supone una ampliación sobre las competencias mínimas que debes adquirir a lo largo del curso.
 
-# Índice
-{: .no_toc }
 - TOC
 {:toc}

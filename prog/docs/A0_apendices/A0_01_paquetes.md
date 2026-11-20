@@ -1,7 +1,7 @@
 ---
 layout: page
 title: A1. Paquetes
-permalink: /apendices/paquetes
+permalink: /apendices/paquetes/
 nav_order: 1
 has_children: true
 parent: Apéndices
